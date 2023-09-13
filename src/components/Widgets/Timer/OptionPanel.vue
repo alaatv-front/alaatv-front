@@ -2,6 +2,7 @@
   <option-panel-tabs v-model:options="localOptions"
                      :show-hover-effects-tab="true"
                      :show-box-shadows-tab="true"
+                     :show-responsive-spacing="true"
                      :show-border-style-tab="true">
     <template #main-tab>
       <q-list separator>
@@ -328,6 +329,58 @@ export default defineComponent({
           borderRadiusCssString: ''
         },
         boxShadows: [],
+        responsiveSpacing: {
+          xs: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: null,
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          },
+          sm: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: null,
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          },
+          md: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: null,
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          },
+          lg: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: null,
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          },
+          xl: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: null,
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          }
+        },
         cssHoverEffects: {
           boxShadows: [],
           borderStyle: {
