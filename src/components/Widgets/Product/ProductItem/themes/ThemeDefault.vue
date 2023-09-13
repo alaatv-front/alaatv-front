@@ -496,8 +496,8 @@ export default defineComponent({
     margin-bottom: 16px;
 
     .img-box {
-      margin: 0 0 0 -20px;
-      padding: 12px;
+      margin: 0 12px 0 -20px;
+      //padding: 12px;
       width: 100px;
 
       .img {
@@ -505,7 +505,7 @@ export default defineComponent({
       }
 
       @media screen and (max-width: 1024px){
-        width: 100%;
+        height: 117px;
       }
     }
 

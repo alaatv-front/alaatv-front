@@ -100,7 +100,7 @@ export default defineComponent({
     productRef: 'product' + Date.now(),
     defaultOptions: {
       theme: 'ThemeProduct2',
-      mobileTheme: 'horizontal',
+      mobileTheme: 'vertical',
       style: {},
       borderStyle: {
         borderCssString: '',
@@ -224,6 +224,9 @@ export default defineComponent({
       }
       this.localOptions.product.is_favored = newVal
     }
+  },
+  mounted() {
+    console.log(this.localOptions.mobileTheme)
   },
   methods: {
     setProductIntersectionObserver () {
