@@ -72,6 +72,10 @@
                  @customActionClicked="customActionClicked"
                  @addToCart="addToCart" />
     </q-card>
+    <product-bottom-sheet v-if="productMounted"
+                          :dialog="bottomSheetDialog"
+                          :productId="product.id"
+                          @toggle-dialog="toggleBottomSheet" />
   </div>
 </template>
 
@@ -80,6 +84,7 @@ import { defineComponent, defineAsyncComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import ProductBottomSheet from 'src/components/Widgets/Product/ProductItem/components/ProductBottomSheet.vue'
 
 export default defineComponent({
   name: 'productItem',
@@ -92,15 +97,19 @@ export default defineComponent({
     ),
     ThemeProduct2: defineAsyncComponent(() =>
       import('components/Widgets/Product/ProductItem/themes/ThemeProduct2.vue')
-    )
+    ),
+    ProductBottomSheet
   },
   mixins: [mixinWidget, mixinPrefetchServerData],
   emits: ['onBookmarkLoaded', 'onBookmarkClicked'],
   data: () => ({
     productRef: 'product' + Date.now(),
+    bottomSheetDialog: false,
+    productMounted: false,
     defaultOptions: {
       theme: 'ThemeProduct2',
       mobileTheme: 'vertical',
+      productViewType: 'productPage',
       style: {},
       borderStyle: {
         borderCssString: '',
@@ -225,6 +234,9 @@ export default defineComponent({
       this.localOptions.product.is_favored = newVal
     }
   },
+  mounted() {
+    this.productMounted = true
+  },
   methods: {
     setProductIntersectionObserver () {
       if (!this.$refs[this.productRef]?.$el) {
@@ -256,6 +268,7 @@ export default defineComponent({
         TTl: 1000,
         key: this.product.id
       })
+      this.showProduct()
     },
     getTeacherOfProduct() {
       if (this.product.attributes.info.teacher) {
@@ -342,6 +355,16 @@ export default defineComponent({
     },
     bookmarkClicked (value) {
       this.$emit('onBookmarkClicked', value)
+    },
+    toggleBottomSheet() {
+      this.bottomSheetDialog = !this.bottomSheetDialog
+    },
+    showProduct() {
+      if (this.localOptions.productViewType === 'bottomSheet') {
+        this.toggleBottomSheet()
+      } else {
+        this.$router.push({ name: 'Public.Product.Show', params: { id: this.product.id } })
+      }
     }
   }
 })

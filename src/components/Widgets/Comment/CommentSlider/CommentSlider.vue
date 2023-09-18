@@ -28,14 +28,14 @@
 
       <div class="arrow-left text-right">
         <q-btn :icon="localOptions.navigation.goToLeft.icon"
-               :rounded="localOptions.navigation.goToLeft.rounded"
+               :round="localOptions.navigation.goToLeft.rounded"
                class="arrow-left-btn "
                :size="localOptions.navigation.goToLeft.size"
                @click="$refs.vueCarousel.next()" />
       </div>
       <div class="arrow-right">
         <q-btn :icon="localOptions.navigation.goToRight.icon"
-               :rounded="localOptions.navigation.goToRight.rounded"
+               :round="localOptions.navigation.goToRight.rounded"
                class="arrow-right-btn"
                :size="localOptions.navigation.goToRight.size"
                @click="$refs.vueCarousel.prev()" />

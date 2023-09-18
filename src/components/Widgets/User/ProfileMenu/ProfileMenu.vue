@@ -6,8 +6,6 @@
           <div class="user-photo">
             <q-avatar>
               <lazy-img :src="previewImg"
-                        width="70"
-                        height="70"
                         class="full-width" />
             </q-avatar>
             <q-file ref="file"
@@ -28,12 +26,14 @@
                  class="controls">
               <q-btn icon="isax:tick-circle"
                      size="xs"
+                     round
                      color="green"
                      text-color="white"
                      class="controls-btn q-mr-xs"
                      @click="confirmUpdate" />
               <q-btn icon="isax:close-circle"
                      size="xs"
+                     round
                      color="red"
                      text-color="white"
                      class="controls-btn"
@@ -283,9 +283,13 @@ export default {
     confirmUpdate() {
       const fd = new FormData()
       fd.append('photo', this.file)
-      this.$axios.put(this.api, fd).then((d) => {
-        this.controls = false
-      })
+      fd.append('updateType', 'photo')
+      APIGateway.user.updateProfile(this.user.id, fd)
+        .then(() => {
+          this.$store.dispatch('Auth/updateUser')
+          this.controls = false
+        })
+        .catch(() => {})
     },
     logout() {
       this.$store.dispatch('Auth/logOut')
@@ -346,8 +350,7 @@ export default {
 }
 .controls {
   position: absolute;
-  left: 55px;
-  top: 75px;
+  top: 65px;
 }
 .sticky-menu {
   position: sticky;
