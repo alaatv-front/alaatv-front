@@ -1,5 +1,5 @@
 <script>
-import { Cookies } from 'quasar'
+// import { Cookies } from 'quasar'
 import Ewano from 'src/assets/js/Ewano.js'
 
 export default {
