@@ -89,6 +89,48 @@ export default {
         salam: '',
         style: {},
         className: '',
+        backgrounds: {
+          xs: {
+            size: null,
+            color: null,
+            image: null,
+            repeat: null,
+            position: null,
+            attachment: null
+          },
+          sm: {
+            size: null,
+            color: null,
+            image: null,
+            repeat: null,
+            position: null,
+            attachment: null
+          },
+          md: {
+            size: null,
+            color: null,
+            image: null,
+            repeat: null,
+            position: null,
+            attachment: null
+          },
+          lg: {
+            size: null,
+            color: null,
+            image: null,
+            repeat: null,
+            position: null,
+            attachment: null
+          },
+          xl: {
+            size: null,
+            color: null,
+            image: null,
+            repeat: null,
+            position: null,
+            attachment: null
+          }
+        },
         menuLink: [],
         logoImage: null,
         logoSlogan: null,
@@ -108,21 +150,30 @@ export default {
     'localOptions.sticky': function (newVal) {
       if (newVal) {
         this.scrollEventIsAdded = true
-        window.addEventListener('scroll', () => {
-          if (!this.isInViewport() && !document.getElementsByClassName('sticky-menu')[0].classList.value.includes('fix-position')) {
-            document.getElementsByClassName('sticky-menu')[0].classList.add('fix-position')
-          } else if (this.isInViewport() && document.getElementsByClassName('sticky-menu')[0].classList.value.includes('fix-position')) {
-            document.getElementsByClassName('sticky-menu')[0].classList.remove('fix-position')
-          }
-        })
+        this.addScrollEventListener()
       } else if (!this.scrollEventIsAdded) {
         this.scrollEventIsAdded = false
-        window.removeEventListener('scroll')
-        document.getElementsByClassName('sticky-menu')[0].classList.remove('fix-position')
+        window.removeEventListener('scroll', () => {})
+        document.getElementsByClassName('header-menu')[0].classList.remove('fix-position')
       }
     }
   },
+  mounted() {
+    if (this.localOptions.sticky) {
+      this.scrollEventIsAdded = true
+      this.addScrollEventListener()
+    }
+  },
   methods: {
+    addScrollEventListener() {
+      window.addEventListener('scroll', () => {
+        if (!this.isInViewport() && !document.getElementsByClassName('header-menu')[0].classList.value.includes('fix-position')) {
+          document.getElementsByClassName('header-menu')[0].classList.add('fix-position')
+        } else if (this.isInViewport() && document.getElementsByClassName('header-menu')[0].classList.value.includes('fix-position')) {
+          document.getElementsByClassName('header-menu')[0].classList.remove('fix-position')
+        }
+      })
+    },
     isInViewport() {
       const el = document.getElementsByClassName(this.localOptions.stickyClass)[0]
       const rect = el.getBoundingClientRect()
@@ -161,7 +212,52 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "quasar-ui-q-page-builder/src/components/Component.scss";
+$backgrounds: (
+  xs: (
+    size: v-bind('defaultOptions.backgrounds.xs.size'),
+    color: v-bind('defaultOptions.backgrounds.xs.color'),
+    image: v-bind('defaultOptions.backgrounds.xs.image'),
+    repeat: v-bind('defaultOptions.backgrounds.xs.repeat'),
+    position: v-bind('defaultOptions.backgrounds.xs.position'),
+    attachment: v-bind('defaultOptions.backgrounds.xs.attachment')
+  ),
+  sm: (
+    size: v-bind('defaultOptions.backgrounds.sm.size'),
+    color: v-bind('defaultOptions.backgrounds.sm.color'),
+    image: v-bind('defaultOptions.backgrounds.sm.image'),
+    repeat: v-bind('defaultOptions.backgrounds.sm.repeat'),
+    position: v-bind('defaultOptions.backgrounds.sm.position'),
+    attachment: v-bind('defaultOptions.backgrounds.sm.attachment')
+  ),
+  md: (
+    size: v-bind('defaultOptions.backgrounds.md.size'),
+    color: v-bind('defaultOptions.backgrounds.md.color'),
+    image: v-bind('defaultOptions.backgrounds.md.image'),
+    repeat: v-bind('defaultOptions.backgrounds.md.repeat'),
+    position: v-bind('defaultOptions.backgrounds.md.position'),
+    attachment: v-bind('defaultOptions.backgrounds.md.attachment')
+  ),
+  lg: (
+    size: v-bind('defaultOptions.backgrounds.lg.size'),
+    color: v-bind('defaultOptions.backgrounds.lg.color'),
+    image: v-bind('defaultOptions.backgrounds.lg.image'),
+    repeat: v-bind('defaultOptions.backgrounds.lg.repeat'),
+    position: v-bind('defaultOptions.backgrounds.lg.position'),
+    attachment: v-bind('defaultOptions.backgrounds.lg.attachment')
+  ),
+  xl: (
+    size: v-bind('defaultOptions.backgrounds.xl.size'),
+    color: v-bind('defaultOptions.backgrounds.xl.color'),
+    image: v-bind('defaultOptions.backgrounds.xl.image'),
+    repeat: v-bind('defaultOptions.backgrounds.xl.repeat'),
+    position: v-bind('defaultOptions.backgrounds.xl.position'),
+    attachment: v-bind('defaultOptions.backgrounds.xl.attachment')
+  )
+);
+
 .header-menu {
+  @include media-query-backgrounds($backgrounds, $sizes);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -183,7 +279,6 @@ export default {
       }
     }
     .logo-text {
-      padding: 0 10px;
       padding: 0 10px;
       font-weight: 400;
       font-size: 16px;
@@ -228,8 +323,8 @@ export default {
   &.fix-position {
     width: 100%;
     position: fixed;
-    top: 5px;
-    z-index: 1000;
+    z-index: 10000;
+    transition: all 4s ease-in-out 2s;
   }
 }
 </style>
