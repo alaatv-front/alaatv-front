@@ -1,7 +1,9 @@
 <script>
-// import { Cookies } from 'quasar'
-import { createMetaMixin } from 'quasar'
 import Ewano from 'src/assets/js/Ewano.js'
+import {
+  // Cookies,
+  createMetaMixin
+} from 'quasar'
 
 export default {
   name: 'EwanoLanding',
@@ -57,7 +59,7 @@ export default {
       //         expires: '365d'
       //       })
       //     }
-      //     // Ewano.onWebAppReady()
+      //     Ewano.onWebAppReady()
       //   })
       //   .catch(() => {})
     }
