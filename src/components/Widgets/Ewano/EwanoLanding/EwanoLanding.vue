@@ -1,9 +1,6 @@
 <script>
 import Ewano from 'src/assets/js/Ewano.js'
-import {
-  // Cookies,
-  createMetaMixin
-} from 'quasar'
+import { Cookies, createMetaMixin } from 'quasar'
 
 export default {
   name: 'EwanoLanding',
@@ -46,22 +43,21 @@ export default {
       return this.$route.query.id
     },
     sendEwanoIdToBackend (uuid) {
-      Ewano.onWebAppReady()
-      // Ewano.login(uuid)
-      //   .then(({ accessToken, user }) => {
-      //     this.$store.commit('Auth/updateUser', user)
-      //     this.$store.commit('Auth/updateAccessToken', accessToken)
-      //     this.$store.commit('Auth/updateAxiosAuthorization', accessToken)
-      //     if (typeof window !== 'undefined') {
-      //       Cookies.set('BearerAccessToken', accessToken, {
-      //         // domain: '.' + window.location.host,
-      //         path: '/',
-      //         expires: '365d'
-      //       })
-      //     }
-      //     Ewano.onWebAppReady()
-      //   })
-      //   .catch(() => {})
+      Ewano.login(uuid)
+        .then(({ accessToken, user }) => {
+          this.$store.commit('Auth/updateUser', user)
+          this.$store.commit('Auth/updateAccessToken', accessToken)
+          this.$store.commit('Auth/updateAxiosAuthorization', accessToken)
+          if (typeof window !== 'undefined') {
+            Cookies.set('BearerAccessToken', accessToken, {
+              // domain: '.' + window.location.host,
+              path: '/',
+              expires: '365d'
+            })
+          }
+          Ewano.onWebAppReady()
+        })
+        .catch(() => {})
     }
   }
 }
