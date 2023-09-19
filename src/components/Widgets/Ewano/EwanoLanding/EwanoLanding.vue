@@ -17,20 +17,22 @@ export default {
       return this.$route.query.id
     },
     sendEwanoIdToBackend (uuid) {
-      Ewano.login(uuid)
-        .then(({ accessToken, user }) => {
-          this.$store.commit('Auth/updateUser', user)
-          this.$store.commit('Auth/updateAccessToken', accessToken)
-          this.$store.commit('Auth/updateAxiosAuthorization', accessToken)
-          if (typeof window !== 'undefined') {
-            Cookies.set('BearerAccessToken', accessToken, {
-              // domain: '.' + window.location.host,
-              path: '/',
-              expires: '365d'
-            })
-          }
-        })
-        .catch(() => {})
+      Ewano.onWebAppReady()
+      // Ewano.login(uuid)
+      //   .then(({ accessToken, user }) => {
+      //     this.$store.commit('Auth/updateUser', user)
+      //     this.$store.commit('Auth/updateAccessToken', accessToken)
+      //     this.$store.commit('Auth/updateAxiosAuthorization', accessToken)
+      //     if (typeof window !== 'undefined') {
+      //       Cookies.set('BearerAccessToken', accessToken, {
+      //         // domain: '.' + window.location.host,
+      //         path: '/',
+      //         expires: '365d'
+      //       })
+      //     }
+      //     // Ewano.onWebAppReady()
+      //   })
+      //   .catch(() => {})
     }
   }
 }
