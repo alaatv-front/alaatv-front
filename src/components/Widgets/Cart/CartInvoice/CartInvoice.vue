@@ -693,6 +693,8 @@ export default {
                 margin-bottom: 12px;
               }
 
+              $couponFieldTitle: 72px;
+
               .title {
                 font-style: normal;
                 font-weight: 400;
@@ -701,7 +703,7 @@ export default {
                 letter-spacing: -0.03em;
                 color: #23263B;
                 margin-right: 16px;
-                min-width: 72px;
+                width: $couponFieldTitle;
 
                 @media screen and (max-width: 1439px) {
                   margin-right: 4px;
@@ -718,6 +720,7 @@ export default {
               }
 
               .coupon-input {
+                width: calc( 100% - #{$couponFieldTitle} );
                 @media screen and (max-width: 1023px) {
                   width: 100%;
                 }
@@ -875,21 +878,14 @@ export default {
                 }
 
                 .bank-gateway-container {
-                  @media screen and (max-width: 1023px) {
-                    padding: 0 6px;
-                  }
-
-                  @media screen and (max-width: 599px) {
-                    padding: 0;
-                  }
-
                   .bank-gateway {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
                     box-sizing: border-box;
                     height: 74px;
-                    width: 177px;
+                    //width: 177px;
+                    width: 100%;
                     border: 1.3px solid #E7ECF4;
                     border-radius: 8px;
                     padding: 8px;
