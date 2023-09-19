@@ -84,6 +84,10 @@
             <q-checkbox v-model="localOptions.fixed"
                         left-label />
           </div>
+          <div class="input-container col-md-2">
+            <div class="outsideLabel">right icon</div>
+            <q-checkbox v-model="localOptions.rightIcon" />
+          </div>
           <div class="input-container col-md-4">
             <div class="outsideLabel">flat</div>
             <q-select v-model="localOptions.fixedPosition"
@@ -156,6 +160,7 @@ export default defineComponent({
       defaultOptions: {
         color: null,
         icon: null,
+        rightIcon: false,
         label: null,
         flat: false,
         callBack: null,

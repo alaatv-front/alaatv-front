@@ -158,12 +158,11 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  updateProfile(data = {}) {
-    delete data.photo
+  updateProfile(userId, data = {}) {
     return this.sendRequest({
       apiMethod: 'put',
       api: this.api,
-      request: this.APIAdresses.byId(data.id),
+      request: this.APIAdresses.byId(userId),
       data,
       resolveCallback: (response) => {
         return new User(response.data.data)
