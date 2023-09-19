@@ -19,8 +19,9 @@ export default {
     })
   ],
   beforeMount () {
-    if (this.hasIdInQueryParam()) {
+    if (this.hasIdInQueryParam() && !this.hasEwanoFlagInQueryParam()) {
       this.setEwanoFlagInQueryParam()
+    } else if (this.hasIdInQueryParam() && this.hasEwanoFlagInQueryParam()) {
       this.sendEwanoIdToBackend(this.getUuid())
     }
   },
@@ -28,13 +29,14 @@ export default {
     hasIdInQueryParam () {
       return !!this.getUuid()
     },
+    hasEwanoFlagInQueryParam () {
+      return !!this.$route.query.ewano
+    },
     setEwanoFlagInQueryParam () {
-      if (!this.$route.query.ewano) {
-        const searchURL = new URL(window.location)
-        searchURL.searchParams.set('ewano', '1')
-        window.history.pushState({}, '', searchURL)
-        window.location.reload()
-      }
+      const searchURL = new URL(window.location)
+      searchURL.searchParams.set('ewano', '1')
+      window.history.pushState({}, '', searchURL)
+      window.location.reload()
       // this.$route.query.ewano = 1
       // this.$router.push({ name: this.$route.name, params: this.$route.params, query: this.$route.query })
     },
