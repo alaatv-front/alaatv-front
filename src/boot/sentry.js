@@ -4,7 +4,7 @@ import { boot } from 'quasar/wrappers'
 export default boot(({ app, router }) => {
   Sentry.init({
     app,
-    dsn: 'https://examplePublicKey@o0.ingest.sentry.io/0',
+    dsn: 'http://38212ccd900490677dcf90bd12447f30@sentry.alaa.tv/3',
     integrations: [
       new Sentry.BrowserTracing({
         routingInstrumentation: Sentry.vueRouterInstrumentation(router)
@@ -18,7 +18,7 @@ export default boot(({ app, router }) => {
     tracesSampleRate: 1.0,
 
     // Set `tracePropagationTargets` to control for which URLs distributed tracing should be enabled
-    tracePropagationTargets: ['localhost', /^https:\/\/yourserver\.io\/api/],
+    tracePropagationTargets: ['localhost', /^https:\/\/alaatv\.com\/api/],
 
     // Capture Replay for 10% of all sessions,
     // plus for 100% of sessions with an error

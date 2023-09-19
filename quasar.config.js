@@ -51,7 +51,8 @@ module.exports = configure(function (ctx) {
       'enums',
       'gtm',
       'PhosphorIcons',
-      'ewano'
+      'ewano',
+      'sentry'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
