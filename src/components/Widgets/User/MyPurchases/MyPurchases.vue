@@ -72,6 +72,7 @@
             <product-item :options="{
                             canAddToCart: false,
                             showPrice: false,
+                            productViewType: 'none',
                             product,
                             routeToProduct: false
                           }"
