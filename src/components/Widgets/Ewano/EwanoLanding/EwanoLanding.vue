@@ -27,6 +27,7 @@ export default {
     })
   ],
   beforeMount () {
+    Ewano.onWebAppReady()
     if (this.hasIdInQueryParam() && !this.hasEwanoFlagInQueryParam()) {
       this.setEwanoFlagInQueryParam()
     } else if (this.hasIdInQueryParam() && this.hasEwanoFlagInQueryParam()) {
@@ -64,7 +65,6 @@ export default {
               expires: '365d'
             })
           }
-          Ewano.onWebAppReady()
         })
         .catch(() => {})
     }
