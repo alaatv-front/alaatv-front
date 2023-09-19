@@ -1,11 +1,20 @@
+<template>
+  <div />
+</template>
+
 <script>
 import Ewano from 'src/assets/js/Ewano.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 import { Cookies, createMetaMixin } from 'quasar'
 
 export default {
   name: 'EwanoLanding',
   mixins: [
+    mixinWidget,
     createMetaMixin(function () {
+      if (typeof window !== 'undefined' && window.ewano) {
+        return {}
+      }
       return {
         // whenever "title" from above changes, your meta will automatically update
         script: {
