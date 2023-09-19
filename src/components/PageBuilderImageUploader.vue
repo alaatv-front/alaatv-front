@@ -43,21 +43,16 @@ export default defineComponent({
   data() {
     return {
       dialog: false,
-      multiple: false,
-      background: ''
+      multiple: false
     }
   },
-  watch: {
-    value(newValue) {
-      this.background = newValue
-    },
-    file(newFile) {
-      this.background = newFile
-    },
-    background(newBack) {
-      if (!newBack) {
-        this.$emit('update:file', null)
-        this.$emit('update:value', null)
+  computed: {
+    background: {
+      set (newValue) {
+        this.$emit('update:value', newValue)
+      },
+      get () {
+        return this.value || this.file
       }
     }
   },

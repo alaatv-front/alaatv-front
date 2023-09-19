@@ -129,6 +129,11 @@
               </q-card-section>
             </q-card>
           </q-expansion-item>
+          <q-expansion-item expand-separator
+                            icon="image"
+                            label="backgrounds">
+            <responsive-back-ground v-model:options="localOptions.backgrounds" />
+          </q-expansion-item>
           <div class="row">
             <div class="col-2">
               <q-checkbox v-model="localOptions.sticky"
@@ -260,6 +265,7 @@ import TextWidgetOptionPanel from 'components/Widgets/TextWidget/OptionPanel.vue
 import ImageWidgetOptionPanel from 'components/Widgets/ImageWidget/OptionPanel.vue'
 import ActionButtonOptionPanel from 'components/Widgets/ActionButton/OptionPanel.vue'
 import TimerOptionPanel from 'components/Widgets/Timer/OptionPanel.vue'
+import ResponsiveBackGround from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/ResponsiveBackGround.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
@@ -268,7 +274,8 @@ export default defineComponent({
     TextWidgetOptionPanel,
     ImageWidgetOptionPanel,
     ActionButtonOptionPanel,
-    TimerOptionPanel
+    TimerOptionPanel,
+    ResponsiveBackGround
   },
   mixins: [mixinOptionPanel],
   props: {
@@ -514,6 +521,48 @@ export default defineComponent({
         salam: '',
         style: {},
         className: '',
+        backgrounds: {
+          xs: {
+            size: null,
+            color: null,
+            image: null,
+            repeat: null,
+            position: null,
+            attachment: null
+          },
+          sm: {
+            size: null,
+            color: null,
+            image: null,
+            repeat: null,
+            position: null,
+            attachment: null
+          },
+          md: {
+            size: null,
+            color: null,
+            image: null,
+            repeat: null,
+            position: null,
+            attachment: null
+          },
+          lg: {
+            size: null,
+            color: null,
+            image: null,
+            repeat: null,
+            position: null,
+            attachment: null
+          },
+          xl: {
+            size: null,
+            color: null,
+            image: null,
+            repeat: null,
+            position: null,
+            attachment: null
+          }
+        },
         menuLink: [],
         logoImage: null,
         logoSlogan: null,
