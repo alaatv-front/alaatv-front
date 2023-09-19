@@ -64,7 +64,7 @@
         <div v-if="!$q.screen.lt.md"
              class="arrow-left text-right">
           <q-btn :icon="localOptions.navigation.goToLeft.icon"
-                 :rounded="localOptions.navigation.goToLeft.rounded"
+                 :round="localOptions.navigation.goToLeft.rounded"
                  class="arrow-left-btn "
                  :size="localOptions.navigation.goToLeft.size"
                  @click="$refs.vueCarousel.next()" />
@@ -72,7 +72,7 @@
         <div v-if="!$q.screen.lt.md"
              class="arrow-right">
           <q-btn :icon="localOptions.navigation.goToRight.icon"
-                 :rounded="localOptions.navigation.goToRight.rounded"
+                 :round="localOptions.navigation.goToRight.rounded"
                  class="arrow-right-btn"
                  :size="localOptions.navigation.goToRight.size"
                  @click="$refs.vueCarousel.prev()" />
@@ -192,6 +192,7 @@ export default defineComponent({
 
   &.teacher {
     padding-top: 0;
+    box-shadow: $shadow-2;
   }
 
   .student-img {
@@ -231,7 +232,7 @@ export default defineComponent({
 
       &.teacher {
         min-height: 20px;
-        margin-top: 5px;
+        margin-top: 14px;
       }
     }
   }
@@ -268,7 +269,8 @@ export default defineComponent({
     align-items: center;
 
     .major {
-      font-size: 28px;
+      margin-top: 4px;
+      font-size: 14px;
       font-weight: 800;
       color: #FF8518;
       text-align: center;

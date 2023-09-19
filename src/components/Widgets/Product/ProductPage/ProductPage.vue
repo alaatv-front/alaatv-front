@@ -106,11 +106,13 @@
       <div class="row content-row q-col-gutter-lg">
         <div class="col-12 col-md-8">
           <div class="product-info-tab-wrapper">
-            <product-info-tab :options="{product}" />
+            <product-info-tab v-if="!loading"
+                              :options="{product}" />
           </div>
         </div>
         <div class="col-12 col-md-4 intro-box-col">
-          <product-intro-box ref="productIntroBox"
+          <product-intro-box v-if="!loading"
+                             ref="productIntroBox"
                              :options="{product}"
                              @update-product="onUpdateProduct($event)"
                              @update-product-loading="onUpdateProductLoading($event)" />
