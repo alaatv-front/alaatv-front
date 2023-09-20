@@ -1,5 +1,6 @@
 <template>
-  <div class="theme2-container">
+  <div class="theme2-container"
+       @click.capture="productClicked">
     <div class="img-box"
          :class="localOptions.theme">
       <product-discount-badge class="product-discount-badge"
@@ -66,7 +67,8 @@
         <q-separator class="action-separator" />
         <router-link class="link-to-product-page text-center"
                      :class="localOptions.theme"
-                     :to="{name: 'Public.Product.Show', params: {id: product.id} }">
+                     :to="getRoutingObject"
+                     @click.p="productClicked">
           <span class="btn-text">مشاهده دوره</span>
           <q-icon name="west" />
         </router-link>
@@ -101,6 +103,9 @@ export default defineComponent({
     ProductDiscountBadge,
     LazyImg,
     Bookmark
+  },
+  beforeRouteUpdate() {
+    return false
   },
   props: {
     localOptions: {
@@ -149,7 +154,9 @@ export default defineComponent({
     customActionClicked() {
       this.$emit('customActionClicked')
     },
-    productClicked() {
+    productClicked(e) {
+      e.preventDefault()
+      e.stopPropagation()
       this.$emit('productClicked')
     },
     handleProductBookmark() {
