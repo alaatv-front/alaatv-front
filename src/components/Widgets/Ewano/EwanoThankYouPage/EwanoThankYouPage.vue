@@ -1,24 +1,26 @@
 <template>
   <div class="cart-container">
-    <template v-if="loading">
-      <q-skeleton type="circle" />
-    </template>
-    <template v-else>
-      <div class="cart-image">
-        <q-img v-if="hasPaid"
-               src="https://nodes.alaatv.com/aaa/landing/Soalaa/States/thankyou_page.png" />
-        <q-icon v-else
-                name="error"
-                color="red" />
-      </div>
-      <div v-if="hasPaid"
-           class="title">
-        پرداخت با موفقیت انجام شد
-      </div>
-      <div v-else
-           class="title">
-        متاسفانه پرداخت انجام نشد :(
-      </div>
+    <template v-if="isEwanoUser">
+      <template v-if="loading">
+        <q-skeleton type="circle" />
+      </template>
+      <template v-else>
+        <div class="cart-image">
+          <q-img v-if="hasPaid"
+                 src="https://nodes.alaatv.com/aaa/landing/Soalaa/States/thankyou_page.png" />
+          <q-icon v-else
+                  name="error"
+                  color="red" />
+        </div>
+        <div v-if="hasPaid"
+             class="title">
+          پرداخت با موفقیت انجام شد
+        </div>
+        <div v-else
+             class="title">
+          متاسفانه پرداخت انجام نشد :(
+        </div>
+      </template>
     </template>
   </div>
 </template>
