@@ -266,7 +266,7 @@
                          class="q-pl-sm field-md"
                          filled />
               </div>
-              <div v-if="!targetBank && false"
+              <div v-if="!targetBank"
                    class="shaba-number-hint">
                 شماره شبا و شماره کارت وارد شده مربوط به یک بانک واحد نیستند.
               </div>
@@ -274,6 +274,7 @@
                 <q-btn v-if="!hasShabaNumber"
                        color="primary"
                        class="shaba-number-action-btn"
+                       :disable="!targetBank"
                        @click="sendShabaNumber">
                   ثبت
                 </q-btn>
@@ -753,132 +754,20 @@ export default {
       if (!shabanumber) {
         return null
       }
+
       const shaba = NormalizeNumber.a2e(shabanumber).toUpperCase()
-      if (shaba.length >= 6) {
-        const shabaCode = shaba.substr(2, 3)
-        return this.getBankFromShaba(shabaCode)
-      }
-      if (shaba.length === 0) {
+
+      if (!new Sheba('IR' + shaba).validate()) {
         return null
       }
-      if (shaba.length !== 24 || this.iso7064Mod97_10(this.iso13616Prepare('IR' + shaba)) !== 1) {
-        return null
-      } else {
-        return null
-      }
-    },
-    iso13616Prepare (iban) {
-      iban = iban.toUpperCase()
-      iban = iban.substr(4) + iban.substr(0, 4)
 
-      const A = 'A'.charCodeAt(0),
-        Z = 'Z'.charCodeAt(0)
+      const target = new Sheba('IR' + this.clearShabaNumber).recognize()
 
-      return iban.split('').map(function (n) { const code = n.charCodeAt(0); if (code >= A && code <= Z) { return code - A + 10 } else { return n } }).join('')
-    },
-    iso7064Mod97_10(iban) {
-      let remainder = iban,
-        block
-
-      while (remainder.length > 2) {
-        block = remainder.slice(0, 9)
-        remainder = parseInt(block, 10) % 97 + remainder.slice(block.length)
-      }
-
-      return parseInt(remainder, 10) % 97
-    },
-    getBankFromShaba(code) {
-      switch (code) {
-        case '010':
-          return ['meli', 'بانک مرکزی', '010']
-
-        case '011':
-          return ['sanatmadan', 'بانک صنعت و معدن', '011']
-
-        case '012':
-          return ['mellat', 'بانک ملت', '012']
-
-        case '013':
-          return ['refah', 'بانک رفاه', '013']
-
-        case '014':
-          return ['maskan', 'بانک مسکن', '014']
-
-        case '015':
-          return ['sepah', 'بانک سپه', '015']
-
-        case '016':
-          return ['keshavarsi', 'بانک کشاورزی', '016']
-
-        case '017':
-          return ['meli', 'بانک ملی ایران', '017']
-
-        case '018':
-          return ['tejarat', 'بانک تجارت', '018']
-
-        case '019':
-          return ['saderat', 'بانک صادرات', '019']
-
-        case '020':
-          return ['tooseesaderat', 'بانک توسعه صادرات', '020']
-
-        case '021':
-          return ['postbank', 'پست بانک ایران', '021']
-
-        case '022':
-          return ['toosetaavon', 'بانک توسعه تعاون', '022']
-
-        case '051':
-          return ['etebaritosee', 'موسسه اعتباری توسعه', '051']
-
-        case '053':
-          return ['karafarin', 'بانک کارآفرین', '053']
-
-        case '054':
-          return ['parsian', 'بانک پارسیان', '054']
-
-        case '055':
-          return ['eghtesad', 'بانک اقتصاد نوین', '055']
-
-        case '056':
-          return ['saman', 'بانک سامان', '056']
-
-        case '057':
-          return ['pasargad', 'بانک پاسارگاد', '057']
-
-        case '058':
-          return ['sarmaye', 'بانک سرمایه', '058']
-
-        case '059':
-          return ['sina', 'بانک سینا', '059']
-
-        case '060':
-          return ['gharzolhasaneh', 'بانک قرض الحسنه مهر', '060']
-
-        case '061':
-          return ['shahr', 'بانک شهر', '061']
-
-        case '062':
-          return ['tat', 'بانک تات', '062']
-
-        case '063':
-          return ['ansar', 'بانک انصار', '063']
-
-        case '064':
-          return ['gardeshgari', 'بانک گردشگری', '064']
-
-        case '065':
-          return ['hekmat', 'بانک حکمت ایرانیان', '065']
-
-        case '066':
-          return ['day', 'بانک دی', '066']
-
-        case '069':
-          return ['iranzamin', 'بانک ایران زمین', '069']
-
-        default:
-          return ['no-img', 'بانک مرکزی', '000']
-      }
+      return [
+        target.nickname,
+        target.persianName,
+        target.code
+      ]
     },
     getBankFromCard(code) {
       const map = [{
@@ -1074,18 +963,8 @@ export default {
         target.name
       ]
     },
-    validateCard(code) {
-      const L = code.length
-      if (L < 16 || parseInt(code.substr(1, 10), 10) === 0 || parseInt(code.substr(10, 6), 10) === 0) return false
-      // const c = parseInt(code.substr(15, 1), 10)
-      let s = 0
-      let k, d
-      for (let i = 0; i < 16; i++) {
-        k = (i % 2 === 0) ? 2 : 1
-        d = parseInt(code.substr(i, 1), 10) * k
-        s += (d > 9) ? d - 9 : d
-      }
-      return ((s % 10) === 0)
+    validateCard(cardNumber) {
+      return verifyCardNumber(cardNumber)
     }
   }
 }
