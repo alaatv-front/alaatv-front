@@ -13,43 +13,23 @@
       </div>
       <div v-if="hasPaid"
            class="title">
-        ثبت نام شما با موفقیت انجام شد
+        پرداخت با موفقیت انجام شد
       </div>
       <div v-else
            class="title">
         متاسفانه پرداخت انجام نشد :(
       </div>
-      <!--    <div class="tracking-code-container">-->
-      <!--      <span class="tracking-code-title">کد پیگیری:</span>-->
-      <!--      <span class="tracking-code">{{ trackingCode }}</span>-->
-      <!--    </div>-->
-      <q-btn v-if="ticketId"
-             :to="{name: 'UserPanel.Ticket.Show', params: {id: ticketId}}"
-             color="primary"
-             class="redirect-element">
-        مشاهده تیکت مربوطه
-      </q-btn>
-      <router-link v-if="hasPaid"
-                   :to="{name: 'UserPanel.MyPurchases'}"
-                   class="redirect-element">
-        فیلم ها و جزوه های من
-      </router-link>
-      <router-link v-else
-                   :to="{name: 'Public.Shop'}"
-                   class="redirect-element">
-        بازگشت به فروشگاه
-      </router-link>
     </template>
   </div>
 </template>
 
 <script>
+import Ewano from 'src/assets/js/Ewano.js'
 import mixinAuthData from 'src/mixin/AuthData.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default {
-  name: 'ThankYouPage',
+  name: 'EwanoThankYouPage',
   mixins: [mixinAuthData],
   data() {
     return {
@@ -58,7 +38,13 @@ export default {
     }
   },
   computed: {
-    orderId () {
+    isEwanoUser () {
+      return !!this.$route.query.ewano
+    },
+    ewanoOrderId () {
+      return this.$route.query.ewano_order_id
+    },
+    alaaOrderId () {
       return this.$route.params.orderId
     },
     ticketId () {
@@ -66,38 +52,37 @@ export default {
     }
   },
   mounted () {
-    this.onLoadPage()
-    this.$bus.on('ThankYouPageInvoiceLoading', (status) => {
-      this.loading = status
-    })
+    if (!this.isEwanoUser) {
+      return
+    }
+
+    this.checkEwanoPaymentResult()
   },
   methods: {
-    pushPurchaseEvent (order) {
-      const AEEData = order.getAEEData()
-      AEE.purchase(AEEData.actionField, AEEData.products)
+    changeLoadingState (state) {
+      this.loading = state
+      this.$bus.emit('ThankYouPageInvoiceLoading', state)
     },
-    clearCart () {
-      const cart = this.$store.getters['Cart/cart']
-      cart.removeAllItems()
-      this.$store.commit('Cart/updateCart', cart)
+    checkEwanoPaymentResult () {
+      this.changeLoadingState(true)
+      Ewano.paymentResult((status) => {
+        if (status) {
+          this.pay()
+        } else {
+          this.changeLoadingState(false)
+          this.hasPaid = false
+        }
+      })
     },
-    onLoadPage () {
-      this.clearCart()
-      this.loading = true
-      this.$store.dispatch('Cart/reviewCart')
-      APIGateway.cart.getorderWithTransaction(this.orderId)
-        .then((order) => {
-          this.loading = false
-
-          if (order.paymentstatus.id === 3) {
-            this.hasPaid = true
-            this.pushPurchaseEvent(order)
-          } else if (order.paymentstatus.id === 1) {
-            this.hasPaid = false
-          }
+    pay () {
+      this.changeLoadingState(true)
+      APIGateway.ewano.pay()
+        .then((status) => {
+          this.hasPaid = status
+          this.changeLoadingState(false)
         })
         .catch(() => {
-          this.loading = false
+          this.changeLoadingState(false)
         })
     }
   }

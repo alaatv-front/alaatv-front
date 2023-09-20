@@ -6,6 +6,7 @@ export default class AuthAPI extends APIRepository {
     super('ewano', apiV2)
     this.APIAdresses = {
       base: '/ewano',
+      pay: '/ewano/pay',
       order: '/ewano/order'
     }
     this.CacheList = {}
@@ -23,6 +24,20 @@ export default class AuthAPI extends APIRepository {
         // const user = new User(response.data.data.user)
 
         return { accessToken, user }
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  pay () {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.pay,
+      resolveCallback: (response) => {
+        return response.data.data.status // boolean
       },
       rejectCallback: (error) => {
         return error
