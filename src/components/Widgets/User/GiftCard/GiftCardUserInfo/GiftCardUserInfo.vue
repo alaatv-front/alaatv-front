@@ -209,6 +209,9 @@
                         class="text-red">
                     (تایید نشده)
                   </span>
+                  <span v-if="targetShabaBank">
+                    ({{ targetShabaBank[1] }})
+                  </span>
                 </div>
                 <div v-if="targetBankLogo"
                      class="target-bank-logo">
@@ -219,10 +222,14 @@
               <div class="shaba-number-input">
                 <q-input v-model="localShabaNumber"
                          :readonly="hasShabaNumber"
-                         mask="IR##-####-####-####-####-####-##"
+                         mask="##-####-####-####-####-####-##"
                          dir="ltr"
                          class="q-pl-sm field-md"
-                         filled />
+                         filled>
+                  <template #after>
+                    IR
+                  </template>
+                </q-input>
               </div>
               <div v-if="!hasShabaNumber"
                    class="shaba-number-hint">
@@ -249,6 +256,9 @@
                   <span v-if="bankAccountStatus === 'reject'"
                         class="text-red">
                     (تایید نشده)
+                  </span>
+                  <span v-if="targetCardBank">
+                    ({{ targetCardBank[1] }})
                   </span>
                 </div>
                 <div v-if="cardBankLogo && false"
@@ -770,187 +780,253 @@ export default {
       ]
     },
     getBankFromCard(code) {
-      const map = [{
-        nickname: 'ayandeh',
-        name: 'بانک آینده',
-        code: '636214'
-      }, {
-        nickname: 'eghtesad',
-        name: 'بانک اقتصاد نوین',
-        code: '627412'
-      }, {
-        nickname: 'ansar',
-        name: 'بانک انصار',
-        code: '627381'
-      }, {
-        nickname: 'iranzamin',
-        name: 'بانک ایران زمین',
-        code: '505785'
-      }, {
-        nickname: 'parsian',
-        name: 'بانک پارسیان',
-        code: '622106'
-      }, {
-        nickname: 'parsian',
-        name: 'بانک پارسیان',
-        code: '627884'
-      }, {
-        nickname: 'pasargad',
-        name: 'بانک پاسارگاد',
-        code: '502229'
-      }, {
-        nickname: 'pasargad',
-        name: 'بانک پاسارگاد',
-        code: '639347'
-      }, {
-        nickname: 'postbank',
-        name: 'پست بانک ایران',
-        code: '627760'
-      }, {
-        nickname: 'tejarat',
-        name: 'بانک تجارت',
-        code: '585983'
-      }, {
-        nickname: 'tejarat',
-        name: 'بانک تجارت',
-        code: '627353'
-      }, {
-        nickname: 'tosehe',
-        name: 'بانک توسعه تعاون',
-        code: '502908'
-      }, {
-        nickname: 'no-img',
-        name: 'بانک توسعه صادرات',
-        code: '207177'
-      }, {
-        nickname: 'no-img',
-        name: 'بانک توسعه صادرات',
-        code: '627648'
-      }, {
-        nickname: 'no-img',
-        name: 'بانک حکمت ایرانیان',
-        code: '636949'
-      }, {
-        nickname: 'khavarmiyaneh',
-        name: 'بانک خاورمیانه',
-        code: '585949'
-      }, {
-        nickname: 'day',
-        name: 'بانک دی',
-        code: '502938'
-      }, {
-        nickname: 'resalat',
-        name: 'بانک رسالت',
-        code: '504172'
-      }, {
-        nickname: 'refah',
-        name: 'بانک رفاه کارگران',
-        code: '589463'
-      }, {
-        nickname: 'saman',
-        name: 'بانک سامان',
-        code: '621986'
-      }, {
-        nickname: 'sepah',
-        name: 'بانک سپه',
-        code: '589210'
-      }, {
-        nickname: 'sarmaye',
-        name: 'بانک سرمایه',
-        code: '639607'
-      }, {
-        nickname: 'sina',
-        name: 'بانک سینا',
-        code: '639346'
-      }, {
-        nickname: 'shahr',
-        name: 'بانک شهر',
-        code: '502806'
-      }, {
-        nickname: 'shahr',
-        name: 'بانک شهر',
-        code: '504706'
-      }, {
-        nickname: 'saderat',
-        name: 'بانک صادرات ایران',
-        code: '603769'
-      }, {
-        nickname: 'saderat',
-        name: 'بانک صادرات ایران',
-        code: '903769'
-      }, {
-        nickname: 'sanatmadan',
-        name: 'بانک صنعت و معدن',
-        code: '627961'
-      }, {
-        nickname: 'mehreqtesad',
-        name: 'بانک قرض الحسنه مهر',
-        code: '639370'
-      }, {
-        nickname: 'ghavamin',
-        name: 'بانک قوامین',
-        code: '639599'
-      }, {
-        nickname: 'karafarin',
-        name: 'بانک کارآفرین',
-        code: '627488'
-      }, {
-        nickname: 'keshavarsi',
-        name: 'بانک کشاورزی',
-        code: '603770'
-      }, {
-        nickname: 'keshavarsi',
-        name: 'بانک کشاورزی',
-        code: '639217'
-      }, {
-        nickname: 'gardeshgari',
-        name: 'بانک گردشگری',
-        code: '505416'
-      }, {
-        nickname: 'gardeshgari',
-        name: 'بانک گردشگری',
-        code: '505426'
-      }, {
-        nickname: 'no-img',
-        name: 'بانک مرکزی ایران',
-        code: '636797'
-      }, {
-        nickname: 'maskan',
-        name: 'بانک مسکن',
-        code: '628023'
-      }, {
-        nickname: 'mellat',
-        name: 'بانک ملت',
-        code: '610433'
-      }, {
-        nickname: 'mellat',
-        name: 'بانک ملت',
-        code: '991975'
-      }, {
-        nickname: 'meli',
-        name: 'بانک ملی ایران',
-        code: '170019'
-      }, {
-        nickname: 'meli',
-        name: 'بانک ملی ایران',
-        code: '603799'
-      }, {
-        nickname: 'mehreqtesad',
-        name: 'بانک مهر ایران',
-        code: '606373'
-      }, {
-        nickname: 'no-img',
-        name: 'موسسه کوثر',
-        code: '505801'
-      }, {
-        nickname: 'no-img',
-        name: 'موسسه اعتباری ملل',
-        code: '606256'
-      }, {
-        nickname: 'tosehe',
-        name: 'موسسه اعتباری توسعه',
-        code: '628157'
-      }]
+      const map = [
+      //     {
+      //   nickname: 'central-bank',
+      //   name: 'بانک مرکزی جمهوری اسلامی ایران',
+      //   code: '636214',
+      // },
+        {
+          nickname: 'ayandeh',
+          name: 'Ayandeh Bank',
+          persianName: 'بانک آینده',
+          code: '636214'
+        }, {
+          nickname: 'eghtesad-novin',
+          name: 'Eghtesad Novin Bank',
+          persianName: 'بانک اقتصاد نوین',
+          code: '627412'
+        },
+        // {
+        //   nickname: 'iran-venezuela',
+        //   name: 'Iran and Venezuela Bank',
+        //   persianName: 'بانک ایران و ونزوئلا',
+        //   code: '606373'
+        // },
+
+        {
+          nickname: 'ansar',
+          name: 'Ansar Bank',
+          persianName: 'بانک انصار',
+          code: '627381'
+        }, {
+          nickname: 'iran-zamin',
+          name: 'Iran Zamin Bank',
+          persianName: 'بانک ایران زمین',
+          code: '505785'
+        }, {
+          nickname: 'parsian',
+          name: 'Parsian Bank',
+          persianName: 'بانک پارسیان',
+          code: '622106'
+        }, {
+          nickname: 'parsian',
+          name: 'بانک پارسیان',
+          code: '627884'
+        }, {
+          nickname: 'pasargad',
+          name: 'Pasargad Bank',
+          persianName: 'بانک پاسارگاد',
+          code: '502229'
+        }, {
+          nickname: 'pasargad',
+          name: 'Pasargad Bank',
+          persianName: 'بانک پاسارگاد',
+          code: '639347'
+        }, {
+          nickname: 'post',
+          name: 'Post Bank',
+          persianName: 'پست بانک ایران',
+          code: '627760'
+        }, {
+          nickname: 'tejarat',
+          name: 'Tejarat Bank',
+          persianName: 'بانک تجارت',
+          code: '585983'
+        }, {
+          nickname: 'tejarat',
+          name: 'Tejarat Bank',
+          persianName: 'بانک تجارت',
+          code: '627353'
+        }, {
+          nickname: 'toose-taavon',
+          name: 'Tosee Taavon Bank',
+          persianName: 'بانک توسعه تعاون',
+          code: '502908'
+        }, {
+          nickname: 'tosee-saderat',
+          name: 'Tose Saderat Bank',
+          persianName: 'بانک توسعه صادرات',
+          code: '207177'
+        }, {
+          nickname: 'tosee-saderat',
+          name: 'Tose Saderat Bank',
+          persianName: 'بانک توسعه صادرات',
+          code: '627648'
+        }, {
+          nickname: 'hekmat-iranian',
+          name: 'Hekmat Iranian Bank',
+          persianName: 'بانک حکمت ایرانیان',
+          code: '636949'
+        }, {
+          nickname: 'middle-east-bank',
+          name: 'Middle East Bank',
+          persianName: 'بانک خاورمیانه',
+          code: '585949'
+        },
+        //   {
+        //     nickname: 'noor-bank',
+        //     name: 'Noor Credit Institution',
+        //     persianName: 'موسسه اعتباری نور',
+        //   code: '585949'
+        // },
+
+        {
+          nickname: 'dey',
+          name: 'Dey Bank',
+          persianName: 'بانک دی',
+          code: '502938'
+        }, {
+          nickname: 'resalat',
+          name: 'Resalat Bank',
+          persianName: 'بانک قرض الحسنه رسالت',
+          code: '504172'
+        }, {
+          nickname: 'refah',
+          name: 'Refah Bank',
+          persianName: 'بانک رفاه کارگران',
+          code: '589463'
+        }, {
+          nickname: 'saman',
+          name: 'Saman Bank',
+          persianName: 'بانک سامان',
+          code: '621986'
+        }, {
+          nickname: 'sepah',
+          name: 'Sepah Bank',
+          persianName: 'بانک سپه',
+          code: '589210'
+        }, {
+          nickname: 'sarmayeh',
+          name: 'Sarmayeh Bank',
+          persianName: 'بانک سرمایه',
+          code: '639607'
+        }, {
+          nickname: 'sina',
+          name: 'Sina Bank',
+          persianName: 'بانک سینا',
+          code: '639346'
+        }, {
+          nickname: 'shahr',
+          name: 'City Bank',
+          persianName: 'بانک شهر',
+          code: '502806'
+        }, {
+          nickname: 'shahr',
+          name: 'City Bank',
+          persianName: 'بانک شهر',
+          code: '504706'
+        }, {
+          nickname: 'saderat',
+          name: 'Saderat Bank',
+          persianName: 'بانک صادرات ایران',
+          code: '603769'
+        }, {
+          nickname: 'saderat',
+          name: 'Saderat Bank',
+          persianName: 'بانک صادرات ایران',
+          code: '903769'
+        }, {
+          nickname: 'sanat-o-madan',
+          name: 'Sanat O Madan Bank',
+          persianName: 'بانک صنعت و معدن',
+          code: '627961'
+        }, {
+          nickname: 'mehr-eqtesad',
+          name: 'Mehr Eqtesad Bank',
+          persianName: 'بانک مهر اقتصاد',
+          code: '639370'
+        }, {
+          nickname: 'ghavamin',
+          name: 'Ghavamin Bank',
+          persianName: 'بانک قوامین',
+          code: '639599'
+        }, {
+          nickname: 'karafarin',
+          name: 'Karafarin Bank',
+          persianName: 'بانک کارآفرین',
+          code: '627488'
+        }, {
+          nickname: 'keshavarzi',
+          name: 'Keshavarzi',
+          persianName: 'بانک کشاورزی',
+          code: '603770'
+        }, {
+          nickname: 'keshavarzi',
+          name: 'Keshavarzi',
+          persianName: 'بانک کشاورزی',
+          code: '639217'
+        }, {
+          nickname: 'gardeshgari',
+          name: 'Gardeshgari Bank',
+          persianName: 'بانک گردشگری',
+          code: '505416'
+        }, {
+          nickname: 'gardeshgari',
+          name: 'Gardeshgari Bank',
+          persianName: 'بانک گردشگری',
+          code: '505426'
+        },
+        {
+          nickname: 'no-img',
+          name: 'بانک مرکزی ایران',
+          code: '636797'
+        }, {
+          nickname: 'maskan',
+          name: 'Maskan Bank',
+          persianName: 'بانک مسکن',
+          code: '628023'
+        }, {
+          nickname: 'mellat',
+          name: 'Mellat Bank',
+          persianName: 'بانک ملت',
+          code: '610433'
+        }, {
+          nickname: 'mellat',
+          name: 'Mellat Bank',
+          persianName: 'بانک ملت',
+          code: '991975'
+        }, {
+          nickname: 'melli',
+          name: 'Melli',
+          persianName: 'بانک ملی ایران',
+          code: '170019'
+        }, {
+          nickname: 'melli',
+          name: 'Melli',
+          persianName: 'بانک ملی ایران',
+          code: '603799'
+        }, {
+          nickname: 'mehr-iran',
+          name: 'Mehr Iran Bank',
+          persianName: 'بانک مهر ایران',
+          code: '606373'
+        }, {
+          nickname: 'kosar',
+          name: 'Kosar Credit Institute',
+          persianName: 'موسسه اعتباری کوثر',
+          code: '505801'
+        }, {
+          nickname: 'melal',
+          name: 'Melal Credit Institute',
+          persianName: 'موسسه اعتباری ملل',
+          code: '606256'
+        }, {
+          nickname: 'tosee',
+          name: 'Tosee Bank',
+          persianName: 'موسسه اعتباری توسعه',
+          code: '628157'
+        }]
 
       const target = map.find(item => item.code === code)
       if (!target) {
@@ -959,8 +1035,8 @@ export default {
 
       return [
         target.nickname,
-        target.code,
-        target.name
+        target.persianName,
+        target.code
       ]
     },
     validateCard(cardNumber) {
