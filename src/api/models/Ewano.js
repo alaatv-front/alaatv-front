@@ -36,10 +36,11 @@ export default class AuthAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.order,
       resolveCallback: (response) => {
-        const ewanoOrderId = response.data.ewano_order_id
-        const amount = response.data.amount
+        const ewanoOrderId = response.data.data.ewano_order_id
+        const alaaOrderId = response.data.data.alaa_order_id
+        const amount = response.data.data.amount
 
-        return { ewanoOrderId, amount, response: response.data }
+        return { ewanoOrderId, alaaOrderId, amount }
       },
       rejectCallback: (error) => {
         return error

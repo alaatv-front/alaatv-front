@@ -220,7 +220,7 @@
 <script>
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart.js'
-// import Ewano from 'src/assets/js/Ewano.js'
+import Ewano from 'src/assets/js/Ewano.js'
 import AuthLogin from 'src/components/Auth.vue'
 import LazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
@@ -516,8 +516,10 @@ export default {
       if (this.isEwanoUser) {
         this.$store.commit('loading/loading', true)
         APIGateway.ewano.makeOrder()
-          .then(() => {
-            // Ewano.pay()
+          .then(({ ewanoOrderId, alaaOrderId, amount }) => {
+            const fullPath = this.$router.resolve({ name: 'UserPanel.ThankYouPage', params: { orderId: alaaOrderId }, query: { ewano_order_id: ewanoOrderId } }).fullPath
+            const callbackUrl = window.location.origin + fullPath
+            Ewano.pay(amount, ewanoOrderId, callbackUrl)
             this.$store.commit('loading/loading', false)
           })
           .catch(() => {
