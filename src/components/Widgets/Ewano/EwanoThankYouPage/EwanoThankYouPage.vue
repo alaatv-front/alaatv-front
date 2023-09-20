@@ -58,6 +58,7 @@ export default {
       return
     }
 
+    console.warn('EwanoThankYouPage loaded')
     Ewano.onWebAppReady()
     this.checkEwanoPaymentResult()
   },

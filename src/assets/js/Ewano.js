@@ -11,6 +11,7 @@ class Ewano {
     if (!window.ewano) {
       return () => {}
     }
+    console.warn('ewano.onWebAppReady()')
     return window.ewano.onWebAppReady()
   }
 
