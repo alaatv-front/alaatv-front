@@ -249,6 +249,7 @@ export default {
       }
     }
   },
+  emits: ['update:options'],
   data () {
     return {
       gateways: new GatewayList(),
