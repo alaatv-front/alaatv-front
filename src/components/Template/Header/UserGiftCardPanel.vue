@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="title">
-      کارت هدیه آلاء
+      کار آفرینی
     </div>
     <div class="dropdown-menu">
       <btn-user-profile-menu />

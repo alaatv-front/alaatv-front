@@ -83,7 +83,7 @@ export default {
           hasPurchaseProfit: true,
           discountPercent: 'کد تخفیف',
           hasDiscountPercent: true,
-          giftcard: 'کارت هدیه',
+          giftcard: 'کار آفرینی',
           hasGiftcard: true,
           finalPrice: 'مبلغ نهایی',
           hasFinalPrice: true,

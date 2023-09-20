@@ -41,7 +41,7 @@
           <div class="col-md-4 offset-1 text-right">
             <q-checkbox v-model="localOptions.hasGiftcard"
                         left-label
-                        label="کارت هدیه" />
+                        label="کار آفرینی" />
           </div>
           <div class="col-md-7">
             <q-input v-model="localOptions.finalPrice" />
@@ -115,7 +115,7 @@ export default defineComponent({
         hasPurchaseProfit: true,
         discountPercent: 'کد تخفیف',
         hasDiscountPercent: true,
-        giftcard: 'کارت هدیه',
+        giftcard: 'کار آفرینی',
         hasGiftcard: true,
         finalPrice: 'مبلغ نهایی',
         hasFinalPrice: true,

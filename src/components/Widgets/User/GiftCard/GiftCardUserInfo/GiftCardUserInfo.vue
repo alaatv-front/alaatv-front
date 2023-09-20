@@ -195,82 +195,34 @@
                 کمی صبر کنید...
               </q-inner-loading>
               <div class="title">
-                شماره شبا
-                <span v-if="bankAccountStatus === 'verify'"
-                      class="text-green">
-                  (تایید شده)
-                </span>
-                <span v-if="bankAccountStatus === 'pending'"
-                      class="text-orange">
-                  (در انتظار تایید)
-                </span>
-                <span v-if="bankAccountStatus === 'reject'"
-                      class="text-red">
-                  (تایید نشده)
-                </span>
+                <div class="text">
+                  شماره شبا
+                  <span v-if="bankAccountStatus === 'verify'"
+                        class="text-green">
+                    (تایید شده)
+                  </span>
+                  <span v-if="bankAccountStatus === 'pending'"
+                        class="text-orange">
+                    (در انتظار تایید)
+                  </span>
+                  <span v-if="bankAccountStatus === 'reject'"
+                        class="text-red">
+                    (تایید نشده)
+                  </span>
+                </div>
+                <div v-if="targetBankLogo"
+                     class="target-bank-logo">
+                  <lazy-img :src="targetBankLogo"
+                            width="50px" />
+                </div>
               </div>
-              <div class="shaba-number-input row q-col-gutter-md">
-                <div class="row col-11">
-                  <q-input ref="input7"
-                           v-model="localShabaNumber7"
-                           :readonly="hasShabaNumber"
-                           maxlength="2"
-                           dir="ltr"
-                           class="q-pl-sm col-1 field-md"
-                           filled
-                           @update:model-value="moveToNextInput(localShabaNumber7, 2, null, 'input6')" />
-                  <q-input ref="input6"
-                           v-model="localShabaNumber6"
-                           :readonly="hasShabaNumber"
-                           maxlength="4"
-                           dir="ltr"
-                           class="q-pl-sm col-2 field-md"
-                           filled
-                           @update:model-value="moveToNextInput(localShabaNumber6, 4, 'input7', 'input5')" />
-                  <q-input ref="input5"
-                           v-model="localShabaNumber5"
-                           :readonly="hasShabaNumber"
-                           maxlength="4"
-                           dir="ltr"
-                           class="q-pl-sm col-2 field-md"
-                           filled
-                           @update:model-value="moveToNextInput(localShabaNumber5, 4, 'input6', 'input4')" />
-                  <q-input ref="input4"
-                           v-model="localShabaNumber4"
-                           :readonly="hasShabaNumber"
-                           maxlength="4"
-                           dir="ltr"
-                           class="q-pl-sm col-2 field-md"
-                           filled
-                           @update:model-value="moveToNextInput(localShabaNumber4, 4, 'input5', 'input3')" />
-                  <q-input ref="input3"
-                           v-model="localShabaNumber3"
-                           :readonly="hasShabaNumber"
-                           maxlength="4"
-                           dir="ltr"
-                           class="q-pl-sm col-2 field-md"
-                           filled
-                           @update:model-value="moveToNextInput(localShabaNumber3, 4, 'input4', 'input2')" />
-                  <q-input ref="input2"
-                           v-model="localShabaNumber2"
-                           :readonly="hasShabaNumber"
-                           maxlength="4"
-                           dir="ltr"
-                           class="q-pl-sm col-2 field-md"
-                           filled
-                           @update:model-value="moveToNextInput(localShabaNumber2, 4, 'input3', 'input1')" />
-                  <q-input ref="input1"
-                           v-model="localShabaNumber1"
-                           :readonly="hasShabaNumber"
-                           maxlength="2"
-                           dir="ltr"
-                           class="q-pl-sm col-1 field-md"
-                           filled
-                           @update:model-value="moveToNextInput(localShabaNumber1, 2, 'input2', null)" />
-                </div>
-                <div class="prefix-text col-1">
-                  IR
-                </div>
+              <div class="shaba-number-input">
+                <q-input v-model="localShabaNumber"
+                         :readonly="hasShabaNumber"
+                         mask="IR##-####-####-####-####-####-##"
+                         dir="ltr"
+                         class="q-pl-sm field-md"
+                         filled />
               </div>
               <div v-if="!hasShabaNumber"
                    class="shaba-number-hint">
@@ -282,6 +234,40 @@
                   IR123456789012345678901234
                 </span>
 
+              </div>
+              <div class="title q-mt-md">
+                <div class="text">
+                  شماره کارت
+                  <span v-if="bankAccountStatus === 'verify'"
+                        class="text-green">
+                    (تایید شده)
+                  </span>
+                  <span v-if="bankAccountStatus === 'pending'"
+                        class="text-orange">
+                    (در انتظار تایید)
+                  </span>
+                  <span v-if="bankAccountStatus === 'reject'"
+                        class="text-red">
+                    (تایید نشده)
+                  </span>
+                </div>
+                <div v-if="cardBankLogo"
+                     class="target-bank-logo">
+                  <lazy-img :src="cardBankLogo"
+                            width="50px" />
+                </div>
+              </div>
+              <div class="card-number-input">
+                <q-input v-model="localCardNumber"
+                         :readonly="hasCardNumber"
+                         mask="####-####-####-####"
+                         dir="ltr"
+                         class="q-pl-sm field-md"
+                         filled />
+              </div>
+              <div v-if="!targetBank && false"
+                   class="shaba-number-hint">
+                شماره شبا و شماره کارت وارد شده مربوط به یک بانک واحد نیستند.
               </div>
               <div class="shaba-number-action-btn-row">
                 <q-btn v-if="!hasShabaNumber"
@@ -468,9 +454,10 @@
 
 <script>
 import { User } from 'src/models/User.js'
+import LazyImg from 'src/components/lazyImg.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import GiftCardMixin from '../Mixin/GiftCardMixin.js'
-import LazyImg from 'components/lazyImg.vue'
+import NormalizeNumber from 'src/assets/js/NormalizeNumber.js'
 
 export default {
   name: 'GiftCardUserInfo',
@@ -478,6 +465,8 @@ export default {
   mixins: [GiftCardMixin],
   data () {
     return {
+      shabaBankLogo: null,
+      cardBankLogo: null,
       localUser: new User(),
       bankAccounts: [],
       has_signed_contract: false,
@@ -490,19 +479,14 @@ export default {
       nationalCardPicURL: null,
       nationalCardPicFile: null,
       hasShabaNumber: false,
+      hasCardNumber: false,
       acceptContract: false,
       localAcceptContract: false,
       acceptContractLoading: false,
       shabaNumberLoading: false,
       bankAccountStatus: '',
+      localCardNumber: '',
       localShabaNumber: '',
-      localShabaNumber1: '',
-      localShabaNumber2: '',
-      localShabaNumber3: '',
-      localShabaNumber4: '',
-      localShabaNumber5: '',
-      localShabaNumber6: '',
-      localShabaNumber7: '',
       shabaNumber: null
     }
   },
@@ -526,6 +510,39 @@ export default {
     settlementGuide () {
       return ''
       // return this.$store.getters.appProps.settlementGuide
+    },
+    clearCardNumber () {
+      if (!this.localCardNumber) {
+        return ''
+      }
+
+      return this.localCardNumber.replaceAll('-', '')
+    },
+    clearShabaNumber () {
+      if (!this.localShabaNumber) {
+        return ''
+      }
+
+      return this.getShabaNumberWithoutPrefix(this.localShabaNumber.replaceAll('-', ''))
+    },
+    targetShabaBank () {
+      return this.getBankCodeFromShabaNumber(this.clearShabaNumber)
+    },
+    targetCardBank () {
+      return this.getBankCodeFromCardNumber(this.clearCardNumber)
+    },
+    targetBank () {
+      if (!this.targetShabaBank || !this.targetCardBank || this.targetShabaBank[0] !== this.targetCardBank[0]) {
+        return null
+      }
+      return this.targetShabaBank
+    },
+    targetBankLogo () {
+      if (!this.targetBank) {
+        return null
+      }
+
+      return this.getBankLogoFromCode(this.targetBank[0])
     }
   },
   mounted () {
@@ -585,16 +602,11 @@ export default {
           }
           this.bankAccountStatus = bankAccount.status
           this.shabaNumber = bankAccount.sheba
+          this.localCardNumber = bankAccount['card-number']
+          this.hasCardNumber = true
           if (this.shabaNumber) {
             this.hasShabaNumber = true
             this.localShabaNumber = this.shabaNumber
-            this.localShabaNumber1 = this.localShabaNumber.substring(2, 4)
-            this.localShabaNumber2 = this.localShabaNumber.substring(4, 8)
-            this.localShabaNumber3 = this.localShabaNumber.substring(8, 12)
-            this.localShabaNumber4 = this.localShabaNumber.substring(12, 16)
-            this.localShabaNumber5 = this.localShabaNumber.substring(16, 20)
-            this.localShabaNumber6 = this.localShabaNumber.substring(20, 24)
-            this.localShabaNumber7 = this.localShabaNumber.substring(24, 26)
           }
         })
         .catch(() => {
@@ -659,10 +671,12 @@ export default {
       return shabaNumber.replace('i', '').replace('I', '').replace('r', '').replace('R', '')
     },
     sendShabaNumber () {
-      this.localShabaNumber = '' + this.localShabaNumber1 + this.localShabaNumber2 + this.localShabaNumber3 + this.localShabaNumber4 + this.localShabaNumber5 + this.localShabaNumber6 + this.localShabaNumber7
       this.acceptContractLoading = true
-      APIGateway.user.storeBankAccounts({ shabaNumber: this.localShabaNumber })
-        .then((response) => {
+      APIGateway.user.storeBankAccounts({
+        shabaNumber: this.clearShabaNumber,
+        cardNumber: this.clearCardNumber
+      })
+        .then(() => {
           this.acceptContractLoading = false
           this.shabaNumber = this.localShabaNumber
           this.acceptContractLoading = false
@@ -697,6 +711,221 @@ export default {
           this.showErrorMessages(messages)
           this.shabaNumberLoading = false
         })
+    },
+
+    getBankLogoFromCode (code) {
+      if (!code) {
+        return 'https://nodes.alaatv.com/upload/bank-logo/exe.png'
+      }
+
+      return 'https://nodes.alaatv.com/upload/bank-logo/' + code + '.png'
+    },
+    getBankCodeFromCardNumber (cardnumber) {
+      if (!cardnumber) {
+        return null
+      }
+      if (!this.validateCard(cardnumber)) {
+        return null
+      }
+      return this.getBankFromCard(cardnumber.substring(6, -16))
+    },
+    getBankCodeFromShabaNumber (shabanumber) {
+      if (!shabanumber) {
+        return null
+      }
+      const shaba = NormalizeNumber.a2e(shabanumber).toUpperCase()
+      if (shaba.length >= 6) {
+        const shabaCode = shaba.substr(2, 3)
+        return this.getBankFromShaba(shabaCode)
+      }
+      if (shaba.length === 0) {
+        return null
+      }
+      if (shaba.length !== 24 || this.iso7064Mod97_10(this.iso13616Prepare('IR' + shaba)) !== 1) {
+        return null
+      } else {
+        return null
+      }
+    },
+    iso13616Prepare (iban) {
+      iban = iban.toUpperCase()
+      iban = iban.substr(4) + iban.substr(0, 4)
+
+      const A = 'A'.charCodeAt(0),
+        Z = 'Z'.charCodeAt(0)
+
+      return iban.split('').map(function (n) { const code = n.charCodeAt(0); if (code >= A && code <= Z) { return code - A + 10 } else { return n } }).join('')
+    },
+    iso7064Mod97_10(iban) {
+      let remainder = iban,
+        block
+
+      while (remainder.length > 2) {
+        block = remainder.slice(0, 9)
+        remainder = parseInt(block, 10) % 97 + remainder.slice(block.length)
+      }
+
+      return parseInt(remainder, 10) % 97
+    },
+    getBankFromShaba(code) {
+      switch (code) {
+        case '010':
+          return ['meli', 'بانک مرکزی', '010']
+
+        case '011':
+          return ['sanatmadan', 'بانک صنعت و معدن', '011']
+
+        case '012':
+          return ['mellat', 'بانک ملت', '012']
+
+        case '013':
+          return ['refah', 'بانک رفاه', '013']
+
+        case '014':
+          return ['maskan', 'بانک مسکن', '014']
+
+        case '015':
+          return ['sepah', 'بانک سپه', '015']
+
+        case '016':
+          return ['keshavarsi', 'بانک کشاورزی', '016']
+
+        case '017':
+          return ['meli', 'بانک ملی ایران', '017']
+
+        case '018':
+          return ['tejarat', 'بانک تجارت', '018']
+
+        case '019':
+          return ['saderat', 'بانک صادرات', '019']
+
+        case '020':
+          return ['tooseesaderat', 'بانک توسعه صادرات', '020']
+
+        case '021':
+          return ['postbank', 'پست بانک ایران', '021']
+
+        case '022':
+          return ['toosetaavon', 'بانک توسعه تعاون', '022']
+
+        case '051':
+          return ['etebaritosee', 'موسسه اعتباری توسعه', '051']
+
+        case '053':
+          return ['karafarin', 'بانک کارآفرین', '053']
+
+        case '054':
+          return ['parsian', 'بانک پارسیان', '054']
+
+        case '055':
+          return ['eghtesad', 'بانک اقتصاد نوین', '055']
+
+        case '056':
+          return ['saman', 'بانک سامان', '056']
+
+        case '057':
+          return ['pasargad', 'بانک پاسارگاد', '057']
+
+        case '058':
+          return ['sarmaye', 'بانک سرمایه', '058']
+
+        case '059':
+          return ['sina', 'بانک سینا', '059']
+
+        case '060':
+          return ['gharzolhasaneh', 'بانک قرض الحسنه مهر', '060']
+
+        case '061':
+          return ['shahr', 'بانک شهر', '061']
+
+        case '062':
+          return ['tat', 'بانک تات', '062']
+
+        case '063':
+          return ['ansar', 'بانک انصار', '063']
+
+        case '064':
+          return ['gardeshgari', 'بانک گردشگری', '064']
+
+        case '065':
+          return ['hekmat', 'بانک حکمت ایرانیان', '065']
+
+        case '066':
+          return ['day', 'بانک دی', '066']
+
+        case '069':
+          return ['iranzamin', 'بانک ایران زمین', '069']
+
+        default:
+          return ['no-img', 'بانک مرکزی', '000']
+      }
+    },
+    getBankFromCard(code) {
+      switch (code) {
+        case '603799':
+          return ['meli', '603799', 'بانک ملی']
+        case '589210':
+          return ['sepah', '589210', 'بانک سپه']
+        case '627961':
+          return ['sanatmadan', '627961', 'بانک صنعت و معدن']
+        case '603770':
+          return ['keshavarsi', '603770', 'بانک کشاورزی']
+        case '628023':
+          return ['maskan', '628023', 'بانک مسکن']
+        case '627760':
+          return ['postbank', '627760', 'پست بانک']
+        case '502908':
+          return ['tosehe', '502908', 'بانک توسعه']
+        case '627412':
+          return ['eghtesad', '627412', 'بانک اقتصاد']
+        case '622106':
+          return ['parsian', '622106', 'بانک پارسیان']
+        case '502229':
+          return ['pasargad', '502229', 'بانک پاسارگاد']
+        case '627488':
+          return ['karafarin', '627488', 'بانک کارآفرین']
+        case '621986':
+          return ['saman', '621986', 'بانک سامان']
+        case '639346':
+          return ['sina', '639346', 'بانک سینا']
+        case '639607':
+          return ['sarmaye', '639607', 'بانک سرمایه']
+        case '502806':
+          return ['shahr', '502806', 'بانک شهر']
+        case '502938':
+          return ['day', '502938', 'بانک دی']
+        case '603769':
+          return ['saderat', '603769', 'بانک صادرات']
+        case '610433':
+          return ['mellat', '610433', 'بانک ملت']
+        case '627353':
+          return ['tejarat', '627353', 'بانک تجارت']
+        case '589463':
+          return ['refah', '589463', 'بانک رفاه']
+        case '627381':
+          return ['ansar', '627381', 'بانک انصار']
+        case '639370':
+          return ['mehreqtesad', '639370', 'بانک مهراقتصاد']
+        case '639599':
+          return ['ghavamin', '639599', 'بانک قوامین']
+        case '504172':
+          return ['resalat', '504172', 'بانک رسالت']
+        default:
+          return null
+      }
+    },
+    validateCard(code) {
+      const L = code.length
+      if (L < 16 || parseInt(code.substr(1, 10), 10) === 0 || parseInt(code.substr(10, 6), 10) === 0) return false
+      // const c = parseInt(code.substr(15, 1), 10)
+      let s = 0
+      let k, d
+      for (let i = 0; i < 16; i++) {
+        k = (i % 2 === 0) ? 2 : 1
+        d = parseInt(code.substr(i, 1), 10) * k
+        s += (d > 9) ? d - 9 : d
+      }
+      return ((s % 10) === 0)
     }
   }
 }
@@ -1011,12 +1240,19 @@ export default {
             padding: 19px;
           }
           .title {
-            font-style: normal;
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 25px;
-            color: #8798B1;
             margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            .text {
+              font-style: normal;
+              font-weight: 400;
+              font-size: 16px;
+              line-height: 25px;
+              color: #8798B1;
+            }
+            .target-bank-logo {
+              width: 80px;
+            }
           }
           .shaba-number-input {
             position: relative;
@@ -1063,6 +1299,17 @@ export default {
                 padding: 5px 42px;
                 height: 36px;
               }
+            }
+          }
+          .card-number-input {
+            position: relative;
+            margin-top: 16px;
+            .label {
+              font-style: normal;
+              font-weight: 400;
+              font-size: 16px;
+              line-height: 40px;
+              color: #8798B1;
             }
           }
         }
