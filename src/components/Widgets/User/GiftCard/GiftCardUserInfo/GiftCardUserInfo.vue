@@ -251,8 +251,9 @@
                     (تایید نشده)
                   </span>
                 </div>
-                <div v-if="cardBankLogo"
+                <div v-if="cardBankLogo && false"
                      class="target-bank-logo">
+                  {{ recognizedCardBank }}
                   <lazy-img :src="cardBankLogo"
                             width="50px" />
                 </div>
@@ -458,6 +459,7 @@ import LazyImg from 'src/components/lazyImg.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import GiftCardMixin from '../Mixin/GiftCardMixin.js'
 import NormalizeNumber from 'src/assets/js/NormalizeNumber.js'
+import { Sheba, verifyCardNumber, getBankNameFromCardNumber } from 'persian-tools2'
 
 export default {
   name: 'GiftCardUserInfo',
@@ -524,6 +526,24 @@ export default {
       }
 
       return this.getShabaNumberWithoutPrefix(this.localShabaNumber.replaceAll('-', ''))
+    },
+    recognizedCardBank () {
+      if (!this.isValidCardBank) {
+        return null
+      }
+      return getBankNameFromCardNumber(this.clearCardNumber)
+    },
+    recognizedShabaBank () {
+      if (!this.isValidShabaBank) {
+        return null
+      }
+      return new Sheba('IR' + this.clearShabaNumber).recognize()
+    },
+    isValidShabaBank () {
+      return new Sheba('IR' + this.clearShabaNumber).validate()
+    },
+    isValidCardBank () {
+      return verifyCardNumber(this.clearCardNumber)
     },
     targetShabaBank () {
       return this.getBankCodeFromShabaNumber(this.clearShabaNumber)

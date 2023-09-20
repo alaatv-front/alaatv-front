@@ -311,11 +311,10 @@
 <script>
 import Price from 'src/models/Price.js'
 import Assist from 'src/assets/js/Assist.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import GiftCardMixin from '../Mixin/GiftCardMixin.js'
-import { APIGateway } from 'src/api/APIGateway'
-import mixinDateOptions from 'src/mixin/DateOptions'
+import mixinDateOptions from 'src/mixin/DateOptions.js'
 import { ReferralCodeList } from 'src/models/ReferralCode'
-// import { Sheba, verifyCardNumber, getBankNameFromCardNumber } from 'persian-tools2'
 
 export default {
   name: 'GiftCardTransactions',
