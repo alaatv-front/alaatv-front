@@ -588,7 +588,19 @@ export default {
             this.studyEvent = studyPlan.id
             this.needToUpdatePlan = true
           }
+          const contents = FormBuilderAssist.getInputsByName(this.editInputs, 'contents')?.value
+          const newContents = []
+          contents.forEach(content => {
+            if (typeof content === 'object') {
+              newContents.push(content.id)
+            } else {
+              newContents.push(content)
+            }
+          })
+          console.log(newContents)
+          FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'value', newContents)
           this.$refs.entityEdit.editEntity(false)
+          this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
           this.loading = false
           this.editPlanDialog = false
         })
