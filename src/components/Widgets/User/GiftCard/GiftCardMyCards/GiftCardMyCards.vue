@@ -74,7 +74,6 @@
                                  showing />
                 <div class="title">
                   کارت های باقی مانده
-                  (موجود)
                 </div>
                 <div class="count align-self-end">
                   <span class="number">
