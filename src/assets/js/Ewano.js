@@ -8,6 +8,9 @@ class Ewano {
   }
 
   static onWebAppReady () {
+    if (!window.ewano) {
+      return () => {}
+    }
     return window.ewano.onWebAppReady()
   }
 

@@ -27,9 +27,9 @@ export default {
     })
   ],
   beforeMount () {
-    if (this.hasIdInQueryParam()) {
-      Ewano.onWebAppReady()
-    }
+    // if (this.hasIdInQueryParam()) {
+    Ewano.onWebAppReady()
+    // }
     if (this.hasIdInQueryParam() && !this.hasEwanoFlagInQueryParam()) {
       this.setEwanoFlagInQueryParam()
     } else if (this.hasIdInQueryParam() && this.hasEwanoFlagInQueryParam()) {
