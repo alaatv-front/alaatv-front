@@ -520,10 +520,11 @@ export default {
           .then(({ ewanoOrderId, alaaOrderId, amount }) => {
             const fullPath = this.$router.resolve({ name: 'UserPanel.ThankYouPage', params: { orderId: alaaOrderId }, query: { ewano_order_id: ewanoOrderId, ewano: 1 } }).fullPath
             const callbackUrl = window.location.origin + fullPath
-            Ewano.pay(amount, ewanoOrderId, callbackUrl)
             this.$store.commit('loading/loading', false)
+            Ewano.pay(amount, ewanoOrderId, callbackUrl)
           })
-          .catch(() => {
+          .catch((e) => {
+            console.warn('ewano error', e)
             this.$q.notify({
               type: 'negative',
               message: 'لطفا مجدد تلاش کنید.'
