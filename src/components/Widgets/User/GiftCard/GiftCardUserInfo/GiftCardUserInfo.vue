@@ -881,58 +881,198 @@ export default {
       }
     },
     getBankFromCard(code) {
-      switch (code) {
-        case '603799':
-          return ['meli', '603799', 'بانک ملی']
-        case '589210':
-          return ['sepah', '589210', 'بانک سپه']
-        case '627961':
-          return ['sanatmadan', '627961', 'بانک صنعت و معدن']
-        case '603770':
-          return ['keshavarsi', '603770', 'بانک کشاورزی']
-        case '628023':
-          return ['maskan', '628023', 'بانک مسکن']
-        case '627760':
-          return ['postbank', '627760', 'پست بانک']
-        case '502908':
-          return ['tosehe', '502908', 'بانک توسعه']
-        case '627412':
-          return ['eghtesad', '627412', 'بانک اقتصاد']
-        case '622106':
-          return ['parsian', '622106', 'بانک پارسیان']
-        case '502229':
-          return ['pasargad', '502229', 'بانک پاسارگاد']
-        case '627488':
-          return ['karafarin', '627488', 'بانک کارآفرین']
-        case '621986':
-          return ['saman', '621986', 'بانک سامان']
-        case '639346':
-          return ['sina', '639346', 'بانک سینا']
-        case '639607':
-          return ['sarmaye', '639607', 'بانک سرمایه']
-        case '502806':
-          return ['shahr', '502806', 'بانک شهر']
-        case '502938':
-          return ['day', '502938', 'بانک دی']
-        case '603769':
-          return ['saderat', '603769', 'بانک صادرات']
-        case '610433':
-          return ['mellat', '610433', 'بانک ملت']
-        case '627353':
-          return ['tejarat', '627353', 'بانک تجارت']
-        case '589463':
-          return ['refah', '589463', 'بانک رفاه']
-        case '627381':
-          return ['ansar', '627381', 'بانک انصار']
-        case '639370':
-          return ['mehreqtesad', '639370', 'بانک مهراقتصاد']
-        case '639599':
-          return ['ghavamin', '639599', 'بانک قوامین']
-        case '504172':
-          return ['resalat', '504172', 'بانک رسالت']
-        default:
-          return null
+      const map = [{
+        nickname: 'ayandeh',
+        name: 'بانک آینده',
+        code: '636214'
+      }, {
+        nickname: 'eghtesad',
+        name: 'بانک اقتصاد نوین',
+        code: '627412'
+      }, {
+        nickname: 'ansar',
+        name: 'بانک انصار',
+        code: '627381'
+      }, {
+        nickname: 'iranzamin',
+        name: 'بانک ایران زمین',
+        code: '505785'
+      }, {
+        nickname: 'parsian',
+        name: 'بانک پارسیان',
+        code: '622106'
+      }, {
+        nickname: 'parsian',
+        name: 'بانک پارسیان',
+        code: '627884'
+      }, {
+        nickname: 'pasargad',
+        name: 'بانک پاسارگاد',
+        code: '502229'
+      }, {
+        nickname: 'pasargad',
+        name: 'بانک پاسارگاد',
+        code: '639347'
+      }, {
+        nickname: 'postbank',
+        name: 'پست بانک ایران',
+        code: '627760'
+      }, {
+        nickname: 'tejarat',
+        name: 'بانک تجارت',
+        code: '585983'
+      }, {
+        nickname: 'tejarat',
+        name: 'بانک تجارت',
+        code: '627353'
+      }, {
+        nickname: 'tosehe',
+        name: 'بانک توسعه تعاون',
+        code: '502908'
+      }, {
+        nickname: 'no-img',
+        name: 'بانک توسعه صادرات',
+        code: '207177'
+      }, {
+        nickname: 'no-img',
+        name: 'بانک توسعه صادرات',
+        code: '627648'
+      }, {
+        nickname: 'no-img',
+        name: 'بانک حکمت ایرانیان',
+        code: '636949'
+      }, {
+        nickname: 'khavarmiyaneh',
+        name: 'بانک خاورمیانه',
+        code: '585949'
+      }, {
+        nickname: 'day',
+        name: 'بانک دی',
+        code: '502938'
+      }, {
+        nickname: 'resalat',
+        name: 'بانک رسالت',
+        code: '504172'
+      }, {
+        nickname: 'refah',
+        name: 'بانک رفاه کارگران',
+        code: '589463'
+      }, {
+        nickname: 'saman',
+        name: 'بانک سامان',
+        code: '621986'
+      }, {
+        nickname: 'sepah',
+        name: 'بانک سپه',
+        code: '589210'
+      }, {
+        nickname: 'sarmaye',
+        name: 'بانک سرمایه',
+        code: '639607'
+      }, {
+        nickname: 'sina',
+        name: 'بانک سینا',
+        code: '639346'
+      }, {
+        nickname: 'shahr',
+        name: 'بانک شهر',
+        code: '502806'
+      }, {
+        nickname: 'shahr',
+        name: 'بانک شهر',
+        code: '504706'
+      }, {
+        nickname: 'saderat',
+        name: 'بانک صادرات ایران',
+        code: '603769'
+      }, {
+        nickname: 'saderat',
+        name: 'بانک صادرات ایران',
+        code: '903769'
+      }, {
+        nickname: 'sanatmadan',
+        name: 'بانک صنعت و معدن',
+        code: '627961'
+      }, {
+        nickname: 'mehreqtesad',
+        name: 'بانک قرض الحسنه مهر',
+        code: '639370'
+      }, {
+        nickname: 'ghavamin',
+        name: 'بانک قوامین',
+        code: '639599'
+      }, {
+        nickname: 'karafarin',
+        name: 'بانک کارآفرین',
+        code: '627488'
+      }, {
+        nickname: 'keshavarsi',
+        name: 'بانک کشاورزی',
+        code: '603770'
+      }, {
+        nickname: 'keshavarsi',
+        name: 'بانک کشاورزی',
+        code: '639217'
+      }, {
+        nickname: 'gardeshgari',
+        name: 'بانک گردشگری',
+        code: '505416'
+      }, {
+        nickname: 'gardeshgari',
+        name: 'بانک گردشگری',
+        code: '505426'
+      }, {
+        nickname: 'no-img',
+        name: 'بانک مرکزی ایران',
+        code: '636797'
+      }, {
+        nickname: 'maskan',
+        name: 'بانک مسکن',
+        code: '628023'
+      }, {
+        nickname: 'mellat',
+        name: 'بانک ملت',
+        code: '610433'
+      }, {
+        nickname: 'mellat',
+        name: 'بانک ملت',
+        code: '991975'
+      }, {
+        nickname: 'meli',
+        name: 'بانک ملی ایران',
+        code: '170019'
+      }, {
+        nickname: 'meli',
+        name: 'بانک ملی ایران',
+        code: '603799'
+      }, {
+        nickname: 'mehreqtesad',
+        name: 'بانک مهر ایران',
+        code: '606373'
+      }, {
+        nickname: 'no-img',
+        name: 'موسسه کوثر',
+        code: '505801'
+      }, {
+        nickname: 'no-img',
+        name: 'موسسه اعتباری ملل',
+        code: '606256'
+      }, {
+        nickname: 'tosehe',
+        name: 'موسسه اعتباری توسعه',
+        code: '628157'
+      }]
+
+      const target = map.find(item => item.code === code)
+      if (!target) {
+        return null
       }
+
+      return [
+        target.nickname,
+        target.code,
+        target.name
+      ]
     },
     validateCard(code) {
       const L = code.length
@@ -1304,6 +1444,7 @@ export default {
             display: flex;
             flex-flow: row;
             justify-content: flex-end;
+            margin-top: 16px;
             .shaba-number-action-btn {
               box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
               border-radius: 8px;
