@@ -115,7 +115,7 @@ export default defineComponent({
         hasPurchaseProfit: true,
         discountPercent: 'کد تخفیف',
         hasDiscountPercent: true,
-        giftcard: 'کار آفرینی',
+        giftcard: 'کارت هدیه',
         hasGiftcard: true,
         finalPrice: 'مبلغ نهایی',
         hasFinalPrice: true,
