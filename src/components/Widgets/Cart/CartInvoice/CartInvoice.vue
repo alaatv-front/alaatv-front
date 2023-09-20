@@ -518,8 +518,7 @@ export default {
         this.$store.commit('loading/loading', true)
         APIGateway.ewano.makeOrder()
           .then(({ ewanoOrderId, alaaOrderId, amount }) => {
-            const fullPath = this.$router.resolve({ name: 'UserPanel.ThankYouPage', params: { orderId: alaaOrderId }, query: { ewano_order_id: ewanoOrderId, ewano: 1 } }).fullPath
-            const callbackUrl = window.location.origin + fullPath
+            const callbackUrl = this.$router.resolve({ name: 'UserPanel.ThankYouPage', params: { orderId: alaaOrderId }, query: { ewano_order_id: ewanoOrderId, ewano: 1 } }).fullPath
             this.$store.commit('loading/loading', false)
             Ewano.pay(amount, ewanoOrderId, callbackUrl)
           })
