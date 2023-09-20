@@ -597,7 +597,6 @@ export default {
               newContents.push(content)
             }
           })
-          console.log(newContents)
           FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'value', newContents)
           this.$refs.entityEdit.editEntity(false)
           this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
