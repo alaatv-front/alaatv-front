@@ -17,12 +17,15 @@ class Ewano {
 
   // callbackUrl must start with '/'
   static pay (amount, orderId, callbackUrl = '') {
+    console.warn('ewano.pay(' + amount + ', ' + orderId + ', ' + callbackUrl + ')')
     return window.ewano.pay(amount, orderId, callbackUrl)
   }
 
   static paymentResult (resultCallback) {
+    console.warn('ewano.paymentResult()')
     window.ewano.paymentResult = (status) => { // status: Boolean
       // console.log('Ewano paymentResult status', status)
+      console.warn('ewano.paymentResult() -> resultCallback(' + status + ')')
       resultCallback(status)
     }
     return window.ewano.paymentResult
