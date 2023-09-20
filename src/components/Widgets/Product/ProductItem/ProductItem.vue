@@ -362,7 +362,7 @@ export default defineComponent({
     showProduct() {
       if (this.localOptions.productViewType === 'bottomSheet') {
         this.toggleBottomSheet()
-      } else {
+      } else if (this.localOptions.productViewType === 'productPage') {
         this.$router.push({ name: 'Public.Product.Show', params: { id: this.product.id } })
       }
     }

@@ -50,7 +50,8 @@ module.exports = configure(function (ctx) {
       'GetRouteSettingFromServer',
       'enums',
       'gtm',
-      'PhosphorIcons'
+      'PhosphorIcons',
+      'ewano'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css

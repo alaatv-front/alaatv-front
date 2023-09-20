@@ -3,8 +3,9 @@
           class="product-intro-wrapper custom-card">
     <q-card-section v-if="localOptions.product.intro?.photo"
                     class="product-intro-video">
-      <video-player :poster="localOptions.product.intro?.photo"
-                    :source="videoSource()" />
+      <video-player :key="playerKey"
+                    :poster="localOptions.product.intro?.photo"
+                    :source="videoSource" />
     </q-card-section>
     <q-card-section v-else-if="localOptions.product.photo_wide">
       <div class="photo_wide-wrapper">
@@ -49,12 +50,12 @@
 <script>
 import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
+import lazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
-import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import VideoPlayer from 'src/components/VideoPlayer.vue'
+import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import ProductAttributes from 'src/components/Widgets/Product/ProductIntroBox/ProductAttributes.vue'
 import ProductPriceWithPopup from 'src/components/Widgets/Product/ProductPriceWithPopup/ProductPriceWithPopup.vue'
-import lazyImg from 'components/lazyImg.vue'
 
 export default defineComponent({
   name: 'ProductIntroBox',
@@ -68,13 +69,14 @@ export default defineComponent({
   emits: ['updateProduct', 'updateProductLoading'],
   data() {
     return {
+      playerKey: Date.now(),
       defaultOptions: {
         product: new Product()
       }
     }
   },
-  methods: {
-    videoSource() {
+  computed: {
+    videoSource () {
       return new PlayerSourceList([{
         default: true,
         res: 1024,
@@ -82,7 +84,14 @@ export default defineComponent({
         src: this.localOptions.product.intro?.video,
         label: 'کیفیت عالی'
       }])
-    },
+    }
+  },
+  watch: {
+    videoSource () {
+      this.playerKey = Date.now()
+    }
+  },
+  methods: {
     onUpdateProduct(event) {
       this.$emit('updateProduct', event)
     },
