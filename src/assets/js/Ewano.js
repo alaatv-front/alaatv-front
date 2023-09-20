@@ -4,6 +4,7 @@ class Ewano {
   static login (uuid) {
     // send uuid to back and get new token
     // est new token and call onWebAppReady method
+    console.warn('APIGateway.ewano.login(' + uuid + ')')
     return APIGateway.ewano.login(uuid)
   }
 
