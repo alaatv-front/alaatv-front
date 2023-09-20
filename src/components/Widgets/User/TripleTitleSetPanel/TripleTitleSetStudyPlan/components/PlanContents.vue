@@ -14,11 +14,25 @@
     </div>
     <q-separator />
     <div class="plan-item-footer">
-      <div class="footer-text">
+      <div v-if="content.file.pamphlet"
+           class="footer-text">
+        دانلود
+      </div>
+      <div v-else
+           class="footer-text">
         مشاهده
       </div>
       <div class="footer-action">
-        <q-btn color="primary"
+        <q-btn v-if="content.file.pamphlet"
+               color="primary"
+               round
+               unelevated
+               :disable="!content.id"
+               size="11px"
+               icon="download"
+               @click="downloadPdf(content)" />
+        <q-btn v-else
+               color="primary"
                round
                unelevated
                :disable="!content.id"
@@ -38,6 +52,19 @@ export default {
   props: {
     plan: {
       type: Plan
+    }
+  },
+  methods: {
+    downloadPdf (content) {
+      if (!content?.file?.pamphlet || !content?.file?.pamphlet[0] || !content?.file?.pamphlet[0].link) {
+        this.$q.notify({
+          type: 'negative',
+          message: 'مشکلی در دانلود فایل pdf این محتوا رخ داده است.'
+        })
+        return
+      }
+
+      window.open(content.file.pamphlet[0].link, '_blank')
     }
   }
 }
