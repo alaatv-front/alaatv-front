@@ -524,7 +524,7 @@ export default {
             Ewano.pay(amount, ewanoOrderId, callbackUrl)
           })
           .catch((e) => {
-            console.warn('ewano error', e)
+            console.error('ewano error', e)
             this.$q.notify({
               type: 'negative',
               message: 'لطفا مجدد تلاش کنید.'
