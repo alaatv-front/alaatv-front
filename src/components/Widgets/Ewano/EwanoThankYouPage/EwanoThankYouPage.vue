@@ -54,11 +54,12 @@ export default {
     }
   },
   mounted () {
+    console.warn('EwanoThankYouPage loaded')
+    console.warn('EwanoThankYouPage isEwanoUser: ', this.isEwanoUser)
     if (!this.isEwanoUser) {
       return
     }
 
-    console.warn('EwanoThankYouPage loaded')
     Ewano.onWebAppReady()
     this.checkEwanoPaymentResult()
   },
