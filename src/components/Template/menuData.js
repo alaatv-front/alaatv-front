@@ -1116,7 +1116,7 @@ const menuItems = [
         badge: 'جدید'
       },
       {
-        title: 'کارت هدیه آلاء',
+        title: 'کار آفرینی',
         backgroundImage: 'https://nodes.alaatv.com/upload/gift-card-mega-menu-background.jpg?w=1066&h=294',
         route: {
           name: 'UserPanel.Asset.GiftCard.MyGiftCards',

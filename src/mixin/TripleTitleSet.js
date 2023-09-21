@@ -39,36 +39,44 @@ const mixinTripleTitleSet = {
     toggleFavor(value) {
       this.watchingContent.is_favored = value
     },
-    videoIsWatched() {
-      if (!this.isVideoWatched) {
-        this.isVideoWatched = true
-        this.$apiGateway.content.setVideoWatched({
-          watchable_id: this.watchingContent.id,
-          watchable_type: 'content'
-        })
-          .then(() => {})
-          .catch(() => {
-            this.isVideoWatched = false
-          })
-      }
+    videoIsWatched(secondsWatched) {
+      return new Promise((resolve, reject) => {
+        if (!this.isVideoWatched) {
+          this.isVideoWatched = true
+          this.watchingContent.loading = true
+          const sendData = {
+            completely_watched: 1,
+            studyevent_id: this.event.id,
+            watchable_id: this.watchingContent.id
+          }
+
+          if (secondsWatched) {
+            sendData.seconds_watched = Math.floor(secondsWatched)
+            sendData.completely_watched = 0
+          }
+          APIGateway.content.setVideoWatched(sendData)
+            .then(() => {
+              if (secondsWatched) {
+                this.watchingContent.has_watched = true
+                this.syncwatchingContentWithContentInList()
+              }
+              this.watchingContent.loading = false
+              resolve()
+            })
+            .catch(() => {
+              this.watchingContent.loading = false
+              this.isVideoWatched = false
+              reject()
+            })
+        } else {
+          resolve()
+        }
+      })
     },
     updateVideoStatus(data) {
       const hasWatch = data || this.watchingContent.has_watched
       this.watchingContent.loading = true
-      hasWatch ? this.setVideoStatusToUnwatched() : this.setVideoStatusToWatched()
-    },
-    async setVideoStatusToWatched() {
-      try {
-        await this.$apiGateway.content.setVideoWatched({
-          watchable_id: this.watchingContent.id,
-          watchable_type: 'content'
-        })
-        this.watchingContent.has_watched = true
-        this.watchingContent.loading = false
-        this.syncwatchingContentWithContentInList()
-      } catch {
-        this.watchingContent.loading = false
-      }
+      hasWatch ? this.setVideoStatusToUnwatched() : this.videoIsWatched()
     },
     async setVideoStatusToUnwatched() {
       try {

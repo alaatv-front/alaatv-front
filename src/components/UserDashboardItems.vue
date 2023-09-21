@@ -152,7 +152,7 @@ export default {
           children: []
         },
         {
-          title: 'کارت هدیه',
+          title: 'کار آفرینی',
           icon: 'ph:gift',
           routeName: 'UserPanel.Asset.GiftCard.MyGiftCards',
           permission: 'all',

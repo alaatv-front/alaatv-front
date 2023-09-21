@@ -247,6 +247,7 @@ export default {
   data () {
     return {
       // cart: new Cart(),
+      mounted: false,
       dialogState: false,
       test: null,
       expandedObject: {},
@@ -263,8 +264,17 @@ export default {
     }
   },
   computed: {
-    cart () {
-      return this.$store.getters['Cart/cart']
+    cart: {
+      get () {
+        if (this.mounted) {
+          return this.$store.getters['Cart/cart']
+        }
+
+        return new Cart()
+      },
+      set (newValue) {
+        this.$store.commit('Cart/updateCart', newValue)
+      }
     },
     cartItemsList () {
       return this.getOrderedList(this.cart.items.list)
@@ -282,15 +292,8 @@ export default {
       }
     }
   },
-  watch: {
-    localOptions: {
-      handler(newVal) {
-        this.$emit('update:options', newVal)
-      },
-      deep: true
-    }
-  },
   mounted () {
+    this.mounted = true
     this.cartReview()
     this.$bus.on('busEvent-refreshCart', this.cartReview)
   },
