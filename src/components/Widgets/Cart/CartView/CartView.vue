@@ -298,8 +298,6 @@ export default {
     this.mounted = true
     this.cartReview()
     this.$bus.on('busEvent-refreshCart', this.cartReview)
-    console.log(this.cart.items.list)
-    // console.log(this.cartItemsList)
   },
   methods: {
     getProductKey (order, key) {
@@ -310,7 +308,6 @@ export default {
       return order.order_product.list[0].product[key]
     },
     hasDiscount(order) {
-      console.log(order)
       return order.price.discountInPercent() > 0
     },
     cartReview() {
@@ -349,7 +346,6 @@ export default {
             }))
           })
         }
-        console.log(customItems)
         this.expandedObject[i] = true
       })
 
