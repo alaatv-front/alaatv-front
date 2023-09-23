@@ -5,29 +5,26 @@
     <div>
       کد جلسات
     </div>
-    <div>
-      <q-select v-model="localValue"
-                option-value="id"
-                option-label="id"
-                filled
-                use-input
-                use-chips
-                multiple
-                hide-dropdown-icon
-                input-debounce="0"
-                new-value-mode="add"
-                @add="showContentDemo"
-                @remove="removeContentDemo" />
-      <div v-for="(content, index) in contentsList"
+    <div class="row">
+      <q-input v-model="content"
+               filled
+               class="col-10"
+               @keyup.enter="onKeyUp($event)" />
+      <q-btn class="col q-ml-md"
+             color="primary"
+             text-color="grey-9"
+             icon="add"
+             @click="showContentDemo" />
+      <div v-for="(content, index) in localValue"
            :key="index"
-           class="row q-mt-sm">
+           class="col-12 row q-mt-sm">
         <q-icon class="col-1"
                 name="isax:play-circle" />
         <span class="col-10">{{content.id}} - {{content.title}}</span>
         <q-icon name="isax:trash"
                 color="red"
                 class="col-1 cursor-pointer"
-                @click="removeContentDemo({value: content.id})" />
+                @click="removeContentDemo(index)" />
       </div>
     </div>
   </div>
@@ -46,7 +43,7 @@ export default {
   },
   data() {
     return {
-      contentsList: [],
+      content: null,
       loading: false
     }
   },
@@ -56,23 +53,25 @@ export default {
         return this.value
       },
       set (newValue) {
-        this.$emit('update:value', newValue.map(item => parseInt(item)))
+        this.$emit('update:value', newValue)
       }
     }
   },
-  mounted() {
-    this.contentsList = this.localValue
-  },
   methods: {
-    removeContentDemo(item) {
-      this.contentsList.splice(this.contentsList.findIndex(content => content.id === item.value))
-      this.localValue.splice(this.localValue.findIndex(value => value === item.value))
+    onKeyUp(event) {
+      if (event.key === 'Enter') {
+        this.showContentDemo()
+      }
     },
-    showContentDemo(item) {
+    removeContentDemo(index) {
+      this.localValue.splice(index, 1)
+    },
+    showContentDemo() {
       this.loading = true
-      APIGateway.content.show(item.value)
+      APIGateway.content.show(this.content)
         .then(content => {
-          this.contentsList.push(content)
+          this.content = null
+          this.localValue.push(content)
           this.loading = false
         })
         .catch(() => {
