@@ -23,31 +23,7 @@
               <q-list>
                 <div v-for="(item, index) in data.children"
                      :key="index">
-                  <router-link v-if="isValidRoute(item.route)"
-                               :to="item.route">
-                    <q-item class="item"
-                            :class="{arrow: isSelectedItem(index) }"
-                            clickable
-                            @mouseover="showData(index)">
-                      <q-item-section>
-                        {{ item.title }}
-                        <!--                        <q-btn v-if="editable"-->
-                        <!--                               icon="edit"-->
-                        <!--                               flat-->
-                        <!--                               size="10px"-->
-                        <!--                               class="edit-btn"-->
-                        <!--                               @click="editItem($event, index)" />-->
-                      </q-item-section>
-                      <q-badge v-if="item.badge"
-                               color="blue"
-                               class="badge q-py-xs"
-                               align="middle">
-                        {{item.badge}}
-                      </q-badge>
-                      <div class="left-arrow" />
-                    </q-item>
-                  </router-link>
-                  <a v-else-if="item.externalLink"
+                  <a v-if="item.externalLink"
                      :href="item.externalLink">
                     <q-item class="item"
                             :class="{arrow: isSelectedItem(index) }"
@@ -71,6 +47,30 @@
                       <div class="left-arrow" />
                     </q-item>
                   </a>
+                  <router-link v-else-if="isValidRoute(item.route)"
+                               :to="item.route">
+                    <q-item class="item"
+                            :class="{arrow: isSelectedItem(index) }"
+                            clickable
+                            @mouseover="showData(index)">
+                      <q-item-section>
+                        {{ item.title }}
+                        <!--                        <q-btn v-if="editable"-->
+                        <!--                               icon="edit"-->
+                        <!--                               flat-->
+                        <!--                               size="10px"-->
+                        <!--                               class="edit-btn"-->
+                        <!--                               @click="editItem($event, index)" />-->
+                      </q-item-section>
+                      <q-badge v-if="item.badge"
+                               color="blue"
+                               class="badge q-py-xs"
+                               align="middle">
+                        {{item.badge}}
+                      </q-badge>
+                      <div class="left-arrow" />
+                    </q-item>
+                  </router-link>
                   <q-item v-else
                           class="item"
                           :class="{arrow: isSelectedItem(index) }"
