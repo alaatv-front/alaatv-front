@@ -41,6 +41,7 @@ export default defineComponent({
       }
     }
   },
+  emits: ['update:options'],
   data() {
     return {
       defaultOptions: {

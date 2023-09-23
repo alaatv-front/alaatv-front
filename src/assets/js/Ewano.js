@@ -8,6 +8,10 @@ class Ewano {
   }
 
   static onWebAppReady () {
+    if (!window.ewano) {
+      return () => {}
+    }
+    console.warn('ewano.onWebAppReady()')
     return window.ewano.onWebAppReady()
   }
 
@@ -18,7 +22,7 @@ class Ewano {
 
   static paymentResult (resultCallback) {
     window.ewano.paymentResult = (status) => { // status: Boolean
-      console.log('Ewano paymentResult status', status)
+      // console.log('Ewano paymentResult status', status)
       resultCallback(status)
     }
     return window.ewano.paymentResult

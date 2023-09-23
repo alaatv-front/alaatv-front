@@ -70,13 +70,14 @@
       <div class="col-xl-3 col-xs-12">
         <div class="left-side">
           <div class="clearing-title">
-            تاریخ تسویه حساب
+            تاریخ های تسویه حساب
           </div>
           <div class="guide-info">
             <q-icon name="circle"
                     color="primary"
                     class="q-mr-sm" />
             1 مهر 1402
+            (انجام شد)
           </div>
           <div class="guide-info">
             <q-icon name="circle"
@@ -182,6 +183,57 @@
                           class="gift-card-pagination q-mt-md"
                           @update:model-value="getTransactionDataFromApi" />
           </div>
+          <q-separator class="q-my-lg" />
+          <div class="table-title q-mb-md">
+            کارت های صفر
+          </div>
+          <div class="table-container text-center">
+            <q-table :rows="zeroCardTableRow"
+                     :columns="zeroCardHeaders"
+                     :loading="zeroCardTableRowLoading"
+                     hide-bottom
+                     row-key="id">
+              <template #header-cell="props">
+                <q-th :props="props"
+                      class="table-row-txt">
+                  {{ props.col.label }}
+                </q-th>
+              </template>
+              <template #body-cell="props">
+                <q-td v-if="props.col.name === 'code'"
+                      class="table-column-txt">
+                  AT-{{props.value}}
+                </q-td>
+                <q-td v-else-if="props.col.name === 'product'"
+                      class="text-left table-column-txt">
+                  {{props.value}}
+                </q-td>
+                <q-td v-else-if="props.col.name === 'purchased_at' && props.value"
+                      class="table-column-txt">
+                  {{ convertToShamsi(props.value, 'date') }}
+                </q-td>
+                <q-td v-else-if="(props.col.name === 'commisson' || props.col.name === 'product_price') && props.value"
+                      class="table-column-txt">
+                  {{props.value.toLocaleString('fa')}}
+                </q-td>
+                <q-td v-else
+                      class="table-column-txt">
+                  {{ props.value }}
+                </q-td>
+              </template>
+            </q-table>
+          </div>
+          <div class="flex justify-center">
+            <q-pagination v-if="lastPage > 1"
+                          v-model="page"
+                          :max="lastPage"
+                          :max-pages="6"
+                          boundary-links
+                          icon-first="isax:arrow-left-2"
+                          icon-last="isax:arrow-right-3"
+                          class="gift-card-pagination q-mt-md"
+                          @update:model-value="getZeroCardDataFromApi" />
+          </div>
         </q-tab-panel>
         <q-tab-panel name="clearingHistory">
           <div class="">
@@ -259,9 +311,9 @@
 <script>
 import Price from 'src/models/Price.js'
 import Assist from 'src/assets/js/Assist.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import GiftCardMixin from '../Mixin/GiftCardMixin.js'
-import { APIGateway } from 'src/api/APIGateway'
-import mixinDateOptions from 'src/mixin/DateOptions'
+import mixinDateOptions from 'src/mixin/DateOptions.js'
 import { ReferralCodeList } from 'src/models/ReferralCode'
 
 export default {
@@ -296,7 +348,7 @@ export default {
       { name: 'updated-at', align: 'center', label: 'تاریخ پرداخت', field: 'updated-at' }
     ],
     loading: false,
-    transactionsOptions: {},
+
     transactionsTableRow: [],
     transactionsTableRowLoading: false,
     transactionsHeaders: [
@@ -308,6 +360,19 @@ export default {
       { name: 'product_price', align: 'center', label: 'مبلغ خرید(تومان)', field: 'product_price' },
       { name: 'commisson', align: 'center', label: 'درآمد شما(تومان)', field: 'commisson' }
     ],
+
+    zeroCardTableRow: [],
+    zeroCardTableRowLoading: false,
+    zeroCardHeaders: [
+      { name: 'name', align: 'center', label: 'نام خریدار', field: 'full_name' },
+      { name: 'code', align: 'center', label: 'شماره کارت', field: 'code' },
+      { name: 'product', align: 'center', label: 'محصول', field: 'product' },
+      { name: 'purchased_at', align: 'center', label: 'تاریخ خرید', field: 'purchased_at' },
+      { name: 'commision_percent', align: 'center', label: 'درصد مشارکت', field: 'commisson_percentage' },
+      { name: 'product_price', align: 'center', label: 'مبلغ خرید(تومان)', field: 'product_price' },
+      { name: 'commisson', align: 'center', label: 'درآمد شما(تومان)', field: 'commisson' }
+    ],
+
     clearingHistoryOptions: {},
     clearingHistoryTableRow: [],
     clearingHistoryTableRowLoading: false
@@ -353,6 +418,7 @@ export default {
     loadAllData() {
       this.getSalesMan()
       this.setPercentage()
+      this.getZeroCardDataFromApi()
       this.getTransactionDataFromApi()
       this.getWithdrawHistory()
       // this.getClearingHistoryDataFromApi()
@@ -439,6 +505,20 @@ export default {
         })
         .catch(() => {
           this.transactionsTableRowLoading = false
+        })
+    },
+    getZeroCardDataFromApi(page = 1) {
+      this.zeroCardTableRowLoading = true
+      this.referralCodeList = []
+      APIGateway.referralCode.noneProfitableOrderproducts({ page })
+        .then(({ zeroCardTableRow, paginate }) => {
+          this.zeroCardTableRow = zeroCardTableRow.list
+          this.lastPage = paginate.last_page
+          // this.referralCodeList = referralCodeList
+          this.zeroCardTableRowLoading = false
+        })
+        .catch(() => {
+          this.zeroCardTableRowLoading = false
         })
     },
     async getClearingHistoryDataFromApi() {
