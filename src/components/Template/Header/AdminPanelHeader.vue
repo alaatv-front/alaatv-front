@@ -109,7 +109,7 @@ export default {
           children: []
         },
         {
-          title: 'کارت هدیه',
+          title: 'کار آفرینی',
           icon: 'isax:clipboard-text',
           routeName: 'UserPanel.Asset.GiftCard.Dashboard',
           permission: 'all',
