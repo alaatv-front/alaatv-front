@@ -283,8 +283,8 @@ export default defineComponent({
   align-self: center;
   position: absolute;
   right: 0;
-  top: 33%;
-  z-index: 9999;
+  top: 40%;
+  z-index: 2;
 
   @media screen and (max-width: 600px){
     right: 0;
@@ -299,8 +299,8 @@ export default defineComponent({
   align-self: center;
   position: absolute;
   left: 0;
-  top: 33%;
-  z-index: 9999;
+  top: 40%;
+  z-index: 2;
 
   @media screen and (max-width: 600px){
     left: 0;
