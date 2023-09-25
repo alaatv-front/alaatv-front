@@ -86,7 +86,9 @@ export default {
     }
   },
   mounted () {
-    this.loadOTPCredential()
+    this.$nextTick(() => {
+      this.loadOTPCredential()
+    })
   },
   methods: {
     loadOTPCredential () {
