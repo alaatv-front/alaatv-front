@@ -7,11 +7,11 @@
   </div>
 </template>
 <script>
-import { APIGateway } from 'src/api/APIGateway'
 import { Capacitor } from '@capacitor/core'
-import AndroidVersionCheck from 'components/VersionCheck/Components/Android/andoid.vue'
-import IosVersionCheck from 'components/VersionCheck/Components/Ios/ios.vue'
-import WebVersionCheck from 'components/VersionCheck/Components/Web/web.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
+import WebVersionCheck from 'src/components/VersionCheck/Components/Web/web.vue'
+import IosVersionCheck from 'src/components/VersionCheck/Components/Ios/ios.vue'
+import AndroidVersionCheck from 'src/components/VersionCheck/Components/Android/andoid.vue'
 
 export default {
   name: 'VersionCheck',
@@ -35,6 +35,9 @@ export default {
     }
   },
   mounted() {
+    if (this.platformTypeComponent === 'web-version-check') {
+      return
+    }
     this.getVersion()
       .then((version) => {
         this.globalVersion = version

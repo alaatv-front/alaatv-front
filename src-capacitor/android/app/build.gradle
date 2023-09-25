@@ -30,8 +30,21 @@ android {
       dataBinding = true
     }
 
+   signingConfigs {
+          release {
+
+              storeFile file(String.valueOf(System.getenv("STORE_FILE")))
+              storePassword System.getenv("STORE_PASSWORD")
+              keyAlias System.getenv("KEY_ALIAS")
+              keyPassword System.getenv("KEY_PASSWORD")
+
+
+          }
+      }
+
   buildTypes {
     release {
+      signingConfig signingConfigs.release
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
