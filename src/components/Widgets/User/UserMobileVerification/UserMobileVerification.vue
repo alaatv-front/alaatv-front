@@ -94,12 +94,28 @@ export default {
   },
   mounted () {
     this.loadAuthData()
+    this.loadOTPCredential()
     const isMobileIsVerified = this.isMobileIsVerified()
     if (isMobileIsVerified) {
       this.panel = 'verified'
     }
   },
   methods: {
+    loadOTPCredential () {
+      if (typeof window !== 'undefined' && 'OTPCredential' in window) {
+        window.navigator.credentials
+          .get({
+            otp: { transport: ['sms'] }
+            // signal: ac.signal
+          })
+          .then((otp) => {
+            this.verifyCode = otp.code
+          })
+          .catch((err) => {
+            console.error(err)
+          })
+      }
+    },
     loadAuthData () {
       this.user = this.$store.getters['Auth/user']
     },
