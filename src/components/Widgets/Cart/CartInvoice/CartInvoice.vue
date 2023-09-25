@@ -220,13 +220,14 @@
 <script>
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart.js'
+import Ewano from 'src/assets/js/Ewano.js'
 import AuthLogin from 'src/components/Auth.vue'
 import LazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { GatewayList } from 'src/models/Gateway.js'
-import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 let StickySidebar
 if (typeof window !== 'undefined') {
@@ -240,11 +241,6 @@ export default {
   name: 'CartInvoice',
   components: { LazyImg, AuthLogin, Donate },
   mixins: [mixinWidget],
-  // provide() {
-  //   return {
-  //     scrollInfo: computed(() => this.scrollInfo)
-  //   }
-  // },
   props: {
     options: {
       type: Object,
@@ -253,6 +249,7 @@ export default {
       }
     }
   },
+  emits: ['update:options'],
   data () {
     return {
       gateways: new GatewayList(),
@@ -298,6 +295,9 @@ export default {
     }
   },
   computed: {
+    isEwanoUser () {
+      return !!this.$route.query.ewano
+    },
     cartLoading () {
       return this.cart.loading
     },
@@ -348,6 +348,11 @@ export default {
       deep: true
     }
   },
+  // provide() {
+  //   return {
+  //     scrollInfo: computed(() => this.scrollInfo)
+  //   }
+  // },
   mounted () {
     this.loadAuthData()
     this.cartReview()
@@ -359,6 +364,19 @@ export default {
       AEE.checkout(2, value)
     },
     getGateways () {
+      if (this.isEwanoUser) {
+        this.gateways = new GatewayList([{
+          id: 'ewano',
+          name: 'ewano',
+          displayName: 'اوانو',
+          description: 'اوانو',
+          order: 1,
+          photo: 'https://ewano.app/assets/images/logo.svg'
+        }])
+
+        return
+      }
+
       this.gateways.loading = true
       APIGateway.cart.getGateways()
         .then(gateways => {
@@ -496,6 +514,25 @@ export default {
     },
 
     payment() {
+      if (this.isEwanoUser) {
+        this.$store.commit('loading/loading', true)
+        APIGateway.ewano.makeOrder()
+          .then(({ ewanoOrderId, alaaOrderId, amount }) => {
+            const callbackUrl = this.$router.resolve({ name: 'UserPanel.ThankYouPage', params: { orderId: alaaOrderId }, query: { ewano_order_id: ewanoOrderId, ewano: 1 } }).fullPath
+            this.$store.commit('loading/loading', false)
+            Ewano.pay(amount, ewanoOrderId, callbackUrl)
+          })
+          .catch((e) => {
+            console.error('ewano error', e)
+            this.$q.notify({
+              type: 'negative',
+              message: 'لطفا مجدد تلاش کنید.'
+            })
+            this.$store.commit('loading/loading', false)
+          })
+        return
+      }
+
       if (!this.selectedBank) {
         this.$q.notify({
           type: 'negative',
@@ -659,6 +696,8 @@ export default {
                 margin-bottom: 12px;
               }
 
+              $couponFieldTitle: 72px;
+
               .title {
                 font-style: normal;
                 font-weight: 400;
@@ -667,7 +706,7 @@ export default {
                 letter-spacing: -0.03em;
                 color: #23263B;
                 margin-right: 16px;
-                min-width: 72px;
+                width: $couponFieldTitle;
 
                 @media screen and (max-width: 1439px) {
                   margin-right: 4px;
@@ -684,6 +723,7 @@ export default {
               }
 
               .coupon-input {
+                width: calc( 100% - #{$couponFieldTitle} );
                 @media screen and (max-width: 1023px) {
                   width: 100%;
                 }
@@ -841,21 +881,14 @@ export default {
                 }
 
                 .bank-gateway-container {
-                  @media screen and (max-width: 1023px) {
-                    padding: 0 6px;
-                  }
-
-                  @media screen and (max-width: 599px) {
-                    padding: 0;
-                  }
-
                   .bank-gateway {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
                     box-sizing: border-box;
                     height: 74px;
-                    width: 177px;
+                    //width: 177px;
+                    width: 100%;
                     border: 1.3px solid #E7ECF4;
                     border-radius: 8px;
                     padding: 8px;
@@ -905,11 +938,16 @@ export default {
                     }
 
                     .bank-icon-container {
-                      min-width: 58px;
-                      height: 58px;
+                      $iconSize: 58px;
+                      min-width: $iconSize;
+                      height: $iconSize;
                       background: #F4F3FF;
                       border-radius: 5px;
                       margin-right: 8px;
+                      .lazy-img {
+                        width: $iconSize;
+                        height: $iconSize;
+                      }
                     }
 
                     .select-bank-radio-button {

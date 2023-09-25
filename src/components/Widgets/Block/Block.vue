@@ -83,12 +83,12 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue'
 import { Block } from 'src/models/Block.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import Slider from 'src/components/Widgets/Slider/Slider.vue'
 import SetItem from 'src/components/Widgets/SetItem/SetItem.vue'
 import ContentItem from 'src/components/Widgets/ContentItem/ContentItem.vue'
-import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 
 export default {
   name: 'Block',
@@ -96,7 +96,7 @@ export default {
     Slider,
     SetItem,
     ContentItem,
-    ProductItem
+    ProductItem: defineAsyncComponent(() => import('src/components/Widgets/Product/ProductItem/ProductItem.vue'))
   },
   mixins: [mixinWidget],
   data: () => ({

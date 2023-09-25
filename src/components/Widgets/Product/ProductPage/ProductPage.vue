@@ -106,11 +106,13 @@
       <div class="row content-row q-col-gutter-lg">
         <div class="col-12 col-md-8">
           <div class="product-info-tab-wrapper">
-            <product-info-tab :options="{product}" />
+            <product-info-tab v-if="!loading"
+                              :options="{product}" />
           </div>
         </div>
         <div class="col-12 col-md-4 intro-box-col">
-          <product-intro-box ref="productIntroBox"
+          <product-intro-box v-if="!loading"
+                             ref="productIntroBox"
                              :options="{product}"
                              @update-product="onUpdateProduct($event)"
                              @update-product-loading="onUpdateProductLoading($event)" />
@@ -124,10 +126,10 @@
 import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
-import ProductInfoTab from 'src/components/Widgets/Product/ProductInfoTab/ProductInfoTab.vue'
-import ProductIntroBox from 'src/components/Widgets/Product/ProductIntroBox/ProductIntroBox.vue'
 import Bookmark from 'src/components/Bookmark.vue'
 import ShareNetwork from 'src/components/ShareNetwork.vue'
+import ProductInfoTab from 'src/components/Widgets/Product/ProductInfoTab/ProductInfoTab.vue'
+import ProductIntroBox from 'src/components/Widgets/Product/ProductIntroBox/ProductIntroBox.vue'
 
 let StickySidebar
 if (typeof window !== 'undefined') {

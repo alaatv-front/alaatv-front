@@ -478,8 +478,8 @@ export default defineComponent({
   }
 
   @media screen and (max-width: 600px) {
-    display: flex;
-    align-items: start;
+    //display: flex;
+    //align-items: start;
     border-radius: 18px;
 
     .img-box {

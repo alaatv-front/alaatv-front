@@ -2,7 +2,8 @@
   <div class="theme1-container">
     <div class="img-box">
       <product-discount-badge class="product-discount-badge"
-                              :options="{price:product.price}" />
+                              :options="{price:product.price}"
+                              @click.capture="productClicked" />
       <router-link :to="getRoutingObject"
                    @click="productClicked">
         <lazy-img :src="product.photo"
@@ -12,7 +13,8 @@
                   class="img" />
       </router-link>
     </div>
-    <div class="product-content-box row">
+    <div class="product-content-box row"
+         @click.capture="productClicked">
       <router-link :to="getRoutingObject"
                    @click="productClicked">
         <div class="title-box">
@@ -42,7 +44,8 @@
       </div>
       <div v-if="localOptions.showPrice"
            class="action-box col-12 row">
-        <div class="more-detail product-more-detail col-sm-8 col-xs-9">
+        <div class="more-detail product-more-detail col-sm-8 col-xs-9"
+             @click.capture="productClicked">
           <router-link :to="getRoutingObject"
                        @click="productClicked">
             <div class="price-box">
@@ -179,7 +182,9 @@ export default defineComponent({
     customActionClicked() {
       this.$emit('customActionClicked')
     },
-    productClicked() {
+    productClicked(e) {
+      e.preventDefault()
+      e.stopPropagation()
       this.$emit('productClicked')
     },
     handleProductBookmark() {
