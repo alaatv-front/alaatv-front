@@ -97,13 +97,12 @@ export default {
             // signal: ac.signal
           })
           .then((otp) => {
+            alert('otp code: ', otp.code)
             this.code = otp.code
-            this.$emit('updateUser', {
-              mobile: this.userInfo.mobile,
-              code: this.otpValue
-            })
+            alert('otp code2: ', otp.code)
           })
           .catch((err) => {
+            alert('err: ', err)
             console.error(err)
           })
       }
