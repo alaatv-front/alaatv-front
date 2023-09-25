@@ -7,13 +7,18 @@
             :active-bg-color="options.activeBgColor"
             :indicator-color="options.indicatorColor"
             class="product-tabs">
-      <q-tab v-for="(tab, index) in data"
-             :key="index"
-             :name="`productTab_${index}`"
-             :label="tab.options.label"
-             :icon="tab.options.icon"
-             class="product-tab"
-             content-class="product-tab-content" />
+      <div v-for="(tab, index) in data"
+           :key="index"
+           class="flex">
+        <q-tab :name="`productTab_${index}`"
+               :label="tab.options.label"
+               :icon="tab.options.icon"
+               class="product-tab"
+               content-class="product-tab-content" />
+        <q-separator v-if="index < data.length - 1"
+                     class="separator"
+                     vertical />
+      </div>
     </q-tabs>
   </div>
   <div class="tab-panels-wrapper">
@@ -140,7 +145,7 @@ export default {
     }
     .product-tab {
       border-radius: 10px;
-      margin: 5px;
+      width: 160px;
 
       &:deep(.q-tab__content .q-focus-helper) {
         display: none;
@@ -151,8 +156,13 @@ export default {
         line-height: 31px;
         text-align: center;
         font-weight: 700;
-        padding: 0 15px;
       }
+    }
+    .separator {
+      height: 16px;
+      align-self: center;
+      //margin: 0 30px;
+      color: $grey4;
     }
   }
 }

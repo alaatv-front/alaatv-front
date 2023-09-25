@@ -34,7 +34,7 @@
           <span class="indicator" />
         </div>
       </q-item>
-      <q-item v-if="isUserLogin"
+      <q-item v-if="isUserLogin && !isEwanoUser"
               class="item-list alone-item q-mt-lg q-mb-md"
               clickable
               @click="logOut">
@@ -168,6 +168,11 @@ export default {
           children: []
         }
       ]
+    }
+  },
+  computed: {
+    isEwanoUser () {
+      return !!this.$route.query.ewano
     }
   },
   mounted () {

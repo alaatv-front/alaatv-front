@@ -25,12 +25,15 @@
     <div v-if="localOptions.menuLink"
          class="center-section">
       <q-list class="routes-list">
-        <q-item v-for="item in localOptions.menuLink"
+        <q-item v-for="(item, index) in localOptions.menuLink"
                 :key="item"
                 class="route-link"
                 clickable
                 @click="takeAction(item)">
           <q-item-section>{{ item.label }}</q-item-section>
+          <q-separator v-if="index < localOptions.menuLink.length - 1"
+                       class="separator"
+                       vertical />
         </q-item>
       </q-list>
     </div>
@@ -296,14 +299,20 @@ $backgrounds: (
       display: flex;
 
       .route-link {
-        margin: 0 20px;
         font-weight: 400;
         font-size: 16px;
         line-height: 28px;
         cursor: pointer;
+        position: relative;
 
         &:deep(.q-focus-helper) {
           display: none;
+        }
+        .separator {
+          height: 16px;
+          align-self: center;
+          margin-left: 36px;
+          color: $grey4;
         }
       }
     }
