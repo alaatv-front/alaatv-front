@@ -73,8 +73,16 @@ export default {
     }
   },
   computed: {
-    code() {
-      return this.userInfo.code
+    code: {
+      get () {
+        return this.userInfo.code
+      },
+      set (newValue) {
+        const oldData = this.userInfo
+        oldData.code = newValue
+        this.otpValue = newValue
+        this.$emit('update:userInfo', oldData)
+      }
     }
   },
   mounted () {
@@ -89,14 +97,11 @@ export default {
             // signal: ac.signal
           })
           .then((otp) => {
-            // alert(otp.code)
-            this.otpValue = otp.code
+            this.code = otp.code
             this.$emit('updateUser', {
               mobile: this.userInfo.mobile,
               code: this.otpValue
             })
-            // input.value = otp.code
-            // if (form) form.submit()
           })
           .catch((err) => {
             console.error(err)
