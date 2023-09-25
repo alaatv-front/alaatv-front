@@ -51,6 +51,8 @@ module.exports = configure(function (ctx) {
       'enums',
       'PhosphorIcons',
       'gtm',
+      'PhosphorIcons',
+      'ewano',
       'androidGetOldDb'
     ],
 

@@ -148,7 +148,8 @@ export default class UserAPI extends APIRepository {
       cacheKey: this.CacheList.bankAccounts,
       data: this.getNormalizedSendData({
         preShabaNumber: 'IR', // String
-        shabaNumber: '' // String
+        shabaNumber: '', // String
+        cardNumber: '' // String
       }, data),
       resolveCallback: (response) => {
         return response
