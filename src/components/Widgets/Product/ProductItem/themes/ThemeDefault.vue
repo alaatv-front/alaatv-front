@@ -176,8 +176,8 @@ export default defineComponent({
     align-self: center;
     .product-discount-badge {
       display: block;
-      margin: -30px 10px 0px 0px;
-      rotate: -40deg;
+      margin: -43px 32px 0px 0px;
+      rotate: -16deg;
       transition: all ease-in-out .4s;
       @media screen and (max-width: 1024px){
         margin: -15px 10px 0px 0px;
