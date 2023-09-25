@@ -22,7 +22,7 @@
                 </div>
                 <div class="count align-self-end">
                   <span class="number">
-                    {{sales_man.count_of_unused_without_assignee_gift_cards.toLocaleString('fa')}}
+                    {{sales_man.count_of_unused_with_assignee_gift_cards.toLocaleString('fa')}}
                   </span>
                   <span>
                     کارت
@@ -238,7 +238,7 @@ export default {
         count_of_remain_gift_cards: 0,
         minAmount_until_settlement: 0,
         count_of_used_without_pay_gift_cards: 0,
-        count_of_unused_without_assignee_gift_cards: 0
+        count_of_unused_with_assignee_gift_cards: 0
       },
       isUsedAndPaid: 0,
       isUsedAndUnpaid: 0,
