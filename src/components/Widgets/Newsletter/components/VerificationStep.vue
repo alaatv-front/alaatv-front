@@ -91,19 +91,23 @@ export default {
   methods: {
     loadOTPCredential () {
       if (typeof window !== 'undefined' && 'OTPCredential' in window) {
+        const abort = new AbortController()
+        setTimeout(() => {
+          // abort after two minutes
+          abort.abort()
+        }, 2 * 60 * 1000)
         window.navigator.credentials
           .get({
-            otp: { transport: ['sms'] }
-            // signal: ac.signal
+            otp: { transport: ['sms'] },
+            signal: abort.signal
           })
           .then((otp) => {
-            alert('otp code: ', otp.code)
+            console.warn('otp', otp)
             this.code = otp.code
-            alert('otp code2: ', otp.code)
+            console.warn('otp2', otp)
           })
           .catch((err) => {
-            alert('err: ', err)
-            console.error(err)
+            console.error('otp err', err)
           })
       }
     },
