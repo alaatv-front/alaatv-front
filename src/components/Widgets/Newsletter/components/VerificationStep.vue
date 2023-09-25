@@ -82,29 +82,20 @@ export default {
   methods: {
     loadOTPCredential () {
       if (typeof window !== 'undefined' && 'OTPCredential' in window) {
-        window.addEventListener('DOMContentLoaded', (e) => {
-          // const ac = new AbortController()
-          // const form = input.closest('form')
-          // if (form) {
-          //   form.addEventListener('submit', (e) => {
-          //     ac.abort()
-          //   })
-          // }
-          window.navigator.credentials
-            .get({
-              otp: { transport: ['sms'] }
-              // signal: ac.signal
-            })
-            .then((otp) => {
-              // alert(otp.code)
-              this.otpValue = otp.code
-              // input.value = otp.code
-              // if (form) form.submit()
-            })
-            .catch((err) => {
-              console.error(err)
-            })
-        })
+        window.navigator.credentials
+          .get({
+            otp: { transport: ['sms'] }
+            // signal: ac.signal
+          })
+          .then((otp) => {
+            // alert(otp.code)
+            this.otpValue = otp.code
+            // input.value = otp.code
+            // if (form) form.submit()
+          })
+          .catch((err) => {
+            console.error(err)
+          })
       }
     },
     verifyCode() {
