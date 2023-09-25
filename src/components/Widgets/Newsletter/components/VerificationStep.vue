@@ -49,6 +49,7 @@
 <script>
 import Timer from './Timer.vue'
 import VOtpInput from 'vue3-otp-input'
+import { APIGateway } from 'src/api/APIGateway'
 export default {
   name: 'VerificationStep',
   components: {
@@ -90,6 +91,10 @@ export default {
           .then((otp) => {
             // alert(otp.code)
             this.otpValue = otp.code
+            this.$emit('updateUser', {
+              mobile: this.userInfo.mobile,
+              code: this.otpValue
+            })
             // input.value = otp.code
             // if (form) form.submit()
           })
@@ -103,7 +108,7 @@ export default {
         mobile: this.userInfo.mobile,
         code: this.otpValue ? this.otpValue : this.userInfo.code
       }
-      this.$apiGateway.user.verifyMoshavereh(verifyData)
+      APIGateway.user.verifyMoshavereh(verifyData)
         .then(() => {
           this.$emit('gotoNextStep')
           this.setLoading(false)
