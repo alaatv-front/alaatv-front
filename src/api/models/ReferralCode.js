@@ -202,7 +202,7 @@ export default class ReferralCodeAPI extends APIRepository {
           count_of_used_gift_cards: response.data.count_of_used_gift_cards ? Number(response.data.count_of_used_gift_cards) : 0, // type: Number,  Example: 3
           count_of_used_without_pay_gift_cards: response.data.count_of_used_without_pay_gift_cards ? Number(response.data.count_of_used_without_pay_gift_cards) : 0, // type: Number,  Example: 3
           count_of_remain_gift_cards: response.data.count_of_remain_gift_cards ? Number(response.data.count_of_remain_gift_cards) : 0, // type: Number,  Example: 8
-          count_of_unused_without_assignee_gift_cards: response.data.count_of_unused_without_assignee_gift_cards ? Number(response.data.count_of_unused_without_assignee_gift_cards) : 0, // type: Number,  Example: 8
+          count_of_unused_with_assignee_gift_cards: response.data.count_of_unused_with_assignee_gift_cards ? Number(response.data.count_of_unused_with_assignee_gift_cards) : 0, // type: Number,  Example: 8
           income_being_settle: response.data.income_being_settle ? Number(response.data.income_being_settle) : 0 // type: Number,  Example: 90000
         }
       },

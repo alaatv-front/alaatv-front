@@ -416,7 +416,7 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
       border: $hoverBorder;
 
       &:deep(.product-discount-badge) {
-        transform: rotate(-40deg);
+        transform: rotate(-16deg);
       }
     }
   }
@@ -428,6 +428,7 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
     height: inherit;
     justify-content: space-between;
     margin: auto auto 10px;
+    //margin: 0 12px;
     position: relative;
     background-color: #ffffff;
     top: 0;
