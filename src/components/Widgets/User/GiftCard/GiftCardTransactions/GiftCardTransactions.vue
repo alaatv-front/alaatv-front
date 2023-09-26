@@ -133,8 +133,16 @@
       <q-tab-panels v-model="activeTab"
                     animated>
         <q-tab-panel name="transactions">
-          <div class="table-title q-mb-md">
+          <div class="table-title q-mb-md flex justify-between items-center">
             تراکنش کارت ها
+            <div>
+              <div class="caption1">
+                تعداد در صفحه:
+              </div>
+              <q-select v-model="transactionPerPage"
+                        :options="[5, 10, 20, 30, 50, 100]"
+                        @update:model-value="getTransactionDataFromApi(1)" />
+            </div>
           </div>
           <div class="table-container text-center">
             <q-table :rows="transactionsTableRow"
@@ -184,8 +192,16 @@
                           @update:model-value="getTransactionDataFromApi" />
           </div>
           <q-separator class="q-my-lg" />
-          <div class="table-title q-mb-md">
+          <div class="table-title q-mb-md flex justify-between items-center">
             کارت های صفر
+            <div>
+              <div class="caption1">
+                تعداد در صفحه:
+              </div>
+              <q-select v-model="zeroCardPerPage"
+                        :options="[5, 10, 20, 30, 50, 100]"
+                        @update:model-value="getZeroCardDataFromApi(1)" />
+            </div>
           </div>
           <div class="table-container text-center">
             <q-table :rows="zeroCardTableRow"
@@ -237,8 +253,16 @@
         </q-tab-panel>
         <q-tab-panel name="clearingHistory">
           <div class="">
-            <div class="table-title">
+            <div class="table-title q-mb-md flex justify-between items-center">
               تاریخچه تسویه
+              <div>
+                <div class="caption1">
+                  تعداد در صفحه:
+                </div>
+                <q-select v-model="historyPerPage"
+                          :options="[5, 10, 20, 30, 50, 100]"
+                          @update:model-value="getWithdrawHistory(1)" />
+              </div>
             </div>
             <div class="table-container text-center">
               <q-table :rows="clearingHistoryTableRow"
@@ -334,11 +358,14 @@ export default {
     percentage: 0,
     transactionLastPage: 0,
     transactionPage: 1,
+    transactionPerPage: 5,
     zeroCardLastPage: 0,
     zeroCardPage: 1,
+    zeroCardPerPage: 5,
     salesManLoading: false,
     historyLastPage: 0,
     historyPage: 1,
+    historyPerPage: 5,
     activeTab: 'transactions',
     clearingHistoryHeaders: [
       { name: 'bank-tracking-code', align: 'center', label: 'شماره تراکنش', field: 'bank-tracking-code' },
@@ -468,7 +495,7 @@ export default {
     },
     getWithdrawHistory(page = 1) {
       this.clearingHistoryTableRowLoading = true
-      APIGateway.referralCode.getWithdrawHistory({ page })
+      APIGateway.referralCode.getWithdrawHistory({ per_page: this.historyPerPage, page })
         .then(({ clearingHistoryTableRow, paginate }) => {
           this.clearingHistoryTableRow = clearingHistoryTableRow.list
           this.historyLastPage = paginate
@@ -480,7 +507,7 @@ export default {
     },
     getTransactionDataFromApi(page = 1) {
       this.transactionsTableRowLoading = true
-      APIGateway.referralCode.getOrderProducts({ page })
+      APIGateway.referralCode.getOrderProducts({ per_page: this.transactionPerPage, page })
         .then(({ transactionsTableRow, paginate }) => {
           this.transactionsTableRow = transactionsTableRow.list
           this.transactionLastPage = paginate.last_page
@@ -492,7 +519,7 @@ export default {
     },
     getZeroCardDataFromApi(page = 1) {
       this.zeroCardTableRowLoading = true
-      APIGateway.referralCode.noneProfitableOrderproducts({ page })
+      APIGateway.referralCode.noneProfitableOrderproducts({ per_page: this.zeroCardPerPage, page })
         .then(({ zeroCardTableRow, paginate }) => {
           this.zeroCardTableRow = zeroCardTableRow.list
           this.zeroCardLastPage = paginate.last_page
