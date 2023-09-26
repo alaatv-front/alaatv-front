@@ -255,7 +255,7 @@
           <div class="">
             <div class="table-title q-mb-md flex justify-between items-center">
               تاریخچه تسویه
-              <div v-if="historyLastPage > 1">
+              <div v-if="historyLastPage > 1 && false">
                 <div class="caption1">
                   تعداد در صفحه:
                 </div>
@@ -495,7 +495,7 @@ export default {
     },
     getWithdrawHistory(page = 1) {
       this.clearingHistoryTableRowLoading = true
-      APIGateway.referralCode.getWithdrawHistory({ per_page: this.historyPerPage, page })
+      APIGateway.referralCode.getWithdrawHistory({ /* per_page: this.historyPerPage,  */page })
         .then(({ clearingHistoryTableRow, paginate }) => {
           this.clearingHistoryTableRow = clearingHistoryTableRow.list
           this.historyLastPage = paginate
