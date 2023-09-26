@@ -110,7 +110,7 @@ export default {
         }, 2 * 60 * 1000)
         window.navigator.credentials
           .get({
-            otp: { transport: ['sms'] }
+            otp: { transport: ['sms'] },
             signal: abort.signal
           })
           .then((otp) => {
