@@ -173,9 +173,9 @@
             </q-table>
           </div>
           <div class="flex justify-center">
-            <q-pagination v-if="lastPage > 1"
-                          v-model="page"
-                          :max="lastPage"
+            <q-pagination v-if="transactionLastPage > 1"
+                          v-model="transactionPage"
+                          :max="transactionLastPage"
                           :max-pages="6"
                           boundary-links
                           icon-first="isax:arrow-left-2"
@@ -224,9 +224,9 @@
             </q-table>
           </div>
           <div class="flex justify-center">
-            <q-pagination v-if="lastPage > 1"
-                          v-model="page"
-                          :max="lastPage"
+            <q-pagination v-if="zeroCardLastPage > 1"
+                          v-model="zeroCardPage"
+                          :max="zeroCardLastPage"
                           :max-pages="6"
                           boundary-links
                           icon-first="isax:arrow-left-2"
@@ -310,11 +310,9 @@
 
 <script>
 import Price from 'src/models/Price.js'
-import Assist from 'src/assets/js/Assist.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import GiftCardMixin from '../Mixin/GiftCardMixin.js'
 import mixinDateOptions from 'src/mixin/DateOptions.js'
-import { ReferralCodeList } from 'src/models/ReferralCode'
 
 export default {
   name: 'GiftCardTransactions',
@@ -334,8 +332,10 @@ export default {
     test: 7000000000,
     settlementGuideDialog: false,
     percentage: 0,
-    lastPage: 0,
-    page: 1,
+    transactionLastPage: 0,
+    transactionPage: 1,
+    zeroCardLastPage: 0,
+    zeroCardPage: 1,
     salesManLoading: false,
     historyLastPage: 0,
     historyPage: 1,
@@ -404,12 +404,10 @@ export default {
       // return this.$store.getters.appProps.minAmountUntilSettlement
       return 1000000
     },
-
     incomeBeingSettle() {
       // return this.$store.getters.appProps.incomeBeingSettle
       return 1
     }
-
   },
   mounted() {
     this.loadAllData()
@@ -421,7 +419,6 @@ export default {
       this.getZeroCardDataFromApi()
       this.getTransactionDataFromApi()
       this.getWithdrawHistory()
-      // this.getClearingHistoryDataFromApi()
     },
     getSalesMan() {
       this.salesManLoading = true
@@ -469,18 +466,6 @@ export default {
         return 'پرداخت شده'
       }
     },
-    getTransactionsData(page = 1) {
-      this.loading = true
-      APIGateway.referralCode.index({ data: { page } })
-        .then(({ referralCodeList, paginate }) => {
-          this.lastPage = paginate.last_page
-          this.referralCodeList = new ReferralCodeList(referralCodeList)
-          this.loading = false
-        })
-        .catch(() => {
-          this.loading = false
-        })
-    },
     getWithdrawHistory(page = 1) {
       this.clearingHistoryTableRowLoading = true
       APIGateway.referralCode.getWithdrawHistory({ page })
@@ -495,12 +480,10 @@ export default {
     },
     getTransactionDataFromApi(page = 1) {
       this.transactionsTableRowLoading = true
-      this.referralCodeList = []
       APIGateway.referralCode.getOrderProducts({ page })
         .then(({ transactionsTableRow, paginate }) => {
           this.transactionsTableRow = transactionsTableRow.list
-          this.lastPage = paginate.last_page
-          // this.referralCodeList = referralCodeList
+          this.transactionLastPage = paginate.last_page
           this.transactionsTableRowLoading = false
         })
         .catch(() => {
@@ -509,53 +492,15 @@ export default {
     },
     getZeroCardDataFromApi(page = 1) {
       this.zeroCardTableRowLoading = true
-      this.referralCodeList = []
       APIGateway.referralCode.noneProfitableOrderproducts({ page })
         .then(({ zeroCardTableRow, paginate }) => {
           this.zeroCardTableRow = zeroCardTableRow.list
-          this.lastPage = paginate.last_page
-          // this.referralCodeList = referralCodeList
+          this.zeroCardLastPage = paginate.last_page
           this.zeroCardTableRowLoading = false
         })
         .catch(() => {
           this.zeroCardTableRowLoading = false
         })
-    },
-    async getClearingHistoryDataFromApi() {
-      this.clearingHistoryTableRowLoading = true
-      this.clearingHistoryTableRow = []
-      try {
-        const response = await this.clearingHistoryApiCall()
-        this.lastPage = response.data.meta.last_page
-        const responseList = response.data.data
-        responseList.forEach(card => {
-          this.clearingHistoryTableRow.push({
-            id: card.id,
-            number: card.paycheck_number,
-            price: new Price({ base: card.cost }).toman('base'),
-            date: Assist.miladiToShamsi(card.created_at, true),
-            status: card.transaction_status,
-            paymentDate: Assist.miladiToShamsi(card.completed_at, true)
-          })
-        })
-        this.clearingHistoryTableRowLoading = false
-      } catch (err) {
-        this.clearingHistoryTableRowLoading = false
-        const messages = this.getErrorMessages(err.response.data)
-        this.showErrorMessages(messages)
-      }
-
-      this.clearingHistoryTableRowLoading = false
-    },
-    TransactionApiCall() {
-      return this.$axios.get('/ajax/referralCode/orderproducts', {
-        ...(this.page > 1 && { params: { page: this.page } })
-      })
-    },
-    clearingHistoryApiCall() {
-      return this.$axios.get('/ajax/wallet/withdraw-requests', {
-        ...(this.page > 1 && { params: { page: this.page } })
-      })
     }
   }
 }
