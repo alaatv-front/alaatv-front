@@ -20,8 +20,10 @@
     "start:ssr": "yarn ci && yarn build:ssr && cd dist/ssr && yarn install && yarn start"
   },
   "dependencies": {
+    "@capacitor-community/sqlite": "^5.0.7-2",
     "@capacitor/cli": "^5.0.4",
     "@capacitor/core": "^5.0.4",
+    "@capacitor/preferences": "^5.0.6",
     "@gtm-support/vue-gtm": "^2.0.0",
     "@nodeguy/server-date": "^4.0.3",
     "@persian-tools/persian-tools": "^3.5.0",
