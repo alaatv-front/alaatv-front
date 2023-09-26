@@ -103,17 +103,20 @@ export default {
   methods: {
     loadOTPCredential () {
       if (typeof window !== 'undefined' && 'OTPCredential' in window) {
+        const abort = new AbortController()
+        setTimeout(() => {
+          // abort after two minutes
+          abort.abort()
+        }, 2 * 60 * 1000)
         window.navigator.credentials
           .get({
             otp: { transport: ['sms'] }
-            // signal: ac.signal
+            signal: abort.signal
           })
           .then((otp) => {
             this.verifyCode = otp.code
           })
-          .catch((err) => {
-            console.error(err)
-          })
+          .catch(() => {})
       }
     },
     loadAuthData () {

@@ -104,13 +104,9 @@ export default {
             signal: abort.signal
           })
           .then((otp) => {
-            console.warn('otp', otp)
             this.code = otp.code
-            console.warn('otp2', otp)
           })
-          .catch((err) => {
-            console.error('otp err', err)
-          })
+          .catch(() => {})
       }
     },
     verifyCode() {
