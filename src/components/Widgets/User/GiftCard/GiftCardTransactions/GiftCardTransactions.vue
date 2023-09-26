@@ -135,7 +135,7 @@
         <q-tab-panel name="transactions">
           <div class="table-title q-mb-md flex justify-between items-center">
             تراکنش کارت ها
-            <div>
+            <div v-if="transactionLastPage > 1">
               <div class="caption1">
                 تعداد در صفحه:
               </div>
@@ -194,7 +194,7 @@
           <q-separator class="q-my-lg" />
           <div class="table-title q-mb-md flex justify-between items-center">
             کارت های صفر
-            <div>
+            <div v-if="zeroCardLastPage > 1">
               <div class="caption1">
                 تعداد در صفحه:
               </div>
@@ -255,7 +255,7 @@
           <div class="">
             <div class="table-title q-mb-md flex justify-between items-center">
               تاریخچه تسویه
-              <div>
+              <div v-if="historyLastPage > 1">
                 <div class="caption1">
                   تعداد در صفحه:
                 </div>
