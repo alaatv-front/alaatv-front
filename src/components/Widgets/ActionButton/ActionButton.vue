@@ -149,8 +149,7 @@ export default {
             paddingRight: null,
             paddingBottom: null
           }
-        }
-        eventArgs: null,
+        },
         drawer: {
           overlay: true,
           bordered: true,
