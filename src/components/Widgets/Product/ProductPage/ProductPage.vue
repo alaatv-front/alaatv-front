@@ -220,7 +220,13 @@ export default defineComponent({
       this.expanded = !this.expanded
     },
     calculateDescriptionHight() {
-      if (this.$refs.shortDescription.clientHeight >= 301) {
+      let totalHeight = 0
+      for (let index = 0; index < this.$refs.shortDescription.children.length; index++) {
+        const element = this.$refs.shortDescription.children[index]
+        totalHeight += element.clientHeight
+      }
+      const minHeight = this.$q.screen.lt.sm ? 300 : 450
+      if (totalHeight > minHeight) {
         this.showMore = true
       } else {
         this.showMore = false
@@ -467,7 +473,7 @@ export default defineComponent({
           .short-description-text {
             height: 300px;
             overflow-y: hidden;
-            transition: all 3s ease-in-out;
+            transition: all .3s ease-in-out;
             color:#FFF;
             font-size: 16px;
             font-style: normal;
@@ -484,7 +490,7 @@ export default defineComponent({
             &.auto-height {
               height: auto;
               min-height: 300px;
-              transition: all 3s ease-in-out;
+              transition: all .3s ease-in-out;
 
               @media screen and (max-width: 600px){
                 min-height: 110px;
