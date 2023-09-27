@@ -15,6 +15,13 @@ import com.airbnb.lottie.LottieAnimationView;
 public class SplashScreenActivity extends AppCompatActivity {
 
     private LottieAnimationView lottieAnimationView ;
+    
+
+  /*
+   * the isShownOnce boolean is for when user started the app
+   * and seen the splash screen launcher then after searching
+   * in app wants to exit the app not going back to splash again!
+   *  */
 
     private boolean isShownOnce = false ;
 
@@ -89,12 +96,6 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     }
 
-
-    /*
-    * the isShownOnce boolean is for when user started the app
-    * and seen the splash screen launcher then after searching
-    * in app wants to exit the app not going back to splash again!
-    *  */
 
   @Override
   protected void onResume() {
