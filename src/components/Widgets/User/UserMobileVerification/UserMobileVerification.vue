@@ -94,12 +94,31 @@ export default {
   },
   mounted () {
     this.loadAuthData()
+    this.loadOTPCredential()
     const isMobileIsVerified = this.isMobileIsVerified()
     if (isMobileIsVerified) {
       this.panel = 'verified'
     }
   },
   methods: {
+    loadOTPCredential () {
+      if (typeof window !== 'undefined' && 'OTPCredential' in window) {
+        const abort = new AbortController()
+        setTimeout(() => {
+          // abort after two minutes
+          abort.abort()
+        }, 2 * 60 * 1000)
+        window.navigator.credentials
+          .get({
+            otp: { transport: ['sms'] },
+            signal: abort.signal
+          })
+          .then((otp) => {
+            this.verifyCode = otp.code
+          })
+          .catch(() => {})
+      }
+    },
     loadAuthData () {
       this.user = this.$store.getters['Auth/user']
     },
