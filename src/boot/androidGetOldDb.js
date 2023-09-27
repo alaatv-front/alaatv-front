@@ -133,13 +133,12 @@ export default boot(({ store }) => {
   const user = store.getters['Auth/user']
   const userId = user.id
   const isNativeApp = Capacitor.isNativePlatform()
-  if (!isNativeApp || Capacitor.getPlatform() !== 'android') {
+  if (!isNativeApp || Capacitor.getPlatform() !== 'android' || !userId) {
     return
   }
   checkSharedKeyDatabase()
     .then((value) => {
-      console.error('value is : ', value)
-      if ((value && value === 'DataIsSent') || !userId) {
+      if ((value && value === 'DataIsSent')) {
         return
       }
       initializeDatabase()
@@ -173,9 +172,7 @@ export default boot(({ store }) => {
               })
                 .then(() => {
                   setSharedKeyDatabase().then(() => {
-                    console.error('sharedKey set Successfully!')
                   }).catch()
-                  console.error('Old Native Database sent successfully!', JSON.stringify(sendData))
                 })
                 .catch(() => {
                   console.error('Error sending data!', JSON.stringify(sendData))
