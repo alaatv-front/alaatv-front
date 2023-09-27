@@ -132,6 +132,132 @@
             <q-input v-model="localOptions.eventArgs"
                      label="eventArgs" />
           </div>
+          <div v-if="localOptions.action === 'hamburger_menu'"
+               class="input-container col-md-12">
+            <q-expansion-item label="topWidgets">
+              <q-card>
+                <q-card-section v-for="(widget, index) in localOptions.topSectionWidgets"
+                                :key="index">
+                  <q-expansion-item :label=widget.name
+                                    icon="build">
+                    <template v-slot:header>
+                      <q-item-section avatar>
+                        <q-icon name="build" />
+                      </q-item-section>
+
+                      <q-item-section>
+                        {{ widget.name }}
+                      </q-item-section>
+
+                      <q-item-section side>
+                        <q-btn color="negative"
+                               flat
+                               icon="delete"
+                               @click="deleteWidget('topSectionWidgets', index)" />
+                      </q-item-section>
+                    </template>
+                    <q-card>
+                      <q-card-section>
+                        <option-panel v-if="widget.name === 'ActionButton'"
+                                      v-model:options="widget.options" />
+                        <component :is="widget.name.concat('OptionPanel')"
+                                   v-model:options="widget.options" />
+                      </q-card-section>
+                    </q-card>
+                  </q-expansion-item>
+                </q-card-section>
+                <q-card-section>
+                  <div class="row q-col-gutter-md">
+                    <div>
+                      <q-btn icon="isax:add"
+                             class="full-width"
+                             color="positive"
+                             label="text"
+                             @click="addTextWidget('topSectionWidgets')" />
+                    </div>
+                    <div>
+                      <q-btn icon="isax:add"
+                             class="full-width"
+                             color="positive"
+                             label="image"
+                             @click="addImageWidget('topSectionWidgets')" />
+                    </div>
+                    <div>
+                      <q-btn icon="isax:add"
+                             class="full-width"
+                             color="positive"
+                             label="action button"
+                             @click="addActionButtonWidget('topSectionWidgets')" />
+                    </div>
+                  </div>
+                </q-card-section>
+              </q-card>
+            </q-expansion-item>
+            <q-expansion-item label="bottomWidgets">
+              <q-card>
+                <q-card-section v-for="(widget, index) in localOptions.bottomSectionWidgets"
+                                :key="index">
+                  <q-expansion-item :label=widget.name
+                                    icon="build">
+                    <template v-slot:header>
+                      <q-item-section avatar>
+                        <q-icon name="build" />
+                      </q-item-section>
+
+                      <q-item-section>
+                        {{ widget.name }}
+                      </q-item-section>
+
+                      <q-item-section side>
+                        <q-btn color="negative"
+                               flat
+                               icon="delete"
+                               @click="deleteWidget('bottomSectionWidgets', index)" />
+                      </q-item-section>
+                    </template>
+                    <q-card>
+                      <q-card-section>
+                        <component :is="widget.name.concat('OptionPanel')"
+                                   v-model:options="widget.options" />
+                      </q-card-section>
+                    </q-card>
+                  </q-expansion-item>
+                </q-card-section>
+                <q-card-section>
+                  <div class="row q-col-gutter-md">
+                    <div class="col-3">
+                      <q-btn icon="isax:add"
+                             class="full-width"
+                             color="positive"
+                             label="text"
+                             @click="addTextWidget('bottomSectionWidgets')" />
+                    </div>
+                    <div class="col-3">
+                      <q-btn icon="isax:add"
+                             class="full-width"
+                             color="positive"
+                             label="image"
+                             @click="addImageWidget('bottomSectionWidgets')" />
+                    </div>
+                    <div class="col-3">
+                      <q-btn icon="isax:add"
+                             class="full-width"
+                             color="positive"
+                             label="action button"
+                             @click="addActionButtonWidget('bottomSectionWidgets')" />
+                    </div>
+                    <div class="col-3">
+                      <q-btn icon="isax:add"
+                             class="full-width"
+                             color="positive"
+                             label="timer"
+                             @click="addTimerWidget('bottomSectionWidgets')" />
+                    </div>
+                  </div>
+                </q-card-section>
+              </q-card>
+            </q-expansion-item>
+          </div>
         </div>
       </div>
     </template>
@@ -141,10 +267,18 @@
 import { defineComponent } from 'vue'
 import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
+import TextWidgetOptionPanel from 'components/Widgets/TextWidget/OptionPanel.vue'
+import ImageWidgetOptionPanel from 'components/Widgets/ImageWidget/OptionPanel.vue'
+import TimerOptionPanel from 'components/Widgets/Timer/OptionPanel.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
-  components: { OptionPanelTabs },
+  components: {
+    OptionPanelTabs,
+    TextWidgetOptionPanel,
+    ImageWidgetOptionPanel,
+    TimerOptionPanel
+  },
   mixins: [mixinOptionPanel],
   props: {
     options: {
@@ -156,8 +290,137 @@ export default defineComponent({
   },
   data () {
     return {
-      actionOptions: ['scroll', 'link', 'event'],
+      actionOptions: ['scroll', 'link', 'event', 'hamburger_menu'],
       positionOptions: ['top-right', 'top-left', 'bottom-right', 'bottom-left'],
+      defaultTextWidget: {
+        name: 'TextWidget',
+        options: {
+          text: 'text',
+          fontFamily: null,
+          color: null,
+          fontSize: null,
+          fontWeight: null,
+          fontStyle: null,
+          xs: {
+            fontSize: null,
+            fontWeight: null,
+            fontStyle: null,
+            lineHeight: null
+          },
+          sm: {
+            fontSize: null,
+            fontWeight: null,
+            fontStyle: null,
+            lineHeight: null
+          },
+          md: {
+            fontSize: null,
+            fontWeight: null,
+            fontStyle: null,
+            lineHeight: null
+          },
+          lg: {
+            fontSize: null,
+            fontWeight: null,
+            fontStyle: null,
+            lineHeight: null
+          },
+          xl: {
+            fontSize: null,
+            fontWeight: null,
+            fontStyle: null,
+            lineHeight: null
+          }
+        }
+      },
+      defaultImageWidget: {
+        name: 'imageWidget',
+        options: {
+          imageSource: '',
+          ratio: null,
+          hasAction: false,
+          useAEEEvent: false,
+          AEEEventBody: {
+            id: '-',
+            name: '-',
+            creative: null,
+            position: null
+          },
+          action: {
+            name: null,
+            route: null,
+            scrollTo: null,
+            eventName: null,
+            eventArgs: null
+          },
+          xs: {
+            height: null,
+            width: null,
+            src: ''
+          },
+          sm: {
+            height: null,
+            width: null,
+            src: null
+          },
+          md: {
+            height: null,
+            width: null,
+            src: null
+          },
+          lg: {
+            height: null,
+            width: null,
+            src: null
+          },
+          xl: {
+            height: null,
+            width: null,
+            src: ''
+          },
+          borderStyle: {},
+          boxShadows: [],
+          cssHoverEffects: {
+            boxShadows: [],
+            borderStyle: {
+              borderCssString: '',
+              borderRadiusCssString: ''
+            },
+            transition: {
+              time: 0
+            },
+            transform: {
+              rotate: 0,
+              scaleX: 1,
+              scaleY: 1,
+              skewX: 0,
+              skewY: 0,
+              translateX: 0,
+              translateY: 0
+            }
+          }
+        }
+      },
+      defaultActionButtonWidget: {
+        name: 'ActionButton',
+        options: {
+          color: null,
+          icon: null,
+          label: null,
+          flat: false,
+          callBack: null,
+          imageSource: null,
+          className: null,
+          fixed: false,
+          fixedPosition: null,
+          eventArgs: null,
+          hasAction: true,
+          action: null,
+          scrollTo: null,
+          route: null,
+          eventName: null
+        }
+      },
       defaultOptions: {
         color: null,
         icon: null,
@@ -174,7 +437,9 @@ export default defineComponent({
         action: null,
         scrollTo: null,
         route: null,
-        eventName: null
+        eventName: null,
+        topSectionWidgets: [],
+        bottomSectionWidgets: []
       }
     }
   },
@@ -194,6 +459,23 @@ export default defineComponent({
         this.$emit('update:options', newVal)
       },
       deep: true
+    }
+  },
+  methods: {
+    deleteWidget(sectionName, index) {
+      this.localOptions[sectionName].splice(index, 1)
+    },
+    addTextWidget(sectionName) {
+      this.localOptions[sectionName].push(this.defaultTextWidget)
+    },
+    addImageWidget(sectionName) {
+      this.localOptions[sectionName].push(this.defaultImageWidget)
+    },
+    addActionButtonWidget(sectionName) {
+      this.localOptions[sectionName].push(this.defaultActionButtonWidget)
+    },
+    addTimerWidget(sectionName) {
+      this.localOptions[sectionName].push(this.defaultTimerWidget)
     }
   }
 })
