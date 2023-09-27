@@ -1,5 +1,6 @@
 <template>
-  <option-panel-tabs v-model:options="localOptions">
+  <option-panel-tabs v-model:options="localOptions"
+                     :show-responsive-spacing="true">
     <template #main-tab>
       <div class="option-panel-container q-py-md">
         <div class="row q-gutter-sm">
