@@ -1,41 +1,86 @@
 <template>
-  <q-btn v-if="!localOptions.rightIcon"
-         :label="localOptions.label"
-         :flat="localOptions.flat"
-         :class="localOptions.className"
-         :style="localOptions.style"
-         class="action-btn"
-         @click="takeAction">
-    <q-icon v-if="localOptions.icon"
-            :name="localOptions.icon" />
+  <div class="action-btn-wrapper">
+    <q-drawer v-if="localOptions.action === 'hamburger_menu'"
+              v-model="drawer"
+              :width="localOptions.drawer.width"
+              :overlay="localOptions.drawer.overlay"
+              :breakpoint="localOptions.drawer.breakpoint"
+              :bordered="localOptions.drawer.bordered"
+              class="drawer"
+              :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'">
+      <div class="column drawer-sections">
+        <div>
+          <template v-for="(component, index) in localOptions.topSectionWidgets"
+                    :key="index">
+            <q-item v-if="component.name"
+                    v-ripple
+                    clickable>
+              <component :is="component.name"
+                         :options="component.options" />
+            </q-item>
+          </template>
+        </div>
+        <div>
+          <template v-for="(component, index) in localOptions.bottomSectionWidgets"
+                    :key="index">
+            <q-item v-if="component.name"
+                    v-ripple
+                    clickable>
+              <component :is="component.name"
+                         :options="component.options" />
+            </q-item>
+          </template>
 
-    <img v-if="localOptions.imageSource"
-         :src="localOptions.imageSource"
-         alt="actionBtn">
-  </q-btn>
-  <q-btn v-else
-         :label="localOptions.label"
-         :icon="localOptions.icon"
-         :flat="localOptions.flat"
-         :class="localOptions.className"
-         :style="localOptions.style"
-         class="action-btn"
-         @click="takeAction">
-    <img v-if="localOptions.imageSource"
-         :src="localOptions.imageSource"
-         alt="actionBtn">
-  </q-btn>
+        </div>
+      </div>
+    </q-drawer>
+    <q-btn v-if="!localOptions.rightIcon"
+           :label="localOptions.label"
+           :flat="localOptions.flat"
+           :class="localOptions.className"
+           :style="localOptions.style"
+           class="action-btn"
+           @click="takeAction">
+      <q-icon v-if="localOptions.icon"
+              :name="localOptions.icon" />
+
+      <img v-if="localOptions.imageSource"
+           :src="localOptions.imageSource"
+           alt="actionBtn">
+    </q-btn>
+    <q-btn v-else
+           :label="localOptions.label"
+           :icon="localOptions.icon"
+           :flat="localOptions.flat"
+           :class="localOptions.className"
+           :style="localOptions.style"
+           class="action-btn"
+           @click="takeAction">
+      <img v-if="localOptions.imageSource"
+           :src="localOptions.imageSource"
+           alt="actionBtn">
+    </q-btn>
+  </div>
 </template>
 
 <script>
 import { mixinWidget } from 'src/mixin/Mixins.js'
+import ImageWidget from 'components/Widgets/ImageWidget/ImageWidget.vue'
+import TextWidget from 'components/Widgets/TextWidget/TextWidget.vue'
+import { defineAsyncComponent } from 'vue'
 
 export default {
   name: 'ActionButton',
+  components: {
+    ImageWidget,
+    TextWidget,
+    Timer: defineAsyncComponent(() => import('components/Widgets/Timer/Timer.vue'))
+  },
   mixins: [mixinWidget],
   emits: ['ActionButton'],
   data() {
     return {
+      drawer: false,
       defaultOptions: {
         color: null,
         icon: null,
@@ -52,7 +97,15 @@ export default {
         scrollTo: null,
         route: null,
         eventName: null,
-        eventArgs: null
+        eventArgs: null,
+        drawer: {
+          overlay: true,
+          bordered: true,
+          width: 200,
+          breakpoint: 500
+        },
+        topSectionWidgets: [],
+        bottomSectionWidgets: []
       }
     }
   },
@@ -97,6 +150,8 @@ export default {
         this.$router.push(this.localOptions.route)
       } else if (this.localOptions.action && this.localOptions.action === 'event') {
         this.$bus.emit(this.localOptions.eventName, this.localOptions.eventArgs)
+      } else if (this.localOptions.action && this.localOptions.action === 'hamburger_menu') {
+        this.drawer = !this.drawer
       }
     }
   }
@@ -104,35 +159,44 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.action-btn {
-
-  &.fixed-btn {
-    position: fixed;
-    z-index: 1;
-
-    &.top-right {
-      top: 0;
-      right: 0;
-    }
-    &.top-left {
-      top: 0;
-      left: 0;
-    }
-    &.bottom-right {
-      bottom: 0;
-      right: 0;
-    }
-    &.bottom-left {
-      bottom: 0;
-      left: 0;
+.action-btn-wrapper {
+  .drawer {
+    z-index: 100;
+    .drawer-sections {
+      place-content: space-between;
+      height: inherit;
     }
   }
-  &.img-btn{
-    &:deep(.q-btn__content){
-      margin: 0;
+  .action-btn {
+
+    &.fixed-btn {
+      position: fixed;
+      z-index: 1;
+
+      &.top-right {
+        top: 0;
+        right: 0;
+      }
+      &.top-left {
+        top: 0;
+        left: 0;
+      }
+      &.bottom-right {
+        bottom: 0;
+        right: 0;
+      }
+      &.bottom-left {
+        bottom: 0;
+        left: 0;
+      }
     }
-    &:deep(.q-focus-helper) {
-      display: none;
+    &.img-btn{
+      &:deep(.q-btn__content){
+        margin: 0;
+      }
+      &:deep(.q-focus-helper) {
+        display: none;
+      }
     }
   }
 }
