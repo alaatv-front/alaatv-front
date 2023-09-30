@@ -6,7 +6,7 @@
     <q-img :src="localOptions.image"
            class="separator-image"
            alt="separator"
-           :height="localOptions.height"
+           :height="getSeparatorHeight()"
            :width="getSeparatorWidth()"
            :style="getSeparatorHeight()"
            :class="localOptions.ImageClassName" /></div>
