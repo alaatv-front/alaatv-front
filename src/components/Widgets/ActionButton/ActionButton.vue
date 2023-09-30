@@ -214,19 +214,23 @@ export default {
 .action-btn-wrapper {
   .drawer {
     z-index: 100;
+
     .drawer-sections {
       place-content: space-between;
       height: inherit;
     }
   }
+
   .action-btn {
 
     &.fixed-btn {
       position: fixed;
       z-index: 1;
-@import "quasar-ui-q-page-builder/src/components/Component.scss";
-$responsiveSpacing: (
-    xs: (
+    }
+
+    @import "quasar-ui-q-page-builder/src/components/Component.scss";
+    $responsiveSpacing: (
+      xs: (
         marginTop: v-bind('defaultOptions.responsiveSpacing.xs.marginTop'),
         marginLeft: v-bind('defaultOptions.responsiveSpacing.xs.marginLeft'),
         marginRight: v-bind('defaultOptions.responsiveSpacing.xs.marginRight'),
@@ -235,8 +239,8 @@ $responsiveSpacing: (
         paddingLeft: v-bind('defaultOptions.responsiveSpacing.xs.paddingLeft'),
         paddingRight: v-bind('defaultOptions.responsiveSpacing.xs.paddingRight'),
         paddingBottom: v-bind('defaultOptions.responsiveSpacing.xs.paddingBottom'),
-    ),
-    sm: (
+      ),
+      sm: (
         marginTop: v-bind('defaultOptions.responsiveSpacing.sm.marginTop'),
         marginLeft: v-bind('defaultOptions.responsiveSpacing.sm.marginLeft'),
         marginRight: v-bind('defaultOptions.responsiveSpacing.sm.marginRight'),
@@ -245,8 +249,8 @@ $responsiveSpacing: (
         paddingLeft: v-bind('defaultOptions.responsiveSpacing.sm.paddingLeft'),
         paddingRight: v-bind('defaultOptions.responsiveSpacing.sm.paddingRight'),
         paddingBottom: v-bind('defaultOptions.responsiveSpacing.sm.paddingBottom'),
-    ),
-    md: (
+      ),
+      md: (
         marginTop: v-bind('defaultOptions.responsiveSpacing.md.marginTop'),
         marginLeft: v-bind('defaultOptions.responsiveSpacing.md.marginLeft'),
         marginRight: v-bind('defaultOptions.responsiveSpacing.md.marginRight'),
@@ -255,8 +259,8 @@ $responsiveSpacing: (
         paddingLeft: v-bind('defaultOptions.responsiveSpacing.md.paddingLeft'),
         paddingRight: v-bind('defaultOptions.responsiveSpacing.md.paddingRight'),
         paddingBottom: v-bind('defaultOptions.responsiveSpacing.md.paddingBottom'),
-    ),
-    lg: (
+      ),
+      lg: (
         marginTop: v-bind('defaultOptions.responsiveSpacing.lg.marginTop'),
         marginLeft: v-bind('defaultOptions.responsiveSpacing.lg.marginLeft'),
         marginRight: v-bind('defaultOptions.responsiveSpacing.lg.marginRight'),
@@ -265,8 +269,8 @@ $responsiveSpacing: (
         paddingLeft: v-bind('defaultOptions.responsiveSpacing.lg.paddingLeft'),
         paddingRight: v-bind('defaultOptions.responsiveSpacing.lg.paddingRight'),
         paddingBottom: v-bind('defaultOptions.responsiveSpacing.lg.paddingBottom'),
-    ),
-    xl: (
+      ),
+      xl: (
         marginTop: v-bind('defaultOptions.responsiveSpacing.xl.marginTop'),
         marginLeft: v-bind('defaultOptions.responsiveSpacing.xl.marginLeft'),
         marginRight: v-bind('defaultOptions.responsiveSpacing.xl.marginRight'),
@@ -275,37 +279,45 @@ $responsiveSpacing: (
         paddingLeft: v-bind('defaultOptions.responsiveSpacing.xl.paddingLeft'),
         paddingRight: v-bind('defaultOptions.responsiveSpacing.xl.paddingRight'),
         paddingBottom: v-bind('defaultOptions.responsiveSpacing.xl.paddingBottom'),
-    )
-);
-.action-btn {
-  @include media-query-spacings($responsiveSpacing, $sizes);
-  &.fixed-btn {
-    position: fixed;
-    z-index: 1;
+      )
+    );
 
-      &.top-right {
-        top: 0;
-        right: 0;
+    .action-btn {
+      @include media-query-spacings($responsiveSpacing, $sizes);
+
+      &.fixed-btn {
+        position: fixed;
+        z-index: 1;
+
+        &.top-right {
+          top: 0;
+          right: 0;
+        }
+
+        &.top-left {
+          top: 0;
+          left: 0;
+        }
+
+        &.bottom-right {
+          bottom: 0;
+          right: 0;
+        }
+
+        &.bottom-left {
+          bottom: 0;
+          left: 0;
+        }
       }
-      &.top-left {
-        top: 0;
-        left: 0;
-      }
-      &.bottom-right {
-        bottom: 0;
-        right: 0;
-      }
-      &.bottom-left {
-        bottom: 0;
-        left: 0;
-      }
-    }
-    &.img-btn{
-      &:deep(.q-btn__content){
-        margin: 0;
-      }
-      &:deep(.q-focus-helper) {
-        display: none;
+
+      &.img-btn {
+        &:deep(.q-btn__content) {
+          margin: 0;
+        }
+
+        &:deep(.q-focus-helper) {
+          display: none;
+        }
       }
     }
   }
