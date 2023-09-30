@@ -49,12 +49,11 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineAsyncComponent, defineComponent } from 'vue'
 import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 import TextWidgetOptionPanel from 'src/components/Widgets/TextWidget/OptionPanel.vue'
 import ImageWidgetOptionPanel from 'src/components/Widgets/ImageWidget/OptionPanel.vue'
-import ActionButtonOptionPanel from 'src/components/Widgets/ActionButton/OptionPanel.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
@@ -62,7 +61,9 @@ export default defineComponent({
     OptionPanelTabs,
     ImageWidgetOptionPanel,
     TextWidgetOptionPanel,
-    ActionButtonOptionPanel
+    ActionButtonOptionPanel: defineAsyncComponent(() =>
+      import('src/components/Widgets/ActionButton/OptionPanel.vue')
+    )
   },
   mixins: [mixinOptionPanel],
   data() {

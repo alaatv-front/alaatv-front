@@ -358,7 +358,7 @@ export default defineComponent({
           value: 1024
         },
         {
-          label: 'xs',
+          label: 'xl',
           value: 1440
         }
       ],

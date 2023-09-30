@@ -1,5 +1,6 @@
 <template>
   <div class="product-item-container"
+       :style="localOptions.style"
        :class="[localOptions.theme, localOptions.mobileTheme]">
     <q-card v-if="localOptions.loading"
             class="product-item-box q-pa-md"
@@ -55,7 +56,7 @@
             :ref="productRef"
             class="product-item-box"
             :class="'productItem' + product.id"
-            :style="{minWidth: localOptions.minWidth, ...localOptions.style}">
+            :style="{minWidth: localOptions.minWidth}">
       <component :is="localOptions.theme"
                  :localOptions="localOptions"
                  :product="product"
