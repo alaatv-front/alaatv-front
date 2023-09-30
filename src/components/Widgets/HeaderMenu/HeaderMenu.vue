@@ -22,7 +22,7 @@
                  :key="index"
                  :options="component.options" />
     </div>
-    <div v-if="localOptions.menuLink"
+    <div v-if="localOptions.menuLink.length > 0"
          class="center-section">
       <q-list class="routes-list">
         <q-item v-for="(item, index) in localOptions.menuLink"
@@ -39,10 +39,14 @@
     </div>
     <div v-else
          class="center-section">
-      <component :is="component.name"
-                 v-for="(component, index) in localOptions[size].centerSectionWidgets"
-                 :key="index"
-                 :options="component.options" />
+      <div v-for="(component, index) in localOptions[size].centerSectionWidgets"
+           :key="index"
+           class="row">
+        <component :is="component.name"
+                   :options="component.options" />
+        <q-separator class="separator"
+                     vertical />
+      </div>
     </div>
     <div v-if="localOptions.hasAction"
          class="left-section">
@@ -346,9 +350,13 @@ $backgrounds: (
   .center-section {
     display: flex;
     align-items: center;
-    @media only screen and (max-width: 1024px) {
-      display: none;
+
+    .separator {
+      height: 16px;
+      align-self: center;
+      color: $grey4;
     }
+
     .routes-list {
       display: flex;
 
