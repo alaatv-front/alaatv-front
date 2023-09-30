@@ -18,7 +18,7 @@
     <div v-else
          class="right-section">
       <component :is="component.name"
-                 v-for="(component, index) in localOptions.rightSectionWidgets"
+                 v-for="(component, index) in localOptions[size].rightSectionWidgets"
                  :key="index"
                  :options="component.options" />
     </div>
@@ -40,7 +40,7 @@
     <div v-else
          class="center-section">
       <component :is="component.name"
-                 v-for="(component, index) in localOptions.centerSectionWidgets"
+                 v-for="(component, index) in localOptions[size].centerSectionWidgets"
                  :key="index"
                  :options="component.options" />
     </div>
@@ -54,7 +54,7 @@
     <div v-else
          class="left-section">
       <component :is="component.name"
-                 v-for="(component, index) in localOptions.leftSectionWidgets"
+                 v-for="(component, index) in localOptions[size].leftSectionWidgets"
                  :key="index"
                  :options="component.options" />
     </div>
@@ -83,10 +83,33 @@ export default {
   data() {
     return {
       scrollEventIsAdded: false,
+      windowWidth: 0,
       defaultOptions: {
-        rightSectionWidgets: [],
-        centerSectionWidgets: [],
-        leftSectionWidgets: [],
+        xs: {
+          rightSectionWidgets: [],
+          centerSectionWidgets: [],
+          leftSectionWidgets: []
+        },
+        sm: {
+          rightSectionWidgets: [],
+          centerSectionWidgets: [],
+          leftSectionWidgets: []
+        },
+        md: {
+          rightSectionWidgets: [],
+          centerSectionWidgets: [],
+          leftSectionWidgets: []
+        },
+        lg: {
+          rightSectionWidgets: [],
+          centerSectionWidgets: [],
+          leftSectionWidgets: []
+        },
+        xl: {
+          rightSectionWidgets: [],
+          centerSectionWidgets: [],
+          leftSectionWidgets: []
+        },
         sticky: false,
         stickyClass: '',
         salam: '',
@@ -149,6 +172,23 @@ export default {
       }
     }
   },
+  computed: {
+    size() {
+      if (this.windowWidth >= 1920) {
+        return this.isConfigExist('xl') ? 'xl' : this.isConfigExist('lg') ? 'lg' : this.isConfigExist('md') ? 'md' : this.isConfigExist('sm') ? 'sm' : 'xs'
+      } else if (this.windowWidth <= 1919 && this.windowWidth > 1440) {
+        return this.isConfigExist('lg') ? 'lg' : this.isConfigExist('md') ? 'md' : this.isConfigExist('sm') ? 'sm' : this.isConfigExist('xs') ? 'xs' : 'xl'
+      } else if (this.windowWidth <= 1439 && this.windowWidth > 1024) {
+        return this.isConfigExist('md') ? 'md' : this.isConfigExist('sm') ? 'sm' : this.isConfigExist('xs') ? 'xs' : this.isConfigExist('xl') ? 'xl' : 'lg'
+      } else if (this.windowWidth <= 1023 && this.windowWidth > 600) {
+        return this.isConfigExist('sm') ? 'sm' : this.isConfigExist('xs') ? 'xs' : this.isConfigExist('xl') ? 'xl' : this.isConfigExist('lg') ? 'lg' : 'md'
+      } else if (this.windowWidth <= 599) {
+        return this.isConfigExist('xs') ? 'xs' : this.isConfigExist('xl') ? 'xl' : this.isConfigExist('lg') ? 'lg' : this.isConfigExist('md') ? 'md' : 'sm'
+      } else {
+        return ''
+      }
+    }
+  },
   watch: {
     'localOptions.sticky': function (newVal) {
       if (newVal) {
@@ -166,8 +206,22 @@ export default {
       this.scrollEventIsAdded = true
       this.addScrollEventListener()
     }
+    this.windowWidth = window.innerWidth
+    window.addEventListener('resize', this.onResize)
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.onResize)
   },
   methods: {
+    isConfigExist(size) {
+      return this.localOptions[size].rightSectionWidgets.length > 0 || this.localOptions[size].centerSectionWidgets.length > 0 || this.localOptions[size].leftSectionWidgets.length > 0
+    },
+    onResize() {
+      this.windowWidth = window.innerWidth
+    },
+    toggleLeftDrawer() {
+      this.drawer = !this.drawer
+    },
     addScrollEventListener() {
       window.addEventListener('scroll', () => {
         if (!this.isInViewport() && !document.getElementsByClassName('header-menu')[0].classList.value.includes('fix-position')) {
@@ -332,7 +386,7 @@ $backgrounds: (
   &.fix-position {
     width: 100%;
     position: fixed;
-    z-index: 10000;
+    z-index: 10;
     transition: all 4s ease-in-out 2s;
   }
 }
