@@ -44,7 +44,7 @@
       </div>
       <div v-if="localOptions.showPrice"
            class="action-box col-12 row">
-        <div class="more-detail product-more-detail col-sm-8 col-xs-9"
+        <div class="more-detail product-more-detail col-sm-6 col-xs-9"
              @click.capture="productClicked">
           <router-link :to="getRoutingObject"
                        @click="productClicked">
@@ -75,22 +75,19 @@
             </div>
           </router-link>
         </div>
-        <div class="col-sm-4 col-xs-3">
+        <div class="action-btn col-sm-6 col-xs-3">
           <q-btn v-if="localOptions.canAddToCart"
                  unelevated
                  text-color="grey-9"
+                 label="ثبت نام"
                  :loading="cart.loading"
                  :productId="product.id"
                  :data-product-id="product.id"
                  :square="mobileMode"
-                 class="add-to-cart-btn"
+                 class="add-to-cart-btn q-btn-md"
                  :class="localOptions.theme"
-                 @click="addToCart">
-
-            <span class="btn-text">ثبت نام</span>
-            <q-icon name="west" />
-
-          </q-btn>
+                 icon-right="ph:plus"
+                 @click="addToCart" />
         </div>
       </div>
       <div v-if="localOptions.customAction"
@@ -203,7 +200,7 @@ export default defineComponent({
 
     .product-discount-badge {
       margin: -30px 10px 0px 0px;
-      rotate: -40deg;
+      rotate: -16deg;
       transition: all ease-in-out .4s;
     }
 
@@ -321,6 +318,10 @@ export default defineComponent({
           text-decoration: none;
           color: inherit;
         }
+      }
+
+      .action-btn {
+        text-align: end;
       }
 
       .btn-style {
