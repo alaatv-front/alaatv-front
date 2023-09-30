@@ -44,7 +44,8 @@
            class="row">
         <component :is="component.name"
                    :options="component.options" />
-        <q-separator class="separator"
+        <q-separator v-if="index < localOptions[size].centerSectionWidgets.length - 1"
+                     class="separator"
                      vertical />
       </div>
     </div>
@@ -382,7 +383,6 @@ $backgrounds: (
 
   .left-section {
     display: flex;
-    margin: 0 20px;
     font-weight: 400;
     font-size: 16px;
     line-height: 28px;
