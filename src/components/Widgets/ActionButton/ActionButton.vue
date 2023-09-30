@@ -275,49 +275,42 @@ $responsiveSpacing: (
   }
 
   .action-btn {
-    @include media-query-spacings($responsiveSpacing, $sizes);
-    &.fixed-btn {
-      position: fixed;
-      z-index: 1;
+      @include media-query-spacings($responsiveSpacing, $sizes);
+
+      &.fixed-btn {
+        position: fixed;
+        z-index: 1;
+
+        &.top-right {
+          top: 0;
+          right: 0;
+        }
+
+        &.top-left {
+          top: 0;
+          left: 0;
+        }
+
+        &.bottom-right {
+          bottom: 0;
+          right: 0;
+        }
+
+        &.bottom-left {
+          bottom: 0;
+          left: 0;
+        }
+      }
+
+      &.img-btn {
+        &:deep(.q-btn__content) {
+          margin: 0;
+        }
+
+        &:deep(.q-focus-helper) {
+          display: none;
+        }
+      }
     }
-    //.action-btn {
-    //  @include media-query-spacings($responsiveSpacing, $sizes);
-    //
-    //  &.fixed-btn {
-    //    position: fixed;
-    //    z-index: 1;
-    //
-    //    &.top-right {
-    //      top: 0;
-    //      right: 0;
-    //    }
-    //
-    //    &.top-left {
-    //      top: 0;
-    //      left: 0;
-    //    }
-    //
-    //    &.bottom-right {
-    //      bottom: 0;
-    //      right: 0;
-    //    }
-    //
-    //    &.bottom-left {
-    //      bottom: 0;
-    //      left: 0;
-    //    }
-    //  }
-    //
-    //  &.img-btn {
-    //    &:deep(.q-btn__content) {
-    //      margin: 0;
-    //    }
-    //
-    //    &:deep(.q-focus-helper) {
-    //      display: none;
-    //    }
-    //  }
-    //}
-  }
 }
 </style>
