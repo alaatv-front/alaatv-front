@@ -184,7 +184,7 @@ $counterBorderRadius: v-bind('counterBorderRadius');
 
   @media screen and (max-width: 1023px) and (min-width: 350px) {
     width: 100%;
-    justify-content: space-evenly;
+    justify-content: center;
   }
 
   .event-counter-item{
