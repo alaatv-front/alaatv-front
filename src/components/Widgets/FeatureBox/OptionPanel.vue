@@ -7,8 +7,17 @@
     <template #main-tab>
       <div class="option-panel-container row q-col-gutter-md">
         <div class="col-md-2">
-          <q-checkbox v-model="localOptions.horizontal"
+          <q-select v-model="size"
+                    :options="sizeOptions"
+                    label="سایز" />
+        </div>
+        <div class="col-md-2">
+          <q-checkbox v-model="localOptions.horizontal[size]"
                       label="افقی" />
+        </div>
+        <div class="col-md-2">
+          <q-checkbox v-model="localOptions.horizontalTitle[size]"
+                      label="عنوان افقی" />
         </div>
         <div class="col-md-2">
           <q-checkbox v-model="localOptions.hasImage"
@@ -215,6 +224,13 @@ export default defineComponent({
           }
         },
         horizontal: {
+          xl: false,
+          lg: false,
+          md: false,
+          sm: false,
+          xs: false
+        },
+        horizontalTitle: {
           xl: false,
           lg: false,
           md: false,
