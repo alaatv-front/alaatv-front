@@ -227,6 +227,13 @@
                        type="text"
                        label="فاصله داخلی کانتر" />
             </div>
+            <div class="col-3">
+              <div class="text-title">theme</div>
+              <q-select v-model="localOptions.theme"
+                        :options="themeOptions"
+                        type="text"
+                        label="فاصله داخلی کانتر" />
+            </div>
           </div>
         </q-expansion-item>
         <q-expansion-item v-if="localOptions.hasTop[responsive]"
@@ -324,6 +331,7 @@ export default defineComponent({
           counterPadding: null,
           counterBorderRadius: null
         },
+        theme: 'default',
         topComponentOptions: {
           direction: 'top'
         },
@@ -413,6 +421,7 @@ export default defineComponent({
           }
         }
       },
+      themeOptions: ['default', 'theme1'],
       responsiveOpts: ['xs', 'sm', 'md', 'lg', 'xl'],
       responsive: 'xs'
     }

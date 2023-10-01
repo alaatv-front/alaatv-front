@@ -131,6 +131,7 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
   transition: all ease-in-out .4s;
 
   @media screen and (max-width: 600px){
+    padding: 20px 15px;
     margin: 5PX;
     width: 310px;
     height: 308px;
