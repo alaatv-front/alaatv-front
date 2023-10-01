@@ -10,6 +10,7 @@
                        :options="localOptions.rightComponentOptions" />
     <timer-base class="timer-wrapper"
                 :time="localOptions.time"
+                :theme="localOptions.theme"
                 :counters="localOptions.counters"
                 :timerStyle="localOptions.timerStyle" />
     <component-wrapper :class="leftComponentClass"
@@ -88,6 +89,7 @@ export default defineComponent({
           counterPadding: null,
           counterBorderRadius: null
         },
+        theme: 'default',
         topComponentOptions: {},
         leftComponentOptions: {},
         rightComponentOptions: {},

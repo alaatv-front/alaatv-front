@@ -2,7 +2,8 @@
   <q-card class="feature-card"
           :class="[localOptions.className, {'hover-image': localOptions.hoverImage }]"
           :style="localOptions.style">
-    <q-card-section :class="{'feature-horizontal-section': isHorizontal, 'feature-vertical-section': !isHorizontal}"
+    <q-card-section v-if="!loading"
+                    :class="{'feature-horizontal-section': isHorizontal, 'feature-vertical-section': !isHorizontal}"
                     :horizontal="isHorizontal">
       <q-card-section v-if="localOptions.hasImage"
                       class="feature-section image">
@@ -23,6 +24,12 @@
         </div>
       </q-card-section>
     </q-card-section>
+    <q-card-section v-else
+                    class="feature-section">
+      <q-spinner color="primary"
+                 size="3em"
+                 :thickness="2" />
+    </q-card-section>
   </q-card>
 </template>
 
@@ -40,6 +47,7 @@ export default {
   mixins: [mixinWidget],
   data() {
     return {
+      loading: true,
       defaultOptions: {
         titleOptions: {
           text: null,
@@ -356,6 +364,9 @@ export default {
       }
       return 'div'
     }
+  },
+  mounted() {
+    this.loading = false
   }
 }
 </script>
@@ -474,7 +485,6 @@ $responsiveSpacing: (
 .feature-card {
   @include media-query-backgrounds($backgrounds, $sizes);
   @include media-query-spacings($responsiveSpacing, $sizes);
-  width: 100%;
   box-shadow: $shadows;
   -webkit-border-radius: $borderRadius;
   -moz-border-radius: $borderRadius;

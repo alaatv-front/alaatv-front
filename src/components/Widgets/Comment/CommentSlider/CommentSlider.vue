@@ -30,14 +30,14 @@
         <q-btn :icon="localOptions.navigation.goToLeft.icon"
                :round="localOptions.navigation.goToLeft.rounded"
                class="arrow-left-btn "
-               :size="localOptions.navigation.goToLeft.size"
+               :size="leftNavigationSize"
                @click="$refs.vueCarousel.next()" />
       </div>
       <div class="arrow-right">
         <q-btn :icon="localOptions.navigation.goToRight.icon"
                :round="localOptions.navigation.goToRight.rounded"
                class="arrow-right-btn"
-               :size="localOptions.navigation.goToRight.size"
+               :size="rightNavigationSize"
                @click="$refs.vueCarousel.prev()" />
       </div>
 
@@ -139,17 +139,37 @@ export default {
             textColor: '#FF944A',
             color: '#FFE8D8',
             rounded: false,
-            size: 'lg'
+            size: {
+              xs: 'md',
+              sm: 'md',
+              md: 'lg',
+              lg: 'lg',
+              xl: 'lg'
+            }
           },
           goToRight: {
             icon: 'chevron_right',
             textColor: '#FF944A',
             color: '#FFE8D8',
             rounded: false,
-            size: 'lg'
+            size: {
+              xs: 'md',
+              sm: 'md',
+              md: 'lg',
+              lg: 'lg',
+              xl: 'lg'
+            }
           }
         }
       }
+    }
+  },
+  computed: {
+    leftNavigationSize() {
+      return this.localOptions.navigation.goToLeft.size[this.$q.screen.name]
+    },
+    rightNavigationSize() {
+      return this.localOptions.navigation.goToRight.size[this.$q.screen.name]
     }
   },
   methods: {
