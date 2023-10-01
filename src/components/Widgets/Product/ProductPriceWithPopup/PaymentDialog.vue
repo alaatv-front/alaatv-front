@@ -157,13 +157,14 @@
 </template>
 
 <script>
+import { openURL } from 'quasar'
+import moment from 'moment-jalaali'
 import { defineComponent } from 'vue'
 import Price from 'src/models/Price.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import { Product, ProductList } from 'src/models/Product.js'
-import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import moment from 'moment-jalaali'
-import { openURL } from 'quasar'
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default defineComponent({
   name: 'PaymentDialog',
@@ -376,11 +377,16 @@ export default defineComponent({
           .catch(() => {
           })
       } else {
-        this.getGatewayUrl()
+        const inInstalment = this.paymentMethod === 'installment'
+        this.getGatewayUrl(inInstalment, this.paymentMethod)
       }
     },
-    getGatewayUrl() {
-      this.$apiGateway.cart.getPaymentRedirectEncryptedLink()
+    getGatewayUrl(inInstalment, paymentMethod) {
+      APIGateway.cart.getPaymentRedirectEncryptedLink({
+        device: 'web',
+        paymentMethod,
+        inInstalment: inInstalment ? 1 : 0
+      })
         .then(url => {
           openURL(url)
         })
