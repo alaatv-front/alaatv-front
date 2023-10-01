@@ -286,7 +286,7 @@ export default defineComponent({
       if (this.urlParam && this.$route.params[this.urlParam]) {
         return this.$route.params[this.localOptions.urlParam]
       }
-      if (this.$route.params.id) {
+      if (!isNaN(this.$route.params.id)) {
         return this.$route.params.id
       }
       return this.product.id
@@ -334,7 +334,11 @@ export default defineComponent({
       })
     },
     getProduct() {
-      return this.$apiGateway.product.show(this.productId)
+      if (!this.productId) {
+        return new Promise()
+      }
+
+      return APIGateway.product.show(this.productId)
     },
     getPrice(type) {
       return this.product.price[type]

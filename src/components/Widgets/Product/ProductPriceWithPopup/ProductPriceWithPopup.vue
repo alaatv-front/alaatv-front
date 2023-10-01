@@ -100,15 +100,23 @@ export default defineComponent({
     }
   },
   methods: {
-    addToCart() {
-      this.$store.dispatch('Cart/addToCart', { product: this.localOptions.product })
+    addToCart(hasInstalmentOption = false, goToCheckoutReview = true) {
+      this.$store.dispatch('Cart/addToCart', { product: this.localOptions.product, has_instalment_option: hasInstalmentOption })
         .then(() => {
-          this.$router.push({ name: 'Public.Checkout.Review' })
+          if (goToCheckoutReview) {
+            this.$router.push({ name: 'Public.Checkout.Review' })
+          }
         })
     },
     paymentAction(paymentMethod) {
-      if (paymentMethod !== 'installment' && this.productComplimentary.length === 0 && this.examList.length === 0) {
-        this.addToCart()
+      if (this.productComplimentary.length === 0 && this.examList.length === 0) {
+        const hasInstalmentOption = paymentMethod === 'installment'
+        const goToCheckoutReview = !hasInstalmentOption
+        this.addToCart(hasInstalmentOption, goToCheckoutReview)
+        if (hasInstalmentOption) {
+          this.paymentMethod = paymentMethod
+          this.toggleDialog()
+        }
       } else {
         this.paymentMethod = paymentMethod
         this.toggleDialog()
