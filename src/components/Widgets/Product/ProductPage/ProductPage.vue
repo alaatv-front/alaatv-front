@@ -127,6 +127,7 @@ import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import Bookmark from 'src/components/Bookmark.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
 import ShareNetwork from 'src/components/ShareNetwork.vue'
 import ProductInfoTab from 'src/components/Widgets/Product/ProductInfoTab/ProductInfoTab.vue'
 import ProductIntroBox from 'src/components/Widgets/Product/ProductIntroBox/ProductIntroBox.vue'
@@ -182,7 +183,7 @@ export default defineComponent({
   methods: {
     getProduct() {
       this.loading = true
-      this.$apiGateway.product.show(this.productId)
+      APIGateway.product.show(this.productId)
         .then(product => {
           this.product = product
           this.loading = false
