@@ -1,66 +1,64 @@
 <template>
-  <div class="action-btn-wrapper">
-    <q-drawer v-if="localOptions.action === 'hamburger_menu'"
-              v-model="drawer"
-              :width="localOptions.drawer.width"
-              :overlay="localOptions.drawer.overlay"
-              :breakpoint="localOptions.drawer.breakpoint"
-              :bordered="localOptions.drawer.bordered"
-              class="drawer"
-              :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'">
-      <div class="column drawer-sections">
-        <div>
-          <template v-for="(component, index) in localOptions.topSectionWidgets"
-                    :key="index">
-            <q-item v-if="component.name"
-                    v-ripple
-                    clickable>
-              <component :is="component.name"
-                         :options="component.options" />
-            </q-item>
-          </template>
-        </div>
-        <div>
-          <template v-for="(component, index) in localOptions.bottomSectionWidgets"
-                    :key="index">
-            <q-item v-if="component.name"
-                    v-ripple
-                    clickable>
-              <component :is="component.name"
-                         :options="component.options" />
-            </q-item>
-          </template>
-
-        </div>
+  <q-drawer v-if="localOptions.action === 'hamburger_menu'"
+            v-model="drawer"
+            :width="localOptions.drawer.width"
+            :overlay="localOptions.drawer.overlay"
+            :breakpoint="localOptions.drawer.breakpoint"
+            :bordered="localOptions.drawer.bordered"
+            class="drawer"
+            :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'">
+    <div class="column drawer-sections">
+      <div>
+        <template v-for="(component, index) in localOptions.topSectionWidgets"
+                  :key="index">
+          <q-item v-if="component.name"
+                  v-ripple
+                  clickable>
+            <component :is="component.name"
+                       :options="component.options" />
+          </q-item>
+        </template>
       </div>
-    </q-drawer>
-    <q-btn v-if="!localOptions.rightIcon"
-           :label="localOptions.label"
-           :flat="localOptions.flat"
-           :class="localOptions.className"
-           :style="localOptions.style"
-           class="action-btn"
-           @click="takeAction">
-      <q-icon v-if="localOptions.icon"
-              :name="localOptions.icon" />
+      <div>
+        <template v-for="(component, index) in localOptions.bottomSectionWidgets"
+                  :key="index">
+          <q-item v-if="component.name"
+                  v-ripple
+                  clickable>
+            <component :is="component.name"
+                       :options="component.options" />
+          </q-item>
+        </template>
 
-      <img v-if="localOptions.imageSource"
-           :src="localOptions.imageSource"
-           alt="actionBtn">
-    </q-btn>
-    <q-btn v-else
-           :label="localOptions.label"
-           :icon="localOptions.icon"
-           :flat="localOptions.flat"
-           :class="localOptions.className"
-           :style="localOptions.style"
-           class="action-btn"
-           @click="takeAction">
-      <img v-if="localOptions.imageSource"
-           :src="localOptions.imageSource"
-           alt="actionBtn">
-    </q-btn>
-  </div>
+      </div>
+    </div>
+  </q-drawer>
+  <q-btn v-if="!localOptions.rightIcon"
+         :label="localOptions.label"
+         :flat="localOptions.flat"
+         :class="[localOptions.className, responsiveShow]"
+         :style="localOptions.style"
+         class="action-btn"
+         @click="takeAction">
+    <q-icon v-if="localOptions.icon"
+            :name="localOptions.icon" />
+
+    <img v-if="localOptions.imageSource"
+         :src="localOptions.imageSource"
+         alt="actionBtn">
+  </q-btn>
+  <q-btn v-else
+         :label="localOptions.label"
+         :icon="localOptions.icon"
+         :flat="localOptions.flat"
+         :class="localOptions.className"
+         :style="localOptions.style"
+         class="action-btn"
+         @click="takeAction">
+    <img v-if="localOptions.imageSource"
+         :src="localOptions.imageSource"
+         alt="actionBtn">
+  </q-btn>
 </template>
 
 <script>
@@ -150,6 +148,13 @@ export default {
             paddingBottom: null
           }
         },
+        responsiveShow: {
+          xl: true,
+          lg: true,
+          md: true,
+          sm: true,
+          xs: true
+        },
         drawer: {
           overlay: true,
           bordered: true,
@@ -159,6 +164,18 @@ export default {
         topSectionWidgets: [],
         bottomSectionWidgets: []
       }
+    }
+  },
+  computed: {
+    responsiveShow () {
+      let responsiveShow = ''
+      Object.keys(this.localOptions.responsiveShow).forEach(key => {
+        if (this.localOptions.responsiveShow[key] === false) {
+          responsiveShow += key + '-hide '
+        }
+      })
+
+      return ' ' + responsiveShow
     }
   },
   watch: {
@@ -264,7 +281,6 @@ $responsiveSpacing: (
     paddingBottom: v-bind('localOptions.responsiveSpacing.xl.paddingBottom'),
   )
 );
-.action-btn-wrapper {
   .drawer {
     z-index: 100;
 
@@ -312,5 +328,4 @@ $responsiveSpacing: (
         }
       }
     }
-}
 </style>
