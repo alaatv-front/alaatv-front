@@ -9,9 +9,10 @@
 </template>
 
 <script>
+import { Product } from 'src/models/Product.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import ProductPanel from './components/ProductPanel.vue'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ProductsTabPanel',
@@ -32,8 +33,46 @@ export default {
     }
   },
   computed: {
+    localOptions: {
+      get() {
+        return Object.assign(this.defaultOptions, this.options)
+        // const clonedOptions = JSON.parse(JSON.stringify(this.localOptions))
+        // const clonedDataAdapter = function (group) {
+        //   const groupLength = group.length
+        //   for (let index = 0; index < groupLength; index++) {
+        //     const groupItem = group[index]
+        //     if (groupItem.type === 'GroupList') {
+        //       clonedDataAdapter(groupItem.data)
+        //     } else {
+        //       groupItem.data.map(item => (item.id) ? (new Product(item)) : (new Product({ id: item.id })))
+        //     }
+        //   }
+        // }
+        //
+        // clonedDataAdapter(clonedOptions.data)
+        //
+        // return Object.assign(this.defaultOptions, clonedOptions)
+      },
+      set (newValue) {
+        const dataAdapter = function (group) {
+          const groupLength = group.length
+          for (let index = 0; index < groupLength; index++) {
+            const groupItem = group[index]
+            if (groupItem.type === 'GroupList') {
+              dataAdapter(groupItem.data)
+            } else {
+              groupItem.data.map(item => (item.id) ? item.id : item)
+            }
+          }
+        }
+
+        dataAdapter(newValue.data)
+
+        this.$emit('update:options', newValue)
+      }
+    },
     productFlatList() {
-      const clonedData = this.getClonedData()
+      const clonedData = this.optionsWithObjectProduct
       return this.extractProducts(clonedData)
     },
     productIdList() {
@@ -42,6 +81,25 @@ export default {
     },
     productIdListLength() {
       return this.productIdList.length
+    },
+    optionsWithObjectProduct () {
+      const clonedData = this.getClonedData()
+
+      const clonedDataAdapter = function (group) {
+        const groupLength = group.length
+        for (let index = 0; index < groupLength; index++) {
+          const groupItem = group[index]
+          if (groupItem.type === 'GroupList') {
+            clonedDataAdapter(groupItem.data)
+          } else {
+            groupItem.data.map(item => (item.id) ? (new Product(item)) : (new Product({ id: item.id })))
+          }
+        }
+      }
+
+      clonedDataAdapter(clonedData)
+
+      return clonedData
     }
   },
   watch: {
@@ -49,7 +107,7 @@ export default {
       this.loading = true
       this.getProductsPromise()
         .then(productList => {
-          this.clonedData = this.getClonedData()
+          this.clonedData = this.optionsWithObjectProduct
           this.replaceProducts(this.clonedData, productList.list)
           this.loading = false
         })
@@ -98,6 +156,7 @@ export default {
       }
     },
     getProductsPromise() {
+      this.localOptions = this.options
       const data = {
         productIds: this.productIdList,
         params: {
@@ -111,7 +170,7 @@ export default {
       return this.getProductsPromise()
     },
     prefetchServerDataPromiseThen (productList) {
-      this.clonedData = this.getClonedData()
+      this.clonedData = this.optionsWithObjectProduct
       this.replaceProducts(this.clonedData, productList.list)
       this.loading = false
     },
