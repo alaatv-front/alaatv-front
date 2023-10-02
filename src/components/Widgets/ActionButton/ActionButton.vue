@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { mixinWidget } from 'src/mixin/Mixins.js'
+import { mixinWidget, mixinAuth } from 'src/mixin/Mixins.js'
 import ImageWidget from 'components/Widgets/ImageWidget/ImageWidget.vue'
 import TextWidget from 'components/Widgets/TextWidget/TextWidget.vue'
 import { defineAsyncComponent } from 'vue'
@@ -74,7 +74,7 @@ export default {
     TextWidget,
     Timer: defineAsyncComponent(() => import('components/Widgets/Timer/Timer.vue'))
   },
-  mixins: [mixinWidget],
+  mixins: [mixinWidget, mixinAuth],
   emits: ['ActionButton'],
   data() {
     return {
@@ -155,6 +155,7 @@ export default {
           sm: true,
           xs: true
         },
+        hideInAuth: false,
         drawer: {
           overlay: true,
           bordered: true,
@@ -167,6 +168,9 @@ export default {
     }
   },
   computed: {
+    hideInAuth() {
+      return this.localOptions.hideInAuth ? this.isUserLogin : false
+    },
     responsiveShow () {
       let responsiveShow = ''
       Object.keys(this.localOptions.responsiveShow).forEach(key => {
@@ -187,8 +191,14 @@ export default {
   },
   mounted() {
     this.loadConfig()
+    this.checkAuth()
   },
   methods: {
+    checkAuth() {
+      this.$bus.on('onLoggedIn', () => {
+        this.loadAuthData()
+      })
+    },
     loadConfig() {
       if (this.localOptions.imageSource) {
         this.localOptions.flat = true
@@ -281,6 +291,7 @@ $responsiveSpacing: (
     paddingBottom: v-bind('localOptions.responsiveSpacing.xl.paddingBottom'),
   )
 );
+$hideInAuth : v-bind('hideInAuth ? "none" :  "initial"');
   .drawer {
     z-index: 100;
 
@@ -292,7 +303,7 @@ $responsiveSpacing: (
 
   .action-btn {
       @include media-query-spacings($responsiveSpacing, $sizes);
-
+      display: $hideInAuth;
       &.fixed-btn {
         position: fixed;
         z-index: 1;
