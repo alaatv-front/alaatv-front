@@ -113,13 +113,15 @@
       </q-card-section>
       <q-card-section class="payment-footer">
         <div class="price-title-responsive">
-          <ph-tag :size="16"
+          <q-icon name="ph:tag"
+                  :size="'16px'"
                   class="price-title-icon" />
           قیمت کل :
         </div>
         <div class="price-info">
           <div class="price-title">
-            <ph-tag :size="16"
+            <q-icon name="ph:tag"
+                    :size="'16px'"
                     class="price-title-icon" />
             قیمت کل :
           </div>
@@ -166,8 +168,8 @@ import { openURL } from 'quasar'
 import moment from 'moment-jalaali'
 import { defineComponent } from 'vue'
 import Price from 'src/models/Price.js'
+import { Product } from 'src/models/Product.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import { Product, ProductList } from 'src/models/Product.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
@@ -188,8 +190,8 @@ export default defineComponent({
       default: new Product()
     },
     productComplimentary: {
-      type: ProductList,
-      default: new ProductList()
+      type: Array,
+      default: () => []
     },
     examList: {
       type: Array,
