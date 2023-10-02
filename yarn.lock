@@ -4537,10 +4537,10 @@ jest-worker@^26.2.1:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
-js-abstract-model@^0.1.32:
-  version "0.1.35"
-  resolved "https://registry.yarnpkg.com/js-abstract-model/-/js-abstract-model-0.1.35.tgz#ef618d5f27a0ca68a775ad6655ac34399401ab68"
-  integrity sha512-XiOuYqK8AfHFJjBIvdphEO/bRfqdniUN5xOqqJOFDj6091YSIzW4R2sL3ysLAAwHlZYOFKL+XqdDsvNDa2pwQQ==
+js-abstract-model@^0.1.36:
+  version "0.1.36"
+  resolved "https://registry.yarnpkg.com/js-abstract-model/-/js-abstract-model-0.1.36.tgz#9bdef98196c86f1566046516a383ec3f7d054101"
+  integrity sha512-zyue3FEneT2FIXswOPGLFuhf0SO34AiJNJVROeHD1v+eQkOjdNeyoOhSK6m0g4LdvqEPbDe6QPeGbHUdTzhvTw==
   dependencies:
     axios "^1.4.0"
     moment "^2.29.4"

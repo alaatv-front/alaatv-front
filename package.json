@@ -45,7 +45,7 @@
     "eslint-plugin-vue": "^9.9.0",
     "firebase": "^10.2.0",
     "fs": "^0.0.1-security",
-    "js-abstract-model": "^0.1.32",
+    "js-abstract-model": "^0.1.36",
     "leaflet": "^1.9.3",
     "lottie-web": "^5.12.2",
     "moment": "^2.29.4",

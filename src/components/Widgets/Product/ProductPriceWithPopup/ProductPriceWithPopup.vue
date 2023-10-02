@@ -5,7 +5,12 @@
         <q-icon name="ph:tag"
                 color="gray-7"
                 size="16px" />
-        قیمت
+        <template v-if="hasInstallment">
+          قیمت نقدی:
+        </template>
+        <template v-else>
+          قیمت:
+        </template>
       </div>
       <div v-if="productPrice.discount > 0"
            class="price-calculation">
@@ -214,6 +219,10 @@ export default defineComponent({
       font-weight: 400;
       line-height: normal;
       letter-spacing: -0.54px;
+
+      @media screen and (max-width: 1200px){
+        font-size: 14px;
+      }
 
       .price-title-icon {
         margin-right: 8px;
