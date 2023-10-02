@@ -1,6 +1,9 @@
 <template>
   <q-list separator
           class="Installments">
+    <q-item class="text-center justify-center">
+      لیست اقساط پرداخت نشده
+    </q-item>
     <q-item class="gt-sm">
       <div class="row">
         <div class="col-md-4 col-12">
