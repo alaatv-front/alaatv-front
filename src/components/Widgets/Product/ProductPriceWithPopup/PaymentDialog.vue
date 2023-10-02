@@ -12,10 +12,10 @@
         </div>
       </q-card-section>
       <q-card-section>
-        <div class="row"
+        <div class="row payment-body"
              :class="{'q-col-gutter-lg': paymentMethod !== 'cash'}">
-          <div class="col-12"
-               :class="{'col-md-6': paymentMethod !== 'cash'}">
+          <div class="col-12 products-col"
+               :class="{'col-sm-6': paymentMethod !== 'cash', 'hidden': (independentComplimentary.length === 0 && dependentComplimentary.length === 0 && examList.length === 0)}">
             <div class="product-container">
               <div v-if="dependentComplimentary.length > 0"
                    class="product-complimentary">
@@ -75,7 +75,7 @@
             </div>
           </div>
           <div v-if="paymentMethod !== 'cash'"
-               class="col-12 col-md-6">
+               class="col-12 col-sm-6 installment-col">
             <div class="products-label instalment">
               اقساط
             </div>
@@ -112,6 +112,11 @@
         </div>
       </q-card-section>
       <q-card-section class="payment-footer">
+        <div class="price-title-responsive">
+          <ph-tag :size="16"
+                  class="price-title-icon" />
+          قیمت کل :
+        </div>
         <div class="price-info">
           <div class="price-title">
             <ph-tag :size="16"
@@ -484,6 +489,10 @@ export default defineComponent({
   height: 649px;
   position: relative;
 
+  @media screen and (max-width: 600px){
+    height: 666px;
+  }
+
   &.cash {
     width: 480px;
   }
@@ -511,6 +520,24 @@ export default defineComponent({
       font-weight: 400;
       line-height: normal;
       letter-spacing: -0.42px;
+    }
+  }
+
+  .payment-body {
+    display: flex;
+
+    .products-col {
+      order: 1;
+
+      &.hidden {
+        @media screen and (max-width: 600px){
+          display: none;
+        }
+      }
+    }
+
+    .installment-col {
+      order: 2;
     }
   }
 
@@ -579,7 +606,7 @@ export default defineComponent({
   }
 
   .installment {
-    width: 330px;
+    width: 100%;
     height: 349px;
     border-radius: 8px;
     background: #ECEFF1;
@@ -681,6 +708,26 @@ export default defineComponent({
     bottom: 0;
     width: 100%;
     padding: 0 30px 20px;
+
+    .price-title-responsive {
+        display: none;
+        justify-content: flex-start;
+        align-items: center;
+        color:#303030;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: -0.54px;
+
+        .price-title-icon {
+          margin-right: 8px;
+        }
+
+        @media screen and (max-width: 600px){
+          display: flex;
+        }
+      }
     .price-info {
       display: flex;
       justify-content: space-between;
@@ -701,6 +748,10 @@ export default defineComponent({
 
         .price-title-icon {
           margin-right: 8px;
+        }
+
+        @media screen and (max-width: 600px){
+          display: none;
         }
       }
       .price-calculation {
