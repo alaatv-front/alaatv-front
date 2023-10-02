@@ -82,12 +82,12 @@
             <div class="installment">
               <q-list class="installment-list">
                 <q-item>
-                  <q-item-section class="installment-order"
+                  <q-item-section class="installment-order-label"
                                   side>
                     قسط
                   </q-item-section>
-                  <q-item-section class="installment-date">زمان پرداخت</q-item-section>
-                  <q-item-section class="installment-amount"
+                  <q-item-section class="installment-date-label">زمان پرداخت</q-item-section>
+                  <q-item-section class="installment-amount-label"
                                   side>
                     مبلغ
                   </q-item-section>
@@ -586,6 +586,33 @@ export default defineComponent({
     overflow-y: auto;
     padding: 20px;
 
+    .installment-order-label {
+      color: #616161;
+      text-align: center;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: -0.36px;
+    }
+    .installment-date-label {
+      text-align: center;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: -0.36px;
+      color: #616161;
+    }
+    .installment-amount-label {
+      text-align: center;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: -0.36px;
+      color: #616161;
+    }
     .installment-item {
       border-radius: 4px;
       background: #FFF;
