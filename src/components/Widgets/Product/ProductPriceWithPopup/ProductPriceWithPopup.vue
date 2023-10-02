@@ -52,9 +52,10 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { mixinWidget } from 'src/mixin/Mixins.js'
-import { Product } from 'src/models/Product.js'
 import Price from 'src/models/Price.js'
+import { Product } from 'src/models/Product.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import PaymentDialog from 'src/components/Widgets/Product/ProductPriceWithPopup/PaymentDialog.vue'
 
 export default defineComponent({
@@ -99,15 +100,23 @@ export default defineComponent({
     }
   },
   methods: {
-    addToCart() {
-      this.$store.dispatch('Cart/addToCart', { product: this.localOptions.product })
+    addToCart(hasInstalmentOption = false, goToCheckoutReview = true) {
+      this.$store.dispatch('Cart/addToCart', { product: this.localOptions.product, has_instalment_option: hasInstalmentOption })
         .then(() => {
-          this.$router.push({ name: 'Public.Checkout.Review' })
+          if (goToCheckoutReview) {
+            this.$router.push({ name: 'Public.Checkout.Review' })
+          }
         })
     },
     paymentAction(paymentMethod) {
       if (this.productComplimentary.length === 0 && this.examList.length === 0) {
-        this.addToCart()
+        const hasInstalmentOption = paymentMethod === 'installment'
+        const goToCheckoutReview = !hasInstalmentOption
+        this.addToCart(hasInstalmentOption, goToCheckoutReview)
+        if (hasInstalmentOption) {
+          this.paymentMethod = paymentMethod
+          this.toggleDialog()
+        }
       } else {
         this.paymentMethod = paymentMethod
         this.toggleDialog()
@@ -117,14 +126,14 @@ export default defineComponent({
       this.dialog = !this.dialog
     },
     getProductComplimentary() {
-      this.$apiGateway.product.getProductComplimentary(this.localOptions.product.id)
+      APIGateway.product.getProductComplimentary(this.localOptions.product.id)
         .then(productList => {
           this.productComplimentary = productList.list
         })
         .catch(() => {})
     },
     getProductExams() {
-      this.$apiGateway.product.getProductExamList(this.localOptions.product.id)
+      APIGateway.product.getProductExamList(this.localOptions.product.id)
         .then(examList => {
           this.examList = examList
         })

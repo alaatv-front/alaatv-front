@@ -177,6 +177,9 @@ export default {
       if (this.animationData1) {
         this.animationData1.destroy()
       }
+      if (this.animationData2) {
+        this.animationData2.destroy()
+      }
       this.loadBodyMovin()
     },
     onResize() {

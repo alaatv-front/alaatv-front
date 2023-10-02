@@ -82,8 +82,7 @@
     <q-card class="custom-card bg-grey-1">
       <q-list v-for="(product, productIndex) in localOptions.data"
               :key="productIndex">
-        <q-item v-ripple
-                class=" shadow-3"
+        <q-item class=" shadow-3"
                 tag="label">
           <q-item-section>
             <q-item-label>{{ product.id }}</q-item-label>
@@ -93,7 +92,7 @@
                    icon="close"
                    size="10px"
                    class="q-mr-sm"
-                   @click="removeProduct(product.id,productIndex)" />
+                   @click="removeProduct(productIndex)" />
           </q-item-section>
         </q-item>
       </q-list>
@@ -229,7 +228,7 @@ export default {
       this.dialogProductId = id
       this.productDialog = true
     },
-    removeProduct(id, productIndex) {
+    removeProduct(productIndex) {
       if (!this.localOptions.data[productIndex]) {
         return
       }
