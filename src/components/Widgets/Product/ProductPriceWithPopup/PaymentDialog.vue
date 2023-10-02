@@ -172,6 +172,8 @@ import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
+moment.loadPersian()
+
 export default defineComponent({
   name: 'PaymentDialog',
   mixins: [mixinPrefetchServerData],

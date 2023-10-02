@@ -15,8 +15,8 @@
         </div>
       </div>
       <div>
-        <q-card-section class="info">
-          <div class="info-box part1">
+        <q-card-section class="info row q-col-gutter-md">
+          <div class="info-box part1 col-md-6 col-12">
             <div class="default-info paid">اطلاعات کلی</div>
             <div class="info-item">
               شماره سفارش:
@@ -31,7 +31,7 @@
               <span class="default-info">{{ getCurrentOrderCompletedAt(order.completed_at) }}</span>
             </div>
           </div>
-          <div class="info-box part2">
+          <div class="info-box part2 col-md-6 col-12">
             <div class="info-item">
               جمع مبلغ سفارش:
               <span class="default-info">{{ toman(order.price, null) }} تومان</span>
@@ -48,6 +48,16 @@
               <span class="default-info">{{ toman(order.paid_price, null) }} تومان</span>
             </div>
           </div>
+          <div class="col-md-6 col-12">
+            <q-btn color="primary"
+                   class="full-width"
+                   @click="payOrder">
+              پرداخت مبلغ سفارش
+            </q-btn>
+          </div>
+        </q-card-section>
+        <q-card-section v-if="order.unpaid_transaction && order.unpaid_transaction.length > 0">
+          <installments :installments="order.unpaid_transaction" />
         </q-card-section>
         <q-card-section v-if="order.orderItems.list && order.orderItems.list.length > 0 "
                         class="products">
@@ -65,10 +75,13 @@
 <script>
 import moment from 'moment-jalaali'
 import { Order } from 'src/models/Order.js'
+import Installments from './Installments.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
 import OrderedProducts from 'src/components/UserOrders/OrderedProducts.vue'
+
 export default {
   name: 'OrderDetailsDialog',
-  components: { OrderedProducts },
+  components: { OrderedProducts, Installments },
   props: {
     dialogValue: {
       type: Boolean
@@ -110,6 +123,15 @@ export default {
     }
   },
   methods: {
+    payOrder () {
+      APIGateway.cart.getPaymentRedirectEncryptedLink({
+        orderId: this.order.id
+      })
+        .then(url => {
+          window.location.href = url
+        })
+        .catch(() => {})
+    },
     toman (key, suffix) {
       let string = key.toLocaleString('fa')
       if (typeof suffix === 'undefined' || suffix) {
@@ -136,7 +158,7 @@ export default {
     color: #434765;
     width: 830px;
     //height: 640px;
-    overflow-x: scroll;
+    overflow-x: auto;
     @media screen and (max-width: 1439px) {
       width: 664px;
       //height: 480px;
@@ -165,13 +187,13 @@ export default {
     }
 
     .info {
-      display: grid;
-      grid-template-columns: auto auto;
-      align-items: center;
-      padding: 16px 30px;
-      @media screen and (max-width: 1439px){
-        padding: 16px 20px
-      }
+      //display: grid;
+      //grid-template-columns: auto auto;
+      //align-items: center;
+      //padding: 16px 30px;
+      //@media screen and (max-width: 1439px){
+      //  padding: 16px 20px
+      //}
 
       .info-box {
         font-weight: 400;
