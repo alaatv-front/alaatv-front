@@ -14,7 +14,7 @@
                  @click="modal = false" />
         </div>
       </div>
-      <div>
+      <div class="dialog-body">
         <q-card-section class="info row q-col-gutter-md">
           <div class="info-box part1 col-md-6 col-12">
             <div class="default-info paid">اطلاعات کلی</div>
@@ -159,9 +159,9 @@ export default {
     width: 830px;
     //height: 640px;
     overflow-x: auto;
+    overflow-y: hidden;
     @media screen and (max-width: 1439px) {
       width: 664px;
-      //height: 480px;
     }
     @media screen and (max-width: 1023px) {
       width: 540px;
@@ -184,6 +184,11 @@ export default {
       .close{
         justify-self: end;
       }
+    }
+
+    .dialog-body {
+      overflow-y: auto;
+      max-height: 600px;
     }
 
     .info {
@@ -241,18 +246,15 @@ export default {
   }
   .q-dialog__inner--minimized > div {
     max-width: 830px;
-    max-height: 640px;
   }
   @media screen and (max-width: 1439px) {
     .q-dialog__inner--minimized > div {
       max-width: 664px;
-      max-height: 480px;
     }
   }
   @media screen and (max-width: 1023px) {
     .q-dialog__inner--minimized > div {
       max-width: 540px;
-      max-height: 640px;
     }
   }
 }
