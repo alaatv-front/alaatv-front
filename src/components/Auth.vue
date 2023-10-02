@@ -151,6 +151,7 @@ export default {
           //   })
           this.$store.commit('AppLayout/updateLoginDialog', false)
           this.$emit('onLoggedIn')
+          this.$bus.emit('onLoggedIn')
           this.redirectTo()
         })
         .catch(() => {

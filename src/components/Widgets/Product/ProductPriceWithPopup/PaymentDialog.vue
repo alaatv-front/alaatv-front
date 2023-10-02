@@ -12,10 +12,10 @@
         </div>
       </q-card-section>
       <q-card-section>
-        <div class="row"
+        <div class="row payment-body"
              :class="{'q-col-gutter-lg': paymentMethod !== 'cash'}">
-          <div class="col-12"
-               :class="{'col-md-6': paymentMethod !== 'cash'}">
+          <div class="col-12 products-col"
+               :class="{'col-sm-6': paymentMethod !== 'cash', 'hidden-responsive': (independentComplimentary.length === 0 && dependentComplimentary.length === 0 && examList.length === 0)}">
             <div class="product-container">
               <div v-if="dependentComplimentary.length > 0"
                    class="product-complimentary">
@@ -75,7 +75,7 @@
             </div>
           </div>
           <div v-if="paymentMethod !== 'cash'"
-               class="col-12 col-md-6">
+               class="col-12 col-sm-6 installment-col">
             <div class="products-label instalment">
               اقساط
             </div>
@@ -112,9 +112,16 @@
         </div>
       </q-card-section>
       <q-card-section class="payment-footer">
+        <div class="price-title-responsive">
+          <q-icon name="ph:tag"
+                  :size="'16px'"
+                  class="price-title-icon" />
+          قیمت کل :
+        </div>
         <div class="price-info">
           <div class="price-title">
-            <ph-tag :size="16"
+            <q-icon name="ph:tag"
+                    :size="'16px'"
                     class="price-title-icon" />
             قیمت کل :
           </div>
@@ -157,12 +164,11 @@
 </template>
 
 <script>
-import { openURL } from 'quasar'
 import moment from 'moment-jalaali'
 import { defineComponent } from 'vue'
 import Price from 'src/models/Price.js'
+import { Product } from 'src/models/Product.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import { Product, ProductList } from 'src/models/Product.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
@@ -183,8 +189,8 @@ export default defineComponent({
       default: new Product()
     },
     productComplimentary: {
-      type: ProductList,
-      default: new ProductList()
+      type: Array,
+      default: () => []
     },
     examList: {
       type: Array,
@@ -335,7 +341,10 @@ export default defineComponent({
     },
     getProduct() {
       if (!this.productId) {
-        return new Promise()
+        // console.log('getProduct')
+        return new Promise((resolve, reject) => {
+          reject()
+        })
       }
 
       return APIGateway.product.show(this.productId)
@@ -392,7 +401,7 @@ export default defineComponent({
         inInstalment: inInstalment ? 1 : 0
       })
         .then(url => {
-          openURL(url)
+          window.location.href = url
         })
         .catch(() => {})
     },
@@ -484,6 +493,10 @@ export default defineComponent({
   height: 649px;
   position: relative;
 
+  @media screen and (max-width: 600px){
+    height: 666px;
+  }
+
   &.cash {
     width: 480px;
   }
@@ -511,6 +524,22 @@ export default defineComponent({
       font-weight: 400;
       line-height: normal;
       letter-spacing: -0.42px;
+    }
+  }
+
+  .payment-body {
+    display: flex;
+
+    .products-col {
+
+      &.hidden-responsive {
+        @media screen and (max-width: 600px){
+          display: none;
+        }
+      }
+    }
+
+    .installment-col {
     }
   }
 
@@ -579,7 +608,7 @@ export default defineComponent({
   }
 
   .installment {
-    width: 330px;
+    width: 100%;
     height: 349px;
     border-radius: 8px;
     background: #ECEFF1;
@@ -681,6 +710,26 @@ export default defineComponent({
     bottom: 0;
     width: 100%;
     padding: 0 30px 20px;
+
+    .price-title-responsive {
+        display: none;
+        justify-content: flex-start;
+        align-items: center;
+        color:#303030;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: -0.54px;
+
+        .price-title-icon {
+          margin-right: 8px;
+        }
+
+        @media screen and (max-width: 600px){
+          display: flex;
+        }
+      }
     .price-info {
       display: flex;
       justify-content: space-between;
@@ -701,6 +750,10 @@ export default defineComponent({
 
         .price-title-icon {
           margin-right: 8px;
+        }
+
+        @media screen and (max-width: 600px){
+          display: none;
         }
       }
       .price-calculation {
