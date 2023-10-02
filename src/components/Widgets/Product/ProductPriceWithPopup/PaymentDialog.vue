@@ -104,7 +104,7 @@
                                   :class="{'active': index === 0}">{{ getPersianDate(item.date) }}</q-item-section>
                   <q-item-section class="installment-amount"
                                   :class="{'active': index === 0}"
-                                  side>{{ item.value }}</q-item-section>
+                                  side>{{ item.value.toLocaleString('fa') }}</q-item-section>
                 </q-item>
               </q-list>
             </div>
@@ -365,11 +365,12 @@ export default defineComponent({
       return persianOrdinals[index]
     },
     getPersianDate(date) {
-      const monthList = ['فرودین', 'اردیبهشت', 'خرداد', 'تیر', 'امرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند']
-      const calendarDate = moment(date)
-      const calendarMonth = monthList[moment(calendarDate.jMonth(), 'jM').format('jM')]
-      const calendarYear = calendarDate.jWeekYear()
-      return calendarMonth + ' ' + calendarYear
+      const getDate = function (date) {
+        return moment(date, 'YYYY/M/D HH:mm:ss').locale('fa').format('jDD jMMM jYYYY')
+      }
+      const targetDate = getDate(date)
+      const localDate = getDate(Date.now())
+      return targetDate === localDate ? 'هم اکنون' : targetDate
     },
     addToCart() {
       if (this.paymentMethod === 'cash') {
