@@ -146,12 +146,18 @@ export default {
     .product-tab {
       border-radius: 10px;
       width: 160px;
+      @media screen and (max-width: 600px){
+        width: 100px;
+      }
 
       &:deep(.q-tab__content .q-focus-helper) {
         display: none;
       }
 
       &:deep(.q-tab__label) {
+        @media screen and (max-width: 600px){
+          font-size: 16px;
+        }
         font-size: 18px;
         line-height: 31px;
         text-align: center;

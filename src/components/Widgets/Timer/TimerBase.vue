@@ -1,5 +1,6 @@
 <template>
-  <div class="event-counter-wrapper">
+  <div class="event-counter-wrapper"
+       :class="theme">
     <div v-if="counters.seconds"
          class="event-counter-item">
       <div class="event-counter-item-number seconds">
@@ -47,13 +48,18 @@ const defaultTimerStyle = {
   counterHeight: '40px',
   counterMargin: '8px',
   counterPadding: '0',
-  counterBorderRadius: '10px'
+  counterBorderRadius: '10px',
+  fontFamily: 'Doran FaNum'
 }
 
 export default defineComponent({
   name: 'TimerBase',
   props: {
     time: {
+      type: String,
+      default: null
+    },
+    theme: {
       type: String,
       default: null
     },
@@ -177,14 +183,39 @@ $counterWidth: v-bind('computedTimerStyle.counterWidth');
 $counterHeight: v-bind('computedTimerStyle.counterHeight');
 $counterMargin: v-bind('computedTimerStyle.counterMargin');
 $counterPadding: v-bind('computedTimerStyle.counterPadding');
+$fontFamily: v-bind('computedTimerStyle.fontFamily');
 $counterBorderRadius: v-bind('counterBorderRadius');
 .event-counter-wrapper {
   display: flex;
   align-items: center;
+  font-family: $fontFamily;
 
   @media screen and (max-width: 1023px) and (min-width: 350px) {
     width: 100%;
-    justify-content: space-evenly;
+    justify-content: center;
+  }
+
+  &.theme1 {
+
+    .event-counter-item {
+
+      .event-counter-item-title {
+        @media screen and (max-width: 600px) {
+          display: none;
+        }
+      }
+      &:not(:last-child) {
+        flex-direction: row;
+        &::after{
+          @media screen and (max-width: 600px) {
+            content: ':';
+            font-size: $timerSize;
+            color: $timerColor;
+            margin: 0 6px;
+          }
+        }
+      }
+    }
   }
 
   .event-counter-item{

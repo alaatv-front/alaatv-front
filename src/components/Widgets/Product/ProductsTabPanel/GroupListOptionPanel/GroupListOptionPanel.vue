@@ -1,10 +1,10 @@
 <template>
   <div>
     <div v-if="localOptions.options.layout === 'ProductShelf'">
-      <product-shelf-option-panel :options="localOptions" />
+      <product-shelf-option-panel v-model:options="localOptions" />
     </div>
     <div v-else>
-      <product-tab-option-panel :options="localOptions" />
+      <product-tab-option-panel v-model:options="localOptions" />
     </div>
     <div class="row q-gutter-xs justify-center q-my-md">
       <div class="col-md-5">

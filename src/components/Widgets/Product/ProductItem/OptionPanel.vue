@@ -2,6 +2,7 @@
   <option-panel-tabs v-model:options="localOptions"
                      :show-hover-effects-tab="true"
                      :show-box-shadows-tab="true"
+                     :show-responsive-spacing="true"
                      :show-border-style-tab="true">
     <template #main-tab>
       <div class="option-panel-container">
@@ -100,6 +101,58 @@ export default defineComponent({
             skewY: 0,
             translateX: 0,
             translateY: -10
+          }
+        },
+        responsiveSpacing: {
+          xs: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: '10px',
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          },
+          sm: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: '10px',
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          },
+          md: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: '10px',
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          },
+          lg: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: '10px',
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          },
+          xl: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: '10px',
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
           }
         }
       }

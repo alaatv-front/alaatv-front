@@ -9,9 +9,10 @@
 </template>
 
 <script>
+import { Product } from 'src/models/Product.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import ProductPanel from './components/ProductPanel.vue'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ProductsTabPanel',
@@ -19,9 +20,9 @@ export default {
     ProductPanel
   },
   mixins: [mixinPrefetchServerData, mixinWidget],
+  emits: ['update:options'],
   data() {
     return {
-      products: [],
       loading: false,
       clonedData: [],
       defaultOptions: {
@@ -32,24 +33,73 @@ export default {
     }
   },
   computed: {
-    productFlatList() {
-      const clonedData = this.getClonedData()
+    localOptions: {
+      get() {
+        const clonedOptions = JSON.parse(JSON.stringify(Object.assign(this.defaultOptions, this.options)))
+        const clonedDataAdapter = function (group) {
+          const groupLength = group.length
+          for (let index = 0; index < groupLength; index++) {
+            if (group[index].type === 'GroupList') {
+              clonedDataAdapter(group[index].data)
+            } else {
+              group[index].data = group[index].data.map(item => isNaN(item) ? (new Product(item)) : (new Product({ id: item })))
+            }
+          }
+        }
+
+        clonedDataAdapter(clonedOptions.data)
+
+        return clonedOptions
+      },
+      set (newValue) {
+        const dataAdapter = function (group) {
+          const groupLength = group.length
+          for (let index = 0; index < groupLength; index++) {
+            if (group[index].type === 'GroupList') {
+              dataAdapter(group[index].data)
+            } else {
+              group[index].data = group[index].data.map(item => isNaN(item) ? item.id : item)
+            }
+          }
+        }
+
+        dataAdapter(newValue.data)
+
+        this.$emit('update:options', newValue)
+      }
+    },
+    productFlatList () {
+      const clonedData = this.optionsWithObjectProduct
       return this.extractProducts(clonedData)
     },
-    productIdList() {
-      // return this.productFlatList.map(product => product.id)
-      return this.productFlatList
+    productFlatListLength () {
+      return this.productFlatList.length
     },
-    productIdListLength() {
-      return this.productIdList.length
+    optionsWithObjectProduct () {
+      const clonedData = JSON.parse(JSON.stringify(this.localOptions.data))
+
+      const clonedDataAdapter = function (group) {
+        const groupLength = group.length
+        for (let index = 0; index < groupLength; index++) {
+          if (group[index].type === 'GroupList') {
+            clonedDataAdapter(group[index].data)
+          } else {
+            group[index].data = group[index].data.map(item => isNaN(item) ? (new Product(item)) : (new Product({ id: item })))
+          }
+        }
+      }
+
+      clonedDataAdapter(clonedData)
+
+      return clonedData
     }
   },
   watch: {
-    productIdListLength(vale) {
+    productFlatListLength (vale) {
       this.loading = true
       this.getProductsPromise()
         .then(productList => {
-          this.clonedData = this.getClonedData()
+          this.clonedData = this.optionsWithObjectProduct
           this.replaceProducts(this.clonedData, productList.list)
           this.loading = false
         })
@@ -99,11 +149,12 @@ export default {
     },
     getProductsPromise() {
       const data = {
-        productIds: this.productIdList,
+        productIds: this.productFlatList,
         params: {
-          length: this.productIdListLength
+          length: this.productFlatListLength
         }
       }
+
       return APIGateway.product.getProductList(data)
     },
     prefetchServerDataPromise () {
@@ -111,7 +162,7 @@ export default {
       return this.getProductsPromise()
     },
     prefetchServerDataPromiseThen (productList) {
-      this.clonedData = this.getClonedData()
+      this.clonedData = this.optionsWithObjectProduct
       this.replaceProducts(this.clonedData, productList.list)
       this.loading = false
     },
