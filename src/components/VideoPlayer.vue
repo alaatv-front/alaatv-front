@@ -502,7 +502,7 @@ export default {
 
       this.player.ready(() => {
         this.setPlayerBrand()
-        this.focusOnPlayer()
+        // this.focusOnPlayer() // این متد به این خاطر کامنت شد، چون روی لندینگ سیلک رود وقتی صفحه بالا میومد،‌این متد باعث میشد صفحه اسکرول بخوره و بره روی ویدجت ویدیو پلیر
         this.redefineTap()
         // this.on('timeupdate', function () {
         //   if (that.keepCalculating) {
