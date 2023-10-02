@@ -191,8 +191,14 @@ export default {
   },
   mounted() {
     this.loadConfig()
+    this.checkAuth()
   },
   methods: {
+    checkAuth() {
+      this.$bus.on('onLoggedIn', () => {
+        this.loadAuthData()
+      })
+    },
     loadConfig() {
       if (this.localOptions.imageSource) {
         this.localOptions.flat = true
@@ -285,7 +291,7 @@ $responsiveSpacing: (
     paddingBottom: v-bind('localOptions.responsiveSpacing.xl.paddingBottom'),
   )
 );
-$hideInAuth : v-bind('hideInAuth ? "hidden" :  "show"');
+$hideInAuth : v-bind('hideInAuth ? "none" :  "initial"');
   .drawer {
     z-index: 100;
 
@@ -297,7 +303,7 @@ $hideInAuth : v-bind('hideInAuth ? "hidden" :  "show"');
 
   .action-btn {
       @include media-query-spacings($responsiveSpacing, $sizes);
-      visibility: $hideInAuth;
+      display: $hideInAuth;
       &.fixed-btn {
         position: fixed;
         z-index: 1;
