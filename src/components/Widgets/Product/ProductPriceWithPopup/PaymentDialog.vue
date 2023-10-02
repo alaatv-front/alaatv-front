@@ -392,17 +392,17 @@ export default defineComponent({
           })
       } else {
         const inInstalment = this.paymentMethod === 'installment'
-        this.getGatewayUrl(inInstalment, this.paymentMethod)
+        this.getGatewayUrl(inInstalment)
       }
     },
-    getGatewayUrl(inInstalment, paymentMethod) {
+    getGatewayUrl(inInstalment) {
       APIGateway.cart.getPaymentRedirectEncryptedLink({
         device: 'web',
-        paymentMethod,
         inInstalment: inInstalment ? 1 : 0
       })
         .then(url => {
-          window.location.href = url
+          console.log('url', url)
+          // window.location.href = url
         })
         .catch(() => {})
     },
