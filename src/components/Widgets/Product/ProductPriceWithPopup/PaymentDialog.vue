@@ -164,7 +164,6 @@
 </template>
 
 <script>
-import { openURL } from 'quasar'
 import moment from 'moment-jalaali'
 import { defineComponent } from 'vue'
 import Price from 'src/models/Price.js'
@@ -402,7 +401,7 @@ export default defineComponent({
         inInstalment: inInstalment ? 1 : 0
       })
         .then(url => {
-          openURL(url)
+          window.location.href = url
         })
         .catch(() => {})
     },
