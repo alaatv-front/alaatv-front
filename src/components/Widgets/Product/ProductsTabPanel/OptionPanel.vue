@@ -83,22 +83,39 @@ export default defineComponent({
         // return Object.assign(this.defaultOptions, this.options)
 
         // const clonedOptions = JSON.parse(JSON.stringify(Object.assign(this.defaultOptions, this.options)))
-        const clonedOptions = Object.assign(this.defaultOptions, this.options)
+        // const clonedOptions = Object.assign(this.defaultOptions, this.options)
+        //
+        // const clonedDataAdapter = function (group) {
+        //   const groupLength = group.length
+        //   for (let index = 0; index < groupLength; index++) {
+        //     if (group[index].type === 'GroupList') {
+        //       clonedDataAdapter(group[index].data)
+        //     } else {
+        //       group[index].data = group[index].data.map(item => isNaN(item) ? (new Product(item)) : (new Product({ id: item })))
+        //     }
+        //   }
+        // }
+        //
+        // clonedDataAdapter(clonedOptions.data)
+        //
+        // return clonedOptions
 
-        const clonedDataAdapter = function (group) {
-          const groupLength = group.length
-          for (let index = 0; index < groupLength; index++) {
-            if (group[index].type === 'GroupList') {
-              clonedDataAdapter(group[index].data)
-            } else {
-              group[index].data = group[index].data.map(item => isNaN(item) ? (new Product(item)) : (new Product({ id: item })))
-            }
-          }
-        }
+        // const newLocalOptions = Object.assign(this.defaultOptions, this.options)
+        // const dataAdapter = function (group) {
+        //   const groupLength = group.length
+        //   for (let index = 0; index < groupLength; index++) {
+        //     if (group[index].type === 'GroupList') {
+        //       dataAdapter(group[index].data)
+        //     } else {
+        //       group[index].data = group[index].data.map(item => isNaN(item) ? item.id : item)
+        //     }
+        //   }
+        // }
+        // dataAdapter(newLocalOptions.data)
+        //
+        // return newLocalOptions
 
-        clonedDataAdapter(clonedOptions.data)
-
-        return clonedOptions
+        return Object.assign(this.defaultOptions, this.options)
       },
       set (newValue) {
         this.updateNewLocalOptions(newValue)

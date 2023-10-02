@@ -80,12 +80,12 @@
       </div>
     </div>
     <q-card class="custom-card bg-grey-1">
-      <q-list v-for="(product, productIndex) in localOptions.data"
+      <q-list v-for="(productId, productIndex) in localOptions.data"
               :key="productIndex">
         <q-item class=" shadow-3"
                 tag="label">
           <q-item-section>
-            <q-item-label>{{ product.id }}</q-item-label>
+            <q-item-label>{{ productId }}</q-item-label>
           </q-item-section>
           <q-item-section side>
             <q-btn color="negative"
