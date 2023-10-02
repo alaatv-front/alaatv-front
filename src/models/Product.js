@@ -30,6 +30,7 @@ class Product extends Model {
       { key: 'photo' },
       { key: 'photo_wide' },
       { key: 'attributes' },
+      { key: 'payment_default' },
       {
         key: 'contents_progress',
         default: 0
@@ -83,7 +84,22 @@ class Product extends Model {
         key: 'blocks',
         default: []
       }
-    ])
+    ], {
+      payment_default: {
+        infoKey: 'payment_default_info',
+        enumListKey: 'payment_defaultEnums',
+        enums: [
+          {
+            label: 'پرداخت نقدی',
+            value: 1
+          },
+          {
+            label: 'پرداخت قسطی',
+            value: 2
+          }
+        ]
+      }
+    })
     if (this.is_favored_2) {
       this.is_favored = this.is_favored_2
     }

@@ -302,7 +302,7 @@ export default defineComponent({
       .background-filter {
         width: 100%;
         height: 100%;
-        background: linear-gradient(270deg,  rgba(0, 0, 0, 0.15)0%, rgba(0, 0, 0, 0.60) 47.60%, rgba(0, 0, 0, 0.95) 100%), url(<path-to-image>), lightgray 0px 0px / 100% 100% no-repeat;
+        background: linear-gradient(270deg,  rgba(0, 0, 0, 0.15)0%, rgba(0, 0, 0, 0.60) 47.60%, rgba(0, 0, 0, 0.95) 100%), lightgray 0px 0px / 100% 100% no-repeat;
         mix-blend-mode: multiply;
       }
     }
@@ -504,7 +504,7 @@ export default defineComponent({
 
     .product-pic {
       height: 550px;
-      background: linear-gradient(270deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.60) 52.60%, rgba(0, 0, 0, 0.15) 100%), url(<path-to-image>), lightgray 0px 0px / 100% 100% no-repeat;
+      background: linear-gradient(270deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.60) 52.60%, rgba(0, 0, 0, 0.15) 100%), lightgray 0px 0px / 100% 100% no-repeat;
       filter: blur(10px);
     }
   }
