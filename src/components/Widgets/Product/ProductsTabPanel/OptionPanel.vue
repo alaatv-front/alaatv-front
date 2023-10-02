@@ -58,9 +58,33 @@ export default defineComponent({
     }
   },
   computed: {
+    readableData () {
+      // const clonedOptions = this.localOptions
+      const clonedOptions = JSON.parse(JSON.stringify(this.localOptions))
+
+      const clonedDataAdapter = function (group) {
+        const groupLength = group.length
+        for (let index = 0; index < groupLength; index++) {
+          if (group[index].type === 'GroupList') {
+            clonedDataAdapter(group[index].data)
+          } else {
+            group[index].data = group[index].data.map(item => isNaN(item) ? (new Product(item)) : (new Product({ id: item })))
+          }
+        }
+      }
+
+      clonedDataAdapter(clonedOptions.data)
+
+      return clonedOptions.data
+    },
     localOptions: {
       get() {
-        const clonedOptions = JSON.parse(JSON.stringify(Object.assign(this.defaultOptions, this.options)))
+        // const clonedOptions = JSON.parse(JSON.stringify(Object.assign(this.defaultOptions, this.options)))
+        // return Object.assign(this.defaultOptions, this.options)
+
+        // const clonedOptions = JSON.parse(JSON.stringify(Object.assign(this.defaultOptions, this.options)))
+        const clonedOptions = Object.assign(this.defaultOptions, this.options)
+
         const clonedDataAdapter = function (group) {
           const groupLength = group.length
           for (let index = 0; index < groupLength; index++) {
@@ -77,24 +101,30 @@ export default defineComponent({
         return clonedOptions
       },
       set (newValue) {
-        const dataAdapter = function (group) {
-          const groupLength = group.length
-          for (let index = 0; index < groupLength; index++) {
-            if (group[index].type === 'GroupList') {
-              dataAdapter(group[index].data)
-            } else {
-              group[index].data = group[index].data.map(item => isNaN(item) ? item.id : item)
-            }
-          }
-        }
-        dataAdapter(newValue.data)
-        this.$emit('update:options', newValue)
+        this.updateNewLocalOptions(newValue)
       }
     }
   },
   methods: {
     setNewLocalOptions () {
-      this.localOptions = JSON.parse(JSON.stringify(this.localOptions))
+      // this.localOptions.flagForEmit = Date.now()
+      // const newLocalOptions = JSON.parse(JSON.stringify(this.localOptions))
+      // this.updateNewLocalOptions(newLocalOptions)
+      this.updateNewLocalOptions(this.localOptions)
+    },
+    updateNewLocalOptions (newLocalOptions) {
+      const dataAdapter = function (group) {
+        const groupLength = group.length
+        for (let index = 0; index < groupLength; index++) {
+          if (group[index].type === 'GroupList') {
+            dataAdapter(group[index].data)
+          } else {
+            group[index].data = group[index].data.map(item => isNaN(item) ? item.id : item)
+          }
+        }
+      }
+      dataAdapter(newLocalOptions.data)
+      this.$emit('update:options', newLocalOptions)
     },
     removeTabPanel(index) {
       this.localOptions.data.splice(index, 1)

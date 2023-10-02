@@ -41,7 +41,7 @@
                 {{item.type}}
               </div>
             </template>
-            <recursive-component :options="item"
+            <recursive-component v-model:options="localOptions.data[index]"
                                  :layout="'ProductShelf'" />
           </q-expansion-item>
         </q-card-section>
@@ -52,17 +52,35 @@
 
 <script>
 import { defineAsyncComponent } from 'vue'
-import { PageBuilderOptionPanel } from 'src/mixin/Mixins'
+// import { PageBuilderOptionPanel } from 'src/mixin/Mixins'
 
 export default {
   name: 'groupListShelfOptionPanel',
   components: { recursiveComponent: defineAsyncComponent(() => import('../recursiveComponent.vue')) },
-  mixins: [PageBuilderOptionPanel],
+  props: {
+    options: {
+      type: Object,
+      default: () => {
+      }
+    }
+  },
+  // mixins: [PageBuilderOptionPanel],
+
   data() {
     return {
       eventName: '',
       selectedEvent: '',
       layoutOptions: ['ProductTab', 'ProductShelf']
+    }
+  },
+  computed: {
+    localOptions: {
+      get() {
+        return this.options
+      },
+      set(newValue) {
+        this.$emit('update:options', newValue)
+      }
     }
   },
   methods: {

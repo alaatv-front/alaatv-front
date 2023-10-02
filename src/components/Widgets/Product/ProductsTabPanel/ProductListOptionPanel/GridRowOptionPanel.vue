@@ -122,17 +122,29 @@
 </template>
 
 <script>
-import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
+// import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 import ProductOptionPanel from 'src/components/Widgets/Product/ProductItem/OptionPanel.vue'
+// import { Product } from 'src/models/Product'
+
 export default {
   name: 'ProductListGridOptionPanel',
   components: {
     ProductItem,
     ProductOptionPanel
   },
-  mixins: [PageBuilderOptionPanel],
+  // mixins: [PageBuilderOptionPanel],
   props: {
+    data: {
+      type: Object,
+      default: () => {
+      }
+    },
+    options: {
+      type: Object,
+      default: () => {
+      }
+    },
     layout: {
       type: String,
       default: ''
@@ -211,6 +223,24 @@ export default {
       }
     }
   },
+  computed: {
+    localOptions: {
+      get() {
+        return this.options
+      },
+      set(newValue) {
+        this.$emit('update:options', newValue)
+      }
+    }
+  },
+  // watch: {
+  //   localOptions: {
+  //     handler(newValue) {
+  //       // this.updateLocalOptions(newValue)
+  //     },
+  //     deep: true
+  //   }
+  // },
   methods: {
     calcColNumberClass() {
       this.localOptions.options.colNumber = Object.keys(this.sizeValue).map(key => this.getCol(key, this.sizeValue[key])).join(' ')

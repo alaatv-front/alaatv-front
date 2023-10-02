@@ -134,7 +134,7 @@
 </template>
 
 <script>
-import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
+// import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 import ProductOptionPanel from 'src/components/Widgets/Product/ProductItem/OptionPanel.vue'
 
@@ -144,8 +144,13 @@ export default {
     ProductItem,
     ProductOptionPanel
   },
-  mixins: [PageBuilderOptionPanel],
+  // mixins: [PageBuilderOptionPanel],
   props: {
+    options: {
+      type: Object,
+      default: () => {
+      }
+    },
     layout: {
       type: String,
       default: ''
@@ -221,6 +226,16 @@ export default {
           }
         },
         data: []
+      }
+    }
+  },
+  computed: {
+    localOptions: {
+      get() {
+        return this.options
+      },
+      set(newValue) {
+        this.$emit('update:options', newValue)
       }
     }
   },

@@ -52,20 +52,20 @@ export default {
         return clonedOptions
       },
       set (newValue) {
-        const dataAdapter = function (group) {
-          const groupLength = group.length
-          for (let index = 0; index < groupLength; index++) {
-            if (group[index].type === 'GroupList') {
-              dataAdapter(group[index].data)
-            } else {
-              group[index].data = group[index].data.map(item => isNaN(item) ? item.id : item)
-            }
-          }
-        }
+        // const dataAdapter = function (group) {
+        //   const groupLength = group.length
+        //   for (let index = 0; index < groupLength; index++) {
+        //     if (group[index].type === 'GroupList') {
+        //       dataAdapter(group[index].data)
+        //     } else {
+        //       group[index].data = group[index].data.map(item => isNaN(item) ? item.id : item)
+        //     }
+        //   }
+        // }
+        //
+        // dataAdapter(newValue.data)
 
-        dataAdapter(newValue.data)
-
-        this.$emit('update:options', newValue)
+        // this.$emit('update:options', newValue)
       }
     },
     productFlatList () {
