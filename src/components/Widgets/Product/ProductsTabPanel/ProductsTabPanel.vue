@@ -20,9 +20,9 @@ export default {
     ProductPanel
   },
   mixins: [mixinPrefetchServerData, mixinWidget],
+  emits: ['update:options'],
   data() {
     return {
-      products: [],
       loading: false,
       clonedData: [],
       defaultOptions: {
@@ -35,33 +35,30 @@ export default {
   computed: {
     localOptions: {
       get() {
-        return Object.assign(this.defaultOptions, this.options)
-        // const clonedOptions = JSON.parse(JSON.stringify(this.localOptions))
-        // const clonedDataAdapter = function (group) {
-        //   const groupLength = group.length
-        //   for (let index = 0; index < groupLength; index++) {
-        //     const groupItem = group[index]
-        //     if (groupItem.type === 'GroupList') {
-        //       clonedDataAdapter(groupItem.data)
-        //     } else {
-        //       groupItem.data.map(item => (item.id) ? (new Product(item)) : (new Product({ id: item.id })))
-        //     }
-        //   }
-        // }
-        //
-        // clonedDataAdapter(clonedOptions.data)
-        //
-        // return Object.assign(this.defaultOptions, clonedOptions)
+        const clonedOptions = JSON.parse(JSON.stringify(Object.assign(this.defaultOptions, this.options)))
+        const clonedDataAdapter = function (group) {
+          const groupLength = group.length
+          for (let index = 0; index < groupLength; index++) {
+            if (group[index].type === 'GroupList') {
+              clonedDataAdapter(group[index].data)
+            } else {
+              group[index].data = group[index].data.map(item => isNaN(item) ? (new Product(item)) : (new Product({ id: item })))
+            }
+          }
+        }
+
+        clonedDataAdapter(clonedOptions.data)
+
+        return clonedOptions
       },
       set (newValue) {
         const dataAdapter = function (group) {
           const groupLength = group.length
           for (let index = 0; index < groupLength; index++) {
-            const groupItem = group[index]
-            if (groupItem.type === 'GroupList') {
-              dataAdapter(groupItem.data)
+            if (group[index].type === 'GroupList') {
+              dataAdapter(group[index].data)
             } else {
-              groupItem.data.map(item => (item.id) ? item.id : item)
+              group[index].data = group[index].data.map(item => isNaN(item) ? item.id : item)
             }
           }
         }
@@ -71,28 +68,23 @@ export default {
         this.$emit('update:options', newValue)
       }
     },
-    productFlatList() {
+    productFlatList () {
       const clonedData = this.optionsWithObjectProduct
       return this.extractProducts(clonedData)
     },
-    productIdList() {
-      // return this.productFlatList.map(product => product.id)
-      return this.productFlatList
-    },
-    productIdListLength() {
-      return this.productIdList.length
+    productFlatListLength () {
+      return this.productFlatList.length
     },
     optionsWithObjectProduct () {
-      const clonedData = this.getClonedData()
+      const clonedData = JSON.parse(JSON.stringify(this.localOptions.data))
 
       const clonedDataAdapter = function (group) {
         const groupLength = group.length
         for (let index = 0; index < groupLength; index++) {
-          const groupItem = group[index]
-          if (groupItem.type === 'GroupList') {
-            clonedDataAdapter(groupItem.data)
+          if (group[index].type === 'GroupList') {
+            clonedDataAdapter(group[index].data)
           } else {
-            groupItem.data.map(item => (item.id) ? (new Product(item)) : (new Product({ id: item.id })))
+            group[index].data = group[index].data.map(item => isNaN(item) ? (new Product(item)) : (new Product({ id: item })))
           }
         }
       }
@@ -103,7 +95,7 @@ export default {
     }
   },
   watch: {
-    productIdListLength(vale) {
+    productFlatListLength (vale) {
       this.loading = true
       this.getProductsPromise()
         .then(productList => {
@@ -156,13 +148,13 @@ export default {
       }
     },
     getProductsPromise() {
-      this.localOptions = this.options
       const data = {
-        productIds: this.productIdList,
+        productIds: this.productFlatList,
         params: {
-          length: this.productIdListLength
+          length: this.productFlatListLength
         }
       }
+
       return APIGateway.product.getProductList(data)
     },
     prefetchServerDataPromise () {

@@ -14,10 +14,13 @@ export default class CartAPI extends APIRepository {
       discountSubmit: '/order/submitCoupon',
       discountRemove: '/order/RemoveCoupon',
       reviewCart: '/checkout/review',
-      getPaymentRedirectEncryptedLink: (device, paymentMethod, orderId) => {
+      getPaymentRedirectEncryptedLink: (device, paymentMethod, orderId, inInstalment) => {
         let address = '/getPaymentRedirectEncryptedLink?seller=' + this.seller + '&device=' + device + '&paymentMethod=' + paymentMethod
         if (orderId) {
           address += '&orderId=' + orderId
+        }
+        if (inInstalment) {
+          address += '&inInstalment=' + inInstalment
         }
 
         return address
@@ -32,7 +35,7 @@ export default class CartAPI extends APIRepository {
       gateways: this.name + this.APIAdresses.gateways,
       discountSubmit: this.name + this.APIAdresses.discountSubmit,
       discountRemove: this.name + this.APIAdresses.discountRemove,
-      getPaymentRedirectEncryptedLink: (device, paymentMethod, orderId) => this.name + this.APIAdresses.getPaymentRedirectEncryptedLink(device, paymentMethod, orderId),
+      getPaymentRedirectEncryptedLink: (device, paymentMethod, orderId, inInstalment) => this.name + this.APIAdresses.getPaymentRedirectEncryptedLink(device, paymentMethod, orderId, inInstalment),
       reviewCart: this.name + this.APIAdresses.reviewCart,
       removeFromCart: id => this.name + this.APIAdresses.removeFromCart(id),
       removeFromCartByProductId: id => this.name + this.APIAdresses.removeFromCartByProductId(id),
@@ -180,8 +183,8 @@ export default class CartAPI extends APIRepository {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.getPaymentRedirectEncryptedLink(data.device, data.paymentMethod, data.orderId),
-      cacheKey: this.CacheList.getPaymentRedirectEncryptedLink(data.device, data.paymentMethod, data.orderId),
+      request: this.APIAdresses.getPaymentRedirectEncryptedLink(data.device, data.paymentMethod, data.orderId, data.inInstalment),
+      cacheKey: this.CacheList.getPaymentRedirectEncryptedLink(data.device, data.paymentMethod, data.orderId, data.inInstalment),
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return response.data.data.url
