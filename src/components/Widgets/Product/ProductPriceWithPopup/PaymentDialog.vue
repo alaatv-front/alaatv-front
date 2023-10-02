@@ -401,8 +401,7 @@ export default defineComponent({
         inInstalment: inInstalment ? 1 : 0
       })
         .then(url => {
-          console.log('url', url)
-          // window.location.href = url
+          window.location.href = url
         })
         .catch(() => {})
     },

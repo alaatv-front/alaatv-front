@@ -35,37 +35,54 @@ export default {
   computed: {
     localOptions: {
       get() {
-        const clonedOptions = JSON.parse(JSON.stringify(Object.assign(this.defaultOptions, this.options)))
-        const clonedDataAdapter = function (group) {
-          const groupLength = group.length
-          for (let index = 0; index < groupLength; index++) {
-            if (group[index].type === 'GroupList') {
-              clonedDataAdapter(group[index].data)
-            } else {
-              group[index].data = group[index].data.map(item => isNaN(item) ? (new Product(item)) : (new Product({ id: item })))
-            }
-          }
-        }
-
-        clonedDataAdapter(clonedOptions.data)
-
-        return clonedOptions
-      },
-      set (newValue) {
-        // const dataAdapter = function (group) {
+        // const clonedOptions = JSON.parse(JSON.stringify(Object.assign(this.defaultOptions, this.options)))
+        // const clonedDataAdapter = function (group) {
         //   const groupLength = group.length
         //   for (let index = 0; index < groupLength; index++) {
         //     if (group[index].type === 'GroupList') {
-        //       dataAdapter(group[index].data)
+        //       clonedDataAdapter(group[index].data)
         //     } else {
-        //       group[index].data = group[index].data.map(item => isNaN(item) ? item.id : item)
+        //       group[index].data = group[index].data.map(item => isNaN(item) ? (new Product(item)) : (new Product({ id: item })))
         //     }
         //   }
         // }
         //
-        // dataAdapter(newValue.data)
+        // clonedDataAdapter(clonedOptions.data)
+        //
+        // return clonedOptions
 
-        // this.$emit('update:options', newValue)
+        const clonedOptions = Object.assign(this.defaultOptions, this.options)
+
+        const dataAdapter = function (group) {
+          const groupLength = group.length
+          for (let index = 0; index < groupLength; index++) {
+            if (group[index].type === 'GroupList') {
+              dataAdapter(group[index].data)
+            } else {
+              group[index].data = group[index].data.map(item => isNaN(item) ? item.id : item)
+            }
+          }
+        }
+
+        dataAdapter(clonedOptions.data)
+
+        return clonedOptions
+      },
+      set (newValue) {
+        const dataAdapter = function (group) {
+          const groupLength = group.length
+          for (let index = 0; index < groupLength; index++) {
+            if (group[index].type === 'GroupList') {
+              dataAdapter(group[index].data)
+            } else {
+              group[index].data = group[index].data.map(item => isNaN(item) ? item.id : item)
+            }
+          }
+        }
+
+        dataAdapter(newValue.data)
+
+        this.$emit('update:options', newValue)
       }
     },
     productFlatList () {

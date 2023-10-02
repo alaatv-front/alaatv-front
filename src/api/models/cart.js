@@ -15,12 +15,16 @@ export default class CartAPI extends APIRepository {
       discountRemove: '/order/RemoveCoupon',
       reviewCart: '/checkout/review',
       getPaymentRedirectEncryptedLink: (device, paymentMethod, orderId, inInstalment) => {
-        let address = '/getPaymentRedirectEncryptedLink?seller=' + this.seller + '&device=' + device + '&paymentMethod=' + paymentMethod
+        let address = '/getPaymentRedirectEncryptedLink?seller=' + this.seller + '&device=' + device
+
         if (orderId) {
           address += '&orderId=' + orderId
         }
         if (inInstalment) {
           address += '&inInstalment=' + inInstalment
+        }
+        if (paymentMethod) {
+          address += '&paymentMethod=' + paymentMethod
         }
 
         return address
