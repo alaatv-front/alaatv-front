@@ -91,20 +91,20 @@
       </div>
     </div>
     <q-card class="custom-card bg-grey-1">
-      <q-list v-for="(product, productIndex) in localOptions.data"
+      <q-list v-for="(productId, productIndex) in localOptions.data"
               :key="productIndex">
         <q-item v-ripple
                 class=" shadow-3"
                 tag="label">
           <q-item-section>
-            <q-item-label>{{product.id}}</q-item-label>
+            <q-item-label>{{productId}}</q-item-label>
           </q-item-section>
           <q-item-section side>
             <q-btn color="negative"
                    icon="close"
                    size="10px"
                    class="q-mr-sm"
-                   @click="removeProduct(product.id,productIndex)" />
+                   @click="removeProduct(productIndex)" />
           </q-item-section>
         </q-item>
       </q-list>
@@ -134,7 +134,7 @@
 </template>
 
 <script>
-import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
+// import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 import ProductOptionPanel from 'src/components/Widgets/Product/ProductItem/OptionPanel.vue'
 
@@ -144,8 +144,13 @@ export default {
     ProductItem,
     ProductOptionPanel
   },
-  mixins: [PageBuilderOptionPanel],
+  // mixins: [PageBuilderOptionPanel],
   props: {
+    options: {
+      type: Object,
+      default: () => {
+      }
+    },
     layout: {
       type: String,
       default: ''
@@ -224,6 +229,16 @@ export default {
       }
     }
   },
+  computed: {
+    localOptions: {
+      get() {
+        return this.options
+      },
+      set(newValue) {
+        this.$emit('update:options', newValue)
+      }
+    }
+  },
   methods: {
     calcColNumberClass () {
       this.localOptions.options.colNumber = Object.keys(this.sizeValue).map(key => this.getCol(key, this.sizeValue[key])).join(' ')
@@ -241,7 +256,7 @@ export default {
       this.dialogProductId = id
       this.productDialog = true
     },
-    removeProduct (id, productIndex) {
+    removeProduct (productIndex) {
       if (!this.localOptions.data[productIndex]) {
         return
       }
