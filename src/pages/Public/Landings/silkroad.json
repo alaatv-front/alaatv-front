@@ -2611,6 +2611,25 @@
             "height": "auto",
             "boxed": true,
             "boxedWidth": "1380",
+            "paddingOfBoxedInFullWidth": "30px",
+            "responsiveBoxedWidth": true,
+            "responsiveBoxedWidths": {
+              "xs": {
+                "width": "310px"
+              },
+              "sm": {
+                "width": "626px"
+              },
+              "md": {
+                "width": "1104px "
+              },
+              "lg": {
+                "width": "1362px "
+              },
+              "xl": {
+                "width": "1362px"
+              }
+            },
             "gutterXSize": "md",
             "gutterYSize": "md",
             "absolute": "top",
@@ -2663,8 +2682,8 @@
                 "marginRight": null,
                 "marginBottom": "",
                 "paddingTop": "",
-                "paddingLeft": "30px",
-                "paddingRight": "30px",
+                "paddingLeft": "",
+                "paddingRight": "",
                 "paddingBottom": null
               },
               "sm": {
@@ -2673,8 +2692,8 @@
                 "marginRight": null,
                 "marginBottom": "",
                 "paddingTop": "",
-                "paddingLeft": "30px",
-                "paddingRight": "30px",
+                "paddingLeft": "",
+                "paddingRight": "",
                 "paddingBottom": null
               },
               "md": {
@@ -2683,8 +2702,8 @@
                 "marginRight": null,
                 "marginBottom": "",
                 "paddingTop": null,
-                "paddingLeft": "30px",
-                "paddingRight": "30px",
+                "paddingLeft": "",
+                "paddingRight": "",
                 "paddingBottom": null
               },
               "lg": {
@@ -2693,8 +2712,8 @@
                 "marginRight": null,
                 "marginBottom": "",
                 "paddingTop": null,
-                "paddingLeft": "30px",
-                "paddingRight": "30px",
+                "paddingLeft": "",
+                "paddingRight": "",
                 "paddingBottom": null
               },
               "xl": {
@@ -2703,12 +2722,11 @@
                 "marginRight": null,
                 "marginBottom": "",
                 "paddingTop": null,
-                "paddingLeft": "30px",
-                "paddingRight": "30px",
+                "paddingLeft": "",
+                "paddingRight": "",
                 "paddingBottom": null
               }
             },
-            "paddingOfBoxedInFullWidth": "30px",
             "boxShadows": [],
             "borderStyle": {
               "borderCssString": "",
@@ -2767,8 +2785,8 @@
               }
             },
             "style": {
-              "maxWidth": "1380px",
-              "width": "1380px",
+              "maxWidth": null,
+              "width": null,
               "image": null
             }
           }
@@ -2790,7 +2808,7 @@
                     "xs": {
                       "fontSize": " 24px",
                       "fontWeight": "700",
-                      "fontStyle": "italic",
+                      "fontStyle": "normal",
                       "lineHeight": null,
                       "letterSpacing": "-0.72px"
                     },
@@ -3322,19 +3340,19 @@
                       "fontStyle": null,
                       "letterSpacing": null,
                       "xs": {
-                        "fontSize": null,
+                        "fontSize": "24px",
                         "fontWeight": "900",
                         "fontStyle": null,
                         "lineHeight": null
                       },
                       "sm": {
-                        "fontSize": null,
+                        "fontSize": "24px",
                         "fontWeight": "900",
                         "fontStyle": null,
                         "lineHeight": null
                       },
                       "md": {
-                        "fontSize": null,
+                        "fontSize": " 30px",
                         "fontWeight": "900",
                         "fontStyle": null,
                         "lineHeight": null
@@ -3753,7 +3771,7 @@
                 }
               ],
               "options": {
-                "colNumber": "col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6",
+                "colNumber": "col-xs-12 col-sm-12 col-md-5 col-lg-6 col-xl-6",
                 "style": {
                   "backgroundImage": null
                 },
@@ -3945,7 +3963,7 @@
                 }
               ],
               "options": {
-                "colNumber": "col-xs-12 col-sm-8 col-md-5 col-lg-5 col-xl-5",
+                "colNumber": "col-xs-12 col-sm-6 col-md-5 col-lg-5 col-xl-5",
                 "style": {
                   "backgroundImage": null,
                   "paddingRight": "",
@@ -4845,7 +4863,7 @@
                       },
                       "xl": {
                         "marginTop": null,
-                        "marginLeft": null,
+                        "marginLeft": "",
                         "marginRight": null,
                         "marginBottom": null,
                         "paddingTop": null,
@@ -5250,7 +5268,7 @@
                       },
                       "md": {
                         "marginTop": null,
-                        "marginLeft": null,
+                        "marginLeft": "",
                         "marginRight": null,
                         "marginBottom": null,
                         "paddingTop": null,
@@ -5270,7 +5288,7 @@
                       },
                       "xl": {
                         "marginTop": null,
-                        "marginLeft": null,
+                        "marginLeft": "",
                         "marginRight": null,
                         "marginBottom": null,
                         "paddingTop": null,
@@ -5311,7 +5329,7 @@
                 }
               ],
               "options": {
-                "colNumber": "col-md-1 col-lg-1 col-xl-1 col-sm-2 col-xs-12",
+                "colNumber": "col-md-2 col-lg-1 col-xl-1 col-sm-3 col-xs-12",
                 "style": {
                   "backgroundImage": null,
                   "paddingLeft": "",
@@ -5404,7 +5422,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": "flex justify-evenly"
+                "className": "flex justify-evenly "
               }
             }
           ],
@@ -5413,8 +5431,27 @@
             "height": "auto",
             "boxed": true,
             "boxedWidth": "1380",
+            "paddingOfBoxedInFullWidth": "30px",
+            "responsiveBoxedWidth": true,
+            "responsiveBoxedWidths": {
+              "xs": {
+                "width": "310px"
+              },
+              "sm": {
+                "width": "626px"
+              },
+              "md": {
+                "width": "1104px"
+              },
+              "lg": {
+                "width": "1362px"
+              },
+              "xl": {
+                "width": "1362px"
+              }
+            },
             "gutterXSize": "lg",
-            "gutterYSize": "md",
+            "gutterYSize": "xl",
             "absolute": "none",
             "backgrounds": {
               "xs": {
@@ -5465,8 +5502,8 @@
                 "marginRight": null,
                 "marginBottom": null,
                 "paddingTop": "",
-                "paddingLeft": "30px",
-                "paddingRight": "30px",
+                "paddingLeft": "",
+                "paddingRight": "",
                 "paddingBottom": null
               },
               "sm": {
@@ -5475,8 +5512,8 @@
                 "marginRight": null,
                 "marginBottom": null,
                 "paddingTop": "",
-                "paddingLeft": "30px",
-                "paddingRight": "30px",
+                "paddingLeft": "",
+                "paddingRight": "",
                 "paddingBottom": null
               },
               "md": {
@@ -5485,8 +5522,8 @@
                 "marginRight": null,
                 "marginBottom": null,
                 "paddingTop": null,
-                "paddingLeft": "30px",
-                "paddingRight": "30px",
+                "paddingLeft": "",
+                "paddingRight": "",
                 "paddingBottom": null
               },
               "lg": {
@@ -5495,8 +5532,8 @@
                 "marginRight": null,
                 "marginBottom": null,
                 "paddingTop": null,
-                "paddingLeft": "30px",
-                "paddingRight": "30px",
+                "paddingLeft": "",
+                "paddingRight": "",
                 "paddingBottom": null
               },
               "xl": {
@@ -5510,7 +5547,6 @@
                 "paddingBottom": null
               }
             },
-            "paddingOfBoxedInFullWidth": "30px",
             "boxShadows": [],
             "borderStyle": {
               "borderCssString": "",
@@ -5569,8 +5605,8 @@
               }
             },
             "style": {
-              "maxWidth": "1380px",
-              "width": "1380px"
+              "maxWidth": null,
+              "width": null
             }
           }
         }
@@ -5585,7 +5621,7 @@
           "color": "rgba(255,247,238,1)",
           "image": "url('https://nodes.alaatv.com/upload/alaaPages/2023-09/header3501695469616.png')",
           "repeat": "no-repeat",
-          "position": "center top",
+          "position": "center bottom",
           "attachment": null
         },
         "sm": {
@@ -5593,7 +5629,7 @@
           "color": "rgba(255,247,238,1)",
           "image": "url('https://nodes.alaatv.com/upload/alaaPages/2023-09/header6001695469599.png')",
           "repeat": "no-repeat",
-          "position": "center top",
+          "position": "center bottom",
           "attachment": null
         },
         "md": {
@@ -7594,7 +7630,7 @@
                         "marginLeft": null,
                         "marginRight": null,
                         "marginBottom": "60px",
-                        "paddingTop": "50px",
+                        "paddingTop": "40px",
                         "paddingLeft": null,
                         "paddingRight": null,
                         "paddingBottom": null
@@ -8845,7 +8881,7 @@
                         "marginLeft": null,
                         "marginRight": null,
                         "marginBottom": "60px",
-                        "paddingTop": "",
+                        "paddingTop": "10px",
                         "paddingLeft": null,
                         "paddingRight": null,
                         "paddingBottom": null
@@ -9467,7 +9503,7 @@
                         "marginLeft": null,
                         "marginRight": null,
                         "marginBottom": "60px",
-                        "paddingTop": "40px",
+                        "paddingTop": "30px",
                         "paddingLeft": null,
                         "paddingRight": null,
                         "paddingBottom": null
@@ -9705,7 +9741,7 @@
                 "attachment": null
               },
               "lg": {
-                "size": "contain",
+                "size": "cover",
                 "color": null,
                 "image": "url('https://nodes.alaatv.com/upload/alaaPages/2023-09/S031440.png')",
                 "repeat": "no-repeat",
@@ -9738,8 +9774,8 @@
                 "marginRight": null,
                 "marginBottom": "80px",
                 "paddingTop": null,
-                "paddingLeft": "",
-                "paddingRight": "",
+                "paddingLeft": "20px",
+                "paddingRight": "20px",
                 "paddingBottom": "100px"
               },
               "md": {
@@ -14254,8 +14290,8 @@
                                 "boxedWidth": 1200,
                                 "style": {
                                   "backgroundImage": null,
-                                  "paddingLeft": "6px",
-                                  "paddingRight": "6px"
+                                  "paddingLeft": "",
+                                  "paddingRight": ""
                                 },
                                 "borderStyle": {
                                   "borderCssString": "",
@@ -14286,571 +14322,65 @@
                                     "translateX": 0,
                                     "translateY": -10
                                   }
+                                },
+                                "responsiveSpacing": {
+                                  "xs": {
+                                    "marginTop": null,
+                                    "marginLeft": "",
+                                    "marginRight": "",
+                                    "marginBottom": "10px",
+                                    "paddingTop": null,
+                                    "paddingLeft": "6px",
+                                    "paddingRight": "6px",
+                                    "paddingBottom": null
+                                  },
+                                  "sm": {
+                                    "marginTop": null,
+                                    "marginLeft": "",
+                                    "marginRight": "",
+                                    "marginBottom": "10px",
+                                    "paddingTop": null,
+                                    "paddingLeft": "12px",
+                                    "paddingRight": "12px",
+                                    "paddingBottom": null
+                                  },
+                                  "md": {
+                                    "marginTop": null,
+                                    "marginLeft": "",
+                                    "marginRight": "",
+                                    "marginBottom": "10px",
+                                    "paddingTop": "70px",
+                                    "paddingLeft": "6px",
+                                    "paddingRight": "6px",
+                                    "paddingBottom": null
+                                  },
+                                  "lg": {
+                                    "marginTop": null,
+                                    "marginLeft": "",
+                                    "marginRight": "",
+                                    "marginBottom": "10px",
+                                    "paddingTop": "70px",
+                                    "paddingLeft": "6px",
+                                    "paddingRight": "6px",
+                                    "paddingBottom": null
+                                  },
+                                  "xl": {
+                                    "marginTop": "",
+                                    "marginLeft": "",
+                                    "marginRight": "",
+                                    "marginBottom": "10px",
+                                    "paddingTop": "70px",
+                                    "paddingLeft": "6px",
+                                    "paddingRight": "6px",
+                                    "paddingBottom": null
+                                  }
                                 }
                               }
                             },
                             "type": "ProductList",
                             "data": [
-                              {
-                                "crud": {
-                                  "headers": {}
-                                },
-                                "apiResource": null,
-                                "warn": {
-                                  "mode": false,
-                                  "keys": []
-                                },
-                                "editMode": false,
-                                "loading": false,
-                                "props": [
-                                  {
-                                    "key": "id"
-                                  },
-                                  {
-                                    "key": "redirect_url"
-                                  },
-                                  {
-                                    "key": "type"
-                                  },
-                                  {
-                                    "key": "category"
-                                  },
-                                  {
-                                    "key": "title"
-                                  },
-                                  {
-                                    "key": "teacher_name"
-                                  },
-                                  {
-                                    "key": "teacher_image"
-                                  },
-                                  {
-                                    "key": "is_free"
-                                  },
-                                  {
-                                    "key": "is_live"
-                                  },
-                                  {
-                                    "key": "is_active"
-                                  },
-                                  {
-                                    "key": "is_purchased"
-                                  },
-                                  {
-                                    "key": "live_link"
-                                  },
-                                  {
-                                    "key": "photo"
-                                  },
-                                  {
-                                    "key": "attributes"
-                                  },
-                                  {
-                                    "key": "contents_progress",
-                                    "default": 0
-                                  },
-                                  {
-                                    "key": "description",
-                                    "default": {
-                                      "long": null,
-                                      "short": null,
-                                      "slogan": null
-                                    }
-                                  },
-                                  {
-                                    "key": "longDescription"
-                                  },
-                                  {
-                                    "key": "last_content_user_watched"
-                                  },
-                                  {
-                                    "key": "specialDescription"
-                                  },
-                                  {
-                                    "key": "children",
-                                    "default": []
-                                  },
-                                  {
-                                    "key": "sets"
-                                  },
-                                  {
-                                    "key": "price"
-                                  },
-                                  {
-                                    "key": "isFavored",
-                                    "default": false
-                                  },
-                                  {
-                                    "key": "is_favored_2",
-                                    "default": false
-                                  },
-                                  {
-                                    "key": "is_favored",
-                                    "default": false
-                                  },
-                                  {
-                                    "key": "catalog"
-                                  },
-                                  {
-                                    "key": "eec"
-                                  },
-                                  {
-                                    "key": "sample_photos",
-                                    "default": []
-                                  },
-                                  {
-                                    "key": "intro"
-                                  },
-                                  {
-                                    "key": "blocks",
-                                    "default": []
-                                  }
-                                ],
-                                "id": 1097,
-                                "redirect_url": null,
-                                "type": null,
-                                "category": null,
-                                "title": "کل دروس اختصاصی ریاضی کنکور - راه ابریشم 2.0 (کنکور 1403)",
-                                "teacher_name": null,
-                                "teacher_image": null,
-                                "is_free": null,
-                                "is_live": null,
-                                "is_active": null,
-                                "is_purchased": false,
-                                "live_link": null,
-                                "photo": "https://nodes.alaatv.com/upload/images/product/pack_riazi_20230710115733.jpg",
-                                "attributes": {
-                                  "info": {
-                                    "teacher": [
-                                      "گروه آموزشی"
-                                    ],
-                                    "shipping_method": [
-                                      "دانلودی"
-                                    ],
-                                    "major": [
-                                      "ریاضی"
-                                    ],
-                                    "services": [
-                                      "فیلم",
-                                      "جزوه",
-                                      "تست",
-                                      "کنکورچه",
-                                      "چاپار",
-                                      "کلاس پیش نیاز",
-                                      "کلاس جامع کنکور",
-                                      "کلاس تست جامع کنکور",
-                                      "برنامه مطالعاتی"
-                                    ],
-                                    "download_date": [
-                                      "پیش ثبت نام"
-                                    ],
-                                    "educational_system": [
-                                      "نظام جدید"
-                                    ],
-                                    "duration": [],
-                                    "production_year": [
-                                      "ویژه کنکور 1403"
-                                    ]
-                                  },
-                                  "extra": null,
-                                  "subscription": null
-                                },
-                                "contents_progress": 0,
-                                "description": {
-                                  "long": null,
-                                  "short": null,
-                                  "slogan": null
-                                },
-                                "longDescription": null,
-                                "last_content_user_watched": null,
-                                "specialDescription": null,
-                                "children": [],
-                                "sets": {
-                                  "list": [],
-                                  "crud": {
-                                    "headers": {}
-                                  },
-                                  "loading": false,
-                                  "baseRoute": null
-                                },
-                                "price": {
-                                  "crud": {
-                                    "headers": {}
-                                  },
-                                  "apiResource": null,
-                                  "warn": {
-                                    "mode": false,
-                                    "keys": []
-                                  },
-                                  "editMode": false,
-                                  "loading": false,
-                                  "props": [
-                                    {
-                                      "key": "extraCost"
-                                    },
-                                    {
-                                      "key": "base"
-                                    },
-                                    {
-                                      "key": "discount"
-                                    },
-                                    {
-                                      "key": "final"
-                                    },
-                                    {
-                                      "key": "payableByWallet"
-                                    },
-                                    {
-                                      "key": "discountDetail"
-                                    }
-                                  ],
-                                  "extraCost": null,
-                                  "base": 11600000,
-                                  "discount": 4640000,
-                                  "final": 6960000,
-                                  "payableByWallet": null,
-                                  "discountDetail": null
-                                },
-                                "isFavored": false,
-                                "is_favored_2": false,
-                                "is_favored": false,
-                                "catalog": null,
-                                "eec": {
-                                  "crud": {
-                                    "headers": {}
-                                  },
-                                  "apiResource": null,
-                                  "warn": {
-                                    "mode": false,
-                                    "keys": []
-                                  },
-                                  "editMode": false,
-                                  "loading": false,
-                                  "props": [
-                                    {
-                                      "key": "id"
-                                    },
-                                    {
-                                      "key": "name"
-                                    },
-                                    {
-                                      "key": "price"
-                                    },
-                                    {
-                                      "key": "brand",
-                                      "default": "آلاء"
-                                    },
-                                    {
-                                      "key": "category"
-                                    },
-                                    {
-                                      "key": "variant"
-                                    },
-                                    {
-                                      "key": "quantity",
-                                      "default": "-"
-                                    },
-                                    {
-                                      "key": "list"
-                                    },
-                                    {
-                                      "key": "position"
-                                    }
-                                  ],
-                                  "id": 1097,
-                                  "name": "کل دروس اختصاصی ریاضی کنکور - راه ابریشم 2.0 (کنکور 1403)",
-                                  "price": 6960000,
-                                  "brand": "آلاء",
-                                  "category": "-",
-                                  "variant": "-",
-                                  "quantity": "-",
-                                  "list": null,
-                                  "position": null
-                                },
-                                "sample_photos": [],
-                                "intro": null,
-                                "blocks": []
-                              },
-                              {
-                                "crud": {
-                                  "headers": {}
-                                },
-                                "apiResource": null,
-                                "warn": {
-                                  "mode": false,
-                                  "keys": []
-                                },
-                                "editMode": false,
-                                "loading": false,
-                                "props": [
-                                  {
-                                    "key": "id"
-                                  },
-                                  {
-                                    "key": "redirect_url"
-                                  },
-                                  {
-                                    "key": "type"
-                                  },
-                                  {
-                                    "key": "category"
-                                  },
-                                  {
-                                    "key": "title"
-                                  },
-                                  {
-                                    "key": "teacher_name"
-                                  },
-                                  {
-                                    "key": "teacher_image"
-                                  },
-                                  {
-                                    "key": "is_free"
-                                  },
-                                  {
-                                    "key": "is_live"
-                                  },
-                                  {
-                                    "key": "is_active"
-                                  },
-                                  {
-                                    "key": "is_purchased"
-                                  },
-                                  {
-                                    "key": "live_link"
-                                  },
-                                  {
-                                    "key": "photo"
-                                  },
-                                  {
-                                    "key": "attributes"
-                                  },
-                                  {
-                                    "key": "contents_progress",
-                                    "default": 0
-                                  },
-                                  {
-                                    "key": "description",
-                                    "default": {
-                                      "long": null,
-                                      "short": null,
-                                      "slogan": null
-                                    }
-                                  },
-                                  {
-                                    "key": "longDescription"
-                                  },
-                                  {
-                                    "key": "last_content_user_watched"
-                                  },
-                                  {
-                                    "key": "specialDescription"
-                                  },
-                                  {
-                                    "key": "children",
-                                    "default": []
-                                  },
-                                  {
-                                    "key": "sets"
-                                  },
-                                  {
-                                    "key": "price"
-                                  },
-                                  {
-                                    "key": "isFavored",
-                                    "default": false
-                                  },
-                                  {
-                                    "key": "is_favored_2",
-                                    "default": false
-                                  },
-                                  {
-                                    "key": "is_favored",
-                                    "default": false
-                                  },
-                                  {
-                                    "key": "catalog"
-                                  },
-                                  {
-                                    "key": "eec"
-                                  },
-                                  {
-                                    "key": "sample_photos",
-                                    "default": []
-                                  },
-                                  {
-                                    "key": "intro"
-                                  },
-                                  {
-                                    "key": "blocks",
-                                    "default": []
-                                  }
-                                ],
-                                "id": 1096,
-                                "redirect_url": null,
-                                "type": null,
-                                "category": null,
-                                "title": "کل دروس اختصاصی تجربی کنکور - راه ابریشم 2.0 (کنکور 1403)",
-                                "teacher_name": null,
-                                "teacher_image": null,
-                                "is_free": null,
-                                "is_live": null,
-                                "is_active": null,
-                                "is_purchased": false,
-                                "live_link": null,
-                                "photo": "https://nodes.alaatv.com/upload/images/product/pack_tajrobi_20230710120303.jpg",
-                                "attributes": {
-                                  "info": {
-                                    "teacher": [
-                                      "گروه آموزشی"
-                                    ],
-                                    "shipping_method": [
-                                      "دانلودی"
-                                    ],
-                                    "major": [
-                                      "تجربی"
-                                    ],
-                                    "services": [
-                                      "فیلم",
-                                      "جزوه",
-                                      "تست",
-                                      "کنکورچه",
-                                      "چاپار",
-                                      "کلاس پیش نیاز",
-                                      "کلاس جامع کنکور",
-                                      "کلاس تست جامع کنکور",
-                                      "برنامه مطالعاتی"
-                                    ],
-                                    "download_date": [
-                                      "پیش ثبت نام"
-                                    ],
-                                    "educational_system": [
-                                      "نظام جدید"
-                                    ],
-                                    "duration": [],
-                                    "production_year": [
-                                      "ویژه کنکور 1403"
-                                    ]
-                                  },
-                                  "extra": null,
-                                  "subscription": null
-                                },
-                                "contents_progress": 0,
-                                "description": {
-                                  "long": null,
-                                  "short": null,
-                                  "slogan": null
-                                },
-                                "longDescription": null,
-                                "last_content_user_watched": null,
-                                "specialDescription": null,
-                                "children": [],
-                                "sets": {
-                                  "list": [],
-                                  "crud": {
-                                    "headers": {}
-                                  },
-                                  "loading": false,
-                                  "baseRoute": null
-                                },
-                                "price": {
-                                  "crud": {
-                                    "headers": {}
-                                  },
-                                  "apiResource": null,
-                                  "warn": {
-                                    "mode": false,
-                                    "keys": []
-                                  },
-                                  "editMode": false,
-                                  "loading": false,
-                                  "props": [
-                                    {
-                                      "key": "extraCost"
-                                    },
-                                    {
-                                      "key": "base"
-                                    },
-                                    {
-                                      "key": "discount"
-                                    },
-                                    {
-                                      "key": "final"
-                                    },
-                                    {
-                                      "key": "payableByWallet"
-                                    },
-                                    {
-                                      "key": "discountDetail"
-                                    }
-                                  ],
-                                  "extraCost": null,
-                                  "base": 11600000,
-                                  "discount": 4640000,
-                                  "final": 6960000,
-                                  "payableByWallet": null,
-                                  "discountDetail": null
-                                },
-                                "isFavored": false,
-                                "is_favored_2": false,
-                                "is_favored": false,
-                                "catalog": null,
-                                "eec": {
-                                  "crud": {
-                                    "headers": {}
-                                  },
-                                  "apiResource": null,
-                                  "warn": {
-                                    "mode": false,
-                                    "keys": []
-                                  },
-                                  "editMode": false,
-                                  "loading": false,
-                                  "props": [
-                                    {
-                                      "key": "id"
-                                    },
-                                    {
-                                      "key": "name"
-                                    },
-                                    {
-                                      "key": "price"
-                                    },
-                                    {
-                                      "key": "brand",
-                                      "default": "آلاء"
-                                    },
-                                    {
-                                      "key": "category"
-                                    },
-                                    {
-                                      "key": "variant"
-                                    },
-                                    {
-                                      "key": "quantity",
-                                      "default": "-"
-                                    },
-                                    {
-                                      "key": "list"
-                                    },
-                                    {
-                                      "key": "position"
-                                    }
-                                  ],
-                                  "id": 1096,
-                                  "name": "کل دروس اختصاصی تجربی کنکور - راه ابریشم 2.0 (کنکور 1403)",
-                                  "price": 6960000,
-                                  "brand": "آلاء",
-                                  "category": "-",
-                                  "variant": "-",
-                                  "quantity": "-",
-                                  "list": null,
-                                  "position": null
-                                },
-                                "sample_photos": [],
-                                "intro": null,
-                                "blocks": []
-                              }
+                              1097,
+                              1096
                             ]
                           }
                         ]
@@ -15487,7 +15017,6 @@
                             },
                             "type": "ProductList",
                             "data": [
-                              1097,
                               1096,
                               1095,
                               1094,
@@ -19295,7 +18824,7 @@
                       "letterSpacing": null
                     },
                     "md": {
-                      "fontSize": null,
+                      "fontSize": "22px",
                       "fontWeight": "600",
                       "fontStyle": null,
                       "lineHeight": null,
@@ -19702,33 +19231,45 @@
                   "options": {
                     "expansionList": [
                       {
-                        "label": "چجوری میتونم این دوره رو تهیه کنم؟",
+                        "label": "کتاب،‌ کلاس کنکور، دی وی دی یا راه ابریشم آلا؟",
                         "caption": "",
-                        "text": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگر ها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.",
+                        "text": "<b>در آخرین ورژن راه ابریشم آلاء (2.0) بروزترین رویکرد آموزشی مطابق با کنکور سال اخیر درنظر گرفته شده. به 7 دلیل، راه ابریشم 2.0 آلاء، جامع ترین منبع مجازی ویژه کنکور سراسری 1403 می‌باشد:</b><div><br></div><div><b>1. دوره پیش نیاز (پیله):</b>\nشما در هر سطحی که باشی، از پایه‌ای ترین و مقدماتی ترین مباحث که در سال های قبل به درستی آموزش ندیدی در راه ابریشم شروع میکنی و با تسلط کامل بعد از گذراندن دوره پیله (پیش نیاز) راه ابریشم 2.0، وارد بخش اصلی این دوره میشی.</div><div><br></div><div><b>2. آموزش 100% دهم، یازدهم و دوازدهم:</b>\nاین دوره به قدری کامل و جامع طراحی شده که صفرتاصد مباحث از صفر آموزش داده میشه و کاملا مطابق با آخرین تغییرات کنکور سراسری این آموزش طراحی شده که خیالت از یادگیری راحت میکنه.</div><div><br></div><div><b>3. کارگاه حل تست</b>\nعلاوه بر آموزش درسنامه محور تمام نکات کنکور 1403، وارد یکی از بهترین دوره های حل تست کنکور میشی و یک کلاس کنکور به معنای واقعی رو در راه ابریشم 2.0 تجربه میکنی. حل تمام تیپ تست ها و ایده های نو کنکور سراسری مطابق با آخرین کنکور برای شما قرار میگیره و درمجموع هزاران تست تحلیل بررسی میشه تا تسلط 100% برای شما ایجاد بشه.</div><div><br></div><div><b>4. آموزش موضوعی</b>\nخیلی از کلاس ها و آموزشگاه ها، مطابق با سرفصل های سلیقه‌ای پیشروی میکنن اما آلاء در راه ابریشم 2.0، مطابق با درخت دانش آلاء و بصورت کاملا موضوعی هر درس آموزش میده و کاملا استاندارد، آموزش رو جلو میبره. نفعی که برای شما داره، همراهی با مدرسه و همینطور آزمون آزمایشی شماست که با خیال راحت مباحث رو میتونید برای خودتون بچنید و استفاده کنید.</div><div><b><br></b></div><div><b>5. تست های طبقه بندی</b>\nسه نوع تست و سوال در دوره راه ابریشم 2.0 آلاء وجود داره. تست های تشریحی محور در درسنامه ها، تیپ تست ها و تست های تسلط. با طبقه بندی تست ها، شما مطابق با سطح خودتون به تحلیل تست های میپردازید و دچار پراکندگی نمیشید.</div><div><br></div><div><b>6. آزمون فصل و چاپار</b>\nبهترین کلاس کنکور و بهتره بگم کلاس آنلاین کنکور 1403، باید آزمون هایی جهت سنجش شما و محتوایی برای مرور سریع شما داشته باشه تا هم میزان یادگیری شمارو بسنجه و هم با مرور سریع، کار شما رو برای یادآوری نکات خیلی خیلی راحت کنه. با آزمون های فصلی مطابق با محتوای دوره و چاپار این امتیاز رو به شما میدیم.</div><div><br></div><div><b>7. محتوای مشاوره‌ای و برنامه مطالعاتی</b>،‌ مطابقت با آخرین تغیرات کنکور سراسری، برنامه مطالعاتی ویژه کنکور 1403 و پیشروی با آزمون های آزمایشی مختلف و البته تحلیل سوالات بسیار مهم آزمون های آزمایشی و خیلی از امتیازات دیگه موجب میشه که ادعا کنیم بهترین و جامع منبع و کلاس کنکور مجازی رو با راه ابریشم 2.0 آلاء تجربه میکنی.</div>",
                         "expanded": false
                       },
                       {
-                        "label": "چجوری میتونم این دوره رو تهیه کنم؟",
+                        "label": "آیا دوره های رایگان آلا برای سال کنکور کافی نیست؟",
                         "caption": "",
-                        "text": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگر ها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.",
+                        "text": "دوره های رایگان آلا با عنوان صفر تا صد، فراتر از هر منبع آموزشی غیر رایگان حال حاضر بازار آموزش ایران، محتوای آموزشی دارد و رویکرد این دوره ها، بی نیاز کردن هر مخاطب در هر سطحی از سایر منابعی هست که صرفا درسنامه و به میزانی تست را عرضه کردن و هزینه های سنگینی را بر خانواده دانش آموزان وارد میکنن. در صفر تا صد های آلاء به دلیل رویکرد یادگیری بلندمدت از سیر تا پیاز همه مطالب صحبت شده اما رویکرد کنکور ندارد تا لطمه‌ای به یادگیری دانش آموز در مقاطع پایه نزند. در راه ابریشم، همه آنچه برای یک سال کنکور نیاز دارید را با رویکرد کاملا کنکوری ارائه دادیم و به قدری کامل و جامع است که جایی برای مقایسه نمی‌گذارد.",
                         "expanded": false
                       },
                       {
-                        "label": "چجوری میتونم این دوره رو تهیه کنم؟",
+                        "label": "راه ابریشم آلا فقط ویژه سال کنکور است؟",
                         "caption": "",
-                        "text": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگر ها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.",
+                        "text": "طبیعتا محتوا و ساختار این دوره، خاص یک سال کنکوری طراحی شده تا داوطلب کنکور به حرفه‌ای ترین روش ممکن به سمت هدفش با تمام سرعت حرکت کند. اما در مقاطع پایین تر، مثل یازدهم، اگر تمایل دارند همانند یک کنکوری حرفه‌ای از همان سال کار خودشون رو جلو بیارن ما راه ابریشم رو که جامع ترین منبع کنکوری حال حاضر ایران است پیشنهاد می‌دهیم.",
                         "expanded": false
                       },
                       {
-                        "label": "چجوری میتونم این دوره رو تهیه کنم؟",
+                        "label": "من خیلی سطح درسیم ضعیفه! برای منم مناسبه؟",
                         "caption": "",
-                        "text": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگر ها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.",
+                        "text": "وقتی حرف از جامع ترین میزنیم و این ادعا رو داریم، طبیعتا بخش قابل توجهی از مخاطبین این دوره که از نتیجه نگرفتن رنج میبرن و با هیچ کتاب و کلاسی ارتباط نگرفتن رو قطعا فراموش نمی‌کنیم. یکی از دلایل مهمی که یک درس رو چند روزی پیگیری می‌کنیم و رهاش میکنیم به این دلیله که اصلا ارتباط نمیگیریم با اون منبع آموزشی (مدرس، کتاب، کلاس و ...) در نتیجه خسته و بی انگیزه میشیم. اگر یک منبع آموزشی اصولی طراحی شده باشه، شما رو درک میکنه و از نقطه درستی شروع به آموزش میکنه. در راه ابریشم آلاء، با کلاس پیش نیاز (پیله) تمام کج فهمی ها و مباحث بسیار مقدماتی که از پرسیدنش شاید خجالت بکشید رو از زیر صفر بهتون آموزش میدیم و بعد مراحل و کلاس های دیگر این بسته رو مشاهده میکنید و ناخودآگاه و با لذت به شکل پیوسته به مطالعه درس ادامه میدید. ",
                         "expanded": false
                       },
                       {
-                        "label": "چجوری میتونم این دوره رو تهیه کنم؟",
+                        "label": "آیا کنار راه ابریشم، به منبع دیگه‌ای نیاز دارم؟ مثلا تستی؟",
                         "caption": "",
-                        "text": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگر ها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.",
+                        "text": "راه ابریشم یک منبع کامل آموزشیه که نه‌تنها خط به خط کتاب درسی رو به سبک کنکور برات تدریس میکنه بلکه 3 طبقه تست برات درنظر گرفته که پر از تست های تالیفی و نابیه. حین یادگیری مطلب برات تست و سوال آموزشی حل میکنه و بعد میری سراغ بخش تخصصی تحلیل تیپ تست ها و دنیایی از تست های مختلف هر موضوع میبینی. اگر هم جزو بچه های ممتاز آلاء باشی و 70% به بالای هر درس درنظر گرفتی، سطح سوم تست ها که تست تسلط باشه دراختیارت قرار میگیره تا دیگه نیازی به منبع آموزشی دیگه نداشته باشی.",
+                        "expanded": false
+                      },
+                      {
+                        "label": "استفاده اشتراکی با سایر دوستان از دوره کنکور راه ابریشم صحیحه؟ آلاء رضایت داره؟",
+                        "caption": "",
+                        "text": "منافع مادی دوره های غیررایگان آلاء، صرف نگه‌داری هزاران ساعت محتوای رایگان سایت آلا، توسعه هرچه بیشتر امکانات رایگان و هزینه های خیلی زیاد مجموعه آلاء میشه؛ واسه همین اشتراکی خرید کردن، دریافت رایگان محتوای غیررایگان آلاء از بقیه کانال ها و هر نوع استفاده غیرقانونی از این محصول ها شرعا، قانونا و اخلاقا صحیح نیست و مجموعه آلاء به هیچ عنوان رضایت نخواهد داشت .",
+                        "expanded": false
+                      },
+                      {
+                        "label": "راه ابریشم بصورت پک فیزیکی ارسال میشه یا یک دوره آنلاینه؟",
+                        "caption": "",
+                        "text": "خوشبختانه راه ابریشم مسیریه که شما تو هر نقطه جغرافیایی این کره خاکی حضور داشته باشی؛ میتونی از همونجا سفرتو شروع کنی!\r\nمحتویات این برنامه‌ی هدفگذاری شده برای دسترسی راحت‌تر و سریع‌تر، تو سایت آلاء، به صورت مجازی وجود داره و شما میتونین دانلود کنین...\r\nیعنی دسترسی به صفر تا صد کنکور راه ابریشم فقط با چند کلیک ساده اتفاق میفته و لازم نیست برای استفاده، در مکانی خاص انرژی صرف بشه...\r\nیه مزیت دیگه راه ابریشم آلا هم اینه که اگه تو مبحثی تمرکز کافی نداشتین و نرسیدین بخونین، دوباره میتونین محتوای اون مبحث رو ببینین تا یادگیری ‌تون فرایند کامل شدنش رو طی کنه...",
                         "expanded": false
                       }
                     ],
@@ -20072,7 +19613,16 @@
                         "type": "input",
                         "name": "first_name",
                         "outlined": true,
-                        "label": "نام و نام خانوادگی",
+                        "label": "نام",
+                        "placeholder": "وارد کنید",
+                        "col": "col-12",
+                        "value": ""
+                      },
+                      {
+                        "type": "input",
+                        "name": "last_name",
+                        "outlined": true,
+                        "label": "نام خانوادگی",
                         "placeholder": "وارد کنید",
                         "col": "col-12",
                         "value": ""
@@ -20107,7 +19657,7 @@
                       "xl": "24px"
                     },
                     "fieldBackground": "#FFEEDB",
-                    "eventId": null,
+                    "eventId": "23",
                     "style": {
                       "backgroundColor": "rgba(255,255,255,1)",
                       "image": null,
