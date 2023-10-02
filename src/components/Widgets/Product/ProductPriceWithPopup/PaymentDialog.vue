@@ -15,7 +15,7 @@
         <div class="row payment-body"
              :class="{'q-col-gutter-lg': paymentMethod !== 'cash'}">
           <div class="col-12 products-col"
-               :class="{'col-sm-6': paymentMethod !== 'cash', 'hidden': (independentComplimentary.length === 0 && dependentComplimentary.length === 0 && examList.length === 0)}">
+               :class="{'col-sm-6': paymentMethod !== 'cash', 'hidden-responsive': (independentComplimentary.length === 0 && dependentComplimentary.length === 0 && examList.length === 0)}">
             <div class="product-container">
               <div v-if="dependentComplimentary.length > 0"
                    class="product-complimentary">
@@ -529,9 +529,8 @@ export default defineComponent({
     display: flex;
 
     .products-col {
-      order: 1;
 
-      &.hidden {
+      &.hidden-responsive {
         @media screen and (max-width: 600px){
           display: none;
         }
@@ -539,7 +538,6 @@ export default defineComponent({
     }
 
     .installment-col {
-      order: 2;
     }
   }
 
