@@ -142,8 +142,14 @@ export default {
     this.mounted = true
     this.loadAuthData()
     this.refreshCartListener()
+    this.checkAuth()
   },
   methods: {
+    checkAuth() {
+      this.$bus.on('onLoggedIn', () => {
+        this.loadAuthData()
+      })
+    },
     refreshCartListener () {
       this.$bus.on('busEvent-refreshCart', () => {
         this.$store.dispatch('Cart/reviewCart')
