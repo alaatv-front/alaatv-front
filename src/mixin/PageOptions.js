@@ -133,12 +133,10 @@ const mixinPageOptions = {
         if (target) {
           const type = target.entityType
           const id = this.$route.params.id
-          //
-          // if (!this.$route.params.id) {
-          //   console.log('this.$route.params.idthis.$route.params.idthis.$route.params.idthis.$route.params.id', this.$route.params.id)
+
+          // if (this.$route.params.id === 'null') {
+          //   console.log('this.$route.params.idthis.$route.params.idthis.$route.params.idthis.$route.params.id', this.$route.params)
           // }
-          //
-          // console.log('this.$route.params.idthis.$route.params.idthis.$route.params.idthis.$route.params.id', typeof this.$route.params.id)
 
           if (isNaN(id)) {
             resolve(null)

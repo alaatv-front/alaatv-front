@@ -342,7 +342,10 @@ export default defineComponent({
     },
     getProduct() {
       if (!this.productId) {
-        return new Promise()
+        // console.log('getProduct')
+        return new Promise((resolve, reject) => {
+          reject()
+        })
       }
 
       return APIGateway.product.show(this.productId)
