@@ -1,5 +1,6 @@
 <template>
   <option-panel-tabs v-model:options="localOptions"
+                     :show-responsive-show="true"
                      :show-responsive-spacing="true">
     <template #main-tab>
       <div class="option-panel-container">
