@@ -300,11 +300,11 @@ export default defineComponent({
 .arrow-left {
   align-self: center;
   position: absolute;
-  right: 0;
+  right: -30px;
   top: 40%;
   z-index: 2;
 
-  @media screen and (max-width: 600px){
+  @media screen and (max-width: 1440px){
     right: 0;
   }
 
@@ -316,11 +316,11 @@ export default defineComponent({
 .arrow-right {
   align-self: center;
   position: absolute;
-  left: 0;
+  left: -30px;
   top: 40%;
   z-index: 2;
 
-  @media screen and (max-width: 600px){
+  @media screen and (max-width: 1440px){
     left: 0;
   }
 
