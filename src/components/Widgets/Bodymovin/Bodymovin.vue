@@ -112,7 +112,7 @@ export default {
       this.animationData1.autoplay = value === 'autoPlay'
       this.animationData1.stop()
       if (value === 'autoPlay') {
-        this.animation.play()
+        this.animationData1.play()
       }
     },
     'localOptions.loop': function (value) {
@@ -123,7 +123,7 @@ export default {
   },
   mounted() {
     this.windowWidth = window.innerWidth
-    this.loadBodyMovin(this.responsiveBodymovin.directory, this.responsiveBodymovin.directory2)
+    this.reInitBodyMovin()
     window.addEventListener('resize', this.onResize)
   },
   beforeUnmount() {
@@ -153,6 +153,8 @@ export default {
         this.animationData1.stop()
         this.animationData1.play()
       } else if (this.localOptions.animate === 'in & out') {
+        this.$refs.secondBm.style.display = 'none'
+        this.$refs.firstBm.style.display = 'block'
         this.animationData1.stop()
         this.animationData1.play()
       }
@@ -168,8 +170,8 @@ export default {
       }
     },
     onHoverElement2() {
-      this.$refs.firstBm.style.display = 'block'
       this.$refs.secondBm.style.display = 'none'
+      this.$refs.firstBm.style.display = 'block'
       this.animationData1.stop()
       this.animationData1.play()
     },

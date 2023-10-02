@@ -104,7 +104,7 @@
                                   :class="{'active': index === 0}">{{ getPersianDate(item.date) }}</q-item-section>
                   <q-item-section class="installment-amount"
                                   :class="{'active': index === 0}"
-                                  side>{{ item.value }}</q-item-section>
+                                  side>{{ item.value.toLocaleString('fa') }}</q-item-section>
                 </q-item>
               </q-list>
             </div>
@@ -113,13 +113,15 @@
       </q-card-section>
       <q-card-section class="payment-footer">
         <div class="price-title-responsive">
-          <ph-tag :size="16"
+          <q-icon name="ph:tag"
+                  :size="'16px'"
                   class="price-title-icon" />
           قیمت کل :
         </div>
         <div class="price-info">
           <div class="price-title">
-            <ph-tag :size="16"
+            <q-icon name="ph:tag"
+                    :size="'16px'"
                     class="price-title-icon" />
             قیمت کل :
           </div>
@@ -162,12 +164,11 @@
 </template>
 
 <script>
-import { openURL } from 'quasar'
 import moment from 'moment-jalaali'
 import { defineComponent } from 'vue'
 import Price from 'src/models/Price.js'
+import { Product } from 'src/models/Product.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import { Product, ProductList } from 'src/models/Product.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
@@ -188,8 +189,8 @@ export default defineComponent({
       default: new Product()
     },
     productComplimentary: {
-      type: ProductList,
-      default: new ProductList()
+      type: Array,
+      default: () => []
     },
     examList: {
       type: Array,
@@ -340,7 +341,10 @@ export default defineComponent({
     },
     getProduct() {
       if (!this.productId) {
-        return new Promise()
+        // console.log('getProduct')
+        return new Promise((resolve, reject) => {
+          reject()
+        })
       }
 
       return APIGateway.product.show(this.productId)
@@ -361,11 +365,12 @@ export default defineComponent({
       return persianOrdinals[index]
     },
     getPersianDate(date) {
-      const monthList = ['فرودین', 'اردیبهشت', 'خرداد', 'تیر', 'امرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند']
-      const calendarDate = moment(date)
-      const calendarMonth = monthList[moment(calendarDate.jMonth(), 'jM').format('jM')]
-      const calendarYear = calendarDate.jWeekYear()
-      return calendarMonth + ' ' + calendarYear
+      const getDate = function (date) {
+        return moment(date, 'YYYY/M/D HH:mm:ss').locale('fa').format('jDD jMMM jYYYY')
+      }
+      const targetDate = getDate(date)
+      const localDate = getDate(Date.now())
+      return targetDate === localDate ? 'هم اکنون' : targetDate
     },
     addToCart() {
       if (this.paymentMethod === 'cash') {
@@ -387,17 +392,17 @@ export default defineComponent({
           })
       } else {
         const inInstalment = this.paymentMethod === 'installment'
-        this.getGatewayUrl(inInstalment, this.paymentMethod)
+        this.getGatewayUrl(inInstalment)
       }
     },
-    getGatewayUrl(inInstalment, paymentMethod) {
+    getGatewayUrl(inInstalment) {
       APIGateway.cart.getPaymentRedirectEncryptedLink({
         device: 'web',
-        paymentMethod,
         inInstalment: inInstalment ? 1 : 0
       })
         .then(url => {
-          openURL(url)
+          console.log('url', url)
+          // window.location.href = url
         })
         .catch(() => {})
     },

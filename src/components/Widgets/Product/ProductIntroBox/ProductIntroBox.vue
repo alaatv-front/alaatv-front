@@ -21,7 +21,7 @@
                   height="300" />
       </div>
     </q-card-section>
-    <q-card-section>
+    <q-card-section class="q-pa-none">
       <div class="price-section">
         <product-price-with-popup :options="{product: localOptions.product}"
                                   @update-product="onUpdateProduct($event)"
@@ -113,6 +113,13 @@ export default defineComponent({
   background:#FFF;
   box-shadow: 2px 2px 3px 0px rgba(16, 24, 40, 0.06);
   padding: 30px;
+
+  @media screen and (max-width: 1200px){
+    padding: 15px;
+  }
+  @media screen and (max-width: 1023px){
+    padding: 30px;
+  }
 
   @media screen and (max-width: 1024px) {
     margin: auto;
