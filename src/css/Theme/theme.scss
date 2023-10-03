@@ -30,7 +30,11 @@ body.body--light {
 }
 
 @media screen and (max-width:600px){
-  .q-page-container {
-    margin-bottom: $mobileFooterHeight;
+  .main-layout {
+    &.hasFooter {
+      .q-page-container {
+        margin-bottom: $mobileFooterHeight;
+      }
+    }
   }
 }
