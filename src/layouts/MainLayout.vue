@@ -1,5 +1,6 @@
 <template>
-  <div class="main-layout">
+  <div class="main-layout"
+       :class="{'hasFooter': hasFooter}">
     <quasar-template-builder @onResize="resize">
       <template #header>
         <template-header :type="getTemplateHeaderType" />
@@ -88,6 +89,9 @@ export default {
     }
   },
   computed: {
+    hasFooter () {
+      return this.$store.getters['AppLayout/layoutFooter'] && this.$store.getters['AppLayout/layoutFooterVisible']
+    },
     canShowFloatingActionBtn () {
       return this.user.hasPermission('editSiteSetting') && (this.hasDynamicSetting || this.hasDynamicSettingWithParams)
     },
