@@ -14,13 +14,20 @@ export default class CartAPI extends APIRepository {
       discountSubmit: '/order/submitCoupon',
       discountRemove: '/order/RemoveCoupon',
       reviewCart: '/checkout/review',
-      getPaymentRedirectEncryptedLink: (device, paymentMethod, orderId, inInstalment) => {
-        let address = '/getPaymentRedirectEncryptedLink?seller=' + this.seller + '&device=' + device + '&paymentMethod=' + paymentMethod
+      getPaymentRedirectEncryptedLink: (device, paymentMethod, orderId, inInstalment, transactionId) => {
+        let address = '/getPaymentRedirectEncryptedLink?seller=' + this.seller + '&device=' + device
+
         if (orderId) {
           address += '&orderId=' + orderId
         }
         if (inInstalment) {
           address += '&inInstalment=' + inInstalment
+        }
+        if (paymentMethod) {
+          address += '&paymentMethod=' + paymentMethod
+        }
+        if (transactionId) {
+          address += '&transaction_id=' + transactionId
         }
 
         return address
@@ -179,12 +186,21 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  getPaymentRedirectEncryptedLink(data = { device: 'web', paymentMethod: null, inInstalment: 0 }, cache = { TTL: 1000 }) {
+  getPaymentRedirectEncryptedLink(data, cache = { TTL: 1000 }) {
+    const mergedData = this.getNormalizedSendData(
+      {
+        device: 'web', // String
+        paymentMethod: null, // String -> Gateway name
+        orderId: null, // Number
+        transactionId: null, // Number
+        inInstalment: 0 // Number -> 0, 1
+      }, data)
+
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.getPaymentRedirectEncryptedLink(data.device, data.paymentMethod, data.orderId, data.inInstalment),
-      cacheKey: this.CacheList.getPaymentRedirectEncryptedLink(data.device, data.paymentMethod, data.orderId, data.inInstalment),
+      request: this.APIAdresses.getPaymentRedirectEncryptedLink(mergedData.device, mergedData.paymentMethod, mergedData.orderId, mergedData.inInstalment, mergedData.transactionId),
+      cacheKey: this.CacheList.getPaymentRedirectEncryptedLink(mergedData.device, mergedData.paymentMethod, mergedData.orderId, mergedData.inInstalment, mergedData.transactionId),
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return response.data.data.url

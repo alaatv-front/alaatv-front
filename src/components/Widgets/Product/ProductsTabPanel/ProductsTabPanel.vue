@@ -87,19 +87,36 @@ export default {
   computed: {
     localOptions: {
       get() {
-        const clonedOptions = JSON.parse(JSON.stringify(Object.assign(this.defaultOptions, this.options)))
-        const clonedDataAdapter = function (group) {
+        // const clonedOptions = JSON.parse(JSON.stringify(Object.assign(this.defaultOptions, this.options)))
+        // const clonedDataAdapter = function (group) {
+        //   const groupLength = group.length
+        //   for (let index = 0; index < groupLength; index++) {
+        //     if (group[index].type === 'GroupList') {
+        //       clonedDataAdapter(group[index].data)
+        //     } else {
+        //       group[index].data = group[index].data.map(item => isNaN(item) ? (new Product(item)) : (new Product({ id: item })))
+        //     }
+        //   }
+        // }
+        //
+        // clonedDataAdapter(clonedOptions.data)
+        //
+        // return clonedOptions
+
+        const clonedOptions = Object.assign(this.defaultOptions, this.options)
+
+        const dataAdapter = function (group) {
           const groupLength = group.length
           for (let index = 0; index < groupLength; index++) {
             if (group[index].type === 'GroupList') {
-              clonedDataAdapter(group[index].data)
+              dataAdapter(group[index].data)
             } else {
-              group[index].data = group[index].data.map(item => isNaN(item) ? (new Product(item)) : (new Product({ id: item })))
+              group[index].data = group[index].data.map(item => isNaN(item) ? item.id : item)
             }
           }
         }
 
-        clonedDataAdapter(clonedOptions.data)
+        dataAdapter(clonedOptions.data)
 
         return clonedOptions
       },
