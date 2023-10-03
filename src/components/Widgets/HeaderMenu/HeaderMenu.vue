@@ -4,7 +4,7 @@
        :class="localOptions.className"
        :style="options.style">
     <div v-if="localOptions.logoImage"
-         class="right-section col-4"
+         class="right-section col"
          @click="routeTo('Public.Home')">
       <lazy-img :src="localOptions.logoImage"
                 :alt="'logo'"
@@ -16,14 +16,14 @@
       </div>
     </div>
     <div v-else
-         class="right-section col-4">
+         class="right-section col">
       <component :is="component.name"
                  v-for="(component, index) in localOptions[size].rightSectionWidgets"
                  :key="index"
                  :options="component.options" />
     </div>
     <div v-if="localOptions.menuLink.length > 0"
-         class="center-section col-4">
+         class="center-section col-grow">
       <q-list class="routes-list">
         <q-item v-for="(item, index) in localOptions.menuLink"
                 :key="item"
@@ -38,7 +38,7 @@
       </q-list>
     </div>
     <div v-else
-         class="center-section col-4">
+         class="center-section col-grow">
       <div v-for="(component, index) in localOptions[size].centerSectionWidgets"
            :key="index"
            class="row">
@@ -50,14 +50,14 @@
       </div>
     </div>
     <div v-if="localOptions.hasAction"
-         class="left-section col-4 justify-end">
+         class="left-section col justify-end">
       <q-btn v-if="localOptions.hasAction"
              flat
              :label="localOptions.actionObject.buttonLabel"
              @click="takeAction(localOptions.actionObject)" />
     </div>
     <div v-else
-         class="left-section col-4 justify-end">
+         class="left-section col justify-end">
       <component :is="component.name"
                  v-for="(component, index) in localOptions[size].leftSectionWidgets"
                  :key="index"
