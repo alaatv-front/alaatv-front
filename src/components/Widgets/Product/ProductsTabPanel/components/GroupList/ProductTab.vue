@@ -178,6 +178,8 @@ export default {
   .product-tab-panels {
     background: transparent;
     .product-tab-panel {
+      padding-right: 0;
+      padding-left: 0;
       .product-panel-content {
         justify-content: space-between;
         padding: 40px 0;
