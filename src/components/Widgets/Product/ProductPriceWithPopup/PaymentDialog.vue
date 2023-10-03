@@ -15,7 +15,7 @@
         <div class="row payment-body"
              :class="{'q-col-gutter-lg': paymentMethod !== 'cash'}">
           <div class="col-12 products-col"
-               :class="{'col-sm-6': paymentMethod !== 'cash', 'hidden-responsive': (independentComplimentary.length === 0 && dependentComplimentary.length === 0 && examList.length === 0)}">
+               :class="{'col-sm-6': paymentMethod !== 'cash'}">
             <div class="installment-roules-and-conditions">
               <div class="installment-roules-and-conditions-title">شرایط ثبت نام قسطیشرایط ثبت نام قسطی</div>
               <div class="installment-roules-and-conditions-body">
@@ -32,7 +32,8 @@
                 </div>
               </div>
             </div>
-            <div class="product-container">
+            <div class="product-container"
+                 :class="{'hidden-responsive': (independentComplimentary.length === 0 && dependentComplimentary.length === 0 && examList.length === 0)}">
               <div v-if="dependentComplimentary.length > 0"
                    class="product-complimentary">
                 <div class="products-label">
@@ -522,7 +523,7 @@ export default defineComponent({
   }
 
   .header-section{
-    padding-bottom: 0;
+    padding-bottom: 5px;
   }
 
   .payment-header {
@@ -548,40 +549,14 @@ export default defineComponent({
   }
 
   .payment-body {
-    display: flex;
+    height: 450px;
+    overflow-y: auto;
+
+    @media screen and (max-width: 600px){
+      height: 420px;
+    }
 
     .products-col {
-
-      .installment-roules-and-conditions {
-        height: 100%;
-        .installment-roules-and-conditions-title {
-          color: #333;
-          font-size: 16px;
-          font-style: normal;
-          font-weight: 500;
-          line-height: normal;
-          letter-spacing: -0.48px;
-          margin-bottom: 16px;
-        }
-        .installment-roules-and-conditions-body {
-          height: 100%;
-          display: flex;
-          flex-flow: column;
-          justify-content: space-between;
-          padding-bottom: 46px;
-          .installment-roules-and-conditions-content {
-            color: #424242;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 22.4px;
-            letter-spacing: -0.42px;
-          }
-          .installment-roules-and-conditions-accept {
-
-          }
-        }
-      }
 
       &.hidden-responsive {
         @media screen and (max-width: 600px){
@@ -594,6 +569,36 @@ export default defineComponent({
     }
   }
 
+  .installment-roules-and-conditions {
+        height: 100%;
+        .installment-roules-and-conditions-title {
+          color: #333;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+          letter-spacing: -0.48px;
+          margin-bottom: 16px;
+        }
+        .installment-roules-and-conditions-body {
+          display: flex;
+          flex-flow: column;
+          justify-content: space-between;
+
+          .installment-roules-and-conditions-content {
+            color: #424242;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 22.4px;
+            letter-spacing: -0.42px;
+          }
+          .installment-roules-and-conditions-accept {
+            margin-top: 40px;
+          }
+        }
+      }
+
   .product-container {
     display: flex;
     flex-direction: column;
@@ -601,6 +606,12 @@ export default defineComponent({
     align-items: flex-start;
     width: 100%;
     height: 100%;
+
+    &.hidden-responsive {
+      display: none;
+        // @media screen and (max-width: 600px){
+        // }
+      }
 
     .product-complimentary {
       width: 100%;
@@ -665,6 +676,9 @@ export default defineComponent({
     background: #ECEFF1;
     overflow-y: auto;
     padding: 20px;
+    @media screen and (max-width: 600px){
+      margin-bottom: 10px;
+    }
 
     .installment-order-label {
       color: #616161;
