@@ -1,6 +1,6 @@
 <template>
   <div class="btn-group-wrapper"
-       :class="localOptions.className"
+       :class="[localOptions.className, responsiveShow]"
        :style="localOptions.style">
     <action-button v-for="(btn, index) in localOptions.buttonList"
                    :key="index"
@@ -27,6 +27,13 @@ export default defineComponent({
           borderCssString: '',
           borderRadiusCssString: ''
         },
+        responsiveShow: {
+          xl: true,
+          lg: true,
+          md: true,
+          sm: true,
+          xs: true
+        },
         boxShadows: [],
         cssHoverEffects: {
           boxShadows: [],
@@ -49,14 +56,26 @@ export default defineComponent({
         }
       }
     }
+  },
+  computed: {
+    responsiveShow () {
+      let responsiveShow = ''
+      Object.keys(this.localOptions.responsiveShow).forEach(key => {
+        if (this.localOptions.responsiveShow[key] === false) {
+          responsiveShow += key + '-hide '
+        }
+      })
+
+      return ' ' + responsiveShow
+    }
   }
 })
 </script>
 
 <style lang="scss" scoped>
 .btn-group-wrapper {
-  place-content: center;
   @media screen and (max-width: 600px){
+    place-content: center;
     display: grid;
   }
 }

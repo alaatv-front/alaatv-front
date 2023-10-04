@@ -220,7 +220,7 @@ export default defineComponent({
       margin: -43px 32px 0px 0px;
       rotate: -16deg;
       transition: all ease-in-out .4s;
-      @media screen and (max-width: 1024px){
+      @media screen and (max-width: 1023px){
         margin: -15px 10px 0px 0px;
       }
     }
@@ -236,7 +236,7 @@ export default defineComponent({
         border-radius: inherit;
         width: inherit;
 
-        @media screen and (max-width: 1024px){
+        @media screen and (max-width: 1023px){
           width: 116px;
         }
       }
@@ -331,7 +331,7 @@ export default defineComponent({
 
       .action-separator {
         margin: 12px 0;
-        @media screen and (max-width: 1024px){
+        @media screen and (max-width: 1023px){
           margin: 4px 0;
         }
         width: 100%;
@@ -439,7 +439,7 @@ export default defineComponent({
         padding-top: 3px;
       }
     }
-    @media screen and(max-width: 1024px) {
+    @media screen and(max-width: 1023px) {
     }
   }
 
@@ -505,7 +505,7 @@ export default defineComponent({
     .btn-text {
       margin-right: 8px;
     }
-    @media screen and (max-width: 1024px){
+    @media screen and (max-width: 1023px){
       //margin: 20px;
     }
   }
@@ -608,7 +608,7 @@ export default defineComponent({
     }
   }
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     display: flex;
     border-radius: 18px;
     margin-bottom: 16px;
@@ -622,7 +622,7 @@ export default defineComponent({
         border-radius: 10px;
       }
 
-      @media screen and (max-width: 1024px){
+      @media screen and (max-width: 1023px){
         width: 128px;
       }
     }

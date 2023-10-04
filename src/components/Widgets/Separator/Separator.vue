@@ -69,11 +69,11 @@ export default {
     getSeparatorWidth () {
       if (this.windowWidth >= 1920) {
         return this.localOptions.width.xl ? this.localOptions.width.xl : this.localOptions.width.lg ? this.localOptions.width.lg : this.localOptions.width.md ? this.localOptions.width.md : this.localOptions.width.sm ? this.localOptions.width.sm : this.localOptions.width.xs
-      } else if (this.windowWidth <= 1919 && this.windowWidth > 1440) {
+      } else if (this.windowWidth <= 1919 && this.windowWidth >= 1440) {
         return this.localOptions.width.lg ? this.localOptions.width.lg : this.localOptions.width.md ? this.localOptions.width.md : this.localOptions.width.sm ? this.localOptions.width.sm : this.localOptions.width.xs ? this.localOptions.width.xs : this.localOptions.width.xl
-      } else if (this.windowWidth <= 1439 && this.windowWidth > 1024) {
+      } else if (this.windowWidth <= 1439 && this.windowWidth >= 1024) {
         return this.localOptions.width.md ? this.localOptions.width.md : this.localOptions.width.sm ? this.localOptions.width.sm : this.localOptions.width.xs ? this.localOptions.width.xs : this.localOptions.width.xl ? this.localOptions.width.xl : this.localOptions.width.lg
-      } else if (this.windowWidth <= 1023 && this.windowWidth > 600) {
+      } else if (this.windowWidth <= 1023 && this.windowWidth >= 600) {
         return this.localOptions.width.sm ? this.localOptions.width.sm : this.localOptions.width.xs ? this.localOptions.width.xs : this.localOptions.width.xl ? this.localOptions.width.xl : this.localOptions.width.lg ? this.localOptions.width.lg : this.localOptions.width.md
       } else if (this.windowWidth <= 599) {
         return this.localOptions.width.xs ? this.localOptions.width.xs : this.localOptions.width.xl ? this.localOptions.width.xl : this.localOptions.width.lg ? this.localOptions.width.lg : this.localOptions.width.md ? this.localOptions.width.md : this.localOptions.width.sm
@@ -84,11 +84,11 @@ export default {
     getSeparatorHeight () {
       if (this.windowWidth >= 1920) {
         return this.localOptions.height.xl ? this.localOptions.height.xl : this.localOptions.height.lg ? this.localOptions.height.lg : this.localOptions.height.md ? this.localOptions.height.md : this.localOptions.height.sm ? this.localOptions.height.sm : this.localOptions.height.xs
-      } else if (this.windowWidth <= 1919 && this.windowWidth > 1440) {
+      } else if (this.windowWidth <= 1919 && this.windowWidth >= 1440) {
         return this.localOptions.height.lg ? this.localOptions.height.lg : this.localOptions.height.md ? this.localOptions.height.md : this.localOptions.height.sm ? this.localOptions.height.sm : this.localOptions.height.xs ? this.localOptions.height.xs : this.localOptions.height.xl
-      } else if (this.windowWidth <= 1439 && this.windowWidth > 1024) {
+      } else if (this.windowWidth <= 1439 && this.windowWidth >= 1024) {
         return this.localOptions.height.md ? this.localOptions.height.md : this.localOptions.height.sm ? this.localOptions.height.sm : this.localOptions.height.xs ? this.localOptions.height.xs : this.localOptions.height.xl ? this.localOptions.height.xl : this.localOptions.height.lg
-      } else if (this.windowWidth <= 1023 && this.windowWidth > 600) {
+      } else if (this.windowWidth <= 1023 && this.windowWidth >= 600) {
         return this.localOptions.height.sm ? this.localOptions.height.sm : this.localOptions.height.xs ? this.localOptions.height.xs : this.localOptions.height.xl ? this.localOptions.height.xl : this.localOptions.height.lg ? this.localOptions.height.lg : this.localOptions.height.md
       } else if (this.windowWidth <= 599) {
         return this.localOptions.height.xs ? this.localOptions.height.xs : this.localOptions.height.xl ? this.localOptions.height.xl : this.localOptions.height.lg ? this.localOptions.height.lg : this.localOptions.height.md ? this.localOptions.height.md : this.localOptions.height.sm

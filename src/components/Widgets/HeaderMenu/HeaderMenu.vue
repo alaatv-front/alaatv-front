@@ -181,11 +181,11 @@ export default {
     size() {
       if (this.windowWidth >= 1920) {
         return this.isConfigExist('xl') ? 'xl' : this.isConfigExist('lg') ? 'lg' : this.isConfigExist('md') ? 'md' : this.isConfigExist('sm') ? 'sm' : 'xs'
-      } else if (this.windowWidth <= 1919 && this.windowWidth > 1440) {
+      } else if (this.windowWidth <= 1919 && this.windowWidth >= 1440) {
         return this.isConfigExist('lg') ? 'lg' : this.isConfigExist('md') ? 'md' : this.isConfigExist('sm') ? 'sm' : this.isConfigExist('xs') ? 'xs' : 'xl'
-      } else if (this.windowWidth <= 1439 && this.windowWidth > 1024) {
+      } else if (this.windowWidth <= 1439 && this.windowWidth >= 1024) {
         return this.isConfigExist('md') ? 'md' : this.isConfigExist('sm') ? 'sm' : this.isConfigExist('xs') ? 'xs' : this.isConfigExist('xl') ? 'xl' : 'lg'
-      } else if (this.windowWidth <= 1023 && this.windowWidth > 600) {
+      } else if (this.windowWidth <= 1023 && this.windowWidth >= 600) {
         return this.isConfigExist('sm') ? 'sm' : this.isConfigExist('xs') ? 'xs' : this.isConfigExist('xl') ? 'xl' : this.isConfigExist('lg') ? 'lg' : 'md'
       } else if (this.windowWidth <= 599) {
         return this.isConfigExist('xs') ? 'xs' : this.isConfigExist('xl') ? 'xl' : this.isConfigExist('lg') ? 'lg' : this.isConfigExist('md') ? 'md' : 'sm'

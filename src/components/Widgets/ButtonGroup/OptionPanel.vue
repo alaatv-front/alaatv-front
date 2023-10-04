@@ -2,6 +2,7 @@
   <option-panel-tabs v-model:options="localOptions"
                      :show-hover-effects-tab="true"
                      :show-box-shadows-tab="true"
+                     :show-responsive-show="true"
                      :show-border-style-tab="true">
     <template #main-tab>
       <div class="option-panel-container q-py-md">
