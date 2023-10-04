@@ -102,6 +102,7 @@ export default {
         route: null,
         eventName: null,
         eventArgs: null,
+        borderRadius: 0,
         responsiveSpacing: {
           xs: {
             marginTop: null,
@@ -161,6 +162,7 @@ export default {
           sm: true,
           xs: true
         },
+        boxShadows: [],
         hideInAuth: false,
         drawer: {
           overlay: true,
@@ -176,6 +178,14 @@ export default {
   computed: {
     hideInAuth() {
       return this.localOptions.hideInAuth ? this.isUserLogin : false
+    },
+    shadows () {
+      const shadows = []
+      this.localOptions.boxShadows.forEach(shadow => {
+        shadows.push(shadow.cssString)
+      })
+
+      return shadows.join(', ')
     },
     responsiveShow () {
       let responsiveShow = ''
@@ -252,6 +262,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "quasar-ui-q-page-builder/src/components/Component.scss";
+$shadows: v-bind('shadows');
 $responsiveSpacing: (
   xs: (
     marginTop: v-bind('localOptions.responsiveSpacing.xs.marginTop'),
@@ -319,7 +330,9 @@ $hideInAuth : v-bind('hideInAuth ? "none" :  "initial"');
 
   .action-btn {
     @include media-query-spacings($responsiveSpacing, $sizes);
+    box-shadow: $shadows;
     display: $hideInAuth;
+    border-radius: v-bind('localOptions.borderRadius');
     &.fixed-btn {
       position: fixed;
       z-index: 1;
