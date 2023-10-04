@@ -501,7 +501,7 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
   }
 
   &.ThemeDefault {
-    @media screen and (max-width: 1024px){
+    @media screen and (max-width: 1023px){
       min-width: 304px;
       height: 140px;
     }
