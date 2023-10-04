@@ -1,11 +1,12 @@
 <template>
   <option-panel-tabs v-model:options="localOptions"
                      :show-responsive-spacing="true"
+                     :show-box-shadows-tab="true"
                      :show-responsive-show="true">
     <template #main-tab>
       <div class="option-panel-container q-py-md">
         <div class="row q-gutter-sm">
-          <div class="input-container col-md-3">
+          <div class="input-container col-md-2">
             <div class="outsideLabel">label</div>
             <q-input v-model="localOptions.label"
                      label="label" />
@@ -75,6 +76,11 @@
                 </template>
               </q-input>
             </div>
+          </div>
+          <div class="input-container col-md-2">
+            <div class="outsideLabel">border radius</div>
+            <q-input v-model="localOptions.borderRadius"
+                     label="border radius" />
           </div>
           <div class="input-container col-md-1">
             <div class="outsideLabel">flat</div>
@@ -444,6 +450,7 @@ export default defineComponent({
         fixed: false,
         fixedPosition: null,
         eventArgs: null,
+        boxShadows: [],
         hasAction: true,
         action: null,
         scrollTo: null,
