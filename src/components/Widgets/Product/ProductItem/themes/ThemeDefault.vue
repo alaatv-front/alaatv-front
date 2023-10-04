@@ -37,31 +37,54 @@
         <div class="more-detail product-more-detail">
           <router-link :to="getRoutingObject"
                        @click="productClicked">
-            <div class="price-box">
-              <div class="price-info">
-                <div v-if="product.price['final'] !== product.price['base'] && (localOptions.theme === 'default' || !localOptions.theme)"
-                     class="discount">
-                  <span>
-                    %{{
-                      (
-                        (1 - product.price['final'] / product.price['base']) *
-                        100
-                      ).toFixed(0)
-                    }}
-                  </span>
-                </div>
-                <div class="price-container">
-                  <div class="final-price-box">
-                    <div class="final-price">
-                      {{ finalPrice }}
-                    </div>
-                    <div class="price-Toman">تومان</div>
+            <template v-if="!product.payment_default || product.payment_default === 1">
+              <div class="price-box">
+                <div class="price-info">
+                  <div v-if="product.price['final'] !== product.price['base'] && (localOptions.theme === 'default' || !localOptions.theme)"
+                       class="discount">
+                    <span>
+                      %{{
+                        (
+                          (1 - product.price['final'] / product.price['base']) *
+                          100
+                        ).toFixed(0)
+                      }}
+                    </span>
                   </div>
-                  <div v-if="product.price['discount'] !== 0"
-                       class="main-price">{{ basePrice }}</div>
+                  <div class="price-container">
+                    <div class="final-price-box">
+                      <div class="final-price">
+                        {{ finalPrice }}
+                      </div>
+                      <div class="price-Toman">تومان</div>
+                    </div>
+                    <div v-if="product.price['discount'] !== 0"
+                         class="main-price">{{ basePrice }}</div>
+                  </div>
                 </div>
+                <span v-if="product.has_instalment_option"
+                      class="instalment-label">
+                  اقساطی
+                </span>
               </div>
-            </div>
+            </template>
+            <template v-else-if="product.payment_default === 2">
+              <div class="instalment-info-for-default-payment ellipsis">
+                <span class="simple-text before">فقط با</span>
+                <template v-if="product.instalments && product.instalments.length > 0">
+                  <span class="price price-value">
+                    {{ product.instalments[0].value.toLocaleString('fa') }}
+                  </span>
+                  <span class="price price-label">
+                    تومان
+                  </span>
+                </template>
+                <span class="simple-text after">بیا تو دوره</span>
+                <span class="instalment-label">
+                  اقساطی
+                </span>
+              </div>
+            </template>
           </router-link>
         </div>
         <q-separator class="action-separator" />
@@ -168,6 +191,24 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import "src/css/Theme/Typography/typography.scss";
+
+@mixin instalment-label () {
+  display: flex;
+  padding: 4px 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border-radius: 6px;
+  background: linear-gradient(-90deg, #2CB2C5 0.01%, #31B470 99.99%);
+  color: #FFF;
+  text-align: right;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.36px;
+}
+
 .theme2-container {
   height: inherit;
   .img-box {
@@ -273,6 +314,11 @@ export default defineComponent({
           letter-spacing: -0.2px;
         }
       }
+
+      .instalment-label {
+        margin-left: 16px;
+        @include instalment-label();
+      }
     }
 
     .action-box {
@@ -297,10 +343,53 @@ export default defineComponent({
         line-height: 21px;
         color: #666666;
         cursor: pointer;
+        max-width: 100%;
 
         a {
           text-decoration: none;
           color: inherit;
+          max-width: 100%;
+
+          .instalment-info-for-default-payment {
+            max-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            flex-wrap: wrap;
+            .simple-text {
+              color: #757575;
+              text-align: right;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 500;
+              line-height: normal;
+              letter-spacing: -0.42px;
+            }
+            .price {
+              color: #FF8518;
+              text-align: right;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 600;
+              line-height: normal;
+              letter-spacing: -0.42px;
+              margin: 0 6px;
+              &.price-value {
+                font-size: 20px;
+                font-weight: 700;
+                letter-spacing: -0.6px;
+                margin-right: 3px;
+              }
+              &.price-label {
+                margin-left: 0;
+              }
+            }
+            .instalment-label {
+              margin-left: 8px;
+              @include instalment-label();
+            }
+          }
         }
       }
 
@@ -462,6 +551,28 @@ export default defineComponent({
       .action-box {
         .more-detail {
           a {
+            .instalment-info-for-default-payment {
+              .simple-text {
+                font-size: 10px;
+                letter-spacing: -0.3px;
+
+                &.after {
+                  display: none;
+                }
+              }
+              .price {
+                font-size: 10px;
+                letter-spacing: -0.3px;
+                &.price-value {
+                  font-size: 16px;
+                  letter-spacing: -0.48px;
+                }
+                &.price-label {
+                }
+              }
+              .instalment-label {
+              }
+            }
           }
         }
 

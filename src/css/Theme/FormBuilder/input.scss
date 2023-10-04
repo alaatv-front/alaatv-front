@@ -10,7 +10,12 @@
 .form-builder-input-col {
   .form-builder-input {
     .q-field {
-      @include field-md;
+      &.q-textarea {
+          .q-field__control:before {
+            height: 100% !important;
+          }
+      }
+      //@include field-md;
     }
   }
 }

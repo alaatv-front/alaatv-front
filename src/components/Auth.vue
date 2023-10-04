@@ -151,6 +151,7 @@ export default {
           //   })
           this.$store.commit('AppLayout/updateLoginDialog', false)
           this.$emit('onLoggedIn')
+          this.$bus.emit('onLoggedIn')
           this.redirectTo()
         })
         .catch(() => {
@@ -172,6 +173,9 @@ export default {
   margin: auto;
   border-radius: 20px;
   padding:60px 67px;
+  @media only screen and (max-width: 600px){
+    padding: 30px;
+  }
   .login-loading {
     height: 100%;
     display: flex;
@@ -265,6 +269,20 @@ export default {
       line-height: 22px;
       letter-spacing: -0.03em;
     }
+  }
+}
+
+@media only screen and (max-width: 600px){
+  .defaultLoginCard{
+    width: 300px;
+    height: 450px;
+  }
+}
+
+@media only screen and (max-width: 400px){
+  .defaultLoginCard{
+    width: 270px;
+    height: 450px;
   }
 }
 </style>

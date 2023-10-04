@@ -2,13 +2,16 @@
   <q-card class="feature-card"
           :class="[localOptions.className, {'hover-image': localOptions.hoverImage }]"
           :style="localOptions.style">
-    <q-card-section :class="{'feature-horizontal-section': isHorizontal, 'feature-vertical-section': !isHorizontal}"
+    <q-card-section v-if="!loading"
+                    :class="{'feature-horizontal-section': isHorizontal, 'feature-vertical-section': !isHorizontal}"
                     :horizontal="isHorizontal">
       <q-card-section v-if="localOptions.hasImage"
                       class="feature-section image">
         <image-widget :options="localOptions.imageWidgetOptions" />
       </q-card-section>
-      <q-card-section class="feature-section">
+      <q-card-section class="feature-section"
+                      :class="{'horizontal-title-section': isHorizontalTitle, 'vertical-title-section': !isHorizontalTitle}"
+                      :horizontal="isHorizontalTitle">
         <text-widget v-if="localOptions.titleOptions.text"
                      :options="localOptions.titleOptions" />
         <div v-else
@@ -20,6 +23,12 @@
           {{ localOptions.description }}
         </div>
       </q-card-section>
+    </q-card-section>
+    <q-card-section v-else
+                    class="feature-section">
+      <q-spinner color="primary"
+                 size="3em"
+                 :thickness="2" />
     </q-card-section>
   </q-card>
 </template>
@@ -38,6 +47,7 @@ export default {
   mixins: [mixinWidget],
   data() {
     return {
+      loading: true,
       defaultOptions: {
         titleOptions: {
           text: null,
@@ -180,6 +190,13 @@ export default {
           sm: false,
           xs: false
         },
+        horizontalTitle: {
+          xl: false,
+          lg: false,
+          md: false,
+          sm: false,
+          xs: false
+        },
         theme: 'theme1',
         backgrounds: {
           xs: {
@@ -306,6 +323,9 @@ export default {
     isHorizontal() {
       return typeof this.localOptions.horizontal === 'boolean' ? this.localOptions.horizontal : this.localOptions.horizontal[this.$q.screen.name]
     },
+    isHorizontalTitle() {
+      return this.localOptions.horizontalTitle[this.$q.screen.name]
+    },
     shadows () {
       const shadows = []
       this.localOptions.boxShadows.forEach(shadow => {
@@ -344,6 +364,9 @@ export default {
       }
       return 'div'
     }
+  },
+  mounted() {
+    this.loading = false
   }
 }
 </script>
@@ -462,7 +485,6 @@ $responsiveSpacing: (
 .feature-card {
   @include media-query-backgrounds($backgrounds, $sizes);
   @include media-query-spacings($responsiveSpacing, $sizes);
-  width: 100%;
   box-shadow: $shadows;
   -webkit-border-radius: $borderRadius;
   -moz-border-radius: $borderRadius;
@@ -487,6 +509,10 @@ $responsiveSpacing: (
 
   .feature-section {
     padding: 0;
+
+    &.horizontal-title-section {
+      justify-content: center;
+    }
 
     &.image{
       transition: all calc(#{$transitionTime} * 1s);

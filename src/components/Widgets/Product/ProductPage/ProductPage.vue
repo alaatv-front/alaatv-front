@@ -127,6 +127,7 @@ import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import Bookmark from 'src/components/Bookmark.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
 import ShareNetwork from 'src/components/ShareNetwork.vue'
 import ProductInfoTab from 'src/components/Widgets/Product/ProductInfoTab/ProductInfoTab.vue'
 import ProductIntroBox from 'src/components/Widgets/Product/ProductIntroBox/ProductIntroBox.vue'
@@ -182,7 +183,7 @@ export default defineComponent({
   methods: {
     getProduct() {
       this.loading = true
-      this.$apiGateway.product.show(this.productId)
+      APIGateway.product.show(this.productId)
         .then(product => {
           this.product = product
           this.loading = false
@@ -301,7 +302,7 @@ export default defineComponent({
       .background-filter {
         width: 100%;
         height: 100%;
-        background: linear-gradient(270deg,  rgba(0, 0, 0, 0.15)0%, rgba(0, 0, 0, 0.60) 47.60%, rgba(0, 0, 0, 0.95) 100%), url(<path-to-image>), lightgray 0px 0px / 100% 100% no-repeat;
+        background: linear-gradient(270deg,  rgba(0, 0, 0, 0.15)0%, rgba(0, 0, 0, 0.60) 47.60%, rgba(0, 0, 0, 0.95) 100%), lightgray 0px 0px / 100% 100% no-repeat;
         mix-blend-mode: multiply;
       }
     }
@@ -503,7 +504,7 @@ export default defineComponent({
 
     .product-pic {
       height: 550px;
-      background: linear-gradient(270deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.60) 52.60%, rgba(0, 0, 0, 0.15) 100%), url(<path-to-image>), lightgray 0px 0px / 100% 100% no-repeat;
+      background: linear-gradient(270deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.60) 52.60%, rgba(0, 0, 0, 0.15) 100%), lightgray 0px 0px / 100% 100% no-repeat;
       filter: blur(10px);
     }
   }

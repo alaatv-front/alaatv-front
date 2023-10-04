@@ -1,10 +1,10 @@
 <template>
   <div>
     <div v-if="localOptions.options.layout === 'ProductShelf'">
-      <product-shelf-option-panel :options="localOptions" />
+      <product-shelf-option-panel v-model:options="localOptions" />
     </div>
     <div v-else>
-      <product-tab-option-panel :options="localOptions" />
+      <product-tab-option-panel v-model:options="localOptions" />
     </div>
     <div class="row q-gutter-xs justify-center q-my-md">
       <div class="col-md-5">
@@ -26,7 +26,7 @@
 <script>
 import productShelfOptionPanel from 'components/Widgets/Product/ProductsTabPanel/GroupListOptionPanel/ProductShelfOptionPanel.vue'
 import ProductTabOptionPanel from 'components/Widgets/Product/ProductsTabPanel/GroupListOptionPanel/ProductTabOptionPanel.vue'
-import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
+// import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'groupList',
@@ -34,9 +34,26 @@ export default {
     productShelfOptionPanel,
     ProductTabOptionPanel
   },
-  mixins: [PageBuilderOptionPanel],
+  props: {
+    options: {
+      type: Object,
+      default: () => {
+      }
+    }
+  },
+  // mixins: [PageBuilderOptionPanel],
   data() {
     return {
+    }
+  },
+  computed: {
+    localOptions: {
+      get() {
+        return this.options
+      },
+      set(newValue) {
+        this.$emit('update:options', newValue)
+      }
     }
   },
   methods: {

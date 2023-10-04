@@ -66,6 +66,7 @@
 
 <script>
 import { SetList } from 'src/models/Set.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import { SetSectionList } from 'src/models/SetSection.js'
 import { Content, ContentList } from 'src/models/Content.js'
@@ -157,8 +158,9 @@ export default {
       get () {
         return this.selectedContent || new Content()
       },
-      set(value) {
-        this.$store.commit('TripleTitleSet/setSelectedContent', value)
+      set(newValue, oldValue) {
+        newValue.has_watched = oldValue.has_watched ? true : newValue.has_watched
+        this.$store.commit('TripleTitleSet/setSelectedContent', newValue)
       }
     }
   },
@@ -176,7 +178,6 @@ export default {
       this.$store.commit('TripleTitleSet/updateTopicList', [])
     }
     this.storeSelectedSet(this.$route.params.setId)
-    this.storeSelectedContent(this.$route.params.contentId)
   },
   methods: {
     goBack () {
@@ -195,10 +196,11 @@ export default {
     storeSelectedSet (setId) {
       this.contentLoading = true
       this.getSelectedSet(setId)
-        .then(res => {
-          this.updateSelectedSet(res)
+        .then(set => {
+          this.updateSelectedSet(set)
           this.contentLoading = false
           this.ContentVideoListKey++
+          this.storeSelectedContent(this.$route.params.contentId)
         }).catch(() => {
           this.contentLoading = false
           this.ContentVideoListKey++
@@ -206,14 +208,15 @@ export default {
     },
     storeSelectedContent (contentId) {
       this.contentLoading = true
-      this.getSelectedContent(contentId).then(res => {
-        this.setSelectedContent(res)
-        this.contentLoading = false
-        this.ContentVideoListKey++
-      }).catch(() => {
-        this.contentLoading = false
-        this.ContentVideoListKey++
-      })
+      this.getSelectedContent(contentId)
+        .then(content => {
+          this.setSelectedContent(content)
+          this.contentLoading = false
+          this.ContentVideoListKey++
+        }).catch(() => {
+          this.contentLoading = false
+          this.ContentVideoListKey++
+        })
     },
     getProductSets(productId) {
       this.$store.dispatch('TripleTitleSet/getSet', productId)
@@ -296,7 +299,7 @@ export default {
     },
     getSelectedSet (setId) {
       return new Promise((resolve, reject) => {
-        this.$apiGateway.set.show(setId)
+        APIGateway.set.show(setId)
           .then(res => {
             this.getSelectedSetContents(setId)
               .then(contentList => {
@@ -307,7 +310,10 @@ export default {
                   if (selectedContentIndex === -1) {
                     selectedContentIndex = 0
                   }
-                  this.setSelectedContent(contentList.list[selectedContentIndex])
+
+                  this.selectedContent.has_watched = contentList.list[selectedContentIndex].has_watched
+
+                  // this.setSelectedContent(contentList.list[selectedContentIndex])
                 }
                 const selectedSet = res
                 selectedSet.contents = contentList
@@ -329,10 +335,10 @@ export default {
       })
     },
     getSelectedSetContents (setId) {
-      return this.$apiGateway.set.getContents(setId)
+      return APIGateway.set.getContents(setId)
     },
     getSelectedContent (contentId) {
-      return this.$apiGateway.content.show(contentId)
+      return APIGateway.content.show(contentId)
     }
   }
 }

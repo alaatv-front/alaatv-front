@@ -1,6 +1,7 @@
 <template>
   <option-panel-tabs v-model:options="localOptions"
-                     :show-responsive-spacing="true">
+                     :show-responsive-spacing="true"
+                     :show-responsive-show="true">
     <template #main-tab>
       <div class="option-panel-container q-py-md">
         <div class="row q-gutter-sm">
@@ -83,6 +84,11 @@
           <div class="input-container col-md-2">
             <div class="outsideLabel">fix</div>
             <q-checkbox v-model="localOptions.fixed"
+                        left-label />
+          </div>
+          <div class="input-container col-md-2">
+            <div class="outsideLabel">hideInAuth</div>
+            <q-checkbox v-model="localOptions.hideInAuth"
                         left-label />
           </div>
           <div class="input-container col-md-2">

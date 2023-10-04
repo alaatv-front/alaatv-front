@@ -1,18 +1,18 @@
 <template>
   <div v-if="localOptions.options.layout === 'GridRow'">
-    <grid-row-option-panel :options="localOptions"
+    <grid-row-option-panel v-model:options="localOptions"
                            :layout="layout" />
   </div>
   <div v-else>
-    <scroll-row-option-panel :options="localOptions"
+    <scroll-row-option-panel v-model:options="localOptions"
                              :layout="layout" />
   </div>
 </template>
 
 <script>
-import GridRowOptionPanel from 'components/Widgets/Product/ProductsTabPanel/ProductListOptionPanel/GridRowOptionPanel.vue'
-import ScrollRowOptionPanel from 'components/Widgets/Product/ProductsTabPanel/ProductListOptionPanel/ScrollRowOptionPanel.vue'
-import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
+// import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
+import GridRowOptionPanel from 'src/components/Widgets/Product/ProductsTabPanel/ProductListOptionPanel/GridRowOptionPanel.vue'
+import ScrollRowOptionPanel from 'src/components/Widgets/Product/ProductsTabPanel/ProductListOptionPanel/ScrollRowOptionPanel.vue'
 
 export default {
   name: 'ProductListOptionPanel',
@@ -20,11 +20,26 @@ export default {
     GridRowOptionPanel,
     ScrollRowOptionPanel
   },
-  mixins: [PageBuilderOptionPanel],
   props: {
+    options: {
+      type: Object,
+      default: () => {
+      }
+    },
     layout: {
       type: String,
       default: ''
+    }
+  },
+  // mixins: [PageBuilderOptionPanel],
+  computed: {
+    localOptions: {
+      get() {
+        return this.options
+      },
+      set(newValue) {
+        this.$emit('update:options', newValue)
+      }
     }
   }
 }

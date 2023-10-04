@@ -777,6 +777,11 @@ const routes = [
             component: () => import('src/pages/Document/debug.vue')
           },
           {
+            path: 'sentry',
+            name: 'Document.Sentry',
+            component: () => import('src/pages/Document/Sentry.vue')
+          },
+          {
             path: 'icon-sax',
             name: 'Document.IconSax',
             component: () => import('src/pages/Document/IconSax.vue')

@@ -96,7 +96,12 @@
                          label="textColor" />
               </div>
               <div class="col-12 col-md-3">
-                <q-input v-model="localOptions.navigation.goToRight.size"
+                <q-select v-model="navigationSize"
+                          :options="navigationSizeOptions"
+                          label="screen size" />
+              </div>
+              <div class="col-12 col-md-3">
+                <q-input v-model="localOptions.navigation.goToLeft.size[navigationSize]"
                          type="text"
                          label="size" />
               </div>
@@ -126,7 +131,12 @@
                          label="textColor" />
               </div>
               <div class="col-12 col-md-3">
-                <q-input v-model="localOptions.navigation.goToLeft.size"
+                <q-select v-model="navigationSize"
+                          :options="navigationSizeOptions"
+                          label="screen size" />
+              </div>
+              <div class="col-12 col-md-3">
+                <q-input v-model="localOptions.navigation.goToLeft.size[navigationSize]"
                          type="text"
                          label="size" />
               </div>
@@ -277,6 +287,8 @@ export default defineComponent({
           value: 1440
         }
       ],
+      navigationSize: 'xs',
+      navigationSizeOptions: ['xs', 'sm', 'md', 'lg', 'xl'],
       defaultOptions: {
         settings: {
           autoplay: 3500,
@@ -319,14 +331,26 @@ export default defineComponent({
             textColor: '#FF944A',
             color: '#FFE8D8',
             rounded: false,
-            size: 'lg'
+            size: {
+              xs: 'md',
+              sm: 'md',
+              md: 'lg',
+              lg: 'lg',
+              xl: 'lg'
+            }
           },
           goToRight: {
             icon: 'chevron_right',
             textColor: '#FF944A',
             color: '#FFE8D8',
             rounded: false,
-            size: 'lg'
+            size: {
+              xs: 'md',
+              sm: 'md',
+              md: 'lg',
+              lg: 'lg',
+              xl: 'lg'
+            }
           }
         }
       }

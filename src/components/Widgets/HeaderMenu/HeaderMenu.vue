@@ -1,10 +1,10 @@
 <template>
   <div ref="headerMenu"
-       class="header-menu"
+       class="header-menu row"
        :class="localOptions.className"
        :style="options.style">
     <div v-if="localOptions.logoImage"
-         class="right-section"
+         class="right-section col"
          @click="routeTo('Public.Home')">
       <lazy-img :src="localOptions.logoImage"
                 :alt="'logo'"
@@ -16,14 +16,14 @@
       </div>
     </div>
     <div v-else
-         class="right-section">
+         class="right-section col">
       <component :is="component.name"
                  v-for="(component, index) in localOptions[size].rightSectionWidgets"
                  :key="index"
                  :options="component.options" />
     </div>
-    <div v-if="localOptions.menuLink"
-         class="center-section">
+    <div v-if="localOptions.menuLink.length > 0"
+         class="center-section col-grow">
       <q-list class="routes-list">
         <q-item v-for="(item, index) in localOptions.menuLink"
                 :key="item"
@@ -38,21 +38,26 @@
       </q-list>
     </div>
     <div v-else
-         class="center-section">
-      <component :is="component.name"
-                 v-for="(component, index) in localOptions[size].centerSectionWidgets"
-                 :key="index"
-                 :options="component.options" />
+         class="center-section col-grow">
+      <div v-for="(component, index) in localOptions[size].centerSectionWidgets"
+           :key="index"
+           class="row">
+        <component :is="component.name"
+                   :options="component.options" />
+        <q-separator v-if="index < localOptions[size].centerSectionWidgets.length - 1"
+                     class="separator"
+                     vertical />
+      </div>
     </div>
     <div v-if="localOptions.hasAction"
-         class="left-section">
+         class="left-section col justify-end">
       <q-btn v-if="localOptions.hasAction"
              flat
              :label="localOptions.actionObject.buttonLabel"
              @click="takeAction(localOptions.actionObject)" />
     </div>
     <div v-else
-         class="left-section">
+         class="left-section col justify-end">
       <component :is="component.name"
                  v-for="(component, index) in localOptions[size].leftSectionWidgets"
                  :key="index"
@@ -346,9 +351,13 @@ $backgrounds: (
   .center-section {
     display: flex;
     align-items: center;
-    @media only screen and (max-width: 1024px) {
-      display: none;
+
+    .separator {
+      height: 16px;
+      align-self: center;
+      color: $grey4;
     }
+
     .routes-list {
       display: flex;
 
@@ -374,7 +383,6 @@ $backgrounds: (
 
   .left-section {
     display: flex;
-    margin: 0 20px;
     font-weight: 400;
     font-size: 16px;
     line-height: 28px;

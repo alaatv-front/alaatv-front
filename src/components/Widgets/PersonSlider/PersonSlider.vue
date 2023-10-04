@@ -61,20 +61,18 @@
           </template>
         </carousel>
 
-        <div v-if="!$q.screen.lt.md"
-             class="arrow-left text-right">
+        <div class="arrow-left text-right">
           <q-btn :icon="localOptions.navigation.goToLeft.icon"
                  :round="localOptions.navigation.goToLeft.rounded"
                  class="arrow-left-btn "
-                 :size="localOptions.navigation.goToLeft.size"
+                 :size="leftNavigationSize"
                  @click="$refs.vueCarousel.next()" />
         </div>
-        <div v-if="!$q.screen.lt.md"
-             class="arrow-right">
+        <div class="arrow-right">
           <q-btn :icon="localOptions.navigation.goToRight.icon"
                  :round="localOptions.navigation.goToRight.rounded"
                  class="arrow-right-btn"
-                 :size="localOptions.navigation.goToRight.size"
+                 :size="rightNavigationSize"
                  @click="$refs.vueCarousel.prev()" />
         </div>
 
@@ -155,18 +153,38 @@ export default defineComponent({
             textColor: '#9E9E9E',
             color: '#FFFFFF',
             rounded: true,
-            size: 'lg'
+            size: {
+              xs: 'md',
+              sm: 'md',
+              md: 'lg',
+              lg: 'lg',
+              xl: 'lg'
+            }
           },
           goToRight: {
             icon: 'chevron_right',
             textColor: '#9E9E9E',
             color: '#FFFFFF',
             rounded: true,
-            size: 'lg'
+            size: {
+              xs: 'md',
+              sm: 'md',
+              md: 'lg',
+              lg: 'lg',
+              xl: 'lg'
+            }
           }
         }
       },
       scrollIndex: 0
+    }
+  },
+  computed: {
+    leftNavigationSize() {
+      return this.localOptions.navigation.goToLeft.size[this.$q.screen.name]
+    },
+    rightNavigationSize() {
+      return this.localOptions.navigation.goToRight.size[this.$q.screen.name]
     }
   },
   mounted() {
@@ -282,11 +300,11 @@ export default defineComponent({
 .arrow-left {
   align-self: center;
   position: absolute;
-  right: 0;
+  right: -30px;
   top: 40%;
   z-index: 2;
 
-  @media screen and (max-width: 600px){
+  @media screen and (max-width: 1440px){
     right: 0;
   }
 
@@ -298,11 +316,11 @@ export default defineComponent({
 .arrow-right {
   align-self: center;
   position: absolute;
-  left: 0;
+  left: -30px;
   top: 40%;
   z-index: 2;
 
-  @media screen and (max-width: 600px){
+  @media screen and (max-width: 1440px){
     left: 0;
   }
 
