@@ -102,7 +102,7 @@ export default {
         route: null,
         eventName: null,
         eventArgs: null,
-        borderRadius: 0,
+        borderRadius: '8px',
         responsiveSpacing: {
           xs: {
             marginTop: null,
