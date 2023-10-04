@@ -210,7 +210,6 @@ export default defineComponent({
 
   &.teacher {
     padding-top: 0;
-    box-shadow: $shadow-2;
   }
 
   .student-img {
