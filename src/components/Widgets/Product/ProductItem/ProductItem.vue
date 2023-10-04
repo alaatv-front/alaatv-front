@@ -494,9 +494,7 @@ $translateY: v-bind('localOptions.cssHoverEffects.transform.translateY');
 $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
 .product-item-container {
 
-  @media screen and (max-width: 600px){
-    margin-bottom: 24px ;
-  }
+  @include media-query-spacings($responsiveSpacing, $sizes);
 
   &.theme1 {
     padding-top: 30px;
@@ -506,7 +504,6 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
     @media screen and (max-width: 1024px){
       min-width: 304px;
       height: 140px;
-      padding: 0 16px;
     }
   }
 
@@ -546,7 +543,6 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
     -webkit-border-radius: $borderRadius;
     -moz-border-radius: $borderRadius;
     border: $border;
-    @include media-query-spacings($responsiveSpacing, $sizes);
   }
 }
 </style>

@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { mixinWidget } from 'src/mixin/Mixins.js'
+import { mixinWidget, mixinAuth } from 'src/mixin/Mixins.js'
 import ImageWidget from 'components/Widgets/ImageWidget/ImageWidget.vue'
 import TextWidget from 'components/Widgets/TextWidget/TextWidget.vue'
 import { defineAsyncComponent } from 'vue'
@@ -74,7 +74,7 @@ export default {
     TextWidget,
     Timer: defineAsyncComponent(() => import('components/Widgets/Timer/Timer.vue'))
   },
-  mixins: [mixinWidget],
+  mixins: [mixinWidget, mixinAuth],
   emits: ['ActionButton'],
   data() {
     return {
@@ -155,6 +155,7 @@ export default {
           sm: true,
           xs: true
         },
+        hideInAuth: false,
         drawer: {
           overlay: true,
           bordered: true,
@@ -167,6 +168,9 @@ export default {
     }
   },
   computed: {
+    hideInAuth() {
+      return this.localOptions.hideInAuth ? this.isUserLogin : false
+    },
     responsiveShow () {
       let responsiveShow = ''
       Object.keys(this.localOptions.responsiveShow).forEach(key => {
@@ -187,8 +191,14 @@ export default {
   },
   mounted() {
     this.loadConfig()
+    this.checkAuth()
   },
   methods: {
+    checkAuth() {
+      this.$bus.on('onLoggedIn', () => {
+        this.loadAuthData()
+      })
+    },
     loadConfig() {
       if (this.localOptions.imageSource) {
         this.localOptions.flat = true
@@ -208,6 +218,13 @@ export default {
         behavior: 'smooth'
       })
     },
+    redirectRoute(url) {
+      if ((url.indexOf('http://') > -1 || url.indexOf('https://') > -1)) {
+        window.open(url, '_blank')
+      } else {
+        this.$router.push(url)
+      }
+    },
     takeAction() {
       if (!this.localOptions.hasAction) {
         this.$emit('ActionButton')
@@ -216,7 +233,7 @@ export default {
       } else if (this.localOptions.action && this.localOptions.action === 'scroll') {
         this.scrollToElement(this.localOptions.scrollTo)
       } else if (this.localOptions.action && this.localOptions.action === 'link') {
-        this.$router.push(this.localOptions.route)
+        this.redirectRoute(this.localOptions.route)
       } else if (this.localOptions.action && this.localOptions.action === 'event') {
         this.$bus.emit(this.localOptions.eventName, this.localOptions.eventArgs)
       } else if (this.localOptions.action && this.localOptions.action === 'hamburger_menu') {
@@ -281,51 +298,52 @@ $responsiveSpacing: (
     paddingBottom: v-bind('localOptions.responsiveSpacing.xl.paddingBottom'),
   )
 );
-  .drawer {
-    z-index: 100;
+$hideInAuth : v-bind('hideInAuth ? "none" :  "initial"');
+.drawer {
+  z-index: 100;
 
-    .drawer-sections {
-      place-content: space-between;
-      height: inherit;
+  .drawer-sections {
+    place-content: space-between;
+    height: inherit;
+  }
+}
+
+.action-btn {
+  @include media-query-spacings($responsiveSpacing, $sizes);
+  display: $hideInAuth;
+  &.fixed-btn {
+    position: fixed;
+    z-index: 1;
+
+    &.top-right {
+      top: 0;
+      right: 0;
+    }
+
+    &.top-left {
+      top: 0;
+      left: 0;
+    }
+
+    &.bottom-right {
+      bottom: 0;
+      right: 0;
+    }
+
+    &.bottom-left {
+      bottom: 0;
+      left: 0;
     }
   }
 
-  .action-btn {
-      @include media-query-spacings($responsiveSpacing, $sizes);
-
-      &.fixed-btn {
-        position: fixed;
-        z-index: 1;
-
-        &.top-right {
-          top: 0;
-          right: 0;
-        }
-
-        &.top-left {
-          top: 0;
-          left: 0;
-        }
-
-        &.bottom-right {
-          bottom: 0;
-          right: 0;
-        }
-
-        &.bottom-left {
-          bottom: 0;
-          left: 0;
-        }
-      }
-
-      &.img-btn {
-        &:deep(.q-btn__content) {
-          margin: 0;
-        }
-
-        &:deep(.q-focus-helper) {
-          display: none;
-        }
-      }
+  &.img-btn {
+    &:deep(.q-btn__content) {
+      margin: 0;
     }
+
+    &:deep(.q-focus-helper) {
+      display: none;
+    }
+  }
+}
 </style>

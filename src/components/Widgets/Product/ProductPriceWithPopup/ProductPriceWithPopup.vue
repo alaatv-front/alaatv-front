@@ -5,7 +5,12 @@
         <q-icon name="ph:tag"
                 color="gray-7"
                 size="16px" />
-        قیمت
+        <template v-if="hasInstallment">
+          قیمت نقدی:
+        </template>
+        <template v-else>
+          قیمت:
+        </template>
       </div>
       <div v-if="productPrice.discount > 0"
            class="price-calculation">
@@ -29,7 +34,7 @@
              unelevated
              class="action-btn"
              :class="{'full-width': !hasInstallment}"
-             label="ثبت نام"
+             :label="hasInstallment ? 'ثبت نام نقدی' : 'ثبت نام'"
              @click="paymentAction('cash')" />
       <q-btn v-if="hasInstallment"
              color="grey-3"
@@ -54,7 +59,7 @@
 import { defineComponent } from 'vue'
 import Price from 'src/models/Price.js'
 import { Product } from 'src/models/Product.js'
-import { mixinWidget } from 'src/mixin/Mixins.js'
+import { mixinWidget, mixinAuth } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import PaymentDialog from 'src/components/Widgets/Product/ProductPriceWithPopup/PaymentDialog.vue'
 
@@ -63,7 +68,7 @@ export default defineComponent({
   components: {
     PaymentDialog
   },
-  mixins: [mixinWidget],
+  mixins: [mixinWidget, mixinAuth],
   emits: ['updateProduct', 'updateProductLoading'],
   data() {
     return {
@@ -73,6 +78,7 @@ export default defineComponent({
       dialog: false,
       paymentMethod: null,
       productComplimentary: [],
+      onLoginAction: () => {},
       examList: []
     }
   },
@@ -99,6 +105,11 @@ export default defineComponent({
       this.getProductExams()
     }
   },
+  mounted() {
+    this.$bus.on('onLoggedIn', () => {
+      this.onLoginAction()
+    })
+  },
   methods: {
     addToCart(hasInstalmentOption = false, goToCheckoutReview = true) {
       this.$store.dispatch('Cart/addToCart', { product: this.localOptions.product, has_instalment_option: hasInstalmentOption })
@@ -109,18 +120,39 @@ export default defineComponent({
         })
     },
     paymentAction(paymentMethod) {
+      this.paymentMethod = paymentMethod
+
+      if (paymentMethod === 'installment') {
+        this.checkLoginForInstallment()
+        return
+      }
+
       if (this.productComplimentary.length === 0 && this.examList.length === 0) {
-        const hasInstalmentOption = paymentMethod === 'installment'
-        const goToCheckoutReview = !hasInstalmentOption
-        this.addToCart(hasInstalmentOption, goToCheckoutReview)
-        if (hasInstalmentOption) {
-          this.paymentMethod = paymentMethod
-          this.toggleDialog()
-        }
-      } else {
-        this.paymentMethod = paymentMethod
+        this.addToCart()
+        return
+      }
+      if (this.productComplimentary.length > 0 || this.examList.length > 0) {
         this.toggleDialog()
       }
+    },
+    paymentActionForInstallment () {
+      this.addToCart(true, false)
+      this.toggleDialog()
+    },
+    checkLoginForInstallment() {
+      if (this.isUserLogin) {
+        this.paymentActionForInstallment()
+        return
+      }
+
+      this.$store.commit('Auth/updateRedirectTo', { name: this.$route.name, params: this.$route.params, query: this.$route.query })
+      this.onLoginAction = this.paymentActionForInstallment
+      this.$store.commit('AppLayout/updateLoginDialog', true)
+    },
+    checkLogin() {
+      this.$store.commit('Auth/updateRedirectTo', this.$route.name)
+      this.onLoginAction = this.paymentActionForInstallment
+      this.$store.commit('AppLayout/updateLoginDialog', true)
     },
     toggleDialog() {
       this.dialog = !this.dialog
@@ -187,6 +219,10 @@ export default defineComponent({
       font-weight: 400;
       line-height: normal;
       letter-spacing: -0.54px;
+
+      @media screen and (max-width: 1200px){
+        font-size: 14px;
+      }
 
       .price-title-icon {
         margin-right: 8px;
