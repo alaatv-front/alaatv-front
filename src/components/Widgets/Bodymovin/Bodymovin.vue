@@ -80,11 +80,11 @@ export default {
       let result = {}
       if (this.windowWidth >= 1920) {
         result = this.localOptions.xl.directory !== '' ? this.localOptions.xl : this.localOptions.lg.directory !== '' ? this.localOptions.lg : this.localOptions.sm.directory !== '' ? this.localOptions.md : this.localOptions.sm.directory !== '' ? this.localOptions.sm : this.localOptions.xs
-      } else if (this.windowWidth <= 1919 && this.windowWidth > 1440) {
+      } else if (this.windowWidth <= 1919 && this.windowWidth >= 1440) {
         result = this.localOptions.lg.directory !== '' ? this.localOptions.lg : this.localOptions.md.directory !== '' ? this.localOptions.md : this.localOptions.sm.directory !== '' ? this.localOptions.sm : this.localOptions.xs.directory !== '' ? this.localOptions.xs : this.localOptions.xl
-      } else if (this.windowWidth <= 1439 && this.windowWidth > 1024) {
+      } else if (this.windowWidth <= 1439 && this.windowWidth >= 1024) {
         result = this.localOptions.md.directory !== '' ? this.localOptions.md : this.localOptions.sm.directory !== '' ? this.localOptions.sm : this.localOptions.xs.directory !== '' ? this.localOptions.xs : this.localOptions.lg.directory !== '' ? this.localOptions.lg : this.localOptions.xl
-      } else if (this.windowWidth <= 1023 && this.windowWidth > 600) {
+      } else if (this.windowWidth <= 1023 && this.windowWidth >= 600) {
         result = this.localOptions.sm.directory !== '' ? this.localOptions.sm : this.localOptions.xs.directory !== '' ? this.localOptions.xs : this.localOptions.md.directory !== '' ? this.localOptions.md : this.localOptions.lg.directory !== '' ? this.localOptions.lg : this.localOptions.xl
       } else if (this.windowWidth <= 599) {
         result = this.localOptions.xs.directory !== '' ? this.localOptions.xs : this.localOptions.sm.directory !== '' ? this.localOptions.sm : this.localOptions.md.directory !== '' ? this.localOptions.md : this.localOptions.lg.directory !== '' ? this.localOptions.lg : this.localOptions.xl
