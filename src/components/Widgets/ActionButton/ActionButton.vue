@@ -224,6 +224,13 @@ export default {
         behavior: 'smooth'
       })
     },
+    redirectRoute(url) {
+      if ((url.indexOf('http://') > -1 || url.indexOf('https://') > -1)) {
+        window.open(url, '_blank')
+      } else {
+        this.$router.push(url)
+      }
+    },
     takeAction() {
       if (!this.localOptions.hasAction) {
         this.$emit('ActionButton')
@@ -232,7 +239,7 @@ export default {
       } else if (this.localOptions.action && this.localOptions.action === 'scroll') {
         this.scrollToElement(this.localOptions.scrollTo)
       } else if (this.localOptions.action && this.localOptions.action === 'link') {
-        this.$router.push(this.localOptions.route)
+        this.redirectRoute(this.localOptions.route)
       } else if (this.localOptions.action && this.localOptions.action === 'event') {
         this.$bus.emit(this.localOptions.eventName, this.localOptions.eventArgs)
       } else if (this.localOptions.action && this.localOptions.action === 'hamburger_menu') {
@@ -298,8 +305,8 @@ $responsiveSpacing: (
   )
 );
 $hideInAuth : v-bind('hideInAuth ? "none" :  "initial"');
-  .drawer {
-    z-index: 100;
+.drawer {
+  z-index: 100;
 
     .drawer-sections {
       place-content: space-between;
