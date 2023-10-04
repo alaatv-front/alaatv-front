@@ -92,6 +92,11 @@
                         left-label />
           </div>
           <div class="input-container col-md-2">
+            <div class="outsideLabel">show separator</div>
+            <q-checkbox v-model="localOptions.showSeparator"
+                        left-label />
+          </div>
+          <div class="input-container col-md-2">
             <div class="outsideLabel">right icon</div>
             <q-checkbox v-model="localOptions.rightIcon" />
           </div>

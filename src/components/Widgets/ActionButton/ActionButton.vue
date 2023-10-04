@@ -33,32 +33,37 @@
       </div>
     </div>
   </q-drawer>
-  <q-btn v-if="!localOptions.rightIcon"
-         :label="localOptions.label"
-         :flat="localOptions.flat"
-         :class="[localOptions.className, responsiveShow]"
-         :style="localOptions.style"
-         class="action-btn"
-         @click="takeAction">
-    <q-icon v-if="localOptions.icon"
-            :name="localOptions.icon" />
+  <div class="action-btn-wrapper">
+    <q-btn v-if="!localOptions.rightIcon"
+           :label="localOptions.label"
+           :flat="localOptions.flat"
+           :class="[localOptions.className, responsiveShow]"
+           :style="localOptions.style"
+           class="action-btn"
+           @click="takeAction">
+      <q-icon v-if="localOptions.icon"
+              :name="localOptions.icon" />
 
-    <img v-if="localOptions.imageSource"
-         :src="localOptions.imageSource"
-         alt="actionBtn">
-  </q-btn>
-  <q-btn v-else
-         :label="localOptions.label"
-         :icon="localOptions.icon"
-         :flat="localOptions.flat"
-         :class="localOptions.className"
-         :style="localOptions.style"
-         class="action-btn"
-         @click="takeAction">
-    <img v-if="localOptions.imageSource"
-         :src="localOptions.imageSource"
-         alt="actionBtn">
-  </q-btn>
+      <img v-if="localOptions.imageSource"
+           :src="localOptions.imageSource"
+           alt="actionBtn">
+    </q-btn>
+    <q-btn v-else
+           :label="localOptions.label"
+           :icon="localOptions.icon"
+           :flat="localOptions.flat"
+           :class="localOptions.className"
+           :style="localOptions.style"
+           class="action-btn"
+           @click="takeAction">
+      <img v-if="localOptions.imageSource"
+           :src="localOptions.imageSource"
+           alt="actionBtn">
+    </q-btn>
+    <q-separator v-if="localOptions.showSeparator"
+                 class="separator"
+                 vertical />
+  </div>
 </template>
 
 <script>
@@ -80,6 +85,7 @@ export default {
     return {
       drawer: false,
       defaultOptions: {
+        showSeparator: false,
         color: null,
         icon: null,
         rightIcon: false,
@@ -218,6 +224,13 @@ export default {
         behavior: 'smooth'
       })
     },
+    redirectRoute(url) {
+      if ((url.indexOf('http://') > -1 || url.indexOf('https://') > -1)) {
+        window.open(url, '_blank')
+      } else {
+        this.$router.push(url)
+      }
+    },
     takeAction() {
       if (!this.localOptions.hasAction) {
         this.$emit('ActionButton')
@@ -226,7 +239,7 @@ export default {
       } else if (this.localOptions.action && this.localOptions.action === 'scroll') {
         this.scrollToElement(this.localOptions.scrollTo)
       } else if (this.localOptions.action && this.localOptions.action === 'link') {
-        this.$router.push(this.localOptions.route)
+        this.redirectRoute(this.localOptions.route)
       } else if (this.localOptions.action && this.localOptions.action === 'event') {
         this.$bus.emit(this.localOptions.eventName, this.localOptions.eventArgs)
       } else if (this.localOptions.action && this.localOptions.action === 'hamburger_menu') {
@@ -292,51 +305,61 @@ $responsiveSpacing: (
   )
 );
 $hideInAuth : v-bind('hideInAuth ? "none" :  "initial"');
-  .drawer {
-    z-index: 100;
+.drawer {
+  z-index: 100;
 
     .drawer-sections {
       place-content: space-between;
       height: inherit;
     }
   }
+.action-btn-wrapper {
+  display: flex;
+  align-items: center;
 
   .action-btn {
-      @include media-query-spacings($responsiveSpacing, $sizes);
-      display: $hideInAuth;
-      &.fixed-btn {
-        position: fixed;
-        z-index: 1;
+    @include media-query-spacings($responsiveSpacing, $sizes);
+    display: $hideInAuth;
+    &.fixed-btn {
+      position: fixed;
+      z-index: 1;
 
-        &.top-right {
-          top: 0;
-          right: 0;
-        }
-
-        &.top-left {
-          top: 0;
-          left: 0;
-        }
-
-        &.bottom-right {
-          bottom: 0;
-          right: 0;
-        }
-
-        &.bottom-left {
-          bottom: 0;
-          left: 0;
-        }
+      &.top-right {
+        top: 0;
+        right: 0;
       }
 
-      &.img-btn {
-        &:deep(.q-btn__content) {
-          margin: 0;
-        }
+      &.top-left {
+        top: 0;
+        left: 0;
+      }
 
-        &:deep(.q-focus-helper) {
-          display: none;
-        }
+      &.bottom-right {
+        bottom: 0;
+        right: 0;
+      }
+
+      &.bottom-left {
+        bottom: 0;
+        left: 0;
       }
     }
+
+    &.img-btn {
+      &:deep(.q-btn__content) {
+        margin: 0;
+      }
+
+      &:deep(.q-focus-helper) {
+        display: none;
+      }
+    }
+  }
+
+  .separator {
+    height: 16px;
+    align-self: center;
+    color: $grey4;
+  }
+}
 </style>
