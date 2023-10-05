@@ -734,6 +734,18 @@ const routes = [
               }
             ]
           },
+          {
+            name: 'Admin.GiftCard',
+            path: 'gift-card',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Admin.GiftCard.Create',
+                path: 'create',
+                component: () => import('pages/Admin/GiftCard/Create.vue')
+              }
+            ]
+          },
           ...EntityCrudRoutes
         ]
       },
