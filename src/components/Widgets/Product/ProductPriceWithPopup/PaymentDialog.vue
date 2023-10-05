@@ -22,7 +22,7 @@
                 <div class="installment-roules-and-conditions-content">
                   ۱. درصورت عدم پرداخت اقساط در زمان های مشخص اعلام شده، دسترسی به تمام محتوا و مکمل های دوره به طور موقت غیرفعال می‌گردد تا پرداخت صورت گیرد و مجدد دسترسی فعال شود.
                   <br><br>
-                  ۲. محتوا و موارد مازاد دوره در ثبت نام اقساط، مطابق با زمان بندی برنامه مطالعاتی دوره ارائه می‌شود.
+                  ۲. استفاده اشتراکی از محتواها در هر دو پرداخت اقساطی و نقدی ممنوع می باشد.
                   <br><br>
                   ۳. درصورت “تاخیر مکرر” در پرداخت اقساط، آلا می‌تواند دسترسی به دوره را به طور دائم غیرفعال نماید.
                 </div>
@@ -128,7 +128,8 @@
           </div>
         </div>
       </q-card-section>
-      <q-card-section class="payment-footer">
+      <q-card-section v-if="!hasInstallment"
+                      class="payment-footer">
         <div class="price-title-responsive">
           <q-icon name="ph:tag"
                   :size="'16px'"
@@ -158,6 +159,38 @@
             <div class="number">{{ getProductPrice(totalPrice, 'final') }}</div>
             <div class="label">تومان</div>
           </div>
+        </div>
+        <div class="footer-action">
+          <q-btn v-if="paymentMethod === 'cash'"
+                 color="primary"
+                 text-color="grey-9"
+                 unelevated
+                 class="action-btn full-width"
+                 label="ثبت نام نقدی"
+                 @click="addToCart('cash')" />
+          <q-btn v-else
+                 color="primary"
+                 text-color="grey-9"
+                 unelevated
+                 class="action-btn full-width"
+                 :disable="!installmentAccept"
+                 label="ثبت نام اقساطی"
+                 @click="addToCart('installment')" />
+        </div>
+      </q-card-section>
+      <q-card-section v-if="hasInstallment"
+                      class="payment-footer">
+        <div class="instalment-info ellipsis">
+          <span class="simple-text before">فقط با</span>
+          <template v-if="product.instalments && product.instalments.length > 0">
+            <span class="price price-value">
+              {{ product.instalments[0].value.toLocaleString('fa') }}
+            </span>
+            <span class="price price-label">
+              تومان
+            </span>
+          </template>
+          <span class="simple-text after">بیا تو دوره</span>
         </div>
         <div class="footer-action">
           <q-btn v-if="paymentMethod === 'cash'"
@@ -220,7 +253,7 @@ export default defineComponent({
   emits: ['updateProduct', 'updateProductLoading', 'toggleDialog'],
   data() {
     return {
-      installmentAccept: false,
+      installmentAccept: true,
       productPrice: new Price(),
       dependentSelected: [],
       independentSelected: [],
@@ -317,6 +350,12 @@ export default defineComponent({
         return this.$route.params.id
       }
       return this.product.id
+    },
+    hasInstallment () {
+      if (this.product) {
+        return this.product.has_instalment_option
+      }
+      return false
     }
   },
   watch: {
@@ -870,6 +909,40 @@ export default defineComponent({
         background: #FFCA28 !important;
         .q-btn__content {
           color: #424242 !important;
+        }
+      }
+    }
+
+    .instalment-info {
+      margin-bottom: 20px;
+      .simple-text {
+        color: #424242;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: -0.54px;
+
+        &.before {
+          margin-right: 12px;
+        }
+        &.after {
+          margin-left: 12px;
+        }
+      }
+      .price {
+        color: #FF8518;
+        font-style: normal;
+        line-height: normal;
+        .price-value {
+          font-size: 24px;
+          font-weight: 700;
+          letter-spacing: -0.72px;
+        }
+        .price-label {
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: -0.42px;
         }
       }
     }
