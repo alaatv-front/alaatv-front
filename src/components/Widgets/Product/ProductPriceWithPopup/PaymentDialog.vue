@@ -6,9 +6,9 @@
       <q-card-section class="header-section">
         <div class="payment-header">
           <div class="header-title">ثبت نام</div>
-          <div class="header-subtitle">
-            شما میتونید خدمات و دوره های دیگر سال کنکور خودتون رو الان بخرید!
-          </div>
+          <!--          <div class="header-subtitle">-->
+          <!--            شما میتونید خدمات و دوره های دیگر سال کنکور خودتون رو الان بخرید!-->
+          <!--          </div>-->
         </div>
       </q-card-section>
       <q-card-section>
@@ -17,7 +17,7 @@
           <div class="col-12 products-col"
                :class="{'col-sm-6': paymentMethod !== 'cash'}">
             <div class="installment-roules-and-conditions">
-              <div class="installment-roules-and-conditions-title">شرایط ثبت نام قسطیشرایط ثبت نام قسطی</div>
+              <div class="installment-roules-and-conditions-title">شرایط ثبت نام قسطی</div>
               <div class="installment-roules-and-conditions-body">
                 <div class="installment-roules-and-conditions-content">
                   ۱. درصورت عدم پرداخت اقساط در زمان های مشخص اعلام شده، دسترسی به تمام محتوا و مکمل های دوره به طور موقت غیرفعال می‌گردد تا پرداخت صورت گیرد و مجدد دسترسی فعال شود.
@@ -426,7 +426,7 @@ export default defineComponent({
     },
     getPersianDate(date) {
       const getDate = function (date) {
-        return moment(date, 'YYYY/M/D HH:mm:ss').locale('fa').format('jDD jMMM jYYYY')
+        return moment(date, 'YYYY/M/D HH:mm:ss').locale('fa').format('jDD jMMMM jYYYY')
       }
       const targetDate = getDate(date)
       const localDate = getDate(Date.now())
