@@ -49,7 +49,7 @@
       </span>
     </div>
     <div class="price-action">
-      <q-btn color="primary"
+      <q-btn :color="!localOptions.product.payment_default || localOptions.product.payment_default === 1 ? 'primary' : 'grey-3'"
              text-color="grey-9"
              unelevated
              class="action-btn"
@@ -57,7 +57,7 @@
              :label="hasInstallment ? 'ثبت نام نقدی' : 'ثبت نام'"
              @click="paymentAction('cash')" />
       <q-btn v-if="hasInstallment"
-             color="grey-3"
+             :color="localOptions.product?.payment_default || localOptions.product.payment_default === 2 ? 'primary' : 'grey-3'"
              text-color="grey-9"
              unelevated
              class="action-btn gesti"
