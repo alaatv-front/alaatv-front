@@ -6,9 +6,9 @@
       <q-card-section class="header-section">
         <div class="payment-header">
           <div class="header-title">ثبت نام</div>
-          <!--          <div class="header-subtitle">-->
-          <!--            شما میتونید خدمات و دوره های دیگر سال کنکور خودتون رو الان بخرید!-->
-          <!--          </div>-->
+          <div class="header-subtitle">
+            شما میتونید در این دوره به صورت قسطی ثبت نام کنید.
+          </div>
         </div>
       </q-card-section>
       <q-card-section>
@@ -915,6 +915,9 @@ export default defineComponent({
 
     .instalment-info {
       margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       .simple-text {
         color: #424242;
         font-size: 18px;
