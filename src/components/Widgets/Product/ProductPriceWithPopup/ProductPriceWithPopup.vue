@@ -38,12 +38,10 @@
           بیا تو دوره فقط با:
         </span>
       </span>
-      <!--      <template v-if="product.instalments && product.instalments.length > 0">-->
-      <span v-if="true"
+      <span v-if="localOptions.product.instalments && localOptions.product.instalments.length > 0"
             class="instalment-price">
         <span class="price-value">
-          <!--          {{ product.instalments[0].value.toLocaleString('fa') }}-->
-          1,690,000
+          {{ localOptions.product.instalments[0].value.toLocaleString('fa') }}
         </span>
         <span class="price-label">
           تومان
