@@ -28,6 +28,28 @@
         <div class="label">تومان</div>
       </div>
     </div>
+    <div v-if="hasInstallment"
+         class="price-info hasInstallment">
+      <span class="instalment-message">
+        <span class="instalment-label">
+          اقساطی
+        </span>
+        <span class="simple-text">
+          بیا تو دوره فقط با:
+        </span>
+      </span>
+      <!--      <template v-if="product.instalments && product.instalments.length > 0">-->
+      <span v-if="true"
+            class="instalment-price">
+        <span class="price-value">
+          <!--          {{ product.instalments[0].value.toLocaleString('fa') }}-->
+          1,690,000
+        </span>
+        <span class="price-label">
+          تومان
+        </span>
+      </span>
+    </div>
     <div class="price-action">
       <q-btn color="primary"
              text-color="grey-9"
@@ -184,6 +206,24 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+
+@mixin instalment-label () {
+  display: flex;
+  padding: 4px 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border-radius: 6px;
+  background: linear-gradient(-90deg, #2CB2C5 0.01%, #31B470 99.99%);
+  color: #FFF;
+  text-align: right;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.36px;
+}
+
 .product-price-container {
   display: flex;
   flex-direction: column;
@@ -208,23 +248,36 @@ export default defineComponent({
     align-items: center;
     width: 100%;
     margin-bottom: 16px;
+    padding: 13px 16px;
+
+    border-radius: 8px;
+    border: 1px solid #E6E6E6;
+    background: #F5F7FA;
 
     .price-title {
       display: flex;
       justify-content: center;
       align-items: center;
-      color:#303030;
-      font-size: 18px;
+
+      color: #303030;
+      text-align: right;
+      font-size: 16px;
       font-style: normal;
       font-weight: 400;
       line-height: normal;
       letter-spacing: -0.54px;
 
-      @media screen and (max-width: 1200px){
-        font-size: 14px;
+      @media screen and (max-width: 1300px){
+        font-size: 10px;
+      }
+      @media screen and (max-width: 1023px){
+        font-size: 16px;
+      }
+      @media screen and (max-width: 400px){
+        font-size: 10px;
       }
 
-      .price-title-icon {
+      .q-icon {
         margin-right: 8px;
       }
     }
@@ -255,6 +308,15 @@ export default defineComponent({
       .number {
         color:#424242;
         font-size: 24px;
+        @media screen and (max-width: 1300px){
+          font-size: 18px;
+        }
+        @media screen and (max-width: 1023px){
+          font-size: 24px;
+        }
+        @media screen and (max-width: 400px){
+          font-size: 18px;
+        }
         font-style: normal;
         font-weight: 600;
         line-height: normal;
@@ -267,6 +329,58 @@ export default defineComponent({
         font-style: normal;
         font-weight: 400;
         line-height: normal;
+      }
+    }
+
+    &.hasInstallment {
+      .instalment-message {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        .instalment-label {
+          @include instalment-label();
+          margin-right: 16px;
+        }
+        .simple-text {
+          color: #303030;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          letter-spacing: -0.54px;
+          @media screen and (max-width: 1200px){
+            font-size: 14px;
+          }
+          @media screen and (max-width: 1023px){
+            font-size: 18px;
+          }
+          @media screen and (max-width: 400px){
+            font-size: 14px;
+          }
+        }
+      }
+      .instalment-price {
+        color: #FF8518;
+        font-style: normal;
+        line-height: normal;
+        .price-value {
+          font-size: 20px;
+          font-weight: 600;
+          letter-spacing: -1px;
+          @media screen and (max-width: 1200px){
+            font-size: 18px;
+          }
+          @media screen and (max-width: 1023px){
+            font-size: 20px;
+          }
+          @media screen and (max-width: 400px){
+            font-size: 18px;
+          }
+        }
+        .price-label {
+          font-size: 14px;
+          font-weight: 400;
+        }
       }
     }
   }
