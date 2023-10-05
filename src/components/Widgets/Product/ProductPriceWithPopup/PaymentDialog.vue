@@ -934,12 +934,12 @@ export default defineComponent({
         color: #FF8518;
         font-style: normal;
         line-height: normal;
-        .price-value {
+        &.price-value {
           font-size: 24px;
           font-weight: 700;
           letter-spacing: -0.72px;
         }
-        .price-label {
+        &.price-label {
           font-size: 14px;
           font-weight: 600;
           letter-spacing: -0.42px;
