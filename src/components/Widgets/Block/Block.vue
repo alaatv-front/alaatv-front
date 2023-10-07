@@ -24,7 +24,7 @@
              :key="product.id"
              :class="{
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView,
-               'col-xl-3 col-lg-3 col-md-4 col-sm-5 col-xs-9': !isGridView,
+               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-10': !isGridView,
              }"
              class="product-spacing">
           <product-item :options="{product, minWidth: productItemMinWidth, ...defaultOptions.productItemOptions}" />
