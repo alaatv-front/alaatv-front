@@ -619,9 +619,10 @@ export default defineComponent({
     padding-top: 0;
     padding-left: 20px;
     margin-top: 20px;
+    margin-left: 16px;
 
     .img-box {
-      margin: 0 12px 0 -20px;
+      margin: 0 12px 0 -35px;
       //padding: 12px;
       //width: 100px;
 
