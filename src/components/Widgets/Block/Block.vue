@@ -285,10 +285,10 @@ export default {
 
   .block-container {
     display: flex;
-    width: 100%;
+    //width: 100%;
     .scroll-view {
       display: flex;
-      width: 100%;
+      //width: 100%;
       overflow-x: auto;
       flex-wrap: nowrap;
       padding-bottom: 10px;
@@ -304,7 +304,7 @@ export default {
     }
 
     .item-container {
-      width: 100%;
+      //width: 100%;
       &.grid_view {
         justify-content: center;
       }
