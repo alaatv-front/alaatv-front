@@ -235,7 +235,7 @@ export default defineComponent({
       width: 100%;
       height: 100%;
       border-radius: 12px;
-      border: 0px solid #FFF;
+      border: 0 solid #FFF;
 
       .img {
         border-radius: inherit;
@@ -616,7 +616,9 @@ export default defineComponent({
   @media screen and (max-width: 1023px) {
     display: flex;
     border-radius: 18px;
-    margin-bottom: 16px;
+    padding-top: 0;
+    padding-left: 20px;
+    margin-top: 20px;
 
     .img-box {
       margin: 0 12px 0 -20px;
