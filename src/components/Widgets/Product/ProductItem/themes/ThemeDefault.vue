@@ -116,9 +116,9 @@
 <script>
 import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
-import ProductDiscountBadge from 'src/components/Widgets/Product/ProductDiscountBadge/ProductDiscountBadge.vue'
 import LazyImg from 'src/components/lazyImg.vue'
 import Bookmark from 'src/components/Bookmark.vue'
+import ProductDiscountBadge from 'src/components/Widgets/Product/ProductDiscountBadge/ProductDiscountBadge.vue'
 
 export default defineComponent({
   name: 'ThemeProduct2',
@@ -211,9 +211,14 @@ export default defineComponent({
 
 .theme2-container {
   height: inherit;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding-top: 20px;
+  margin-top: 45px;
+
   .img-box {
     //position: relative;
-    margin: -20px 20px 0;
+    margin: -40px 20px 0;
     align-self: center;
     .product-discount-badge {
       display: block;
