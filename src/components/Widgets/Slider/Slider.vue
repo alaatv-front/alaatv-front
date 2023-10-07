@@ -25,8 +25,11 @@
                       :key="index"
                       :ref="'slider' + index"
                       :name="index">
-      <a :href="slide.link"
-         @click="takeAction(slide)">
+      <component :is="parentComponent"
+                 :to="slide.link"
+                 :href="slide.link"
+                 class="cursor-pointer"
+                 @click="takeAction(slide)">
         <lazy-img v-if="slide.photo.src !== ''"
                   q-image
                   :height="slide.photo.height"
@@ -43,7 +46,7 @@
                    :offset="[18, 18]">
           {{ slide.title }}
         </q-tooltip>
-      </a>
+      </component>
     </q-carousel-slide>
     <template v-slot:control>
       <q-carousel-control :position="localOptions.control.position"
@@ -117,6 +120,18 @@ export default {
       }
     }
   },
+  computed: {
+    parentComponent() {
+      if (this.selectedSlide.link) {
+        if (this.isExternal(this.selectedSlide.link)) {
+          return 'a'
+        } else {
+          return 'router-link'
+        }
+      }
+      return 'div'
+    }
+  },
   watch: {
     slide(newVal) {
       this.selectedSlide = new Banner(this.localOptions.list[newVal])
@@ -137,6 +152,12 @@ export default {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
+    isExternal(url) {
+      if (typeof window === 'undefined') {
+        return true
+      }
+      return (url.indexOf('http://') > -1 || url.indexOf('https://') > -1)
+    },
     setSliderIntersectionObserver (sliderIndex) {
       const slideRef = 'slider' + sliderIndex
       const element = this.$refs[slideRef][0].$el

@@ -15,7 +15,6 @@
                       size="2em" />
     </div>
     <template v-else>
-      <div style="display: none"> {{windowSize}}</div>
       <div v-if="!hasUserOrdered">
         <div class="empty-order-list">
           <q-img class="image"
@@ -812,6 +811,7 @@ export default {
   }
 }
 </style>
+
 <style>
 .q-table thead, .q-table tr, .q-table th, .q-table td {
   border-color: transparent;

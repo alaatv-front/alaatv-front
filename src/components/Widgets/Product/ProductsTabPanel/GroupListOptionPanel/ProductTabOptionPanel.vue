@@ -81,7 +81,7 @@
                 {{item.type}}
               </div>
             </template>
-            <recursive-component :options="item" />
+            <recursive-component v-model:options="localOptions.data[index]" />
           </q-expansion-item>
         </q-card-section>
       </q-card>
@@ -91,8 +91,8 @@
 
 <script>
 import { defineAsyncComponent } from 'vue'
-import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
-import marginAndPadding from 'components/Widgets/Product/ProductsTabPanel/marginAndPadding.vue'
+// import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
+import marginAndPadding from 'src/components/Widgets/Product/ProductsTabPanel/marginAndPadding.vue'
 
 export default {
   name: 'groupListTabOptionPanel',
@@ -100,7 +100,14 @@ export default {
     recursiveComponent: defineAsyncComponent(() => import('../recursiveComponent.vue')),
     marginAndPadding
   },
-  mixins: [PageBuilderOptionPanel],
+  props: {
+    options: {
+      type: Object,
+      default: () => {
+      }
+    }
+  },
+  // mixins: [PageBuilderOptionPanel],
   data() {
     return {
       layoutOptions: ['ProductTab', 'ProductShelf'],
@@ -129,6 +136,16 @@ export default {
         },
         data: [],
         type: 'GroupList'
+      }
+    }
+  },
+  computed: {
+    localOptions: {
+      get() {
+        return this.options
+      },
+      set(newValue) {
+        this.$emit('update:options', newValue)
       }
     }
   },

@@ -177,6 +177,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .theme-default-container {
+  background-color: #ffffff;
+  border-radius: 20px;
   .img-box {
     position: relative;
     .product-discount-badge {

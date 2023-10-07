@@ -1,52 +1,18 @@
 <template>
   <q-dialog v-model="visible"
             :persistent="isAndroidForceUpdate">
-    <q-card class="card">
-      <q-card-section>
-        <div class="row q-col-gutter-md">
-          <div class="col-2">
-            <q-icon name="system_update"
-                    size="sm"
-                    color="green" />
-          </div>
-          <div class="col-8 text-bold">آلاء رو بروزرسـانی کُـن !</div>
-          <div class="col-2">
-            <q-icon v-if="!isAndroidForceUpdate"
-                    v-close-popup
-                    name="close"
-                    class="col-1"
-                    size="sm" />
-          </div>
-        </div>
-      </q-card-section>
-      <q-card-section>
-        <q-list>
-          <q-item v-for="(option, index) in androidOptions.filter(option => option.link)"
-                  :key="index"
-                  v-ripple
-                  clickable
-                  @click="selectOption(option)">
-            <q-item-section>
-              <div class="row q-col-gutter-md justify-center">
-                <div class="col-3">
-                  <q-img :src="option.iconLink" />
-                </div>
-                <div class="col-9">
-                  {{ option.label }}
-                </div>
-              </div>
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </q-card-section>
-    </q-card>
+    <card-component :is-android-force-update="isAndroidForceUpdate"
+                    :android-options="androidOptions"
+                    @selectOption="selectOption" />
   </q-dialog>
-
 </template>
+
 <script>
+import CardComponent from './components/card.vue'
 import VersionConfig from 'app/src-capacitor/android/versionConfig.json'
 export default {
   name: 'androidVersionCheck',
+  components: { CardComponent },
   props: {
     latestVersion: {
       type: Object,
@@ -99,6 +65,7 @@ export default {
   }
 }
 </script>
+
 <style scoped lang="scss">
 .card {
   border-radius: 16px;

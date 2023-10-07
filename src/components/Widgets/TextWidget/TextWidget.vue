@@ -1,7 +1,7 @@
 <template>
   <div class="text-widget-container"
        :style="localOptions.style"
-       :class="[localOptions.className, {'theme__1': localOptions.activeTheme === 'theme1'}]">
+       :class="[localOptions.className, {'theme__1': localOptions.activeTheme === 'theme1'}, responsiveShow]">
     <span class="text"
           v-html="localOptions.text" />
   </div>
@@ -22,6 +22,13 @@ export default {
         fontSize: null,
         fontWeight: null,
         fontStyle: null,
+        responsiveShow: {
+          xl: true,
+          lg: true,
+          md: true,
+          sm: true,
+          xs: true
+        },
         xs: {
           fontSize: null,
           fontWeight: null,
@@ -124,6 +131,18 @@ export default {
           }
         }
       }
+    }
+  },
+  computed: {
+    responsiveShow () {
+      let responsiveShow = ''
+      Object.keys(this.localOptions.responsiveShow).forEach(key => {
+        if (this.localOptions.responsiveShow[key] === false) {
+          responsiveShow += key + '-hide '
+        }
+      })
+
+      return ' ' + responsiveShow
     }
   }
 }

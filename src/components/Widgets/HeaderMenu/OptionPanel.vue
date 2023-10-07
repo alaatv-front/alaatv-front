@@ -3,13 +3,46 @@
     <option-panel-tabs v-model:options="localOptions">
       <template #main-tab>
         <div class="option-panel-container">
-          <q-expansion-item label="rightWidgets">
+          <div class="row items-center text-center q-my-sm">
+            <span>
+              کانفیگ مورد نظر برای سایز
+            </span>
+            <q-select v-model="size"
+                      class="col-3 q-mx-md"
+                      :options="sizeOptions" />
+            <span>
+              را تنظیم کنید.
+            </span>
+          </div>
+          <q-expansion-item :label="'rightWidgets - ' + size">
             <q-card>
-              <q-card-section v-for="(widget, index) in localOptions.rightSectionWidgets"
+              <q-card-section v-for="(widget, index) in localOptions[size].rightSectionWidgets"
                               :key="index">
-                <div @click="openOptionPanelDialog(widget, index, 'rightSectionWidgets')">
-                  {{widget.name}}
-                </div>
+                <q-expansion-item :label=widget.name
+                                  icon="build">
+                  <template v-slot:header>
+                    <q-item-section avatar>
+                      <q-icon name="build" />
+                    </q-item-section>
+
+                    <q-item-section>
+                      {{ widget.name }}
+                    </q-item-section>
+
+                    <q-item-section side>
+                      <q-btn color="negative"
+                             flat
+                             icon="delete"
+                             @click="deleteWidget('rightSectionWidgets', index)" />
+                    </q-item-section>
+                  </template>
+                  <q-card>
+                    <q-card-section>
+                      <component :is="widget.name.concat('OptionPanel')"
+                                 v-model:options="widget.options" />
+                    </q-card-section>
+                  </q-card>
+                </q-expansion-item>
               </q-card-section>
               <q-card-section>
                 <div class="row q-col-gutter-md">
@@ -45,13 +78,35 @@
               </q-card-section>
             </q-card>
           </q-expansion-item>
-          <q-expansion-item label="centerWidgets">
+          <q-expansion-item :label="'centerWidgets - ' + size">
             <q-card>
-              <q-card-section v-for="(widget, index) in localOptions.centerSectionWidgets"
+              <q-card-section v-for="(widget, index) in localOptions[size].centerSectionWidgets"
                               :key="index">
-                <div @click="openOptionPanelDialog(widget, index, 'centerSectionWidgets')">
-                  {{widget.name}}
-                </div>
+                <q-expansion-item :label=widget.name
+                                  icon="build">
+                  <template v-slot:header>
+                    <q-item-section avatar>
+                      <q-icon name="build" />
+                    </q-item-section>
+
+                    <q-item-section>
+                      {{ widget.name }}
+                    </q-item-section>
+
+                    <q-item-section side>
+                      <q-btn color="negative"
+                             flat
+                             icon="delete"
+                             @click="deleteWidget('centerSectionWidgets', index)" />
+                    </q-item-section>
+                  </template>
+                  <q-card>
+                    <q-card-section>
+                      <component :is="widget.name.concat('OptionPanel')"
+                                 v-model:options="widget.options" />
+                    </q-card-section>
+                  </q-card>
+                </q-expansion-item>
               </q-card-section>
               <q-card-section>
                 <div class="row q-col-gutter-md">
@@ -87,13 +142,35 @@
               </q-card-section>
             </q-card>
           </q-expansion-item>
-          <q-expansion-item label="leftWidgets">
+          <q-expansion-item :label="'leftWidgets - ' + size">
             <q-card>
-              <q-card-section v-for="(widget, index) in localOptions.leftSectionWidgets"
+              <q-card-section v-for="(widget, index) in localOptions[size].leftSectionWidgets"
                               :key="index">
-                <div @click="openOptionPanelDialog(widget, index, 'leftSectionWidgets')">
-                  {{widget.name}}
-                </div>
+                <q-expansion-item :label=widget.name
+                                  icon="build">
+                  <template v-slot:header>
+                    <q-item-section avatar>
+                      <q-icon name="build" />
+                    </q-item-section>
+
+                    <q-item-section>
+                      {{ widget.name }}
+                    </q-item-section>
+
+                    <q-item-section side>
+                      <q-btn color="negative"
+                             flat
+                             icon="delete"
+                             @click="deleteWidget('leftSectionWidgets', index)" />
+                    </q-item-section>
+                  </template>
+                  <q-card>
+                    <q-card-section>
+                      <component :is="widget.name.concat('OptionPanel')"
+                                 v-model:options="widget.options" />
+                    </q-card-section>
+                  </q-card>
+                </q-expansion-item>
               </q-card-section>
               <q-card-section>
                 <div class="row q-col-gutter-md">
@@ -247,14 +324,14 @@
         </div>
       </template>
     </option-panel-tabs>
-    <q-dialog v-model="optionPanel">
-      <q-card>
-        <q-card-section>
-          <component :is="selectedOptionPanel"
-                     v-model:options="localOptions[selectedSectionName][selectedWidgetIndex].options" />
-        </q-card-section>
-      </q-card>
-    </q-dialog>
+    <!--    <q-dialog v-model="optionPanel">-->
+    <!--      <q-card>-->
+    <!--        <q-card-section>-->
+    <!--          <component :is="selectedOptionPanel"-->
+    <!--                     v-model:options="localOptions[selectedSectionName][selectedWidgetIndex].options" />-->
+    <!--        </q-card-section>-->
+    <!--      </q-card>-->
+    <!--    </q-dialog>-->
   </div>
 </template>
 <script>
@@ -292,6 +369,8 @@ export default defineComponent({
       selectedOptionPanel: '',
       selectedSectionName: '',
       selectedWidgetIndex: null,
+      size: 'xs',
+      sizeOptions: ['xs', 'sm', 'md', 'lg', 'xl'],
       defaultTextWidget: {
         name: 'TextWidget',
         options: {
@@ -513,9 +592,31 @@ export default defineComponent({
       },
       actionObjectTypeOptions: ['link', 'event', 'scroll'],
       defaultOptions: {
-        rightSectionWidgets: [],
-        centerSectionWidgets: [],
-        leftSectionWidgets: [],
+        xs: {
+          rightSectionWidgets: [],
+          centerSectionWidgets: [],
+          leftSectionWidgets: []
+        },
+        sm: {
+          rightSectionWidgets: [],
+          centerSectionWidgets: [],
+          leftSectionWidgets: []
+        },
+        md: {
+          rightSectionWidgets: [],
+          centerSectionWidgets: [],
+          leftSectionWidgets: []
+        },
+        lg: {
+          rightSectionWidgets: [],
+          centerSectionWidgets: [],
+          leftSectionWidgets: []
+        },
+        xl: {
+          rightSectionWidgets: [],
+          centerSectionWidgets: [],
+          leftSectionWidgets: []
+        },
         sticky: false,
         stickyClass: '',
         salam: '',
@@ -579,17 +680,20 @@ export default defineComponent({
     }
   },
   methods: {
+    deleteWidget(sectionName, index) {
+      this.localOptions[this.size][sectionName].splice(index, 1)
+    },
     addTextWidget(sectionName) {
-      this.localOptions[sectionName].push(this.defaultTextWidget)
+      this.localOptions[this.size][sectionName].push(this.defaultTextWidget)
     },
     addImageWidget(sectionName) {
-      this.localOptions[sectionName].push(this.defaultImageWidget)
+      this.localOptions[this.size][sectionName].push(this.defaultImageWidget)
     },
     addActionButtonWidget(sectionName) {
-      this.localOptions[sectionName].push(this.defaultActionButtonWidget)
+      this.localOptions[this.size][sectionName].push(this.defaultActionButtonWidget)
     },
     addTimerWidget(sectionName) {
-      this.localOptions[sectionName].push(this.defaultTimerWidget)
+      this.localOptions[this.size][sectionName].push(this.defaultTimerWidget)
     },
     openOptionPanelDialog(widget, widgetIndex, sectionName) {
       this.selectedOptionPanel = widget.name.concat('OptionPanel')

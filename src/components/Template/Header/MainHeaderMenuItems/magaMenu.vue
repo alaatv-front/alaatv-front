@@ -244,7 +244,7 @@ export default {
   },
   methods: {
     isValidRoute (route) {
-      return route || route?.name || route?.path || (route?.query['tags[]'] && route.query['tags[]'].length > 0)
+      return route && (route?.name || route?.path || (route?.query['tags[]'] && route.query['tags[]'].length > 0))
     },
     addItem (event) {
       event.preventDefault()

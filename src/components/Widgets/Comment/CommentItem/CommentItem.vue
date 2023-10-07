@@ -120,7 +120,8 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
   padding: 30px 24px;
   margin: 12PX;
   width: 438px;
-  height: 218px;
+  min-height: 218px;
+  height: auto;
   max-width: 100%;
   box-shadow: $shadows;
   -webkit-box-shadow: $shadows;
@@ -131,6 +132,7 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
   transition: all ease-in-out .4s;
 
   @media screen and (max-width: 600px){
+    padding: 20px 15px;
     margin: 5PX;
     width: 310px;
     height: 308px;

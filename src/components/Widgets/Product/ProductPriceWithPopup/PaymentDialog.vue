@@ -6,17 +6,34 @@
       <q-card-section class="header-section">
         <div class="payment-header">
           <div class="header-title">ثبت نام</div>
-          <div class="header-subtitle">
-            شما میتونید خدمات و دوره های دیگر سال کنکور خودتون رو الان بخرید!
-          </div>
+          <!--          <div class="header-subtitle">-->
+          <!--            شما میتونید خدمات و دوره های دیگر سال کنکور خودتون رو الان بخرید!-->
+          <!--          </div>-->
         </div>
       </q-card-section>
       <q-card-section>
-        <div class="row"
+        <div class="row payment-body"
              :class="{'q-col-gutter-lg': paymentMethod !== 'cash'}">
-          <div class="col-12"
-               :class="{'col-md-6': paymentMethod !== 'cash'}">
-            <div class="product-container">
+          <div class="col-12 products-col"
+               :class="{'col-sm-6': paymentMethod !== 'cash'}">
+            <div class="installment-roules-and-conditions">
+              <div class="installment-roules-and-conditions-title">شرایط ثبت نام قسطی</div>
+              <div class="installment-roules-and-conditions-body">
+                <div class="installment-roules-and-conditions-content">
+                  ۱. درصورت عدم پرداخت اقساط در زمان های مشخص اعلام شده، دسترسی به تمام محتوا و مکمل های دوره به طور موقت غیرفعال می‌گردد تا پرداخت صورت گیرد و مجدد دسترسی فعال شود.
+                  <br><br>
+                  ۲. استفاده اشتراکی از محتواها در هر دو پرداخت اقساطی و نقدی ممنوع می باشد.
+                  <br><br>
+                  ۳. درصورت “تاخیر مکرر” در پرداخت اقساط، آلا می‌تواند دسترسی به دوره را به طور دائم غیرفعال نماید.
+                </div>
+                <div class="installment-roules-and-conditions-accept">
+                  <q-checkbox v-model="installmentAccept"
+                              label="شرایط تسهیلات ویژه ثبت نام رو میپذیرم." />
+                </div>
+              </div>
+            </div>
+            <div class="product-container"
+                 :class="{'hidden-responsive': (independentComplimentary.length === 0 && dependentComplimentary.length === 0 && examList.length === 0)}">
               <div v-if="dependentComplimentary.length > 0"
                    class="product-complimentary">
                 <div class="products-label">
@@ -75,19 +92,19 @@
             </div>
           </div>
           <div v-if="paymentMethod !== 'cash'"
-               class="col-12 col-md-6">
+               class="col-12 col-sm-6 installment-col">
             <div class="products-label instalment">
               اقساط
             </div>
             <div class="installment">
               <q-list class="installment-list">
                 <q-item>
-                  <q-item-section class="installment-order"
+                  <q-item-section class="installment-order-label"
                                   side>
                     قسط
                   </q-item-section>
-                  <q-item-section class="installment-date">زمان پرداخت</q-item-section>
-                  <q-item-section class="installment-amount"
+                  <q-item-section class="installment-date-label">زمان پرداخت</q-item-section>
+                  <q-item-section class="installment-amount-label"
                                   side>
                     مبلغ
                   </q-item-section>
@@ -104,17 +121,25 @@
                                   :class="{'active': index === 0}">{{ getPersianDate(item.date) }}</q-item-section>
                   <q-item-section class="installment-amount"
                                   :class="{'active': index === 0}"
-                                  side>{{ item.value }}</q-item-section>
+                                  side>{{ item.value.toLocaleString('fa') }}</q-item-section>
                 </q-item>
               </q-list>
             </div>
           </div>
         </div>
       </q-card-section>
-      <q-card-section class="payment-footer">
+      <q-card-section v-if="!hasInstallment"
+                      class="payment-footer">
+        <div class="price-title-responsive">
+          <q-icon name="ph:tag"
+                  :size="'16px'"
+                  class="price-title-icon" />
+          قیمت کل :
+        </div>
         <div class="price-info">
           <div class="price-title">
-            <ph-tag :size="16"
+            <q-icon name="ph:tag"
+                    :size="'16px'"
                     class="price-title-icon" />
             قیمت کل :
           </div>
@@ -148,6 +173,39 @@
                  text-color="grey-9"
                  unelevated
                  class="action-btn full-width"
+                 :disable="!installmentAccept"
+                 label="ثبت نام اقساطی"
+                 @click="addToCart('installment')" />
+        </div>
+      </q-card-section>
+      <q-card-section v-if="hasInstallment"
+                      class="payment-footer">
+        <div class="instalment-info ellipsis">
+          <span class="simple-text before">فقط با</span>
+          <template v-if="product.instalments && product.instalments.length > 0">
+            <span class="price price-value">
+              {{ product.instalments[0].value.toLocaleString('fa') }}
+            </span>
+            <span class="price price-label">
+              تومان
+            </span>
+          </template>
+          <span class="simple-text after">بیا تو دوره</span>
+        </div>
+        <div class="footer-action">
+          <q-btn v-if="paymentMethod === 'cash'"
+                 color="primary"
+                 text-color="grey-9"
+                 unelevated
+                 class="action-btn full-width"
+                 label="ثبت نام نقدی"
+                 @click="addToCart('cash')" />
+          <q-btn v-else
+                 color="primary"
+                 text-color="grey-9"
+                 unelevated
+                 class="action-btn full-width"
+                 :disable="!installmentAccept"
                  label="ثبت نام اقساطی"
                  @click="addToCart('installment')" />
         </div>
@@ -157,13 +215,15 @@
 </template>
 
 <script>
+import moment from 'moment-jalaali'
 import { defineComponent } from 'vue'
 import Price from 'src/models/Price.js'
-import { Product, ProductList } from 'src/models/Product.js'
-import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+import { Product } from 'src/models/Product.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import moment from 'moment-jalaali'
-import { openURL } from 'quasar'
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+
+moment.loadPersian()
 
 export default defineComponent({
   name: 'PaymentDialog',
@@ -182,8 +242,8 @@ export default defineComponent({
       default: new Product()
     },
     productComplimentary: {
-      type: ProductList,
-      default: new ProductList()
+      type: Array,
+      default: () => []
     },
     examList: {
       type: Array,
@@ -193,6 +253,7 @@ export default defineComponent({
   emits: ['updateProduct', 'updateProductLoading', 'toggleDialog'],
   data() {
     return {
+      installmentAccept: true,
       productPrice: new Price(),
       dependentSelected: [],
       independentSelected: [],
@@ -285,10 +346,16 @@ export default defineComponent({
       if (this.urlParam && this.$route.params[this.urlParam]) {
         return this.$route.params[this.localOptions.urlParam]
       }
-      if (this.$route.params.id) {
+      if (!isNaN(this.$route.params.id)) {
         return this.$route.params.id
       }
       return this.product.id
+    },
+    hasInstallment () {
+      if (this.product) {
+        return this.product.has_instalment_option
+      }
+      return false
     }
   },
   watch: {
@@ -333,7 +400,14 @@ export default defineComponent({
       })
     },
     getProduct() {
-      return this.$apiGateway.product.show(this.productId)
+      if (!this.productId) {
+        // console.log('getProduct')
+        return new Promise((resolve, reject) => {
+          reject()
+        })
+      }
+
+      return APIGateway.product.show(this.productId)
     },
     getPrice(type) {
       return this.product.price[type]
@@ -351,11 +425,12 @@ export default defineComponent({
       return persianOrdinals[index]
     },
     getPersianDate(date) {
-      const monthList = ['فرودین', 'اردیبهشت', 'خرداد', 'تیر', 'امرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند']
-      const calendarDate = moment(date)
-      const calendarMonth = monthList[moment(calendarDate.jMonth(), 'jM').format('jM')]
-      const calendarYear = calendarDate.jWeekYear()
-      return calendarMonth + ' ' + calendarYear
+      const getDate = function (date) {
+        return moment(date, 'YYYY/M/D HH:mm:ss').locale('fa').format('jDD jMMMM jYYYY')
+      }
+      const targetDate = getDate(date)
+      const localDate = getDate(Date.now())
+      return targetDate === localDate ? 'هم اکنون' : targetDate
     },
     addToCart() {
       if (this.paymentMethod === 'cash') {
@@ -376,13 +451,17 @@ export default defineComponent({
           .catch(() => {
           })
       } else {
-        this.getGatewayUrl()
+        const inInstalment = this.paymentMethod === 'installment'
+        this.getGatewayUrl(inInstalment)
       }
     },
-    getGatewayUrl() {
-      this.$apiGateway.cart.getPaymentRedirectEncryptedLink()
+    getGatewayUrl(inInstalment) {
+      APIGateway.cart.getPaymentRedirectEncryptedLink({
+        device: 'web',
+        inInstalment: inInstalment ? 1 : 0
+      })
         .then(url => {
-          openURL(url)
+          window.location.href = url
         })
         .catch(() => {})
     },
@@ -474,12 +553,16 @@ export default defineComponent({
   height: 649px;
   position: relative;
 
+  @media screen and (max-width: 600px){
+    height: 666px;
+  }
+
   &.cash {
     width: 480px;
   }
 
   .header-section{
-    padding-bottom: 0;
+    padding-bottom: 5px;
   }
 
   .payment-header {
@@ -504,6 +587,57 @@ export default defineComponent({
     }
   }
 
+  .payment-body {
+    height: 450px;
+    overflow-y: auto;
+
+    @media screen and (max-width: 600px){
+      height: 420px;
+    }
+
+    .products-col {
+
+      &.hidden-responsive {
+        @media screen and (max-width: 600px){
+          //display: none;
+        }
+      }
+    }
+
+    .installment-col {
+    }
+  }
+
+  .installment-roules-and-conditions {
+        height: 100%;
+        .installment-roules-and-conditions-title {
+          color: #333;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+          letter-spacing: -0.48px;
+          margin-bottom: 16px;
+        }
+        .installment-roules-and-conditions-body {
+          display: flex;
+          flex-flow: column;
+          justify-content: space-between;
+
+          .installment-roules-and-conditions-content {
+            color: #424242;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 22.4px;
+            letter-spacing: -0.42px;
+          }
+          .installment-roules-and-conditions-accept {
+            margin-top: 40px;
+          }
+        }
+      }
+
   .product-container {
     display: flex;
     flex-direction: column;
@@ -511,6 +645,12 @@ export default defineComponent({
     align-items: flex-start;
     width: 100%;
     height: 100%;
+
+    &.hidden-responsive {
+      display: none;
+        // @media screen and (max-width: 600px){
+        // }
+      }
 
     .product-complimentary {
       width: 100%;
@@ -569,13 +709,43 @@ export default defineComponent({
   }
 
   .installment {
-    width: 330px;
+    width: 100%;
     height: 349px;
     border-radius: 8px;
     background: #ECEFF1;
     overflow-y: auto;
     padding: 20px;
+    @media screen and (max-width: 600px){
+      margin-bottom: 10px;
+    }
 
+    .installment-order-label {
+      color: #616161;
+      text-align: center;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: -0.36px;
+    }
+    .installment-date-label {
+      text-align: center;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: -0.36px;
+      color: #616161;
+    }
+    .installment-amount-label {
+      text-align: center;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: -0.36px;
+      color: #616161;
+    }
     .installment-item {
       border-radius: 4px;
       background: #FFF;
@@ -644,6 +814,26 @@ export default defineComponent({
     bottom: 0;
     width: 100%;
     padding: 0 30px 20px;
+
+    .price-title-responsive {
+        display: none;
+        justify-content: flex-start;
+        align-items: center;
+        color:#303030;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: -0.54px;
+
+        .price-title-icon {
+          margin-right: 8px;
+        }
+
+        @media screen and (max-width: 600px){
+          display: flex;
+        }
+      }
     .price-info {
       display: flex;
       justify-content: space-between;
@@ -664,6 +854,10 @@ export default defineComponent({
 
         .price-title-icon {
           margin-right: 8px;
+        }
+
+        @media screen and (max-width: 600px){
+          display: none;
         }
       }
       .price-calculation {
@@ -704,6 +898,51 @@ export default defineComponent({
           font-style: normal;
           font-weight: 400;
           line-height: normal;
+        }
+      }
+    }
+
+    :deep(.action-btn) {
+      &.disabled {
+        color: #424242 !important;
+        opacity: 0.3 !important;;
+        background: #FFCA28 !important;
+        .q-btn__content {
+          color: #424242 !important;
+        }
+      }
+    }
+
+    .instalment-info {
+      margin-bottom: 20px;
+      .simple-text {
+        color: #424242;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: -0.54px;
+
+        &.before {
+          margin-right: 12px;
+        }
+        &.after {
+          margin-left: 12px;
+        }
+      }
+      .price {
+        color: #FF8518;
+        font-style: normal;
+        line-height: normal;
+        .price-value {
+          font-size: 24px;
+          font-weight: 700;
+          letter-spacing: -0.72px;
+        }
+        .price-label {
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: -0.42px;
         }
       }
     }

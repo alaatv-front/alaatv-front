@@ -734,6 +734,18 @@ const routes = [
               }
             ]
           },
+          {
+            name: 'Admin.GiftCard',
+            path: 'gift-card',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Admin.GiftCard.Create',
+                path: 'create',
+                component: () => import('pages/Admin/GiftCard/Create.vue')
+              }
+            ]
+          },
           ...EntityCrudRoutes
         ]
       },
@@ -775,6 +787,11 @@ const routes = [
             path: 'debug',
             name: 'Document.Debug',
             component: () => import('src/pages/Document/debug.vue')
+          },
+          {
+            path: 'sentry',
+            name: 'Document.Sentry',
+            component: () => import('src/pages/Document/Sentry.vue')
           },
           {
             path: 'icon-sax',

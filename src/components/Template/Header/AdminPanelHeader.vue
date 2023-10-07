@@ -153,8 +153,14 @@ export default {
   },
   mounted () {
     this.loadAuthData()
+    this.checkAuth()
   },
   methods: {
+    checkAuth() {
+      this.$bus.on('onLoggedIn', () => {
+        this.loadAuthData()
+      })
+    },
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']

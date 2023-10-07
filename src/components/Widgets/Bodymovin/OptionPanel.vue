@@ -33,7 +33,13 @@
                 <q-checkbox v-model="localOptions.loop" />
               </div>
               <div class="col-12">
+                <div class="outsidelabel">animation directory 1</div>
                 <q-input v-model="localOptions[tab].directory" />
+              </div>
+              <div v-if="localOptions.animate === 'in & out'"
+                   class="col-12">
+                <div class="outsidelabel">animation directory 2</div>
+                <q-input v-model="localOptions[tab].directory2" />
               </div>
             </div>
           </q-tab-panel>
@@ -55,13 +61,14 @@ export default {
     return {
       responsiveTab: 'lg',
       tabs: ['xl', 'lg', 'md', 'sm', 'xs'],
-      animateOptions: ['autoPlay', 'onClick', 'onHover', 'onInterSection', 'onInterSectionOnce'],
+      animateOptions: ['autoPlay', 'onClick', 'onHover', 'onInterSection', 'onInterSectionOnce', 'in & out'],
       defaultOptions: {
         loop: true,
         animate: 'autoPlay',
         autoplay: true,
         xs: {
           directory: '',
+          directory2: '',
           style: {
             width: null,
             height: null
@@ -69,6 +76,7 @@ export default {
         },
         sm: {
           directory: '',
+          directory2: '',
           style: {
             width: null,
             height: null
@@ -76,6 +84,7 @@ export default {
         },
         md: {
           directory: '',
+          directory2: '',
           style: {
             width: null,
             height: null
@@ -83,6 +92,7 @@ export default {
         },
         lg: {
           directory: '',
+          directory2: '',
           style: {
             width: null,
             height: null
@@ -90,6 +100,7 @@ export default {
         },
         xl: {
           directory: '',
+          directory2: '',
           style: {
             width: null,
             height: null

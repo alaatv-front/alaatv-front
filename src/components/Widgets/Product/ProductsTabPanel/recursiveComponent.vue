@@ -1,23 +1,28 @@
 <template>
   <div class="option-panel-container">
     <component :is="localOptions.type.concat('OptionPanel')"
-               :layout="layout"
-               :options="localOptions" />
+               v-model:options="localOptions"
+               :layout="layout" />
   </div>
 </template>
 
 <script>
 import { defineAsyncComponent } from 'vue'
-import { PageBuilderOptionPanel } from 'src/mixin/Mixins'
+// import { PageBuilderOptionPanel } from 'src/mixin/Mixins'
 
 export default {
-  name: 'component',
+  name: 'RecursiveComponent',
   components: {
     GroupListOptionPanel: defineAsyncComponent(() => import('./GroupListOptionPanel/GroupListOptionPanel.vue')),
     ProductListOptionPanel: defineAsyncComponent(() => import('./ProductListOptionPanel/ProductListOptionPanel.vue'))
   },
-  mixins: [PageBuilderOptionPanel],
+  // mixins: [PageBuilderOptionPanel],
   props: {
+    options: {
+      type: Object,
+      default: () => {
+      }
+    },
     layout: {
       type: String,
       default: ''
@@ -25,10 +30,15 @@ export default {
   },
   data () {
     return {
-      defaultOptions: {
-        type: '',
-        options: {},
-        data: []
+    }
+  },
+  computed: {
+    localOptions: {
+      get() {
+        return this.options
+      },
+      set(newValue) {
+        this.$emit('update:options', newValue)
       }
     }
   }

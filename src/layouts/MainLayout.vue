@@ -1,5 +1,6 @@
 <template>
-  <div class="main-layout">
+  <div class="main-layout"
+       :class="{'hasFooter': hasFooter}">
     <quasar-template-builder @onResize="resize">
       <template #header>
         <template-header :type="getTemplateHeaderType" />
@@ -44,7 +45,7 @@
               <auth-login />
             </div>
           </q-dialog>
-          <version-check />
+          <!--          <version-check />-->
           <router :include="keepAliveComponents" />
         </div>
         <floating-action-button v-if="canShowFloatingActionBtn" />
@@ -66,11 +67,11 @@ import templateHeader from 'src/components/Template/Header/TemplateHeader.vue'
 import TemplateSideBar from 'src/components/Template/SideBard/TemplateSideBar.vue'
 import QuasarTemplateBuilder from 'quasar-template-builder/src/quasar-template-builder.vue'
 import FloatingActionButton from 'components/Template/FloatingActionButton/FloatingActionButton.vue'
-import VersionCheck from 'components/VersionCheck/VersionCheck.vue'
+// import VersionCheck from 'components/VersionCheck/VersionCheck.vue'
 
 export default {
   components: {
-    VersionCheck,
+    // VersionCheck,
     AuthLogin,
     Router,
     AlaaFooter,
@@ -88,6 +89,9 @@ export default {
     }
   },
   computed: {
+    hasFooter () {
+      return this.$store.getters['AppLayout/layoutFooter'] && this.$store.getters['AppLayout/layoutFooterVisible']
+    },
     canShowFloatingActionBtn () {
       return this.user.hasPermission('editSiteSetting') && (this.hasDynamicSetting || this.hasDynamicSettingWithParams)
     },

@@ -1,10 +1,10 @@
 <template>
   <div ref="headerMenu"
-       class="header-menu"
+       class="header-menu row"
        :class="localOptions.className"
        :style="options.style">
     <div v-if="localOptions.logoImage"
-         class="right-section"
+         class="right-section col"
          @click="routeTo('Public.Home')">
       <lazy-img :src="localOptions.logoImage"
                 :alt="'logo'"
@@ -16,14 +16,14 @@
       </div>
     </div>
     <div v-else
-         class="right-section">
+         class="right-section col">
       <component :is="component.name"
-                 v-for="(component, index) in localOptions.rightSectionWidgets"
+                 v-for="(component, index) in localOptions[size].rightSectionWidgets"
                  :key="index"
                  :options="component.options" />
     </div>
-    <div v-if="localOptions.menuLink"
-         class="center-section">
+    <div v-if="localOptions.menuLink.length > 0"
+         class="center-section col-grow">
       <q-list class="routes-list">
         <q-item v-for="(item, index) in localOptions.menuLink"
                 :key="item"
@@ -38,23 +38,28 @@
       </q-list>
     </div>
     <div v-else
-         class="center-section">
-      <component :is="component.name"
-                 v-for="(component, index) in localOptions.centerSectionWidgets"
-                 :key="index"
-                 :options="component.options" />
+         class="center-section col-grow">
+      <div v-for="(component, index) in localOptions[size].centerSectionWidgets"
+           :key="index"
+           class="row">
+        <component :is="component.name"
+                   :options="component.options" />
+        <q-separator v-if="index < localOptions[size].centerSectionWidgets.length - 1"
+                     class="separator"
+                     vertical />
+      </div>
     </div>
     <div v-if="localOptions.hasAction"
-         class="left-section">
+         class="left-section col justify-end">
       <q-btn v-if="localOptions.hasAction"
              flat
              :label="localOptions.actionObject.buttonLabel"
              @click="takeAction(localOptions.actionObject)" />
     </div>
     <div v-else
-         class="left-section">
+         class="left-section col justify-end">
       <component :is="component.name"
-                 v-for="(component, index) in localOptions.leftSectionWidgets"
+                 v-for="(component, index) in localOptions[size].leftSectionWidgets"
                  :key="index"
                  :options="component.options" />
     </div>
@@ -83,10 +88,33 @@ export default {
   data() {
     return {
       scrollEventIsAdded: false,
+      windowWidth: 0,
       defaultOptions: {
-        rightSectionWidgets: [],
-        centerSectionWidgets: [],
-        leftSectionWidgets: [],
+        xs: {
+          rightSectionWidgets: [],
+          centerSectionWidgets: [],
+          leftSectionWidgets: []
+        },
+        sm: {
+          rightSectionWidgets: [],
+          centerSectionWidgets: [],
+          leftSectionWidgets: []
+        },
+        md: {
+          rightSectionWidgets: [],
+          centerSectionWidgets: [],
+          leftSectionWidgets: []
+        },
+        lg: {
+          rightSectionWidgets: [],
+          centerSectionWidgets: [],
+          leftSectionWidgets: []
+        },
+        xl: {
+          rightSectionWidgets: [],
+          centerSectionWidgets: [],
+          leftSectionWidgets: []
+        },
         sticky: false,
         stickyClass: '',
         salam: '',
@@ -149,6 +177,23 @@ export default {
       }
     }
   },
+  computed: {
+    size() {
+      if (this.windowWidth >= 1920) {
+        return this.isConfigExist('xl') ? 'xl' : this.isConfigExist('lg') ? 'lg' : this.isConfigExist('md') ? 'md' : this.isConfigExist('sm') ? 'sm' : 'xs'
+      } else if (this.windowWidth <= 1919 && this.windowWidth >= 1440) {
+        return this.isConfigExist('lg') ? 'lg' : this.isConfigExist('md') ? 'md' : this.isConfigExist('sm') ? 'sm' : this.isConfigExist('xs') ? 'xs' : 'xl'
+      } else if (this.windowWidth <= 1439 && this.windowWidth >= 1024) {
+        return this.isConfigExist('md') ? 'md' : this.isConfigExist('sm') ? 'sm' : this.isConfigExist('xs') ? 'xs' : this.isConfigExist('xl') ? 'xl' : 'lg'
+      } else if (this.windowWidth <= 1023 && this.windowWidth >= 600) {
+        return this.isConfigExist('sm') ? 'sm' : this.isConfigExist('xs') ? 'xs' : this.isConfigExist('xl') ? 'xl' : this.isConfigExist('lg') ? 'lg' : 'md'
+      } else if (this.windowWidth <= 599) {
+        return this.isConfigExist('xs') ? 'xs' : this.isConfigExist('xl') ? 'xl' : this.isConfigExist('lg') ? 'lg' : this.isConfigExist('md') ? 'md' : 'sm'
+      } else {
+        return ''
+      }
+    }
+  },
   watch: {
     'localOptions.sticky': function (newVal) {
       if (newVal) {
@@ -166,8 +211,22 @@ export default {
       this.scrollEventIsAdded = true
       this.addScrollEventListener()
     }
+    this.windowWidth = window.innerWidth
+    window.addEventListener('resize', this.onResize)
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.onResize)
   },
   methods: {
+    isConfigExist(size) {
+      return this.localOptions[size].rightSectionWidgets.length > 0 || this.localOptions[size].centerSectionWidgets.length > 0 || this.localOptions[size].leftSectionWidgets.length > 0
+    },
+    onResize() {
+      this.windowWidth = window.innerWidth
+    },
+    toggleLeftDrawer() {
+      this.drawer = !this.drawer
+    },
     addScrollEventListener() {
       window.addEventListener('scroll', () => {
         if (!this.isInViewport() && !document.getElementsByClassName('header-menu')[0].classList.value.includes('fix-position')) {
@@ -292,9 +351,13 @@ $backgrounds: (
   .center-section {
     display: flex;
     align-items: center;
-    @media only screen and (max-width: 1024px) {
-      display: none;
+
+    .separator {
+      height: 16px;
+      align-self: center;
+      color: $grey4;
     }
+
     .routes-list {
       display: flex;
 
@@ -320,7 +383,6 @@ $backgrounds: (
 
   .left-section {
     display: flex;
-    margin: 0 20px;
     font-weight: 400;
     font-size: 16px;
     line-height: 28px;
@@ -332,7 +394,7 @@ $backgrounds: (
   &.fix-position {
     width: 100%;
     position: fixed;
-    z-index: 10000;
+    z-index: 10;
     transition: all 4s ease-in-out 2s;
   }
 }
