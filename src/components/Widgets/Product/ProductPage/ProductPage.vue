@@ -1,5 +1,6 @@
 <template>
-  <div class="product-page-container new-theme">
+  <div class="product-page-container new-theme"
+       :class="{ 'hasInstallment': hasInstallment }">
     <div class="product-background">
       <div class="background-image"
            :style="{backgroundImage: `url(${product.photo})`}">
@@ -174,6 +175,12 @@ export default defineComponent({
         return this.$route.params.id
       }
       return this.product.id
+    },
+    hasInstallment () {
+      if (this.product) {
+        return this.product.has_instalment_option
+      }
+      return false
     }
   },
   mounted() {
@@ -510,7 +517,7 @@ export default defineComponent({
   }
 
   .product-page-content-container {
-    width: 1200px;
+    width: 1362px;
     max-width: 100%;
     position: relative;
     margin: 30px 0;
@@ -541,6 +548,12 @@ export default defineComponent({
       @media screen and (max-width: 1024px) {
         margin-top: 0;
       }
+    }
+  }
+
+  &.hasInstallment {
+    .product-page-content-container {
+      margin-bottom: 250px;
     }
   }
 }
