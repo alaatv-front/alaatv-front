@@ -37,6 +37,7 @@
     <q-btn v-if="!localOptions.rightIcon"
            :label="localOptions.label"
            :flat="localOptions.flat"
+           :disable="disable"
            :class="[localOptions.className, responsiveShow]"
            :style="localOptions.style"
            class="action-btn"
@@ -54,6 +55,7 @@
            :flat="localOptions.flat"
            :class="localOptions.className"
            :style="localOptions.style"
+           :disable="disable"
            class="action-btn"
            @click="takeAction">
       <img v-if="localOptions.imageSource"
@@ -80,6 +82,12 @@ export default {
     Timer: defineAsyncComponent(() => import('components/Widgets/Timer/Timer.vue'))
   },
   mixins: [mixinWidget, mixinAuth],
+  props: {
+    disable: {
+      type: Boolean,
+      default: false
+    }
+  },
   emits: ['ActionButton'],
   data() {
     return {
