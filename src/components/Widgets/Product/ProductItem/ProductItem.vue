@@ -52,11 +52,11 @@
         </div>
       </div>
     </q-card>
-    <q-card v-else
-            :ref="productRef"
-            class="product-item-box"
-            :class="'productItem' + product.id"
-            :style="{minWidth: localOptions.minWidth}">
+    <div v-else
+         :ref="productRef"
+         class="product-item-box"
+         :class="'productItem' + product.id"
+         :style="{minWidth: localOptions.minWidth}">
       <component :is="localOptions.theme"
                  :localOptions="localOptions"
                  :product="product"
@@ -72,7 +72,7 @@
                  @handleProductBookmark="handleProductBookmark"
                  @customActionClicked="customActionClicked"
                  @addToCart="addToCart" />
-    </q-card>
+    </div>
     <product-bottom-sheet v-if="productMounted"
                           :dialog="bottomSheetDialog"
                           :productId="product.id"
@@ -317,7 +317,6 @@ export default defineComponent({
       })
     },
     productClicked () {
-      debugger
       AEE.impressionClick([this.product.eec.getData()], {
         TTl: 1000,
         key: this.product.id
@@ -331,8 +330,6 @@ export default defineComponent({
       return null
     },
     addToCart() {
-      debugger
-      console.log(this.product)
       if (this.product.hasChildren()) {
         this.$router.push({ name: 'Public.Product.Show', params: { id: this.product.id } })
         return

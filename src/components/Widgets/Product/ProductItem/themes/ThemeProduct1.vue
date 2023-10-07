@@ -2,8 +2,10 @@
   <div class="theme1-container">
     <div class="img-box">
       <product-discount-badge class="product-discount-badge"
-                              :options="{price:product.price}" />
-      <router-link :to="getRoutingObject">
+                              :options="{price:product.price}"
+                              @click.capture="productClicked" />
+      <router-link :to="getRoutingObject"
+                   @click="productClicked">
         <lazy-img :src="product.photo"
                   :alt="product.title"
                   :height="imageHeight"
@@ -12,13 +14,16 @@
       </router-link>
     </div>
     <div class="product-content-box row">
-      <router-link :to="getRoutingObject">
-        <div class="title-box">
-          <div class="main-title ellipsis-2-lines">
-            {{ product.title }}
+      <div @click.capture="productClicked">
+        <router-link :to="getRoutingObject"
+                     @click="productClicked">
+          <div class="title-box">
+            <div class="main-title ellipsis-2-lines">
+              {{ product.title }}
+            </div>
           </div>
-        </div>
-      </router-link>
+        </router-link>
+      </div>
       <div class="product-action-container">
         <bookmark v-if="localOptions.showBookmark"
                   class="product-item-bookmark"
@@ -41,33 +46,36 @@
       <div v-if="localOptions.showPrice"
            class="action-box col-12 row">
         <div class="more-detail product-more-detail col-sm-6 col-xs-9">
-          <router-link :to="getRoutingObject">
-            <div class="price-box">
-              <div class="price-info">
-                <div v-if="product.price['final'] !== product.price['base'] && (localOptions.theme === 'default' || !localOptions.theme)"
-                     class="discount">
-                  <span>
-                    %{{
-                      (
-                        (1 - product.price['final'] / product.price['base']) *
-                        100
-                      ).toFixed(0)
-                    }}
-                  </span>
-                </div>
-                <div class="price-container row text-center">
-                  <div class="final-price-box col-xs-12 col-sm-6">
-                    <div class="final-price">
-                      {{ finalPrice }}
-                    </div>
-                    <div class="price-Toman">تومان</div>
+          <div @click.capture="productClicked">
+            <router-link :to="getRoutingObject"
+                         @click="productClicked">
+              <div class="price-box">
+                <div class="price-info">
+                  <div v-if="product.price['final'] !== product.price['base'] && (localOptions.theme === 'default' || !localOptions.theme)"
+                       class="discount">
+                    <span>
+                      %{{
+                        (
+                          (1 - product.price['final'] / product.price['base']) *
+                          100
+                        ).toFixed(0)
+                      }}
+                    </span>
                   </div>
-                  <div v-if="product.price['discount'] !== 0"
-                       class="main-price col-xs-12 col-sm-6">{{ basePrice }}</div>
+                  <div class="price-container row text-center">
+                    <div class="final-price-box col-xs-12 col-sm-6">
+                      <div class="final-price">
+                        {{ finalPrice }}
+                      </div>
+                      <div class="price-Toman">تومان</div>
+                    </div>
+                    <div v-if="product.price['discount'] !== 0"
+                         class="main-price col-xs-12 col-sm-6">{{ basePrice }}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </router-link>
+            </router-link>
+          </div>
         </div>
         <div class="action-btn col-sm-6 col-xs-3">
           <q-btn v-if="localOptions.canAddToCart"
