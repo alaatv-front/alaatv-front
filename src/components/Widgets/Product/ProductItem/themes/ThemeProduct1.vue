@@ -2,10 +2,8 @@
   <div class="theme1-container">
     <div class="img-box">
       <product-discount-badge class="product-discount-badge"
-                              :options="{price:product.price}"
-                              @click.capture="productClicked" />
-      <router-link :to="getRoutingObject"
-                   @click="productClicked">
+                              :options="{price:product.price}" />
+      <router-link :to="getRoutingObject">
         <lazy-img :src="product.photo"
                   :alt="product.title"
                   :height="imageHeight"
@@ -13,10 +11,8 @@
                   class="img" />
       </router-link>
     </div>
-    <div class="product-content-box row"
-         @click.capture="productClicked">
-      <router-link :to="getRoutingObject"
-                   @click="productClicked">
+    <div class="product-content-box row">
+      <router-link :to="getRoutingObject">
         <div class="title-box">
           <div class="main-title ellipsis-2-lines">
             {{ product.title }}
@@ -44,10 +40,8 @@
       </div>
       <div v-if="localOptions.showPrice"
            class="action-box col-12 row">
-        <div class="more-detail product-more-detail col-sm-6 col-xs-9"
-             @click.capture="productClicked">
-          <router-link :to="getRoutingObject"
-                       @click="productClicked">
+        <div class="more-detail product-more-detail col-sm-6 col-xs-9">
+          <router-link :to="getRoutingObject">
             <div class="price-box">
               <div class="price-info">
                 <div v-if="product.price['final'] !== product.price['base'] && (localOptions.theme === 'default' || !localOptions.theme)"

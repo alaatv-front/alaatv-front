@@ -317,6 +317,7 @@ export default defineComponent({
       })
     },
     productClicked () {
+      debugger
       AEE.impressionClick([this.product.eec.getData()], {
         TTl: 1000,
         key: this.product.id
@@ -330,6 +331,8 @@ export default defineComponent({
       return null
     },
     addToCart() {
+      debugger
+      console.log(this.product)
       if (this.product.hasChildren()) {
         this.$router.push({ name: 'Public.Product.Show', params: { id: this.product.id } })
         return
