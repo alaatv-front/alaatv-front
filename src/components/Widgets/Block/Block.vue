@@ -99,29 +99,68 @@ export default {
     ProductItem: defineAsyncComponent(() => import('src/components/Widgets/Product/ProductItem/ProductItem.vue'))
   },
   mixins: [mixinWidget],
-  data: () => ({
-    defaultMinWidth: 'auto',
-    defaultOptions: {
-      style: {},
-      apiName: null,
-      block: new Block(),
-      gridView: false,
-      showContentDownloadMenu: false,
-      productItemOptions: {},
-      contentMinWidth: {
-        inGridView: 'auto',
-        inScrollView: 'auto'
-      },
-      setMinWidth: {
-        inGridView: 'auto',
-        inScrollView: 'auto'
-      },
-      productMinWidth: {
-        inGridView: 'auto',
-        inScrollView: 'auto'
+  data () {
+    return {
+      defaultMinWidth: 'auto',
+      defaultOptions: {
+        style: {},
+        apiName: null,
+        block: new Block(),
+        gridView: false,
+        showContentDownloadMenu: false,
+        contentMinWidth: {
+          inGridView: 'auto',
+          inScrollView: 'auto'
+        },
+        setMinWidth: {
+          inGridView: 'auto',
+          inScrollView: 'auto'
+        },
+        productMinWidth: {
+          inGridView: 'auto',
+          inScrollView: 'auto'
+        },
+        productItemOptions: {
+          theme: 'ThemeDefault',
+          className: '',
+          height: 'auto',
+          boxed: false,
+          boxedWidth: 1200,
+          style: {},
+          borderStyle: {
+            borderCssString: '',
+            borderRadiusCssString: '20px'
+          },
+          boxShadows: [
+            '-2px -4px 10px rgba(255, 255, 255, 0.6)',
+            '2px 4px 10px rgba(46, 56, 112, 0.05)'
+          ],
+          cssHoverEffects: {
+            boxShadows: [
+              '-5px -6px 10px rgba(255, 255, 255, 0.6)',
+              '5px 5px 20px rgba(0, 0, 0, 0.1)'
+            ],
+            borderStyle: {
+              borderCssString: '',
+              borderRadiusCssString: '20px'
+            },
+            transition: {
+              time: 0.4
+            },
+            transform: {
+              rotate: 0,
+              scaleX: 1,
+              scaleY: 1,
+              skewX: 0,
+              skewY: 0,
+              translateX: 0,
+              translateY: -10
+            }
+          }
+        }
       }
     }
-  }),
+  },
   computed: {
     isThereData() {
       return !!(
@@ -245,19 +284,19 @@ export default {
 
   .block-container {
     display: flex;
-    margin-bottom: 5px;
     width: 100%;
     .scroll-view {
       display: flex;
       width: 100%;
       overflow-x: auto;
       flex-wrap: nowrap;
+      padding-bottom: 10px;
       /* this padding is needed due to move animation of card
       to avoid overflow behavior:
       https://stackoverflow.com/questions/6421966/css-overflow-x-visible-and-overflow-y-hidden-causing-scrollbar-issue
       */
-      padding-top: 10px;
-      padding-bottom: 10px;
+      //padding-top: 10px;
+      //padding-bottom: 10px;
       @media screen and (max-width: 600px){
         //height: 500px;
       }
