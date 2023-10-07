@@ -4,7 +4,7 @@
          class="block-header row q-pa-md q-mb-sm"
          :class="localOptions.block.headerCustomClass">
       <a :href="localOptions.block?.url?.web"
-         class="block-title">
+         class="block-title ellipsis">
         {{ localOptions.block.title }}
       </a>
       <q-btn v-if="!localOptions.block.banners || localOptions.block.banners.list.length === 0"
@@ -272,11 +272,12 @@ export default {
       padding: 0 0 4px 0;
       border-bottom: 1px solid white;
       transition: 0.3s ease;
+      max-width: 80%;
       &:hover {
         padding: 0 0 6px 0;
         border-color: #333333;
       }
-      @media screen and (max-width: 350px){
+      @media screen and (max-width: 600px){
         font-size: 16px;
       }
     }
