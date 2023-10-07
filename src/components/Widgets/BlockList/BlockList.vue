@@ -16,7 +16,7 @@
            :key="index"
            :class="block.headerCustomClass"
            class="block-list-widget">
-        <block :options="{block}" />
+        <block :options="{block, productItemOptions: localOptions.productOptions}" />
       </div>
     </template>
   </div>
@@ -41,6 +41,44 @@ export default {
         height: 'auto',
         style: {},
         from: 0,
+        productOptions: {
+          theme: 'ThemeDefault',
+          className: '',
+          height: 'auto',
+          boxed: false,
+          boxedWidth: 1200,
+          style: {},
+          borderStyle: {
+            borderCssString: '',
+            borderRadiusCssString: '20px'
+          },
+          boxShadows: [
+            '-2px -4px 10px rgba(255, 255, 255, 0.6)',
+            '2px 4px 10px rgba(46, 56, 112, 0.05)'
+          ],
+          cssHoverEffects: {
+            boxShadows: [
+              '-5px -6px 10px rgba(255, 255, 255, 0.6)',
+              '5px 5px 20px rgba(0, 0, 0, 0.1)'
+            ],
+            borderStyle: {
+              borderCssString: '',
+              borderRadiusCssString: '20px'
+            },
+            transition: {
+              time: 0.4
+            },
+            transform: {
+              rotate: 0,
+              scaleX: 1,
+              scaleY: 1,
+              skewX: 0,
+              skewY: 0,
+              translateX: 0,
+              translateY: -10
+            }
+          }
+        },
         to: undefined
       }
     }

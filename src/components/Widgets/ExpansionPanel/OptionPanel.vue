@@ -1,5 +1,8 @@
 <template>
-  <option-panel-tabs v-model:options="localOptions">
+  <option-panel-tabs v-model:options="localOptions"
+                     :show-hover-effects-tab="true"
+                     :show-box-shadows-tab="true"
+                     :show-border-style-tab="true">
     <template #main-tab>
       <div class="option-panel-container q-py-md">
         <q-card class="custom-card">
@@ -137,6 +140,30 @@ export default defineComponent({
         fontWeight: null,
         fontStyle: null,
         hasContentSeparator: false,
+        borderStyle: {
+          borderCssString: '',
+          borderRadiusCssString: ''
+        },
+        boxShadows: [],
+        cssHoverEffects: {
+          boxShadows: [],
+          borderStyle: {
+            borderCssString: '',
+            borderRadiusCssString: ''
+          },
+          transition: {
+            time: 0
+          },
+          transform: {
+            rotate: 0,
+            scaleX: 1,
+            scaleY: 1,
+            skewX: 0,
+            skewY: 0,
+            translateX: 0,
+            translateY: 0
+          }
+        },
         contentSeparator: {
           marginTop: 0,
           marginBottom: 0,

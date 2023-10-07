@@ -210,7 +210,6 @@ export default defineComponent({
 
   &.teacher {
     padding-top: 0;
-    box-shadow: $shadow-2;
   }
 
   .student-img {
@@ -300,7 +299,7 @@ export default defineComponent({
 .arrow-left {
   align-self: center;
   position: absolute;
-  right: -30px;
+  right: -15px;
   top: 40%;
   z-index: 2;
 
@@ -316,7 +315,7 @@ export default defineComponent({
 .arrow-right {
   align-self: center;
   position: absolute;
-  left: -30px;
+  left: -15px;
   top: 40%;
   z-index: 2;
 
