@@ -11,7 +11,8 @@ class ReferralCode extends Model {
       { key: 'isAssigned' },
       { key: 'url' },
       { key: 'usageNumber' },
-      { key: 'orders' }
+      { key: 'orders' },
+      { key: 'used_at' }
       // {
       //   key: 'contents',
       //   relatedModel: ContentList

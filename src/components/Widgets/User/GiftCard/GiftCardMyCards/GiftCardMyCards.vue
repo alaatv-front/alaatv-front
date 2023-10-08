@@ -280,6 +280,12 @@ export default {
           field: row => row.orders
         },
         {
+          name: 'usedAt',
+          label: 'تاریخ استفاده',
+          align: 'center',
+          field: row => row.used_at
+        },
+        {
           name: 'isAssigned',
           label: 'اشتراک گذاری',
           align: 'left',
@@ -308,11 +314,7 @@ export default {
   methods: {
     getOrderStatus(props) {
       if (props.row.usageNumber) {
-        if (props.value.length === 0) {
-          return 'استفاده شده منتظر پرداخت'
-        } else {
-          return 'استفاده شده پرداخت شده'
-        }
+        return 'استفاده شده'
       } else {
         return 'استفاده نشده'
       }
