@@ -15,7 +15,7 @@
              text-color="grey-9"
              icon="add"
              @click="showContentDemo" />
-      <div v-for="(content, index) in localValue"
+      <div v-for="(content, index) in localContents"
            :key="index"
            class="col-12 row q-mt-sm">
         <q-icon class="col-1"
@@ -44,18 +44,16 @@ export default {
   data() {
     return {
       content: null,
+      contents: [],
+      localContents: [],
       loading: false
     }
   },
-  computed: {
-    localValue: {
-      get () {
-        return this.value
-      },
-      set (newValue) {
-        this.$emit('update:value', newValue)
-      }
-    }
+  mounted() {
+    this.localContents = this.value
+    this.value.forEach(content => {
+      this.contents.push(content.id)
+    })
   },
   methods: {
     onKeyUp(event) {
@@ -64,14 +62,18 @@ export default {
       }
     },
     removeContentDemo(index) {
-      this.localValue.splice(index, 1)
+      this.localContents.slice(index, 1)
+      this.contents.splice(index, 1)
+      this.$emit('update:value', this.contents)
     },
     showContentDemo() {
       this.loading = true
       APIGateway.content.show(this.content)
         .then(content => {
           this.content = null
-          this.localValue.push(content)
+          this.localContents.push(content)
+          this.contents.push(content.id)
+          this.$emit('update:value', this.contents)
           this.loading = false
         })
         .catch(() => {
