@@ -77,7 +77,7 @@
             </router-link>
           </div>
         </div>
-        <div class="action-btn col-sm-6 col-xs-3">
+        <div class="action-btn col-sm-6 col-xs-12">
           <q-btn v-if="localOptions.canAddToCart"
                  unelevated
                  text-color="grey-9"
@@ -429,6 +429,7 @@ export default defineComponent({
 
   .add-to-cart-btn {
     background: $primary;
+    height: inherit;
 
     .btn-text {
       margin-right: 4px;
@@ -583,6 +584,11 @@ export default defineComponent({
         .more-detail {
           .more {
             display: none;
+          }
+        }
+        .action-btn {
+          .add-to-cart-btn {
+            width: 100%;
           }
         }
         .btn-green{
