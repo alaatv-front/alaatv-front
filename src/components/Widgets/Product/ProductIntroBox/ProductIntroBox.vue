@@ -111,10 +111,10 @@ export default defineComponent({
   max-width: 100%;
   border-radius: 12px;
   background:#FFF;
-  box-shadow: 2px 2px 3px 0px rgba(16, 24, 40, 0.06);
+  box-shadow: 2px 2px 3px 0 rgba(16, 24, 40, 0.06);
   padding: 30px;
 
-  @media screen and (max-width: 1200px){
+  @media screen and (max-width: 1300px){
     padding: 15px;
   }
   @media screen and (max-width: 1023px){

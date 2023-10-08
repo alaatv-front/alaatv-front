@@ -197,9 +197,14 @@ export default defineComponent({
 <style lang="scss" scoped>
 .theme1-container {
   flex-wrap: wrap;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding-top: 20px;
+  margin-top: 55px;
+
   .img-box {
     position: relative;
-    margin: -20px 20px 0;
+    margin: -40px 20px 0;
 
     .product-discount-badge {
       margin: -30px 10px 0px 0px;
