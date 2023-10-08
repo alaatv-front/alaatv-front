@@ -1,12 +1,61 @@
 <template>
   <div class="header">
     <div class="title">
-      کار آفرینی
+      کارت هدیه آلاء
     </div>
-    <div class="dropdown-menu">
-      <btn-user-profile-menu />
+    <div class="action-btn row items-center q-col-gutter-md">
+      <div class="sms-guide">
+        <q-btn label="راهنمای کد پیامکی"
+               class="sms-btn"
+               rounded
+               @click="smsDialog = true" />
+      </div>
+      <div class="dropdown-menu">
+        <btn-user-profile-menu />
+      </div>
     </div>
   </div>
+  <q-dialog v-model="smsDialog">
+    <q-card class="dialog">
+      <q-card-section class="dialog-header-section">
+        <div class="row items-center justify-between">
+          <div>
+            راهنمای کدهای پیامکی
+          </div>
+          <q-btn flat
+                 icon="close"
+                 color="grey-6"
+                 @click="smsDialog = false" />
+        </div>
+      </q-card-section>
+      <q-separator class="grey1" />
+      <q-card-section class="dialog-body-section">
+        <div class="body2">
+          آسان کارت با ارسال کد های پایین به سرشماره 10006420
+        </div>
+        <div class="body2 text-right q-mt-md">
+          دریافت کارت :G0
+          <br>
+          کارت های موجود :G0
+          <br>
+          موجودی حساب :G0
+          <br>
+          تسویه حساب :G0
+        </div>
+      </q-card-section>
+      <q-card-section class="dialog-action-section">
+        <div class="row items-center float-right">
+          <div class="dialog-action-btn-box">
+            <q-btn v-close-popup
+                   class="btn q-btn-md keep-min-width"
+                   color="positive">
+              فهمیدم
+            </q-btn>
+          </div>
+        </div>
+      </q-card-section>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script>
@@ -14,7 +63,12 @@ import BtnUserProfileMenu from 'src/components/BtnUserProfileMenu.vue'
 
 export default {
   name: 'UserGiftCardPanel',
-  components: { BtnUserProfileMenu }
+  components: { BtnUserProfileMenu },
+  data() {
+    return {
+      smsDialog: false
+    }
+  }
 }
 </script>
 
@@ -37,6 +91,20 @@ export default {
   .dropdown-menu {
     margin-top: 24px;
     margin-right: 30px;
+  }
+  .sms-guide {
+    .sms-btn {
+      margin-top: 25px;
+      background: #E7ECF4;
+      color: #697D9A;
+    }
+  }
+}
+.dialog {
+  width: 360px;
+  border-radius: 12px;
+  .dialog-body-section {
+    color: #697D9A;
   }
 }
 </style>
