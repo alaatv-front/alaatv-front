@@ -52,11 +52,11 @@
         </div>
       </div>
     </q-card>
-    <q-card v-else
-            :ref="productRef"
-            class="product-item-box"
-            :class="'productItem' + product.id"
-            :style="{minWidth: localOptions.minWidth}">
+    <div v-else
+         :ref="productRef"
+         class="product-item-box"
+         :class="'productItem' + product.id"
+         :style="{minWidth: localOptions.minWidth}">
       <component :is="localOptions.theme"
                  :localOptions="localOptions"
                  :product="product"
@@ -72,7 +72,7 @@
                  @handleProductBookmark="handleProductBookmark"
                  @customActionClicked="customActionClicked"
                  @addToCart="addToCart" />
-    </q-card>
+    </div>
     <product-bottom-sheet v-if="productMounted"
                           :dialog="bottomSheetDialog"
                           :productId="product.id"
@@ -147,7 +147,7 @@ export default defineComponent({
           marginTop: null,
           marginLeft: null,
           marginRight: null,
-          marginBottom: '10px',
+          marginBottom: null,
           paddingTop: null,
           paddingLeft: null,
           paddingRight: null,
@@ -157,7 +157,7 @@ export default defineComponent({
           marginTop: null,
           marginLeft: null,
           marginRight: null,
-          marginBottom: '10px',
+          marginBottom: null,
           paddingTop: null,
           paddingLeft: null,
           paddingRight: null,
@@ -167,7 +167,7 @@ export default defineComponent({
           marginTop: null,
           marginLeft: null,
           marginRight: null,
-          marginBottom: '10px',
+          marginBottom: null,
           paddingTop: null,
           paddingLeft: null,
           paddingRight: null,
@@ -177,7 +177,7 @@ export default defineComponent({
           marginTop: null,
           marginLeft: null,
           marginRight: null,
-          marginBottom: '10px',
+          marginBottom: null,
           paddingTop: null,
           paddingLeft: null,
           paddingRight: null,
@@ -187,7 +187,7 @@ export default defineComponent({
           marginTop: null,
           marginLeft: null,
           marginRight: null,
-          marginBottom: '10px',
+          marginBottom: null,
           paddingTop: null,
           paddingLeft: null,
           paddingRight: null,
@@ -501,7 +501,7 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
   }
 
   &.ThemeDefault {
-    @media screen and (max-width: 1024px){
+    @media screen and (max-width: 1023px){
       min-width: 304px;
       height: 140px;
     }
@@ -526,16 +526,16 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
   }
 
   .product-item-box {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+    //display: flex;
+    //flex-direction: column;
+    //width: 100%;
     height: inherit;
-    justify-content: space-between;
-    margin: auto auto 10px;
+    //justify-content: space-between;
+    margin: auto;
     //margin: 0 12px;
     position: relative;
-    background-color: #ffffff;
-    top: 0;
+    //background-color: #ffffff;
+    //top: 0;
     transition: all ease 0.5s;
     box-shadow: $shadows;
     -webkit-box-shadow: $shadows;

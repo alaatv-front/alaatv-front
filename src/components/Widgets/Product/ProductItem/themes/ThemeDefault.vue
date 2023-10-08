@@ -116,9 +116,9 @@
 <script>
 import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
-import ProductDiscountBadge from 'src/components/Widgets/Product/ProductDiscountBadge/ProductDiscountBadge.vue'
 import LazyImg from 'src/components/lazyImg.vue'
 import Bookmark from 'src/components/Bookmark.vue'
+import ProductDiscountBadge from 'src/components/Widgets/Product/ProductDiscountBadge/ProductDiscountBadge.vue'
 
 export default defineComponent({
   name: 'ThemeProduct2',
@@ -211,16 +211,21 @@ export default defineComponent({
 
 .theme2-container {
   height: inherit;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding-top: 20px;
+  margin-top: 45px;
+
   .img-box {
     //position: relative;
-    margin: -20px 20px 0;
+    margin: -40px 20px 0;
     align-self: center;
     .product-discount-badge {
       display: block;
       margin: -43px 32px 0px 0px;
       rotate: -16deg;
       transition: all ease-in-out .4s;
-      @media screen and (max-width: 1024px){
+      @media screen and (max-width: 1023px){
         margin: -15px 10px 0px 0px;
       }
     }
@@ -230,13 +235,13 @@ export default defineComponent({
       width: 100%;
       height: 100%;
       border-radius: 12px;
-      border: 0px solid #FFF;
+      border: 0 solid #FFF;
 
       .img {
         border-radius: inherit;
         width: inherit;
 
-        @media screen and (max-width: 1024px){
+        @media screen and (max-width: 1023px){
           width: 116px;
         }
       }
@@ -331,7 +336,7 @@ export default defineComponent({
 
       .action-separator {
         margin: 12px 0;
-        @media screen and (max-width: 1024px){
+        @media screen and (max-width: 1023px){
           margin: 4px 0;
         }
         width: 100%;
@@ -439,7 +444,7 @@ export default defineComponent({
         padding-top: 3px;
       }
     }
-    @media screen and(max-width: 1024px) {
+    @media screen and(max-width: 1023px) {
     }
   }
 
@@ -505,7 +510,7 @@ export default defineComponent({
     .btn-text {
       margin-right: 8px;
     }
-    @media screen and (max-width: 1024px){
+    @media screen and (max-width: 1023px){
       //margin: 20px;
     }
   }
@@ -608,13 +613,16 @@ export default defineComponent({
     }
   }
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     display: flex;
     border-radius: 18px;
-    margin-bottom: 16px;
+    padding-top: 0;
+    padding-left: 20px;
+    margin-top: 20px;
+    margin-left: 16px;
 
     .img-box {
-      margin: 0 12px 0 -20px;
+      margin: 0 12px 0 -35px;
       //padding: 12px;
       //width: 100px;
 
@@ -622,7 +630,7 @@ export default defineComponent({
         border-radius: 10px;
       }
 
-      @media screen and (max-width: 1024px){
+      @media screen and (max-width: 1023px){
         width: 128px;
       }
     }
