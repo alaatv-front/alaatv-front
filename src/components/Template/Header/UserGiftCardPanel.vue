@@ -1,61 +1,58 @@
 <template>
   <div class="header">
     <div class="title">
-      کارت هدیه آلاء
+      کار آفرینی
     </div>
-    <div class="action-btn row items-center q-col-gutter-md">
-      <div class="sms-guide">
-        <q-btn label="راهنمای کد پیامکی"
-               class="sms-btn"
-               rounded
-               @click="smsDialog = true" />
+    <div class="dropdown-menu">
+      <div v-if="isMyCardsPage"
+           class="sms-help-container"
+           @click="toggleDialog">
+        <div class="sms-help-text">
+          راهنمای کد پیامکی
+        </div>
+        <q-icon class="sms-help-icon"
+                name="ph:chat-text"
+                size="16px" />
       </div>
-      <div class="dropdown-menu">
-        <btn-user-profile-menu />
-      </div>
+      <btn-user-profile-menu />
     </div>
+    <q-dialog v-model="smsHelpDialog">
+      <q-card class="sms-help-dialog">
+        <q-card-section class="sms-help-dialog_header">
+          <span class="sms-help-dialog_header__title">راهنمای کدهای پیامکی</span>
+          <q-btn icon="close"
+                 class="sms-help-dialog_header__closeBtn"
+                 flat
+                 @click="toggleDialog" />
+        </q-card-section>
+        <q-card-section class="sms-help-dialog_main">
+          <div class="sms-help-dialog_main__title">
+            آسان کارت با ارسال کد های پایین به سرشماره 10006420
+          </div>
+          <div class="sms-help-dialog_main__list">
+            <div class="sms-help-item">
+              G0: دریافت کارت
+            </div>
+            <div class="sms-help-item">
+              G1: کارت‌های موجود
+            </div>
+            <div class="sms-help-item">
+              G2: موجودی حساب
+            </div>
+            <div class="sms-help-item">
+              G3: تسویه حساب
+            </div>
+          </div>
+        </q-card-section>
+        <q-card-actions class="sms-help-dialog_action"
+                        align="right">
+          <q-btn label="فهمیدم"
+                 class="action-btn"
+                 @click="toggleDialog" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
-  <q-dialog v-model="smsDialog">
-    <q-card class="dialog">
-      <q-card-section class="dialog-header-section">
-        <div class="row items-center justify-between">
-          <div>
-            راهنمای کدهای پیامکی
-          </div>
-          <q-btn flat
-                 icon="close"
-                 color="grey-6"
-                 @click="smsDialog = false" />
-        </div>
-      </q-card-section>
-      <q-separator class="grey1" />
-      <q-card-section class="dialog-body-section">
-        <div class="body2">
-          آسان کارت با ارسال کد های پایین به سرشماره 10006420
-        </div>
-        <div class="body2 text-right q-mt-md">
-          دریافت کارت :G0
-          <br>
-          کارت های موجود :G1
-          <br>
-          موجودی حساب :G2
-          <br>
-          تسویه حساب :G3
-        </div>
-      </q-card-section>
-      <q-card-section class="dialog-action-section">
-        <div class="row items-center float-right">
-          <div class="dialog-action-btn-box">
-            <q-btn v-close-popup
-                   class="btn q-btn-md keep-min-width"
-                   color="positive">
-              فهمیدم
-            </q-btn>
-          </div>
-        </div>
-      </q-card-section>
-    </q-card>
-  </q-dialog>
 </template>
 
 <script>
@@ -66,7 +63,17 @@ export default {
   components: { BtnUserProfileMenu },
   data() {
     return {
-      smsDialog: false
+      smsHelpDialog: false
+    }
+  },
+  computed: {
+    isMyCardsPage() {
+      return this.$route.name === 'UserPanel.Asset.GiftCard.MyGiftCards'
+    }
+  },
+  methods: {
+    toggleDialog() {
+      this.smsHelpDialog = !this.smsHelpDialog
     }
   }
 }
@@ -89,22 +96,135 @@ export default {
     margin-left: 30px;
   }
   .dropdown-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 24px;
     margin-right: 30px;
-  }
-  .sms-guide {
-    .sms-btn {
-      margin-top: 25px;
+
+    .sms-help-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 153px;
+      height: 40px;
       background: #E7ECF4;
-      color: #697D9A;
+      margin-right: 24px;
+      border-radius: 20px;
+      cursor: pointer;
+
+      @media screen and (max-width: 600px){
+        width: 36px;
+        height: 32px;
+        border-radius: 50%;
+      }
+
+      .sms-help-text {
+        color: #697D9A;
+
+        @media screen and (max-width: 600px){
+          display:none;
+        }
+      }
+      .sms-help-icon {
+        display:none;
+        color: #697D9A;
+
+        @media screen and (max-width: 600px){
+          display:block;
+        }
+      }
     }
   }
 }
-.dialog {
+.sms-help-dialog {
   width: 360px;
+  height: 284px;
   border-radius: 12px;
-  .dialog-body-section {
-    color: #697D9A;
+  background: #FFF;
+  box-shadow: 0px 2px 4px -2px rgba(16, 24, 40, 0.06), 0px 4px 8px -2px rgba(16, 24, 40, 0.10);
+
+  @media screen and (max-width: 600px){
+    width: 320px;
+    height: 303px;
+  }
+
+  &_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+
+    &__title {
+      color:#697D9A;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: -0.48px;
+    }
+    &__closeBtn {
+      color:#697D9A;
+      padding: 0;
+    }
+  }
+
+  &_main {
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    &__title {
+      color:#697D9A;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: -0.42px;
+    }
+
+    &__list {
+      width: 100%;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-end;
+
+      .sms-help-item {
+        color:#697D9A;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: -0.42px;
+      }
+    }
+  }
+
+  &_action {
+    padding: 0 20px 20px;
+    .action-btn {
+      width: 96px;
+      height: 32px;
+      min-width: 96px;
+      padding: 4px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      background: #09AC73;
+      color: #FFF;
+      text-align: center;
+      font-feature-settings: 'clig' off, 'liga' off;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: -0.42px;
+    }
   }
 }
 </style>

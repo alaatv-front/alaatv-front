@@ -550,11 +550,11 @@ export default defineComponent({
   box-shadow: 0px 2px 4px -2px rgba(16, 24, 40, 0.06), 0px 4px 8px -2px rgba(16, 24, 40, 0.10);
   width: 800px;
   max-width: 100%;
-  height: 649px;
+  //height: 649px;
   position: relative;
 
   @media screen and (max-width: 600px){
-    height: 666px;
+    //height: 666px;
   }
 
   &.cash {
@@ -566,7 +566,9 @@ export default defineComponent({
   }
 
   .payment-header {
-    padding: 20px 15px 0;
+    padding: 0 15px;
+    height: 40px;
+
     .header-title {
       color: #616161;
       font-size: 16px;
@@ -588,7 +590,7 @@ export default defineComponent({
   }
 
   .payment-body {
-    height: 450px;
+    //height: 450px;
     overflow-y: auto;
 
     @media screen and (max-width: 600px){
@@ -710,10 +712,10 @@ export default defineComponent({
 
   .installment {
     width: 100%;
-    height: 349px;
+    //height: 349px;
     border-radius: 8px;
     background: #ECEFF1;
-    overflow-y: auto;
+    //overflow-y: auto;
     padding: 20px;
     @media screen and (max-width: 600px){
       margin-bottom: 10px;
@@ -810,9 +812,9 @@ export default defineComponent({
   }
 
   .payment-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+    //position: absolute;
+    //bottom: 0;
+    //width: 100%;
     padding: 0 30px 20px;
 
     .price-title-responsive {
