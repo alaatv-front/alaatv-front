@@ -588,7 +588,7 @@ export default defineComponent({
   }
 
   .payment-body {
-    height: 450px;
+    //height: 450px;
     overflow-y: auto;
 
     @media screen and (max-width: 600px){
@@ -710,10 +710,10 @@ export default defineComponent({
 
   .installment {
     width: 100%;
-    height: 349px;
+    //height: 349px;
     border-radius: 8px;
     background: #ECEFF1;
-    overflow-y: auto;
+    //overflow-y: auto;
     padding: 20px;
     @media screen and (max-width: 600px){
       margin-bottom: 10px;

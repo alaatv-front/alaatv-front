@@ -79,8 +79,8 @@
 import { defineComponent } from 'vue'
 import Price from 'src/models/Price.js'
 import { Product } from 'src/models/Product.js'
-import { mixinWidget, mixinAuth } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
+import { mixinWidget, mixinAuth } from 'src/mixin/Mixins.js'
 import PaymentDialog from 'src/components/Widgets/Product/ProductPriceWithPopup/PaymentDialog.vue'
 
 export default defineComponent({
