@@ -36,11 +36,11 @@
         <div class="body2 text-right q-mt-md">
           دریافت کارت :G0
           <br>
-          کارت های موجود :G0
+          کارت های موجود :G1
           <br>
-          موجودی حساب :G0
+          موجودی حساب :G2
           <br>
-          تسویه حساب :G0
+          تسویه حساب :G3
         </div>
       </q-card-section>
       <q-card-section class="dialog-action-section">
