@@ -1,38 +1,4 @@
 <template>
-  <q-drawer v-if="localOptions.action === 'hamburger_menu' && drawer"
-            v-model="drawer"
-            :width="localOptions.drawer.width"
-            :overlay="localOptions.drawer.overlay"
-            :breakpoint="localOptions.drawer.breakpoint"
-            :bordered="localOptions.drawer.bordered"
-            class="drawer"
-            :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'">
-    <div class="column drawer-sections">
-      <div>
-        <template v-for="(component, index) in localOptions.topSectionWidgets"
-                  :key="index">
-          <q-item v-if="component.name"
-                  v-ripple
-                  clickable>
-            <component :is="component.name"
-                       :options="component.options" />
-          </q-item>
-        </template>
-      </div>
-      <div>
-        <template v-for="(component, index) in localOptions.bottomSectionWidgets"
-                  :key="index">
-          <q-item v-if="component.name"
-                  v-ripple
-                  clickable>
-            <component :is="component.name"
-                       :options="component.options" />
-          </q-item>
-        </template>
-
-      </div>
-    </div>
-  </q-drawer>
   <div class="action-btn-wrapper">
     <q-btn v-if="!localOptions.rightIcon"
            :label="localOptions.label"
@@ -62,6 +28,40 @@
            :src="localOptions.imageSource"
            alt="actionBtn">
     </q-btn>
+    <q-drawer v-if="localOptions.action === 'hamburger_menu'"
+              v-model="drawer"
+              :width="localOptions.drawer.width"
+              :overlay="localOptions.drawer.overlay"
+              :breakpoint="localOptions.drawer.breakpoint"
+              :bordered="localOptions.drawer.bordered"
+              class="drawer"
+              :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'">
+      <div class="column drawer-sections">
+        <div>
+          <template v-for="(component, index) in localOptions.topSectionWidgets"
+                    :key="index">
+            <q-item v-if="component.name"
+                    v-ripple
+                    clickable>
+              <component :is="component.name"
+                         :options="component.options" />
+            </q-item>
+          </template>
+        </div>
+        <div>
+          <template v-for="(component, index) in localOptions.bottomSectionWidgets"
+                    :key="index">
+            <q-item v-if="component.name"
+                    v-ripple
+                    clickable>
+              <component :is="component.name"
+                         :options="component.options" />
+            </q-item>
+          </template>
+
+        </div>
+      </div>
+    </q-drawer>
     <q-separator v-if="localOptions.showSeparator"
                  class="separator"
                  vertical />
