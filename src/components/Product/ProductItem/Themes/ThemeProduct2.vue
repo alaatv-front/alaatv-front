@@ -1,5 +1,6 @@
 <template>
-  <div class="theme-default-container">
+  <div class="theme-default-container"
+       @click.capture="productClicked">
     <div class="img-box"
          :class="localOptions.theme">
       <router-link :to="getRoutingObject"
@@ -165,7 +166,9 @@ export default defineComponent({
     customActionClicked() {
       this.$emit('customActionClicked')
     },
-    productClicked() {
+    productClicked(e) {
+      e.preventDefault()
+      e.stopPropagation()
       this.$emit('productClicked')
     },
     handleProductBookmark() {

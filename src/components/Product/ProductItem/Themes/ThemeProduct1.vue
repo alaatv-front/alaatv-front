@@ -1,7 +1,8 @@
 <template>
   <div class="theme1-container"
        @click.capture="productClicked">
-    <div class="img-box">
+    <div class="img-box"
+         :class="localOptions.theme">
       <product-discount-badge class="product-discount-badge"
                               :options="{price:product.price}" />
       <router-link :to="getRoutingObject"
