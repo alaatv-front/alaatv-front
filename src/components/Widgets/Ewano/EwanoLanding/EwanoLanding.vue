@@ -12,7 +12,7 @@ export default {
   mixins: [
     mixinWidget,
     createMetaMixin(function () {
-      if (typeof window !== 'undefined' && window.ewano) {
+      if ((typeof window !== 'undefined' && window.ewano) || !this.hasIdInQueryParam()) {
         return {}
       }
       return {
@@ -27,7 +27,9 @@ export default {
     })
   ],
   beforeMount () {
+    // if (this.hasIdInQueryParam()) {
     Ewano.onWebAppReady()
+    // }
     if (this.hasIdInQueryParam() && !this.hasEwanoFlagInQueryParam()) {
       this.setEwanoFlagInQueryParam()
     } else if (this.hasIdInQueryParam() && this.hasEwanoFlagInQueryParam()) {

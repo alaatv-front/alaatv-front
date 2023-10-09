@@ -195,82 +195,41 @@
                 کمی صبر کنید...
               </q-inner-loading>
               <div class="title">
-                شماره شبا
-                <span v-if="bankAccountStatus === 'verify'"
-                      class="text-green">
-                  (تایید شده)
-                </span>
-                <span v-if="bankAccountStatus === 'pending'"
-                      class="text-orange">
-                  (در انتظار تایید)
-                </span>
-                <span v-if="bankAccountStatus === 'reject'"
-                      class="text-red">
-                  (تایید نشده)
-                </span>
+                <div class="text">
+                  شماره شبا
+                  <span v-if="bankAccountStatus === 'verify'"
+                        class="text-green">
+                    (تایید شده)
+                  </span>
+                  <span v-if="bankAccountStatus === 'pending'"
+                        class="text-orange">
+                    (در انتظار تایید)
+                  </span>
+                  <span v-if="bankAccountStatus === 'reject'"
+                        class="text-red">
+                    (تایید نشده)
+                  </span>
+                  <span v-if="targetShabaBank">
+                    ({{ targetShabaBank[1] }})
+                  </span>
+                </div>
+                <div v-if="targetBankLogo"
+                     class="target-bank-logo">
+                  <lazy-img :src="targetBankLogo"
+                            width="50px" />
+                </div>
               </div>
-              <div class="shaba-number-input row q-col-gutter-md">
-                <div class="row col-11">
-                  <q-input ref="input7"
-                           v-model="localShabaNumber7"
-                           :readonly="hasShabaNumber"
-                           maxlength="2"
-                           dir="ltr"
-                           class="q-pl-sm col-1 field-md"
-                           filled
-                           @update:model-value="moveToNextInput(localShabaNumber7, 2, null, 'input6')" />
-                  <q-input ref="input6"
-                           v-model="localShabaNumber6"
-                           :readonly="hasShabaNumber"
-                           maxlength="4"
-                           dir="ltr"
-                           class="q-pl-sm col-2 field-md"
-                           filled
-                           @update:model-value="moveToNextInput(localShabaNumber6, 4, 'input7', 'input5')" />
-                  <q-input ref="input5"
-                           v-model="localShabaNumber5"
-                           :readonly="hasShabaNumber"
-                           maxlength="4"
-                           dir="ltr"
-                           class="q-pl-sm col-2 field-md"
-                           filled
-                           @update:model-value="moveToNextInput(localShabaNumber5, 4, 'input6', 'input4')" />
-                  <q-input ref="input4"
-                           v-model="localShabaNumber4"
-                           :readonly="hasShabaNumber"
-                           maxlength="4"
-                           dir="ltr"
-                           class="q-pl-sm col-2 field-md"
-                           filled
-                           @update:model-value="moveToNextInput(localShabaNumber4, 4, 'input5', 'input3')" />
-                  <q-input ref="input3"
-                           v-model="localShabaNumber3"
-                           :readonly="hasShabaNumber"
-                           maxlength="4"
-                           dir="ltr"
-                           class="q-pl-sm col-2 field-md"
-                           filled
-                           @update:model-value="moveToNextInput(localShabaNumber3, 4, 'input4', 'input2')" />
-                  <q-input ref="input2"
-                           v-model="localShabaNumber2"
-                           :readonly="hasShabaNumber"
-                           maxlength="4"
-                           dir="ltr"
-                           class="q-pl-sm col-2 field-md"
-                           filled
-                           @update:model-value="moveToNextInput(localShabaNumber2, 4, 'input3', 'input1')" />
-                  <q-input ref="input1"
-                           v-model="localShabaNumber1"
-                           :readonly="hasShabaNumber"
-                           maxlength="2"
-                           dir="ltr"
-                           class="q-pl-sm col-1 field-md"
-                           filled
-                           @update:model-value="moveToNextInput(localShabaNumber1, 2, 'input2', null)" />
-                </div>
-                <div class="prefix-text col-1">
-                  IR
-                </div>
+              <div class="shaba-number-input">
+                <q-input v-model="localShabaNumber"
+                         :readonly="hasShabaNumber"
+                         mask="##-####-####-####-####-####-##"
+                         dir="ltr"
+                         class="q-pl-sm field-md"
+                         filled>
+                  <template #after>
+                    IR
+                  </template>
+                </q-input>
               </div>
               <div v-if="!hasShabaNumber"
                    class="shaba-number-hint">
@@ -283,10 +242,49 @@
                 </span>
 
               </div>
+              <div class="title q-mt-md">
+                <div class="text">
+                  شماره کارت
+                  <span v-if="bankAccountStatus === 'verify'"
+                        class="text-green">
+                    (تایید شده)
+                  </span>
+                  <span v-if="bankAccountStatus === 'pending'"
+                        class="text-orange">
+                    (در انتظار تایید)
+                  </span>
+                  <span v-if="bankAccountStatus === 'reject'"
+                        class="text-red">
+                    (تایید نشده)
+                  </span>
+                  <span v-if="targetCardBank">
+                    ({{ targetCardBank[1] }})
+                  </span>
+                </div>
+                <div v-if="cardBankLogo && false"
+                     class="target-bank-logo">
+                  {{ recognizedCardBank }}
+                  <lazy-img :src="cardBankLogo"
+                            width="50px" />
+                </div>
+              </div>
+              <div class="card-number-input">
+                <q-input v-model="localCardNumber"
+                         :readonly="hasCardNumber"
+                         mask="####-####-####-####"
+                         dir="ltr"
+                         class="q-pl-sm field-md"
+                         filled />
+              </div>
+              <div v-if="!targetBank"
+                   class="shaba-number-hint">
+                شماره شبا و شماره کارت وارد شده مربوط به یک بانک واحد نیستند.
+              </div>
               <div class="shaba-number-action-btn-row">
                 <q-btn v-if="!hasShabaNumber"
                        color="primary"
                        class="shaba-number-action-btn"
+                       :disable="!targetBank"
                        @click="sendShabaNumber">
                   ثبت
                 </q-btn>
@@ -468,9 +466,11 @@
 
 <script>
 import { User } from 'src/models/User.js'
+import LazyImg from 'src/components/lazyImg.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import GiftCardMixin from '../Mixin/GiftCardMixin.js'
-import LazyImg from 'components/lazyImg.vue'
+import NormalizeNumber from 'src/assets/js/NormalizeNumber.js'
+import { Sheba, verifyCardNumber, getBankNameFromCardNumber } from 'persian-tools2'
 
 export default {
   name: 'GiftCardUserInfo',
@@ -478,6 +478,8 @@ export default {
   mixins: [GiftCardMixin],
   data () {
     return {
+      shabaBankLogo: null,
+      cardBankLogo: null,
       localUser: new User(),
       bankAccounts: [],
       has_signed_contract: false,
@@ -490,19 +492,14 @@ export default {
       nationalCardPicURL: null,
       nationalCardPicFile: null,
       hasShabaNumber: false,
+      hasCardNumber: false,
       acceptContract: false,
       localAcceptContract: false,
       acceptContractLoading: false,
       shabaNumberLoading: false,
       bankAccountStatus: '',
+      localCardNumber: '',
       localShabaNumber: '',
-      localShabaNumber1: '',
-      localShabaNumber2: '',
-      localShabaNumber3: '',
-      localShabaNumber4: '',
-      localShabaNumber5: '',
-      localShabaNumber6: '',
-      localShabaNumber7: '',
       shabaNumber: null
     }
   },
@@ -526,6 +523,57 @@ export default {
     settlementGuide () {
       return ''
       // return this.$store.getters.appProps.settlementGuide
+    },
+    clearCardNumber () {
+      if (!this.localCardNumber) {
+        return ''
+      }
+
+      return this.localCardNumber.replaceAll('-', '')
+    },
+    clearShabaNumber () {
+      if (!this.localShabaNumber) {
+        return ''
+      }
+
+      return this.getShabaNumberWithoutPrefix(this.localShabaNumber.replaceAll('-', ''))
+    },
+    recognizedCardBank () {
+      if (!this.isValidCardBank) {
+        return null
+      }
+      return getBankNameFromCardNumber(this.clearCardNumber)
+    },
+    recognizedShabaBank () {
+      if (!this.isValidShabaBank) {
+        return null
+      }
+      return new Sheba('IR' + this.clearShabaNumber).recognize()
+    },
+    isValidShabaBank () {
+      return new Sheba('IR' + this.clearShabaNumber).validate()
+    },
+    isValidCardBank () {
+      return verifyCardNumber(this.clearCardNumber)
+    },
+    targetShabaBank () {
+      return this.getBankCodeFromShabaNumber(this.clearShabaNumber)
+    },
+    targetCardBank () {
+      return this.getBankCodeFromCardNumber(this.clearCardNumber)
+    },
+    targetBank () {
+      if (!this.targetShabaBank || !this.targetCardBank || this.targetShabaBank[0] !== this.targetCardBank[0]) {
+        return null
+      }
+      return this.targetShabaBank
+    },
+    targetBankLogo () {
+      if (!this.targetBank) {
+        return null
+      }
+
+      return this.getBankLogoFromCode(this.targetBank[0])
     }
   },
   mounted () {
@@ -585,16 +633,11 @@ export default {
           }
           this.bankAccountStatus = bankAccount.status
           this.shabaNumber = bankAccount.sheba
+          this.localCardNumber = bankAccount['card-number']
+          this.hasCardNumber = true
           if (this.shabaNumber) {
             this.hasShabaNumber = true
             this.localShabaNumber = this.shabaNumber
-            this.localShabaNumber1 = this.localShabaNumber.substring(2, 4)
-            this.localShabaNumber2 = this.localShabaNumber.substring(4, 8)
-            this.localShabaNumber3 = this.localShabaNumber.substring(8, 12)
-            this.localShabaNumber4 = this.localShabaNumber.substring(12, 16)
-            this.localShabaNumber5 = this.localShabaNumber.substring(16, 20)
-            this.localShabaNumber6 = this.localShabaNumber.substring(20, 24)
-            this.localShabaNumber7 = this.localShabaNumber.substring(24, 26)
           }
         })
         .catch(() => {
@@ -659,10 +702,12 @@ export default {
       return shabaNumber.replace('i', '').replace('I', '').replace('r', '').replace('R', '')
     },
     sendShabaNumber () {
-      this.localShabaNumber = '' + this.localShabaNumber1 + this.localShabaNumber2 + this.localShabaNumber3 + this.localShabaNumber4 + this.localShabaNumber5 + this.localShabaNumber6 + this.localShabaNumber7
       this.acceptContractLoading = true
-      APIGateway.user.storeBankAccounts({ shabaNumber: this.localShabaNumber })
-        .then((response) => {
+      APIGateway.user.storeBankAccounts({
+        shabaNumber: this.clearShabaNumber,
+        cardNumber: this.clearCardNumber
+      })
+        .then(() => {
           this.acceptContractLoading = false
           this.shabaNumber = this.localShabaNumber
           this.acceptContractLoading = false
@@ -697,6 +742,305 @@ export default {
           this.showErrorMessages(messages)
           this.shabaNumberLoading = false
         })
+    },
+
+    getBankLogoFromCode (code) {
+      if (!code) {
+        return 'https://nodes.alaatv.com/upload/bank-logo/exe.png'
+      }
+
+      return 'https://nodes.alaatv.com/upload/bank-logo/' + code + '.png'
+    },
+    getBankCodeFromCardNumber (cardnumber) {
+      if (!cardnumber) {
+        return null
+      }
+      if (!this.validateCard(cardnumber)) {
+        return null
+      }
+      return this.getBankFromCard(cardnumber.substring(6, -16))
+    },
+    getBankCodeFromShabaNumber (shabanumber) {
+      if (!shabanumber) {
+        return null
+      }
+
+      const shaba = NormalizeNumber.a2e(shabanumber).toUpperCase()
+
+      if (!new Sheba('IR' + shaba).validate()) {
+        return null
+      }
+
+      const target = new Sheba('IR' + this.clearShabaNumber).recognize()
+
+      return [
+        target.nickname,
+        target.persianName,
+        target.code
+      ]
+    },
+    getBankFromCard(code) {
+      const map = [
+      //     {
+      //   nickname: 'central-bank',
+      //   name: 'بانک مرکزی جمهوری اسلامی ایران',
+      //   code: '636214',
+      // },
+        {
+          nickname: 'ayandeh',
+          name: 'Ayandeh Bank',
+          persianName: 'بانک آینده',
+          code: '636214'
+        }, {
+          nickname: 'eghtesad-novin',
+          name: 'Eghtesad Novin Bank',
+          persianName: 'بانک اقتصاد نوین',
+          code: '627412'
+        },
+        // {
+        //   nickname: 'iran-venezuela',
+        //   name: 'Iran and Venezuela Bank',
+        //   persianName: 'بانک ایران و ونزوئلا',
+        //   code: '606373'
+        // },
+
+        {
+          nickname: 'ansar',
+          name: 'Ansar Bank',
+          persianName: 'بانک انصار',
+          code: '627381'
+        }, {
+          nickname: 'iran-zamin',
+          name: 'Iran Zamin Bank',
+          persianName: 'بانک ایران زمین',
+          code: '505785'
+        }, {
+          nickname: 'parsian',
+          name: 'Parsian Bank',
+          persianName: 'بانک پارسیان',
+          code: '622106'
+        }, {
+          nickname: 'parsian',
+          name: 'بانک پارسیان',
+          code: '627884'
+        }, {
+          nickname: 'pasargad',
+          name: 'Pasargad Bank',
+          persianName: 'بانک پاسارگاد',
+          code: '502229'
+        }, {
+          nickname: 'pasargad',
+          name: 'Pasargad Bank',
+          persianName: 'بانک پاسارگاد',
+          code: '639347'
+        }, {
+          nickname: 'post',
+          name: 'Post Bank',
+          persianName: 'پست بانک ایران',
+          code: '627760'
+        }, {
+          nickname: 'tejarat',
+          name: 'Tejarat Bank',
+          persianName: 'بانک تجارت',
+          code: '585983'
+        }, {
+          nickname: 'tejarat',
+          name: 'Tejarat Bank',
+          persianName: 'بانک تجارت',
+          code: '627353'
+        }, {
+          nickname: 'toose-taavon',
+          name: 'Tosee Taavon Bank',
+          persianName: 'بانک توسعه تعاون',
+          code: '502908'
+        }, {
+          nickname: 'tosee-saderat',
+          name: 'Tose Saderat Bank',
+          persianName: 'بانک توسعه صادرات',
+          code: '207177'
+        }, {
+          nickname: 'tosee-saderat',
+          name: 'Tose Saderat Bank',
+          persianName: 'بانک توسعه صادرات',
+          code: '627648'
+        }, {
+          nickname: 'hekmat-iranian',
+          name: 'Hekmat Iranian Bank',
+          persianName: 'بانک حکمت ایرانیان',
+          code: '636949'
+        }, {
+          nickname: 'middle-east-bank',
+          name: 'Middle East Bank',
+          persianName: 'بانک خاورمیانه',
+          code: '585949'
+        },
+        //   {
+        //     nickname: 'noor-bank',
+        //     name: 'Noor Credit Institution',
+        //     persianName: 'موسسه اعتباری نور',
+        //   code: '585949'
+        // },
+
+        {
+          nickname: 'dey',
+          name: 'Dey Bank',
+          persianName: 'بانک دی',
+          code: '502938'
+        }, {
+          nickname: 'resalat',
+          name: 'Resalat Bank',
+          persianName: 'بانک قرض الحسنه رسالت',
+          code: '504172'
+        }, {
+          nickname: 'refah',
+          name: 'Refah Bank',
+          persianName: 'بانک رفاه کارگران',
+          code: '589463'
+        }, {
+          nickname: 'saman',
+          name: 'Saman Bank',
+          persianName: 'بانک سامان',
+          code: '621986'
+        }, {
+          nickname: 'sepah',
+          name: 'Sepah Bank',
+          persianName: 'بانک سپه',
+          code: '589210'
+        }, {
+          nickname: 'sarmayeh',
+          name: 'Sarmayeh Bank',
+          persianName: 'بانک سرمایه',
+          code: '639607'
+        }, {
+          nickname: 'sina',
+          name: 'Sina Bank',
+          persianName: 'بانک سینا',
+          code: '639346'
+        }, {
+          nickname: 'shahr',
+          name: 'City Bank',
+          persianName: 'بانک شهر',
+          code: '502806'
+        }, {
+          nickname: 'shahr',
+          name: 'City Bank',
+          persianName: 'بانک شهر',
+          code: '504706'
+        }, {
+          nickname: 'saderat',
+          name: 'Saderat Bank',
+          persianName: 'بانک صادرات ایران',
+          code: '603769'
+        }, {
+          nickname: 'saderat',
+          name: 'Saderat Bank',
+          persianName: 'بانک صادرات ایران',
+          code: '903769'
+        }, {
+          nickname: 'sanat-o-madan',
+          name: 'Sanat O Madan Bank',
+          persianName: 'بانک صنعت و معدن',
+          code: '627961'
+        }, {
+          nickname: 'mehr-eqtesad',
+          name: 'Mehr Eqtesad Bank',
+          persianName: 'بانک مهر اقتصاد',
+          code: '639370'
+        }, {
+          nickname: 'ghavamin',
+          name: 'Ghavamin Bank',
+          persianName: 'بانک قوامین',
+          code: '639599'
+        }, {
+          nickname: 'karafarin',
+          name: 'Karafarin Bank',
+          persianName: 'بانک کارآفرین',
+          code: '627488'
+        }, {
+          nickname: 'keshavarzi',
+          name: 'Keshavarzi',
+          persianName: 'بانک کشاورزی',
+          code: '603770'
+        }, {
+          nickname: 'keshavarzi',
+          name: 'Keshavarzi',
+          persianName: 'بانک کشاورزی',
+          code: '639217'
+        }, {
+          nickname: 'gardeshgari',
+          name: 'Gardeshgari Bank',
+          persianName: 'بانک گردشگری',
+          code: '505416'
+        }, {
+          nickname: 'gardeshgari',
+          name: 'Gardeshgari Bank',
+          persianName: 'بانک گردشگری',
+          code: '505426'
+        },
+        {
+          nickname: 'no-img',
+          name: 'بانک مرکزی ایران',
+          code: '636797'
+        }, {
+          nickname: 'maskan',
+          name: 'Maskan Bank',
+          persianName: 'بانک مسکن',
+          code: '628023'
+        }, {
+          nickname: 'mellat',
+          name: 'Mellat Bank',
+          persianName: 'بانک ملت',
+          code: '610433'
+        }, {
+          nickname: 'mellat',
+          name: 'Mellat Bank',
+          persianName: 'بانک ملت',
+          code: '991975'
+        }, {
+          nickname: 'melli',
+          name: 'Melli',
+          persianName: 'بانک ملی ایران',
+          code: '170019'
+        }, {
+          nickname: 'melli',
+          name: 'Melli',
+          persianName: 'بانک ملی ایران',
+          code: '603799'
+        }, {
+          nickname: 'mehr-iran',
+          name: 'Mehr Iran Bank',
+          persianName: 'بانک مهر ایران',
+          code: '606373'
+        }, {
+          nickname: 'kosar',
+          name: 'Kosar Credit Institute',
+          persianName: 'موسسه اعتباری کوثر',
+          code: '505801'
+        }, {
+          nickname: 'melal',
+          name: 'Melal Credit Institute',
+          persianName: 'موسسه اعتباری ملل',
+          code: '606256'
+        }, {
+          nickname: 'tosee',
+          name: 'Tosee Bank',
+          persianName: 'موسسه اعتباری توسعه',
+          code: '628157'
+        }]
+
+      const target = map.find(item => item.code === code)
+      if (!target) {
+        return null
+      }
+
+      return [
+        target.nickname,
+        target.persianName,
+        target.code
+      ]
+    },
+    validateCard(cardNumber) {
+      return verifyCardNumber(cardNumber)
     }
   }
 }
@@ -1011,12 +1355,19 @@ export default {
             padding: 19px;
           }
           .title {
-            font-style: normal;
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 25px;
-            color: #8798B1;
             margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            .text {
+              font-style: normal;
+              font-weight: 400;
+              font-size: 16px;
+              line-height: 25px;
+              color: #8798B1;
+            }
+            .target-bank-logo {
+              width: 80px;
+            }
           }
           .shaba-number-input {
             position: relative;
@@ -1048,6 +1399,7 @@ export default {
             display: flex;
             flex-flow: row;
             justify-content: flex-end;
+            margin-top: 16px;
             .shaba-number-action-btn {
               box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
               border-radius: 8px;
@@ -1063,6 +1415,17 @@ export default {
                 padding: 5px 42px;
                 height: 36px;
               }
+            }
+          }
+          .card-number-input {
+            position: relative;
+            margin-top: 16px;
+            .label {
+              font-style: normal;
+              font-weight: 400;
+              font-size: 16px;
+              line-height: 40px;
+              color: #8798B1;
             }
           }
         }

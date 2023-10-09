@@ -183,7 +183,12 @@
                        label="textColor" />
             </div>
             <div class="col-12 col-md-3">
-              <q-input v-model="localOptions.navigation.goToRight.size"
+              <q-select v-model="navigationSize"
+                        :options="navigationSizeOptions"
+                        label="screen size" />
+            </div>
+            <div class="col-12 col-md-3">
+              <q-input v-model="localOptions.navigation.goToRight.size[navigationSize]"
                        type="text"
                        label="size" />
             </div>
@@ -213,7 +218,12 @@
                        label="textColor" />
             </div>
             <div class="col-12 col-md-3">
-              <q-input v-model="localOptions.navigation.goToLeft.size"
+              <q-select v-model="navigationSize"
+                        :options="navigationSizeOptions"
+                        label="screen size" />
+            </div>
+            <div class="col-12 col-md-3">
+              <q-input v-model="localOptions.navigation.goToLeft.size[navigationSize]"
                        type="text"
                        label="size" />
             </div>
@@ -358,11 +368,13 @@ export default defineComponent({
           value: 1024
         },
         {
-          label: 'xs',
+          label: 'xl',
           value: 1440
         }
       ],
       uploadType: '',
+      navigationSize: 'xs',
+      navigationSizeOptions: ['xs', 'sm', 'md', 'lg', 'xl'],
       rowId: null,
       defaultOptions: {
         settings: {
@@ -414,14 +426,26 @@ export default defineComponent({
             textColor: '#9E9E9E',
             color: '#FFFFFF',
             rounded: true,
-            size: 'lg'
+            size: {
+              xs: 'md',
+              sm: 'md',
+              md: 'lg',
+              lg: 'lg',
+              xl: 'lg'
+            }
           },
           goToRight: {
             icon: 'chevron_right',
             textColor: '#9E9E9E',
             color: '#FFFFFF',
             rounded: true,
-            size: 'lg'
+            size: {
+              xs: 'md',
+              sm: 'md',
+              md: 'lg',
+              lg: 'lg',
+              xl: 'lg'
+            }
           }
         }
       }

@@ -6,6 +6,7 @@ export default class AuthAPI extends APIRepository {
     super('ewano', apiV2)
     this.APIAdresses = {
       base: '/ewano',
+      pay: '/ewano/pay',
       order: '/ewano/order'
     }
     this.CacheList = {}
@@ -30,16 +31,31 @@ export default class AuthAPI extends APIRepository {
     })
   }
 
+  pay () {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.pay,
+      resolveCallback: (response) => {
+        return response.data.data.status // boolean
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
   makeOrder () {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.order,
       resolveCallback: (response) => {
-        const ewanoOrderId = response.data.ewano_order_id
-        const amount = response.data.amount
+        const ewanoOrderId = response.data.data.ewano_order_id
+        const alaaOrderId = response.data.data.alaa_order_id
+        const amount = response.data.data.amount
 
-        return { ewanoOrderId, amount, response: response.data }
+        return { ewanoOrderId, alaaOrderId, amount }
       },
       rejectCallback: (error) => {
         return error

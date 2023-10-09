@@ -2,7 +2,6 @@
   <div id="q-app">
     <router-view :key="$route.path" />
   </div>
-
 </template>
 <script>
 import process from 'process'
@@ -15,7 +14,7 @@ export default defineComponent({
     updateExists: false
   }),
   computed: {
-    accessToken() {
+    accessToken () {
       return this.$store.getters['Auth/accessToken']
     }
   },
@@ -35,7 +34,7 @@ export default defineComponent({
     //   const status = await Network.getStatus()
     //   console.log('status', status)
     // },
-    setServiceWorker() {
+    setServiceWorker () {
       // Listen for our custom event from the SW registration
       if (!process.browser) {
         return
@@ -52,7 +51,7 @@ export default defineComponent({
         })
       }
     },
-    updateAvailable(event) {
+    updateAvailable (event) {
       this.registration = event.detail
       this.updateExists = true
     }

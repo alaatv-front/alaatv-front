@@ -67,6 +67,9 @@ export default {
   },
   mounted () {
     this.onLoadPage()
+    this.$bus.on('ThankYouPageInvoiceLoading', (status) => {
+      this.loading = status
+    })
   },
   methods: {
     pushPurchaseEvent (order) {

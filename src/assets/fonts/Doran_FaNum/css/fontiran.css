@@ -32,9 +32,9 @@ This set of fonts are used in this project under the license: (.....)
 	font-weight: 300;
 	src: url('../fonts/woff/DoranFaNum-Light.woff') format('woff'),
 	url('../fonts/woff2/DoranFaNum-Light.woff2') format('woff2');
-  src: url('../fonts/eot/DoranFaNum-Light.eot');
-  src: url('../fonts/eot/DoranFaNum-Light.eot?#iefix') format('embedded-opentype'),
-  url('../fonts/svg/DoranFaNum-Light.svg#DoranFaNum-Light') format('svg');
+  /*src: url('../fonts/eot/DoranFaNum-Light.eot');*/
+  /*src: url('../fonts/eot/DoranFaNum-Light.eot?#iefix') format('embedded-opentype'),*/
+  /*url('../fonts/svg/DoranFaNum-Light.svg#DoranFaNum-Light') format('svg');*/
   font-display: swap;
 }
 
@@ -44,9 +44,9 @@ This set of fonts are used in this project under the license: (.....)
 	font-weight: normal;
 	src: url('../fonts/woff/DoranFaNum-Regular.woff') format('woff'),
 	url('../fonts/woff2/DoranFaNum-Regular.woff2') format('woff2');
-  src: url('../fonts/eot/DoranFaNum-Regular.eot');
-  src: url('../fonts/eot/DoranFaNum-Regular.eot?#iefix') format('embedded-opentype'),
-  url('../fonts/svg/DoranFaNum-Regular.svg#DoranFaNum-Regular') format('svg');
+  /*src: url('../fonts/eot/DoranFaNum-Regular.eot');*/
+  /*src: url('../fonts/eot/DoranFaNum-Regular.eot?#iefix') format('embedded-opentype'),*/
+  /*url('../fonts/svg/DoranFaNum-Regular.svg#DoranFaNum-Regular') format('svg');*/
   font-display: swap;
 }
 
@@ -56,9 +56,9 @@ This set of fonts are used in this project under the license: (.....)
 	font-weight: 500;
 	src: url('../fonts/woff/DoranFaNum-Medium.woff') format('woff'),
 	url('../fonts/woff2/DoranFaNum-Medium.woff2') format('woff2');
-  src: url('../fonts/eot/DoranFaNum-Medium.eot');
-  src: url('../fonts/eot/DoranFaNum-Medium.eot?#iefix') format('embedded-opentype'),
-  url('../fonts/svg/DoranFaNum-Medium.svg#DoranFaNum-Medium') format('svg');
+  /*src: url('../fonts/eot/DoranFaNum-Medium.eot');*/
+  /*src: url('../fonts/eot/DoranFaNum-Medium.eot?#iefix') format('embedded-opentype'),*/
+  /*url('../fonts/svg/DoranFaNum-Medium.svg#DoranFaNum-Medium') format('svg');*/
   font-display: swap;
 }
 
@@ -68,9 +68,9 @@ This set of fonts are used in this project under the license: (.....)
 	font-weight: bold;
 	src: url('../fonts/woff/DoranFaNum-Bold.woff') format('woff'),
 	url('../fonts/woff2/DoranFaNum-Bold.woff2') format('woff2');
-  src: url('../fonts/eot/DoranFaNum-ExtraBold.eot');
-  src: url('../fonts/eot/DoranFaNum-ExtraBold.eot?#iefix') format('embedded-opentype'),
-  url('../fonts/svg/DoranFaNum-ExtraBold.svg#DoranFaNum-ExtraBold') format('svg');
+  /*src: url('../fonts/eot/DoranFaNum-ExtraBold.eot');*/
+  /*src: url('../fonts/eot/DoranFaNum-ExtraBold.eot?#iefix') format('embedded-opentype'),*/
+  /*url('../fonts/svg/DoranFaNum-ExtraBold.svg#DoranFaNum-ExtraBold') format('svg');*/
   font-display: swap;
 }
 

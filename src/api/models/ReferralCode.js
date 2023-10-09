@@ -10,6 +10,7 @@ export default class ReferralCodeAPI extends APIRepository {
     this.APIAdresses = {
       base: '/referral-code',
       orderProducts: '/referral-code/orderproducts',
+      noneProfitableOrderproducts: '/referral-code/noneProfitableOrderproducts',
       batchStore: '/referral-code/batch-store',
       orderReferralCode: '/order-referral-code',
       sales_man: '/sales-man',
@@ -39,6 +40,10 @@ export default class ReferralCodeAPI extends APIRepository {
       ...(cache !== undefined && { cache }),
       data: this.getNormalizedSendData({
         isAssigned: null, // Number
+        is_assigned_unused: null, // Number
+        is_used_and_paid: null, // Number
+        is_used_and_unpaid: null, // Number
+        is_unassigned: null, // Number
         isUsed: null, // Number
         page: 1 // Number
       }, data.data),
@@ -73,6 +78,26 @@ export default class ReferralCodeAPI extends APIRepository {
       resolveCallback: (response) => {
         return {
           transactionsTableRow: new TransactionList(response.data.data), // Transactions Table Row: Array of Objects
+          paginate: response.data.meta
+        }
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      ...(data && { data })
+    })
+  }
+
+  noneProfitableOrderproducts(data, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.noneProfitableOrderproducts,
+      cacheKey: this.CacheList.noneProfitableOrderproducts,
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return {
+          zeroCardTableRow: new TransactionList(response.data.data), // Transactions Table Row: Array of Objects
           paginate: response.data.meta
         }
       },
@@ -145,10 +170,11 @@ export default class ReferralCodeAPI extends APIRepository {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
-      request: this.APIAdresses.assign(data.data.referralCode),
+      request: this.APIAdresses.assign(data.referralCode),
       data: this.getNormalizedSendData({
+        via_sms: false, // Boolean -- optional
         assign: true // Boolean -- optional
-      }, data.data),
+      }, data),
       resolveCallback: (response) => {
         return response.data.data
       },
@@ -176,6 +202,7 @@ export default class ReferralCodeAPI extends APIRepository {
           count_of_used_gift_cards: response.data.count_of_used_gift_cards ? Number(response.data.count_of_used_gift_cards) : 0, // type: Number,  Example: 3
           count_of_used_without_pay_gift_cards: response.data.count_of_used_without_pay_gift_cards ? Number(response.data.count_of_used_without_pay_gift_cards) : 0, // type: Number,  Example: 3
           count_of_remain_gift_cards: response.data.count_of_remain_gift_cards ? Number(response.data.count_of_remain_gift_cards) : 0, // type: Number,  Example: 8
+          count_of_unused_with_assignee_gift_cards: response.data.count_of_unused_with_assignee_gift_cards ? Number(response.data.count_of_unused_with_assignee_gift_cards) : 0, // type: Number,  Example: 8
           income_being_settle: response.data.income_being_settle ? Number(response.data.income_being_settle) : 0 // type: Number,  Example: 90000
         }
       },

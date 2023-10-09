@@ -220,7 +220,7 @@
 <script>
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart.js'
-// import Ewano from 'src/assets/js/Ewano.js'
+import Ewano from 'src/assets/js/Ewano.js'
 import AuthLogin from 'src/components/Auth.vue'
 import LazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
@@ -249,6 +249,7 @@ export default {
       }
     }
   },
+  emits: ['update:options'],
   data () {
     return {
       gateways: new GatewayList(),
@@ -516,11 +517,13 @@ export default {
       if (this.isEwanoUser) {
         this.$store.commit('loading/loading', true)
         APIGateway.ewano.makeOrder()
-          .then(() => {
-            // Ewano.pay()
+          .then(({ ewanoOrderId, alaaOrderId, amount }) => {
+            const callbackUrl = this.$router.resolve({ name: 'UserPanel.ThankYouPage', params: { orderId: alaaOrderId }, query: { ewano_order_id: ewanoOrderId, ewano: 1 } }).fullPath
             this.$store.commit('loading/loading', false)
+            Ewano.pay(amount, ewanoOrderId, callbackUrl)
           })
-          .catch(() => {
+          .catch((e) => {
+            console.error('ewano error', e)
             this.$q.notify({
               type: 'negative',
               message: 'لطفا مجدد تلاش کنید.'

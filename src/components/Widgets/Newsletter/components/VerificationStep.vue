@@ -49,6 +49,7 @@
 <script>
 import Timer from './Timer.vue'
 import VOtpInput from 'vue3-otp-input'
+import { APIGateway } from 'src/api/APIGateway'
 export default {
   name: 'VerificationStep',
   components: {
@@ -72,39 +73,40 @@ export default {
     }
   },
   computed: {
-    code() {
-      return this.userInfo.code
+    code: {
+      get () {
+        return this.userInfo.code
+      },
+      set (newValue) {
+        const oldData = this.userInfo
+        oldData.code = newValue
+        this.otpValue = newValue
+        this.$emit('update:userInfo', oldData)
+      }
     }
   },
   mounted () {
-    this.loadOTPCredential()
+    setTimeout(() => {
+      this.loadOTPCredential()
+    }, 1000)
   },
   methods: {
     loadOTPCredential () {
       if (typeof window !== 'undefined' && 'OTPCredential' in window) {
-        window.addEventListener('DOMContentLoaded', (e) => {
-          // const ac = new AbortController()
-          // const form = input.closest('form')
-          // if (form) {
-          //   form.addEventListener('submit', (e) => {
-          //     ac.abort()
-          //   })
-          // }
-          window.navigator.credentials
-            .get({
-              otp: { transport: ['sms'] }
-              // signal: ac.signal
-            })
-            .then((otp) => {
-              // alert(otp.code)
-              this.otpValue = otp.code
-              // input.value = otp.code
-              // if (form) form.submit()
-            })
-            .catch((err) => {
-              console.error(err)
-            })
-        })
+        const abort = new AbortController()
+        setTimeout(() => {
+          // abort after two minutes
+          abort.abort()
+        }, 2 * 60 * 1000)
+        window.navigator.credentials
+          .get({
+            otp: { transport: ['sms'] },
+            signal: abort.signal
+          })
+          .then((otp) => {
+            this.code = otp.code
+          })
+          .catch(() => {})
       }
     },
     verifyCode() {
@@ -112,7 +114,7 @@ export default {
         mobile: this.userInfo.mobile,
         code: this.otpValue ? this.otpValue : this.userInfo.code
       }
-      this.$apiGateway.user.verifyMoshavereh(verifyData)
+      APIGateway.user.verifyMoshavereh(verifyData)
         .then(() => {
           this.$emit('gotoNextStep')
           this.setLoading(false)

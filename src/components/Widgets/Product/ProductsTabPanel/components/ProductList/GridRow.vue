@@ -21,9 +21,9 @@
 </template>
 
 <script>
-import ProductItem from '../../../ProductItem/ProductItem.vue'
 import ProductRowSkeleton from '../ProductRowSkeleton.vue'
-import { PageBuilderOptionPanel } from 'src/mixin/Mixins'
+import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
+import ProductItem from '../../../ProductItem/ProductItem.vue'
 
 export default {
   name: 'GridRow',

@@ -4,16 +4,33 @@
       کارت های من
     </div>
     <div class="page-introduction">
-      <div class="no-gutters row">
-        <div class="col-md-6 col-12 description column q-pt-lg">
+      <div class="no-gutters row q-col-gutter-md">
+        <div class="col-md-3 col-12 description column q-pt-lg">
           <span>تعداد {{sales_man.count_of_total_gift_cards}} کارت هدیه به شما اختصاص داده شده است
           </span>
           <br>
           از این پس میتوانید با اشتراک گذاری کارت‌های زیر، پس از استفاده آن‌ها از کارت پاداش دریافت کنید و درآمد داشته باشید.
         </div>
-        <div class="col-md-6 col-12">
+        <div class="col-md-9 col-12">
           <div class="row card-box q-col-gutter-md">
-            <div class="col-sm-4 col-12">
+            <div class="col-sm-3 col-12">
+              <div class="card-style used-card">
+                <q-inner-loading v-if="salesManLoading"
+                                 showing />
+                <div class="title">
+                  کارت های استفاده نشده
+                </div>
+                <div class="count align-self-end">
+                  <span class="number">
+                    {{sales_man.count_of_unused_with_assignee_gift_cards.toLocaleString('fa')}}
+                  </span>
+                  <span>
+                    کارت
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3 col-12">
               <div class="card-style used-card">
                 <q-inner-loading v-if="salesManLoading"
                                  showing />
@@ -32,7 +49,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-4 col-12">
+            <div class="col-sm-3 col-12">
               <div class="card-style used-card">
                 <q-inner-loading v-if="salesManLoading"
                                  showing />
@@ -51,7 +68,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-4 col-12">
+            <div class="col-sm-3 col-12">
               <div class="card-style unUsed-card">
                 <q-inner-loading v-if="salesManLoading"
                                  showing />
@@ -84,17 +101,31 @@
            class="table-filter-expansion">
         <div class="row">
           <div class="col-md-3 col-12 text-left">
-            <q-checkbox v-model="isAssigned"
+            <q-checkbox v-model="isAssignedUnused"
                         :true-value="1"
                         :false-value="0"
-                        label="تخصیص داده شده"
+                        label="کارت های استفاده نشده"
                         @update:model-value="onChangeFilter" />
           </div>
           <div class="col-md-3 col-12 text-left">
-            <q-checkbox v-model="isUsed"
+            <q-checkbox v-model="isUsedAndPaid"
                         :true-value="1"
                         :false-value="0"
-                        label="استفاده شده"
+                        label="کارتهای استفاده شده پرداخت شده"
+                        @update:model-value="onChangeFilter" />
+          </div>
+          <div class="col-md-3 col-12 text-left">
+            <q-checkbox v-model="isUsedAndUnpaid"
+                        :true-value="1"
+                        :false-value="0"
+                        label="کارتهای استفاده شده منتظر پرداخت"
+                        @update:model-value="onChangeFilter" />
+          </div>
+          <div class="col-md-3 col-12 text-left">
+            <q-checkbox v-model="isUnAssignedUnused"
+                        :true-value="1"
+                        :false-value="0"
+                        label="کارتهای باقی مانده"
                         @update:model-value="onChangeFilter" />
           </div>
         </div>
@@ -140,25 +171,20 @@
                   <q-popup-proxy :offset="[10, 10]"
                                  transition-show="flip-up"
                                  transition-hide="flip-down">
-                    <q-banner dense
-                              rounded>
-                      <share-network :url="props.row.url"
-                                     @on-select="shareGiftCard(props.row)" />
-
-                      <!--                                      <ShareNetwork-->
-                      <!--                                        network="facebook"-->
-                      <!--                                        class="social-share"-->
-                      <!--                                      >-->
-                      <!--                                        <v-btn-->
-                      <!--                                          class="ma-2"-->
-                      <!--                                          color="amber darken-3"-->
-                      <!--                                          dark-->
-                      <!--                                          @click="openUrl (item, 'facebook')"-->
-                      <!--                                        >-->
-                      <!--                                          <v-icon>mdi-facebook</v-icon>-->
-                      <!--                                        </v-btn>-->
-                      <!--                                      </ShareNetwork>-->
-                    </q-banner>
+                    <q-list separator>
+                      <q-item clickable
+                              @click="shareGiftCard(props.row)">
+                        <q-item-section>
+                          کپی کردن
+                        </q-item-section>
+                      </q-item>
+                      <q-item clickable
+                              @click="shareGiftCard(props.row, true)">
+                        <q-item-section>
+                          کپی کردن کد و ارسال پیامک
+                        </q-item-section>
+                      </q-item>
+                    </q-list>
                   </q-popup-proxy>
                 </q-btn>
               </div>
@@ -194,12 +220,10 @@
 <script>
 import { APIGateway } from 'src/api/APIGateway.js'
 import GiftCardMixin from '../Mixin/GiftCardMixin.js'
-import ShareNetwork from 'src/components/ShareNetwork.vue'
 import { ReferralCodeList } from 'src/models/ReferralCode.js'
 
 export default {
   name: 'GiftCardMyCards',
-  components: { ShareNetwork },
   mixins: [GiftCardMixin],
   data() {
     return {
@@ -207,17 +231,20 @@ export default {
         wallet_type: 'main_account',
         wallet_balance: 0,
         total_commission: 0,
+        income_being_settle: 0,
         has_signed_contract: false,
-        minAmount_until_settlement: 0,
-        count_of_total_gift_cards: 0,
-        count_of_used_without_pay_gift_cards: 0,
         count_of_used_gift_cards: 0,
+        count_of_total_gift_cards: 0,
         count_of_remain_gift_cards: 0,
-        income_being_settle: 0
+        minAmount_until_settlement: 0,
+        count_of_used_without_pay_gift_cards: 0,
+        count_of_unused_with_assignee_gift_cards: 0
       },
-      isUsed: 0,
+      isUsedAndPaid: 0,
+      isUsedAndUnpaid: 0,
       showFilter: false,
-      isAssigned: 0,
+      isAssignedUnused: 0,
+      isUnAssignedUnused: 0,
       lastPage: 0,
       page: 1,
       shareCodeLoading: false,
@@ -347,9 +374,9 @@ export default {
     getSalesMan() {
       this.salesManLoading = true
       APIGateway.referralCode.getSalesManData()
-        .then((response) => {
+        .then((salesManData) => {
           this.salesManLoading = false
-          this.sales_man = response
+          this.sales_man = salesManData
         })
         .catch(() => {
           this.salesManLoading = false
@@ -360,8 +387,10 @@ export default {
       APIGateway.referralCode.index({
         data: {
           page,
-          isUsed: this.showFilter ? this.isUsed : null,
-          isAssigned: this.showFilter ? this.isAssigned : null
+          is_used_and_paid: this.showFilter ? this.isUsedAndPaid : null,
+          is_used_and_unpaid: this.showFilter ? this.isUsedAndUnpaid : null,
+          is_unassigned: this.showFilter ? this.isUnAssignedUnused : null,
+          is_assigned_unused: this.showFilter ? this.isAssignedUnused : null
         }
       })
         .then(({ referralCodeList, paginate }) => {
@@ -373,9 +402,9 @@ export default {
           this.loading = false
         })
     },
-    shareGiftCard (card) {
+    shareGiftCard (card, viaSms) {
       card.loading = true
-      APIGateway.referralCode.setShared({ data: { referralCode: card.id } })
+      APIGateway.referralCode.setShared({ referralCode: card.id, via_sms: viaSms })
         .then(() => {
           card.isAssigned = 1
           card.loading = false

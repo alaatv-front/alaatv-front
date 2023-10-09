@@ -9,14 +9,13 @@
                label="height" />
     </div>
     <div class="col-7">
-      <q-input v-model="image.src"
-               label="src" />
+      <image-upload-inputs v-model:value="image.src" />
     </div>
     <div class="col-12">
-      <q-img v-if="size"
-             :src="banner.features[size].src" />
-      <q-img v-else
-             :src="banner.photo.src" />
+      <lazy-img v-if="size"
+                :src="banner.features[size].src" />
+      <lazy-img v-else
+                :src="banner.photo.src" />
     </div>
     <q-inner-loading :showing="visible"
                      label="Please wait..."
@@ -28,10 +27,14 @@
 <script>
 import LazyImg from 'components/lazyImg.vue'
 import { Banner } from 'src/models/Banner.js'
+import imageUploadInputs from 'components/Utils/ImageUploadInput.vue'
 
 export default {
   name: 'bannerPreview',
-  components: [LazyImg],
+  components: {
+    LazyImg,
+    imageUploadInputs
+  },
   props: {
     banner: {
       type: Banner,

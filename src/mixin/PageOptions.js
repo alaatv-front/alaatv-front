@@ -133,14 +133,23 @@ const mixinPageOptions = {
         if (target) {
           const type = target.entityType
           const id = this.$route.params.id
-          APIGateway.seo.show({ type, id })
-            .then((pageSeo) => {
-              this.commitSeo(pageSeo)
-              resolve(pageSeo)
-            })
-            .catch(() => {
-              reject()
-            })
+
+          // if (this.$route.params.id === 'null') {
+          //   console.log('this.$route.params.idthis.$route.params.idthis.$route.params.idthis.$route.params.id', this.$route.params)
+          // }
+
+          if (isNaN(id)) {
+            resolve(null)
+          } else {
+            APIGateway.seo.show({ type, id })
+              .then((pageSeo) => {
+                this.commitSeo(pageSeo)
+                resolve(pageSeo)
+              })
+              .catch(() => {
+                reject()
+              })
+          }
         } else {
           resolve(null)
         }

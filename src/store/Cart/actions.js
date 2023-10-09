@@ -55,7 +55,9 @@ export function addToCart(context, newProductData) {
       APIGateway.cart.addToCart(payload)
         .then((response) => {
           updateCart(payload)
-          showNotify()
+          if (!payload.has_instalment_option) {
+            showNotify()
+          }
           setCartLoading(false)
           pushAEEEvent(newProductData.product)
           reviewCart()

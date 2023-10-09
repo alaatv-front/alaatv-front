@@ -13,16 +13,17 @@
                   class="img" />
       </router-link>
     </div>
-    <div class="product-content-box row"
-         @click.capture="productClicked">
-      <router-link :to="getRoutingObject"
-                   @click="productClicked">
-        <div class="title-box">
-          <div class="main-title ellipsis-2-lines">
-            {{ product.title }}
+    <div class="product-content-box row">
+      <div @click.capture="productClicked">
+        <router-link :to="getRoutingObject"
+                     @click="productClicked">
+          <div class="title-box">
+            <div class="main-title ellipsis-2-lines">
+              {{ product.title }}
+            </div>
           </div>
-        </div>
-      </router-link>
+        </router-link>
+      </div>
       <div class="product-action-container">
         <bookmark v-if="localOptions.showBookmark"
                   class="product-item-bookmark"
@@ -44,53 +45,51 @@
       </div>
       <div v-if="localOptions.showPrice"
            class="action-box col-12 row">
-        <div class="more-detail product-more-detail col-sm-8 col-xs-9"
-             @click.capture="productClicked">
-          <router-link :to="getRoutingObject"
-                       @click="productClicked">
-            <div class="price-box">
-              <div class="price-info">
-                <div v-if="product.price['final'] !== product.price['base'] && (localOptions.theme === 'default' || !localOptions.theme)"
-                     class="discount">
-                  <span>
-                    %{{
-                      (
-                        (1 - product.price['final'] / product.price['base']) *
-                        100
-                      ).toFixed(0)
-                    }}
-                  </span>
-                </div>
-                <div class="price-container row text-center">
-                  <div class="final-price-box col-xs-12 col-sm-6">
-                    <div class="final-price">
-                      {{ finalPrice }}
-                    </div>
-                    <div class="price-Toman">تومان</div>
+        <div class="more-detail product-more-detail col-sm-6 col-xs-9">
+          <div @click.capture="productClicked">
+            <router-link :to="getRoutingObject"
+                         @click="productClicked">
+              <div class="price-box">
+                <div class="price-info">
+                  <div v-if="product.price['final'] !== product.price['base'] && (localOptions.theme === 'default' || !localOptions.theme)"
+                       class="discount">
+                    <span>
+                      %{{
+                        (
+                          (1 - product.price['final'] / product.price['base']) *
+                          100
+                        ).toFixed(0)
+                      }}
+                    </span>
                   </div>
-                  <div v-if="product.price['discount'] !== 0"
-                       class="main-price col-xs-12 col-sm-6">{{ basePrice }}</div>
+                  <div class="price-container row text-center">
+                    <div class="final-price-box col-xs-12 col-sm-6">
+                      <div class="final-price">
+                        {{ finalPrice }}
+                      </div>
+                      <div class="price-Toman">تومان</div>
+                    </div>
+                    <div v-if="product.price['discount'] !== 0"
+                         class="main-price col-xs-12 col-sm-6">{{ basePrice }}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </router-link>
+            </router-link>
+          </div>
         </div>
-        <div class="col-sm-4 col-xs-3">
+        <div class="action-btn col-sm-6 col-xs-12">
           <q-btn v-if="localOptions.canAddToCart"
                  unelevated
                  text-color="grey-9"
+                 label="ثبت نام"
                  :loading="cart.loading"
                  :productId="product.id"
                  :data-product-id="product.id"
                  :square="mobileMode"
-                 class="add-to-cart-btn"
+                 class="add-to-cart-btn q-btn-md"
                  :class="localOptions.theme"
-                 @click="addToCart">
-
-            <span class="btn-text">ثبت نام</span>
-            <q-icon name="west" />
-
-          </q-btn>
+                 icon-right="ph:plus"
+                 @click="addToCart" />
         </div>
       </div>
       <div v-if="localOptions.customAction"
@@ -197,13 +196,18 @@ export default defineComponent({
 <style lang="scss" scoped>
 .theme1-container {
   flex-wrap: wrap;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding-top: 20px;
+  margin-top: 55px;
+
   .img-box {
     position: relative;
-    margin: -20px 20px 0;
+    margin: -40px 20px 0;
 
     .product-discount-badge {
       margin: -30px 10px 0px 0px;
-      rotate: -40deg;
+      rotate: -16deg;
       transition: all ease-in-out .4s;
     }
 
@@ -323,6 +327,10 @@ export default defineComponent({
         }
       }
 
+      .action-btn {
+        text-align: end;
+      }
+
       .btn-style {
         width: 116px;
         height: 40px;
@@ -421,6 +429,7 @@ export default defineComponent({
 
   .add-to-cart-btn {
     background: $primary;
+    height: inherit;
 
     .btn-text {
       margin-right: 4px;
@@ -575,6 +584,11 @@ export default defineComponent({
         .more-detail {
           .more {
             display: none;
+          }
+        }
+        .action-btn {
+          .add-to-cart-btn {
+            width: 100%;
           }
         }
         .btn-green{

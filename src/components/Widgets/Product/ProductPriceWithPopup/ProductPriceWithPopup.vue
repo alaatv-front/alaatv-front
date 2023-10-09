@@ -5,7 +5,12 @@
         <q-icon name="ph:tag"
                 color="gray-7"
                 size="16px" />
-        قیمت
+        <template v-if="hasInstallment">
+          قیمت نقدی:
+        </template>
+        <template v-else>
+          قیمت:
+        </template>
       </div>
       <div v-if="productPrice.discount > 0"
            class="price-calculation">
@@ -23,16 +28,36 @@
         <div class="label">تومان</div>
       </div>
     </div>
+    <div v-if="hasInstallment"
+         class="price-info hasInstallment">
+      <span class="instalment-message">
+        <span class="instalment-label">
+          اقساطی
+        </span>
+        <span class="simple-text">
+          بیا تو دوره فقط با:
+        </span>
+      </span>
+      <span v-if="localOptions.product.instalments && localOptions.product.instalments.length > 0"
+            class="instalment-price">
+        <span class="price-value">
+          {{ localOptions.product.instalments[0].value.toLocaleString('fa') }}
+        </span>
+        <span class="price-label">
+          تومان
+        </span>
+      </span>
+    </div>
     <div class="price-action">
-      <q-btn color="primary"
+      <q-btn :color="!localOptions.product.payment_default || localOptions.product.payment_default === 1 ? 'primary' : 'grey-3'"
              text-color="grey-9"
              unelevated
              class="action-btn"
              :class="{'full-width': !hasInstallment}"
-             label="ثبت نام"
+             :label="hasInstallment ? 'ثبت نام نقدی' : 'ثبت نام'"
              @click="paymentAction('cash')" />
       <q-btn v-if="hasInstallment"
-             color="grey-3"
+             :color="localOptions.product?.payment_default || localOptions.product.payment_default === 2 ? 'primary' : 'grey-3'"
              text-color="grey-9"
              unelevated
              class="action-btn gesti"
@@ -52,9 +77,10 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { mixinWidget } from 'src/mixin/Mixins.js'
-import { Product } from 'src/models/Product.js'
 import Price from 'src/models/Price.js'
+import { Product } from 'src/models/Product.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { mixinWidget, mixinAuth } from 'src/mixin/Mixins.js'
 import PaymentDialog from 'src/components/Widgets/Product/ProductPriceWithPopup/PaymentDialog.vue'
 
 export default defineComponent({
@@ -62,7 +88,7 @@ export default defineComponent({
   components: {
     PaymentDialog
   },
-  mixins: [mixinWidget],
+  mixins: [mixinWidget, mixinAuth],
   emits: ['updateProduct', 'updateProductLoading'],
   data() {
     return {
@@ -72,6 +98,7 @@ export default defineComponent({
       dialog: false,
       paymentMethod: null,
       productComplimentary: [],
+      onLoginAction: () => {},
       examList: []
     }
   },
@@ -98,33 +125,67 @@ export default defineComponent({
       this.getProductExams()
     }
   },
+  mounted() {
+    this.$bus.on('onLoggedIn', () => {
+      this.onLoginAction()
+    })
+  },
   methods: {
-    addToCart() {
-      this.$store.dispatch('Cart/addToCart', { product: this.localOptions.product })
+    addToCart(hasInstalmentOption = false, goToCheckoutReview = true) {
+      this.$store.dispatch('Cart/addToCart', { product: this.localOptions.product, has_instalment_option: hasInstalmentOption })
         .then(() => {
-          this.$router.push({ name: 'Public.Checkout.Review' })
+          if (goToCheckoutReview) {
+            this.$router.push({ name: 'Public.Checkout.Review' })
+          }
         })
     },
     paymentAction(paymentMethod) {
+      this.paymentMethod = paymentMethod
+
+      if (paymentMethod === 'installment') {
+        this.checkLoginForInstallment()
+        return
+      }
+
       if (this.productComplimentary.length === 0 && this.examList.length === 0) {
         this.addToCart()
-      } else {
-        this.paymentMethod = paymentMethod
+        return
+      }
+      if (this.productComplimentary.length > 0 || this.examList.length > 0) {
         this.toggleDialog()
       }
+    },
+    paymentActionForInstallment () {
+      this.addToCart(true, false)
+      this.toggleDialog()
+    },
+    checkLoginForInstallment() {
+      if (this.isUserLogin) {
+        this.paymentActionForInstallment()
+        return
+      }
+
+      this.$store.commit('Auth/updateRedirectTo', { name: this.$route.name, params: this.$route.params, query: this.$route.query })
+      this.onLoginAction = this.paymentActionForInstallment
+      this.$store.commit('AppLayout/updateLoginDialog', true)
+    },
+    checkLogin() {
+      this.$store.commit('Auth/updateRedirectTo', this.$route.name)
+      this.onLoginAction = this.paymentActionForInstallment
+      this.$store.commit('AppLayout/updateLoginDialog', true)
     },
     toggleDialog() {
       this.dialog = !this.dialog
     },
     getProductComplimentary() {
-      this.$apiGateway.product.getProductComplimentary(this.localOptions.product.id)
+      APIGateway.product.getProductComplimentary(this.localOptions.product.id)
         .then(productList => {
           this.productComplimentary = productList.list
         })
         .catch(() => {})
     },
     getProductExams() {
-      this.$apiGateway.product.getProductExamList(this.localOptions.product.id)
+      APIGateway.product.getProductExamList(this.localOptions.product.id)
         .then(examList => {
           this.examList = examList
         })
@@ -143,6 +204,24 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+
+@mixin instalment-label () {
+  display: flex;
+  padding: 4px 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border-radius: 6px;
+  background: linear-gradient(-90deg, #2CB2C5 0.01%, #31B470 99.99%);
+  color: #FFF;
+  text-align: right;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.36px;
+}
+
 .product-price-container {
   display: flex;
   flex-direction: column;
@@ -167,19 +246,36 @@ export default defineComponent({
     align-items: center;
     width: 100%;
     margin-bottom: 16px;
+    padding: 13px 16px;
+
+    border-radius: 8px;
+    border: 1px solid #E6E6E6;
+    background: #F5F7FA;
 
     .price-title {
       display: flex;
       justify-content: center;
       align-items: center;
-      color:#303030;
-      font-size: 18px;
+
+      color: #303030;
+      text-align: right;
+      font-size: 16px;
       font-style: normal;
       font-weight: 400;
       line-height: normal;
       letter-spacing: -0.54px;
 
-      .price-title-icon {
+      @media screen and (max-width: 1300px){
+        font-size: 10px;
+      }
+      @media screen and (max-width: 1023px){
+        font-size: 16px;
+      }
+      @media screen and (max-width: 400px){
+        font-size: 10px;
+      }
+
+      .q-icon {
         margin-right: 8px;
       }
     }
@@ -210,6 +306,15 @@ export default defineComponent({
       .number {
         color:#424242;
         font-size: 24px;
+        @media screen and (max-width: 1300px){
+          font-size: 18px;
+        }
+        @media screen and (max-width: 1023px){
+          font-size: 24px;
+        }
+        @media screen and (max-width: 400px){
+          font-size: 18px;
+        }
         font-style: normal;
         font-weight: 600;
         line-height: normal;
@@ -222,6 +327,58 @@ export default defineComponent({
         font-style: normal;
         font-weight: 400;
         line-height: normal;
+      }
+    }
+
+    &.hasInstallment {
+      .instalment-message {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        .instalment-label {
+          @include instalment-label();
+          margin-right: 16px;
+        }
+        .simple-text {
+          color: #303030;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          letter-spacing: -0.54px;
+          @media screen and (max-width: 1200px){
+            font-size: 14px;
+          }
+          @media screen and (max-width: 1023px){
+            font-size: 18px;
+          }
+          @media screen and (max-width: 400px){
+            font-size: 14px;
+          }
+        }
+      }
+      .instalment-price {
+        color: #FF8518;
+        font-style: normal;
+        line-height: normal;
+        .price-value {
+          font-size: 20px;
+          font-weight: 600;
+          letter-spacing: -1px;
+          @media screen and (max-width: 1200px){
+            font-size: 18px;
+          }
+          @media screen and (max-width: 1023px){
+            font-size: 20px;
+          }
+          @media screen and (max-width: 400px){
+            font-size: 18px;
+          }
+        }
+        .price-label {
+          font-size: 14px;
+          font-weight: 400;
+        }
       }
     }
   }

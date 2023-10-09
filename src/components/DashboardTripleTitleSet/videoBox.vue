@@ -232,7 +232,8 @@ export default {
           name: 'telegram'
         }
       ],
-      videoDuration: null
+      videoDuration: null,
+      lastSeenPercentage: 0
     }
   },
   computed: {
@@ -254,9 +255,21 @@ export default {
   },
   methods: {
     updateTime (data) {
-      if ((data.currentTime / data.duration) >= 0.9 && !this.content.has_watched) {
-        this.$emit('videoIsWatched')
+      if (this.content.has_watched) {
+        return
       }
+      const percentage = (data.currentTime / data.duration)
+      if (isNaN(percentage) || percentage - this.lastSeenPercentage <= 0.1) {
+        return
+      }
+
+      if (percentage >= 0.9) {
+        this.$emit('videoIsWatched', 1)
+      } else {
+        // this.$emit('videoIsWatched', data.currentTime)
+      }
+
+      this.lastSeenPercentage = percentage
     },
     handleContentBookmark () {
       this.bookmarkLoading = true

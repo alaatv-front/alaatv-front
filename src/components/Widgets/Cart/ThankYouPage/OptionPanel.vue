@@ -40,14 +40,6 @@ export default defineComponent({
         title: 'سبد خرید شما'
       }
     }
-  },
-  watch: {
-    localOptions: {
-      handler(newVal) {
-        this.$emit('update:options', newVal)
-      },
-      deep: true
-    }
   }
 })
 </script>

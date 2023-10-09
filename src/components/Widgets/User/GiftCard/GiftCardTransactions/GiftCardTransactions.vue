@@ -70,13 +70,14 @@
       <div class="col-xl-3 col-xs-12">
         <div class="left-side">
           <div class="clearing-title">
-            تاریخ تسویه حساب
+            تاریخ های تسویه حساب
           </div>
           <div class="guide-info">
             <q-icon name="circle"
                     color="primary"
                     class="q-mr-sm" />
             1 مهر 1402
+            (انجام شد)
           </div>
           <div class="guide-info">
             <q-icon name="circle"
@@ -132,8 +133,16 @@
       <q-tab-panels v-model="activeTab"
                     animated>
         <q-tab-panel name="transactions">
-          <div class="table-title q-mb-md">
+          <div class="table-title q-mb-md flex justify-between items-center">
             تراکنش کارت ها
+            <div v-if="transactionLastPage > 1">
+              <div class="caption1">
+                تعداد در صفحه:
+              </div>
+              <q-select v-model="transactionPerPage"
+                        :options="[5, 10, 20, 30, 50, 100]"
+                        @update:model-value="getTransactionDataFromApi(1)" />
+            </div>
           </div>
           <div class="table-container text-center">
             <q-table :rows="transactionsTableRow"
@@ -172,9 +181,9 @@
             </q-table>
           </div>
           <div class="flex justify-center">
-            <q-pagination v-if="lastPage > 1"
-                          v-model="page"
-                          :max="lastPage"
+            <q-pagination v-if="transactionLastPage > 1"
+                          v-model="transactionPage"
+                          :max="transactionLastPage"
                           :max-pages="6"
                           boundary-links
                           icon-first="isax:arrow-left-2"
@@ -182,11 +191,78 @@
                           class="gift-card-pagination q-mt-md"
                           @update:model-value="getTransactionDataFromApi" />
           </div>
+          <q-separator class="q-my-lg" />
+          <div class="table-title q-mb-md flex justify-between items-center">
+            کارت های صفر
+            <div v-if="zeroCardLastPage > 1">
+              <div class="caption1">
+                تعداد در صفحه:
+              </div>
+              <q-select v-model="zeroCardPerPage"
+                        :options="[5, 10, 20, 30, 50, 100]"
+                        @update:model-value="getZeroCardDataFromApi(1)" />
+            </div>
+          </div>
+          <div class="table-container text-center">
+            <q-table :rows="zeroCardTableRow"
+                     :columns="zeroCardHeaders"
+                     :loading="zeroCardTableRowLoading"
+                     hide-bottom
+                     row-key="id">
+              <template #header-cell="props">
+                <q-th :props="props"
+                      class="table-row-txt">
+                  {{ props.col.label }}
+                </q-th>
+              </template>
+              <template #body-cell="props">
+                <q-td v-if="props.col.name === 'code'"
+                      class="table-column-txt">
+                  AT-{{props.value}}
+                </q-td>
+                <q-td v-else-if="props.col.name === 'product'"
+                      class="text-left table-column-txt">
+                  {{props.value}}
+                </q-td>
+                <q-td v-else-if="props.col.name === 'purchased_at' && props.value"
+                      class="table-column-txt">
+                  {{ convertToShamsi(props.value, 'date') }}
+                </q-td>
+                <q-td v-else-if="(props.col.name === 'commisson' || props.col.name === 'product_price') && props.value"
+                      class="table-column-txt">
+                  {{props.value.toLocaleString('fa')}}
+                </q-td>
+                <q-td v-else
+                      class="table-column-txt">
+                  {{ props.value }}
+                </q-td>
+              </template>
+            </q-table>
+          </div>
+          <div class="flex justify-center">
+            <q-pagination v-if="zeroCardLastPage > 1"
+                          v-model="zeroCardPage"
+                          :max="zeroCardLastPage"
+                          :max-pages="6"
+                          boundary-links
+                          icon-first="isax:arrow-left-2"
+                          icon-last="isax:arrow-right-3"
+                          class="gift-card-pagination q-mt-md"
+                          @update:model-value="getZeroCardDataFromApi" />
+          </div>
         </q-tab-panel>
         <q-tab-panel name="clearingHistory">
           <div class="">
-            <div class="table-title">
+            <div class="table-title q-mb-md flex justify-between items-center">
               تاریخچه تسویه
+              <div v-if="historyLastPage > 1 && false">
+                <div class="caption1">
+                  تعداد در صفحه:
+                </div>
+                <q-select v-model="historyPerPage"
+                          :options="[5, 10, 20, 30, 50, 100]"
+                          @update:model-value="getWithdrawHistory(1)" />
+              </div>
             </div>
             <div class="table-container text-center">
               <q-table :rows="clearingHistoryTableRow"
@@ -258,11 +334,9 @@
 
 <script>
 import Price from 'src/models/Price.js'
-import Assist from 'src/assets/js/Assist.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import GiftCardMixin from '../Mixin/GiftCardMixin.js'
-import { APIGateway } from 'src/api/APIGateway'
-import mixinDateOptions from 'src/mixin/DateOptions'
-import { ReferralCodeList } from 'src/models/ReferralCode'
+import mixinDateOptions from 'src/mixin/DateOptions.js'
 
 export default {
   name: 'GiftCardTransactions',
@@ -282,11 +356,16 @@ export default {
     test: 7000000000,
     settlementGuideDialog: false,
     percentage: 0,
-    lastPage: 0,
-    page: 1,
+    transactionLastPage: 0,
+    transactionPage: 1,
+    transactionPerPage: 5,
+    zeroCardLastPage: 0,
+    zeroCardPage: 1,
+    zeroCardPerPage: 5,
     salesManLoading: false,
     historyLastPage: 0,
     historyPage: 1,
+    historyPerPage: 5,
     activeTab: 'transactions',
     clearingHistoryHeaders: [
       { name: 'bank-tracking-code', align: 'center', label: 'شماره تراکنش', field: 'bank-tracking-code' },
@@ -296,7 +375,7 @@ export default {
       { name: 'updated-at', align: 'center', label: 'تاریخ پرداخت', field: 'updated-at' }
     ],
     loading: false,
-    transactionsOptions: {},
+
     transactionsTableRow: [],
     transactionsTableRowLoading: false,
     transactionsHeaders: [
@@ -308,6 +387,19 @@ export default {
       { name: 'product_price', align: 'center', label: 'مبلغ خرید(تومان)', field: 'product_price' },
       { name: 'commisson', align: 'center', label: 'درآمد شما(تومان)', field: 'commisson' }
     ],
+
+    zeroCardTableRow: [],
+    zeroCardTableRowLoading: false,
+    zeroCardHeaders: [
+      { name: 'name', align: 'center', label: 'نام خریدار', field: 'full_name' },
+      { name: 'code', align: 'center', label: 'شماره کارت', field: 'code' },
+      { name: 'product', align: 'center', label: 'محصول', field: 'product' },
+      { name: 'purchased_at', align: 'center', label: 'تاریخ خرید', field: 'purchased_at' },
+      { name: 'commision_percent', align: 'center', label: 'درصد مشارکت', field: 'commisson_percentage' },
+      { name: 'product_price', align: 'center', label: 'مبلغ خرید(تومان)', field: 'product_price' },
+      { name: 'commisson', align: 'center', label: 'درآمد شما(تومان)', field: 'commisson' }
+    ],
+
     clearingHistoryOptions: {},
     clearingHistoryTableRow: [],
     clearingHistoryTableRowLoading: false
@@ -339,12 +431,10 @@ export default {
       // return this.$store.getters.appProps.minAmountUntilSettlement
       return 1000000
     },
-
     incomeBeingSettle() {
       // return this.$store.getters.appProps.incomeBeingSettle
       return 1
     }
-
   },
   mounted() {
     this.loadAllData()
@@ -353,9 +443,9 @@ export default {
     loadAllData() {
       this.getSalesMan()
       this.setPercentage()
+      this.getZeroCardDataFromApi()
       this.getTransactionDataFromApi()
       this.getWithdrawHistory()
-      // this.getClearingHistoryDataFromApi()
     },
     getSalesMan() {
       this.salesManLoading = true
@@ -403,21 +493,9 @@ export default {
         return 'پرداخت شده'
       }
     },
-    getTransactionsData(page = 1) {
-      this.loading = true
-      APIGateway.referralCode.index({ data: { page } })
-        .then(({ referralCodeList, paginate }) => {
-          this.lastPage = paginate.last_page
-          this.referralCodeList = new ReferralCodeList(referralCodeList)
-          this.loading = false
-        })
-        .catch(() => {
-          this.loading = false
-        })
-    },
     getWithdrawHistory(page = 1) {
       this.clearingHistoryTableRowLoading = true
-      APIGateway.referralCode.getWithdrawHistory({ page })
+      APIGateway.referralCode.getWithdrawHistory({ /* per_page: this.historyPerPage,  */page })
         .then(({ clearingHistoryTableRow, paginate }) => {
           this.clearingHistoryTableRow = clearingHistoryTableRow.list
           this.historyLastPage = paginate
@@ -429,53 +507,27 @@ export default {
     },
     getTransactionDataFromApi(page = 1) {
       this.transactionsTableRowLoading = true
-      this.referralCodeList = []
-      APIGateway.referralCode.getOrderProducts({ page })
+      APIGateway.referralCode.getOrderProducts({ per_page: this.transactionPerPage, page })
         .then(({ transactionsTableRow, paginate }) => {
           this.transactionsTableRow = transactionsTableRow.list
-          this.lastPage = paginate.last_page
-          // this.referralCodeList = referralCodeList
+          this.transactionLastPage = paginate.last_page
           this.transactionsTableRowLoading = false
         })
         .catch(() => {
           this.transactionsTableRowLoading = false
         })
     },
-    async getClearingHistoryDataFromApi() {
-      this.clearingHistoryTableRowLoading = true
-      this.clearingHistoryTableRow = []
-      try {
-        const response = await this.clearingHistoryApiCall()
-        this.lastPage = response.data.meta.last_page
-        const responseList = response.data.data
-        responseList.forEach(card => {
-          this.clearingHistoryTableRow.push({
-            id: card.id,
-            number: card.paycheck_number,
-            price: new Price({ base: card.cost }).toman('base'),
-            date: Assist.miladiToShamsi(card.created_at, true),
-            status: card.transaction_status,
-            paymentDate: Assist.miladiToShamsi(card.completed_at, true)
-          })
+    getZeroCardDataFromApi(page = 1) {
+      this.zeroCardTableRowLoading = true
+      APIGateway.referralCode.noneProfitableOrderproducts({ per_page: this.zeroCardPerPage, page })
+        .then(({ zeroCardTableRow, paginate }) => {
+          this.zeroCardTableRow = zeroCardTableRow.list
+          this.zeroCardLastPage = paginate.last_page
+          this.zeroCardTableRowLoading = false
         })
-        this.clearingHistoryTableRowLoading = false
-      } catch (err) {
-        this.clearingHistoryTableRowLoading = false
-        const messages = this.getErrorMessages(err.response.data)
-        this.showErrorMessages(messages)
-      }
-
-      this.clearingHistoryTableRowLoading = false
-    },
-    TransactionApiCall() {
-      return this.$axios.get('/ajax/referralCode/orderproducts', {
-        ...(this.page > 1 && { params: { page: this.page } })
-      })
-    },
-    clearingHistoryApiCall() {
-      return this.$axios.get('/ajax/wallet/withdraw-requests', {
-        ...(this.page > 1 && { params: { page: this.page } })
-      })
+        .catch(() => {
+          this.zeroCardTableRowLoading = false
+        })
     }
   }
 }

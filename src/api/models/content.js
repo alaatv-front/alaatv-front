@@ -452,9 +452,16 @@ export default class ContentAPI extends APIRepository {
 
   setVideoWatched(data = {}) {
     const mergedData = this.getNormalizedSendData({
-      watchable_id: '',
+      // seconds_watched: null,
+      studyevent_id: null,
+      completely_watched: null,
+      watchable_id: null,
       watchable_type: 'content'
     }, data)
+    if (data.seconds_watched) {
+      mergedData.seconds_watched = data.seconds_watched
+    }
+
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,

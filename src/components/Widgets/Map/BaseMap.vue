@@ -51,8 +51,8 @@
                    class="markerImage adminToolBoxMarker"
                    :class="{'border': item && item.editMode}"
                    :src="item.data.icon.options.iconUrl">
-              <q-img v-else
-                     src="img/mapMarker.png" />
+              <q-icon v-else
+                      name="ph:map-pin" />
             </l-icon>
           </l-marker>
           <l-polyline v-if="(item.type.name === 'polyline' || item.type.id === 2) && item.data.line && item.data.line.options"
@@ -94,8 +94,8 @@
                  class="markerImage adminToolBoxMarker"
                  :class="{'border': adminToolBox.marker.editMode}"
                  :src="adminToolBox.marker.data.icon.options.iconUrl">
-            <q-img v-else
-                   src="img/mapMarker.png" />
+            <q-icon v-else
+                    name="ph:map-pin" />
           </l-icon>
         </l-marker>
 

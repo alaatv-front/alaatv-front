@@ -1,11 +1,10 @@
 {
-  "appId": "${ANDROID_APPLICATION_ID}",
-  "appName": "alaatv",
-  "bundledWebRuntime": false,
-  "npmClient": "yarn",
-  "webDir": "www",
-  "server": {
-    "androidScheme": "https",
-    "url": "http://192.168.3.102:8083"
-  }
+	"appId": "${ANDROID_APPLICATION_ID}",
+	"appName": "alaatv",
+	"bundledWebRuntime": false,
+	"npmClient": "yarn",
+	"webDir": "www",
+	"server": {
+		"androidScheme": "https"
+	}
 }

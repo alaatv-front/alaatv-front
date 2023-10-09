@@ -41,6 +41,9 @@ export default class UserAPI extends APIRepository {
       verifyMoshavereh: '/mobile/verifyMoshavereh',
       newsletter: '/newsletter',
       saveExam: '/user/exam-save',
+      settingUserStore: '/setting/uesrStore',
+      sendWatchedContents: '/watched-bulk',
+      sendFavorableList: '/favorable-list',
       admin: {
         create: {
           base: '/admin/user'
@@ -145,7 +148,8 @@ export default class UserAPI extends APIRepository {
       cacheKey: this.CacheList.bankAccounts,
       data: this.getNormalizedSendData({
         preShabaNumber: 'IR', // String
-        shabaNumber: '' // String
+        shabaNumber: '', // String
+        cardNumber: '' // String
       }, data),
       resolveCallback: (response) => {
         return response
@@ -639,6 +643,62 @@ export default class UserAPI extends APIRepository {
       }, data),
       resolveCallback: (response) => {
         return response.data.data // String Message
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  sendFavorableList(data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.sendFavorableList,
+      data: this.getNormalizedSendData({
+        favorableId: null // Int id such as (productId-contentId-setId)
+      }, data),
+      resolveCallback: (response) => {
+        return response.data.data
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  sendWatchedContents(data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.sendWatchedContents,
+      data: this.getNormalizedSendData({
+        watchable_id: null, // Int
+        seconds_watched: null, // Int
+        completely_watched: 0 // 0 : watched completely & 1 : watched completed and second_watched Value is null
+      }, data),
+      resolveCallback: (response) => {
+        return response.data // Array of Null: []
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  sendOldAndroidDatabase (data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.settingUserStore,
+      data: this.getNormalizedSendData({
+        key: null, // String
+        value: null // String (JSON stringify)
+      }, data),
+      resolveCallback: (response) => {
+        return {
+          status: response
+        }
       },
       rejectCallback: (error) => {
         return error

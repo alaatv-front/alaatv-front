@@ -1,5 +1,6 @@
 <template>
-  <div class="product-page-container new-theme">
+  <div class="product-page-container new-theme"
+       :class="{ 'hasInstallment': hasInstallment }">
     <div class="product-background">
       <div class="background-image"
            :style="{backgroundImage: `url(${product.photo})`}">
@@ -127,6 +128,7 @@ import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import Bookmark from 'src/components/Bookmark.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
 import ShareNetwork from 'src/components/ShareNetwork.vue'
 import ProductInfoTab from 'src/components/Widgets/Product/ProductInfoTab/ProductInfoTab.vue'
 import ProductIntroBox from 'src/components/Widgets/Product/ProductIntroBox/ProductIntroBox.vue'
@@ -173,6 +175,12 @@ export default defineComponent({
         return this.$route.params.id
       }
       return this.product.id
+    },
+    hasInstallment () {
+      if (this.product) {
+        return this.product.has_instalment_option
+      }
+      return false
     }
   },
   mounted() {
@@ -182,7 +190,7 @@ export default defineComponent({
   methods: {
     getProduct() {
       this.loading = true
-      this.$apiGateway.product.show(this.productId)
+      APIGateway.product.show(this.productId)
         .then(product => {
           this.product = product
           this.loading = false
@@ -220,7 +228,13 @@ export default defineComponent({
       this.expanded = !this.expanded
     },
     calculateDescriptionHight() {
-      if (this.$refs.shortDescription.clientHeight >= 301) {
+      let totalHeight = 0
+      for (let index = 0; index < this.$refs.shortDescription.children.length; index++) {
+        const element = this.$refs.shortDescription.children[index]
+        totalHeight += element.clientHeight
+      }
+      const minHeight = this.$q.screen.lt.sm ? 300 : 450
+      if (totalHeight > minHeight) {
         this.showMore = true
       } else {
         this.showMore = false
@@ -280,13 +294,15 @@ export default defineComponent({
     max-width: 100%;
     width: 100%;
     height: auto;
+    overflow: hidden;
     .background-image {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-      height: 100%;
+      top: -50px;
+      left: -50px;
+      right: -50px;
+      bottom: -50px;
+      width: calc( 100% + 100px);
+      height: calc( 100% + 100px);
       filter: blur(10px);
       background-size: cover;
       background-repeat: no-repeat;
@@ -295,7 +311,7 @@ export default defineComponent({
       .background-filter {
         width: 100%;
         height: 100%;
-        background: linear-gradient(270deg,  rgba(0, 0, 0, 0.15)0%, rgba(0, 0, 0, 0.60) 47.60%, rgba(0, 0, 0, 0.95) 100%), url(<path-to-image>), lightgray 0px 0px / 100% 100% no-repeat;
+        background: linear-gradient(270deg,  rgba(0, 0, 0, 0.15)0%, rgba(0, 0, 0, 0.60) 47.60%, rgba(0, 0, 0, 0.95) 100%), lightgray 0px 0px / 100% 100% no-repeat;
         mix-blend-mode: multiply;
       }
     }
@@ -467,7 +483,7 @@ export default defineComponent({
           .short-description-text {
             height: 300px;
             overflow-y: hidden;
-            transition: all 3s ease-in-out;
+            transition: all .3s ease-in-out;
             color:#FFF;
             font-size: 16px;
             font-style: normal;
@@ -484,7 +500,7 @@ export default defineComponent({
             &.auto-height {
               height: auto;
               min-height: 300px;
-              transition: all 3s ease-in-out;
+              transition: all .3s ease-in-out;
 
               @media screen and (max-width: 600px){
                 min-height: 110px;
@@ -497,13 +513,13 @@ export default defineComponent({
 
     .product-pic {
       height: 550px;
-      background: linear-gradient(270deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.60) 52.60%, rgba(0, 0, 0, 0.15) 100%), url(<path-to-image>), lightgray 0px 0px / 100% 100% no-repeat;
+      background: linear-gradient(270deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.60) 52.60%, rgba(0, 0, 0, 0.15) 100%), lightgray 0px 0px / 100% 100% no-repeat;
       filter: blur(10px);
     }
   }
 
   .product-page-content-container {
-    width: 1200px;
+    width: 1362px;
     max-width: 100%;
     position: relative;
     margin: 30px 0;
@@ -534,6 +550,12 @@ export default defineComponent({
       @media screen and (max-width: 1024px) {
         margin-top: 0;
       }
+    }
+  }
+
+  &.hasInstallment {
+    .product-page-content-container {
+      margin-bottom: 250px;
     }
   }
 }

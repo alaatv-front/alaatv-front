@@ -62,7 +62,7 @@
           </div>
         </div>
         <image-upload-dialog :dialog="dialog"
-                             :multiple="multiple"
+                             :multiple="false"
                              @toggle-dialog="toggleUploadDialog"
                              @update-value="onUpdateValue" />
       </div>

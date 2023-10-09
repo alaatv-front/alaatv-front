@@ -112,34 +112,36 @@
                 </div>
               </div>
             </q-card-section>
-            <q-card-section v-if="order.hasGrand()"
-                            class="card-actions">
-              <div class="product-details row"
+            <q-card-section class="card-actions">
+              <div v-for="item in order.order_product.list"
+                   :key="item.id"
+                   class="product-details"
                    :class="expandedObject[i] ?'expanded': ''">
-                <div v-if="order.grand.price.final !== null"
+                <div v-if="item.price.final !== null"
                      class="price-container col-md-6 col-sm-3">
                   <div class="discount-part">
-                    <div v-if="hasDiscount(order)"
+                    <div v-if="hasDiscount(item)"
                          class="discount-percent">
-                      {{ order.grand.price.discountInPercent() }}%
+                      {{ item.price.discountInPercent() }}%
                     </div>
 
-                    <div v-if="hasDiscount(order)"
+                    <div v-if="hasDiscount(item)"
                          class="base-price">
-                      {{ order.grand.price.toman('base', null) }}
+                      {{ item.price.toman('base', null) }}
                     </div>
                   </div>
                   <div class="final-part">
-                    <div class="final-price">{{ order.grand.price.toman('final', null) }}</div>
+                    <div class="final-price">{{ item.price.toman('final', null) }}</div>
                     <div class="toman">تومان</div>
                   </div>
                 </div>
-                <div class="action-buttons col-md-12 col-sm-3"
+                <div v-if="false"
+                     class="action-buttons col-md-6 col-sm-3"
                      :class="expandedObject[i] ? '' : 'open-expansion'">
-                  <router-link :to="{name: 'Public.Product.Show', params:{id: order.grand.id}}"
-                               class="go-product text-primary text-center">
+                  <router-link :to="{name: 'Public.Product.Show', params:{id: item.product_id}}"
+                               class="go-product subtitle2 text-center">
                     رفتن
-                    به صفحه محصول
+                    به صفحه دوره
                   </router-link>
                   <q-expansion-item v-if="order.order_product?.list.length > 0"
                                     v-model="expandedObject[i]"
@@ -247,6 +249,7 @@ export default {
   data () {
     return {
       // cart: new Cart(),
+      mounted: false,
       dialogState: false,
       test: null,
       expandedObject: {},
@@ -263,8 +266,17 @@ export default {
     }
   },
   computed: {
-    cart () {
-      return this.$store.getters['Cart/cart']
+    cart: {
+      get () {
+        if (this.mounted) {
+          return this.$store.getters['Cart/cart']
+        }
+
+        return new Cart()
+      },
+      set (newValue) {
+        this.$store.commit('Cart/updateCart', newValue)
+      }
     },
     cartItemsList () {
       return this.getOrderedList(this.cart.items.list)
@@ -282,15 +294,8 @@ export default {
       }
     }
   },
-  watch: {
-    localOptions: {
-      handler(newVal) {
-        this.$emit('update:options', newVal)
-      },
-      deep: true
-    }
-  },
   mounted () {
+    this.mounted = true
     this.cartReview()
     this.$bus.on('busEvent-refreshCart', this.cartReview)
   },
@@ -303,21 +308,21 @@ export default {
       return order.order_product.list[0].product[key]
     },
     hasDiscount(order) {
-      return order.grand.price.discountInPercent() > 0
+      return order.price.discountInPercent() > 0
     },
     cartReview() {
       this.cart.loading = true
       this.$store.dispatch('Cart/reviewCart')
         .then((response) => {
-          const invoice = response
+          // const invoice = response
 
           const cart = new Cart(response)
 
-          if (invoice.count > 0) {
-            invoice.items.list[0].order_product.list.forEach((order) => {
-              cart.items.list.push(order)
-            })
-          }
+          // if (invoice.count > 0) {
+          //   invoice.items.list[0].order_product.list.forEach((order) => {
+          //     cart.items.list.push(order)
+          //   })
+          // }
           this.cart = cart
           this.cart.loading = false
         }).catch(() => {
@@ -589,8 +594,8 @@ export default {
           display: flex;
           justify-content: space-between;
           width: 100%;
-          //margin-top: -32px;
-          //margin-left: 164px;
+          margin-top: -32px;
+          margin-left: 164px;
 
           @media screen and (max-width: 1439px) {
             margin-left: 160px;
@@ -873,6 +878,7 @@ export default {
           &.expanded {
             .action-buttons {
               .go-product {
+                color: $grey-9 !important;
                 display: none;
               }
             }
