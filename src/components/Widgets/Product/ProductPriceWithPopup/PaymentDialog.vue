@@ -11,7 +11,7 @@
           </div>
         </div>
       </q-card-section>
-      <q-card-section>
+      <q-card-section class="q-pt-none">
         <div class="row payment-body"
              :class="{'q-col-gutter-lg': paymentMethod !== 'cash'}">
           <div class="col-12 products-col"
@@ -562,12 +562,11 @@ export default defineComponent({
   }
 
   .header-section{
-    padding-bottom: 5px;
+    padding-bottom: 0;
   }
 
   .payment-header {
-    padding: 0 15px;
-    height: 40px;
+    padding: 0 15px 24px 15px;
 
     .header-title {
       color: #616161;
