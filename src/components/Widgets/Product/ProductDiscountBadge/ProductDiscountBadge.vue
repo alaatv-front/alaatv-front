@@ -71,7 +71,7 @@ export default defineComponent({
       line-height: normal;
     }
 
-    @media screen and (max-width: 1024px){
+    @media screen and (max-width: 600px){
       top: 9px;
       right: 12px;
       &__number {
@@ -96,7 +96,7 @@ export default defineComponent({
   }
   .discount-badge_percent__img {
     width: 64px;
-    @media screen and (max-width: 1024px){
+    @media screen and (max-width: 600px){
       width: 32px;
     }
   }
