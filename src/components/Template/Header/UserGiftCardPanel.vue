@@ -25,22 +25,23 @@
                  flat
                  @click="toggleDialog" />
         </q-card-section>
+        <q-separator class="grey1" />
         <q-card-section class="sms-help-dialog_main">
           <div class="sms-help-dialog_main__title">
             آسان کارت با ارسال کد های پایین به سرشماره 10006420
           </div>
           <div class="sms-help-dialog_main__list">
             <div class="sms-help-item">
-              G0: دریافت کارت
+              دریافت کارت :G0
             </div>
             <div class="sms-help-item">
-              G1: کارت‌های موجود
+              کارت‌های موجود :G1
             </div>
             <div class="sms-help-item">
-              G2: موجودی حساب
+              موجودی حساب :G2
             </div>
             <div class="sms-help-item">
-              G3: تسویه حساب
+              تسویه حساب :G3
             </div>
           </div>
         </q-card-section>
