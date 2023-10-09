@@ -3,31 +3,37 @@
        :class="customClass"
        class="lazy-img">
     <q-resize-observer @resize="onresize" />
-    <q-img v-if="qImage && width && height"
+    <template v-if="qImage">
+      <q-img v-if="width && height"
+             :alt="alt"
+             :src="lazyImageSrc"
+             :width="computedWidth+'px'"
+             :height="computedHeight+'px'"
+             :ratio="ratio"
+             fit="contain"
+             class="full-width img"
+             position="0 0">
+        <slot />
+      </q-img>
+      <q-img v-else
+             :src="computedSrc"
+             :alt="alt">
+        <slot />
+      </q-img>
+    </template>
+    <template v-else>
+      <img v-if="width && height"
            :alt="alt"
            :src="lazyImageSrc"
-           :width="computedWidth+'px'"
-           :height="computedHeight+'px'"
-           :ratio="ratio"
-           fit="contain"
            class="full-width img"
-           position="0 0">
-      <slot />
-    </q-img>
-    <img v-else-if="!qImage && width && height"
-         :alt="alt"
-         :src="lazyImageSrc"
-         class="full-width img"
-         :style="{height: computedHeight+'px', width: computedWidth+'px'}">
-    <q-img v-else-if="qImage && (!width || !height)"
+           :width="computedWidth"
+           :height="computedHeight"
+           :style="{height: computedHeight+'px', width: computedWidth+'px'}">
+      <img v-else
            :src="computedSrc"
-           :alt="alt">
-      <slot />
-    </q-img>
-    <img v-else-if="!qImage && (!width || !height)"
-         :src="computedSrc"
-         :alt="alt"
-         class="full-width">
+           :alt="alt"
+           class="full-width">
+    </template>
   </div>
 </template>
 
@@ -91,11 +97,13 @@ export default {
           h: 0
         }
       }
-      const wContain = this.width.search('px') !== -1 ? 'px' : this.width.search('%') ? '%' : ''
-      const HContain = this.height.search('px') !== -1 ? 'px' : this.height.search('%') ? '%' : ''
+      const width = this.width.toString()
+      const height = this.height.toString()
+      const wContain = width.search('px') !== -1 ? 'px' : width.search('%') ? '%' : ''
+      const HContain = height.search('px') !== -1 ? 'px' : height.search('%') ? '%' : ''
       return {
-        w: this.width.replace(wContain, ''),
-        h: this.height.replace(HContain, '')
+        w: width.replace(wContain, ''),
+        h: height.replace(HContain, '')
       }
     },
     ratio () {
