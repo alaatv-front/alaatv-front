@@ -254,7 +254,7 @@ export default {
 
 <style lang="scss" scoped>
 .block-section {
-  margin-bottom: 30px;
+  margin-bottom: 8px;
   width: 100%;
   .block-header {
     border-radius: 10px;
