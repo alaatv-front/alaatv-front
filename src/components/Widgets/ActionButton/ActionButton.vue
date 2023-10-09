@@ -1,5 +1,5 @@
 <template>
-  <q-drawer v-if="localOptions.action === 'hamburger_menu'"
+  <q-drawer v-if="localOptions.action === 'hamburger_menu' && drawer"
             v-model="drawer"
             :width="localOptions.drawer.width"
             :overlay="localOptions.drawer.overlay"

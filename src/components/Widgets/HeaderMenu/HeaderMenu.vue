@@ -88,7 +88,7 @@ export default {
   data() {
     return {
       scrollEventIsAdded: false,
-      windowWidth: 1920,
+      windowWidth: 0,
       defaultOptions: {
         xs: {
           rightSectionWidgets: [],
