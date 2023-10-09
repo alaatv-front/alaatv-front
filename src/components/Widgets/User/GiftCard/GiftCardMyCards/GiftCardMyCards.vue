@@ -221,6 +221,7 @@
 import { APIGateway } from 'src/api/APIGateway.js'
 import GiftCardMixin from '../Mixin/GiftCardMixin.js'
 import { ReferralCodeList } from 'src/models/ReferralCode.js'
+import { copyToClipboard } from 'quasar'
 
 export default {
   name: 'GiftCardMyCards',
@@ -327,7 +328,7 @@ export default {
       this.getGiftCardsData()
     },
     copyCodeNumberToClipboard(code) {
-      this.copyToClipboard(code)
+      copyToClipboard(code)
         .then(() => {
           this.$q.notify({
             message: 'کد کارت هدیه شما کپی شد',
@@ -410,7 +411,7 @@ export default {
         .then(() => {
           card.isAssigned = 1
           card.loading = false
-          this.copyToClipboard(card.url)
+          copyToClipboard(card.url)
             .then(() => {
               this.$q.notify({
                 message: 'کد لینک کارت هدیه شما کپی شد',
@@ -428,12 +429,12 @@ export default {
           card.loading = false
         })
     },
-    copyToClipboard (textToCopy) {
-      if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
-        return navigator.clipboard.writeText(textToCopy)
-      }
-      return Promise.reject('The Clipboard API is not available.')
-    },
+    // copyToClipboard (textToCopy) {
+    //   if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+    //     return navigator.clipboard.writeText(textToCopy)
+    //   }
+    //   return Promise.reject('The Clipboard API is not available.')
+    // },
     updateTableData(cardId) {
       this.referralCodeList.forEach(item => {
         if (item.id === cardId) {
