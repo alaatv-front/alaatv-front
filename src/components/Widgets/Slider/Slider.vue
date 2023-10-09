@@ -31,13 +31,11 @@
                  class="cursor-pointer"
                  @click="takeAction(slide)">
         <lazy-img v-if="slide.photo.src !== ''"
-                  q-image
                   :height="slide.photo.height"
                   :width="slide.photo.width"
                   :src="slide.photo.src"
                   :alt="slide.title" />
         <lazy-img v-else
-                  qImage
                   :height="responsiveFeatures(slide.features).height"
                   :width="responsiveFeatures(slide.features).width"
                   :src="responsiveFeatures(slide.features).src"
@@ -204,7 +202,11 @@ export default {
       this.windowWidth = window.innerWidth
     },
     responsiveFeatures (features) {
-      const defaultResult = { src: '', width: '0', height: '0' }
+      const defaultResult = {
+        src: '',
+        width: '0',
+        height: '0'
+      }
       let result = {}
       if (this.windowWidth >= 1920) {
         result = features.xl.src !== '' ? features.xl : features.lg.src !== '' ? features.lg : features.sm.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs

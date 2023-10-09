@@ -54,9 +54,9 @@ export default {
     }
   },
   mounted () {
-    console.warn('EwanoThankYouPage loaded')
-    console.warn('window.location.href: ', window.location.href)
-    console.warn('EwanoThankYouPage isEwanoUser: ', this.isEwanoUser)
+    // console.warn('EwanoThankYouPage loaded')
+    // console.warn('window.location.href: ', window.location.href)
+    // console.warn('EwanoThankYouPage isEwanoUser: ', this.isEwanoUser)
     if (!this.isEwanoUser) {
       return
     }

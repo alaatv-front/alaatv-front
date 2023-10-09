@@ -6,12 +6,12 @@
       <q-card-section class="header-section">
         <div class="payment-header">
           <div class="header-title">ثبت نام</div>
-          <!--          <div class="header-subtitle">-->
-          <!--            شما میتونید خدمات و دوره های دیگر سال کنکور خودتون رو الان بخرید!-->
-          <!--          </div>-->
+          <div class="header-subtitle">
+            شما میتونید در این دوره به صورت قسطی ثبت نام کنید.
+          </div>
         </div>
       </q-card-section>
-      <q-card-section>
+      <q-card-section class="q-pt-none">
         <div class="row payment-body"
              :class="{'q-col-gutter-lg': paymentMethod !== 'cash'}">
           <div class="col-12 products-col"
@@ -562,12 +562,11 @@ export default defineComponent({
   }
 
   .header-section{
-    padding-bottom: 5px;
+    padding-bottom: 0;
   }
 
   .payment-header {
-    padding: 0 15px;
-    height: 40px;
+    padding: 0 15px 24px 15px;
 
     .header-title {
       color: #616161;
@@ -917,6 +916,9 @@ export default defineComponent({
 
     .instalment-info {
       margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       .simple-text {
         color: #424242;
         font-size: 18px;
@@ -936,12 +938,12 @@ export default defineComponent({
         color: #FF8518;
         font-style: normal;
         line-height: normal;
-        .price-value {
+        &.price-value {
           font-size: 24px;
           font-weight: 700;
           letter-spacing: -0.72px;
         }
-        .price-label {
+        &.price-label {
           font-size: 14px;
           font-weight: 600;
           letter-spacing: -0.42px;
