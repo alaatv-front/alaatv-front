@@ -4,7 +4,7 @@
          class="block-header row q-pa-md q-mb-sm"
          :class="localOptions.block.headerCustomClass">
       <a :href="localOptions.block?.url?.web"
-         class="block-title">
+         class="block-title ellipsis">
         {{ localOptions.block.title }}
       </a>
       <q-btn v-if="!localOptions.block.banners || localOptions.block.banners.list.length === 0"
@@ -24,7 +24,7 @@
              :key="product.id"
              :class="{
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView,
-               'col-xl-3 col-lg-3 col-md-4 col-sm-5 col-xs-9': !isGridView,
+               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-10': !isGridView,
              }"
              class="product-spacing">
           <product-item :options="{product, minWidth: productItemMinWidth, ...defaultOptions.productItemOptions}" />
@@ -254,7 +254,7 @@ export default {
 
 <style lang="scss" scoped>
 .block-section {
-  margin-bottom: 30px;
+  margin-bottom: 8px;
   width: 100%;
   .block-header {
     border-radius: 10px;
@@ -272,11 +272,12 @@ export default {
       padding: 0 0 4px 0;
       border-bottom: 1px solid white;
       transition: 0.3s ease;
+      max-width: 80%;
       &:hover {
         padding: 0 0 6px 0;
         border-color: #333333;
       }
-      @media screen and (max-width: 350px){
+      @media screen and (max-width: 600px){
         font-size: 16px;
       }
     }
@@ -284,10 +285,10 @@ export default {
 
   .block-container {
     display: flex;
-    width: 100%;
+    //width: 100%;
     .scroll-view {
       display: flex;
-      width: 100%;
+      //width: 100%;
       overflow-x: auto;
       flex-wrap: nowrap;
       padding-bottom: 10px;
@@ -303,7 +304,7 @@ export default {
     }
 
     .item-container {
-      width: 100%;
+      //width: 100%;
       &.grid_view {
         justify-content: center;
       }
