@@ -138,6 +138,9 @@ export default {
       this.visible = true
       this.updateLazyImageSrc()
     },
+    isBase64Image (imageData) {
+      return imageData.toString().indexOf('data:image/png;base64') === 0
+    },
     updateLazyImageSrc () {
       this.computedWidth = Math.floor(this.getOffsetWidth())
       this.computedHeight = Math.floor(this.getOffsetHeight())
@@ -145,7 +148,7 @@ export default {
         this.computedHeight = Math.floor((parseInt(this.normalizedSizeInNumber.h) * this.computedWidth) / parseInt(this.normalizedSizeInNumber.w))
       }
       this.lazyImageSrc = this.computedSrc
-      if (this.lazyImageSrc && !isNaN(this.computedWidth) && this.computedWidth > 0 && !isNaN(this.computedHeight) && this.computedHeight > 0) {
+      if (this.lazyImageSrc && !this.isBase64Image(this.lazyImageSrc) && !isNaN(this.computedWidth) && this.computedWidth > 0 && !isNaN(this.computedHeight) && this.computedHeight > 0) {
         this.lazyImageSrc += '?w=' + this.computedWidth + '&h=' + this.computedHeight
       }
 
