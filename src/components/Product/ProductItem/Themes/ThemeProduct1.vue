@@ -1,9 +1,9 @@
 <template>
-  <div class="theme1-container">
+  <div class="theme1-container"
+       @click.capture="productClicked">
     <div class="img-box">
       <product-discount-badge class="product-discount-badge"
-                              :options="{price:product.price}"
-                              @click.capture="productClicked" />
+                              :options="{price:product.price}" />
       <router-link :to="getRoutingObject"
                    @click="productClicked">
         <lazy-img :src="product.photo"
