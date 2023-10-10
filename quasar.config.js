@@ -85,11 +85,11 @@ module.exports = configure(function (ctx) {
       analyze: false,
       env: process.env,
       extendViteConf(viteConf, {isServer, isClient}) {
-        console.log('NODE_ENV:', process.env.NODE_ENV);
+        console.log('ASSET_SERVE:', process.env.ASSET_SERVE);
         console.log('NODES_SERVER_URL_SSL:', process.env.NODES_SERVER_URL_SSL);
         console.log('IF: before');
         // Set the base URL based on the environment
-        if (process.env.NODE_ENV === 'staging') {
+        if (process.env.ASSET_SERVE === 'remote') {
           console.log('IF: INSIDE:', process.env.NODES_SERVER_URL_SSL);
           viteConf.base = process.env.NODES_SERVER_URL_SSL || '/';
           console.log('IF: INSIDE: -viteConf.base:', viteConf.base);
