@@ -89,7 +89,7 @@ module.exports = configure(function (ctx) {
         console.log('NODES_SERVER_URL_SSL:', process.env.NODES_SERVER_URL_SSL);
         // Set the base URL based on the environment
         if (process.env.NODE_ENV === 'staging') {
-          viteConf.base = process.env.NODES_SERVER_URL_SSL;
+          viteConf.base = process.env.NODES_SERVER_URL_SSL || '/';
         }
       },
       beforeDev({quasarConf}) {
