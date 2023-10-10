@@ -221,7 +221,7 @@
                    label="تایید"
                    size="md"
                    color="warning"
-                   @click="updateMyStudyPlan" />
+                   @click="filterByLesson" />
           </div>
         </q-card-section>
       </q-card>
@@ -346,7 +346,7 @@ export default {
       majorOptions: [],
       grade: {},
       gradeOptions: [],
-      lesson: '',
+      lesson: { lesson_name: 'همه', id: null },
       lessonOptions: [],
       filteredLesson: null,
       editApi: null,
@@ -469,6 +469,7 @@ export default {
           options: [],
           optionLabel: 'display_name',
           optionValue: 'id',
+          responseKey: 'data.study_method',
           value: null,
           col: 'col-4'
         },
@@ -570,7 +571,6 @@ export default {
     this.major = user.major
     this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
     this.getFilterLesson()
-    this.getMyStudyPlan()
   },
   methods: {
     updatePlan() {
@@ -683,6 +683,7 @@ export default {
           .then(setting => {
             this.filteredLesson = setting.setting.abrisham2_calender_default_lesson
             this.lesson = this.lessonOptions.find(lesson => lesson.id === this.filteredLesson)
+            this.getMyStudyPlan()
             resolve()
           })
           .catch(() => {
@@ -716,6 +717,10 @@ export default {
           this.gradeOptions = options.grades
           this.planOptions = options.studyPlans
           this.lessonOptions = options.products
+          this.lessonOptions.push({
+            lesson_name: 'همه',
+            id: null
+          })
           this.planType = options.studyPlans.find(studyPlan => studyPlan.display_name === this.planType.display_name)
           this.setInputAttrByName(this.inputs, 'major_id', 'options', options.majors)
           this.setInputAttrByName(this.inputs, 'grade_id', 'options', options.grades)

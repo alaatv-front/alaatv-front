@@ -294,13 +294,15 @@ export default defineComponent({
     max-width: 100%;
     width: 100%;
     height: auto;
+    overflow: hidden;
     .background-image {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-      height: 100%;
+      top: -50px;
+      left: -50px;
+      right: -50px;
+      bottom: -50px;
+      width: calc( 100% + 100px);
+      height: calc( 100% + 100px);
       filter: blur(10px);
       background-size: cover;
       background-repeat: no-repeat;

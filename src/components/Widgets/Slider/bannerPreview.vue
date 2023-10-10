@@ -61,11 +61,7 @@ export default {
       this.img.width = width
     },
     'image.src'(src) {
-      this.$emit('update:src', {
-        src,
-        size: this.size
-      })
-      this.updateImage()
+      this.updateImage(src)
     }
   },
   created() {
@@ -79,13 +75,19 @@ export default {
         this.image.src = this.banner.photo.src
       }
     },
-    updateImage() {
+    updateImage (src) {
       this.visible = true
       this.img.src = this.image.src
       this.img.onload = () => {
         this.image.width = this.img.width
         this.image.height = this.img.height
         this.visible = false
+        this.$emit('update:src', {
+          src,
+          size: this.size,
+          width: this.image.width,
+          height: this.image.height
+        })
       }
       this.img.onerror = () => {
         this.visible = false

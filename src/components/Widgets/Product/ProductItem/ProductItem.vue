@@ -1,7 +1,7 @@
 <template>
   <div class="product-item-container"
        :style="localOptions.style"
-       :class="[localOptions.theme, localOptions.mobileTheme]">
+       :class="localOptions.theme">
     <q-card v-if="localOptions.loading"
             class="product-item-box q-pa-md"
             :style="{minWidth: localOptions.minWidth, ...localOptions.style}">
@@ -81,24 +81,21 @@
 </template>
 
 <script>
-import { defineComponent, defineAsyncComponent } from 'vue'
+import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import ProductBottomSheet from 'src/components/Widgets/Product/ProductItem/components/ProductBottomSheet.vue'
+import ThemeDefault from 'components/Product/ProductItem/Themes/ThemeDefault.vue'
+import ThemeProduct1 from 'components/Product/ProductItem/Themes/ThemeProduct1.vue'
+import ThemeProduct2 from 'components/Product/ProductItem/Themes/ThemeProduct2.vue'
 
 export default defineComponent({
   name: 'productItem',
   components: {
-    ThemeDefault: defineAsyncComponent(() =>
-      import('src/components/Widgets/Product/ProductItem/themes/ThemeDefault.vue')
-    ),
-    ThemeProduct1: defineAsyncComponent(() =>
-      import('src/components/Widgets/Product/ProductItem/themes/ThemeProduct1.vue')
-    ),
-    ThemeProduct2: defineAsyncComponent(() =>
-      import('components/Widgets/Product/ProductItem/themes/ThemeProduct2.vue')
-    ),
+    ThemeDefault,
+    ThemeProduct1,
+    ThemeProduct2,
     ProductBottomSheet
   },
   mixins: [mixinWidget, mixinPrefetchServerData],
@@ -109,7 +106,7 @@ export default defineComponent({
     productMounted: false,
     defaultOptions: {
       theme: 'ThemeProduct2',
-      mobileTheme: 'vertical',
+      mobileTheme: 'horizontal',
       productViewType: 'productPage',
       style: {},
       borderStyle: {
@@ -501,10 +498,10 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
   }
 
   &.ThemeDefault {
-    @media screen and (max-width: 1023px){
-      min-width: 304px;
-      height: 140px;
-    }
+    //@media screen and (max-width: 1023px){
+    //  min-width: 304px;
+    //  height: 140px;
+    //}
   }
 
   &:hover{

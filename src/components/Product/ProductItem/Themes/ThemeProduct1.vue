@@ -1,9 +1,10 @@
 <template>
-  <div class="theme1-container">
-    <div class="img-box">
+  <div class="theme1-container"
+       @click.capture="productClicked">
+    <div class="img-box"
+         :class="localOptions.theme">
       <product-discount-badge class="product-discount-badge"
-                              :options="{price:product.price}"
-                              @click.capture="productClicked" />
+                              :options="{price:product.price}" />
       <router-link :to="getRoutingObject"
                    @click="productClicked">
         <lazy-img :src="product.photo"
@@ -112,9 +113,9 @@
 <script>
 import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
-import ProductDiscountBadge from 'src/components/Widgets/Product/ProductDiscountBadge/ProductDiscountBadge.vue'
-import LazyImg from 'src/components/lazyImg.vue'
-import Bookmark from 'src/components/Bookmark.vue'
+import ProductDiscountBadge from 'components/Widgets/Product/ProductDiscountBadge/ProductDiscountBadge.vue'
+import LazyImg from 'components/lazyImg.vue'
+import Bookmark from 'components/Bookmark.vue'
 
 export default defineComponent({
   name: 'ThemeProduct1',
