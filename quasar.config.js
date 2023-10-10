@@ -170,6 +170,7 @@ module.exports = configure(function (ctx) {
       //   //   ]
       //   // }))
       // },
+
       beforeDev({ quasarConf }) {
         generateWidgetList('./src/components/Widgets')
       },
@@ -206,6 +207,10 @@ module.exports = configure(function (ctx) {
         //     'vue'
         //   ]
         // }
+        // Set the base URL based on the environment
+        if (process.env.NODE_ENV === 'production') {
+          viteConf.base = process.env.NODES_SERVER_URL_SSL || '/'
+        }
       },
       vitePlugins: [
         // ['@intlify/vite-plugin-vue-i18n', {
