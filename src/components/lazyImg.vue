@@ -23,6 +23,7 @@
     </template>
     <template v-else>
       <img v-if="width && height"
+           v-intersection.once="onIntersection"
            :alt="alt"
            :src="lazyImageSrc"
            class="full-width img"
@@ -30,6 +31,7 @@
            :height="computedHeight"
            :style="{height: computedHeight+'px', width: computedWidth+'px'}">
       <img v-else
+           v-intersection.once="onIntersection"
            :src="computedSrc"
            :alt="alt"
            class="full-width">
@@ -69,13 +71,17 @@ export default {
   },
   data () {
     return {
-      lazyImageSrc: '',
+      visible: false,
+      lazyImageSrc: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TpSKVDhYRcchQnSyIijpqFYpQIdQKrTqYXPohNGlIUlwcBdeCgx+LVQcXZ10dXAVB8APE1cVJ0UVK/F9SaBHjwXE/3t173L0DhHqZaVbHKKDptplOJsRsbkUMvUJABCH0YUpmljErSSn4jq97BPh6F+dZ/uf+HD1q3mJAQCSeYYZpE68TT27aBud94igrySrxOfGISRckfuS64vEb56LLAs+Mmpn0HHGUWCy2sdLGrGRqxBPEMVXTKV/Ieqxy3uKslauseU/+wnBeX17iOs1BJLGARUgQoaCKDZRhI06rToqFNO0nfPwDrl8il0KuDTByzKMCDbLrB/+D391ahfExLymcADpfHOdjCAjtAo2a43wfO07jBAg+A1d6y1+pA9OfpNdaWuwIiGwDF9ctTdkDLneA/idDNmVXCtIUCgXg/Yy+KQf03gLdq15vzX2cPgAZ6ip1AxwcAsNFyl7zeXdXe2//nmn29wNtt3Klb/Gn/QAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+cCDwcZJTB9qXYAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAADElEQVQI12P4P4EBAAQhAZCbA9mPAAAAAElFTkSuQmCC',
       computedWidth: 0,
       computedHeight: 0
     }
   },
   computed: {
     computedSrc () {
+      if (!this.visible) {
+        return this.lazyImageSrc
+      }
       if (!process.env.APP_ENV !== 'production' && this.src) {
         return this.src.replace('https://stage-minio.alaatv.com', 'https://nodes.alaatv.com')
       }
@@ -120,7 +126,20 @@ export default {
   },
   methods: {
     onresize () {
+      if (!this.visible) {
+        return
+      }
       this.updateLazyImageSrc()
+    },
+    onIntersection (entry) {
+      if (!entry.isIntersecting) {
+        return
+      }
+      this.visible = true
+      this.updateLazyImageSrc()
+    },
+    isBase64Image (imageData) {
+      return imageData.toString().indexOf('data:image/png;base64') === 0
     },
     updateLazyImageSrc () {
       this.computedWidth = Math.floor(this.getOffsetWidth())
@@ -129,7 +148,7 @@ export default {
         this.computedHeight = Math.floor((parseInt(this.normalizedSizeInNumber.h) * this.computedWidth) / parseInt(this.normalizedSizeInNumber.w))
       }
       this.lazyImageSrc = this.computedSrc
-      if (this.lazyImageSrc && !isNaN(this.computedWidth) && this.computedWidth > 0 && !isNaN(this.computedHeight) && this.computedHeight > 0) {
+      if (this.lazyImageSrc && !this.isBase64Image(this.lazyImageSrc) && !isNaN(this.computedWidth) && this.computedWidth > 0 && !isNaN(this.computedHeight) && this.computedHeight > 0) {
         this.lazyImageSrc += '?w=' + this.computedWidth + '&h=' + this.computedHeight
       }
 
