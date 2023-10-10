@@ -246,6 +246,42 @@ export default {
     }
   },
   methods: {
+    handleHotkeys (event) {
+      const key = event.which || event.keyCode
+
+      switch (key) {
+        case 32: // Space key
+          event.preventDefault()
+          if (this.player.paused()) {
+            this.player.play()
+          } else {
+            this.player.pause()
+          }
+          break
+        case 37: // Left arrow key
+          this.player.currentTime(this.player.currentTime() - 5)
+          break
+        case 39: // Right arrow key
+          this.player.currentTime(this.player.currentTime() + 5)
+          break
+        case 38: // up arrow ket
+          event.preventDefault()
+          this.player.volume(this.player.volume() + 0.1)
+          break
+        case 40: // down arrow ket
+          event.preventDefault()
+          this.player.volume(this.player.volume() - 0.1)
+          break
+        case 13: // "Enter" key
+          this.player.requestFullscreen()
+          break
+        case 27: // "Esc" key
+          this.player.exitFullscreen()
+          break
+        default:
+          break
+      }
+    },
     updateTime () {
       try {
         const currentTime = this.player.currentTime()
@@ -434,7 +470,9 @@ export default {
     },
 
     focusOnPlayer () {
-      this.player.el().focus()
+      setTimeout(() => {
+        this.player.el().focus()
+      }, 200)
     },
     setPlayerBrand () {
       this.player.brand({
@@ -528,6 +566,8 @@ export default {
       this.player.on('seeked', () => {
         this.$emit('seeked', this.player.currentTime())
       })
+
+      this.player.on('keydown', this.handleHotkeys)
 
       // const events = [
       //   'loadstart',
