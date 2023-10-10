@@ -84,13 +84,17 @@ module.exports = configure(function (ctx) {
       gzip: true,
       analyze: false,
       env: process.env,
-      extendViteConf(viteConf, { isServer, isClient }) {
+      extendViteConf(viteConf, {isServer, isClient}) {
         console.log('NODE_ENV:', process.env.NODE_ENV);
         console.log('NODES_SERVER_URL_SSL:', process.env.NODES_SERVER_URL_SSL);
+        console.log('IF: before');
         // Set the base URL based on the environment
         if (process.env.NODE_ENV === 'staging') {
+          console.log('IF: INSIDE:', process.env.NODES_SERVER_URL_SSL);
           viteConf.base = process.env.NODES_SERVER_URL_SSL || '/';
+          console.log('IF: INSIDE: -viteConf.base:', viteConf.base);
         }
+        console.log('IF: after');
       },
       beforeDev({quasarConf}) {
         generateWidgetList('./src/components/Widgets')
@@ -105,8 +109,7 @@ module.exports = configure(function (ctx) {
       },
       minify: true,
       polyfillModulePreload: true,
-      vitePlugins: [
-      ]
+      vitePlugins: []
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
@@ -245,18 +248,6 @@ module.exports = configure(function (ctx) {
       maxAge: 1,
       // Tell browser when a file from the server should expire from cache (in ms)
 
-      // chainWebpackWebserver (chain) {
-      //   chain.plugin('eslint-webpack-plugin')
-      //     .use(ESLintPlugin, [{ extensions: ['js'] }])
-      //   // disable cache for prod only, remove the if to disable it everywhere
-      //   // if (process.env.NODE_ENV === 'production') {
-      //   chain.module.rule('vue').uses.delete('cache-loader')
-      //   chain.module.rule('js').uses.delete('cache-loader')
-      //   chain.module.rule('ts').uses.delete('cache-loader')
-      //   chain.module.rule('tsx').uses.delete('cache-loader')
-      //   // }
-      // },
-
       middlewares: [
         ctx.prod ? 'compression' : '',
         'render' // keep this as last one
@@ -362,46 +353,20 @@ module.exports = configure(function (ctx) {
 
       bundler: 'packager', // 'packager' or 'builder'
 
-      packager: {
-        // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
-
-        // OS X / Mac App Store
-        // appBundleId: '',
-        // appCategoryType: '',
-        // osxSign: '',
-        // protocol: 'myapp://path',
-
-        // Windows only
-        // win32metadata: { ... }
-      },
+      packager: {},
 
       builder: {
         // https://www.electron.build/configuration/configuration
 
         appId: 'alaatv-front-vite'
+      },
+
+      // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-browser-extensions/configuring-bex
+      bex: {
+        contentScripts: [
+          'my-content-script'
+        ]
       }
-
-      // // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      // chainWebpackMain (chain) {
-      //   chain.plugin('eslint-webpack-plugin')
-      //     .use(ESLintPlugin, [{ extensions: ['js'] }])
-      // },
-
-      // // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      // chainWebpackPreload (chain) {
-      //   chain.plugin('eslint-webpack-plugin')
-      //     .use(ESLintPlugin, [{ extensions: ['js'] }])
-      // }
-    },
-
-    // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-browser-extensions/configuring-bex
-    bex: {
-      contentScripts: [
-        'my-content-script'
-      ]
-
-      // extendBexScriptsConf (esbuildConf) {}
-      // extendBexManifestJson (json) {}
     }
   }
 })
