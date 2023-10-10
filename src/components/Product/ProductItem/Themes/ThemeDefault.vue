@@ -1,5 +1,6 @@
 <template>
   <div class="theme2-container"
+       :class="localOptions.mobileTheme"
        @click.capture="productClicked">
     <div class="img-box"
          :class="localOptions.theme">
@@ -121,7 +122,7 @@ import Bookmark from 'src/components/Bookmark.vue'
 import ProductDiscountBadge from 'src/components/Widgets/Product/ProductDiscountBadge/ProductDiscountBadge.vue'
 
 export default defineComponent({
-  name: 'ThemeProduct2',
+  name: 'ThemeDefault',
   components: {
     ProductDiscountBadge,
     LazyImg,
@@ -216,6 +217,147 @@ export default defineComponent({
   padding-top: 20px;
   margin-top: 45px;
 
+  &.vertical {
+    @media screen and (max-width: 600px) {
+      .img-box {
+        .product-discount-badge {
+          margin: -30px 20px 0px 0px;
+        }
+        a {
+          .img {
+            //width: 116px;
+          }
+        }
+      }
+      .product-content-box {
+        padding: 9px 12px 12px;
+        .price-box {
+          display: flex;
+          flex-wrap: wrap;
+          place-content: center;
+          .price-info {
+            .final-price-box {
+              .final-price {
+                @include subtitle2
+              }
+              .price-Toman {
+                @include caption2
+              }
+            }
+            .main-price {
+              font-size: 10px;
+              font-weight: 400;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.horizontal {
+    @media screen and (max-width: 600px) {
+      display: flex;
+      border-radius: 18px;
+      padding-top: 0;
+      padding-left: 20px;
+      margin-top: 20px;
+      margin-left: 16px;
+
+      .img-box {
+        margin: 0 12px 0 -35px;
+        //padding: 12px;
+        //width: 100px;
+
+        .img {
+          border-radius: 10px;
+          width: 116px;
+        }
+
+        @media screen and (max-width: 1023px){
+          width: 128px;
+        }
+      }
+
+      .product-content-box {
+        padding: 12px 12px 12px 0;
+        width: 100%;
+
+        .main-title {
+          margin-bottom: 0;
+          @include subtitle2;
+
+          a {
+          }
+
+          .title-box {
+            height: 44px;
+            justify-content: center;
+
+            .title-text {
+              -webkit-line-clamp: 2;
+            }
+          }
+        }
+
+        .price-box {
+          margin-bottom: 0;
+
+          .add-cart-info {
+            .add-cart-icon {
+            }
+          }
+
+          .price-info {
+            .final-price-box {
+              .final-price {
+                margin-left: 2px;
+              }
+            }
+
+            .main-price {
+              margin-left: 4px;
+            }
+
+            .price-Toman {
+            }
+          }
+        }
+
+        .action-box {
+          .more-detail {
+            .more {
+              display: none;
+            }
+          }
+          .btn-green{
+            margin-left: 20px;
+          }
+
+          .btn-style {
+            width: 100px;
+            height: 25px !important;
+            border-radius: 8px;
+
+            img {
+              margin-left: 0;
+            }
+
+            .content {
+            }
+
+            .active {
+            }
+          }
+        }
+
+        .discount {
+          height: 20px;
+          /* margin-left: 3px; */
+        }
+      }
+    }
+  }
+
   .img-box {
     //position: relative;
     margin: -40px 20px 0;
@@ -226,7 +368,7 @@ export default defineComponent({
       rotate: -16deg;
       transition: all ease-in-out .4s;
       @media screen and (max-width: 1023px){
-        margin: -15px 10px 0px 0px;
+        //margin: -15px 10px 0px 0px;
       }
     }
 
@@ -242,7 +384,7 @@ export default defineComponent({
         width: inherit;
 
         @media screen and (max-width: 1023px){
-          width: 116px;
+          //width: 116px;
         }
       }
     }
@@ -302,12 +444,12 @@ export default defineComponent({
 
         .main-price {
           color: #9E9E9E;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-            letter-spacing: -0.28px;
-            text-decoration-line: line-through;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          letter-spacing: -0.28px;
+          text-decoration-line: line-through;
         }
 
         .price-Toman {
@@ -606,112 +748,12 @@ export default defineComponent({
   @media screen and (max-width: 700px) {
     .product-content-box {
       .action-box {
-        flex-flow: column;
-        justify-content: space-around;
-        align-items: stretch;
+        //flex-flow: column;
+        //justify-content: space-around;
+        //align-items: stretch;
       }
     }
   }
 
-  @media screen and (max-width: 1023px) {
-    display: flex;
-    border-radius: 18px;
-    padding-top: 0;
-    padding-left: 20px;
-    margin-top: 20px;
-    margin-left: 16px;
-
-    .img-box {
-      margin: 0 12px 0 -35px;
-      //padding: 12px;
-      //width: 100px;
-
-      .img {
-        border-radius: 10px;
-      }
-
-      @media screen and (max-width: 1023px){
-        width: 128px;
-      }
-    }
-
-    .product-content-box {
-      padding: 12px 12px 12px 0;
-      width: 100%;
-
-      .main-title {
-        margin-bottom: 0;
-        @include subtitle2;
-
-        a {
-        }
-
-        .title-box {
-          height: 44px;
-          justify-content: center;
-
-          .title-text {
-            -webkit-line-clamp: 2;
-          }
-        }
-      }
-
-      .price-box {
-        margin-bottom: 0;
-
-        .add-cart-info {
-          .add-cart-icon {
-          }
-        }
-
-        .price-info {
-          .final-price-box {
-            .final-price {
-              margin-left: 2px;
-            }
-          }
-
-          .main-price {
-            margin-left: 4px;
-          }
-
-          .price-Toman {
-          }
-        }
-      }
-
-      .action-box {
-        .more-detail {
-          .more {
-            display: none;
-          }
-        }
-        .btn-green{
-          margin-left: 20px;
-        }
-
-        .btn-style {
-          width: 100px;
-          height: 25px !important;
-          border-radius: 8px;
-
-          img {
-            margin-left: 0;
-          }
-
-          .content {
-          }
-
-          .active {
-          }
-        }
-      }
-
-      .discount {
-        height: 20px;
-        /* margin-left: 3px; */
-      }
-    }
-  }
 }
 </style>

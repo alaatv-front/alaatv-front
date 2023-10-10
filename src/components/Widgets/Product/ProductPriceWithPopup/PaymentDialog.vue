@@ -6,12 +6,12 @@
       <q-card-section class="header-section">
         <div class="payment-header">
           <div class="header-title">ثبت نام</div>
-          <!--          <div class="header-subtitle">-->
-          <!--            شما میتونید خدمات و دوره های دیگر سال کنکور خودتون رو الان بخرید!-->
-          <!--          </div>-->
+          <div class="header-subtitle">
+            شما میتونید در این دوره به صورت قسطی ثبت نام کنید.
+          </div>
         </div>
       </q-card-section>
-      <q-card-section>
+      <q-card-section class="q-pt-none">
         <div class="row payment-body"
              :class="{'q-col-gutter-lg': paymentMethod !== 'cash'}">
           <div class="col-12 products-col"
@@ -550,11 +550,11 @@ export default defineComponent({
   box-shadow: 0px 2px 4px -2px rgba(16, 24, 40, 0.06), 0px 4px 8px -2px rgba(16, 24, 40, 0.10);
   width: 800px;
   max-width: 100%;
-  height: 649px;
+  //height: 649px;
   position: relative;
 
   @media screen and (max-width: 600px){
-    height: 666px;
+    //height: 666px;
   }
 
   &.cash {
@@ -562,11 +562,12 @@ export default defineComponent({
   }
 
   .header-section{
-    padding-bottom: 5px;
+    padding-bottom: 0;
   }
 
   .payment-header {
-    padding: 20px 15px 0;
+    padding: 0 15px 24px 15px;
+
     .header-title {
       color: #616161;
       font-size: 16px;
@@ -588,7 +589,7 @@ export default defineComponent({
   }
 
   .payment-body {
-    height: 450px;
+    //height: 450px;
     overflow-y: auto;
 
     @media screen and (max-width: 600px){
@@ -710,10 +711,10 @@ export default defineComponent({
 
   .installment {
     width: 100%;
-    height: 349px;
+    //height: 349px;
     border-radius: 8px;
     background: #ECEFF1;
-    overflow-y: auto;
+    //overflow-y: auto;
     padding: 20px;
     @media screen and (max-width: 600px){
       margin-bottom: 10px;
@@ -810,9 +811,9 @@ export default defineComponent({
   }
 
   .payment-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+    //position: absolute;
+    //bottom: 0;
+    //width: 100%;
     padding: 0 30px 20px;
 
     .price-title-responsive {
@@ -915,6 +916,9 @@ export default defineComponent({
 
     .instalment-info {
       margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       .simple-text {
         color: #424242;
         font-size: 18px;
@@ -934,12 +938,12 @@ export default defineComponent({
         color: #FF8518;
         font-style: normal;
         line-height: normal;
-        .price-value {
+        &.price-value {
           font-size: 24px;
           font-weight: 700;
           letter-spacing: -0.72px;
         }
-        .price-label {
+        &.price-label {
           font-size: 14px;
           font-weight: 600;
           letter-spacing: -0.42px;

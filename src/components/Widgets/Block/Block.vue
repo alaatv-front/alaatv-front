@@ -24,7 +24,7 @@
              :key="product.id"
              :class="{
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView,
-               'col-xl-3 col-lg-3 col-md-4 col-sm-5 col-xs-9': !isGridView,
+               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6': !isGridView,
              }"
              class="product-spacing">
           <product-item :options="{product, minWidth: productItemMinWidth, ...defaultOptions.productItemOptions}" />
@@ -254,7 +254,7 @@ export default {
 
 <style lang="scss" scoped>
 .block-section {
-  margin-bottom: 30px;
+  margin-bottom: 8px;
   width: 100%;
   .block-header {
     border-radius: 10px;
@@ -285,10 +285,10 @@ export default {
 
   .block-container {
     display: flex;
-    width: 100%;
+    //width: 100%;
     .scroll-view {
       display: flex;
-      width: 100%;
+      //width: 100%;
       overflow-x: auto;
       flex-wrap: nowrap;
       padding-bottom: 10px;
@@ -304,7 +304,7 @@ export default {
     }
 
     .item-container {
-      width: 100%;
+      //width: 100%;
       &.grid_view {
         justify-content: center;
       }

@@ -202,8 +202,8 @@
 import { defineComponent } from 'vue'
 import { Banner } from 'src/models/Banner.js'
 import lazyImg from 'src/components/lazyImg.vue'
-import bannerPreview from 'src/components/Widgets/Slider/bannerPreview.vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
+import bannerPreview from 'src/components/Widgets/Slider/bannerPreview.vue'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 
 export default defineComponent({
@@ -459,7 +459,9 @@ export default defineComponent({
         })
       })
     },
-    updateSrc(data) {
+    updateSrc (data) {
+      this.localOptions.list[this.selectedBannerIndex].features[data.size].width = data.width
+      this.localOptions.list[this.selectedBannerIndex].features[data.size].height = data.height
       if (data.size) {
         this.localOptions.list[this.selectedBannerIndex].features[data.size].src = data.src
         const index = this.responsiveRows.findIndex(row => row.name === data.size)
@@ -467,6 +469,8 @@ export default defineComponent({
       } else {
         this.localOptions.list[this.selectedBannerIndex].photo.src = data.src
       }
+
+      this.$emit('update:options', this.localOptions)
     }
   }
 })
