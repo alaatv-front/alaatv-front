@@ -85,7 +85,7 @@ module.exports = configure(function (ctx) {
       analyze: false,
       env: process.env,
       extendViteConf(viteConf, {isServer, isClient}) {
-        console.log('ASSET_SERVE: ', process.env.ASSET_SERVE);
+        console.log('ASSET_SERVE:', process.env.ASSET_SERVE);
         console.log('NODES_SERVER_URL_SSL:', process.env.NODES_SERVER_URL_SSL);
         console.log('IF: before');
         // Set the base URL based on the environment
