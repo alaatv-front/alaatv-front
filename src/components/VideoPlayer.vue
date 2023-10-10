@@ -468,9 +468,7 @@ export default {
     },
 
     focusOnPlayer () {
-      setTimeout(() => {
-        this.player.el().focus()
-      }, 200)
+      this.player.el().focus()
     },
     setPlayerBrand () {
       this.player.brand({
