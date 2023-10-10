@@ -569,7 +569,7 @@ export default defineComponent({
 
       @media screen and (max-width: 1024px) {
         width: 90%;
-        margin: auto;
+        margin: 0 20px;
       }
 
       &:deep(.q-tab-panels) {
