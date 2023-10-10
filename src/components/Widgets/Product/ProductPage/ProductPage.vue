@@ -6,11 +6,11 @@
            :style="{backgroundImage: `url(${product.photo})`}">
         <div class="background-filter" />
       </div>
-      <div class="row product-info-row">
+      <div class="row product-info-row q-col-gutter-lg">
         <div class="col-12 col-md-8">
           <div class="product-info-wrapper">
             <div class="product-info-header">
-              <div class="product-title">
+              <div class="product-title ellipsis">
                 {{ product.title }}
               </div>
               <div class="header-action">
@@ -90,7 +90,6 @@
             <div class="product-info-footer">
               <div class="info-footer-action">
                 <q-btn v-if="showMore"
-                       color="white"
                        class="footer-action-btn"
                        flat
                        :icon-right="expanded ? 'expand_less' : 'expand_more'"
@@ -100,7 +99,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-4" />
+        <div class="col-12 col-md-4 space-col" />
       </div>
     </div>
     <div class="product-page-content-container">
@@ -116,7 +115,7 @@
                              ref="productIntroBox"
                              :options="{product}"
                              @update-product="onUpdateProduct($event)"
-                             @update-product-loading="onUpdateProductLoading($event)" />
+                             @update-product-loading="updateProductLoading($event)" />
         </div>
       </div>
     </div>
@@ -124,12 +123,12 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, nextTick } from 'vue'
 import { Product } from 'src/models/Product.js'
-import { mixinWidget } from 'src/mixin/Mixins.js'
 import Bookmark from 'src/components/Bookmark.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import ShareNetwork from 'src/components/ShareNetwork.vue'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import ProductInfoTab from 'src/components/Widgets/Product/ProductInfoTab/ProductInfoTab.vue'
 import ProductIntroBox from 'src/components/Widgets/Product/ProductIntroBox/ProductIntroBox.vue'
 
@@ -148,7 +147,7 @@ export default defineComponent({
     Bookmark,
     ShareNetwork
   },
-  mixins: [mixinWidget],
+  mixins: [mixinWidget, mixinPrefetchServerData],
   data() {
     return {
       defaultOptions: {
@@ -184,20 +183,31 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.getProduct()
     this.calculateDescriptionHight()
   },
   methods: {
-    getProduct() {
+    getProductRequest() {
+      if (!this.productId) {
+        return new Promise((resolve, reject) => {
+          reject()
+        })
+      }
+
+      return APIGateway.product.show(this.productId)
+    },
+    prefetchServerDataPromise () {
       this.loading = true
-      APIGateway.product.show(this.productId)
-        .then(product => {
-          this.product = product
-          this.loading = false
-        })
-        .catch(() => {
-          this.loading = false
-        })
+      return this.getProductRequest()
+    },
+    prefetchServerDataPromiseThen (product) {
+      this.product = product
+      this.loading = false
+      nextTick(() => {
+        this.calculateDescriptionHight()
+      })
+    },
+    prefetchServerDataPromiseCatch () {
+      this.loading = false
     },
     handleProductBookmark () {
       this.bookmarkLoading = true
@@ -229,11 +239,14 @@ export default defineComponent({
     },
     calculateDescriptionHight() {
       let totalHeight = 0
-      for (let index = 0; index < this.$refs.shortDescription.children.length; index++) {
-        const element = this.$refs.shortDescription.children[index]
-        totalHeight += element.clientHeight
+      if (this.$refs && this.$refs.shortDescription && this.$refs.shortDescription.children) {
+        for (let index = 0; index < this.$refs.shortDescription.children.length; index++) {
+          const element = this.$refs.shortDescription.children[index]
+          totalHeight += element.clientHeight
+        }
       }
       const minHeight = this.$q.screen.lt.sm ? 300 : 450
+
       if (totalHeight > minHeight) {
         this.showMore = true
       } else {
@@ -243,7 +256,7 @@ export default defineComponent({
     onUpdateProduct(product) {
       this.product = product
     },
-    onUpdateProductLoading(loading) {
+    updateProductLoading(loading) {
       this.product.loading = loading
     },
     loadSticky () {
@@ -317,8 +330,14 @@ export default defineComponent({
     }
 
     .product-info-row {
-      width: 1200px;
+      width: 1362px;
       max-width: 100%;
+
+      @media screen and (max-width: 1024px){
+        .space-col {
+          display: none;
+        }
+      }
 
       @media screen and (max-width: 600px){
         width: 100%;
@@ -338,11 +357,15 @@ export default defineComponent({
         margin: 10px 0;
       }
 
+      @media screen and (max-width: 600px){
+        padding: 0 20px;
+      }
+
       .product-info-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 16px;
         .product-title {
           color:#FFF;
           font-size: 22px;
@@ -350,6 +373,12 @@ export default defineComponent({
           font-weight: 700;
           line-height: normal;
           letter-spacing: -0.66px;
+
+          @media screen and (max-width: 1024px){
+            max-width: 100%;
+            font-size: 20px;
+            letter-spacing: -0.6px;
+          }
         }
 
         .header-action {
@@ -406,15 +435,19 @@ export default defineComponent({
         }
 
         .info-footer-action {
-          @media screen and (max-width: 600px){
+          @media screen and (max-width: 1024px){
             width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
           }
 
           .footer-action-btn {
-            width: 100%;
+            color: #FFFFFF;
+            background: transparent;
 
             @media screen and (max-width: 600px){
-              margin-top: 50px;
+              padding: 0;
             }
           }
         }
@@ -532,7 +565,6 @@ export default defineComponent({
     }
 
     .product-info-tab-wrapper {
-      width: 800px;
       max-width: 100%;
 
       @media screen and (max-width: 1024px) {
