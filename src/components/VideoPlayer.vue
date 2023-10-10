@@ -248,10 +248,10 @@ export default {
   methods: {
     handleHotkeys (event) {
       const key = event.which || event.keyCode
+      event.preventDefault()
 
       switch (key) {
         case 32: // Space key
-          event.preventDefault()
           if (this.player.paused()) {
             this.player.play()
           } else {
@@ -265,11 +265,9 @@ export default {
           this.player.currentTime(this.player.currentTime() + 5)
           break
         case 38: // up arrow ket
-          event.preventDefault()
           this.player.volume(this.player.volume() + 0.1)
           break
         case 40: // down arrow ket
-          event.preventDefault()
           this.player.volume(this.player.volume() - 0.1)
           break
         case 13: // "Enter" key
