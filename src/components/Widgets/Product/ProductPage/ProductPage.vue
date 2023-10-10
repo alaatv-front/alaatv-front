@@ -123,7 +123,7 @@
 </template>
 
 <script>
-import { defineComponent, nextTick } from 'vue'
+import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import Bookmark from 'src/components/Bookmark.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
@@ -202,7 +202,7 @@ export default defineComponent({
     prefetchServerDataPromiseThen (product) {
       this.product = product
       this.loading = false
-      nextTick(() => {
+      this.$nextTick(() => {
         this.calculateDescriptionHight()
       })
     },
