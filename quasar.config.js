@@ -85,9 +85,11 @@ module.exports = configure(function (ctx) {
       analyze: false,
       env: process.env,
       extendViteConf(viteConf, { isServer, isClient }) {
+        console.log('NODE_ENV:', process.env.NODE_ENV);
+        console.log('NODES_SERVER_URL_SSL:', process.env.NODES_SERVER_URL_SSL);
         // Set the base URL based on the environment
         if (process.env.NODE_ENV === 'staging') {
-          viteConf.baseUrl = process.env.NODES_SERVER_URL_SSL;
+          viteConf.base = process.env.NODES_SERVER_URL_SSL;
         }
       },
       beforeDev({quasarConf}) {
