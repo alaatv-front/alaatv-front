@@ -187,6 +187,9 @@
                     </q-list>
                   </q-popup-proxy>
                 </q-btn>
+                <q-btn color="orange"
+                       icon="ph:caret-circle-down"
+                       :to="{name: 'UserPanel.Asset.GiftCard.download', params:{ referralCode: props.row.id }}" />
               </div>
             </q-td>
             <q-td v-else-if="props.col.name === 'orders'">
@@ -533,7 +536,7 @@ export default {
     .share-box {
       display: grid;
       width: 200px;
-      grid-template-columns: 150px 50px;
+      grid-template-columns: 150px 50px 50px;
       .share-icon-button{
         font-size: 20px;
         @media screen and (max-width: 599px) {

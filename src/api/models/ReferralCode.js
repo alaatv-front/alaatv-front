@@ -9,6 +9,7 @@ export default class ReferralCodeAPI extends APIRepository {
     super('gift-card', apiV2)
     this.APIAdresses = {
       base: '/referral-code',
+      show: (id) => `/referral-code/${id}`,
       orderProducts: '/referral-code/orderproducts',
       noneProfitableOrderproducts: '/referral-code/noneProfitableOrderproducts',
       batchStore: '/referral-code/batch-store',
@@ -21,6 +22,7 @@ export default class ReferralCodeAPI extends APIRepository {
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
+      show: (id) => this.name + this.APIAdresses.show(id),
       sales_man: this.name + this.APIAdresses.sales_man,
       walletWithdrawRequests: this.name + this.APIAdresses.walletWithdrawRequests,
       orderProducts: this.name + this.APIAdresses.orderProducts
@@ -242,6 +244,23 @@ export default class ReferralCodeAPI extends APIRepository {
           clearingHistoryTableRow: new WithdrawHistoryList(response.data.data),
           paginate: response.data.pagination
         }
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getReferralCode(data = {}, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.show(data['referral-code']),
+      cacheKey: this.CacheList.show(data['referral-code']),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        console.log(response.data.code)
+        return response.data.code // String Code
       },
       rejectCallback: (error) => {
         return error

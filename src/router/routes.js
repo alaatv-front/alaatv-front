@@ -472,6 +472,11 @@ const routes = [
                     component: () => import('pages/User/GiftCardPanel/MyGiftCards.vue')
                   },
                   {
+                    name: 'UserPanel.Asset.GiftCard.download',
+                    path: 'my-gift-cards/:referralCode',
+                    component: () => import('pages/User/GiftCardPanel/DownloadGiftCard.vue')
+                  },
+                  {
                     name: 'UserPanel.Asset.GiftCard.Transactions',
                     path: 'transactions',
                     component: () => import('pages/User/GiftCardPanel/Transactions.vue')
