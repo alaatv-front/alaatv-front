@@ -152,7 +152,7 @@
             <div class="col-12 col-md-3">
               <div class="text-title">itemsToShow-{{ size }}</div>
               <q-input v-model="localOptions.breakpoints[size].itemsToShow"
-                       type="text"
+                       type="number"
                        :label="`itemsToShow-${size}`" />
             </div>
             <div class="col-12 col-md-3">

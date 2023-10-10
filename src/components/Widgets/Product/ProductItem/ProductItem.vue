@@ -99,7 +99,7 @@ export default defineComponent({
     ProductBottomSheet
   },
   mixins: [mixinWidget, mixinPrefetchServerData],
-  emits: ['onBookmarkLoaded', 'onBookmarkClicked'],
+  emits: ['onBookmarkLoaded', 'onBookmarkClicked', 'productClicked'],
   data: () => ({
     productRef: 'product' + Date.now(),
     bottomSheetDialog: false,
@@ -318,7 +318,10 @@ export default defineComponent({
         TTl: 1000,
         key: this.product.id
       })
-      this.showProduct()
+      this.$emit('productClicked')
+      if (this.localOptions.routeToProduct) {
+        this.showProduct()
+      }
     },
     getTeacherOfProduct() {
       if (this.product.attributes.info.teacher) {

@@ -41,6 +41,7 @@
                                     product: product,
                                   }"
                                   @onCustomActionClicked="onProductClicked(product)"
+                                  @productClicked="onProductClicked(product)"
                                   @click="onProductClicked(product)" />
                   </div>
                 </div>
@@ -60,6 +61,7 @@
                                     product: product,
                                   }"
                                   @onCustomActionClicked="onProductClicked(product)"
+                                  @productClicked="onProductClicked(product)"
                                   @click="onProductClicked(product)" />
                   </div>
                 </div>

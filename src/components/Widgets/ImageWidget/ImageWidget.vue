@@ -200,7 +200,7 @@ export default {
       event.stopPropagation()
       if (this.parentComponent === 'a') {
         window.location.href = this.localOptions.action.route
-      } else {
+      } else if (this.parentComponent === 'router-link') {
         this.$router.push(this.localOptions.action.route)
       }
     },

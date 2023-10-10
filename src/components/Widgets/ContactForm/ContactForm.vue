@@ -112,6 +112,7 @@ export default defineComponent({
   },
   methods: {
     CallAction() {
+      this.actionLoading = true
       const values = this.$refs.formBuilder.getValues()
       const form = {}
       values.forEach(field => {
