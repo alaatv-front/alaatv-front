@@ -776,7 +776,7 @@ export default defineComponent({
         study_event: eventId || this.studyEvent,
         since_date: this.chartWeek[0].date,
         till_date: this.chartWeek[6].date,
-        setting: this.filteredLesson ? this.filteredLesson : null
+        product_id: this.filteredLesson ? this.filteredLesson : null
       }
       APIGateway.studyPlan.getStudyPlanData(data)
         .then(studyPlanList => {
