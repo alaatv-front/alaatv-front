@@ -209,9 +209,9 @@ module.exports = configure(function (ctx) {
         // }
         // Set the base URL based on the environment
         // if (process.env.NODE_ENV === 'production') {
-        if (process.env.NODE_ENV === 'staging') {
-          viteConf.base = process.env.NODES_SERVER_URL_SSL || '/'
-        }
+        // if (process.env.NODE_ENV === 'staging') {
+          viteConf.base = process.env.NODES_SERVER_URL_SSL
+        // }
       },
       vitePlugins: [
         // ['@intlify/vite-plugin-vue-i18n', {
