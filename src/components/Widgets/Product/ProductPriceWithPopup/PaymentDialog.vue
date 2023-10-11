@@ -220,14 +220,12 @@ import { defineComponent } from 'vue'
 import Price from 'src/models/Price.js'
 import { Product } from 'src/models/Product.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 moment.loadPersian()
 
 export default defineComponent({
   name: 'PaymentDialog',
-  mixins: [mixinPrefetchServerData],
   props: {
     dialog: {
       type: Boolean,
@@ -376,38 +374,24 @@ export default defineComponent({
   created() {
     moment.loadPersian()
   },
+  mounted() {
+    this.loadProductInfo()
+  },
   methods: {
-    prefetchServerDataPromise () {
-      this.$emit('updateProductLoading', true)
-      return this.getProduct()
-    },
-    prefetchServerDataPromiseThen (product) {
-      this.$emit('updateProduct', product)
-      this.productPrice = product.price
-      this.installment = product.instalments
+    loadProductInfo() {
+      this.productPrice = this.product.price
+      this.installment = this.product.instalments
       if (window) {
         this.updateEECEventDetail()
       }
-      this.$emit('updateProductLoading', false)
-    },
-    prefetchServerDataPromiseCatch () {
-      this.$emit('updateProductLoading', false)
     },
     updateEECEventDetail() {
-      AEE.productDetailViews('product.show', this.product.eec.getData(), {
-        TTl: 1000,
-        key: this.product.id
-      })
-    },
-    getProduct() {
-      if (!this.productId) {
-        // console.log('getProduct')
-        return new Promise((resolve, reject) => {
-          reject()
+      if (this.product && this.product.eec.getData) {
+        AEE.productDetailViews('product.show', this.product.eec.getData(), {
+          TTl: 1000,
+          key: this.product.id
         })
       }
-
-      return APIGateway.product.show(this.productId)
     },
     getPrice(type) {
       return this.product.price[type]
