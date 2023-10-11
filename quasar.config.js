@@ -10,9 +10,9 @@
 
 /* eslint-env node */
 // const ESLintPlugin = require('eslint-webpack-plugin')
-const { configure } = require('quasar/wrappers')
+const {configure} = require('quasar/wrappers')
 // const path = require('path')
-const { generateWidgetList } = require('./src/widgetListGetter/index')
+const {generateWidgetList} = require('./src/widgetListGetter/index')
 require('dotenv').config()
 
 module.exports = configure(function (ctx) {
@@ -21,10 +21,6 @@ module.exports = configure(function (ctx) {
     // supportTS: false,
 
     eslint: {
-      // fix: true,
-      // include = [],
-      // exclude = [],
-      // rawOptions = {},
       warnings: true,
       errors: true
     },
@@ -64,17 +60,6 @@ module.exports = configure(function (ctx) {
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
-      // 'ionicons-v4',
-      // 'mdi-v6',
-      // 'mdi-v5',
-      // 'fontawesome-v6',
-      // 'ionicons-v4',
-      // 'eva-icons',
-      // 'themify',
-      // 'line-awesome',
-      // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
-
-      // 'roboto-font', // optional, you are not bound to it
       'material-icons' // optional, you are not bound to it
     ],
 
@@ -98,83 +83,17 @@ module.exports = configure(function (ctx) {
       sourcemap: false,
       gzip: true,
       analyze: false,
-
       env: process.env,
-
-      // https://v2.quasar.dev/quasar-cli/handling-webpack
-      // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      // chainWebpack (chain, { isServer, isClient }) {
-      //   // const hashh = '[id].[name].[chunkhash]'
-      //   // chain.output.filename('js/[name]/' + hashh + '.bundle.js')
-      //   // chain.output.chunkFilename('js/[name]/' + hashh + '.chunk.js')
-      //   // chain.plugin('eslint-webpack-plugin')
-      //   //   .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
-      //   // chain.module.rule('fonts')
-      //   //   .use('url-loader')
-      //   //   .tap((options) => {
-      //   //     options.name = 'fonts/[path][name].[ext]'
-      //   //     return options
-      //   //   })
-      //
-      //   // disable cache for prod only, remove the if to disable it everywhere
-      //   // if (process.env.NODE_ENV === 'production') {
-      //   chain.module.rule('vue').uses.delete('cache-loader')
-      //   chain.module.rule('js').uses.delete('cache-loader')
-      //   chain.module.rule('ts').uses.delete('cache-loader')
-      //   chain.module.rule('tsx').uses.delete('cache-loader')
-      //   // }
-      //
-      //   // chain.plugin('friendly-errors').tap(args => {
-      //   //   // the actual transformer defined by vue-cli-3
-      //   //   const vueCli3Transformer = args[0].additionalTransformers[0]
-      //   //   args[0].additionalTransformers = [
-      //   //     // use the actual transformer
-      //   //     vueCli3Transformer,
-      //   //     // add an other transformer that 'empty' the desired error
-      //   //     error => {
-      //   //       const regexp = /\[mini-css-extract-plugin\]\nConflicting order between:/
-      //   //       if (regexp.test(error.message)) return {}
-      //   //       return error
-      //   //     }
-      //   //   ]
-      //   //   return args
-      //   // })
-      // },
-      // extendWebpack (cfg, { isServer, isClient }) {
-      //   cfg.resolve.alias = {
-      //     ...cfg.resolve.alias, // This adds the existing alias
-      //
-      //     root: path.resolve(__dirname, './src'),
-      //     // '@': path.resolve(__dirname,'./src'),
-      //     // '~': path.resolve(__dirname, './src'),
-      //
-      //     // This will make sure that the hosting test app is pointing to only one instance of vue.
-      //     vue: path.resolve(__dirname, './node_modules/vue')
-      //     // vue: path.resolve('./node_modules/vue')
-      //   }
-      //
-      //   cfg.watchOptions = {
-      //     aggregateTimeout: 200,
-      //     poll: 1000
-      //   }
-      //   cfg.optimization.splitChunks.minSize = 10000
-      //   cfg.optimization.splitChunks.maxSize = 250000
-      //
-      //   // cfg.plugins.push(new CopyWebpackPlugin({
-      //   //   patterns: [
-      //   //     {
-      //   //       // from: './src-pwa/firebase-messaging-sw.js',
-      //   //       from: path.resolve('./src/ServiceWorker/firebase-messaging-sw.js'),
-      //   //       to: path.resolve('./dist/pwa/firebase-messaging-sw.js')
-      //   //     }
-      //   //   ]
-      //   // }))
-      // },
-
-      beforeDev({ quasarConf }) {
+      extendViteConf(viteConf, {isServer, isClient}) {
+        // Set the base URL based on the environment
+        if (process.env.ASSET_SERVE === 'remote') {
+          viteConf.base = process.env.NODES_SERVER_URL_SSL || '/';
+        }
+      },
+      beforeDev({quasarConf}) {
         generateWidgetList('./src/components/Widgets')
       },
-      beforeBuild({ quasarConf }) {
+      beforeBuild({quasarConf}) {
         generateWidgetList('./src/components/Widgets')
       },
 
@@ -184,56 +103,7 @@ module.exports = configure(function (ctx) {
       },
       minify: true,
       polyfillModulePreload: true,
-
-      extendViteConf(viteConf) {
-        // viteConf.resolve = {
-        //   alias: {
-        //     src: path.resolve(__dirname, './src'),
-        //     boot: path.resolve(__dirname, './src/boot'),
-        //     app: path.resolve(__dirname, './'),
-        //     layouts: path.resolve(__dirname, './src/layouts'),
-        //     pages: path.resolve(__dirname, './src/pages'),
-        //     assets: path.resolve(__dirname, './src/assets'),
-        //     mixin: path.resolve(__dirname, './src/mixin'),
-        //     components: path.resolve(__dirname, './src/components'),
-        //     models: path.resolve(__dirname, './src/models'),
-        //     plugins: path.resolve(__dirname, './src/plugins'),
-        //     router: path.resolve(__dirname, './src/router'),
-        //     css: path.resolve(__dirname, './src/css'),
-        //     api: path.resolve(__dirname, './src/api')
-        //   },
-        //   extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
-        //   dedupe: [
-        //     'vue'
-        //   ]
-        // }
-        // Set the base URL based on the environment
-        // if (process.env.NODE_ENV === 'production') {
-        if (process.env.NODE_ENV === 'staging') {
-          viteConf.base = process.env.NODES_SERVER_URL_SSL || '/'
-        }
-      },
-      vitePlugins: [
-        // ['@intlify/vite-plugin-vue-i18n', {
-        //   // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
-        //   compositionOnly: false,
-        //
-        //   // you need to set i18n resource including paths !
-        //   include: path.resolve(__dirname, './src/i18n/**')
-        // }]
-        // require('@originjs/vite-plugin-commonjs').esbuildCommonjs(['minio'])
-
-        // [
-        //   require('@intlify/unplugin-vue-i18n').default,
-        //   {
-        //     // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
-        //     // compositionOnly: false,
-        //
-        //     // you need to set i18n resource including paths !
-        //     include: path.resolve(__dirname, './src/i18n/**')
-        //   }
-        // ]
-      ]
+      vitePlugins: []
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
@@ -372,18 +242,6 @@ module.exports = configure(function (ctx) {
       maxAge: 1,
       // Tell browser when a file from the server should expire from cache (in ms)
 
-      // chainWebpackWebserver (chain) {
-      //   chain.plugin('eslint-webpack-plugin')
-      //     .use(ESLintPlugin, [{ extensions: ['js'] }])
-      //   // disable cache for prod only, remove the if to disable it everywhere
-      //   // if (process.env.NODE_ENV === 'production') {
-      //   chain.module.rule('vue').uses.delete('cache-loader')
-      //   chain.module.rule('js').uses.delete('cache-loader')
-      //   chain.module.rule('ts').uses.delete('cache-loader')
-      //   chain.module.rule('tsx').uses.delete('cache-loader')
-      //   // }
-      // },
-
       middlewares: [
         ctx.prod ? 'compression' : '',
         'render' // keep this as last one
@@ -489,46 +347,20 @@ module.exports = configure(function (ctx) {
 
       bundler: 'packager', // 'packager' or 'builder'
 
-      packager: {
-        // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
-
-        // OS X / Mac App Store
-        // appBundleId: '',
-        // appCategoryType: '',
-        // osxSign: '',
-        // protocol: 'myapp://path',
-
-        // Windows only
-        // win32metadata: { ... }
-      },
+      packager: {},
 
       builder: {
         // https://www.electron.build/configuration/configuration
 
         appId: 'alaatv-front-vite'
+      },
+
+      // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-browser-extensions/configuring-bex
+      bex: {
+        contentScripts: [
+          'my-content-script'
+        ]
       }
-
-      // // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      // chainWebpackMain (chain) {
-      //   chain.plugin('eslint-webpack-plugin')
-      //     .use(ESLintPlugin, [{ extensions: ['js'] }])
-      // },
-
-      // // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      // chainWebpackPreload (chain) {
-      //   chain.plugin('eslint-webpack-plugin')
-      //     .use(ESLintPlugin, [{ extensions: ['js'] }])
-      // }
-    },
-
-    // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-browser-extensions/configuring-bex
-    bex: {
-      contentScripts: [
-        'my-content-script'
-      ]
-
-      // extendBexScriptsConf (esbuildConf) {}
-      // extendBexManifestJson (json) {}
     }
   }
 })
