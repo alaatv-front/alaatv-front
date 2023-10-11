@@ -348,7 +348,7 @@ export default {
           title: 'home',
           label: 'خانه',
           icon: 'ph:house',
-          photo: 'https://nodes.alaatv.com/upload/widget_items/dis.png',
+          photo: 'https://nodes.alaatv.com/upload/icons/house.svg',
           route: { name: 'Public.Home' },
           active: false
         },
@@ -356,7 +356,7 @@ export default {
           title: 'bank-soala',
           label: 'جستجو',
           icon: 'ph:compass',
-          photo: 'https://nodes.alaatv.com/upload/widget_items/dis.png',
+          photo: 'https://nodes.alaatv.com/upload/icons/compass.svg',
           route: { name: 'Public.Content.Search' },
           active: false
         },
@@ -364,7 +364,7 @@ export default {
           title: 'forum',
           label: 'آلاء خونه',
           icon: 'ph:book-open',
-          photo: 'https://nodes.alaatv.com/upload/widget_items/dis.png',
+          photo: 'https://nodes.alaatv.com/upload/icons/chats.svg',
           route: null,
           externalLink: 'https://forum.alaatv.com',
           active: false
@@ -373,7 +373,7 @@ export default {
           title: 'card',
           label: 'سبد خرید',
           icon: 'ph:shopping-cart-simple',
-          photo: 'https://nodes.alaatv.com/upload/widget_items/dis.png',
+          photo: 'https://nodes.alaatv.com/upload/icons/shoppingCart.svg',
           route: { name: 'Public.Checkout.Review' },
           active: false
         },
