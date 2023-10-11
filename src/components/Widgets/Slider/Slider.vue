@@ -34,12 +34,14 @@
                   :height="slide.photo.height"
                   :width="slide.photo.width"
                   :src="slide.photo.src"
-                  :alt="slide.title" />
+                  :alt="slide.title"
+                  class="slider-image" />
         <lazy-img v-else
                   :height="responsiveFeatures(slide.features).height"
                   :width="responsiveFeatures(slide.features).width"
                   :src="responsiveFeatures(slide.features).src"
-                  :alt="slide.title" />
+                  :alt="slide.title"
+                  class="slider-image" />
         <q-tooltip v-if="slide.title"
                    :offset="[18, 18]">
           {{ slide.title }}
@@ -236,6 +238,9 @@ export default {
   width: 100%;
   &:deep(.q-carousel__slide) {
     padding: 0;
+    .slider-image {
+      width: 100%;
+    }
   }
   //.image {
   //  width: 100%;

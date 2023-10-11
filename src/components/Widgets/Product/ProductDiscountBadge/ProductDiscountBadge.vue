@@ -3,10 +3,11 @@
            floating
            class="discount-badge"
            color="transparent">
-    <q-img :src="'https://nodes.alaatv.com/upload/widget_items/dis.png'"
-           class="discount-badge_percent__img"
-           spinner-color="primary"
-           spinner-size="64px" />
+    <lazy-img src="https://nodes.alaatv.com/upload/widget_items/dis.png"
+              alt="discount-badge"
+              height="64"
+              width="64"
+              class="discount-badge_percent__img" />
     <div class="discount-badge_percent">
       <div class="discount-badge_percent__number">
         %{{
@@ -25,11 +26,13 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { mixinWidget } from 'src/mixin/Mixins.js'
 import Price from 'src/models/Price.js'
+import LazyImg from 'src/components/lazyImg.vue'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default defineComponent({
   name: 'ProductDiscountBadge',
+  components: { LazyImg },
   mixins: [mixinWidget],
   data() {
     return {
@@ -42,11 +45,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+$size: 64px;
 .discount-badge {
+  z-index: 2;
+  width: $size;
+  height: $size;
   &_percent {
     position: absolute;
     top: 15px;
-    right: 20px;
+    right: 7px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -94,8 +101,8 @@ export default defineComponent({
       }
     }
   }
-  .discount-badge_percent__img {
-    width: 64px;
+  :deep(.discount-badge_percent__img) {
+    width: $size;
     @media screen and (max-width: 600px){
       width: 32px;
     }

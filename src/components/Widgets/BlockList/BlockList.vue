@@ -1,24 +1,25 @@
 <template>
-  <div :style="localOptions.style">
-    <template v-if="blocks.loading">
-      <q-skeleton height="100px"
-                  class="q-mb-sm" />
-      <q-skeleton height="100px"
-                  class="q-mb-sm" />
-      <q-skeleton height="100px"
-                  class="q-mb-sm" />
-      <q-skeleton height="100px"
-                  class="q-mb-sm" />
-    </template>
-    <template v-else>
-      <div v-for="(block, index) in blocksToShow"
+  <div v-if="blocks.loading"
+       class="BlockList"
+       :style="localOptions.style">
+    <q-skeleton height="100px"
+                class="q-mb-sm" />
+    <q-skeleton height="100px"
+                class="q-mb-sm" />
+    <q-skeleton height="100px"
+                class="q-mb-sm" />
+    <q-skeleton height="100px"
+                class="q-mb-sm" />
+  </div>
+  <div v-else
+       class="BlockList"
+       :style="localOptions.style">
+    <block v-for="(block, index) in blocksToShow"
            :id="'block-' + block.id"
            :key="index"
            :class="block.headerCustomClass"
-           class="block-list-widget">
-        <block :options="{block, productItemOptions: localOptions.productOptions}" />
-      </div>
-    </template>
+           class="block-list-widget"
+           :options="{block, productItemOptions: localOptions.productOptions}" />
   </div>
 </template>
 
