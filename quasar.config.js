@@ -93,7 +93,7 @@ module.exports = configure(function (ctx) {
       ],
 
       rtl: true, // https://v2.quasar.dev/options/rtl-support
-      preloadChunks: true,
+      preloadChunks: false,
       showProgress: false,
       sourcemap: false,
       gzip: true,
@@ -101,75 +101,6 @@ module.exports = configure(function (ctx) {
 
       env: process.env,
 
-      // https://v2.quasar.dev/quasar-cli/handling-webpack
-      // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      // chainWebpack (chain, { isServer, isClient }) {
-      //   // const hashh = '[id].[name].[chunkhash]'
-      //   // chain.output.filename('js/[name]/' + hashh + '.bundle.js')
-      //   // chain.output.chunkFilename('js/[name]/' + hashh + '.chunk.js')
-      //   // chain.plugin('eslint-webpack-plugin')
-      //   //   .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
-      //   // chain.module.rule('fonts')
-      //   //   .use('url-loader')
-      //   //   .tap((options) => {
-      //   //     options.name = 'fonts/[path][name].[ext]'
-      //   //     return options
-      //   //   })
-      //
-      //   // disable cache for prod only, remove the if to disable it everywhere
-      //   // if (process.env.NODE_ENV === 'production') {
-      //   chain.module.rule('vue').uses.delete('cache-loader')
-      //   chain.module.rule('js').uses.delete('cache-loader')
-      //   chain.module.rule('ts').uses.delete('cache-loader')
-      //   chain.module.rule('tsx').uses.delete('cache-loader')
-      //   // }
-      //
-      //   // chain.plugin('friendly-errors').tap(args => {
-      //   //   // the actual transformer defined by vue-cli-3
-      //   //   const vueCli3Transformer = args[0].additionalTransformers[0]
-      //   //   args[0].additionalTransformers = [
-      //   //     // use the actual transformer
-      //   //     vueCli3Transformer,
-      //   //     // add an other transformer that 'empty' the desired error
-      //   //     error => {
-      //   //       const regexp = /\[mini-css-extract-plugin\]\nConflicting order between:/
-      //   //       if (regexp.test(error.message)) return {}
-      //   //       return error
-      //   //     }
-      //   //   ]
-      //   //   return args
-      //   // })
-      // },
-      // extendWebpack (cfg, { isServer, isClient }) {
-      //   cfg.resolve.alias = {
-      //     ...cfg.resolve.alias, // This adds the existing alias
-      //
-      //     root: path.resolve(__dirname, './src'),
-      //     // '@': path.resolve(__dirname,'./src'),
-      //     // '~': path.resolve(__dirname, './src'),
-      //
-      //     // This will make sure that the hosting test app is pointing to only one instance of vue.
-      //     vue: path.resolve(__dirname, './node_modules/vue')
-      //     // vue: path.resolve('./node_modules/vue')
-      //   }
-      //
-      //   cfg.watchOptions = {
-      //     aggregateTimeout: 200,
-      //     poll: 1000
-      //   }
-      //   cfg.optimization.splitChunks.minSize = 10000
-      //   cfg.optimization.splitChunks.maxSize = 250000
-      //
-      //   // cfg.plugins.push(new CopyWebpackPlugin({
-      //   //   patterns: [
-      //   //     {
-      //   //       // from: './src-pwa/firebase-messaging-sw.js',
-      //   //       from: path.resolve('./src/ServiceWorker/firebase-messaging-sw.js'),
-      //   //       to: path.resolve('./dist/pwa/firebase-messaging-sw.js')
-      //   //     }
-      //   //   ]
-      //   // }))
-      // },
       beforeDev({ quasarConf }) {
         generateWidgetList('./src/components/Widgets')
       },
