@@ -1,8 +1,8 @@
 import { apiV2 } from 'src/boot/axios.js'
 import APIRepository from '../classes/APIRepository.js'
-import { ReferralCodeList } from 'src/models/ReferralCode'
-import { TransactionList } from 'src/models/Transction'
-import { WithdrawHistoryList } from 'src/models/WithdrawHistory'
+import { ReferralCodeList, ReferralCode } from 'src/models/ReferralCode.js'
+import { TransactionList } from 'src/models/Transction.js'
+import { WithdrawHistoryList } from 'src/models/WithdrawHistory.js'
 
 export default class ReferralCodeAPI extends APIRepository {
   constructor() {
@@ -259,8 +259,7 @@ export default class ReferralCodeAPI extends APIRepository {
       cacheKey: this.CacheList.show(data['referral-code']),
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
-        console.log(response.data.code)
-        return response.data.code // String Code
+        return new ReferralCode(response.data)
       },
       rejectCallback: (error) => {
         return error

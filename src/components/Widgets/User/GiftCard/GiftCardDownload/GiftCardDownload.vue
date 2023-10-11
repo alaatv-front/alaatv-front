@@ -7,7 +7,7 @@
            alt="background">
       <div class="code-box flex">
         <div class="code">
-          {{giftCardCode}}
+          {{referralCode.code}}
         </div>
       </div>
     </div>
@@ -22,12 +22,13 @@
 <script>
 import { defineComponent } from 'vue'
 import html2canvas from 'html2canvas'
+import { ReferralCode } from 'src/models/ReferralCode.js'
 
 export default defineComponent({
   name: 'GiftCardDownload',
   data() {
     return {
-      giftCardCode: '25 - 22222',
+      referralCode: new ReferralCode(),
       loading: false
     }
   },
@@ -41,7 +42,7 @@ export default defineComponent({
         'referral-code': this.$route.params.referralCode
       })
         .then(referralCode => {
-          this.giftCardCode = referralCode
+          this.referralCode = referralCode
           this.loading = false
         })
         .catch(() => {
