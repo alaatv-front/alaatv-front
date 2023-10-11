@@ -212,12 +212,16 @@
              :class="{ 'active': item.active, 'all-items-de-active': isAllRouteDeActive() }"
              @click="onMobileMainFooterItemClick(item)">
           <div class="icon-section">
-            <lazy-img v-if="item.photo && (item.title !== 'profile' || user.id === null)"
-                      :src="item.photo"
-                      :alt="item.title"
-                      width="24"
-                      height="24" />
-            <q-icon v-else-if="item.title !== 'profile' || user.id === null"
+            <!--            <lazy-img v-if="item.photo && (item.title !== 'profile' || user.id === null)"-->
+            <!--                      :src="item.photo"-->
+            <!--                      :alt="item.title"-->
+            <!--                      width="24"-->
+            <!--                      height="24" />-->
+            <!--            <q-icon v-else-if="item.title !== 'profile' || user.id === null"-->
+            <!--                    :name="item.icon"-->
+            <!--                    :class="{ active: $route.name === item.to }"-->
+            <!--                    size="24px" />-->
+            <q-icon v-if="item.title !== 'profile' || user.id === null"
                     :name="item.icon"
                     :class="{ active: $route.name === item.to }"
                     size="24px" />
@@ -348,7 +352,7 @@ export default {
           title: 'home',
           label: 'خانه',
           icon: 'ph:house',
-          photo: 'https://nodes.alaatv.com/upload/widget_items/dis.png',
+          photo: 'https://nodes.alaatv.com/upload/icons/house.svg',
           route: { name: 'Public.Home' },
           active: false
         },
@@ -356,7 +360,7 @@ export default {
           title: 'bank-soala',
           label: 'جستجو',
           icon: 'ph:compass',
-          photo: 'https://nodes.alaatv.com/upload/widget_items/dis.png',
+          photo: 'https://nodes.alaatv.com/upload/icons/compass.svg',
           route: { name: 'Public.Content.Search' },
           active: false
         },
@@ -364,7 +368,7 @@ export default {
           title: 'forum',
           label: 'آلاء خونه',
           icon: 'ph:book-open',
-          photo: 'https://nodes.alaatv.com/upload/widget_items/dis.png',
+          photo: 'https://nodes.alaatv.com/upload/icons/chats.svg',
           route: null,
           externalLink: 'https://forum.alaatv.com',
           active: false
@@ -373,7 +377,7 @@ export default {
           title: 'card',
           label: 'سبد خرید',
           icon: 'ph:shopping-cart-simple',
-          photo: 'https://nodes.alaatv.com/upload/widget_items/dis.png',
+          photo: 'https://nodes.alaatv.com/upload/icons/shoppingCart.svg',
           route: { name: 'Public.Checkout.Review' },
           active: false
         },
@@ -923,7 +927,7 @@ export default {
       border-radius: 20px;
       box-shadow: 2px 2px 3px 0 #1018280F;
       .footer-item {
-        transition: all 0.5s;
+        transition: all 0.6s;
         width: 15.75%;
         //width: 54.17px;
         display: flex;
