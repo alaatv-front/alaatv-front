@@ -76,7 +76,7 @@
                             product,
                             routeToProduct: false
                           }"
-                          @click="productItemClicked(product)" />
+                          @productClicked="productItemClicked(product)" />
           </div>
         </div>
         <pagination v-if="filteredProduct.list.length > 0"
