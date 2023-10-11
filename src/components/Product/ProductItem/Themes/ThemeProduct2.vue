@@ -189,12 +189,13 @@ export default defineComponent({
     }
 
     a {
+      display: block;
       box-shadow: none;
       width: 100%;
-      height: 270px;
+      //height: 270px;
       border-radius: 20px 20px 0 0;
 
-      .img {
+      :deep(.img) {
         border-radius: inherit;
         width: inherit;
 

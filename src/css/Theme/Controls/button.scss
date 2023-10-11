@@ -1,6 +1,9 @@
 @import "src/css/Theme/Typography/typography.scss";
 
 .q-btn {
+  .q-btn__content {
+    border-radius: inherit;
+  }
   &.keep-min-width {
     min-width: 96px;
   }

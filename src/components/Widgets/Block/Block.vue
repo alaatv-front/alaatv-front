@@ -14,71 +14,71 @@
              :icon="isGridView ? 'sync_alt' : 'grid_view'"
              @click="isGridView = !isGridView" />
     </div>
-    <div class="block-container">
-      <slider v-if="localOptions.block.banners && localOptions.block.banners.list.length > 0"
-              :options="bannerSlides" />
-      <div v-if="localOptions.block.products.list.length > 0"
-           class="row item-container q-col-gutter-md"
-           :class="isGridView ? 'grid_view' : 'scroll-view'">
-        <div v-for="product in localOptions.block.products.list"
-             :key="product.id"
-             :class="{
-               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView,
-               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6': !isGridView,
-             }"
-             class="product-spacing">
-          <product-item :options="{product, minWidth: productItemMinWidth, ...defaultOptions.productItemOptions}" />
-        </div>
-        <div v-if="localOptions.block?.url?.web"
-             class="block-item-box">
-          <q-btn :href="localOptions.block?.url?.web"
-                 color="primary"
-                 size="xl">
-            نمایش بیشتر
-          </q-btn>
-        </div>
+    <!--    <div class="block-container">-->
+    <slider v-if="localOptions.block.banners && localOptions.block.banners.list.length > 0"
+            :options="bannerSlides" />
+    <div v-if="localOptions.block.products.list.length > 0"
+         class="row item-container q-col-gutter-md"
+         :class="isGridView ? 'grid_view' : 'scroll-view'">
+      <div v-for="product in localOptions.block.products.list"
+           :key="product.id"
+           :class="{
+             'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView,
+             'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6': !isGridView,
+           }"
+           class="product-spacing">
+        <product-item :options="{product, minWidth: productItemMinWidth, ...defaultOptions.productItemOptions}" />
       </div>
-      <div v-if="localOptions.block.sets.list.length > 0"
-           class="row item-container q-col-gutter-md"
-           :class="isGridView ? 'grid_view' : 'scroll-view'">
-        <div v-for="set in localOptions.block.sets.list"
-             :key="set.id"
-             :class="{
-               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView,
-               'col-xl-3 col-lg-3 col-md-4 col-sm-5 col-xs-9': !isGridView,
-             }"
-             class="set-spacing">
-          <set-item :options="{set, minWidth: setItemMinWidth}" />
-        </div>
-        <div class="block-item-box">
-          <q-btn :href="localOptions.block?.url?.web"
-                 color="primary"
-                 size="xl">
-            نمایش بیشتر
-          </q-btn>
-        </div>
-      </div>
-      <div v-if="localOptions.block.contents.list.length > 0"
-           class="row item-container q-col-gutter-md"
-           :class="isGridView ? 'grid_view' : 'scroll-view'">
-        <div v-for="content in localOptions.block.contents.list"
-             :key="content.id"
-             :class="{
-               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView,
-               'col-xl-3 col-lg-3 col-md-4 col-sm-5 col-xs-9': !isGridView,
-             }"
-             class="content-spacing">
-          <content-item :options="{content, minWidth: contentItemMinWidth ,showDownloadMenu: localOptions.showContentDownloadMenu}" />
-        </div>
-        <div class="block-item-box">
-          <q-btn :href="localOptions.block?.url?.web"
-                 color="primary"
-                 size="xl">
-            نمایش بیشتر
-          </q-btn>
-        </div>
+      <div v-if="localOptions.block?.url?.web"
+           class="block-item-box">
+        <q-btn :href="localOptions.block?.url?.web"
+               color="primary"
+               size="xl">
+          نمایش بیشتر
+        </q-btn>
       </div>
     </div>
+    <div v-if="localOptions.block.sets.list.length > 0"
+         class="row item-container q-col-gutter-md"
+         :class="isGridView ? 'grid_view' : 'scroll-view'">
+      <div v-for="set in localOptions.block.sets.list"
+           :key="set.id"
+           :class="{
+             'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView,
+             'col-xl-3 col-lg-3 col-md-4 col-sm-5 col-xs-9': !isGridView,
+           }"
+           class="set-spacing">
+        <set-item :options="{set, minWidth: setItemMinWidth}" />
+      </div>
+      <div class="block-item-box">
+        <q-btn :href="localOptions.block?.url?.web"
+               color="primary"
+               size="xl">
+          نمایش بیشتر
+        </q-btn>
+      </div>
+    </div>
+    <div v-if="localOptions.block.contents.list.length > 0"
+         class="row item-container q-col-gutter-md"
+         :class="isGridView ? 'grid_view' : 'scroll-view'">
+      <div v-for="content in localOptions.block.contents.list"
+           :key="content.id"
+           :class="{
+             'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView,
+             'col-xl-3 col-lg-3 col-md-4 col-sm-5 col-xs-9': !isGridView,
+           }"
+           class="content-spacing">
+        <content-item :options="{content, minWidth: contentItemMinWidth ,showDownloadMenu: localOptions.showContentDownloadMenu}" />
+      </div>
+      <div class="block-item-box">
+        <q-btn :href="localOptions.block?.url?.web"
+               color="primary"
+               size="xl">
+          نمایش بیشتر
+        </q-btn>
+      </div>
+    </div>
+    <!--    </div>-->
   </div>
 </template>
 
@@ -283,8 +283,8 @@ export default {
     }
   }
 
-  .block-container {
-    display: flex;
+  //.block-container {
+    //display: flex;
     //width: 100%;
     .scroll-view {
       display: flex;
@@ -339,6 +339,6 @@ export default {
         }
       }
     }
-  }
+  //}
 }
 </style>
