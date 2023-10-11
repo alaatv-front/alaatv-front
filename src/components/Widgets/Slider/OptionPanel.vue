@@ -110,18 +110,16 @@
               </div>
             </q-card-section>
           </div>
-          <div class="row col-12">
-            <q-toggle v-model="isResponsive"
-                      class="toggle-md"
-                      size="md"
-                      checked-icon="check"
-                      color="teal"
-                      label="responsive features"
-                      unchecked-icon="clear" />
+          <div class="singel-image">
+            <q-card-section class="col-12">
+              <h6 class="q-mb-md">تک عکس (singel image)</h6>
+              <banner-preview v-model:banner="selectedSlide"
+                              v-model:options="localOptions"
+                              @update:src="updateSrc" />
+            </q-card-section>
           </div>
-          <q-table v-if="isResponsive"
-                   dir="rtl"
-                   title="جدول رسپانسیو"
+          <q-table dir="rtl"
+                   title="جدول رسپانسیو (multuple images)"
                    :rows="responsiveRows"
                    :columns="responsiveColumns"
                    row-key="name">
@@ -159,15 +157,6 @@
               </q-td>
             </template>
           </q-table>
-          <div v-else>
-            <div class="row col-12">
-              <q-card-section class="col-12">
-                <banner-preview v-model:banner="selectedSlide"
-                                v-model:options="localOptions"
-                                @update:src="updateSrc" />
-              </q-card-section>
-            </div>
-          </div>
         </q-card>
       </q-dialog>
       <q-dialog v-model="expandResponsiveBanner"

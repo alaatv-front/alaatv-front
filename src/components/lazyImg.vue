@@ -61,11 +61,11 @@ export default {
       default: null
     },
     width: {
-      type: String,
+      type: [String, Number],
       default: null
     },
     height: {
-      type: String,
+      type: [String, Number],
       default: null
     }
   },

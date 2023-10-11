@@ -205,34 +205,39 @@
       </div>
     </div>
     <div class="mobile-footer lt-md">
-      <q-list>
-        <q-item v-for="(item , index) in mobileFooterItems"
-                :key="index"
-                v-ripple
-                clickable
-                class="q-mt-sm"
-                :active="isRouteSelected(item?.route?.name)"
-                active-class="active-item"
-                exact-active-class="active-route"
-                :to="item?.route"
-                @click="onMobileMainFooterItemClick($event, item)">
-          <q-item-section avatar>
+      <div class="mobile-footer-box">
+        <div v-for="(item , index) in mobileFooterItems"
+             :key="index"
+             class="footer-item"
+             :class="{ 'active': item.active, 'all-items-de-active': isAllRouteDeActive() }"
+             @click="onMobileMainFooterItemClick(item)">
+          <div class="icon-section">
+            <!--            <lazy-img v-if="item.photo && (item.title !== 'profile' || user.id === null)"-->
+            <!--                      :src="item.photo"-->
+            <!--                      :alt="item.title"-->
+            <!--                      width="24"-->
+            <!--                      height="24" />-->
+            <!--            <q-icon v-else-if="item.title !== 'profile' || user.id === null"-->
+            <!--                    :name="item.icon"-->
+            <!--                    :class="{ active: $route.name === item.to }"-->
+            <!--                    size="24px" />-->
             <q-icon v-if="item.title !== 'profile' || user.id === null"
                     :name="item.icon"
                     :class="{ active: $route.name === item.to }"
-                    color="primary"
-                    size="35px" />
+                    size="24px" />
             <q-avatar v-else
-                      size="35px">
+                      size="24px">
               <lazy-img :src="user.photo"
                         :alt="'user photo'"
-                        width="35"
-                        height="35"
-                        class="user-photo" />
+                        width="24"
+                        height="24" />
             </q-avatar>
-          </q-item-section>
-        </q-item>
-      </q-list>
+          </div>
+          <div class="label-section">
+            {{item.label}}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div v-else-if="type === 'gift-card'"
@@ -341,36 +346,47 @@ export default {
   },
   data() {
     return {
+      activeClassForMobileFooter: false,
       mobileFooterItems: [
         {
-          title: 'profile',
-          icon: 'ph:user',
-          route: { name: 'UserPanel.Dashboard' },
-          active: false
-        },
-        {
-          title: 'card',
-          icon: 'ph:shopping-cart',
-          route: { name: 'Public.Checkout.Review' },
-          active: false
-        },
-        {
           title: 'home',
-          icon: 'ph:chats',
+          label: 'خانه',
+          icon: 'ph:house',
+          photo: 'https://nodes.alaatv.com/upload/icons/house.svg',
+          route: { name: 'Public.Home' },
+          active: false
+        },
+        {
+          title: 'bank-soala',
+          label: 'جستجو',
+          icon: 'ph:compass',
+          photo: 'https://nodes.alaatv.com/upload/icons/compass.svg',
+          route: { name: 'Public.Content.Search' },
+          active: false
+        },
+        {
+          title: 'forum',
+          label: 'آلاء خونه',
+          icon: 'ph:book-open',
+          photo: 'https://nodes.alaatv.com/upload/icons/chats.svg',
           route: null,
           externalLink: 'https://forum.alaatv.com',
           active: false
         },
         {
-          title: 'bank-soala',
-          icon: 'ph:compass',
-          route: { name: 'Public.Content.Search' },
+          title: 'card',
+          label: 'سبد خرید',
+          icon: 'ph:shopping-cart-simple',
+          photo: 'https://nodes.alaatv.com/upload/icons/shoppingCart.svg',
+          route: { name: 'Public.Checkout.Review' },
           active: false
         },
         {
-          title: 'home',
-          icon: 'ph:house',
-          route: { name: 'Public.Home' },
+          title: 'profile',
+          label: 'پروفایل',
+          icon: 'ph:user',
+          photo: 'https://nodes.alaatv.com/upload/widget_items/dis.png',
+          route: { name: 'UserPanel.Dashboard' },
           active: false
         }
       ],
@@ -438,8 +454,16 @@ export default {
   },
   mounted () {
     this.loadAuthData()
+    this.$nextTick(() => {
+      this.updateMobileFooterItemsActiveItem()
+    })
   },
   methods: {
+    updateMobileFooterItemsActiveItem () {
+      this.mobileFooterItems.forEach(item => {
+        item.active = this.isRouteSelected(item?.route?.name)
+      })
+    },
     getEventInfoByName () {
       return new Promise((resolve, reject) => {
         APIGateway.events.getEventInfoByName(this.$route.params.eventName)
@@ -454,6 +478,10 @@ export default {
     },
     isRouteSelected (routeName) {
       return this.$route.name === routeName
+    },
+    isAllRouteDeActive () {
+      const hasActiveItem = !!this.mobileFooterItems.find(item => item.route && this.isRouteSelected(item.route.name))
+      return !hasActiveItem
     },
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
@@ -479,12 +507,14 @@ export default {
         this.toggleLogoutDialog()
       }
     },
-    onMobileMainFooterItemClick(event, item) {
-      if (!item.externalLink) {
+    onMobileMainFooterItemClick(item) {
+      if (item.route) {
+        this.$router.push(item.route)
         return
       }
-      event.preventDefault()
-      window.location.href = item.externalLink
+      if (item.externalLink) {
+        window.location.href = item.externalLink
+      }
     },
     updateMenuItemsFromEventInfo () {
       this.isAdmin = this.user.hasPermission('insertStudyPlan') || this.user.hasPermission('updateStudyPlan') || this.user.hasPermission('deleteStudyPlan')
@@ -505,6 +535,9 @@ export default {
 
 <style scoped lang="scss">
 @import "src/css/Theme/sizes.scss";
+@import "src/css/Theme/spacing.scss";
+@import "src/css/Theme/Typography/typography.scss";
+
 .main-footer {
   .homePage-footer-container {
     @media screen and (max-width:599px){
@@ -868,96 +901,125 @@ export default {
       }
     }
   }
-  .layer-4 {
-    min-height: 72px;
-    display: none;
-    @media screen and (max-width:599px){
-      display: block;
-    }
-
-  }
+  //.layer-4 {
+  //  min-height: 72px;
+  //  display: none;
+  //  @media screen and (max-width:599px){
+  //    display: block;
+  //  }
+  //
+  //}
   .mobile-footer {
     position: fixed;
     bottom: 0;
-    left: 0;
     width: 100%;
-
-    height: $mobileFooterHeight;
-    background: white;
-    border-radius: 16px 16px 0;
-    box-shadow: 0 -6px 10px rgba(112, 108, 161, 0.07);
-
-    $itemSize: 44px;
-
-    .q-list {
+    padding: 0 20px 20px 20px;
+    background: transparent;
+    height: $mobileFooterHeight + 20px;
+    .mobile-footer-box {
+      width: 100%;
       height: 100%;
       display: flex;
       flex-flow: row;
-      justify-content: center;
-      align-items: center;
-      .q-item {
-        width: $itemSize;
-        min-width: $itemSize;
-        max-width: $itemSize;
-        min-height: $itemSize;
-        max-height: $itemSize;
-        height: $itemSize;
-        padding: 0;
-        margin-top: 0;
-        margin-right: 30px;
-        &:last-child {
-          margin-right: 0;
-        }
-        &.q-item--active {
-          .q-item__section {
-            background-color: lighten($primary,34%);
-            padding: 0;
-          }
-        }
-        .q-item__section {
-          padding: 0;
-          width: $itemSize;
-          min-width: $itemSize;
-          max-width: $itemSize;
-          min-height: $itemSize;
-          max-height: $itemSize;
-          height: $itemSize;
-          border-radius: 8px;
-          align-items: center;
-          justify-content: center;
-          .user-photo {
+      padding: 0 14px 0 14px;
+      justify-content: space-between;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 2px 2px 3px 0 #1018280F;
+      .footer-item {
+        transition: all 0.6s;
+        width: 15.75%;
+        //width: 54.17px;
+        display: flex;
+        flex-flow: row;
+        justify-content: center;
+        align-items: center;
+        $icon-size: 24px;
+        .icon-section {
+          width: $icon-size;
+          color: $blue-grey-3;
+          .q-avatar {
             width: 100%;
+            .lazy-img {
+              width: 100%;
+              img {
+                width: 100%;
+              }
+            }
           }
-          .active {
-            //background-color: rgba(128, 117, 220, 0.34);
-            //background-color: lighten($primary,34%);
-            //border-radius: 8px;
+        }
+        .label-section {
+          width: calc( 100% - #{$icon-size} );
+          padding-left: $spacing-base;
+          white-space: nowrap;
+          overflow: hidden;
+          @include caption1;
+          display: none;
+        }
+        &.active {
+          width: 37% ;
+          //width: 127.27px ;
+          background: $primary-1;
+          border-radius: 20px;
+          padding:8px 12px 8px 12px ;
+          margin: 16px 0 16px 0 ;
+          .icon-section{
+            color: $primary;
+          }
+          .label-section {
+            display: block;
+            text-align: center;
+            color: $primary;
+          }
+        }
+
+        &.all-items-de-active {
+          width: 20% ;
+          .icon-section {
+            .q-avatar {
+              .lazy-img {
+                img {
+                }
+              }
+            }
+          }
+          .label-section {
+            display: none;
           }
         }
       }
     }
 
-    .active-route {
-      background-color: rgba(128, 117, 220, 0.34);
-      border-radius: 8px;
+  }
+}
 
-      .indicator {
-        height: 6px;
-        width: 6px;
-        background-color: white;
-        border-radius: 50%;
-        margin: auto;
-      }
+.parentBox {
+  background: transparent;
+
+  .icon {
+    color: $blue-grey-3;
+  }
+  .label {
+    @include caption1;
+    display: none;
+  }
+  &.active {
+    background: $primary-1;
+    .icon {
+      color: $primary;
+    }
+    .label {
+      display: block;
     }
   }
 }
+
 .gift-card-footer {
   .mobile-footer {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-
     height: $mobileFooterHeight;
     display: none;
     background: $primary;
