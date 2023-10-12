@@ -165,12 +165,12 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 10px;
   border-radius: 20px;
   box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6),
   2px 4px 10px rgba(46, 56, 112, 0.05);
   background-color: #ffffff;
   top: 0;
+  overflow: hidden;
   transition: all ease 0.5s;
   &:hover {
     box-shadow: -5px -6px 10px rgba(255, 255, 255, 0.6),
@@ -220,7 +220,7 @@ export default {
       width: 100%;
       height: 100%;
 
-      .img {
+      :deep(.img) {
         width: inherit;
         height: 100%;
         border-radius: 20px 20px 0 0;

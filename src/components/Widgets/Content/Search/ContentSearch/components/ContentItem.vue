@@ -108,12 +108,14 @@ p {
     height: 100%;
     position: relative;
     z-index: 5;
+
     @media screen and (max-width: 800px){
       width: 100% !important;
     }
-    .img {
+
+    :deep(.img) {
       height: 100%;
-      width: inherit;
+      width: 100%;
       border-radius: 15px 0 0 15px;
       @media screen and (max-width: 800px) {
         border-radius: 15px 15px 0 0 !important;

@@ -52,27 +52,26 @@
         </div>
       </div>
     </q-card>
-    <div v-else
-         :ref="productRef"
-         class="product-item-box"
-         :class="'productItem' + product.id"
-         :style="{minWidth: localOptions.minWidth}">
-      <component :is="localOptions.theme"
-                 :localOptions="localOptions"
-                 :product="product"
-                 :cart="cart"
-                 :basePrice="basePrice"
-                 :finalPrice="finalPrice"
-                 :bookmarkLoading="bookmarkLoading"
-                 :imageWidth="imageWidth"
-                 :imageHeight="imageHeight"
-                 :getRoutingObject="getRoutingObject"
-                 :getTeacherOfProduct="getTeacherOfProduct"
-                 @productClicked="productClicked"
-                 @handleProductBookmark="handleProductBookmark"
-                 @customActionClicked="customActionClicked"
-                 @addToCart="addToCart" />
-    </div>
+    <component :is="localOptions.theme"
+               v-else
+               :ref="productRef"
+               class="product-item-box"
+               :class="'productItem' + product.id"
+               :style="{minWidth: localOptions.minWidth}"
+               :localOptions="localOptions"
+               :product="product"
+               :cart="cart"
+               :basePrice="basePrice"
+               :finalPrice="finalPrice"
+               :bookmarkLoading="bookmarkLoading"
+               :imageWidth="imageWidth"
+               :imageHeight="imageHeight"
+               :getRoutingObject="getRoutingObject"
+               :getTeacherOfProduct="getTeacherOfProduct"
+               @productClicked="productClicked"
+               @handleProductBookmark="handleProductBookmark"
+               @customActionClicked="customActionClicked"
+               @addToCart="addToCart" />
     <product-bottom-sheet v-if="productMounted"
                           :dialog="bottomSheetDialog"
                           :productId="product.id"
@@ -496,17 +495,6 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
 
   @include media-query-spacings($responsiveSpacing, $sizes);
 
-  &.theme1 {
-    padding-top: 30px;
-  }
-
-  &.ThemeDefault {
-    //@media screen and (max-width: 1023px){
-    //  min-width: 304px;
-    //  height: 140px;
-    //}
-  }
-
   &:hover{
     .product-item-box {
       transform: rotate(calc(#{$rotate} * 1deg)) translate(calc(#{$translateX} * 1px), calc(#{$translateY} * 1px)) scale($scaleX, $scaleY) skew(calc(#{$skewX} * 1deg), calc(#{$skewY} * 1deg));
@@ -529,9 +517,9 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
     //display: flex;
     //flex-direction: column;
     //width: 100%;
-    height: inherit;
+    //height: inherit;
     //justify-content: space-between;
-    margin: auto;
+    //margin: auto;
     //margin: 0 12px;
     position: relative;
     //background-color: #ffffff;
