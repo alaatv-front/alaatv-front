@@ -9,7 +9,6 @@
        :data-gtm-eec-product-variant="data.eec.variant"
        :data-gtm-eec-product-position="data.eec.position"
        :data-gtm-eec-product-list="data.eec.position"
-       a-lazyload="1"
        :data-loaded="data.eec.loading">
     <div v-if="false"
          class="ribbon">
@@ -33,9 +32,8 @@
                    :data-gtm-eec-product-list="data.eec.position">
         <lazy-img :src="data.photo"
                   :alt="data.title"
-                  width="1"
-                  height="1"
-                  q-image
+                  width="200"
+                  height="200"
                   class="img" />
       </router-link>
     </div>
@@ -428,7 +426,10 @@ export default {
     }
 
     a {
-      .img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      :deep(.img) {
         width: 100%;
         height: 100%;
         border-radius: 15px 0 0 15px;

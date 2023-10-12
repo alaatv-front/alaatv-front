@@ -212,12 +212,16 @@
              :class="{ 'active': item.active, 'all-items-de-active': isAllRouteDeActive() }"
              @click="onMobileMainFooterItemClick(item)">
           <div class="icon-section">
-            <lazy-img v-if="item.photo && (item.title !== 'profile' || user.id === null)"
-                      :src="item.photo"
-                      :alt="item.title"
-                      width="24"
-                      height="24" />
-            <q-icon v-else-if="item.title !== 'profile' || user.id === null"
+            <!--            <lazy-img v-if="item.photo && (item.title !== 'profile' || user.id === null)"-->
+            <!--                      :src="item.photo"-->
+            <!--                      :alt="item.title"-->
+            <!--                      width="24"-->
+            <!--                      height="24" />-->
+            <!--            <q-icon v-else-if="item.title !== 'profile' || user.id === null"-->
+            <!--                    :name="item.icon"-->
+            <!--                    :class="{ active: $route.name === item.to }"-->
+            <!--                    size="24px" />-->
+            <q-icon v-if="item.title !== 'profile' || user.id === null"
                     :name="item.icon"
                     :class="{ active: $route.name === item.to }"
                     size="24px" />
@@ -923,7 +927,7 @@ export default {
       border-radius: 20px;
       box-shadow: 2px 2px 3px 0 #1018280F;
       .footer-item {
-        transition: all 0.5s;
+        transition: all 0.6s;
         width: 15.75%;
         //width: 54.17px;
         display: flex;

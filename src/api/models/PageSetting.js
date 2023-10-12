@@ -86,7 +86,7 @@ export default class PageSettingAPI extends APIRepository {
     })
   }
 
-  get (data, cache = { TTL: 30000 }) {
+  get (data, cache = { TTL: 300000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -103,7 +103,7 @@ export default class PageSettingAPI extends APIRepository {
     })
   }
 
-  getMenuItems (data, cache = { TTL: 30000 }) {
+  getMenuItems (data, cache = { TTL: 300000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

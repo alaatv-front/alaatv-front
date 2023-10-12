@@ -11,7 +11,11 @@
                    :title="service.title"
                    class="service">
           <div class="service-image">
-            <q-img :src="service.icon" />
+            <lazy-img :src="service.icon"
+                      :alt="service.title"
+                      class="service-image-img"
+                      width="52"
+                      height="52" />
           </div>
           <p class="service-title">{{ service.title }}</p>
           <p class="service-subtitle">{{ service.subTitle }}</p>
@@ -20,7 +24,11 @@
              class="service cursor-pointer"
              @click="scrollToElement(service)">
           <div class="service-image">
-            <q-img :src="service.icon" />
+            <lazy-img :src="service.icon"
+                      :alt="service.title"
+                      class="service-image-img"
+                      width="52"
+                      height="52" />
           </div>
           <p class="service-title">{{ service.title }}</p>
           <p class="service-subtitle">{{ service.subTitle }}</p>
@@ -32,9 +40,11 @@
 
 <script>
 import { mixinWidget } from 'src/mixin/Mixins'
+import LazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'Services',
+  components: { LazyImg },
   mixins: [mixinWidget],
   data () {
     return {
@@ -143,13 +153,13 @@ export default {
         display: block;
         position: relative;
         margin: 0 auto;
+        padding: 20px;
 
-        .q-img {
-          margin: 15px;
+        :deep(.service-image-img) {
+          width: 100%;
           transition: transform .4s ease;
           -webkit-transition: transform .4s ease;
           -moz-transition: transform .4s ease;
-          width: 52px;
         }
 
         &:before {
@@ -183,7 +193,7 @@ export default {
         @media screen and (max-width: 599px) {
           width: 70px;
           height: 70px;
-          .q-img {
+          .lazy-img {
             width: 40px;
             margin-top: 15px;
           }

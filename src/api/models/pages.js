@@ -15,7 +15,7 @@ export default class PagesAPI extends APIRepository {
     }
   }
 
-  home(cache = { TTL: 1000 }) {
+  home(cache = { TTL: 30000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -31,7 +31,7 @@ export default class PagesAPI extends APIRepository {
     })
   }
 
-  shop(cache = { TTL: 1000 }) {
+  shop(cache = { TTL: 30000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
