@@ -23,8 +23,13 @@
                             expand-icon-class="expanded-item-icon"
                             @show="getSet(set.id)">
             <template v-slot:header>
-              <q-item-section class="title-column ellipsis">
-                {{ set.short_title.split('-')[2] }}
+              <q-item-section class="title-column flex column no-wrap">
+                <div class="ellipsis"><q-icon name="square"
+                                              class="set-title-icon"
+                                              size="16px" />
+                  <span class="set-title">{{ set.short_title.split('-')[2] }}</span>
+                </div>
+                <div class="lt-sm title-duration ellipsis">{{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}</div>
               </q-item-section>
 
               <!-- <q-item-section side
@@ -32,7 +37,7 @@
                 {{set.contents_count}} گام
               </q-item-section> -->
               <q-item-section side
-                              class="duration-column">
+                              class="duration-column gt-xs">
                 {{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}
               </q-item-section>
             </template>
@@ -351,6 +356,10 @@ export default {
     background:#F5F7FA;
     color:#424242;
     margin: 8px 0;
+
+    @media screen and (max-width: 1023px){
+      margin: 6px 0;
+    }
   }
 
   &:deep(.q-item) {
@@ -364,6 +373,12 @@ export default {
     font-weight: 600;
     line-height: normal;
     letter-spacing: -0.36px;
+
+    @media only screen and (max-width: 600px) {
+      height: auto;
+      max-height: 92px;
+      padding: 16px;
+    }
 
     i {
       color: #616161;
@@ -382,7 +397,15 @@ export default {
     letter-spacing: -0.36px;
   }
   .expanded-item-icon {
-    color: #78909C
+    color: #78909C;
+  }
+
+  &:deep(.q-expansion-item__toggle-icon) {
+
+    @media only screen and (max-width: 600px) {
+      position: absolute !important;
+      top: 0 !important;
+    }
   }
 
   .set-card {
@@ -399,12 +422,37 @@ export default {
     }
   }
 
-  .set-title {
-    max-width: 70%;
-    .set-title-text {
-      max-width: 100%;
+  .title-column {
+    i {
+      color: #d9d9d9;
     }
   }
+
+  .title-duration {
+    color: #616161;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-top: 12px;
+  }
+
+  .duration-column {
+    color:#616161;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  .set-title {
+    margin-left: 8px;
+    color: #424242;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
   .content-title {
     max-width: 80%;
     .content-title-text {

@@ -550,7 +550,7 @@ export default defineComponent({
   }
 
   .payment-header {
-    padding: 0 15px 24px 15px;
+    padding: 14px 7px 30px;
 
     .header-title {
       color: #616161;
@@ -581,7 +581,7 @@ export default defineComponent({
     }
 
     .products-col {
-
+      padding-left:30px;
       &.hidden-responsive {
         @media screen and (max-width: 600px){
           //display: none;
@@ -590,6 +590,7 @@ export default defineComponent({
     }
 
     .installment-col {
+      padding-left: 30px;
     }
   }
 
@@ -618,7 +619,11 @@ export default defineComponent({
             letter-spacing: -0.42px;
           }
           .installment-roules-and-conditions-accept {
-            margin-top: 40px;
+            margin-top: 110px;
+
+            @media screen and (max-width: 1023px){
+              margin-top: 33px;
+            }
           }
         }
       }
@@ -798,7 +803,11 @@ export default defineComponent({
     //position: absolute;
     //bottom: 0;
     //width: 100%;
-    padding: 0 30px 20px;
+    padding: 0 30px 30px;
+
+    @media screen and (max-width: 600px){
+      padding: 0 30px 16px;
+    }
 
     .price-title-responsive {
         display: none;
@@ -903,6 +912,10 @@ export default defineComponent({
       display: flex;
       justify-content: center;
       align-items: center;
+
+      @media screen and (max-width: 1440px){
+        justify-content: flex-start;
+      }
       .simple-text {
         color: #424242;
         font-size: 18px;
