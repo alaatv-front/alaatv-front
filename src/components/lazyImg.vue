@@ -1,42 +1,51 @@
 <template>
-  <div ref="LazyImage"
-       :class="customClass"
-       class="lazy-img">
-    <q-resize-observer @resize="onresize" />
-    <template v-if="qImage">
-      <q-img v-if="width && height"
-             :alt="alt"
-             :src="lazyImageSrc"
-             :width="computedWidth+'px'"
-             :height="computedHeight+'px'"
-             :ratio="ratio"
-             fit="contain"
-             class="full-width img"
-             position="0 0">
-        <slot />
-      </q-img>
-      <q-img v-else
-             :src="computedSrc"
-             :alt="alt">
-        <slot />
-      </q-img>
-    </template>
-    <template v-else>
-      <img v-if="width && height"
-           v-intersection.once="onIntersection"
+  <q-resize-observer @resize="onresize" />
+  <template v-if="qImage">
+    <q-img v-if="width && height"
+           ref="LazyImage"
+           :class="customClass"
+           class="lazy-img"
            :alt="alt"
            :src="lazyImageSrc"
-           class="full-width img"
-           :width="computedWidth"
-           :height="computedHeight"
-           :style="{height: computedHeight+'px', width: computedWidth+'px'}">
-      <img v-else
-           v-intersection.once="onIntersection"
+           :width="computedWidth+'px'"
+           :height="computedHeight+'px'"
+           :ratio="ratio"
+           fit="contain"
+           position="0 0"
+           @click="onClick">
+      <slot />
+    </q-img>
+    <q-img v-else
+           ref="LazyImage"
+           :class="customClass"
+           class="lazy-img"
            :src="computedSrc"
            :alt="alt"
-           class="full-width">
-    </template>
-  </div>
+           @click="onClick">
+      <slot />
+    </q-img>
+  </template>
+  <template v-else>
+    <img v-if="width && height"
+         ref="LazyImage"
+         v-intersection.once="onIntersection"
+         :class="customClass"
+         class="lazy-img"
+         :alt="alt"
+         :src="lazyImageSrc"
+         :width="computedWidth"
+         :height="computedHeight"
+         @click="onClick">
+    <!--    :style="{height: computedHeight+'px', width: computedWidth+'px'}"-->
+    <img v-else
+         ref="LazyImage"
+         v-intersection.once="onIntersection"
+         :class="customClass"
+         class="lazy-img"
+         :src="computedSrc"
+         :alt="alt"
+         @click="onClick">
+  </template>
 </template>
 
 <script>
@@ -69,6 +78,7 @@ export default {
       default: null
     }
   },
+  emits: ['click'],
   data () {
     return {
       visible: false,
@@ -125,6 +135,9 @@ export default {
     this.updateLazyImageSrc()
   },
   methods: {
+    onClick () {
+      this.$emit('click')
+    },
     onresize () {
       if (!this.visible) {
         return
@@ -191,10 +204,9 @@ export default {
 <style lang="scss" scoped>
 .lazy-img {
   font-size: 0;
-  border-radius: inherit;
+  //min-width: 100%;
+  //max-width: 100%;
   overflow: hidden;
-  .img{
-    border-radius: inherit;
-  }
+  border-radius: inherit;
 }
 </style>

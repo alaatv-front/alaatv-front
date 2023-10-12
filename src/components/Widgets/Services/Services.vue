@@ -12,8 +12,10 @@
                    class="service">
           <div class="service-image">
             <lazy-img :src="service.icon"
-                      width="52px"
-                      height="52px" />
+                      :alt="service.title"
+                      class="service-image-img"
+                      width="52"
+                      height="52" />
           </div>
           <p class="service-title">{{ service.title }}</p>
           <p class="service-subtitle">{{ service.subTitle }}</p>
@@ -23,8 +25,10 @@
              @click="scrollToElement(service)">
           <div class="service-image">
             <lazy-img :src="service.icon"
-                      width="52px"
-                      height="52px" />
+                      :alt="service.title"
+                      class="service-image-img"
+                      width="52"
+                      height="52" />
           </div>
           <p class="service-title">{{ service.title }}</p>
           <p class="service-subtitle">{{ service.subTitle }}</p>
@@ -149,13 +153,13 @@ export default {
         display: block;
         position: relative;
         margin: 0 auto;
+        padding: 20px;
 
-        .lazy-img{
-          margin:  20% auto;
+        :deep(.service-image-img) {
+          width: 100%;
           transition: transform .4s ease;
           -webkit-transition: transform .4s ease;
           -moz-transition: transform .4s ease;
-          width: 52px;
         }
 
         &:before {

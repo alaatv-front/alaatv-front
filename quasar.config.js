@@ -10,9 +10,9 @@
 
 /* eslint-env node */
 // const ESLintPlugin = require('eslint-webpack-plugin')
-const {configure} = require('quasar/wrappers')
+const { configure } = require('quasar/wrappers')
 // const path = require('path')
-const {generateWidgetList} = require('./src/widgetListGetter/index')
+const { generateWidgetList } = require('./src/widgetListGetter/index')
 require('dotenv').config()
 
 module.exports = configure(function (ctx) {
@@ -84,16 +84,16 @@ module.exports = configure(function (ctx) {
       gzip: true,
       analyze: false,
       env: process.env,
-      extendViteConf(viteConf, {isServer, isClient}) {
+      extendViteConf(viteConf, { isServer, isClient }) {
         // Set the base URL based on the environment
         if (process.env.ASSET_SERVE === 'remote') {
-          viteConf.base = process.env.NODES_SERVER_URL_SSL || '/';
+          viteConf.base = process.env.NODES_SERVER_URL_SSL || '/'
         }
       },
-      beforeDev({quasarConf}) {
+      beforeDev({ quasarConf }) {
         generateWidgetList('./src/components/Widgets')
       },
-      beforeBuild({quasarConf}) {
+      beforeBuild({ quasarConf }) {
         generateWidgetList('./src/components/Widgets')
       },
 

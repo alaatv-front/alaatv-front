@@ -205,8 +205,8 @@ export default {
         box-shadow: none;
         width: 100%;
         border-radius: 20px 20px 0 0;
-        .img {
-          width: inherit;
+        :deep(.img) {
+          width: 100%;
           border-radius: 20px 20px 0 0;
         }
       }
