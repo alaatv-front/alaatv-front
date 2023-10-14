@@ -15,7 +15,7 @@
         <div class="row payment-body"
              :class="{'q-col-gutter-lg': paymentMethod !== 'cash'}">
           <div class="col-12 products-col"
-               :class="{'col-sm-6': paymentMethod !== 'cash'}">
+               :class="{'col-md-6': paymentMethod !== 'cash'}">
             <div class="installment-roules-and-conditions">
               <div class="installment-roules-and-conditions-title">شرایط ثبت نام قسطی</div>
               <div class="installment-roules-and-conditions-body">
@@ -92,7 +92,7 @@
             </div>
           </div>
           <div v-if="paymentMethod !== 'cash'"
-               class="col-12 col-sm-6 installment-col">
+               class="col-12 col-md-6 installment-col">
             <div class="products-label instalment">
               اقساط
             </div>
@@ -562,7 +562,7 @@ export default defineComponent({
   //height: 649px;
   position: relative;
 
-  @media screen and (max-width: 600px){
+  @media screen and (max-width: 599px){
     //height: 666px;
   }
 
@@ -601,14 +601,14 @@ export default defineComponent({
     //height: 450px;
     overflow-y: auto;
 
-    @media screen and (max-width: 600px){
+    @media screen and (max-width: 599px){
       height: 420px;
     }
 
     .products-col {
       padding-left:30px;
       &.hidden-responsive {
-        @media screen and (max-width: 600px){
+        @media screen and (max-width: 599px){
           //display: none;
         }
       }
@@ -646,7 +646,7 @@ export default defineComponent({
           .installment-roules-and-conditions-accept {
             margin-top: 110px;
 
-            @media screen and (max-width: 600px){
+            @media screen and (max-width: 1023px){
               margin-top: 33px;
             }
           }
@@ -840,6 +840,9 @@ export default defineComponent({
       @media screen and (max-width: 1023px){
         padding: 12px 20px 0;
       }
+      @media screen and (max-width: 599px){
+        padding: 12px 0 0;
+      }
       .installment-footer-label {
         @include caption1;
         color: $grey-8;
@@ -879,7 +882,7 @@ export default defineComponent({
     //width: 100%;
     padding: 0 30px 30px;
 
-    @media screen and (max-width: 600px){
+    @media screen and (max-width: 599px){
       padding: 0 30px 16px;
     }
 
@@ -898,7 +901,7 @@ export default defineComponent({
           margin-right: 8px;
         }
 
-        @media screen and (max-width: 600px){
+        @media screen and (max-width: 599px){
           display: flex;
         }
       }
@@ -924,7 +927,7 @@ export default defineComponent({
           margin-right: 8px;
         }
 
-        @media screen and (max-width: 600px){
+        @media screen and (max-width: 599px){
           display: none;
         }
       }

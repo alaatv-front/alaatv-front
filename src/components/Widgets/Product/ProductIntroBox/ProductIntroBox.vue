@@ -117,16 +117,16 @@ export default defineComponent({
   box-shadow: 2px 2px 3px 0 rgba(16, 24, 40, 0.06);
   padding: 32px;
 
-  @media screen and (max-width: 1440px){
+  @media screen and (max-width: 1439px){
     padding: 20px;
   }
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     width: 100%;
     padding: 24px;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 599px) {
     padding: 20px 16px;
     width: 100%;
     height: auto;
