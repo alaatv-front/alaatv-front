@@ -97,12 +97,12 @@ export default {
         ]
       ],
       fonts: {
-        Doran: 'Doran FaNum',
-        IRANSans: 'IRANSans',
-        IRANSansDN: 'IRANSansDN',
-        IRANSansX: 'IRANSansXFaNum',
-        iranyekan: 'iranyekan',
-        Plasma: 'Plasma-Lozenge-Dots',
+        // Doran: 'Doran FaNum',
+        // IRANSans: 'IRANSans',
+        // IRANSansDN: 'IRANSansDN',
+        // IRANSansX: 'IRANSansXFaNum',
+        // iranyekan: 'iranyekan',
+        // Plasma: 'Plasma-Lozenge-Dots',
         Panchang: 'Panchang'
         // options: ['Doran', 'IRANSans', 'IRANSansDN', 'IRANSansX', 'iranyekan', 'Plasma']
       }
