@@ -5,13 +5,11 @@
                  :target="localOptions.contentLinkTarget"
                  class="content-item-router-link">
       <div class="img-box">
-        <div class="img-title-container">
-          <lazy-img :src="content.photo"
-                    :alt="content.title"
-                    width="16"
-                    height="9"
-                    class="img" />
-        </div>
+        <lazy-img :src="content.photo"
+                  :alt="content.title"
+                  width="16"
+                  height="9"
+                  class="img" />
         <div class="play-btn">
           <div class="play-icon" />
         </div>
@@ -31,7 +29,8 @@
           </div>
         </div>
       </router-link>
-      <div class="content-action-container">
+      <div v-if="defaultOptions.showBookmark || (localOptions.showDownloadMenu && localOptions.content.file?.video)"
+           class="content-action-container">
         <bookmark v-if="defaultOptions.showBookmark"
                   class="content-item-bookmark"
                   :is-favored="options.content.is_favored"
@@ -62,15 +61,14 @@
         </q-btn>
       </div>
     </div>
-
   </q-card>
 </template>
 
 <script>
 import { Content } from 'src/models/Content.js'
 import LazyImg from 'src/components/lazyImg.vue'
-import Bookmark from 'components/Bookmark.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
+import Bookmark from 'src/components/Bookmark.vue'
 
 export default {
   name: 'contentItem',
@@ -214,17 +212,9 @@ export default {
   .img-box {
     position: relative;
 
-    .img-title-container {
-      border-radius: inherit;
-      box-shadow: none;
+    :deep(.img) {
       width: 100%;
-      height: 100%;
-
-      :deep(.img) {
-        width: inherit;
-        height: 100%;
-        border-radius: 20px 20px 0 0;
-      }
+      border-radius: 20px 20px 0 0;
     }
 
     .img-videos {

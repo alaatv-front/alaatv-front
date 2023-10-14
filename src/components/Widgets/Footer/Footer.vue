@@ -5,11 +5,10 @@
       <div class="footer-box-1">
         <div class="content-layout box-1-details ">
           <div class="icons self-center">
-            <div class="alaa-logo-box">
-              <lazy-img src="https://nodes.alaatv.com/upload/alaa-footer-desc.png"
-                        height="52"
-                        width="180" />
-            </div>
+            <lazy-img src="https://nodes.alaatv.com/upload/alaa-footer-desc.png"
+                      class="alaa-logo-box"
+                      height="52"
+                      width="180" />
             <div class="connection">
               <div class="title">
                 راه‌های ارتباطی:
@@ -228,7 +227,7 @@
             <q-avatar v-else
                       size="24px">
               <lazy-img :src="user.photo"
-                        :alt="'user photo'"
+                        alt="user photo"
                         width="24"
                         height="24" />
             </q-avatar>
@@ -601,7 +600,7 @@ export default {
         flex-direction: column;
       }
       .icons {
-        .alaa-logo-box{
+        :deep(.alaa-logo-box) {
           margin-bottom: 30px;
           width: 180px;
           @media screen and (max-width: 1439px) {

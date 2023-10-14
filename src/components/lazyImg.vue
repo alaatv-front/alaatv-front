@@ -1,5 +1,4 @@
 <template>
-  <q-resize-observer @resize="onresize" />
   <template v-if="qImage">
     <q-img v-if="width && height"
            ref="LazyImage"
@@ -133,6 +132,7 @@ export default {
   },
   mounted() {
     this.updateLazyImageSrc()
+    window.addEventListener('resize', this.onresize)
   },
   methods: {
     onClick () {
@@ -202,6 +202,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.resize-observer {
+  min-width: 100%;
+  max-width: 100%;
+}
 .lazy-img {
   font-size: 0;
   //min-width: 100%;
