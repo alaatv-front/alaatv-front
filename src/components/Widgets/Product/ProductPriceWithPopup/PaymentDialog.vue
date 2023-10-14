@@ -840,6 +840,9 @@ export default defineComponent({
       @media screen and (max-width: 1023px){
         padding: 12px 20px 0;
       }
+      @media screen and (max-width: 599px){
+        padding: 12px 0 0;
+      }
       .installment-footer-label {
         @include caption1;
         color: $grey-8;
