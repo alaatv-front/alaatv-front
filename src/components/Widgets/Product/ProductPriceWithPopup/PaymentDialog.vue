@@ -562,7 +562,7 @@ export default defineComponent({
   //height: 649px;
   position: relative;
 
-  @media screen and (max-width: 600px){
+  @media screen and (max-width: 599px){
     //height: 666px;
   }
 
@@ -601,14 +601,14 @@ export default defineComponent({
     //height: 450px;
     overflow-y: auto;
 
-    @media screen and (max-width: 600px){
+    @media screen and (max-width: 599px){
       height: 420px;
     }
 
     .products-col {
       padding-left:30px;
       &.hidden-responsive {
-        @media screen and (max-width: 600px){
+        @media screen and (max-width: 599px){
           //display: none;
         }
       }
@@ -882,7 +882,7 @@ export default defineComponent({
     //width: 100%;
     padding: 0 30px 30px;
 
-    @media screen and (max-width: 600px){
+    @media screen and (max-width: 599px){
       padding: 0 30px 16px;
     }
 
@@ -901,7 +901,7 @@ export default defineComponent({
           margin-right: 8px;
         }
 
-        @media screen and (max-width: 600px){
+        @media screen and (max-width: 599px){
           display: flex;
         }
       }
@@ -927,7 +927,7 @@ export default defineComponent({
           margin-right: 8px;
         }
 
-        @media screen and (max-width: 600px){
+        @media screen and (max-width: 599px){
           display: none;
         }
       }

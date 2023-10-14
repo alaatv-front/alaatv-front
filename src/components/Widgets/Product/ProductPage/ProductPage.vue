@@ -308,7 +308,7 @@ export default defineComponent({
     height: auto;
     overflow: hidden;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 599px) {
       min-height: 623px;
     }
     .background-image {
@@ -336,17 +336,17 @@ export default defineComponent({
       width: 1362px;
       max-width: 100%;
 
-      @media screen and (max-width: 1440px){
+      @media screen and (max-width: 1439px){
         width: 964px;
       }
 
-      @media screen and (max-width: 1024px){
+      @media screen and (max-width: 1023px){
         .space-col {
           display: none;
         }
       }
 
-      @media screen and (max-width: 600px){
+      @media screen and (max-width: 599px){
         width: 100%;
       }
     }
@@ -358,13 +358,13 @@ export default defineComponent({
       height: auto;
       margin: 70px 0;
 
-      @media screen and (max-width: 1024px){
+      @media screen and (max-width: 1023px){
         padding: 0 30px;
         min-height: 400px;
         margin: 10px 0;
       }
 
-      @media screen and (max-width: 600px){
+      @media screen and (max-width: 599px){
         min-height: 623px;
         padding: 20px 20px 0;
       }
@@ -382,7 +382,7 @@ export default defineComponent({
           line-height: normal;
           letter-spacing: -0.66px;
 
-          @media screen and (max-width: 1024px){
+          @media screen and (max-width: 1023px){
             max-width: 100%;
             font-size: 20px;
             letter-spacing: -0.6px;
@@ -394,7 +394,7 @@ export default defineComponent({
           justify-content: center;
           align-items: center;
 
-          @media screen and (max-width: 600px){
+          @media screen and (max-width: 599px){
             display: none;
           }
 
@@ -416,7 +416,7 @@ export default defineComponent({
         display: flex;
         justify-content: flex-end;
         align-items: flex-end;
-        @media screen and (max-width: 1024px){
+        @media screen and (max-width: 1023px){
           flex-direction: column;
           align-items: center;
           width: auto;
@@ -443,7 +443,7 @@ export default defineComponent({
         }
 
         .info-footer-action {
-          @media screen and (max-width: 1024px){
+          @media screen and (max-width: 1023px){
             width: 100%;
             display: flex;
             align-items: center;
@@ -454,7 +454,7 @@ export default defineComponent({
             color: #FFFFFF;
             background: transparent;
 
-            @media screen and (max-width: 600px){
+            @media screen and (max-width: 599px){
               padding: 0;
             }
           }
@@ -466,7 +466,7 @@ export default defineComponent({
       width: 1200px;
       max-width: 100%;
 
-      @media screen and (max-width: 600px){
+      @media screen and (max-width: 599px){
         width: 100%;
       }
 
@@ -475,7 +475,7 @@ export default defineComponent({
         max-width: 100%;
         margin-top: 10px;
 
-        @media screen and (max-width: 600px){
+        @media screen and (max-width: 599px){
           width: 100%;
         }
 
@@ -508,12 +508,12 @@ export default defineComponent({
                 }
               }
 
-              @media screen and (max-width: 600px){
+              @media screen and (max-width: 599px){
                 display: flex;
               }
             }
 
-            @media screen and (max-width: 600px){
+            @media screen and (max-width: 599px){
              display: flex;
              justify-content: space-between;
              align-items: center;
@@ -534,7 +534,7 @@ export default defineComponent({
             text-align: justify;
             margin-top: 8px;
 
-            @media screen and (max-width: 600px){
+            @media screen and (max-width: 599px){
               height: 623px;
             }
 
@@ -543,7 +543,7 @@ export default defineComponent({
               min-height: 300px;
               transition: all .3s ease-in-out;
 
-              @media screen and (max-width: 600px){
+              @media screen and (max-width: 599px){
                 min-height: 623px;
               }
             }
@@ -565,18 +565,18 @@ export default defineComponent({
     position: relative;
     margin: 30px 0;
 
-    @media screen and (max-width: 1440px){
+    @media screen and (max-width: 1439px){
         width: 964px;
       }
 
     .content-row {
 
-      @media screen and (max-width: 1024px) {
+      @media screen and (max-width: 1023px) {
         flex-wrap: wrap-reverse;
         padding: 0 30px;
       }
 
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 599px) {
         padding: 0 20px;
       }
     }
@@ -584,7 +584,7 @@ export default defineComponent({
     .product-info-tab-wrapper {
       max-width: 100%;
 
-      @media screen and (max-width: 1024px) {
+      @media screen and (max-width: 1023px) {
         width: 100%;
       }
 
@@ -595,7 +595,7 @@ export default defineComponent({
     .intro-box-col {
       margin-top: -550px;
 
-      @media screen and (max-width: 1024px) {
+      @media screen and (max-width: 1023px) {
         margin-top: 0;
       }
     }
