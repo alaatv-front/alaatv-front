@@ -11,6 +11,7 @@
                     class="q-pa-none">
       <div class="photo_wide-wrapper">
         <lazy-img :src="localOptions.product.photo_wide"
+                  class="product-image"
                   width="300"
                   height="180" />
       </div>
@@ -18,6 +19,7 @@
     <q-card-section v-else-if="localOptions.product.photo">
       <div class="photo-wrapper">
         <lazy-img :src="localOptions.product.photo"
+                  class="product-image"
                   width="300"
                   height="300" />
       </div>
@@ -139,14 +141,14 @@ export default defineComponent({
   }
 
   .photo_wide-wrapper {
-    :deep(.lazy-img) {
+    :deep(.product-image) {
       width: 100%;
       height: 100%;
       border-radius: 12px;
     }
   }
   .photo-wrapper {
-    :deep(.lazy-img) {
+    :deep(.product-image) {
       width: 100%;
       height: 100%;
       border-radius: 12px;
