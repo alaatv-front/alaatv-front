@@ -140,11 +140,13 @@ export const renderPreloadTag = ssrRenderPreloadTag((file) => {
   }
 
   if (woffRE.test(file) === true) {
-    return `<link rel="preload" href="${file}" as="font" type="font/woff" crossorigin>`
+    // return `<link rel="preload" href="${file}" as="font" type="font/woff" crossorigin>`
+    return `<link  href="${file}" rel="stylesheet" type="font/woff" crossorigin>`
   }
 
   if (woff2RE.test(file) === true) {
-    return `<link rel="preload" href="${file}" as="font" type="font/woff2" crossorigin>`
+    //return `<link rel="preload" href="${file}" as="font" type="font/woff2" crossorigin>`
+    return `<link href="${file}" rel="stylesheet" type="font/woff2" crossorigin>`
   }
 
   if (gifRE.test(file) === true) {
