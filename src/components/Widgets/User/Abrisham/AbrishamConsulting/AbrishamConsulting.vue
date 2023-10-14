@@ -224,7 +224,7 @@ export default {
   .title-style{
     font-size: 20px;
     font-weight: 500;
-    color: var(--abrishamMain);
+    color: #3e5480;
     margin-top: 10px;
     @media screen and (max-width: 1023px) {
       font-size: 16px;

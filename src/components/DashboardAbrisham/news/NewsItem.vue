@@ -168,7 +168,7 @@ export default {
         min-width: 0;
       }
       .pin-color{
-        color: var(--abrishamGray);
+        color: #9fa5c0;
         font-size: 18px;
         margin-right: 5px;
         @media screen and (max-width: 576px) {
@@ -197,7 +197,7 @@ export default {
       }
 
       .icon {
-        color: var(--abrishamMain);
+        color: #3e5480;
         font-size: 14px;
         align-items: center;
         font-weight: 600;
@@ -212,7 +212,7 @@ export default {
 
       .text {
         margin-right: 10px;
-        color: var(--abrishamMain);
+        color: #3e5480;
         font-size: 14px;
         letter-spacing: 0;
         @media screen and (max-width: 768px) {
@@ -280,7 +280,7 @@ export default {
         margin-right: 23px;
         padding: 3px 23px;
         font-size: 12px;
-        color: var(--abrishamMain);
+        color: #3e5480;
         background-color: #eff3ff;
         border-radius: 13px;
         @media screen and (max-width: 768px) {

@@ -205,7 +205,7 @@ export default {
     height: 100px;
     padding: 0;
     &:hover {
-      background-color: var(--alaa-Primary);
+      background-color: #FFCA28;
       color: white;
     }
     .q-focus-helper {

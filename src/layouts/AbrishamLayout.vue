@@ -124,7 +124,7 @@ export default {
   background-color: #fff;
 }
 .q-menu .q-item--active{
-color: var(--abrishamMain);
+color: #3e5480;
 }
 </style>
 <style scoped lang="scss">
@@ -167,15 +167,15 @@ color: var(--abrishamMain);
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: var(--abrishamMain);
+    color: #3e5480;
     &:deep(.q-icon){
-      color: var(--alaa-Primary);
+      color: #FFCA28;
       font-weight: 500;
     }
     &:deep(.expanded-icon-color){
       font-size: 50px;
       i {
-        color: var(--abrishamMain) !important;
+        color: #3e5480 !important;
         font-weight: 500;
       }
     }
@@ -186,7 +186,7 @@ color: var(--abrishamMain);
       padding: 0;
     }
     .header-icon{
-      color: var(--alaa-Primary);
+      color: #FFCA28;
       font-size: 22px;
     }
     .menu-item-icon{

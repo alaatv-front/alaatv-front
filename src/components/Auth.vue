@@ -189,7 +189,7 @@ export default {
     font-size: 24px;
     line-height: 37px;
     letter-spacing: -0.03em;
-    color: var(--alaa-TextSecondary);
+    color: #65677F;
   }
   .label{
     font-weight: 400;

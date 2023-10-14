@@ -219,7 +219,7 @@ export default {
       font-size: 14px;
       padding-bottom: 0;
       justify-self: end;
-      color: var(--abrishamGray);
+      color: #9fa5c0;
       cursor: pointer;
       @media screen and (max-width: 768px) {
         font-size: 12px;

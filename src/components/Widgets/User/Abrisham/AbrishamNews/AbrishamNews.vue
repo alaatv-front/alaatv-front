@@ -504,7 +504,7 @@ export default {
               width: 165px;
               &:deep(.q-field__native ){
                 span{
-                  color: var(--abrishamMain);
+                  color: #3e5480;
                 }
 
               }
