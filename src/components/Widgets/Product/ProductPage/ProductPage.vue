@@ -246,7 +246,6 @@ export default defineComponent({
         }
       }
       const minHeight = this.$q.screen.lt.sm ? 623 : 450
-      console.log(totalHeight, minHeight)
       if (totalHeight > minHeight) {
         this.showMore = true
       } else {
