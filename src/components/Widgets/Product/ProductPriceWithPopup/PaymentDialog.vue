@@ -98,7 +98,7 @@
             </div>
             <div class="installment">
               <q-list class="installment-list">
-                <q-item>
+                <q-item class="installment-header">
                   <q-item-section class="installment-order-label"
                                   side>
                     قسط
@@ -236,7 +236,7 @@ export default defineComponent({
       default: 'cash'
     },
     product: {
-      type: Product,
+      type: Object,
       default: new Product()
     },
     productComplimentary: {
@@ -621,7 +621,7 @@ export default defineComponent({
           .installment-roules-and-conditions-accept {
             margin-top: 110px;
 
-            @media screen and (max-width: 1023px){
+            @media screen and (max-width: 600px){
               margin-top: 33px;
             }
           }
@@ -709,33 +709,40 @@ export default defineComponent({
       margin-bottom: 10px;
     }
 
-    .installment-order-label {
-      color: #616161;
-      text-align: center;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-      letter-spacing: -0.36px;
+    .installment-header {
+      padding: 0 20px;
+      min-height: 18px;
+
+      .installment-order-label {
+        color: #616161;
+        text-align: center;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: -0.36px;
+      }
+      .installment-date-label {
+        text-align: center;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: -0.36px;
+        color: #616161;
+      }
+      .installment-amount-label {
+        text-align: center;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: -0.36px;
+        color: #616161;
+        padding: 0 5px 0 50px;
+      }
     }
-    .installment-date-label {
-      text-align: center;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-      letter-spacing: -0.36px;
-      color: #616161;
-    }
-    .installment-amount-label {
-      text-align: center;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-      letter-spacing: -0.36px;
-      color: #616161;
-    }
+
     .installment-item {
       border-radius: 4px;
       background: #FFF;
