@@ -79,8 +79,8 @@ $size: 64px;
     }
 
     @media screen and (max-width: 600px){
-      top: 9px;
-      right: 12px;
+      top: 7px;
+      right: 16px;
       &__number {
         text-align: center;
         color: #FFF;
@@ -102,9 +102,12 @@ $size: 64px;
     }
   }
   :deep(.discount-badge_percent__img) {
+    position: absolute;
     width: $size;
     @media screen and (max-width: 600px){
       width: 32px;
+      top: 0;
+      right: 12px;
     }
   }
 }
