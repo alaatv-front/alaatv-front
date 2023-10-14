@@ -25,6 +25,7 @@ This set of fonts are used in this project under the license: (.....)
   src: url('../svg/IRANSansXFaNum-Thin.svg#IRANSansXFaNum-Thin') format('svg');
 	src: url('../Woff/IRANSansXFaNum-Thin.woff') format('woff'),
 	url('../Woff2/IRANSansXFaNum-Thin.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
@@ -34,6 +35,7 @@ This set of fonts are used in this project under the license: (.....)
   src: url('../svg/IRANSansXFaNum-UltraLight.svg#IRANSansXFaNum-UltraLight') format('svg');
 	src: url('../Woff/IRANSansXFaNum-UltraLight.woff') format('woff'),
 	url('../Woff2/IRANSansXFaNum-UltraLight.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
@@ -43,6 +45,7 @@ This set of fonts are used in this project under the license: (.....)
   src: url('../svg/IRANSansXFaNum-Light.svg#IRANSansXFaNum-Light') format('svg');
 	src: url('../Woff/IRANSansXFaNum-Light.woff') format('woff'),
 	url('../Woff2/IRANSansXFaNum-Light.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
@@ -52,6 +55,7 @@ This set of fonts are used in this project under the license: (.....)
   src: url('../svg/IRANSansXFaNum-Medium.svg#IRANSansXFaNum-Medium') format('svg');
 	src: url('../Woff/IRANSansXFaNum-Medium.woff') format('woff'),
 	url('../Woff2/IRANSansXFaNum-Medium.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
@@ -61,6 +65,7 @@ This set of fonts are used in this project under the license: (.....)
   src: url('../svg/IRANSansXFaNum-DemiBold.svg#IRANSansXFaNum-DemiBold') format('svg');
 	src: url('../Woff/IRANSansXFaNum-DemiBold.woff') format('woff'),
 	url('../Woff2/IRANSansXFaNum-DemiBold.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
@@ -69,6 +74,7 @@ This set of fonts are used in this project under the license: (.....)
 	font-weight: 800;
 	src: url('../Woff/IRANSansXFaNum-ExtraBold.woff') format('woff'),
 	url('../Woff2/IRANSansXFaNum-ExtraBold.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
@@ -78,6 +84,7 @@ This set of fonts are used in this project under the license: (.....)
   src: url('../svg/IRANSansXFaNum-Black.svg#IRANSansXFaNum-Black') format('svg');
 	src: url('../Woff/IRANSansXFaNum-Black.woff') format('woff'),
 	url('../Woff2/IRANSansXFaNum-Black.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
@@ -87,6 +94,7 @@ This set of fonts are used in this project under the license: (.....)
   src: url('../svg/IRANSansXFaNum-ExtraBold.svg#IRANSansXFaNum-ExtraBold') format('svg');
 	src: url('../Woff/IRANSansXFaNum-Bold.woff') format('woff'),
 	url('../Woff2/IRANSansXFaNum-Bold.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
@@ -96,6 +104,7 @@ This set of fonts are used in this project under the license: (.....)
   src: url('../svg/IRANSansXFaNum-Regular.svg#IRANSansXFaNum-Regular') format('svg');
 	src: url('../Woff/IRANSansXFaNum-Regular.woff') format('woff'),
 	url('../Woff2/IRANSansXFaNum-Regular.woff2') format('woff2');
+  font-display: swap;
 }
 
 
