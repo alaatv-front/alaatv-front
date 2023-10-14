@@ -123,6 +123,30 @@
                                   :class="{'active': index === 0}"
                                   side>{{ item.value.toLocaleString('fa') }}</q-item-section>
                 </q-item>
+                <q-item class="installment-footer">
+                  <q-item-section class="installment-footer-label"
+                                  side>
+                    مجموع
+                  </q-item-section>
+                  <q-item-section v-if="productPrice.discount > 0"
+                                  class="installment-footer-discount">
+                    <div class="footer-discount-badge">
+                      <q-badge color="negative"
+                               text-color="white"
+                               :label="'%' + discountInPercent" />
+                    </div>
+                    <div class="footer-discount-label">
+                      تخفیف
+                    </div>
+                  </q-item-section>
+                  <q-item-section class="installment-footer-amount"
+                                  side>
+                    {{ getProductPrice(totalPrice, 'final') }}
+                    <div class="footer-amount-label">
+                      تومان
+                    </div>
+                  </q-item-section>
+                </q-item>
               </q-list>
             </div>
           </div>
@@ -528,6 +552,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/Theme/Typography/typography.scss";
 .payment-card {
   border-radius: 12px;
   background:#FFF;
@@ -705,7 +730,8 @@ export default defineComponent({
     background: #ECEFF1;
     //overflow-y: auto;
     padding: 20px;
-    @media screen and (max-width: 600px){
+    @media screen and (max-width: 599px){
+      padding: 16px 12px 12px;
       margin-bottom: 10px;
     }
 
@@ -801,6 +827,47 @@ export default defineComponent({
           font-weight: 800;
           line-height: normal;
           letter-spacing: -0.42px;
+        }
+      }
+    }
+
+    .installment-footer {
+      padding: 12px 20px 5px;
+      min-height: 18px;
+      margin: 12px 0 0;
+      border-top: dashed 1px #AEAEAE;
+
+      @media screen and (max-width: 1023px){
+        padding: 12px 20px 0;
+      }
+      .installment-footer-label {
+        @include caption1;
+        color: $grey-8;
+      }
+
+      .installment-footer-discount {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        .footer-discount-label {
+          @include caption1;
+          color: $grey-8;
+          margin-left: $spacing-base;
+        }
+      }
+
+      .installment-footer-amount {
+        @include caption1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        color: $grey-8;
+        .footer-amount-label {
+          @include caption2;
+          color: $grey-8;
+          margin-left: $spacing-base;
         }
       }
     }
