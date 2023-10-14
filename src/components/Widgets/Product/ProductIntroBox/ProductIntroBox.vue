@@ -138,6 +138,21 @@ export default defineComponent({
     padding: 0;
   }
 
+  .photo_wide-wrapper {
+    :deep(.lazy-img) {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+    }
+  }
+  .photo-wrapper {
+    :deep(.lazy-img) {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+    }
+  }
+
   .price-section {
     padding: 16px 0 25px;
   }
