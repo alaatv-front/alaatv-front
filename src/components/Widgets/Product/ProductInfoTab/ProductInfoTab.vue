@@ -185,7 +185,7 @@ export default defineComponent({
 .product-tab-panel {
   padding: 30px;
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     padding: 20px;
   }
   .product-description-title {
