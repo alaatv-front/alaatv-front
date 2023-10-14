@@ -41,12 +41,12 @@ RUN yarn build:ssr
 
 
 FROM node:16.16.0-alpine
-#Why we simply don't copy node_module to new docker image so we can remove yar install
-#COPY --from=prebuild /var/www/app/node_modules /var/www/app/node_modules
 COPY --from=prebuild /var/www/app/dist/ssr /var/www/app/dist/ssr
+#Why we simply don't copy node_module to new docker image so we can remove yar install
+COPY --from=prebuild /var/www/app/node_modules /var/www/app/dist/ssr/node_modules
 WORKDIR /var/www/app/dist/ssr
 
-RUN yarn install
+#RUN yarn install
 
 # Expose the listening port
 EXPOSE 3000
