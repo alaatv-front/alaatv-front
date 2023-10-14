@@ -28,7 +28,7 @@
         <q-separator class="grey1" />
         <q-card-section class="sms-help-dialog_main">
           <div class="sms-help-dialog_main__title">
-            آسان کارت با ارسال کد های پایین به سرشماره 10006420
+            آسان کارت با ارسال کد های پایین به سرشماره 100062013
           </div>
           <div class="sms-help-dialog_main__list">
             <div class="sms-help-item">
