@@ -3,7 +3,7 @@
     <p>کمک مالی به آلاء</p>
     <q-separator />
     <div class="row q-my-md text-center reverse-wrap">
-      <div class="flex items-center"
+      <div class="col-md-6 col-sm-7 col-xs-12 flex items-center"
            style="font-size: 14px">
         <div class="q-mr-sm">5000 تومان به آلاء کمک</div>
         <q-btn-toggle v-model="donate"
@@ -16,9 +16,10 @@
                       ]"
                       @update:model-value="doAction()" />
       </div>
-      <div class="col-md-4 col-sm-3 col-xs-12">
+      <div class="col-md-6 col-sm-5 col-xs-12">
         <lazy-img :src="donateImage"
                   :alt="donateImage"
+                  class="full-width"
                   width="1"
                   height="1" />
       </div>

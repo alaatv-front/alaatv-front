@@ -139,6 +139,7 @@
                               <div class="bank-icon-container">
                                 <lazy-img :src="gateway.photo"
                                           :alt="gateway.photo"
+                                          class="bank-icon-photo"
                                           width="1"
                                           height="1" />
                               </div>
@@ -944,7 +945,7 @@ export default {
                       background: #F4F3FF;
                       border-radius: 5px;
                       margin-right: 8px;
-                      .lazy-img {
+                      :deep(.bank-icon-photo) {
                         width: $iconSize;
                         height: $iconSize;
                       }
