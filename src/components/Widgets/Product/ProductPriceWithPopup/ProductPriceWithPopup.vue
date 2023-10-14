@@ -311,6 +311,14 @@ export default defineComponent({
         grid-area: 2 / 2 / 3 / 3;
       }
 
+      @media screen and (max-width: 1023px){
+        margin-right: 8px;
+      }
+
+      @media screen and (max-width: 599px){
+        margin-right: initial;
+      }
+
       .discount {
         margin-right: 8px;
       }
