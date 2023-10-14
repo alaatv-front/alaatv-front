@@ -266,6 +266,12 @@ module.exports = configure(function (ctx) {
         orientation: 'portrait',
         icons: [
           {
+            src: 'icons/icon-48x48.png',
+            sizes: '48x48',
+            type: 'image/png',
+            purpose: 'maskable any'
+          },
+          {
             src: 'icons/icon-72x72.png',
             sizes: '72x72',
             type: 'image/png',
