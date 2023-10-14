@@ -15,7 +15,7 @@
         <div class="row payment-body"
              :class="{'q-col-gutter-lg': paymentMethod !== 'cash'}">
           <div class="col-12 products-col"
-               :class="{'col-sm-6': paymentMethod !== 'cash'}">
+               :class="{'col-md-6': paymentMethod !== 'cash'}">
             <div class="installment-roules-and-conditions">
               <div class="installment-roules-and-conditions-title">شرایط ثبت نام قسطی</div>
               <div class="installment-roules-and-conditions-body">
@@ -92,7 +92,7 @@
             </div>
           </div>
           <div v-if="paymentMethod !== 'cash'"
-               class="col-12 col-sm-6 installment-col">
+               class="col-12 col-md-6 installment-col">
             <div class="products-label instalment">
               اقساط
             </div>
@@ -646,7 +646,7 @@ export default defineComponent({
           .installment-roules-and-conditions-accept {
             margin-top: 110px;
 
-            @media screen and (max-width: 600px){
+            @media screen and (max-width: 1023px){
               margin-top: 33px;
             }
           }
