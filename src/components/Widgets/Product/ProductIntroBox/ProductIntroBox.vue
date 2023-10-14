@@ -7,7 +7,8 @@
                     :poster="localOptions.product.intro?.photo"
                     :source="videoSource" />
     </q-card-section>
-    <q-card-section v-else-if="localOptions.product.photo_wide">
+    <q-card-section v-else-if="localOptions.product.photo_wide"
+                    class="q-pa-none">
       <div class="photo_wide-wrapper">
         <lazy-img :src="localOptions.product.photo_wide"
                   width="300"
@@ -112,26 +113,22 @@ export default defineComponent({
   border-radius: 12px;
   background:#FFF;
   box-shadow: 2px 2px 3px 0 rgba(16, 24, 40, 0.06);
-  padding: 30px;
+  padding: 32px;
 
-  @media screen and (max-width: 1300px){
-    padding: 15px;
-  }
-  @media screen and (max-width: 1023px){
-    padding: 30px;
+  @media screen and (max-width: 1440px){
+    padding: 20px;
   }
 
   @media screen and (max-width: 1024px) {
-    margin: auto;
-    width: 586px;
+    width: 100%;
+    padding: 24px;
   }
 
   @media screen and (max-width: 600px) {
-    margin: auto;
-    width: 90%;
+    padding: 20px 16px;
+    width: 100%;
     height: auto;
     min-height: auto;
-    padding: 16px;
   }
 
   .product-intro-video {
@@ -142,7 +139,7 @@ export default defineComponent({
   }
 
   .price-section {
-    padding: 22px 0;
+    padding: 16px 0 25px;
   }
 
   .attributes-section {

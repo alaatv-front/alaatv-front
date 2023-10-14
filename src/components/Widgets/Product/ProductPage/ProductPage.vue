@@ -6,7 +6,7 @@
            :style="{backgroundImage: `url(${product.photo})`}">
         <div class="background-filter" />
       </div>
-      <div class="row product-info-row q-col-gutter-lg">
+      <div class="row product-info-row q-col-gutter-y-lg">
         <div class="col-12 col-md-8">
           <div class="product-info-wrapper">
             <div class="product-info-header">
@@ -245,8 +245,7 @@ export default defineComponent({
           totalHeight += element.clientHeight
         }
       }
-      const minHeight = this.$q.screen.lt.sm ? 300 : 450
-
+      const minHeight = this.$q.screen.lt.sm ? 623 : 450
       if (totalHeight > minHeight) {
         this.showMore = true
       } else {
@@ -308,6 +307,10 @@ export default defineComponent({
     width: 100%;
     height: auto;
     overflow: hidden;
+
+    @media screen and (max-width: 600px) {
+      min-height: 623px;
+    }
     .background-image {
       position: absolute;
       top: -50px;
@@ -332,6 +335,10 @@ export default defineComponent({
     .product-info-row {
       width: 1362px;
       max-width: 100%;
+
+      @media screen and (max-width: 1440px){
+        width: 964px;
+      }
 
       @media screen and (max-width: 1024px){
         .space-col {
@@ -358,7 +365,8 @@ export default defineComponent({
       }
 
       @media screen and (max-width: 600px){
-        padding: 0 20px;
+        min-height: 623px;
+        padding: 20px 20px 0;
       }
 
       .product-info-header {
@@ -527,7 +535,7 @@ export default defineComponent({
             margin-top: 8px;
 
             @media screen and (max-width: 600px){
-              height: 300px;
+              height: 623px;
             }
 
             &.auto-height {
@@ -536,7 +544,7 @@ export default defineComponent({
               transition: all .3s ease-in-out;
 
               @media screen and (max-width: 600px){
-                min-height: 110px;
+                min-height: 623px;
               }
             }
           }
@@ -557,10 +565,19 @@ export default defineComponent({
     position: relative;
     margin: 30px 0;
 
+    @media screen and (max-width: 1440px){
+        width: 964px;
+      }
+
     .content-row {
 
       @media screen and (max-width: 1024px) {
         flex-wrap: wrap-reverse;
+        padding: 0 30px;
+      }
+
+      @media screen and (max-width: 600px) {
+        padding: 0 20px;
       }
     }
 
@@ -568,8 +585,7 @@ export default defineComponent({
       max-width: 100%;
 
       @media screen and (max-width: 1024px) {
-        width: 90%;
-        margin: 0 20px;
+        width: 100%;
       }
 
       &:deep(.q-tab-panels) {

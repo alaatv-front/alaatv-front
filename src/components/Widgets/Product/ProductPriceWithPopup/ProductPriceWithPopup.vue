@@ -47,6 +47,9 @@
           تومان
         </span>
       </span>
+      <span class="instalment-label-responsive">
+        اقساطی
+      </span>
     </div>
     <div class="price-action">
       <q-btn :color="!localOptions.product.payment_default || localOptions.product.payment_default === 1 ? 'primary' : 'grey-3'"
@@ -229,14 +232,14 @@ export default defineComponent({
   align-items: center;
   width: 100%;
 
-  @media screen and (max-width: 600px){
+  @media screen and (max-width: 1023px){
     position: fixed;
     bottom: 0;
     right: 0;
     left: 0;
     background: #FFFFFF;
     z-index: 5;
-    padding: 20px;
+    padding: 24px 30px 16px;
     box-shadow: 1px 1px 2px 0 #010101;
   }
 
@@ -245,34 +248,54 @@ export default defineComponent({
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-bottom: 16px;
-    padding: 13px 16px;
+    margin-bottom: 8px;
+    padding: 12px;
 
     border-radius: 8px;
     border: 1px solid #E6E6E6;
     background: #F5F7FA;
 
+    @media screen and (max-width: 1439px){
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      grid-column-gap: 0px;
+      grid-row-gap: 0px;
+    }
+
+    @media screen and (max-width: 1023px){
+      display: flex;
+      padding: 12px 20px;
+      margin-bottom: 12px;
+    }
+
+    @media screen and (max-width: 599px){
+      padding: 12px;
+    }
+
     .price-title {
       display: flex;
       justify-content: center;
       align-items: center;
-
       color: #303030;
-      text-align: right;
       font-size: 16px;
       font-style: normal;
       font-weight: 400;
       line-height: normal;
       letter-spacing: -0.54px;
 
-      @media screen and (max-width: 1300px){
-        font-size: 10px;
+      @media screen and (max-width: 1439px){
+        grid-area: 1 / 1 / 2 / 2;
+        justify-content: flex-start;
       }
+
       @media screen and (max-width: 1023px){
         font-size: 16px;
+        flex-grow: 1;
       }
-      @media screen and (max-width: 400px){
+      @media screen and (max-width: 599px){
         font-size: 10px;
+        flex-grow: initial;
       }
 
       .q-icon {
@@ -283,6 +306,10 @@ export default defineComponent({
       display: flex;
       justify-content: center;
       align-items: center;
+
+      @media screen and (max-width: 1439px){
+        grid-area: 2 / 2 / 3 / 3;
+      }
 
       .discount {
         margin-right: 8px;
@@ -302,6 +329,10 @@ export default defineComponent({
       display: flex;
       justify-content: center;
       align-items: center;
+
+      @media screen and (max-width: 1439px){
+        grid-area: 1 / 2 / 2 / 3;
+      }
 
       .number {
         color:#424242;
@@ -338,6 +369,13 @@ export default defineComponent({
         .instalment-label {
           @include instalment-label();
           margin-right: 16px;
+
+          @media screen and (max-width: 1439px){
+            display: none;
+          }
+          @media screen and (max-width: 1023px){
+            display: flex;
+          }
         }
         .simple-text {
           color: #303030;
@@ -346,13 +384,13 @@ export default defineComponent({
           font-weight: 400;
           line-height: normal;
           letter-spacing: -0.54px;
-          @media screen and (max-width: 1200px){
+          @media screen and (max-width: 1439px){
             font-size: 14px;
           }
           @media screen and (max-width: 1023px){
             font-size: 18px;
           }
-          @media screen and (max-width: 400px){
+          @media screen and (max-width: 599px){
             font-size: 14px;
           }
         }
@@ -361,23 +399,44 @@ export default defineComponent({
         color: #FF8518;
         font-style: normal;
         line-height: normal;
+
+        @media screen and (max-width: 1439px){
+          margin-left: auto;
+        }
         .price-value {
           font-size: 20px;
           font-weight: 600;
           letter-spacing: -1px;
-          @media screen and (max-width: 1200px){
+          @media screen and (max-width: 1439px){
             font-size: 18px;
           }
           @media screen and (max-width: 1023px){
             font-size: 20px;
           }
-          @media screen and (max-width: 400px){
+          @media screen and (max-width: 599px){
             font-size: 18px;
           }
         }
         .price-label {
           font-size: 14px;
           font-weight: 400;
+        }
+      }
+
+      .instalment-label-responsive {
+        @include instalment-label();
+        display: none;
+        margin-top: 7px;
+        width: fit-content;
+        justify-content: flex-end;
+        margin-left: auto;
+        grid-area: 2 / 2 / 3 / 3;
+
+        @media screen and (max-width: 1439px){
+          display: flex;
+        }
+        @media screen and (max-width: 1024px){
+          display: none;
         }
       }
     }
@@ -388,11 +447,26 @@ export default defineComponent({
     display: flex;
     justify-content: space-around;
     align-items: center;
+    margin-top: 16px;
+
+    @media screen and (max-width: 1023px){
+      margin-top: 28px;
+    }
 
     .action-btn {
-      width: 181px;
+      width: 179px;
       height: 48px;
       max-width: 100%;
+
+      @media screen and (max-width: 1440px){
+        width: 128px;
+      }
+      @media screen and (max-width: 1023px){
+        width: 262px;
+      }
+      @media screen and (max-width: 599px){
+        width: 149px;
+      }
 
       &.gesti {
         margin-left: 16px;
