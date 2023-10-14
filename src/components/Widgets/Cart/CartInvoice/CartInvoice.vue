@@ -588,7 +588,7 @@ export default {
         margin-left: 0;
       }
       @media screen and (max-width: 599px) {
-        margin-bottom: 70px;
+        margin-bottom: 80px;
       }
 
       .invoice-cart {
@@ -1101,7 +1101,7 @@ export default {
 
         @media screen and (max-width: 599px) {
           position: fixed;
-          bottom: 65px;
+          bottom: 80px;
           left: 0;
           right: 0;
           display: flex;
