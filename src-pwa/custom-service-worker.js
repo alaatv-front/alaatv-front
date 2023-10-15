@@ -1,159 +1,106 @@
 /* eslint-env serviceworker */
 
-/*
- * This file (which will be your service worker)
- * is picked up by the build system ONLY if
- * quasar.config.js > pwa > workboxMode is set to "injectManifest"
+/**
+ * Service Worker Script for PWA.
+ * This script is picked up by the build system only if
+ * quasar.config.js > pwa > workboxMode is set to "injectManifest".
  */
 
 // Import necessary workbox libraries
-import { clientsClaim } from 'workbox-core'
-import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching'
-import { registerRoute, NavigationRoute } from 'workbox-routing'
-import { StaleWhileRevalidate, CacheFirst } from 'workbox-strategies'
-import { CacheableResponsePlugin } from 'workbox-cacheable-response'
-import { ExpirationPlugin } from 'workbox-expiration'
+import {
+  clientsClaim,
+  skipWaiting
+} from 'workbox-core'
+import {
+  cleanupOutdatedCaches
+} from 'workbox-precaching'
+import {
+  registerRoute,
+  NavigationRoute
+} from 'workbox-routing'
+import {
+  StaleWhileRevalidate,
+  CacheFirst
+} from 'workbox-strategies'
+import {
+  CacheableResponsePlugin
+} from 'workbox-cacheable-response'
+import {
+  ExpirationPlugin
+} from 'workbox-expiration'
 
-// Ensure the service worker takes control of the page as soon as possible.
-self.skipWaiting()
+// Immediately claim any clients, ensuring that the current service worker controls them.
+skipWaiting()
 clientsClaim()
 
-// Define placeholders for environment variables
+// Environment Variables
 const ASSET_SERVE = '__ASSET_SERVE__'
 const NODES_SERVER_URL_SSL = '__NODES_SERVER_URL_SSL__'
 const MODE = '__MODE__'
 const PROD = '__PROD__'
 const PWA_FALLBACK_HTML = '__PWA_FALLBACK_HTML__'
-const CACHE_VERSION = '__CACHE_VERSION__' // Placeholder for cache version
+const CACHE_VERSION = '__CACHE_VERSION__'
 
 // Extract the origin from NODES_SERVER_URL_SSL for asset matching
 const ASSET_ORIGIN = new URL(NODES_SERVER_URL_SSL).origin
 
-// Define fallback URLs for different asset types
-const FALLBACK_IMAGE = '/path-to-default-image.jpg'
-const FALLBACK_SCRIPT = '/path-to-default-script.js'
-const FALLBACK_STYLE = '/path-to-default-style.css'
-
-// Sort the manifest to prioritize prefetching of JS, then CSS, then fonts, then others
-const sortedManifest = self.__WB_MANIFEST.sort((a, b) => {
-  const getFilePriority = (url) => {
-    if (url.endsWith('.js')) return 1
-    if (url.endsWith('.css')) return 2
-    if (url.endsWith('.woff') || url.endsWith('.woff2') || url.endsWith('.ttf')) return 3
-    return 4
-  }
-  return getFilePriority(a.url) - getFilePriority(b.url)
-})
-
-// Determine if the app is running in standalone (PWA) mode or in a browser
-const isStandalone = self.clients.matchAll({ includeUncontrolled: true, type: 'window' })
-  .then(clientList => {
-    for (const client of clientList) {
-      if (client?.url?.includes('display-mode=standalone')) {
-        return true
-      }
-    }
-    return false
-  })
-
-// If in standalone mode, prefetch all resources; otherwise, limit to the first 200
-const resourcesToPrefetch = isStandalone ? sortedManifest : sortedManifest.slice(0, 200)
-
-// Adjust the manifest based on the asset serving mode (remote or local)
-let resourcesToCache
-if (ASSET_SERVE === 'remote') {
-  const prefix = NODES_SERVER_URL_SSL
-  resourcesToCache = resourcesToPrefetch.map(entry => {
-    return { ...entry, url: `${prefix}${entry.url}` }
-  })
-} else {
-  resourcesToCache = resourcesToPrefetch
+// Fallback URLs for different asset types
+const FALLBACKS = {
+  image: '/path-to-default-image.jpg',
+  script: '/path-to-default-script.js',
+  style: '/path-to-default-style.css'
 }
 
-// Try to precache resources and handle any errors
-precacheAndRoute(resourcesToCache).catch(error => {
-  console.error('Error during precaching:', error)
-  // Handle the error or provide a fallback mechanism here
+// Sort the manifest based on asset type priority
+const sortedManifest = self.__WB_MANIFEST.sort((a, b) => {
+  const priorities = {
+    '.js': 1,
+    '.css': 2,
+    '.woff': 3,
+    '.woff2': 3,
+    '.ttf': 3
+  }
+  const getPriority = url => priorities[url.slice(url.lastIndexOf('.'))] || 4
+  return getPriority(a.url) - getPriority(b.url)
 })
 
-// Clean up outdated caches based on the CACHE_VERSION
-cleanupOutdatedCaches()
+// Determine resources to prefetch based on app mode
+const resourcesToPrefetch = (async () => {
+  const clientList = await self.clients.matchAll({
+    includeUncontrolled: true,
+    type: 'window'
+  })
+  return clientList.some(client => client?.url?.includes('display-mode=standalone')) ? sortedManifest : sortedManifest.slice(0, 200)
+})()
 
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_VERSION) {
-            return caches.delete(cacheName)
-          }
-        })
-      )
-    })
-  )
-})
+// Adjust the manifest based on the asset serving mode (remote or local)
+const resourcesToCache = ASSET_SERVE === 'remote'
+  ? resourcesToPrefetch.map(entry => ({
+    ...entry,
+    url: `${NODES_SERVER_URL_SSL}${entry.url}`
+  }))
+  : resourcesToPrefetch
 
-// Define a strategy to serve stale content while revalidating in the background
+// Manually precache resources
+const cacheResources = async () => {
+  const cache = await caches.open(workbox.core.cacheNames.precache)
+  for (const resource of resourcesToCache) {
+    try {
+      await cache.add(resource.url)
+    } catch (error) {
+      console.error(`Error caching resource ${resource.url}:`, error)
+    }
+  }
+}
+
+cacheResources()
+
+// Set up routing for the manually cached resources
 registerRoute(
-  ({ request }) => request.destination === 'script' || request.destination === 'style',
-  new StaleWhileRevalidate()
-)
-
-// Define a Cache First, then Network strategy for assets
-registerRoute(
-  ({ url }) => url.origin === ASSET_ORIGIN,
+  ({ request }) => resourcesToCache.some(resource => request.url.includes(resource.url)),
   new CacheFirst({
-    cacheName: `alaatv-assets-${CACHE_VERSION}`, // Use the CACHE_VERSION to version the cache
+    cacheName: workbox.core.cacheNames.precache,
     plugins: [
-      {
-        fetchDidFail: async ({ originalRequest }) => {
-          // This callback is triggered whenever a network request fails
-          const cache = await caches.open(`alaatv-assets-${CACHE_VERSION}`)
-          const response = await fetch(originalRequest)
-          if (response && response.status === 200) {
-            await cache.put(originalRequest, response.clone())
-            return response
-          }
-          // If the fallback is also not in the cache, provide a generic response
-          let res
-          switch (originalRequest.destination) {
-            case 'image':
-              res = await caches.match(FALLBACK_IMAGE)
-              if (!res || res.status !== 200) {
-                // Return a 1x1 transparent pixel as a fallback for images
-                res = new Response(
-                  'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
-                  { headers: { 'Content-Type': 'image/gif' } }
-                )
-              }
-              break
-            case 'script':
-              res = await caches.match(FALLBACK_SCRIPT)
-              if (!res || res.status !== 200) {
-                // Return an empty script
-                res = new Response('', { headers: { 'Content-Type': 'text/javascript' } })
-              }
-              break
-            case 'style':
-              res = await caches.match(FALLBACK_STYLE)
-              if (!res || res.status !== 200) {
-                // Return an empty stylesheet
-                res = new Response('', { headers: { 'Content-Type': 'text/css' } })
-              }
-              break
-            default:
-              // Return a generic message for other types
-              res = new Response('Resource not available', { status: 404 })
-              break
-          }
-          return res
-        }
-      },
-      // Ensure that only cacheable responses are cached
-      new CacheableResponsePlugin({
-        statuses: [0, 200]
-      }),
-      // Optionally, limit the number of entries in cache and set a max age
       new ExpirationPlugin({
         maxEntries: 500,
         maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
@@ -162,50 +109,80 @@ registerRoute(
   })
 )
 
-/**
- * Cache the PWA_FALLBACK_HTML during the install event.
- * This ensures it's available offline.
- */
-self.addEventListener('install', (event) => {
+// Clean up outdated caches
+cleanupOutdatedCaches()
+
+// Remove old caches that don't match the current CACHE_VERSION
+self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.open(`app-shell-${CACHE_VERSION}`).then((cache) => { // Use the CACHE_VERSION to version the cache
-      return cache.add(PWA_FALLBACK_HTML)
-    }).catch(error => {
-      console.error(`Failed to cache PWA_FALLBACK_HTML: ${error.message}`)
-    })
+    caches.keys().then(cacheNames => Promise.all(
+      cacheNames.filter(cacheName => cacheName !== CACHE_VERSION).map(caches.delete)
+    ))
   )
 })
 
-/**
- * Handle navigation requests.
- * If in SSR mode or production, use the PWA_FALLBACK_HTML.
- * If the fallback HTML is not in cache or is empty, provide a generic response.
- */
-if (MODE !== 'ssr' || PROD) {
-  registerRoute(
-    new NavigationRoute(
-      async ({ event }) => {
-        try {
-          if (PWA_FALLBACK_HTML && PWA_FALLBACK_HTML.trim() !== '') {
-            const cache = await caches.open(`app-shell-${CACHE_VERSION}`) // Use the CACHE_VERSION to version the cache
-            const cachedResponse = await cache.match(PWA_FALLBACK_HTML)
-            if (cachedResponse) {
-              return cachedResponse
-            }
-            throw new Error('PWA_FALLBACK_HTML not found in cache')
-          } else {
-            throw new Error('PWA_FALLBACK_HTML is empty')
+// Strategy: Serve stale content while revalidating in the background for scripts and styles
+registerRoute(
+  ({ request }) => ['script', 'style'].includes(request.destination),
+  new StaleWhileRevalidate()
+)
+
+// Strategy: Cache First, then Network for assets
+registerRoute(
+  ({ url }) => url.origin === ASSET_ORIGIN,
+  new CacheFirst({
+    cacheName: `alaatv-assets-${CACHE_VERSION}`,
+    plugins: [
+      {
+        fetchDidFail: async ({ originalRequest }) => {
+          const cache = await caches.open(`alaatv-assets-${CACHE_VERSION}`)
+          const response = await fetch(originalRequest)
+          if (response && response.status === 200) {
+            await cache.put(originalRequest, response.clone())
+            return response
           }
-        } catch (error) {
-          console.error('Error fetching PWA_FALLBACK_HTML:', error.message)
-          return new Response('<h1>Service Unavailable</h1>', {
-            status: 503,
-            statusText: 'Service Unavailable',
-            headers: new Headers({ 'Content-Type': 'text/html' })
+          const fallback = FALLBACKS[originalRequest.destination]
+          return caches.match(fallback) || new Response('Resource not available', {
+            status: 404
           })
         }
       },
-      { denylist: [/sw\.js$/, /workbox-(.)*\.js$/] }
+      new CacheableResponsePlugin({
+        statuses: [0, 200]
+      }),
+      new ExpirationPlugin({
+        maxEntries: 500,
+        maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
+      })
+    ]
+  })
+)
+
+// Cache the PWA_FALLBACK_HTML during the install event
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(`app-shell-${CACHE_VERSION}`).then(cache => cache.add(PWA_FALLBACK_HTML))
+  )
+})
+
+// Handle navigation requests
+if (MODE !== 'ssr' || PROD) {
+  registerRoute(
+    new NavigationRoute(
+      async () => {
+        const cache = await caches.open(`app-shell-${CACHE_VERSION}`)
+        const cachedResponse = await cache.match(PWA_FALLBACK_HTML)
+        if (cachedResponse) return cachedResponse
+        return new Response('<h1>Service Unavailable</h1>', {
+          status: 503,
+          statusText: 'Service Unavailable',
+          headers: new Headers({
+            'Content-Type': 'text/html'
+          })
+        })
+      }, {
+        denylist: [/sw\.js$/, /workbox-(.)*\.js$/]
+      }
     )
   )
 }
