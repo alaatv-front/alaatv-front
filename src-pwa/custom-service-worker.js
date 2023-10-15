@@ -8,7 +8,7 @@
 
 // Import necessary workbox libraries
 import { clientsClaim } from 'workbox-core'
-import { precacheAndRoute, cleanupOutdatedCaches, createHandlerBoundToURL } from 'workbox-precaching'
+import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching'
 import { registerRoute, NavigationRoute } from 'workbox-routing'
 import { StaleWhileRevalidate, CacheFirst } from 'workbox-strategies'
 import { CacheableResponsePlugin } from 'workbox-cacheable-response'
@@ -92,17 +92,40 @@ registerRoute(
           if (response && response.status === 200) {
             await cache.put(originalRequest, response.clone())
             return response
-          } else {
-            // Handle different fallbacks based on the request type
-            switch (originalRequest.destination) {
-              case 'image':
-                return caches.match(FALLBACK_IMAGE)
-              case 'script':
-                return caches.match(FALLBACK_SCRIPT)
-              case 'style':
-                return caches.match(FALLBACK_STYLE)
-            }
           }
+          // If the fallback is also not in the cache, provide a generic response
+          let res
+          switch (originalRequest.destination) {
+            case 'image':
+              res = await caches.match(FALLBACK_IMAGE)
+              if (!res || res.status !== 200) {
+                // Return a 1x1 transparent pixel as a fallback for images
+                res = new Response(
+                  'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+                  { headers: { 'Content-Type': 'image/gif' } }
+                )
+              }
+              break
+            case 'script':
+              res = await caches.match(FALLBACK_SCRIPT)
+              if (!res || res.status !== 200) {
+                // Return an empty script
+                res = new Response('', { headers: { 'Content-Type': 'text/javascript' } })
+              }
+              break
+            case 'style':
+              res = await caches.match(FALLBACK_STYLE)
+              if (!res || res.status !== 200) {
+                // Return an empty stylesheet
+                res = new Response('', { headers: { 'Content-Type': 'text/css' } })
+              }
+              break
+            default:
+              // Return a generic message for other types
+              res = new Response('Resource not available', { status: 404 })
+              break
+          }
+          return res
         }
       },
       // Ensure that only cacheable responses are cached
@@ -118,27 +141,50 @@ registerRoute(
   })
 )
 
-// Cache the PWA_FALLBACK_HTML during the install event
+/**
+ * Cache the PWA_FALLBACK_HTML during the install event.
+ * This ensures it's available offline.
+ */
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open('app-shell').then((cache) => {
       return cache.add(PWA_FALLBACK_HTML)
     }).catch(error => {
       console.error(`Failed to cache PWA_FALLBACK_HTML: ${error.message}`)
-      // Optionally, you can skip waiting and activate the service worker even if caching fails
-      self.skipWaiting()
     })
   )
 })
 
-// Non-SSR fallback to index.html
-// Production SSR fallback to offline.html (except for dev)
+/**
+ * Handle navigation requests.
+ * If in SSR mode or production, use the PWA_FALLBACK_HTML.
+ * If the fallback HTML is not in cache or is empty, provide a generic response.
+ */
 if (MODE !== 'ssr' || PROD) {
   registerRoute(
     new NavigationRoute(
-      createHandlerBoundToURL(PWA_FALLBACK_HTML),
+      async ({ event }) => {
+        try {
+          if (PWA_FALLBACK_HTML && PWA_FALLBACK_HTML.trim() !== '') {
+            const cache = await caches.open('app-shell')
+            const cachedResponse = await cache.match(PWA_FALLBACK_HTML)
+            if (cachedResponse) {
+              return cachedResponse
+            }
+            throw new Error('PWA_FALLBACK_HTML not found in cache')
+          } else {
+            throw new Error('PWA_FALLBACK_HTML is empty')
+          }
+        } catch (error) {
+          console.error('Error fetching PWA_FALLBACK_HTML:', error.message)
+          return new Response('<h1>Service Unavailable</h1>', {
+            status: 503,
+            statusText: 'Service Unavailable',
+            headers: new Headers({ 'Content-Type': 'text/html' })
+          })
+        }
+      },
       { denylist: [/sw\.js$/, /workbox-(.)*\.js$/] }
     )
   )
 }
-// By adding the above code, you're ensuring that the PWA_FALLBACK_HTML is cached during the service worker's installation. This guarantees that it's available as a fallback for navigation requests, even if the network is down or the requested page isn't in the cache.
