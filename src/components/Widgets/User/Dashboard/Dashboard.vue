@@ -7,8 +7,8 @@
             <q-avatar>
               <lazy-img :src="user.photo"
                         :alt="'user photo'"
-                        width="70"
-                        height="70"
+                        width="60"
+                        height="60"
                         class="full-width" />
             </q-avatar>
           </div>
@@ -87,6 +87,7 @@ export default {
         position: relative;
         .profile-photo-img {
           .q-avatar {
+            width: 100%;
             height: 100%;
           }
           width: 60px;

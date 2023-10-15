@@ -204,7 +204,7 @@ export default {
       }
       .service-subtitle {
         font-size: 12px;
-        color: var(--alaa-TextSecondary);
+        color: #65677F;
       }
     }
   }

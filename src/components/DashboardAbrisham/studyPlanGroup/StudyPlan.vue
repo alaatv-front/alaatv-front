@@ -137,7 +137,7 @@ export default {
     font-size: 18px;
     font-weight: normal;
     line-height: normal;
-    color: var(--abrishamMain);
+    color: #3e5480;
     display: flex;
     align-items: center;
     @media only screen and (max-width: 768px) {
@@ -146,7 +146,7 @@ export default {
   }
 }
 .study-plan-boxes{
-    color:  var(--abrishamMain);
+    color:  #3e5480;
     margin-bottom: 1px;
     border-radius: 0 0 10px 10px;
     width: 99.6%;
@@ -156,7 +156,7 @@ export default {
     }
     .study-plan-card{
         background-color: #e1f0ff;
-        color: var(--abrishamMain);
+        color: #3e5480;
         margin-top: 10px;
         margin-right: 0;
     }
@@ -181,7 +181,7 @@ export default {
     letter-spacing: normal;
     text-align: center;
     background-color: #eff3ff;
-    color:  var(--abrishamMain);
+    color:  #3e5480;
     border-color: #FFFFFF;
     padding-top: 7px;
     padding-bottom: 5px;
