@@ -9,6 +9,7 @@
 import { clientsClaim } from 'workbox-core'
 import { precacheAndRoute, cleanupOutdatedCaches, createHandlerBoundToURL } from 'workbox-precaching'
 import { registerRoute, NavigationRoute } from 'workbox-routing'
+import { StaleWhileRevalidate } from 'workbox-strategies';
 
 self.skipWaiting()
 clientsClaim()
@@ -34,6 +35,12 @@ if (ASSET_SERVE === 'remote') {
 
 
 cleanupOutdatedCaches()
+
+//strategy to serve stale content while revalidating in the background
+registerRoute(
+  ({ request }) => request.destination === 'script' || request.destination === 'style',
+  new StaleWhileRevalidate()
+);
 
 // Non-SSR fallback to index.html
 // Production SSR fallback to offline.html (except for dev)
