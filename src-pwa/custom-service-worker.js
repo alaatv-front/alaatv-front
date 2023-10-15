@@ -45,7 +45,15 @@ const sortedManifest = self.__WB_MANIFEST.sort((a, b) => {
 })
 
 // Determine if the app is running in standalone (PWA) mode or in a browser
-const isStandalone = (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone || document.referrer.includes('android-app://'))
+const isStandalone = self.clients.matchAll({ includeUncontrolled: true, type: 'window' })
+  .then(clientList => {
+    for (const client of clientList) {
+      if (client?.url?.includes('display-mode=standalone')) {
+        return true
+      }
+    }
+    return false
+  })
 
 // If in standalone mode, prefetch all resources; otherwise, limit to the first 200
 const resourcesToPrefetch = isStandalone ? sortedManifest : sortedManifest.slice(0, 200)
@@ -110,6 +118,19 @@ registerRoute(
   })
 )
 
+// Cache the PWA_FALLBACK_HTML during the install event
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open('app-shell').then((cache) => {
+      return cache.add(PWA_FALLBACK_HTML)
+    }).catch(error => {
+      console.error(`Failed to cache PWA_FALLBACK_HTML: ${error.message}`)
+      // Optionally, you can skip waiting and activate the service worker even if caching fails
+      self.skipWaiting()
+    })
+  )
+})
+
 // Non-SSR fallback to index.html
 // Production SSR fallback to offline.html (except for dev)
 if (MODE !== 'ssr' || PROD) {
@@ -120,3 +141,4 @@ if (MODE !== 'ssr' || PROD) {
     )
   )
 }
+// By adding the above code, you're ensuring that the PWA_FALLBACK_HTML is cached during the service worker's installation. This guarantees that it's available as a fallback for navigation requests, even if the network is down or the requested page isn't in the cache.
