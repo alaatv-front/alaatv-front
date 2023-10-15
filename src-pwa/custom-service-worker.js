@@ -31,9 +31,21 @@ const FALLBACK_IMAGE = '/path-to-default-image.jpg'
 const FALLBACK_SCRIPT = '/path-to-default-script.js'
 const FALLBACK_STYLE = '/path-to-default-style.css'
 
+// sort prefetch array ( js then css then fonts then others
+const sortedManifest = self.__WB_MANIFEST.sort((a, b) => {
+  const getFilePriority = (url) => {
+    if (url.endsWith('.js')) return 1
+    if (url.endsWith('.css')) return 2
+    if (url.endsWith('.woff') || url.endsWith('.woff2') || url.endsWith('.ttf')) return 3
+    return 4
+  }
+
+  return getFilePriority(a.url) - getFilePriority(b.url)
+})
+
 // Limit the number of resources prefetched by the service worker
 const MAX_PREFETCH = 200
-const limitedResources = self.__WB_MANIFEST.slice(0, MAX_PREFETCH)
+const limitedResources = sortedManifest.slice(0, MAX_PREFETCH)
 
 if (ASSET_SERVE === 'remote') {
   const prefix = NODES_SERVER_URL_SSL
