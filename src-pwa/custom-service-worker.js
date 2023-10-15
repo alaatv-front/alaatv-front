@@ -18,14 +18,18 @@ clientsClaim()
 const ASSET_SERVE = '__ASSET_SERVE__';
 const NODES_SERVER_URL_SSL = '__NODES_SERVER_URL_SSL__';
 
+//Limit the number of resources prefetched by the service worker
+const MAX_PREFETCH = 200; // Adjust this number as needed
+const limitedResources = self.__WB_MANIFEST.slice(0, MAX_PREFETCH);
+
 if (ASSET_SERVE === 'remote') {
   const prefix = NODES_SERVER_URL_SSL;
-  const adjustedManifest = self.__WB_MANIFEST.map(entry => {
+  const adjustedManifest = limitedResources.map(entry => {
     return { ...entry, url: `${prefix}${entry.url}` };
   });
   precacheAndRoute(adjustedManifest);
 } else {
-  precacheAndRoute(self.__WB_MANIFEST);
+  precacheAndRoute(limitedResources);
 }
 
 
