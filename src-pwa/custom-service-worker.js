@@ -10,6 +10,8 @@ import { clientsClaim } from 'workbox-core'
 import { precacheAndRoute, cleanupOutdatedCaches, createHandlerBoundToURL } from 'workbox-precaching'
 import { registerRoute, NavigationRoute } from 'workbox-routing'
 import { StaleWhileRevalidate, CacheFirst } from 'workbox-strategies'
+import { CacheableResponsePlugin } from 'workbox-cacheable-response'
+import { ExpirationPlugin } from 'workbox-expiration'
 
 self.skipWaiting()
 clientsClaim()
@@ -23,6 +25,11 @@ const PWA_FALLBACK_HTML = '__PWA_FALLBACK_HTML__'
 
 // Extract the origin from NODES_SERVER_URL_SSL
 const ASSET_ORIGIN = new URL(NODES_SERVER_URL_SSL).origin
+
+// Define fallbacks
+const FALLBACK_IMAGE = '/path-to-default-image.jpg'
+const FALLBACK_SCRIPT = '/path-to-default-script.js'
+const FALLBACK_STYLE = '/path-to-default-style.css'
 
 // Limit the number of resources prefetched by the service worker
 const MAX_PREFETCH = 200
@@ -47,7 +54,6 @@ registerRoute(
 )
 
 // Use Cache First, then Network strategy for assets
-// If the asset isn't in the cache, it will be fetched from the network and then cached for future use
 registerRoute(
   ({ url }) => url.origin === ASSET_ORIGIN,
   new CacheFirst({
@@ -55,35 +61,37 @@ registerRoute(
     plugins: [
       {
         fetchDidFail: async ({ originalRequest }) => {
-          // This callback is triggered whenever a network request fails, e.g. due to a NetworkError
-          // Here, we're ensuring that the asset is fetched from the network and cached for future use
+          // This callback is triggered whenever a network request fails
           const cache = await caches.open('alaatv-assets')
           const response = await fetch(originalRequest)
           if (response && response.status === 200) {
             await cache.put(originalRequest, response.clone())
+            return response
+          } else {
+            // Handle different fallbacks based on the request type
+            switch (originalRequest.destination) {
+              case 'image':
+                return caches.match(FALLBACK_IMAGE)
+              case 'script':
+                return caches.match(FALLBACK_SCRIPT)
+              case 'style':
+                return caches.match(FALLBACK_STYLE)
+            }
           }
-          return response
         }
-      }
+      },
+      // Ensure that only cacheable responses are cached
+      new CacheableResponsePlugin({
+        statuses: [0, 200]
+      }),
+      // Optionally, limit the number of entries in cache and set a max age
+      new ExpirationPlugin({
+        maxEntries: 500,
+        maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
+      })
     ]
   })
 )
-
-// Add delay to service worker requests to give browser requests higher priority
-const NETWORK_REQUEST_DELAY = 200 // 200ms delay
-
-self.addEventListener('fetch', (event) => {
-  if (event.request.url.startsWith(ASSET_ORIGIN)) {
-    event.respondWith(
-      new Promise((resolve) => {
-        setTimeout(async () => {
-          const response = await fetch(event.request)
-          resolve(response)
-        }, NETWORK_REQUEST_DELAY)
-      })
-    )
-  }
-})
 
 // Non-SSR fallback to index.html
 // Production SSR fallback to offline.html (except for dev)
