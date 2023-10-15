@@ -14,12 +14,20 @@ self.skipWaiting()
 clientsClaim()
 
 // Use with precache injection
-if (process.env.ASSET_SERVE === 'remote') {
-  const prefix = process.env.NODES_SERVER_URL_SSL || '/'
-  precacheAndRoute(self.__WB_MANIFEST.map(entry => ({ ...entry, url: `${prefix}${entry.url}` })))
+// These will be placeholders that we'll replace during the build process
+const ASSET_SERVE = '__ASSET_SERVE__';
+const NODES_SERVER_URL_SSL = '__NODES_SERVER_URL_SSL__';
+
+if (ASSET_SERVE === 'remote') {
+  const prefix = NODES_SERVER_URL_SSL;
+  const adjustedManifest = self.__WB_MANIFEST.map(entry => {
+    return { ...entry, url: `${prefix}${entry.url}` };
+  });
+  precacheAndRoute(adjustedManifest);
 } else {
-  precacheAndRoute(self.__WB_MANIFEST)
+  precacheAndRoute(self.__WB_MANIFEST);
 }
+
 
 cleanupOutdatedCaches()
 
