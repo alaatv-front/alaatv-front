@@ -24,6 +24,7 @@ const NODES_SERVER_URL_SSL = '__NODES_SERVER_URL_SSL__'
 const MODE = '__MODE__'
 const PROD = '__PROD__'
 const PWA_FALLBACK_HTML = '__PWA_FALLBACK_HTML__'
+const CACHE_VERSION = '__CACHE_VERSION__' // Placeholder for cache version
 
 // Extract the origin from NODES_SERVER_URL_SSL for asset matching
 const ASSET_ORIGIN = new URL(NODES_SERVER_URL_SSL).origin
@@ -59,18 +60,38 @@ const isStandalone = self.clients.matchAll({ includeUncontrolled: true, type: 'w
 const resourcesToPrefetch = isStandalone ? sortedManifest : sortedManifest.slice(0, 200)
 
 // Adjust the manifest based on the asset serving mode (remote or local)
+let resourcesToCache
 if (ASSET_SERVE === 'remote') {
   const prefix = NODES_SERVER_URL_SSL
-  const adjustedManifest = resourcesToPrefetch.map(entry => {
+  resourcesToCache = resourcesToPrefetch.map(entry => {
     return { ...entry, url: `${prefix}${entry.url}` }
   })
-  precacheAndRoute(adjustedManifest)
 } else {
-  precacheAndRoute(resourcesToPrefetch)
+  resourcesToCache = resourcesToPrefetch
 }
 
-// Clean up outdated caches
+// Try to precache resources and handle any errors
+precacheAndRoute(resourcesToCache).catch(error => {
+  console.error('Error during precaching:', error)
+  // Handle the error or provide a fallback mechanism here
+})
+
+// Clean up outdated caches based on the CACHE_VERSION
 cleanupOutdatedCaches()
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheName !== CACHE_VERSION) {
+            return caches.delete(cacheName)
+          }
+        })
+      )
+    })
+  )
+})
 
 // Define a strategy to serve stale content while revalidating in the background
 registerRoute(
@@ -82,12 +103,12 @@ registerRoute(
 registerRoute(
   ({ url }) => url.origin === ASSET_ORIGIN,
   new CacheFirst({
-    cacheName: 'alaatv-assets',
+    cacheName: `alaatv-assets-${CACHE_VERSION}`, // Use the CACHE_VERSION to version the cache
     plugins: [
       {
         fetchDidFail: async ({ originalRequest }) => {
           // This callback is triggered whenever a network request fails
-          const cache = await caches.open('alaatv-assets')
+          const cache = await caches.open(`alaatv-assets-${CACHE_VERSION}`)
           const response = await fetch(originalRequest)
           if (response && response.status === 200) {
             await cache.put(originalRequest, response.clone())
@@ -147,7 +168,7 @@ registerRoute(
  */
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open('app-shell').then((cache) => {
+    caches.open(`app-shell-${CACHE_VERSION}`).then((cache) => { // Use the CACHE_VERSION to version the cache
       return cache.add(PWA_FALLBACK_HTML)
     }).catch(error => {
       console.error(`Failed to cache PWA_FALLBACK_HTML: ${error.message}`)
@@ -166,7 +187,7 @@ if (MODE !== 'ssr' || PROD) {
       async ({ event }) => {
         try {
           if (PWA_FALLBACK_HTML && PWA_FALLBACK_HTML.trim() !== '') {
-            const cache = await caches.open('app-shell')
+            const cache = await caches.open(`app-shell-${CACHE_VERSION}`) // Use the CACHE_VERSION to version the cache
             const cachedResponse = await cache.match(PWA_FALLBACK_HTML)
             if (cachedResponse) {
               return cachedResponse

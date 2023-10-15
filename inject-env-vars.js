@@ -16,7 +16,11 @@ serviceWorkerContent = serviceWorkerContent.replace('__MODE__', process.env.MODE
 serviceWorkerContent = serviceWorkerContent.replace('__PROD__', process.env.PROD || '')
 serviceWorkerContent = serviceWorkerContent.replace('__PWA_FALLBACK_HTML__', process.env.PWA_FALLBACK_HTML || '')
 
+// Generate a new version based on the current timestamp
+const newVersion = `v${Date.now()}`
+serviceWorkerContent = serviceWorkerContent.replace('__CACHE_VERSION__', newVersion)
+
 // Write the modified content back to the service worker file
 fs.writeFileSync(serviceWorkerPath, serviceWorkerContent)
 
-console.log('Environment variables injected into custom-service-worker.js')
+console.log('Environment variables and CACHE_VERSION injected into custom-service-worker.js')
