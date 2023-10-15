@@ -34,18 +34,14 @@ import {
 skipWaiting()
 clientsClaim()
 
-// Environment Variables
+// Define environment variables and constants
 const ASSET_SERVE = '__ASSET_SERVE__'
 const NODES_SERVER_URL_SSL = '__NODES_SERVER_URL_SSL__'
 const MODE = '__MODE__'
 const PROD = '__PROD__'
 const PWA_FALLBACK_HTML = '__PWA_FALLBACK_HTML__'
 const CACHE_VERSION = '__CACHE_VERSION__'
-
-// Extract the origin from NODES_SERVER_URL_SSL for asset matching
 const ASSET_ORIGIN = new URL(NODES_SERVER_URL_SSL).origin
-
-// Fallback URLs for different asset types
 const FALLBACKS = {
   image: '/path-to-default-image.jpg',
   script: '/path-to-default-script.js',
@@ -74,7 +70,7 @@ const resourcesToPrefetch = (async () => {
   return clientList.some(client => client?.url?.includes('display-mode=standalone')) ? sortedManifest : sortedManifest.slice(0, 200)
 })()
 
-// Adjust the manifest based on the asset serving mode (remote or local)
+// Adjust the manifest based on the asset serving mode
 const resourcesToCache = ASSET_SERVE === 'remote'
   ? resourcesToPrefetch.map(entry => ({
     ...entry,
@@ -93,7 +89,6 @@ const cacheResources = async () => {
     }
   }
 }
-
 cacheResources()
 
 // Set up routing for the manually cached resources
@@ -122,13 +117,12 @@ self.addEventListener('activate', (event) => {
   )
 })
 
-// Strategy: Serve stale content while revalidating in the background for scripts and styles
+// Define caching strategies
 registerRoute(
   ({ request }) => ['script', 'style'].includes(request.destination),
   new StaleWhileRevalidate()
 )
 
-// Strategy: Cache First, then Network for assets
 registerRoute(
   ({ url }) => url.origin === ASSET_ORIGIN,
   new CacheFirst({
