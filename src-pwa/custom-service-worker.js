@@ -1,4 +1,5 @@
 /* eslint-env serviceworker */
+/* global workbox */
 
 /**
  * Service Worker Script for PWA.
