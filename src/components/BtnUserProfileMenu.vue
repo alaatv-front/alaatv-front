@@ -20,7 +20,7 @@
                             :alt="'user photo'"
                             width="60"
                             height="60"
-                            class="user-photo" />
+                            class="user-photo full-width" />
                 </div>
               </div>
               <div v-if="isUserLogin"

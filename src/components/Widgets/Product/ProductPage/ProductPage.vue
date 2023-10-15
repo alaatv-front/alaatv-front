@@ -6,7 +6,7 @@
            :style="{backgroundImage: `url(${product.photo})`}">
         <div class="background-filter" />
       </div>
-      <div class="row product-info-row q-col-gutter-lg">
+      <div class="row product-info-row q-col-gutter-y-lg">
         <div class="col-12 col-md-8">
           <div class="product-info-wrapper">
             <div class="product-info-header">
@@ -245,8 +245,7 @@ export default defineComponent({
           totalHeight += element.clientHeight
         }
       }
-      const minHeight = this.$q.screen.lt.sm ? 300 : 450
-
+      const minHeight = this.$q.screen.lt.sm ? 623 : 450
       if (totalHeight > minHeight) {
         this.showMore = true
       } else {
@@ -308,6 +307,10 @@ export default defineComponent({
     width: 100%;
     height: auto;
     overflow: hidden;
+
+    @media screen and (max-width: 599px) {
+      min-height: 623px;
+    }
     .background-image {
       position: absolute;
       top: -50px;
@@ -333,13 +336,17 @@ export default defineComponent({
       width: 1362px;
       max-width: 100%;
 
-      @media screen and (max-width: 1024px){
+      @media screen and (max-width: 1439px){
+        width: 964px;
+      }
+
+      @media screen and (max-width: 1023px){
         .space-col {
           display: none;
         }
       }
 
-      @media screen and (max-width: 600px){
+      @media screen and (max-width: 599px){
         width: 100%;
       }
     }
@@ -351,14 +358,15 @@ export default defineComponent({
       height: auto;
       margin: 70px 0;
 
-      @media screen and (max-width: 1024px){
+      @media screen and (max-width: 1023px){
         padding: 0 30px;
         min-height: 400px;
         margin: 10px 0;
       }
 
-      @media screen and (max-width: 600px){
-        padding: 0 20px;
+      @media screen and (max-width: 599px){
+        min-height: 623px;
+        padding: 20px 20px 0;
       }
 
       .product-info-header {
@@ -374,7 +382,7 @@ export default defineComponent({
           line-height: normal;
           letter-spacing: -0.66px;
 
-          @media screen and (max-width: 1024px){
+          @media screen and (max-width: 1023px){
             max-width: 100%;
             font-size: 20px;
             letter-spacing: -0.6px;
@@ -386,7 +394,7 @@ export default defineComponent({
           justify-content: center;
           align-items: center;
 
-          @media screen and (max-width: 600px){
+          @media screen and (max-width: 599px){
             display: none;
           }
 
@@ -408,7 +416,7 @@ export default defineComponent({
         display: flex;
         justify-content: flex-end;
         align-items: flex-end;
-        @media screen and (max-width: 1024px){
+        @media screen and (max-width: 1023px){
           flex-direction: column;
           align-items: center;
           width: auto;
@@ -435,7 +443,7 @@ export default defineComponent({
         }
 
         .info-footer-action {
-          @media screen and (max-width: 1024px){
+          @media screen and (max-width: 1023px){
             width: 100%;
             display: flex;
             align-items: center;
@@ -446,7 +454,7 @@ export default defineComponent({
             color: #FFFFFF;
             background: transparent;
 
-            @media screen and (max-width: 600px){
+            @media screen and (max-width: 599px){
               padding: 0;
             }
           }
@@ -458,7 +466,7 @@ export default defineComponent({
       width: 1200px;
       max-width: 100%;
 
-      @media screen and (max-width: 600px){
+      @media screen and (max-width: 599px){
         width: 100%;
       }
 
@@ -467,7 +475,7 @@ export default defineComponent({
         max-width: 100%;
         margin-top: 10px;
 
-        @media screen and (max-width: 600px){
+        @media screen and (max-width: 599px){
           width: 100%;
         }
 
@@ -500,12 +508,12 @@ export default defineComponent({
                 }
               }
 
-              @media screen and (max-width: 600px){
+              @media screen and (max-width: 599px){
                 display: flex;
               }
             }
 
-            @media screen and (max-width: 600px){
+            @media screen and (max-width: 599px){
              display: flex;
              justify-content: space-between;
              align-items: center;
@@ -526,8 +534,8 @@ export default defineComponent({
             text-align: justify;
             margin-top: 8px;
 
-            @media screen and (max-width: 600px){
-              height: 300px;
+            @media screen and (max-width: 599px){
+              height: 623px;
             }
 
             &.auto-height {
@@ -535,8 +543,8 @@ export default defineComponent({
               min-height: 300px;
               transition: all .3s ease-in-out;
 
-              @media screen and (max-width: 600px){
-                min-height: 110px;
+              @media screen and (max-width: 599px){
+                min-height: 623px;
               }
             }
           }
@@ -557,19 +565,27 @@ export default defineComponent({
     position: relative;
     margin: 30px 0;
 
+    @media screen and (max-width: 1439px){
+        width: 964px;
+      }
+
     .content-row {
 
-      @media screen and (max-width: 1024px) {
+      @media screen and (max-width: 1023px) {
         flex-wrap: wrap-reverse;
+        padding: 0 30px;
+      }
+
+      @media screen and (max-width: 599px) {
+        padding: 0 20px;
       }
     }
 
     .product-info-tab-wrapper {
       max-width: 100%;
 
-      @media screen and (max-width: 1024px) {
-        width: 90%;
-        margin: 0 20px;
+      @media screen and (max-width: 1023px) {
+        width: 100%;
       }
 
       &:deep(.q-tab-panels) {
@@ -579,7 +595,7 @@ export default defineComponent({
     .intro-box-col {
       margin-top: -550px;
 
-      @media screen and (max-width: 1024px) {
+      @media screen and (max-width: 1023px) {
         margin-top: 0;
       }
     }

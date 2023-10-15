@@ -67,8 +67,6 @@
         <q-icon name="ph:siren"
                 color="gray-7"
                 size="16px" />
-        <ph-siren :size="16"
-                  color="#757575" />
       </q-item-section>
       <q-item-section>
         <div class="attribute-title">

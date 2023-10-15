@@ -25,6 +25,7 @@ This set of fonts are used in this project under the license: (.....)
 		 url('../fonts/woff/iranyekanwebboldfanum.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
 		 url('../fonts/woff2/IRANYekanWebBold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
 		 url('../fonts/ttf/iranyekanwebextraboldfanum.ttf') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
@@ -36,6 +37,7 @@ This set of fonts are used in this project under the license: (.....)
 		 url('../fonts/woff/iranyekanwebthinfanum.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
 		 url('../fonts/woff2/IRANYekanWebThin.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
 		 url('../fonts/ttf/iranyekanwebthinfanum.ttf') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
@@ -47,6 +49,7 @@ This set of fonts are used in this project under the license: (.....)
 		 url('../fonts/woff/iranyekanweblightfanum.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
 		 url('../fonts/woff2/IRANYekanWebLight.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
 		 url('../fonts/ttf/iranyekanweblightfanum.ttf') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
@@ -58,6 +61,7 @@ This set of fonts are used in this project under the license: (.....)
 		 url('../fonts/woff/iranyekanwebregularfanum.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
 		 url('../fonts/woff2/IRANYekanWebRegular.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/
 		 url('../fonts/ttf/iranyekanwebregularfanum.ttf') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
@@ -69,6 +73,7 @@ This set of fonts are used in this project under the license: (.....)
 		 url('../fonts/woff/iranyekanwebmediumfanum.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
 		 url('../fonts/woff2/IRANYekanWebMedium.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
 		 url('../fonts/ttf/iranyekanwebmediumfanum.ttf') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
@@ -80,6 +85,7 @@ This set of fonts are used in this project under the license: (.....)
 		 url('../fonts/woff/iranyekanwebextraboldfanum.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
 		 url('../fonts/woff2/IRANYekanWebExtraBold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
 		 url('../fonts/ttf/iranyekanwebextraboldfanum.ttf') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
@@ -91,6 +97,7 @@ This set of fonts are used in this project under the license: (.....)
 		 url('../fonts/woff/iranyekanwebblackfanum.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
 		 url('../fonts/woff2/IRANYekanWebBlack.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
 		 url('../fonts/ttf/iranyekanwebblackfanum.ttf') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
@@ -102,4 +109,5 @@ This set of fonts are used in this project under the license: (.....)
 		 url('../fonts/woff/iranyekanwebextrablackfanum.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
 		 url('../fonts/woff2/IRANYekanWebExtraBlack.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
 		 url('../fonts/ttf/iranyekanwebextrablackfanum.ttf') format('truetype');
+  font-display: swap;
 }

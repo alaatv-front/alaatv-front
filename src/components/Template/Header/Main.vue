@@ -265,7 +265,7 @@ export default {
             height: 64px;
           }
           .homepage {
-            .logo-pic-img {
+            :deep(.logo-pic-img) {
               //height: 40px;
               //width: 40px;
               //width: 100%;
@@ -273,7 +273,7 @@ export default {
               flex-flow: row;
               justify-content: center;
               align-items: center;
-              height: 48px;
+              height: auto;
               width: 48px;
               @media screen and (max-width: 1023px) {
                 width: 100%;

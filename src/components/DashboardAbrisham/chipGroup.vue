@@ -179,7 +179,7 @@ export default {
         }
       }
       .chip-text-color{
-        color: var(--abrishamGray);
+        color: #9fa5c0;
       }
     }
 

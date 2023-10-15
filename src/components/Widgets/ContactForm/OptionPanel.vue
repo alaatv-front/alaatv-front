@@ -141,6 +141,49 @@
                            label="fieldBackground" />
                 </div>
               </div>
+              <div v-if="inputFormType === 'select'"
+                   class="row q-col-gutter-sm">
+                <div class="col-4">
+                  <q-input v-model="optionFormObject.title"
+                           type="text"
+                           label="title" />
+                </div>
+                <div class="col-4">
+                  <q-input v-model="optionFormObject.id"
+                           type="text"
+                           label="id" />
+                </div>
+                <div class="col-4">
+                  <q-btn color="primary"
+                         label="ذخیره گزینه"
+                         @click="addOption(null)" />
+                </div>
+                <div v-if="selectOptions.length > 0"
+                     class="col-12">
+                  <q-expansion-item v-for="(option, index) in selectOptions"
+                                    :key="index"
+                                    expand-separator
+                                    :label="option.title">
+                    <div class="row q-col-gutter-sm">
+                      <div class="col-4">
+                        <q-input v-model="option.title"
+                                 type="text"
+                                 label="title" />
+                      </div>
+                      <div class="col-4">
+                        <q-input v-model="option.id"
+                                 type="text"
+                                 label="id" />
+                      </div>
+                      <div class="col-4">
+                        <q-btn color="primary"
+                               icon="ph:trash"
+                               @click="deleteOption(index)" />
+                      </div>
+                    </div>
+                  </q-expansion-item>
+                </div>
+              </div>
             </q-form>
             <q-list v-if="localOptions.inputs.length > 0"
                     separator
@@ -213,6 +256,49 @@
                   <div class="col-4">
                     <q-checkbox v-model="localOptions.inputs[index].outlined"
                                 label="outlined" />
+                  </div>
+                </div>
+                <div v-if="item.type === 'select'"
+                     class="row q-col-gutter-sm">
+                  <div class="col-4">
+                    <q-input v-model="optionFormObject.title"
+                             type="text"
+                             label="title" />
+                  </div>
+                  <div class="col-4">
+                    <q-input v-model="optionFormObject.id"
+                             type="text"
+                             label="id" />
+                  </div>
+                  <div class="col-4">
+                    <q-btn color="primary"
+                           label="ذخیره گزینه"
+                           @click="addOption(index)" />
+                  </div>
+                  <div v-if="item.options.length > 0"
+                       class="col-12">
+                    <q-expansion-item v-for="(itemOption, optionIndex) in item.options"
+                                      :key="optionIndex"
+                                      expand-separator
+                                      :label="itemOption.title">
+                      <div class="row q-col-gutter-sm">
+                        <div class="col-4">
+                          <q-input v-model="itemOption.title"
+                                   type="text"
+                                   label="title" />
+                        </div>
+                        <div class="col-4">
+                          <q-input v-model="itemOption.id"
+                                   type="text"
+                                   label="id" />
+                        </div>
+                        <div class="col-4">
+                          <q-btn color="primary"
+                                 icon="ph:trash"
+                                 @click="deleteOption(optionIndex, index)" />
+                        </div>
+                      </div>
+                    </q-expansion-item>
                   </div>
                 </div>
               </q-expansion-item>
@@ -398,11 +484,54 @@ export default defineComponent({
           label: 'متن بلند',
           value: 'textarea'
         }
-      ]
+      ],
+      selectInputOptions: {
+        optionLabel: 'title',
+        optionValue: 'id',
+        options: []
+      },
+      selectOptions: [],
+      optionFormObject: {
+        id: '',
+        title: ''
+      }
+    }
+  },
+  computed: {
+    inputFormType() {
+      return this.inputForm.type
+    }
+  },
+  watch: {
+    inputFormType(newVal) {
+      if (newVal === 'select') {
+        this.inputForm = { ...this.inputForm, ...this.selectInputOptions }
+      }
     }
   },
   methods: {
+    addOption(index) {
+      if (!index) {
+        this.selectOptions.push(this.optionFormObject)
+      } else {
+        this.localOptions.inputs[index].options.push(this.optionFormObject)
+      }
+      this.optionFormObject = {
+        id: '',
+        label: ''
+      }
+    },
+    deleteOption(optionIndex, inputIndex) {
+      if (!inputIndex) {
+        this.selectOptions.splice(optionIndex, 1)
+      } else {
+        this.localOptions.inputs[inputIndex].options.splice(optionIndex, 1)
+      }
+    },
     addField() {
+      if (this.inputFormType === 'select') {
+        this.inputForm.options = this.selectOptions
+      }
       this.localOptions.inputs.push(this.inputForm)
       this.inputForm = { type: '', name: '', outlined: false, label: '', placeholder: '', col: '' }
     },

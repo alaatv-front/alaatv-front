@@ -468,7 +468,7 @@ export default {
               margin-top: 34px;
             }
 
-            .order-image {
+            :deep(.order-image) {
               width: 100%;
               border-radius: 10px;
             }

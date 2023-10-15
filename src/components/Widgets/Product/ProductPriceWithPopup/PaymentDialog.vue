@@ -15,7 +15,7 @@
         <div class="row payment-body"
              :class="{'q-col-gutter-lg': paymentMethod !== 'cash'}">
           <div class="col-12 products-col"
-               :class="{'col-sm-6': paymentMethod !== 'cash'}">
+               :class="{'col-md-6': paymentMethod !== 'cash'}">
             <div class="installment-roules-and-conditions">
               <div class="installment-roules-and-conditions-title">شرایط ثبت نام قسطی</div>
               <div class="installment-roules-and-conditions-body">
@@ -92,13 +92,13 @@
             </div>
           </div>
           <div v-if="paymentMethod !== 'cash'"
-               class="col-12 col-sm-6 installment-col">
+               class="col-12 col-md-6 installment-col">
             <div class="products-label instalment">
               اقساط
             </div>
             <div class="installment">
               <q-list class="installment-list">
-                <q-item>
+                <q-item class="installment-header">
                   <q-item-section class="installment-order-label"
                                   side>
                     قسط
@@ -122,6 +122,30 @@
                   <q-item-section class="installment-amount"
                                   :class="{'active': index === 0}"
                                   side>{{ item.value.toLocaleString('fa') }}</q-item-section>
+                </q-item>
+                <q-item class="installment-footer">
+                  <q-item-section class="installment-footer-label"
+                                  side>
+                    مجموع
+                  </q-item-section>
+                  <q-item-section v-if="productPrice.discount > 0"
+                                  class="installment-footer-discount">
+                    <div class="footer-discount-badge">
+                      <q-badge color="negative"
+                               text-color="white"
+                               :label="'%' + discountInPercent" />
+                    </div>
+                    <div class="footer-discount-label">
+                      تخفیف
+                    </div>
+                  </q-item-section>
+                  <q-item-section class="installment-footer-amount"
+                                  side>
+                    {{ getProductPrice(totalPrice, 'final') }}
+                    <div class="footer-amount-label">
+                      تومان
+                    </div>
+                  </q-item-section>
                 </q-item>
               </q-list>
             </div>
@@ -236,7 +260,7 @@ export default defineComponent({
       default: 'cash'
     },
     product: {
-      type: Product,
+      type: Object,
       default: new Product()
     },
     productComplimentary: {
@@ -528,6 +552,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/Theme/Typography/typography.scss";
 .payment-card {
   border-radius: 12px;
   background:#FFF;
@@ -537,7 +562,7 @@ export default defineComponent({
   //height: 649px;
   position: relative;
 
-  @media screen and (max-width: 600px){
+  @media screen and (max-width: 599px){
     //height: 666px;
   }
 
@@ -550,7 +575,7 @@ export default defineComponent({
   }
 
   .payment-header {
-    padding: 0 15px 24px 15px;
+    padding: 14px 7px 30px;
 
     .header-title {
       color: #616161;
@@ -576,20 +601,21 @@ export default defineComponent({
     //height: 450px;
     overflow-y: auto;
 
-    @media screen and (max-width: 600px){
+    @media screen and (max-width: 599px){
       height: 420px;
     }
 
     .products-col {
-
+      padding-left:30px;
       &.hidden-responsive {
-        @media screen and (max-width: 600px){
+        @media screen and (max-width: 599px){
           //display: none;
         }
       }
     }
 
     .installment-col {
+      padding-left: 30px;
     }
   }
 
@@ -618,7 +644,11 @@ export default defineComponent({
             letter-spacing: -0.42px;
           }
           .installment-roules-and-conditions-accept {
-            margin-top: 40px;
+            margin-top: 110px;
+
+            @media screen and (max-width: 1023px){
+              margin-top: 33px;
+            }
           }
         }
       }
@@ -700,37 +730,45 @@ export default defineComponent({
     background: #ECEFF1;
     //overflow-y: auto;
     padding: 20px;
-    @media screen and (max-width: 600px){
+    @media screen and (max-width: 599px){
+      padding: 16px 12px 12px;
       margin-bottom: 10px;
     }
 
-    .installment-order-label {
-      color: #616161;
-      text-align: center;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-      letter-spacing: -0.36px;
+    .installment-header {
+      padding: 0 20px;
+      min-height: 18px;
+
+      .installment-order-label {
+        color: #616161;
+        text-align: center;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: -0.36px;
+      }
+      .installment-date-label {
+        text-align: center;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: -0.36px;
+        color: #616161;
+      }
+      .installment-amount-label {
+        text-align: center;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: -0.36px;
+        color: #616161;
+        padding: 0 5px 0 50px;
+      }
     }
-    .installment-date-label {
-      text-align: center;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-      letter-spacing: -0.36px;
-      color: #616161;
-    }
-    .installment-amount-label {
-      text-align: center;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-      letter-spacing: -0.36px;
-      color: #616161;
-    }
+
     .installment-item {
       border-radius: 4px;
       background: #FFF;
@@ -792,13 +830,61 @@ export default defineComponent({
         }
       }
     }
+
+    .installment-footer {
+      padding: 12px 20px 5px;
+      min-height: 18px;
+      margin: 12px 0 0;
+      border-top: dashed 1px #AEAEAE;
+
+      @media screen and (max-width: 1023px){
+        padding: 12px 20px 0;
+      }
+      @media screen and (max-width: 599px){
+        padding: 12px 0 0;
+      }
+      .installment-footer-label {
+        @include caption1;
+        color: $grey-8;
+      }
+
+      .installment-footer-discount {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        .footer-discount-label {
+          @include caption1;
+          color: $grey-8;
+          margin-left: $spacing-base;
+        }
+      }
+
+      .installment-footer-amount {
+        @include caption1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        color: $grey-8;
+        .footer-amount-label {
+          @include caption2;
+          color: $grey-8;
+          margin-left: $spacing-base;
+        }
+      }
+    }
   }
 
   .payment-footer {
     //position: absolute;
     //bottom: 0;
     //width: 100%;
-    padding: 0 30px 20px;
+    padding: 0 30px 30px;
+
+    @media screen and (max-width: 599px){
+      padding: 0 30px 16px;
+    }
 
     .price-title-responsive {
         display: none;
@@ -815,7 +901,7 @@ export default defineComponent({
           margin-right: 8px;
         }
 
-        @media screen and (max-width: 600px){
+        @media screen and (max-width: 599px){
           display: flex;
         }
       }
@@ -841,7 +927,7 @@ export default defineComponent({
           margin-right: 8px;
         }
 
-        @media screen and (max-width: 600px){
+        @media screen and (max-width: 599px){
           display: none;
         }
       }
@@ -903,6 +989,10 @@ export default defineComponent({
       display: flex;
       justify-content: center;
       align-items: center;
+
+      @media screen and (max-width: 1440px){
+        justify-content: flex-start;
+      }
       .simple-text {
         color: #424242;
         font-size: 18px;

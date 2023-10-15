@@ -45,6 +45,7 @@
     "eslint-plugin-vue": "^9.9.0",
     "firebase": "^10.4.0",
     "fs": "^0.0.1-security",
+    "html2canvas": "^1.4.1",
     "js-abstract-model": "^0.1.36",
     "leaflet": "^1.9.3",
     "lottie-web": "^5.12.2",
