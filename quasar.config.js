@@ -83,7 +83,7 @@ module.exports = configure(function (ctx) {
       sourcemap: false,
       gzip: true,
       analyze: false,
-      publicPath: (process.env.ASSET_SERVE === 'remote') ? process.env.NODES_SERVER_URL_SSL || '/' : '/',
+      // publicPath: (process.env.ASSET_SERVE === 'remote') ? process.env.NODES_SERVER_URL_SSL || '/' : '/',
       env: process.env,
       extendViteConf(viteConf, { isServer, isClient }) {
         // Set the base URL based on the environment
