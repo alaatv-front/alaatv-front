@@ -71,19 +71,22 @@ const resourcesToPrefetch = (async () => {
     includeUncontrolled: true,
     type: 'window'
   })
-  return clientList.some(client => client?.url?.includes('display-mode=standalone')) ? sortedManifest : sortedManifest.slice(0, 200)
+  return clientList.some(client => client?.url?.includes('display-mode=standalone'))
+    ? sortedManifest
+    : sortedManifest.slice(0, 200)
 })()
-
-// Adjust the manifest based on the asset serving mode (remote or local)
-const resourcesToCache = ASSET_SERVE === 'remote'
-  ? resourcesToPrefetch.map(entry => ({
-    ...entry,
-    url: `${NODES_SERVER_URL_SSL}${entry.url}`
-  }))
-  : resourcesToPrefetch
 
 // Manually precache resources
 const cacheResources = async () => {
+  const resolvedResourcesToPrefetch = await resourcesToPrefetch
+  // Adjust the manifest based on the asset serving mode (remote or local)
+  const resourcesToCache = ASSET_SERVE === 'remote'
+    ? resolvedResourcesToPrefetch.map(entry => ({
+      ...entry,
+      url: `${NODES_SERVER_URL_SSL}${entry.url}`
+    }))
+    : resourcesToPrefetch
+
   const cache = await caches.open(cacheNames.precache)
   for (const resource of resourcesToCache) {
     try {
@@ -92,23 +95,25 @@ const cacheResources = async () => {
       console.error(`Error caching resource ${resource.url}:`, error)
     }
   }
+
+  // Set up routing for the manually cached resources
+  registerRoute(
+    ({ request }) => resourcesToCache.some(resource => request.url.includes(resource.url)),
+    new CacheFirst({
+      cacheName: cacheNames.precache,
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 500,
+          maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
+        })
+      ]
+    })
+  )
 }
 
-cacheResources()
-
-// Set up routing for the manually cached resources
-registerRoute(
-  ({ request }) => resourcesToCache.some(resource => request.url.includes(resource.url)),
-  new CacheFirst({
-    cacheName: cacheNames.precache,
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 500,
-        maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
-      })
-    ]
-  })
-)
+self.addEventListener('install', (event) => {
+  event.waitUntil(cacheResources())
+})
 
 // Clean up outdated caches
 cleanupOutdatedCaches()
