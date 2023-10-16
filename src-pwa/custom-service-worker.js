@@ -34,13 +34,13 @@ import {
 skipWaiting()
 clientsClaim()
 
-// Define environment variables
-const ASSET_SERVE = ''
-const NODES_SERVER_URL_SSL = ''
-const MODE = ''
-const PROD = ''
-const PWA_FALLBACK_HTML = ''
-const CACHE_VERSION = 'v1697417065690'
+// Placeholder variables for environment-specific values
+const ASSET_SERVE = '__ASSET_SERVE__'
+const NODES_SERVER_URL_SSL = '__NODES_SERVER_URL_SSL__'
+const MODE = '__MODE__'
+const PROD = '__PROD__'
+const PWA_FALLBACK_HTML = '__PWA_FALLBACK_HTML__'
+const CACHE_VERSION = '__CACHE_VERSION__'
 
 // Extract the origin from NODES_SERVER_URL_SSL for asset matching
 const ASSET_ORIGIN = new URL(NODES_SERVER_URL_SSL).origin
@@ -170,17 +170,14 @@ self.addEventListener('install', (event) => {
 if (MODE !== 'ssr' || PROD) {
   registerRoute(
     new NavigationRoute(
-      async () => {
+      async ({ event }) => {
         const cache = await caches.open(`app-shell-${CACHE_VERSION}`)
         const cachedResponse = await cache.match(PWA_FALLBACK_HTML)
         if (cachedResponse) return cachedResponse
-        return new Response('<h1>Service Unavailable</h1>', {
-          status: 503,
-          statusText: 'Service Unavailable',
-          headers: new Headers({
-            'Content-Type': 'text/html'
-          })
-        })
+
+        // Instead of returning a generic response, just log the error and let the service worker continue running.
+        console.error('NavigationRoute: PWA_FALLBACK_HTML not found in cache.')
+        event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
       }, {
         denylist: [/sw\.js$/, /workbox-(.)*\.js$/]
       }
