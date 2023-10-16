@@ -8,7 +8,7 @@
 
 // Import necessary workbox libraries
 import { clientsClaim, skipWaiting } from 'workbox-core'
-import { cleanupOutdatedCaches, createHandlerBoundToURL } from 'workbox-precaching'
+import { cleanupOutdatedCaches } from 'workbox-precaching'
 import { NavigationRoute, registerRoute } from 'workbox-routing'
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies'
 import { CacheableResponsePlugin } from 'workbox-cacheable-response'
