@@ -108,11 +108,18 @@ const cacheResources = async () => {
 
 cacheResources()
 
-try {
-  caches.open(appShellCacheName).then(cache => cache.add(PWA_FALLBACK_HTML))
-} catch (e) {
-  console.error(`error in ${appShellCacheName}: `, e)
-}
+// Cache the PWA_FALLBACK_HTML during the install event
+self.addEventListener('install', (event) => {
+  event.waitUntil(cacheResources())
+
+  try {
+    event.waitUntil(
+      caches.open(appShellCacheName).then(cache => cache.add(PWA_FALLBACK_HTML))
+    )
+  } catch (e) {
+    console.error(`error in ${appShellCacheName}: `, e)
+  }
+})
 
 // Clean up outdated caches
 cleanupOutdatedCaches()
