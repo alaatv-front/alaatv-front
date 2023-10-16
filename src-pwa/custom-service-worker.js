@@ -92,7 +92,7 @@ const cacheResources = async () => {
           cacheName: alaatvCacheName,
           plugins: [
             new ExpirationPlugin({
-              maxEntries: 1000,
+              maxEntries: 10000,
               maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
             })
           ]
@@ -165,7 +165,7 @@ registerRoute(
         statuses: [0, 200]
       }),
       new ExpirationPlugin({
-        maxEntries: 1000,
+        maxEntries: 10000,
         maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
       })
     ]
