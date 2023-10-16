@@ -29,7 +29,7 @@ const CACHE_VERSION = '__CACHE_VERSION__'
 // Extract the origin from NODES_SERVER_URL_SSL for asset matching
 const ASSET_ORIGIN = new URL(NODES_SERVER_URL_SSL).origin
 const alaatvCacheName = `alaatv-assets-${CACHE_VERSION}`
-const appShellCacheName = `app-shell-${CACHE_VERSION}`
+const appShellCacheName = `alaatv-shell-${CACHE_VERSION}`
 // Sort the manifest based on asset type priority
 const sortedManifest = self.__WB_MANIFEST.sort((a, b) => {
   const priorities = {
@@ -128,7 +128,9 @@ cleanupOutdatedCaches()
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then(cacheNames => Promise.all(
-      cacheNames.filter(cacheName => cacheName !== alaatvCacheName).map(cacheName => caches.delete(cacheName))
+      cacheNames.filter(cacheName => (cacheName.startsWith('alaatv-assets') && cacheName !== alaatvCacheName) ||
+        (cacheName.startsWith('alaatv-shell') && cacheName !== appShellCacheName))
+        .map(cacheName => caches.delete(cacheName))
     ))
   )
 })
