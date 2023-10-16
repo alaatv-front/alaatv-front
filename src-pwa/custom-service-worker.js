@@ -189,7 +189,7 @@ if (MODE !== 'ssr' || PROD) {
             if (cachedResponse) {
               return cachedResponse
             } else {
-              console.error('NavigationRoute: PWA_FALLBACK_HTML not found in cache.')
+              console.error('NavigationRoute: PWA_FALLBACK_HTML not found in cache. ->', PWA_FALLBACK_HTML)
               return createHandlerBoundToURL(PWA_FALLBACK_HTML)
             }
           } catch (e) {
