@@ -33,6 +33,8 @@ ARG ASSET_SERVE
 # Copy all files
 COPY ./ ./
 
+#Run prebuild script to inject env variable from server ( pipline env ) to client (custom-service-worker.js)
+RUN yarn prebuild
 # Build app on SSR mode
 RUN yarn build:ssr
 
