@@ -113,9 +113,9 @@ const cacheResources = async () => {
   }
 }
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(cacheResources())
+cacheResources()
 
+self.addEventListener('install', (event) => {
   // Cache the PWA_FALLBACK_HTML during the install event
   event.waitUntil(
     caches.open(`app-shell-${CACHE_VERSION}`).then(cache => cache.add(PWA_FALLBACK_HTML))
@@ -190,15 +190,17 @@ if (MODE !== 'ssr' || PROD) {
               return cachedResponse
             } else {
               console.error('NavigationRoute: PWA_FALLBACK_HTML not found in cache.')
-              return createHandlerBoundToURL(process.env.PWA_FALLBACK_HTML)
+              return createHandlerBoundToURL(PWA_FALLBACK_HTML)
             }
           } catch (e) {
             console.error('NavigationRoute -> cache.match: ', e)
-            event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
+            // event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
+            return createHandlerBoundToURL(PWA_FALLBACK_HTML)
           }
         } catch (e) {
           console.error('NavigationRoute: PWA_FALLBACK_HTML Error:', e)
-          event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
+          // event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
+          return createHandlerBoundToURL(PWA_FALLBACK_HTML)
         }
       }, {
         denylist: [/sw\.js$/, /workbox-(.)*\.js$/]
