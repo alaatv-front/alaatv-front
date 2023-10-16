@@ -115,12 +115,11 @@ const cacheResources = async () => {
 
 cacheResources()
 
-self.addEventListener('install', (event) => {
-  // Cache the PWA_FALLBACK_HTML during the install event
-  event.waitUntil(
-    caches.open(`app-shell-${CACHE_VERSION}`).then(cache => cache.add(PWA_FALLBACK_HTML))
-  )
-})
+try {
+  caches.open(`app-shell-${CACHE_VERSION}`).then(cache => cache.add(PWA_FALLBACK_HTML))
+} catch (e) {
+  console.error(`error in app-shell-${CACHE_VERSION}: `, e)
+}
 
 // Clean up outdated caches
 cleanupOutdatedCaches()
@@ -189,7 +188,6 @@ if (MODE !== 'ssr' || PROD) {
             if (cachedResponse) {
               return cachedResponse
             } else {
-              console.error('NavigationRoute: PWA_FALLBACK_HTML not found in cache. ->', PWA_FALLBACK_HTML)
               return createHandlerBoundToURL(PWA_FALLBACK_HTML)
             }
           } catch (e) {
