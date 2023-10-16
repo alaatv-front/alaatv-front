@@ -143,7 +143,7 @@ registerRoute(
             return response
           }
           const fallback = FALLBACKS[originalRequest.destination]
-          return caches.match(fallback) || new Response('Resource not available', {
+          return await caches.match(fallback) || new Response('Resource not available', {
             status: 404
           })
         }
