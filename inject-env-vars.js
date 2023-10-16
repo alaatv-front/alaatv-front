@@ -10,7 +10,7 @@ let serviceWorkerContent = fs.readFileSync(serviceWorkerPath, 'utf-8')
 
 // Replace placeholders with actual environment variables
 // Note: Ensure that these environment variables are available in your CI/CD pipeline or build environment
-serviceWorkerContent = serviceWorkerContent.replace('__ASSET_SERVE__', process.env.ASSET_SERVE || '')
+serviceWorkerContent = serviceWorkerContent.replace('__ASSET_SERVE__', process.env.ASSET_SERVE || 'local')
 serviceWorkerContent = serviceWorkerContent.replace('__NODES_SERVER_URL_SSL__', process.env.NODES_SERVER_URL_SSL || '')
 serviceWorkerContent = serviceWorkerContent.replace('__MODE__', process.env.MODE || '')
 serviceWorkerContent = serviceWorkerContent.replace('__PROD__', process.env.PROD || '')

@@ -78,37 +78,45 @@ const resourcesToPrefetch = (async () => {
 
 // Manually precache resources
 const cacheResources = async () => {
-  const resolvedResourcesToPrefetch = await resourcesToPrefetch
-  // Adjust the manifest based on the asset serving mode (remote or local)
-  const resourcesToCache = ASSET_SERVE === 'remote'
-    ? resolvedResourcesToPrefetch.map(entry => ({
-      ...entry,
-      url: `${NODES_SERVER_URL_SSL}${entry.url}`
-    }))
-    : resourcesToPrefetch
+  try {
+    const resolvedResourcesToPrefetch = await resourcesToPrefetch
+    // Adjust the manifest based on the asset serving mode (remote or local)
+    const resourcesToCache = ASSET_SERVE === 'remote'
+      ? resolvedResourcesToPrefetch.map(entry => ({
+        ...entry,
+        url: `${NODES_SERVER_URL_SSL}${entry.url}`
+      }))
+      : resolvedResourcesToPrefetch
 
-  const cache = await caches.open(cacheNames.precache)
-  for (const resource of resourcesToCache) {
     try {
-      await cache.add(resource.url)
-    } catch (error) {
-      console.error(`Error caching resource ${resource.url}:`, error)
-    }
-  }
+      const cache = await caches.open(cacheNames.precache)
+      for (const resource of resourcesToCache) {
+        try {
+          await cache.add(resource.url)
+        } catch (error) {
+          console.error(`Error caching resource ${resource.url}:`, error)
+        }
+      }
 
-  // Set up routing for the manually cached resources
-  registerRoute(
-    ({ request }) => resourcesToCache.some(resource => request.url.includes(resource.url)),
-    new CacheFirst({
-      cacheName: cacheNames.precache,
-      plugins: [
-        new ExpirationPlugin({
-          maxEntries: 500,
-          maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
+      // Set up routing for the manually cached resources
+      registerRoute(
+        ({ request }) => resourcesToCache.some(resource => request.url.includes(resource.url)),
+        new CacheFirst({
+          cacheName: cacheNames.precache,
+          plugins: [
+            new ExpirationPlugin({
+              maxEntries: 1000,
+              maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
+            })
+          ]
         })
-      ]
-    })
-  )
+      )
+    } catch (err) {
+      console.error('Error open caches:', err)
+    }
+  } catch (err) {
+    console.error('Error resourcesToPrefetch:', resourcesToPrefetch, err)
+  }
 }
 
 self.addEventListener('install', (event) => {
@@ -133,15 +141,17 @@ registerRoute(
   new StaleWhileRevalidate()
 )
 
+const alaatvCacheName = `alaatv-assets-${CACHE_VERSION}`
+
 // Strategy: Cache First, then Network for assets
 registerRoute(
   ({ url }) => url.origin === ASSET_ORIGIN,
   new CacheFirst({
-    cacheName: `alaatv-assets-${CACHE_VERSION}`,
+    cacheName: alaatvCacheName,
     plugins: [
       {
         fetchDidFail: async ({ originalRequest }) => {
-          const cache = await caches.open(`alaatv-assets-${CACHE_VERSION}`)
+          const cache = await caches.open(alaatvCacheName)
           const response = await fetch(originalRequest)
           if (response && response.status === 200) {
             await cache.put(originalRequest, response.clone())
