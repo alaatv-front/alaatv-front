@@ -14,7 +14,7 @@ serviceWorkerContent = serviceWorkerContent.replace('__ASSET_SERVE__', process.e
 serviceWorkerContent = serviceWorkerContent.replace('__NODES_SERVER_URL_SSL__', process.env.NODES_SERVER_URL_SSL || '')
 serviceWorkerContent = serviceWorkerContent.replace('__MODE__', process.env.MODE || '')
 serviceWorkerContent = serviceWorkerContent.replace('__PROD__', process.env.PROD || '')
-serviceWorkerContent = serviceWorkerContent.replace('__PWA_FALLBACK_HTML__', process.env.PWA_FALLBACK_HTML || '')
+serviceWorkerContent = serviceWorkerContent.replace('__PWA_FALLBACK_HTML__', process.env.PWA_FALLBACK_HTML || '/offline.html')
 
 // Generate a new version based on the current timestamp
 const newVersion = `v${Date.now()}`

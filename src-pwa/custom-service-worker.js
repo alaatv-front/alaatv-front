@@ -9,11 +9,11 @@
 // Import necessary workbox libraries
 import {
   clientsClaim,
-  skipWaiting,
-  cacheNames
+  skipWaiting
 } from 'workbox-core'
 import {
-  cleanupOutdatedCaches
+  cleanupOutdatedCaches,
+  createHandlerBoundToURL
 } from 'workbox-precaching'
 import {
   registerRoute,
@@ -44,13 +44,7 @@ const CACHE_VERSION = '__CACHE_VERSION__'
 
 // Extract the origin from NODES_SERVER_URL_SSL for asset matching
 const ASSET_ORIGIN = new URL(NODES_SERVER_URL_SSL).origin
-
-// Define fallback URLs for different asset types
-const FALLBACKS = {
-  image: '/path-to-default-image.jpg',
-  script: '/path-to-default-script.js',
-  style: '/path-to-default-style.css'
-}
+const alaatvCacheName = `alaatv-assets-${CACHE_VERSION}`
 
 // Sort the manifest based on asset type priority
 const sortedManifest = self.__WB_MANIFEST.sort((a, b) => {
@@ -89,7 +83,7 @@ const cacheResources = async () => {
       : resolvedResourcesToPrefetch
 
     try {
-      const cache = await caches.open(cacheNames.precache)
+      const cache = await caches.open(alaatvCacheName)
       for (const resource of resourcesToCache) {
         try {
           await cache.add(resource.url)
@@ -102,7 +96,7 @@ const cacheResources = async () => {
       registerRoute(
         ({ request }) => resourcesToCache.some(resource => request.url.includes(resource.url)),
         new CacheFirst({
-          cacheName: cacheNames.precache,
+          cacheName: alaatvCacheName,
           plugins: [
             new ExpirationPlugin({
               maxEntries: 1000,
@@ -121,6 +115,11 @@ const cacheResources = async () => {
 
 self.addEventListener('install', (event) => {
   event.waitUntil(cacheResources())
+
+  // Cache the PWA_FALLBACK_HTML during the install event
+  event.waitUntil(
+    caches.open(`app-shell-${CACHE_VERSION}`).then(cache => cache.add(PWA_FALLBACK_HTML))
+  )
 })
 
 // Clean up outdated caches
@@ -130,7 +129,7 @@ cleanupOutdatedCaches()
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then(cacheNames => Promise.all(
-      cacheNames.filter(cacheName => cacheName !== CACHE_VERSION).map(cacheName => caches.delete(cacheName))
+      cacheNames.filter(cacheName => cacheName !== alaatvCacheName).map(cacheName => caches.delete(cacheName))
     ))
   )
 })
@@ -141,8 +140,6 @@ registerRoute(
   new StaleWhileRevalidate()
 )
 
-const alaatvCacheName = `alaatv-assets-${CACHE_VERSION}`
-
 // Strategy: Cache First, then Network for assets
 registerRoute(
   ({ url }) => url.origin === ASSET_ORIGIN,
@@ -151,48 +148,58 @@ registerRoute(
     plugins: [
       {
         fetchDidFail: async ({ originalRequest }) => {
-          const cache = await caches.open(alaatvCacheName)
-          const response = await fetch(originalRequest)
-          if (response && response.status === 200) {
-            await cache.put(originalRequest, response.clone())
-            return response
+          try {
+            const cache = await caches.open(alaatvCacheName)
+            try {
+              const response = await fetch(originalRequest)
+              try {
+                await cache.put(originalRequest, response.clone())
+                return response
+              } catch (error) {
+                console.error(`Error put cache ${originalRequest}:`, error)
+              }
+            } catch (error) {
+              console.error(`Error fetch originalRequest ${originalRequest}:`, error)
+            }
+          } catch (error) {
+            console.error(`Error open caches ${alaatvCacheName}:`, error)
           }
-          const fallback = FALLBACKS[originalRequest.destination]
-          return await caches.match(fallback) || new Response('Resource not available', {
-            status: 404
-          })
         }
       },
       new CacheableResponsePlugin({
         statuses: [0, 200]
       }),
       new ExpirationPlugin({
-        maxEntries: 500,
+        maxEntries: 1000,
         maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
       })
     ]
   })
 )
 
-// Cache the PWA_FALLBACK_HTML during the install event
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(`app-shell-${CACHE_VERSION}`).then(cache => cache.add(PWA_FALLBACK_HTML))
-  )
-})
-
 // Handle navigation requests
 if (MODE !== 'ssr' || PROD) {
   registerRoute(
     new NavigationRoute(
       async ({ event }) => {
-        const cache = await caches.open(`app-shell-${CACHE_VERSION}`)
-        const cachedResponse = await cache.match(PWA_FALLBACK_HTML)
-        if (cachedResponse) return cachedResponse
-
-        // Instead of returning a generic response, just log the error and let the service worker continue running.
-        console.error('NavigationRoute: PWA_FALLBACK_HTML not found in cache.')
-        event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
+        try {
+          const cache = await caches.open(`app-shell-${CACHE_VERSION}`)
+          try {
+            const cachedResponse = await cache.match(PWA_FALLBACK_HTML)
+            if (cachedResponse) {
+              return cachedResponse
+            } else {
+              console.error('NavigationRoute: PWA_FALLBACK_HTML not found in cache.')
+              return createHandlerBoundToURL(process.env.PWA_FALLBACK_HTML)
+            }
+          } catch (e) {
+            console.error('NavigationRoute -> cache.match: ', e)
+            event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
+          }
+        } catch (e) {
+          console.error('NavigationRoute: PWA_FALLBACK_HTML Error:', e)
+          event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
+        }
       }, {
         denylist: [/sw\.js$/, /workbox-(.)*\.js$/]
       }
