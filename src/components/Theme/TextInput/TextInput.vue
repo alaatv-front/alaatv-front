@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-center q-my-md new-theme">
+  <div class="row justify-center q-my-md new-theme bg-white">
     <div class="col-md-9">
       <h2>
         Text Input
@@ -28,6 +28,77 @@
       </div>
 
       <div class="row q-col-gutter-md q-my-lg">
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="Label (stacked)"
+                   placeholder="placeholder"
+                   hint="hint" />
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   error
+                   label="error"
+                   placeholder="placeholder"
+                   hint="hint" />
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   error
+                   label="append with error"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #append>
+              append
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="append icon"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #append>
+              <q-icon name="ph:apple-logo" />
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="prepend icon"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #prepend>
+              <q-icon name="ph:apple-logo" />
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="append"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #after>
+              <q-btn>
+                after
+              </q-btn>
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   disable
+                   label="disable"
+                   placeholder="placeholder"
+                   hint="hint"
+                   stack-label />
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="Label (stacked)"
+                   placeholder="placeholder"
+                   hint="hint"
+                   stack-label />
+        </div>
         <div class="col-md-4">
           <div class="outsideLabel">عنوان</div>
           <q-input v-model="input1"
