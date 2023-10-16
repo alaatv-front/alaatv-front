@@ -1,6 +1,6 @@
 <template>
   <div class="services-widget">
-    <div class="services row q-col-gutter-md q-mt-md justify-center">bbb
+    <div class="services row q-col-gutter-md q-mt-md justify-center">ccc
       <div v-for="(service, index) in options.services"
            :key="index"
            class="col-xs-4 col-sm-3 col-md-1">
