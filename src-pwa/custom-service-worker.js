@@ -7,28 +7,12 @@
  */
 
 // Import necessary workbox libraries
-import {
-  clientsClaim,
-  skipWaiting
-} from 'workbox-core'
-import {
-  cleanupOutdatedCaches,
-  createHandlerBoundToURL
-} from 'workbox-precaching'
-import {
-  registerRoute,
-  NavigationRoute
-} from 'workbox-routing'
-import {
-  StaleWhileRevalidate,
-  CacheFirst
-} from 'workbox-strategies'
-import {
-  CacheableResponsePlugin
-} from 'workbox-cacheable-response'
-import {
-  ExpirationPlugin
-} from 'workbox-expiration'
+import { clientsClaim, skipWaiting } from 'workbox-core'
+import { cleanupOutdatedCaches, createHandlerBoundToURL } from 'workbox-precaching'
+import { NavigationRoute, registerRoute } from 'workbox-routing'
+import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies'
+import { CacheableResponsePlugin } from 'workbox-cacheable-response'
+import { ExpirationPlugin } from 'workbox-expiration'
 
 // Immediately claim any clients, ensuring that the current service worker controls them.
 skipWaiting()
@@ -45,7 +29,7 @@ const CACHE_VERSION = '__CACHE_VERSION__'
 // Extract the origin from NODES_SERVER_URL_SSL for asset matching
 const ASSET_ORIGIN = new URL(NODES_SERVER_URL_SSL).origin
 const alaatvCacheName = `alaatv-assets-${CACHE_VERSION}`
-
+const appShellCacheName = `app-shell-${CACHE_VERSION}`
 // Sort the manifest based on asset type priority
 const sortedManifest = self.__WB_MANIFEST.sort((a, b) => {
   const priorities = {
@@ -69,6 +53,15 @@ const resourcesToPrefetch = (async () => {
     ? sortedManifest
     : sortedManifest.slice(0, 200)
 })()
+async function fetchFromNetworkThenCatch (originalRequest, cache) {
+  const response = await fetch(originalRequest)
+  try {
+    await cache.put(originalRequest, response.clone())
+    return response
+  } catch (error) {
+    console.error(`fetchFromNetworkThenCatch > Error put cache ${originalRequest}:`, error)
+  }
+}
 
 // Manually precache resources
 const cacheResources = async () => {
@@ -116,9 +109,9 @@ const cacheResources = async () => {
 cacheResources()
 
 try {
-  caches.open(`app-shell-${CACHE_VERSION}`).then(cache => cache.add(PWA_FALLBACK_HTML))
+  caches.open(appShellCacheName).then(cache => cache.add(PWA_FALLBACK_HTML))
 } catch (e) {
-  console.error(`error in app-shell-${CACHE_VERSION}: `, e)
+  console.error(`error in ${appShellCacheName}: `, e)
 }
 
 // Clean up outdated caches
@@ -150,15 +143,9 @@ registerRoute(
           try {
             const cache = await caches.open(alaatvCacheName)
             try {
-              const response = await fetch(originalRequest)
-              try {
-                await cache.put(originalRequest, response.clone())
-                return response
-              } catch (error) {
-                console.error(`Error put cache ${originalRequest}:`, error)
-              }
+              return await fetchFromNetworkThenCatch(originalRequest, cache)
             } catch (error) {
-              console.error(`Error fetch originalRequest ${originalRequest}:`, error)
+              console.error(`Error put cache ${originalRequest}:`, error)
             }
           } catch (error) {
             console.error(`Error open caches ${alaatvCacheName}:`, error)
@@ -182,23 +169,27 @@ if (MODE !== 'ssr' || PROD) {
     new NavigationRoute(
       async ({ event }) => {
         try {
-          const cache = await caches.open(`app-shell-${CACHE_VERSION}`)
+          const cache = await caches.open(appShellCacheName)
           try {
             const cachedResponse = await cache.match(PWA_FALLBACK_HTML)
             if (cachedResponse) {
               return cachedResponse
             } else {
-              return createHandlerBoundToURL(PWA_FALLBACK_HTML)
+              try {
+                return await fetchFromNetworkThenCatch(PWA_FALLBACK_HTML, cache)
+              } catch (error) {
+                console.error(`NavigationRoute -> Error put cache ${PWA_FALLBACK_HTML}:`, error)
+                event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
+              }
+              // return createHandlerBoundToURL(PWA_FALLBACK_HTML)
             }
           } catch (e) {
             console.error('NavigationRoute -> cache.match: ', e)
-            // event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
-            return createHandlerBoundToURL(PWA_FALLBACK_HTML)
+            event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
           }
         } catch (e) {
           console.error('NavigationRoute: PWA_FALLBACK_HTML Error:', e)
-          // event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
-          return createHandlerBoundToURL(PWA_FALLBACK_HTML)
+          event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
         }
       }, {
         denylist: [/sw\.js$/, /workbox-(.)*\.js$/]
