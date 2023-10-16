@@ -34,14 +34,18 @@ import {
 skipWaiting()
 clientsClaim()
 
-// Define environment variables and constants
+// Environment Variables
 const ASSET_SERVE = '__ASSET_SERVE__'
 const NODES_SERVER_URL_SSL = '__NODES_SERVER_URL_SSL__'
 const MODE = '__MODE__'
 const PROD = '__PROD__'
 const PWA_FALLBACK_HTML = '__PWA_FALLBACK_HTML__'
 const CACHE_VERSION = '__CACHE_VERSION__'
+
+// Extract the origin from NODES_SERVER_URL_SSL for asset matching
 const ASSET_ORIGIN = new URL(NODES_SERVER_URL_SSL).origin
+
+// Fallback URLs for different asset types
 const FALLBACKS = {
   image: '/path-to-default-image.jpg',
   script: '/path-to-default-script.js',
@@ -62,24 +66,26 @@ const sortedManifest = self.__WB_MANIFEST.sort((a, b) => {
 })
 
 // Determine resources to prefetch based on app mode
-const resourcesToPrefetch = (async () => {
+const resourcesToPrefetch = async () => {
   const clientList = await self.clients.matchAll({
     includeUncontrolled: true,
     type: 'window'
   })
   return clientList.some(client => client?.url?.includes('display-mode=standalone')) ? sortedManifest : sortedManifest.slice(0, 200)
-})()
+}
 
-// Adjust the manifest based on the asset serving mode
-const resourcesToCache = ASSET_SERVE === 'remote'
-  ? resourcesToPrefetch.map(entry => ({
-    ...entry,
-    url: `${NODES_SERVER_URL_SSL}${entry.url}`
-  }))
-  : resourcesToPrefetch
+// This function will handle the logic that depends on resourcesToPrefetch
+const setupCaching = async () => {
+  const resources = await resourcesToPrefetch()
 
-// Manually precache resources
-const cacheResources = async () => {
+  const resourcesToCache = ASSET_SERVE === 'remote'
+    ? resources.map(entry => ({
+      ...entry,
+      url: `${NODES_SERVER_URL_SSL}${entry.url}`
+    }))
+    : resources
+
+  // Manually precache resources
   const cache = await caches.open(workbox.core.cacheNames.precache)
   for (const resource of resourcesToCache) {
     try {
@@ -88,22 +94,24 @@ const cacheResources = async () => {
       console.error(`Error caching resource ${resource.url}:`, error)
     }
   }
-}
-cacheResources()
 
-// Set up routing for the manually cached resources
-registerRoute(
-  ({ request }) => resourcesToCache.some(resource => request.url.includes(resource.url)),
-  new CacheFirst({
-    cacheName: workbox.core.cacheNames.precache,
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 500,
-        maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
-      })
-    ]
-  })
-)
+  // Set up routing for the manually cached resources
+  registerRoute(
+    ({ request }) => resourcesToCache.some(resource => request.url.includes(resource.url)),
+    new CacheFirst({
+      cacheName: workbox.core.cacheNames.precache,
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 500,
+          maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
+        })
+      ]
+    })
+  )
+}
+
+// Call the setupCaching function to initialize the caching logic
+setupCaching()
 
 // Clean up outdated caches
 cleanupOutdatedCaches()
@@ -117,12 +125,13 @@ self.addEventListener('activate', (event) => {
   )
 })
 
-// Define caching strategies
+// Strategy: Serve stale content while revalidating in the background for scripts and styles
 registerRoute(
   ({ request }) => ['script', 'style'].includes(request.destination),
   new StaleWhileRevalidate()
 )
 
+// Strategy: Cache First, then Network for assets
 registerRoute(
   ({ url }) => url.origin === ASSET_ORIGIN,
   new CacheFirst({
