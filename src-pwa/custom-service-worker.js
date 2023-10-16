@@ -9,11 +9,11 @@
 // Import necessary workbox libraries
 import {
   clientsClaim,
-  skipWaiting
+  skipWaiting,
+  cacheNames
 } from 'workbox-core'
 import {
-  cleanupOutdatedCaches,
-  getCacheName
+  cleanupOutdatedCaches
 } from 'workbox-precaching'
 import {
   registerRoute,
@@ -35,12 +35,12 @@ skipWaiting()
 clientsClaim()
 
 // Define environment variables
-const ASSET_SERVE = '__ASSET_SERVE__'
-const NODES_SERVER_URL_SSL = '__NODES_SERVER_URL_SSL__'
-const MODE = '__MODE__'
-const PROD = '__PROD__'
-const PWA_FALLBACK_HTML = '__PWA_FALLBACK_HTML__'
-const CACHE_VERSION = '__CACHE_VERSION__'
+const ASSET_SERVE = ''
+const NODES_SERVER_URL_SSL = ''
+const MODE = ''
+const PROD = ''
+const PWA_FALLBACK_HTML = ''
+const CACHE_VERSION = 'v1697417065690'
 
 // Extract the origin from NODES_SERVER_URL_SSL for asset matching
 const ASSET_ORIGIN = new URL(NODES_SERVER_URL_SSL).origin
@@ -84,7 +84,7 @@ const resourcesToCache = ASSET_SERVE === 'remote'
 
 // Manually precache resources
 const cacheResources = async () => {
-  const cache = await caches.open(getCacheName())
+  const cache = await caches.open(cacheNames.precache)
   for (const resource of resourcesToCache) {
     try {
       await cache.add(resource.url)
@@ -100,7 +100,7 @@ cacheResources()
 registerRoute(
   ({ request }) => resourcesToCache.some(resource => request.url.includes(resource.url)),
   new CacheFirst({
-    cacheName: getCacheName(),
+    cacheName: cacheNames.precache,
     plugins: [
       new ExpirationPlugin({
         maxEntries: 500,
