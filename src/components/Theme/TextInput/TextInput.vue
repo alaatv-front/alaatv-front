@@ -69,7 +69,6 @@
                    hint="hint">
             <template #prepend>
               <!--              <q-btn flat-->
-              <!--                     round-->
               <!--                     icon="ph:telegram-logo" />-->
               <q-icon name="ph:telegram-logo" />
             </template>
