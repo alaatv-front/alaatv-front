@@ -7,7 +7,8 @@
 
 $input-height: $space-8;
 
-.q-input{
+.q-input {
+  align-items: flex-end;
   &.q-field--focused {
     .q-field__inner {
       .q-field__control {
@@ -65,6 +66,9 @@ $input-height: $space-8;
       }
     }
   }
+  .q-field__before {
+    height: $input-height;
+  }
   .q-field__inner {
     .q-field__control {
       height: auto;
@@ -77,6 +81,7 @@ $input-height: $space-8;
         bottom: 0;
         top: auto;
         width: 100%;
+        z-index: 1;
         position: absolute;
         background: $grey-1;
         height: $input-height;
@@ -86,33 +91,44 @@ $input-height: $space-8;
       &:after {
         display: none;
       }
+      padding: 0 $space-4 0 $space-4;
+      .q-field__prepend {
+        height: $input-height;
+        padding-right: $space-1;
+        z-index: 2;
+      }
       .q-field__control-container {
         flex-wrap: wrap;
+        position: unset;
         .q-field__native {
           order: 2;
+          z-index: 2;
           height: $input-height;
-          padding: 9px $space-4 10px $space-4;
+          padding: 9px 0 10px 0;
+          color: $grey-9;
+          @include body2;
           &::placeholder {
             color: $grey-6;
             @include body2;
           }
         }
         .q-field__label {
+          $margin-bottom: $space-2;
           top: 0;
           order: 1;
           color: $grey-9;
           @include body1;
           max-width: 100%;
-          position: relative;
-          margin-bottom: $space-2;
-          transform: translateY(0) scale(1);
+          margin-bottom: $margin-bottom;
+          transform: translateY(calc( -100% - #{$margin-bottom})) scale(1);
+          position: absolute;
+          left: 0;
         }
       }
       .q-field__append {
         height: $input-height;
-      }
-      .q-field__prepend {
-        height: $input-height;
+        padding-left: $space-1;
+        z-index: 2;
       }
     }
     .q-field__bottom {
@@ -122,5 +138,8 @@ $input-height: $space-8;
         @include caption1;
       }
     }
+  }
+  .q-field__after {
+    height: $input-height;
   }
 }

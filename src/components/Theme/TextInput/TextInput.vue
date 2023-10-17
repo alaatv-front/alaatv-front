@@ -68,18 +68,65 @@
                    placeholder="placeholder"
                    hint="hint">
             <template #prepend>
+              <!--              <q-btn flat-->
+              <!--                     round-->
+              <!--                     icon="ph:telegram-logo" />-->
+              <q-icon name="ph:telegram-logo" />
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="append prepend icon"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #append>
+              <q-icon name="ph:apple-logo" />
+              <q-icon name="ph:apple-logo" />
+            </template>
+            <template #prepend>
+              <q-icon name="ph:apple-logo" />
               <q-icon name="ph:apple-logo" />
             </template>
           </q-input>
         </div>
         <div class="col-md-4">
           <q-input v-model="input1"
-                   label="append"
+                   label="after"
                    placeholder="placeholder"
                    hint="hint">
             <template #after>
               <q-btn>
                 after
+              </q-btn>
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="before"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #before>
+              <q-btn>
+                before
+              </q-btn>
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="after before"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #after>
+              <q-btn>
+                after
+              </q-btn>
+            </template>
+            <template #before>
+              <q-btn>
+                before
               </q-btn>
             </template>
           </q-input>
