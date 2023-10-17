@@ -6,6 +6,8 @@
 }
 
 $input-height: $space-8;
+$q-field__label_height: 24px; // update on change of label typography
+$q-field__label_margin_bottom: $space-2;
 
 .q-input {
   align-items: flex-end;
@@ -74,6 +76,7 @@ $input-height: $space-8;
       height: auto;
       position: relative;
       align-items: flex-end;
+      margin-top: calc( #{$q-field__label_height} + #{$q-field__label_margin_bottom});
       &:before {
         content: ' ';
         left: 0;
@@ -113,14 +116,13 @@ $input-height: $space-8;
           }
         }
         .q-field__label {
-          $margin-bottom: $space-2;
           top: 0;
           order: 1;
           color: $grey-9;
           @include body1;
           max-width: 100%;
-          margin-bottom: $margin-bottom;
-          transform: translateY(calc( -100% - #{$margin-bottom})) scale(1);
+          margin-bottom: $q-field__label_margin_bottom;
+          transform: translateY(calc( -100% - #{$q-field__label_margin_bottom})) scale(1);
           position: absolute;
           left: 0;
         }
