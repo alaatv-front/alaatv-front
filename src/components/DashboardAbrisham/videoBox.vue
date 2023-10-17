@@ -418,10 +418,10 @@ export default {
   text-align: right;
   border-radius: 15px;
   border: solid 2px;
-  color: var(--abrishamMain);
-  border-color: var(--abrishamLightBlue);
+  color: #3e5480;
+  border-color: #eff3ff;
   .quality{
-    background: var(--abrishamLightBlue);
+    background: #eff3ff;
     padding: 11px 19px 9px 20px;
     border-radius: 10px;
     height: 48px;
@@ -439,7 +439,7 @@ export default {
   border-radius: 40px;
   padding: 15px;
   .download-title{
-    color: var(--abrishamMain);
+    color: #3e5480;
     font-size: 20px;
     font-weight: 500;
     margin-top: 30px;
@@ -479,7 +479,7 @@ export default {
           margin: 200px auto;
           .content{
             padding: 30px;
-            border: 1px solid var(--alaa-Primary);
+            border: 1px solid #FFCA28;
             font-size: 18px;
             border-radius: 15px;
             font-weight: 500;
@@ -686,7 +686,7 @@ export default {
                       margin-left: 20px;
                       &:deep(.q-btn__content){
                         margin: 0;
-                        color: var(--abrishamMain);
+                        color: #3e5480;
                         font-size: 18px;
                       }
                     }

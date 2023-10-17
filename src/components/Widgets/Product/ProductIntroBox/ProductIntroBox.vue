@@ -7,9 +7,11 @@
                     :poster="localOptions.product.intro?.photo"
                     :source="videoSource" />
     </q-card-section>
-    <q-card-section v-else-if="localOptions.product.photo_wide">
+    <q-card-section v-else-if="localOptions.product.photo_wide"
+                    class="q-pa-none">
       <div class="photo_wide-wrapper">
         <lazy-img :src="localOptions.product.photo_wide"
+                  class="product-image"
                   width="300"
                   height="180" />
       </div>
@@ -17,6 +19,7 @@
     <q-card-section v-else-if="localOptions.product.photo">
       <div class="photo-wrapper">
         <lazy-img :src="localOptions.product.photo"
+                  class="product-image"
                   width="300"
                   height="300" />
       </div>
@@ -112,26 +115,22 @@ export default defineComponent({
   border-radius: 12px;
   background:#FFF;
   box-shadow: 2px 2px 3px 0 rgba(16, 24, 40, 0.06);
-  padding: 30px;
+  padding: 32px;
 
-  @media screen and (max-width: 1300px){
-    padding: 15px;
-  }
-  @media screen and (max-width: 1023px){
-    padding: 30px;
+  @media screen and (max-width: 1439px){
+    padding: 20px;
   }
 
-  @media screen and (max-width: 1024px) {
-    margin: auto;
-    width: 586px;
+  @media screen and (max-width: 1023px) {
+    width: 100%;
+    padding: 24px;
   }
 
-  @media screen and (max-width: 600px) {
-    margin: auto;
-    width: 90%;
+  @media screen and (max-width: 599px) {
+    padding: 20px 16px;
+    width: 100%;
     height: auto;
     min-height: auto;
-    padding: 16px;
   }
 
   .product-intro-video {
@@ -141,8 +140,23 @@ export default defineComponent({
     padding: 0;
   }
 
+  .photo_wide-wrapper {
+    :deep(.product-image) {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+    }
+  }
+  .photo-wrapper {
+    :deep(.product-image) {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+    }
+  }
+
   .price-section {
-    padding: 22px 0;
+    padding: 16px 0 25px;
   }
 
   .attributes-section {

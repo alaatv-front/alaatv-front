@@ -52,7 +52,7 @@ export default {
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: var(--abrishamGray);
+  color: #9fa5c0;
   .profile-photo{
     margin-right:15px;
     .img{
@@ -64,7 +64,7 @@ export default {
   .name{
     font-size: 16px;
     font-weight: 500;
-    color: var(--abrishamMain);
+    color: #3e5480;
     margin-bottom: 3px;
   }
   .phone-number{

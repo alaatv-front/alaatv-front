@@ -19,13 +19,11 @@
               </span>
             </div>
           </div>
-          <div class="img-container">
-            <lazy-img :src="set.photo"
-                      class="img"
-                      :alt="set.title"
-                      width="16"
-                      height="9" />
-          </div>
+          <lazy-img :src="set.photo"
+                    class="img"
+                    :alt="set.title"
+                    width="16"
+                    height="9" />
         </div>
       </router-link>
       <div class="set-content-box flex">
@@ -37,7 +35,8 @@
             {{ set.title }}
           </div>
         </router-link>
-        <div class="set-action-container">
+        <div v-if="defaultOptions.showBookmark"
+             class="set-action-container">
           <bookmark v-if="defaultOptions.showBookmark"
                     class="set-item-bookmark"
                     :is-favored="localOptions.set.is_favored"
@@ -201,14 +200,9 @@ export default {
     transition: all ease 0.5s;
 
     .img-box {
-      .img-container {
-        box-shadow: none;
+      :deep(.img) {
         width: 100%;
         border-radius: 20px 20px 0 0;
-        :deep(.img) {
-          width: 100%;
-          border-radius: 20px 20px 0 0;
-        }
       }
       .img-videos {
         background: #000000;

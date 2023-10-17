@@ -139,6 +139,7 @@
                               <div class="bank-icon-container">
                                 <lazy-img :src="gateway.photo"
                                           :alt="gateway.photo"
+                                          class="bank-icon-photo"
                                           width="1"
                                           height="1" />
                               </div>
@@ -588,7 +589,7 @@ export default {
         margin-left: 0;
       }
       @media screen and (max-width: 599px) {
-        margin-bottom: 70px;
+        margin-bottom: 80px;
       }
 
       .invoice-cart {
@@ -944,7 +945,7 @@ export default {
                       background: #F4F3FF;
                       border-radius: 5px;
                       margin-right: 8px;
-                      .lazy-img {
+                      :deep(.bank-icon-photo) {
                         width: $iconSize;
                         height: $iconSize;
                       }
@@ -1101,7 +1102,7 @@ export default {
 
         @media screen and (max-width: 599px) {
           position: fixed;
-          bottom: 65px;
+          bottom: 80px;
           left: 0;
           right: 0;
           display: flex;

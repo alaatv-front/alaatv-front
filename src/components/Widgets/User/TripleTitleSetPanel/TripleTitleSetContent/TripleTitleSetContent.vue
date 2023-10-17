@@ -379,7 +379,7 @@ export default {
 
   .chip-parent{
     .page-title{
-      color: var(--abrishamMain);
+      color: #3e5480;
       font-size: 20px;
       font-weight: 500;
       line-height: 1.7;

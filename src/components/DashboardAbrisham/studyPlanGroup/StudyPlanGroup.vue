@@ -352,7 +352,7 @@ export default {
 .study-plan-group {
   .study-plan {
     background-color: #ffe2bc;
-    color: var(--abrishamMain);
+    color: #3e5480;
 
     padding: 40px 60px 51px 60px;
     border-radius: 30px;
@@ -491,7 +491,7 @@ export default {
           font-weight: normal;
           line-height: normal;
           text-align: right;
-          color: var(--abrishamMain);
+          color: #3e5480;
           @media only screen and (max-width: 768px) {
             font-size: 14px;
           }

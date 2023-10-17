@@ -1,49 +1,46 @@
 <template>
-  <div class="drawer-inside">
-    <div class="side-menu-main-layout">
-      <div class="side-logo">
-        <router-link :to="{name: 'Public.Home'}">
-          <div class="logo-image" />
-        </router-link>
-      </div>
-      <div class="side-menu-body">
-        <q-list class="side-menu-list"
-                padding>
-          <template v-if="false">
-            <q-input v-model="searchText"
-                     dense
-                     filled
-                     class="gray-input search-input"
-                     placeholder="جست و جو"
-                     @update:model-value ="search(menuItems)">
-              <template v-slot:append>
-                <q-icon name="search" />
-              </template>
-            </q-input>
+  <div class="side-menu-main-layout">
+    <router-link class="side-logo"
+                 :to="{name: 'Public.Home'}">
+      <lazy-img src="https://nodes.alaatv.com/upload/alaa-footer-desc.png"
+                width="180"
+                height="52"
+                class="logo-image" />
+    </router-link>
+    <q-list class="side-menu-list"
+            padding>
+      <template v-if="false">
+        <q-input v-model="searchText"
+                 dense
+                 filled
+                 class="gray-input search-input"
+                 placeholder="جست و جو"
+                 @update:model-value ="search(menuItems)">
+          <template v-slot:append>
+            <q-icon name="search" />
           </template>
-          <side-menu-items :menu-items="menuItems" />
-          <!--          <menu-item :items="menuItems"-->
-          <!--                     :menu-items-color="'#5867dd'" />-->
-          <!--          <menu-item :items="menuItemsExtra"-->
-          <!--                     :menu-items-color="'#5867dd'" />-->
-        </q-list>
-        <div v-if="isUserLogin"
-             class="log-out"
-             @click="logOut">
-          <span>
-            <q-avatar icon="isax:logout"
-                      size="30"
-                      dir="rtl" />
-          </span>
-          <span class="logout-text">خروج </span>
-        </div>
-      </div>
-    </div>
+        </q-input>
+      </template>
+      <side-menu-items :menu-items="menuItems" />
+      <q-item v-if="isUserLogin"
+              v-ripple
+              clickable
+              class="log-out"
+              @click="logOut">
+        <q-item-section>
+          خروج
+        </q-item-section>
+        <q-item-section avatar>
+          <q-icon name="ph:sign-out" />
+        </q-item-section>
+      </q-item>
+    </q-list>
   </div>
 </template>
 
 <script>
 import { User } from 'src/models/User.js'
+import LazyImg from 'src/components/lazyImg.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import SideMenuItems from 'src/components/Template/SideBard/SideMenuItems.vue'
@@ -51,6 +48,7 @@ import SideMenuItems from 'src/components/Template/SideBard/SideMenuItems.vue'
 export default {
   name: 'MainSideBarTemplate',
   components: {
+    LazyImg,
     SideMenuItems
   },
   mixins: [mixinPrefetchServerData],
@@ -140,138 +138,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.drawer-inside {
-  background: white;
-  height: 100%;
-}
 .side-menu-main-layout {
-  background: white;
+  height: 100%;
   display: flex;
-  flex-direction: column;
   overflow-y: auto;
+  background: white;
+  flex-direction: column;
   .side-logo {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    margin-left: 25px;
-    cursor: pointer;
-    .alaa-logo {
-      width: 50px;
-      //&:deep(.q-img__image ){
-      //  width:50%;
-      //  height:50%;
-      //}
-    }
-    .logo-image {
-      text-align: left;
-      .q-img__container {
-      }
+    padding: 16px 48px;
+    display: block;
+    :deep(.logo-image) {
+      width: 100%;
     }
   }
 
-  .side-menu-body {
-    display: grid;
-    grid-template-rows: auto;
-    .q-list {
-      padding: 0;
-      &.side-menu-list {
-        .search-input {
-          margin-bottom: 30px;
-        }
-        margin: 0 24px 109px 24px;
-        @media screen and (max-width: 1919px) {
-          margin: 0 24px 34px 24px;
-        }
-        @media screen and (max-width: 1439px) {
-          margin: 0 21px 26px 21px;
-        }
-        @media screen and (max-width: 599px) {
-          margin: 0 18px 8px 18px;
-        }
-
-        .top-separator {
-          margin: 0 40px 32px 40px;
-          @media screen and (max-width: 1919px) {
-            margin: 0 30px 25px 30px;
-          }
-          @media screen and (max-width: 1439px) {
-            margin: 0 45px 22px 45px;
-          }
-        }
-
-        .q-item {
-          padding: 0;
-          min-height: 0;
-        }
-      }
-    }
-    .log-out {
-      align-self: end;
-      font-size: 16px;
-      font-weight: 500;
-      cursor: pointer;
-      height: 40px !important;
-      //width: 232px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      padding: 0 14px 0 10px;
-      margin: 0 0 36px 27px;
-      @media screen and (max-width: 1439px) {
-        margin: 0 31px 33px 31px;
-      }
-      @media screen and (max-width: 599px) {
-        margin: 0 30px 30px 30px;
-        //padding: 0 0 0 10px;
-      }
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-      }
-      .q-avatar {
-        height: 22px;
-        width: 22px;
-        margin-right: 12px;
-        transform: matrix(-1, 0, 0, 1, 0, 0);
-      }
-    }
-  }
-  .log-out {
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    height: 40px !important;
-    //width: 232px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    padding: 0 14px 0 10px;
-    margin: 0 0 36px 27px;
-    @media screen and (max-width: 1439px) {
-      margin: 0 31px 33px 31px;
-    }
-    @media screen and (max-width: 599px) {
-      margin: 0 30px 30px 30px;
-      //padding: 0 0 0 10px;
-    }
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-    .q-avatar {
-      height: 22px;
-      width: 22px;
-      margin-right: 12px;
-      transform: matrix(-1, 0, 0, 1, 0, 0);
-    }
-  }
-  &:deep(.side-menu-main-layout) {
-    .q-expansion-item__container {
-      .q-item {
-        display: flex;
-        padding: 0 10px !important;
-      }
-      .q-icon {
-        font-size: 21px;
-      }
-    }
+  .side-menu-list {
+    padding: 0;
   }
 }
 </style>

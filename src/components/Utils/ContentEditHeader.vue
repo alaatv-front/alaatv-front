@@ -522,15 +522,15 @@ export default {
 .entity-edit-header {
   padding-top: 20px;
   .upper-card {
-    color: var(--alaa-Neutral2);
+    color: #F4F5F6;
     display: grid;
     grid-template-columns: 170px auto;
     :deep(.q-field) {
       .q-field__append {
-        color: var(--alaa-Neutral2);
+        color: #F4F5F6;
       }
       .q-field__native {
-        color: var(--alaa-Neutral2);
+        color: #F4F5F6;
       }
     }
     .header-item {
@@ -550,7 +550,7 @@ export default {
         width: 120px;
      }
       .lower-card{
-        //color: var(--alaa-TextSecondary);
+        //color: #65677F;
       }
     }
   }

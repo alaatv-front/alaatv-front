@@ -1,5 +1,4 @@
 <template>
-  <q-resize-observer @resize="onresize" />
   <template v-if="qImage">
     <q-img v-if="width && height"
            ref="LazyImage"
@@ -82,7 +81,7 @@ export default {
   data () {
     return {
       visible: false,
-      lazyImageSrc: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TpSKVDhYRcchQnSyIijpqFYpQIdQKrTqYXPohNGlIUlwcBdeCgx+LVQcXZ10dXAVB8APE1cVJ0UVK/F9SaBHjwXE/3t173L0DhHqZaVbHKKDptplOJsRsbkUMvUJABCH0YUpmljErSSn4jq97BPh6F+dZ/uf+HD1q3mJAQCSeYYZpE68TT27aBud94igrySrxOfGISRckfuS64vEb56LLAs+Mmpn0HHGUWCy2sdLGrGRqxBPEMVXTKV/Ieqxy3uKslauseU/+wnBeX17iOs1BJLGARUgQoaCKDZRhI06rToqFNO0nfPwDrl8il0KuDTByzKMCDbLrB/+D391ahfExLymcADpfHOdjCAjtAo2a43wfO07jBAg+A1d6y1+pA9OfpNdaWuwIiGwDF9ctTdkDLneA/idDNmVXCtIUCgXg/Yy+KQf03gLdq15vzX2cPgAZ6ip1AxwcAsNFyl7zeXdXe2//nmn29wNtt3Klb/Gn/QAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+cCDwcZJTB9qXYAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAADElEQVQI12P4P4EBAAQhAZCbA9mPAAAAAElFTkSuQmCC',
+      lazyImageSrc: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP89v23MQAI8AMdRODaOAAAAABJRU5ErkJggg==',
       computedWidth: 0,
       computedHeight: 0
     }
@@ -133,6 +132,7 @@ export default {
   },
   mounted() {
     this.updateLazyImageSrc()
+    window.addEventListener('resize', this.onresize)
   },
   methods: {
     onClick () {
@@ -202,6 +202,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.resize-observer {
+  min-width: 100%;
+  max-width: 100%;
+}
 .lazy-img {
   font-size: 0;
   //min-width: 100%;

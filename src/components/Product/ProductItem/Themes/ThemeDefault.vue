@@ -2,9 +2,11 @@
   <div class="theme2-container"
        :class="localOptions.mobileTheme"
        @click.capture="productClicked">
+    <product-discount-badge class="product-discount-badge horizontal-mode"
+                            :options="{price:product.price}" />
     <div class="img-box"
          :class="localOptions.theme">
-      <product-discount-badge class="product-discount-badge"
+      <product-discount-badge class="product-discount-badge vertical-mode"
                               :options="{price:product.price}" />
       <router-link :to="getRoutingObject"
                    @click="productClicked">
@@ -211,6 +213,11 @@ export default defineComponent({
   margin-top: 45px;
 
   &.vertical {
+    .product-discount-badge {
+      &.horizontal-mode {
+        display: none;
+      }
+    }
     @media screen and (max-width: 600px) {
       .img-box {
         .product-discount-badge {
@@ -248,6 +255,11 @@ export default defineComponent({
   }
 
   &.horizontal {
+    .product-discount-badge {
+      &.horizontal-mode {
+        display: none;
+      }
+    }
     @media screen and (max-width: 600px) {
       display: flex;
       border-radius: 18px;
@@ -255,6 +267,18 @@ export default defineComponent({
       padding-left: 20px;
       margin-top: 20px;
       margin-left: 16px;
+
+      .product-discount-badge {
+        &.vertical-mode {
+          display: none;
+        }
+        &.horizontal-mode {
+          display: block;
+          position: absolute;
+          right: 12px;
+          top: -15px;
+        }
+      }
 
       .img-box {
         margin: 0 12px 0 -35px;
