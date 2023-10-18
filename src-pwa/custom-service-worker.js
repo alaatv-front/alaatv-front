@@ -7,7 +7,7 @@
  */
 
 // Import necessary workbox libraries
-import { clientsClaim, skipWaiting } from 'workbox-core'
+import { clientsClaim } from 'workbox-core'
 import { cleanupOutdatedCaches } from 'workbox-precaching'
 import { NavigationRoute, registerRoute } from 'workbox-routing'
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies'
@@ -15,7 +15,7 @@ import { CacheableResponsePlugin } from 'workbox-cacheable-response'
 import { ExpirationPlugin } from 'workbox-expiration'
 
 // Immediately claim any clients, ensuring that the current service worker controls them.
-skipWaiting()
+self.skipWaiting()
 clientsClaim()
 
 // Placeholder variables for environment-specific values
@@ -27,7 +27,12 @@ const PWA_FALLBACK_HTML = '__PWA_FALLBACK_HTML__'
 const CACHE_VERSION = '__CACHE_VERSION__'
 
 // Extract the origin from NODES_SERVER_URL_SSL for asset matching
-const ASSET_ORIGIN = new URL(NODES_SERVER_URL_SSL).origin
+let ASSET_ORIGIN = ''
+try {
+  ASSET_ORIGIN = new URL(NODES_SERVER_URL_SSL).origin
+} catch (err) {
+  console.error('Invalid URL for ASSET_ORIGIN (check env variables):', err)
+}
 const alaatvCacheName = `alaatv-assets-${CACHE_VERSION}`
 const appShellCacheName = `alaatv-shell-${CACHE_VERSION}`
 // Sort the manifest based on asset type priority
