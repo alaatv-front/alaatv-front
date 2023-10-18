@@ -206,11 +206,14 @@ export default {
   min-width: 100%;
   max-width: 100%;
 }
+
 .lazy-img {
   font-size: 0;
   //min-width: 100%;
   //max-width: 100%;
   overflow: hidden;
   border-radius: inherit;
+  background: transparent;
+  display: block;
 }
 </style>

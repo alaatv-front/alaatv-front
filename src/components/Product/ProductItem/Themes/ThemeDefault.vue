@@ -308,7 +308,7 @@ export default defineComponent({
 
           .title-box {
             height: 44px;
-            justify-content: center;
+            text-align: center;
 
             .title-text {
               -webkit-line-clamp: 2;
@@ -418,8 +418,6 @@ export default defineComponent({
 
     .title-box {
       min-height: 42px;
-      display: flex;
-      align-items: center;
       text-align: center;
     }
 
