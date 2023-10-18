@@ -23,4 +23,4 @@ serviceWorkerContent = serviceWorkerContent.replace('__CACHE_VERSION__', newVers
 // Write the modified content back to the service worker file
 fs.writeFileSync(serviceWorkerPath, serviceWorkerContent)
 
-console.log('Environment variables and CACHE_VERSION injected into custom-service-worker.js')
+// console.log('Environment variables and CACHE_VERSION injected into custom-service-worker.js')
