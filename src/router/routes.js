@@ -266,8 +266,16 @@ const routes = [
         path: 'panel',
         name: 'UserPanel',
         layoutConfig: {
+          layoutView: 'hHh Lpr fff',
           showHamburgerBtn: false,
-          layoutLeftSideBarType: 'user-panel'
+          layoutLeftDrawer: true,
+          layoutLeftSideBarType: 'user-panel',
+          layoutLeftDrawerVisible: true,
+          layoutLeftDrawerOverlay: false,
+          layoutLeftDrawerElevated: false,
+          layoutLeftDrawerBordered: false,
+          layoutLeftDrawerWidth: 325,
+          layoutLeftDrawerBehavior: 'default'
         },
         meta: { middlewares: [Authenticated] },
         component: () => import('layouts/bareLayout.vue'),

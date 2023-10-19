@@ -1,3 +1,7 @@
+<template>
+  <div />
+</template>
+
 <script>
 import { mixinWidget } from 'src/mixin/Mixins.js'
 
