@@ -107,7 +107,7 @@ const cacheResources = async () => {
           cacheName: alaatvCacheName,
           plugins: [
             new ExpirationPlugin({
-              maxEntries: 1000,
+              maxEntries: 2000,
               maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
             })
           ]
@@ -121,11 +121,11 @@ const cacheResources = async () => {
   }
 }
 
-//cacheResources()
+cacheResources()
 
 // Cache the PWA_FALLBACK_HTML during the install event
 self.addEventListener('install', (event) => {
-  //event.waitUntil(cacheResources())
+  event.waitUntil(cacheResources())
 
   try {
     event.waitUntil(
@@ -180,7 +180,7 @@ registerRoute(
         statuses: [0, 200]
       }),
       new ExpirationPlugin({
-        maxEntries: 10000,
+        maxEntries: 2000,
         maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
       })
     ]
@@ -192,28 +192,39 @@ if (MODE !== 'ssr' || PROD) {
   registerRoute(
     new NavigationRoute(
       async ({ event }) => {
-        try {
-          const cache = await caches.open(appShellCacheName)
+        if (!navigator.onLine) {
           try {
-            const cachedResponse = await cache.match(PWA_FALLBACK_HTML)
-            if (cachedResponse) {
-              return cachedResponse
-            } else {
-              try {
-                return await fetchFromNetworkThenCatch(PWA_FALLBACK_HTML, cache)
-              } catch (error) {
-                console.error(`NavigationRoute -> Error put cache ${PWA_FALLBACK_HTML}:`, error)
-                event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
+            const cache = await caches.open(appShellCacheName)
+            try {
+              const cachedResponse = await cache.match(PWA_FALLBACK_HTML)
+              if (cachedResponse) {
+                return cachedResponse
+              } else {
+                try {
+                  return await fetchFromNetworkThenCatch(PWA_FALLBACK_HTML, cache)
+                } catch (error) {
+                  console.error(`NavigationRoute -> Error put cache ${PWA_FALLBACK_HTML}:`, error)
+                  event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
+                }
+                // return createHandlerBoundToURL(PWA_FALLBACK_HTML)
               }
-              // return createHandlerBoundToURL(PWA_FALLBACK_HTML)
+            } catch (e) {
+              console.error('NavigationRoute -> cache.match: ', e)
+              event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
             }
           } catch (e) {
-            console.error('NavigationRoute -> cache.match: ', e)
+            console.error('NavigationRoute: PWA_FALLBACK_HTML Error:', e)
             event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
           }
-        } catch (e) {
-          console.error('NavigationRoute: PWA_FALLBACK_HTML Error:', e)
-          event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
+        } else {
+          // User is online, navigate to original routes
+          try{
+            return fetch(event.request);
+          }
+           catch (error) {
+             console.error(`NavigationRoute ->event.request ${event.request}:`, error)
+              event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
+           }
         }
       }, {
         denylist: [/sw\.js$/, /workbox-(.)*\.js$/]
