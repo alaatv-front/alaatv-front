@@ -46,6 +46,16 @@ const sortedManifest = self.__WB_MANIFEST.sort((a, b) => {
   }
   const getPriority = url => priorities[url.slice(url.lastIndexOf('.'))] || 4
   return getPriority(a.url) - getPriority(b.url)
+}).filter(item => {
+  const priorities = {
+    '.js': true,
+    '.css': true,
+    '.woff': true,
+    '.woff2': true,
+    '.ttf': true
+  }
+  const canCache = url => priorities[url.slice(url.lastIndexOf('.'))] || false
+  return canCache(item.url)
 })
 
 // Determine resources to prefetch based on app mode
@@ -97,7 +107,7 @@ const cacheResources = async () => {
           cacheName: alaatvCacheName,
           plugins: [
             new ExpirationPlugin({
-              maxEntries: 10000,
+              maxEntries: 1000,
               maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
             })
           ]
