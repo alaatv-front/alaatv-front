@@ -121,11 +121,11 @@ const cacheResources = async () => {
   }
 }
 
-cacheResources()
+//cacheResources()
 
 // Cache the PWA_FALLBACK_HTML during the install event
 self.addEventListener('install', (event) => {
-  event.waitUntil(cacheResources())
+  //event.waitUntil(cacheResources())
 
   try {
     event.waitUntil(
