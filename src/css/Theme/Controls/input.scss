@@ -6,10 +6,32 @@
 }
 
 $input-height: $space-8;
+$field-background: $grey-1;
+$field-disabled-background: $grey-2;
 $q-field__label_height: 24px; // update on change of label typography
 $q-field__label_margin_bottom: $space-2;
+@mixin q-field__prepend_and_append_icon_style {
+  $icon-size: $space-5;
+  font-family: "Phosphor", serif !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  width: $icon-size;
+  height: $icon-size;
+  &:before {
+    position: absolute;
+    left: 0;
+    background: $field-background;
+  }
+}
 
-.q-input {
+@mixin q-field-mixin {
+
   align-items: flex-end;
   &.q-field--focused {
     .q-field__inner {
@@ -24,21 +46,29 @@ $q-field__label_margin_bottom: $space-2;
     .q-field__inner {
       .q-field__control {
         &:before {
-          background: $grey-2;
+          background: $field-disabled-background;
           border-color: $negative-5;
         }
         & > div {
           opacity: 1 !important;
         }
+        $field-disabled-input-color: $grey-4;
+        .q-field__prepend {
+          color: $field-disabled-input-color;
+        }
         .q-field__control-container {
           .q-field__native {
+            color: $field-disabled-input-color;
             &::placeholder {
-              color: $grey-4;
+              color: $field-disabled-input-color;
             }
           }
           .q-field__label {
             color: $grey-4;
           }
+        }
+        .q-field__append {
+          color: $field-disabled-input-color;
         }
       }
       .q-field__bottom {
@@ -73,9 +103,11 @@ $q-field__label_margin_bottom: $space-2;
   }
   .q-field__inner {
     .q-field__control {
-      height: auto;
+      height: $input-height;
+      min-height: $input-height;
       position: relative;
       align-items: flex-end;
+      padding: 0 $space-4 0 $space-4;
       margin-top: calc( #{$q-field__label_height} + #{$q-field__label_margin_bottom});
       &:before {
         content: ' ';
@@ -86,7 +118,7 @@ $q-field__label_margin_bottom: $space-2;
         width: 100%;
         z-index: 1;
         position: absolute;
-        background: $grey-1;
+        background: $field-background;
         height: $input-height;
         border-radius: $space-2;
         border: 1.5px solid $grey-4;
@@ -94,7 +126,6 @@ $q-field__label_margin_bottom: $space-2;
       &:after {
         display: none;
       }
-      padding: 0 $space-4 0 $space-4;
       .q-field__prepend {
         height: $input-height;
         padding-right: $space-1;
@@ -103,10 +134,12 @@ $q-field__label_margin_bottom: $space-2;
       .q-field__control-container {
         flex-wrap: wrap;
         position: unset;
+        padding-top: 0;
         .q-field__native {
           order: 2;
           z-index: 2;
           height: $input-height;
+          min-height: $input-height;
           padding: 9px 0 10px 0;
           color: $grey-9;
           @include body2;
@@ -144,4 +177,8 @@ $q-field__label_margin_bottom: $space-2;
   .q-field__after {
     height: $input-height;
   }
+}
+
+.q-input {
+  @include q-field-mixin;
 }

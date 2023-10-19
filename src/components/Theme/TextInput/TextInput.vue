@@ -91,6 +91,48 @@
         </div>
         <div class="col-md-4">
           <q-input v-model="input1"
+                   label="append button"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #append>
+              <q-btn flat
+                     icon="ph:apple-logo" />
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="prepend button"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #prepend>
+              <q-btn square
+                     flat
+                     icon="ph:telegram-logo" />
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="append prepend button"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #append>
+              <q-btn flat
+                     icon="ph:telegram-logo" />
+              <q-btn flat
+                     icon="ph:telegram-logo" />
+            </template>
+            <template #prepend>
+              <q-btn flat
+                     icon="ph:apple-logo" />
+              <q-btn flat
+                     icon="ph:apple-logo" />
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
                    label="after"
                    placeholder="placeholder"
                    hint="hint">
