@@ -215,5 +215,6 @@ export default {
   border-radius: inherit;
   background: transparent;
   display: block;
+  height: auto;
 }
 </style>
