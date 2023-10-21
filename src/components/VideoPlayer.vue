@@ -823,7 +823,7 @@ export default {
     }
     .vjs-loading-spinner {
       right: 50%;
-      margin: -25px -25px 0 0;
+      margin-right: -50px;
       text-align: right;
     }
 
