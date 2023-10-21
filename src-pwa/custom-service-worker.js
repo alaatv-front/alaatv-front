@@ -218,13 +218,12 @@ if (MODE !== 'ssr' || PROD) {
           }
         } else {
           // User is online, navigate to original routes
-          try{
-            return fetch(event.request);
+          try {
+            return fetch(event.request)
+          } catch (error) {
+            console.error(`NavigationRoute ->event.request ${event.request}:`, error)
+            event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
           }
-           catch (error) {
-             console.error(`NavigationRoute ->event.request ${event.request}:`, error)
-              event.waitUntil(Promise.resolve()) // Ensure the service worker doesn't terminate prematurely.
-           }
         }
       }, {
         denylist: [/sw\.js$/, /workbox-(.)*\.js$/]
