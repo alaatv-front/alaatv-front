@@ -479,7 +479,7 @@ export default {
       })
     },
     redefineTap () {
-      // const that = this
+      const that = this
       let touchMoved = false
       let startX = null
       let startY = null
@@ -514,6 +514,10 @@ export default {
         const isStarted = this.player().hasClass('vjs-has-started')
         const isPlaying = this.player().hasClass('vjs-playing')
         const isFullscreen = this.player().isFullscreen_
+
+        if (that.isInVastMode) {
+          return
+        }
 
         if (touchMoved) {
           const direction = getDirection()
