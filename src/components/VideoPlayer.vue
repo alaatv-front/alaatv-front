@@ -55,8 +55,8 @@ import fa from 'video.js/dist/lang/fa.json'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinAbrisham } from 'src/mixin/Mixins.js'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
-import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
 import Fullscreen from 'src/assets/js/AndroidPluginRegister.js'
+import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
 // https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8 (Live)
 // https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
 
@@ -479,20 +479,81 @@ export default {
       })
     },
     redefineTap () {
-      this.player.on('touchend', function(e) { // tap
-        if (this.player().controls()) {
-          const classes = [
-            'vjs-tech'
-          ]
-          const canDoAction = !classes.find(className => e.target.classList.contains(className))
-          if (canDoAction) {
-            return
+      // const that = this
+      let touchMoved = false
+      let startX = null
+      let startY = null
+      let endX = null
+      let endY = null
+      const getDelta = function (endValue, startValue) {
+        return endValue - startValue
+      }
+      const getDirection = function () {
+        const deltaX = getDelta(endX, startX)
+        const deltaY = getDelta(endY, startY)
+        return (Math.abs(deltaX) >= Math.abs(deltaY)) ? 'horizontal' : 'vertical'
+      }
+
+      this.player.on('touchstart', function(e) {
+        touchMoved = false
+        const touch = e.touches[0] || e.changedTouches[0]
+        startX = touch.pageX
+        startY = touch.pageY
+      })
+      this.player.on('touchmove', function(e) {
+        touchMoved = true
+      })
+      this.player.on('touchend', function(e) {
+        const touch = e.touches[0] || e.changedTouches[0]
+        endX = touch.pageX
+        endY = touch.pageY
+      })
+
+      this.player.on('touchend', function(e) { // tap - touchend
+        const userWasActive = this.player().userWasActive
+        const isStarted = this.player().hasClass('vjs-has-started')
+        const isPlaying = this.player().hasClass('vjs-playing')
+        const isFullscreen = this.player().isFullscreen_
+
+        if (touchMoved) {
+          const direction = getDirection()
+          if (direction === 'horizontal') {
+            const deltaX = getDelta(endX, startX)
+            if (deltaX > 0) {
+              this.player().currentTime(this.player().currentTime() + 5)
+            } else {
+              this.player().currentTime(this.player().currentTime() - 5)
+            }
+          } else if (isFullscreen) {
+            const deltaY = getDelta(endY, startY)
+            if (deltaY < 0) {
+              this.player().volume(this.player().volume() + 0.1)
+            } else {
+              this.player().volume(this.player().volume() - 0.1)
+            }
           }
-          if (this.player().paused()) {
-            this.player().play()
-          } else {
-            this.player().pause()
-          }
+          return
+        }
+
+        if (!userWasActive && isStarted && isPlaying) {
+          return
+        }
+
+        if (!this.player().controls()) {
+          return
+        }
+
+        const classes = [
+          'vjs-tech'
+        ]
+        const canDoAction = !classes.find(className => e.target.classList.contains(className))
+        if (canDoAction) {
+          return
+        }
+        if (this.player().paused()) {
+          this.player().play()
+        } else {
+          this.player().pause()
         }
       })
     },
