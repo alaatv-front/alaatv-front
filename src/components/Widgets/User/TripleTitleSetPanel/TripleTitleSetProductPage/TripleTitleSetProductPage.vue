@@ -100,12 +100,14 @@
 <script>
 import { openURL } from 'quasar'
 import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
+import { mixinTripleTitleSet, mixinAuth } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'TripleTitleSetProductPage',
   components: {
     ProductItem
   },
+  mixins: [mixinAuth, mixinTripleTitleSet],
   data() {
     return {
       productItemDialog: false
@@ -143,11 +145,11 @@ export default {
       }
     }
   },
-  mounted() {
-    this.getProductSets(this.$route.params.productId)
-    this.getProduct()
-  },
   methods: {
+    afterAuthenticate() {
+      this.getProductSets(this.$route.params.productId)
+      this.getProduct()
+    },
     humanizeDuration (durationInSeconds) {
       const durationInMinutes = Math.floor(durationInSeconds / 60)
       const houres = Math.floor(durationInMinutes / 60)

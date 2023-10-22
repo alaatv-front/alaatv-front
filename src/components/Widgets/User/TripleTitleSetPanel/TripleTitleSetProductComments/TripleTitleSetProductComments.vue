@@ -57,6 +57,7 @@
 <script>
 import moment from 'moment-jalaali'
 import { EntityIndex } from 'quasar-crud'
+import { mixinTripleTitleSet, mixinAuth } from 'src/mixin/Mixins.js'
 
 moment.loadPersian()
 
@@ -65,6 +66,7 @@ export default {
   components: {
     EntityIndex
   },
+  mixins: [mixinAuth, mixinTripleTitleSet],
   data() {
     return {
       selected: [],
@@ -130,11 +132,11 @@ export default {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     }
   },
-  mounted() {
-    this.loadData(this.$route.params.productId)
-    this.updateSelectedTopic('...')
-  },
   methods: {
+    afterAuthenticate() {
+      this.loadData(this.$route.params.productId)
+      this.updateSelectedTopic('...')
+    },
     updateSelectedTopic (content) {
       this.$store.commit('TripleTitleSet/updateSelectedTopic', content)
     },
