@@ -246,49 +246,6 @@ export default {
     }
   },
   methods: {
-    handleHotkeys (event) {
-      const key = event.which || event.keyCode
-      event.preventDefault()
-
-      switch (key) {
-        case 32: // Space key
-          if (this.player.paused()) {
-            this.player.play()
-          } else {
-            this.player.pause()
-          }
-          break
-        case 37: // Left arrow key
-          this.player.currentTime(this.player.currentTime() - 5)
-          break
-        case 39: // Right arrow key
-          this.player.currentTime(this.player.currentTime() + 5)
-          break
-        case 38: // up arrow ket
-          this.player.volume(this.player.volume() + 0.1)
-          break
-        case 40: // down arrow ket
-          this.player.volume(this.player.volume() - 0.1)
-          break
-        case 13: // "Enter" key
-          this.player.requestFullscreen()
-          break
-        case 27: // "Esc" key
-          this.player.exitFullscreen()
-          break
-        default:
-          break
-      }
-    },
-    updateTime () {
-      try {
-        const currentTime = this.player.currentTime()
-        const duration = this.player.duration()
-        this.$emit('timeUpdated', { currentTime, duration })
-      } catch (e) {
-
-      }
-    },
     getVast () {
       return APIGateway.vast.getXml()
         .then((vastXml) => {
@@ -467,6 +424,49 @@ export default {
       this.$emit('adEnded')
     },
 
+    handleHotkeys (event) {
+      const key = event.which || event.keyCode
+      event.preventDefault()
+
+      switch (key) {
+        case 32: // Space key
+          if (this.player.paused()) {
+            this.player.play()
+          } else {
+            this.player.pause()
+          }
+          break
+        case 37: // Left arrow key
+          this.player.currentTime(this.player.currentTime() - 5)
+          break
+        case 39: // Right arrow key
+          this.player.currentTime(this.player.currentTime() + 5)
+          break
+        case 38: // up arrow ket
+          this.player.volume(this.player.volume() + 0.1)
+          break
+        case 40: // down arrow ket
+          this.player.volume(this.player.volume() - 0.1)
+          break
+        case 13: // "Enter" key
+          this.player.requestFullscreen()
+          break
+        case 27: // "Esc" key
+          this.player.exitFullscreen()
+          break
+        default:
+          break
+      }
+    },
+    updateTime () {
+      try {
+        const currentTime = this.player.currentTime()
+        const duration = this.player.duration()
+        this.$emit('timeUpdated', { currentTime, duration })
+      } catch (e) {
+
+      }
+    },
     focusOnPlayer () {
       this.player.el().focus()
     },
@@ -572,7 +572,7 @@ export default {
       if (this.isPlayerSourceList(this.source)) { // old multiple quality type
         videoJsResolutionSwitcher(videojs)
         this.options.plugins.videoJsResolutionSwitcher = {
-          default: 'کیفیت بالا',
+          default: 'کیفیت متوسط',
           dynamicLabel: true
         }
       }
