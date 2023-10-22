@@ -232,7 +232,7 @@ const routes = [
               {
                 path: ':live_name',
                 meta: {
-                  // middlewares: [Authenticated],
+                  // middlewares: [Authenticated(false)],
                   hasDynamicSettingWithParams: true
                 },
                 name: 'Public.Live.DynamicName',
@@ -269,13 +269,13 @@ const routes = [
           showHamburgerBtn: false,
           layoutLeftSideBarType: 'user-panel'
         },
-        meta: { middlewares: [Authenticated] },
         component: () => import('layouts/bareLayout.vue'),
         children: [
           {
             // ToDo: check this to remove
             name: 'UserPanel.CompleteInfo',
             path: 'complete-info',
+            meta: { middlewares: [Authenticated(false)] },
             component: () => import('pages/User/UserInfoForm.vue')
           },
           {
@@ -283,7 +283,8 @@ const routes = [
             name: 'UserPanel.EntekhabReshte',
             path: 'entekhab-reshte',
             meta: {
-              hasDynamicSetting: true
+              hasDynamicSetting: true,
+              middlewares: [Authenticated(false)]
             },
             component: () => import('src/pages/User/EntekhabReshte.vue')
           },
@@ -291,7 +292,8 @@ const routes = [
             name: 'UserPanel.Dashboard',
             path: 'dashboard',
             meta: {
-              hasDynamicSetting: true
+              hasDynamicSetting: true,
+              middlewares: [Authenticated(false)]
             },
             component: () => import('src/pages/User/Dashboard.vue')
           },
@@ -299,7 +301,8 @@ const routes = [
             name: 'UserPanel.Profile',
             path: 'profile',
             meta: {
-              hasDynamicSetting: true
+              hasDynamicSetting: true,
+              middlewares: [Authenticated(false)]
             },
             component: () => import('pages/User/Profile/Profile.vue')
           },
@@ -307,7 +310,8 @@ const routes = [
             name: 'UserPanel.MyOrders',
             path: 'my-orders',
             meta: {
-              hasDynamicSetting: true
+              hasDynamicSetting: true,
+              middlewares: [Authenticated(false)]
             },
             component: () => import('pages/User/Orders/userOrders.vue')
           },
@@ -315,7 +319,7 @@ const routes = [
             name: 'UserPanel.MyPurchases',
             path: 'my-purchases',
             meta: {
-              middlewares: [IncompleteProfile],
+              middlewares: [IncompleteProfile, Authenticated(false)],
               hasDynamicSetting: true
             },
             component: () => import('pages/User/Dashboard/MyPurchases.vue')
@@ -324,13 +328,18 @@ const routes = [
             name: 'UserPanel.MyFavorites',
             path: 'my-favorites',
             meta: {
-              hasDynamicSetting: true
+              hasDynamicSetting: true,
+              middlewares: [Authenticated(false)]
             },
             component: () => import('pages/User/Dashboard/MyFavorites.vue')
           },
           {
             name: 'UserPanel.Ticket',
             path: 'ticket',
+            meta: {
+              hasDynamicSetting: true,
+              middlewares: [Authenticated(false)]
+            },
             component: () => import('layouts/bareLayout.vue'),
             children: [
               {
@@ -367,6 +376,9 @@ const routes = [
               {
                 name: 'UserPanel.Asset.Abrisham',
                 path: 'abrisham',
+                meta: {
+                  middlewares: [Authenticated(false)]
+                },
                 layoutConfig: {
                   layoutHeaderType: 'abrisham',
                   layoutLeftSideBarType: 'abrisham',
@@ -408,6 +420,9 @@ const routes = [
               {
                 name: 'UserPanel.Asset.AbrishamPro',
                 path: 'abrisham-pro',
+                meta: {
+                  middlewares: [Authenticated(false)]
+                },
                 layoutConfig: {
                   layoutHeaderType: 'abrisham',
                   layoutLeftSideBarType: 'abrisham',
@@ -449,6 +464,9 @@ const routes = [
               {
                 name: 'UserPanel.Asset.GiftCard',
                 path: 'gift-card',
+                meta: {
+                  middlewares: [Authenticated(false)]
+                },
                 layoutConfig: {
                   layoutView: 'lHh LpR fFf',
                   layoutHeaderType: 'gift-card',
@@ -491,6 +509,9 @@ const routes = [
               {
                 name: 'UserPanel.Asset.TripleTitleSet',
                 path: ':eventName',
+                meta: {
+                  middlewares: [Authenticated(true)]
+                },
                 layoutConfig: {
                   layoutHeaderType: 'triple-title-set',
                   layoutLeftSideBarType: 'triple-title-set',
@@ -594,7 +615,7 @@ const routes = [
           layoutLeftSideBarType: 'admin',
           layoutFooter: false
         },
-        meta: { middlewares: [Authenticated] },
+        meta: { middlewares: [Authenticated(false)] },
         component: () => import('src/layouts/AdminLayout.vue'),
         children: [
           {
@@ -765,7 +786,7 @@ const routes = [
             component: () => import('pages/Document/component.vue'),
             breadcrumbs: { title: 'component' },
             meta: {
-              middlewares: [Authenticated]
+              middlewares: [Authenticated(false)]
             }
           },
           {
