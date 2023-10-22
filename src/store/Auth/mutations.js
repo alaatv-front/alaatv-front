@@ -1,6 +1,4 @@
 export function updateUser(state, newInfo) {
-  console.trace()
-  console.log(newInfo)
   state.user = newInfo
 }
 export function updateAxiosAuthorization (state, accessToken) {

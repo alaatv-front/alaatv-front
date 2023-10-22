@@ -125,7 +125,6 @@ export default {
   },
   methods: {
     afterAuthenticate() {
-      console.log(this.$store.getters['AppLayout/loginDialog'])
       this.loadData()
     },
     loadData() {
