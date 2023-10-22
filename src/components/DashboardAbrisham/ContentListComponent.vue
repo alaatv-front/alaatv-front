@@ -58,8 +58,8 @@
 </template>
 
 <script>
-import ContentListItem from 'src/components/DashboardAbrisham/ContentListItem.vue'
 import { Content, ContentList } from 'src/models/Content.js'
+import ContentListItem from 'src/components/DashboardAbrisham/ContentListItem.vue'
 
 export default {
   name: 'ContentList',

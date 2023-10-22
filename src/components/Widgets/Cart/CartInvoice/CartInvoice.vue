@@ -65,10 +65,9 @@
 
                   <q-input v-model="couponValue"
                            type="text"
-                           label="کد تخفیف خود را وارد کنید"
-                           class="coupon-input"
-                           :loading="couponLoading"
-                           outlined>
+                           placeholder="کد تخفیف خود را وارد کنید"
+                           class="no-title coupon-input"
+                           :loading="couponLoading">
                     <template v-slot:append>
                       <q-btn v-if="!isCouponSet"
                              label="ثبت"
@@ -85,17 +84,16 @@
                 <div v-if="localOptions.hasGiftcard && !localOptions.dense"
                      class="enter-coupon-code">
                   <div class="title">{{localOptions.giftcard}}</div>
-
                   <q-input v-model="giftCardValue"
                            dir="ltr"
-                           label="کد کارت هدیه خود را وارد کنید"
-                           class="coupon-input"
-                           outlined
+                           placeholder="کد کارت هدیه خود را وارد کنید"
+                           class="no-title coupon-input"
                            mask="##-######"
-                           :suffix=giftCardPrefix
                            :loading="referralCodeLoading"
                            hint="مثال: AT84-27871">
                     <template v-slot:append>
+                      {{ giftCardPrefix }}
+
                       <q-btn v-if="!isReferralSet"
                              label="ثبت"
                              flat
@@ -165,8 +163,7 @@
                              v-model="shoppingDescription"
                              type="text"
                              :label="localOptions.commentLabel"
-                             class="payment-description-input"
-                             outlined />
+                             class="payment-description-input" />
                   </div>
 
                   <div v-if="localOptions.hasPaymentBtn"
@@ -729,49 +726,6 @@ export default {
                   width: 100%;
                 }
 
-                &:deep(.q-field__control) {
-                  height: 40px;
-                  border: 1.3px solid #E7ECF4;
-                  border-radius: 8px;
-                  padding: 0 16px;
-                  width: 286px;
-                  .q-field__suffix {
-                    padding-top: 6px;
-                    opacity: 1 !important;
-                  }
-
-                  @media screen and (max-width: 1439px) {
-                    padding: 0 12px;
-                    //min-width: 174px;
-                    width: 100%;
-                  }
-
-                  @media screen and (max-width: 1023px) {
-                    padding: 0 16px;
-                    //min-width: 392px;
-                  }
-
-                  @media screen and (max-width: 599px) {
-                    padding: 0 12px;
-                    //min-width: 196px;
-                  }
-                }
-
-                &:deep(.q-field__append) {
-                  height: 40px;
-                  width: 45px;
-                }
-
-                &:deep(.q-field__label) {
-                  font-style: normal;
-                  font-weight: 400;
-                  font-size: 12px;
-                  line-height: 19px;
-                  letter-spacing: -0.05em;
-                  color: #9092A7;
-                  margin: -8px 0;
-                }
-
                 &:deep(.q-btn .q-btn__content) {
                   font-style: normal;
                   font-weight: 400;
@@ -783,11 +737,6 @@ export default {
                     font-size: 14px;
                   }
                 }
-
-                &:deep(.q-field__inner .q-field__control:before) {
-                  border: none;
-                }
-
               }
             }
           }
@@ -989,30 +938,6 @@ export default {
 
                 .payment-description-input {
                   margin-bottom: 24px;
-
-                  &:deep(.q-field__control) {
-                    height: 65px;
-                    border: 1.3px solid #E7ECF4;
-                    border-radius: 8px;
-                  }
-
-                  &:deep(.q-field__label ) {
-                    font-style: normal;
-                    font-weight: 400;
-                    font-size: 12px;
-                    line-height: 19px;
-                    letter-spacing: -0.05em;
-                    color: #9092A7;
-                    margin: -8px 0;
-                  }
-
-                  &:deep(.q-field__label .q-field__native) {
-                    padding: 12px 16px;
-                  }
-
-                  &:deep(.q-field__inner .q-field__control:before) {
-                    border: none;
-                  }
                 }
               }
             }
@@ -1030,29 +955,6 @@ export default {
 
             .login-input {
               margin-bottom: 14px;
-
-              &:deep(.q-field__control) {
-                width: 374px;
-                height: 40px;
-                background: #F6F9FF;
-                border-radius: 8px;
-                padding: 0 16px;
-              }
-
-              &:deep(.q-field__label) {
-                font-style: normal;
-                font-weight: 400;
-                font-size: 12px;
-                line-height: 19px;
-                text-align: right;
-                letter-spacing: -0.003em;
-                color: #ADAFC1;
-                margin: -8px 0;
-              }
-
-              &:deep(.q-field__inner .q-field__control:before) {
-                border: none;
-              }
             }
 
             .no-account {

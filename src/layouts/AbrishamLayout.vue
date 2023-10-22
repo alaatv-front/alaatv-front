@@ -204,18 +204,6 @@ color: #3e5480;
   &:deep(.q-item__label){
     text-align: center;
   }
-  &:deep(.q-field__control::after){
-    height: 0;
-  }
-  &:deep(.q-field__control::before){
-    background: transparent;
-  }
-  &:deep(.q-field__control){
-    background: #eff3ff;
-  }
-  &:deep(.q-field--filled .q-field__control::before){
-    border-bottom: none;
-  }
 }
 
 </style>

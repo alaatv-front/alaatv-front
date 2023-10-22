@@ -98,6 +98,13 @@ $q-field__label_margin_bottom: $space-2;
       }
     }
   }
+  &.no-title {
+    .q-field__inner {
+      .q-field__control {
+        margin-top: 0;
+      }
+    }
+  }
   .q-field__before {
     height: $input-height;
   }
@@ -143,6 +150,8 @@ $q-field__label_margin_bottom: $space-2;
           padding: 9px 0 10px 0;
           color: $grey-9;
           @include body2;
+          white-space: nowrap;
+          overflow: hidden;
           &::placeholder {
             color: $grey-6;
             @include body2;
