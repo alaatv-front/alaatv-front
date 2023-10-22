@@ -1,6 +1,6 @@
 import { Content } from 'src/models/Content.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import { mixinAuth } from 'src/mixin/Mixins.js'
+// import { mixinAuth } from 'src/mixin/Mixins.js'
 
 const mixinTripleTitleSet = {
   data: () => {
@@ -13,7 +13,7 @@ const mixinTripleTitleSet = {
       }
     }
   },
-  mixins: [mixinAuth],
+  // mixins: [mixinAuth],
   created() {
     this.setEvent()
   },
