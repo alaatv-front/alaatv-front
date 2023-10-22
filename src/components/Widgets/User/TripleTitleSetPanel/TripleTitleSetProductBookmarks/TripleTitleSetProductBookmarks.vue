@@ -34,7 +34,7 @@
 import { EntityIndex } from 'quasar-crud'
 import { APIGateway } from 'src/api/APIGateway.js'
 import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
-import { mixinTripleTitleSet, mixinAuth } from 'src/mixin/Mixins.js'
+import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'TripleTitleSetProductBookmarks',
@@ -42,7 +42,7 @@ export default {
     EntityIndex,
     ContentItem
   },
-  mixins: [mixinAuth, mixinTripleTitleSet],
+  mixins: [mixinTripleTitleSet],
   data() {
     return {
       bookmarkClicked: false,

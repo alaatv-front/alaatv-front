@@ -61,14 +61,13 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
 import { SetList } from 'src/models/Set.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import { mixinTripleTitleSet, mixinAuth } from 'src/mixin/Mixins.js'
 import { SetSectionList } from 'src/models/SetSection.js'
+import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import { Content, ContentList } from 'src/models/Content.js'
 import videoBox from 'src/components/DashboardTripleTitleSet/videoBox.vue'
 import commentBox from 'src/components/DashboardTripleTitleSet/CommentBox.vue'
@@ -81,7 +80,7 @@ export default {
     commentBox,
     ContentVideoList
   },
-  mixins: [mixinTripleTitleSet, mixinAuth],
+  mixins: [mixinTripleTitleSet],
   data: () => ({
     commentLoading: false,
     ContentVideoListKey: 0,

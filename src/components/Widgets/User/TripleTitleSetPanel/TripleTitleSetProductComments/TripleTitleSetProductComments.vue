@@ -57,7 +57,7 @@
 <script>
 import moment from 'moment-jalaali'
 import { EntityIndex } from 'quasar-crud'
-import { mixinTripleTitleSet, mixinAuth } from 'src/mixin/Mixins.js'
+import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 
 moment.loadPersian()
 
@@ -66,7 +66,7 @@ export default {
   components: {
     EntityIndex
   },
-  mixins: [mixinAuth, mixinTripleTitleSet],
+  mixins: [mixinTripleTitleSet],
   data() {
     return {
       selected: [],

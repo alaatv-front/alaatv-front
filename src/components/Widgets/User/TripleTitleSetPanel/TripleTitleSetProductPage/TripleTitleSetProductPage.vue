@@ -100,14 +100,14 @@
 <script>
 import { openURL } from 'quasar'
 import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
-import { mixinTripleTitleSet, mixinAuth } from 'src/mixin/Mixins.js'
+import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'TripleTitleSetProductPage',
   components: {
     ProductItem
   },
-  mixins: [mixinAuth, mixinTripleTitleSet],
+  mixins: [mixinTripleTitleSet],
   data() {
     return {
       productItemDialog: false

@@ -84,7 +84,7 @@ import { openURL } from 'quasar'
 import { EntityIndex } from 'quasar-crud'
 import { APIGateway } from 'src/api/APIGateway.js'
 import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
-import { mixinTripleTitleSet, mixinAuth } from 'src/mixin/Mixins.js'
+import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'TripleTitleSetProductDocuments',
@@ -92,7 +92,7 @@ export default {
     EntityIndex,
     ProductItem
   },
-  mixins: [mixinAuth, mixinTripleTitleSet],
+  mixins: [mixinTripleTitleSet],
   data() {
     return {
       api: '',

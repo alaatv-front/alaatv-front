@@ -79,7 +79,7 @@
 
 <script>
 import { Set } from 'src/models/Set.js'
-import { mixinTripleTitleSet, mixinAuth } from 'src/mixin/Mixins.js'
+import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import SetItemComponent from 'src/components/DashboardTripleTitleSet/SetItem.vue'
 import ProductItemComponent from 'src/components/DashboardTripleTitleSet/ProductItem.vue'
 import ProductItemSkeleton from 'src/components/DashboardTripleTitleSet/ProductItemSkeleton.vue'
@@ -91,7 +91,7 @@ export default {
     ProductItemSkeleton,
     ProductItemComponent
   },
-  mixins: [mixinTripleTitleSet, mixinAuth],
+  mixins: [mixinTripleTitleSet],
   data: () => ({
     advisorLoading: false,
     productLoading: false,
