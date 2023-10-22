@@ -81,36 +81,40 @@
               </div>
             </q-expansion-item>
           </template>
-          <template v-slot:entity-index-table-cell="{inputData}">
+          <template #entity-index-table-cell="{inputData}">
             <template v-if="inputData.col.name === 'details'">
               <q-btn round
                      flat
                      dense
+                     icon="ph:dots-three-vertical"
                      size="md"
-                     @click="showDetailsDialog(inputData.props.row)">
-                <svg width="24"
-                     height="24"
-                     viewBox="0 0 24 24"
-                     fill="none"
-                     xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="12"
-                          cy="6"
-                          r="2"
-                          fill="#6D708B" />
-                  <circle cx="12"
-                          cy="12"
-                          r="2"
-                          fill="#6D708B" />
-                  <circle cx="12"
-                          cy="18"
-                          r="2"
-                          fill="#6D708B" />
-                </svg>
-              </q-btn>
+                     @click="showDetailsDialog(inputData.props.row)" />
             </template>
             <template v-else>
               {{ inputData.col.value }}
             </template>
+          </template>
+          <template #entity-index-table-item-cell="{inputData}">
+            <q-card class="EntityIndexGridItem q-mb-md">
+              <q-card-section v-if="inputData.props?.cols && inputData.props.cols.length > 0">
+                <div v-for="(col, colIndex) in inputData.props.cols"
+                     :key="colIndex"
+                     class="table-column">
+                  <template v-if="col.name === 'details'">
+                    <q-btn label="جزییات"
+                           color="primary"
+                           size="md"
+                           @click="showDetailsDialog(inputData.props.row)" />
+                  </template>
+                  <template v-else>
+                    <span class="label"
+                          v-html="col.label" />:
+                    <span class="value"
+                          v-html="col.field(inputData.props.row)" />
+                  </template>
+                </div>
+              </q-card-section>
+            </q-card>
           </template>
         </entity-index>
       </div>
@@ -575,7 +579,6 @@ export default {
     padding: 0 !important;
 
     .q-table__container {
-      background: #FFFFFF;
       box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(112, 108, 162, 0.05);
       border-radius: 16px;
       @media screen and (max-width: 599px) {
