@@ -274,7 +274,7 @@ const routes = [
           layoutLeftDrawerOverlay: false,
           layoutLeftDrawerElevated: false,
           layoutLeftDrawerBordered: false,
-          layoutLeftDrawerWidth: 325,
+          layoutLeftDrawerWidth: 360,
           layoutLeftDrawerBehavior: 'default'
         },
         meta: { middlewares: [Authenticated] },
