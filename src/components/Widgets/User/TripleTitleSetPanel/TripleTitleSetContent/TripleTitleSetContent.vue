@@ -169,11 +169,6 @@ export default {
       this.isVideoWatched = val
     }
   },
-  mounted() {
-    if (this.isUserLogin) {
-      this.afterAuthenticate()
-    }
-  },
   methods: {
     afterAuthenticate() {
       if (this.$route.params.productId) {

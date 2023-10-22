@@ -1,5 +1,6 @@
 import { Content } from 'src/models/Content.js'
 import { APIGateway } from 'src/api/APIGateway.js'
+import { mixinAuth } from 'src/mixin/Mixins.js'
 
 const mixinTripleTitleSet = {
   data: () => {
@@ -12,10 +13,14 @@ const mixinTripleTitleSet = {
       }
     }
   },
+  mixins: [mixinAuth],
   created() {
     this.setEvent()
   },
   mounted() {
+    if (this.isUserLogin) {
+      this.afterAuthenticate()
+    }
     this.$bus.on('onLoggedIn', () => {
       this.$store.commit('AppLayout/updateLoginDialog', false)
       this.afterAuthenticate()

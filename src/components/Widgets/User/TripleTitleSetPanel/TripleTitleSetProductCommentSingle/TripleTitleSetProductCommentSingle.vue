@@ -66,11 +66,6 @@ export default {
       edit: false
     }
   },
-  mounted () {
-    if (this.isUserLogin) {
-      this.afterAuthenticate()
-    }
-  },
   methods: {
     afterAuthenticate() {
       this.getComment()

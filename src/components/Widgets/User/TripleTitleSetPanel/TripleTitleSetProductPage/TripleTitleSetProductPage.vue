@@ -145,11 +145,6 @@ export default {
       }
     }
   },
-  mounted() {
-    if (this.isUserLogin) {
-      this.afterAuthenticate()
-    }
-  },
   methods: {
     afterAuthenticate() {
       this.getProductSets(this.$route.params.productId)

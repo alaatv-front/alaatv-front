@@ -565,11 +565,6 @@ export default {
       }
     }
   },
-  mounted() {
-    if (this.isUserLogin) {
-      this.afterAuthenticate()
-    }
-  },
   methods: {
     afterAuthenticate() {
       const user = this.$store.getters['Auth/user']

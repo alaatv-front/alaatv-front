@@ -44,11 +44,6 @@ export default defineComponent({
       return this.studyPlanInfo.id
     }
   },
-  mounted() {
-    if (this.isUserLogin) {
-      this.afterAuthenticate()
-    }
-  },
   methods: {
     afterAuthenticate() {
       this.getMyStudyPlan()

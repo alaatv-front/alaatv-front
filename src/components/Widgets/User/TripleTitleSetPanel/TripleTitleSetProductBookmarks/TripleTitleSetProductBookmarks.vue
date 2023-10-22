@@ -124,11 +124,6 @@ export default {
       this.$emit('selectedUpdated', value)
     }
   },
-  mounted() {
-    if (this.isUserLogin) {
-      this.afterAuthenticate()
-    }
-  },
   methods: {
     afterAuthenticate() {
       const productId = this.$route.params.productId

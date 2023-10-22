@@ -175,11 +175,6 @@ export default {
   created () {
     this.api = APIGateway.product.APIAdresses.getContents(this.$route.params.productId)
   },
-  mounted() {
-    if (this.isUserLogin) {
-      this.afterAuthenticate()
-    }
-  },
   methods: {
     afterAuthenticate() {
       this.loadData(this.$route.params.productId)

@@ -118,11 +118,6 @@ export default {
       this.getProducts(type.id)
     }
   },
-  mounted () {
-    if (this.isUserLogin) {
-      this.afterAuthenticate()
-    }
-  },
   methods: {
     afterAuthenticate() {
       this.loadData()

@@ -132,11 +132,6 @@ export default {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     }
   },
-  mounted() {
-    if (this.isUserLogin) {
-      this.afterAuthenticate()
-    }
-  },
   methods: {
     afterAuthenticate() {
       this.loadData(this.$route.params.productId)
