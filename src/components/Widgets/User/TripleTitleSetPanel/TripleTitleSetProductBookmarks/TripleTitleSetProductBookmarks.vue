@@ -34,6 +34,7 @@
 import { EntityIndex } from 'quasar-crud'
 import { APIGateway } from 'src/api/APIGateway.js'
 import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
+import { mixinTripleTitleSet, mixinAuth } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'TripleTitleSetProductBookmarks',
@@ -41,6 +42,7 @@ export default {
     EntityIndex,
     ContentItem
   },
+  mixins: [mixinAuth, mixinTripleTitleSet],
   data() {
     return {
       bookmarkClicked: false,
@@ -123,14 +125,19 @@ export default {
     }
   },
   mounted() {
-    const productId = this.$route.params.productId
-    if (productId) {
-      this.getProductSets(productId)
-      this.getProduct(productId)
+    if (this.isUserLogin) {
+      this.afterAuthenticate()
     }
-    this.updateSelectedTopic('...')
   },
   methods: {
+    afterAuthenticate() {
+      const productId = this.$route.params.productId
+      if (productId) {
+        this.getProductSets(productId)
+        this.getProduct(productId)
+      }
+      this.updateSelectedTopic('...')
+    },
     updateSelectedTopic (content) {
       this.$store.commit('TripleTitleSet/updateSelectedTopic', content)
     },

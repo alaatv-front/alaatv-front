@@ -566,13 +566,18 @@ export default {
     }
   },
   mounted() {
-    const user = this.$store.getters['Auth/user']
-    this.grade = user.grade
-    this.major = user.major
-    this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
-    this.getFilterLesson()
+    if (this.isUserLogin) {
+      this.afterAuthenticate()
+    }
   },
   methods: {
+    afterAuthenticate() {
+      const user = this.$store.getters['Auth/user']
+      this.grade = user.grade
+      this.major = user.major
+      this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
+      this.getFilterLesson()
+    },
     updatePlan() {
       this.loading = true
       const data = {

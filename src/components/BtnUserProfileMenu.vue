@@ -31,7 +31,8 @@
             </div>
           </div>
         </div>
-        <div class="body">
+        <div v-if="isDomainSameWithEnv"
+             class="body">
           <div class="user-panel-base-menu">
             <user-dashboard-items />
           </div>
@@ -68,6 +69,14 @@ export default {
     return {
       user: new User(),
       isUserLogin: false
+    }
+  },
+  computed: {
+    isDomainSameWithEnv () {
+      if (typeof window === 'undefined') {
+        return true
+      }
+      return document.location.host === process.env.APP_DOMAIN
     }
   },
   mounted () {

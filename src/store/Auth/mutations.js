@@ -1,4 +1,6 @@
 export function updateUser(state, newInfo) {
+  console.trace()
+  console.log(newInfo)
   state.user = newInfo
 }
 export function updateAxiosAuthorization (state, accessToken) {
@@ -26,8 +28,8 @@ export function updateAccessToken(state, newInfo) {
 export function updateRedirectTo(state, newInfo) {
   state.redirectTo = newInfo
 }
-export function setAccessToken() {
-  // this.$axios.defaults.headers.common.Authorization = 'Bearer ' + newInfo
+export function setAccessToken(newInfo) {
+  this.$axios.defaults.headers.common.Authorization = 'Bearer ' + newInfo
 }
 export function updateIncompleteProfile(state, newInfo) {
   state.incompleteProfile = newInfo

@@ -6,7 +6,8 @@
                class="logo-image" />
       </router-link>
     </div>
-    <div class="header-box full-height flex justify-center items-center">
+    <div v-if="isDomainSameWithEnv"
+         class="header-box full-height flex justify-center items-center">
       <q-img :src="event.logo"
              class="header-logo-img" />
     </div>
@@ -29,6 +30,14 @@ export default {
     user: new User(),
     activePage: null
   }),
+  computed: {
+    isDomainSameWithEnv () {
+      if (typeof window === 'undefined') {
+        return true
+      }
+      return document.location.host === process.env.APP_DOMAIN
+    }
+  },
   mounted () {
     this.loadAuthData()
     if (window.innerWidth < 1024) {

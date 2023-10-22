@@ -54,10 +54,12 @@
 import moment from 'moment-jalaali'
 import { copyToClipboard } from 'quasar'
 import { Comment } from 'src/models/Comment.js'
+import { mixinTripleTitleSet, mixinAuth } from 'src/mixin/Mixins.js'
 
 moment.loadPersian()
 export default {
   name: 'TripleTitleSetProductCommentSingle',
+  mixins: [mixinAuth, mixinTripleTitleSet],
   data() {
     return {
       comment: new Comment(),
@@ -65,10 +67,15 @@ export default {
     }
   },
   mounted () {
-    this.getComment()
-    this.loadData(this.$route.params.productId)
+    if (this.isUserLogin) {
+      this.afterAuthenticate()
+    }
   },
   methods: {
+    afterAuthenticate() {
+      this.getComment()
+      this.loadData(this.$route.params.productId)
+    },
     getComment() {
       this.$apiGateway.comment.get({ data: { id: this.$route.params.commentId } }).then(res => {
         this.comment = res

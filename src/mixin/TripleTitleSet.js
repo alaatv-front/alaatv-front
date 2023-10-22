@@ -15,7 +15,15 @@ const mixinTripleTitleSet = {
   created() {
     this.setEvent()
   },
+  mounted() {
+    this.$bus.on('onLoggedIn', () => {
+      this.$store.commit('AppLayout/updateLoginDialog', false)
+      this.afterAuthenticate()
+    })
+  },
   methods: {
+    afterAuthenticate () {
+    },
     setEvent() {
       if (!this.$route.params.eventName) {
         return

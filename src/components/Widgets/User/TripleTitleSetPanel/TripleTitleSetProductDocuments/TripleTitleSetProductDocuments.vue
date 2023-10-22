@@ -84,6 +84,7 @@ import { openURL } from 'quasar'
 import { EntityIndex } from 'quasar-crud'
 import { APIGateway } from 'src/api/APIGateway.js'
 import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
+import { mixinTripleTitleSet, mixinAuth } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'TripleTitleSetProductDocuments',
@@ -91,6 +92,7 @@ export default {
     EntityIndex,
     ProductItem
   },
+  mixins: [mixinAuth, mixinTripleTitleSet],
   data() {
     return {
       api: '',
@@ -174,10 +176,15 @@ export default {
     this.api = APIGateway.product.APIAdresses.getContents(this.$route.params.productId)
   },
   mounted() {
-    this.loadData(this.$route.params.productId)
-    this.updateSelectedTopic('...')
+    if (this.isUserLogin) {
+      this.afterAuthenticate()
+    }
   },
   methods: {
+    afterAuthenticate() {
+      this.loadData(this.$route.params.productId)
+      this.updateSelectedTopic('...')
+    },
     updateSelectedTopic (content) {
       this.$store.commit('TripleTitleSet/updateSelectedTopic', content)
     },

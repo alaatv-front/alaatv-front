@@ -15,6 +15,7 @@ import DashboardHeader from 'src/components/DashboardTripleTitleSet/Dashboard/Da
 import DailyPlan from 'src/components/DashboardTripleTitleSet/Dashboard/DailyPlan.vue'
 import StatusAndReview from 'src/components/DashboardTripleTitleSet/Dashboard/StatusAndReview.vue'
 import StudyPlanSelectionDialog from 'src/components/DashboardTripleTitleSet/Dashboard/StudyPlanSelectionDialog.vue'
+import { mixinAuth } from 'src/mixin/Mixins.js'
 
 export default defineComponent({
   name: 'TripleTitleSetDashboard',
@@ -24,6 +25,7 @@ export default defineComponent({
     StatusAndReview,
     StudyPlanSelectionDialog
   },
+  mixins: [mixinAuth],
   data() {
     return {
       loading: false,
@@ -43,9 +45,14 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.getMyStudyPlan()
+    if (this.isUserLogin) {
+      this.afterAuthenticate()
+    }
   },
   methods: {
+    afterAuthenticate() {
+      this.getMyStudyPlan()
+    },
     getMyStudyPlan() {
       this.loading = true
       this.$apiGateway.studyPlan.getMyStudyPlan()
