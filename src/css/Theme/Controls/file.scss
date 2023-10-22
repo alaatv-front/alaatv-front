@@ -1,0 +1,5 @@
+@import 'src/css/Theme/Controls/input.scss';
+
+.q-file {
+  @include q-field-mixin;
+}

@@ -67,14 +67,10 @@
               <div class="col-sm-6 col-xs-8 select-wrapper">
                 <q-select :key="sets.list.length"
                           :loading="contents.loading"
-                          filled
                           :options="sets.list"
-                          class="v-select"
                           option-label="short_title"
                           option-value="id"
-                          :menu-props="{ bottom: true, offsetY: true }"
-                          dropdown-icon="mdi-chevron-down"
-                          dense
+                          class="no-title"
                           emit-value
                           map-options
                           popup-content-class="popup-content-class"
@@ -86,14 +82,10 @@
                 <q-select v-model="currentSectionId"
                           :loading="contents.loading"
                           value="all"
-                          color="#3e5480"
-                          :menu-props="{ bottom: true, offsetY: true }"
                           :options="sections.list"
                           option-label="title"
                           option-value="id"
-                          filled
-                          dropdown-icon="mdi-chevron-down"
-                          dense
+                          class="no-title"
                           emit-value
                           map-options
                           placeholder="همه"
@@ -546,31 +538,6 @@ export default {
 
   .content-list-col {
     padding-top: 0 !important;
-    .select-wrapper{
-      &:deep(.q-field__control){
-        background: #eff3ff;
-      }
-      &:deep(.q-field__native){
-        color: #3e5480;
-        font-size: 14px;
-        font-weight: 500;
-      }
-      &:deep(.q-icon){
-        color: #3e5480;
-        font-size: 24px;
-      }
-      &:deep(.q-field__control::after){
-        height: 0;
-      }
-      &:deep(.q-field__control::before){
-        background: transparent;
-      }
-      .popup-content-class{
-      }
-      &:deep(.q-field--filled .q-field__control::before){
-        border-bottom: none;
-      }
-    }
   }
 
   .video-box-col {

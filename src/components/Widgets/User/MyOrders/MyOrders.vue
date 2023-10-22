@@ -52,11 +52,10 @@
             <div class="row items-center search-box">
               <div class="col-lg-4 col-xl-4 col-sm-6 col-xs-9 text-left">
                 <q-input v-model="searchInput"
-                         filled
                          placeholder="جستجو..."
-                         class="search-input bg-white">
+                         class="no-title">
                   <template v-slot:append>
-                    <q-icon name="isax:search-normal-1"
+                    <q-icon name="ph:magnifying-glass"
                             class="search-icon"
                             @click="filterFormBuilderData" />
                   </template>
@@ -530,27 +529,7 @@ export default {
     margin-bottom: 20px;
   }
 }
-.search-input{
-  background-color: white;
-  //border-radius: 8px;
-  //border: none;
-  &:deep(.q-field__append){
-    .q-icon{
-      color: #6D708B;
-      cursor: pointer;
-    }
-  }
-  .search-icon{
 
-  }
-  &:deep(.q-field__control){
-    //q-field__native, .q-field__prefix, .q-field__suffix, .q-field__input
-    background-color: white;
-  }
-  &:deep(.q-field__append){
-
-  }
-}
 .my-orders-list {
   .title {
     font-style: normal;
