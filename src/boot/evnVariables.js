@@ -1,9 +1,10 @@
 import { boot } from 'quasar/wrappers'
 
-const evnVariables = process.env
+const APP_ENV = process.env.APP_ENV
+const APP_DOMAIN = process.env.APP_DOMAIN
 export default boot(function ({ app }) {
   app.config.globalProperties.$env = {
-    APP_ENV: evnVariables.APP_ENV,
-    APP_DOMAIN: evnVariables.APP_DOMAIN
+    APP_ENV,
+    APP_DOMAIN
   }
 })
