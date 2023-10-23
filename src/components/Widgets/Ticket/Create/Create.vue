@@ -90,7 +90,7 @@ export default {
           responseKey: 'data.title',
           value: '',
           label: 'عنوان',
-          placeholder: ' ',
+          placeholder: '',
           col: 'col-sm-6 col-xs-12'
         },
         {
