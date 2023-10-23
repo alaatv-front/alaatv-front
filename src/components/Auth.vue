@@ -13,7 +13,8 @@
           <q-btn flat
                  rounded
                  :to="{name: 'Public.Home'}">
-            <q-avatar size="42px">
+            <q-avatar v-if="domainSameWithAppDomain"
+                      size="42px">
               <lazy-img src="https://nodes.alaatv.com/upload/alaa-logo.png"
                         width="40"
                         height="40"
