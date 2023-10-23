@@ -31,7 +31,8 @@
             </div>
           </div>
         </div>
-        <div v-if="isDomainSameWithEnv"
+        ({{ appDomain }})
+        <div v-if="domainSameWithAppDomain"
              class="body">
           <div class="user-panel-base-menu">
             <user-dashboard-items />
@@ -60,23 +61,17 @@
 <script>
 import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import { mixinAuth } from 'src/mixin/Mixins.js'
 import UserDashboardItems from 'src/components/UserDashboardItems.vue'
 
 export default {
   name: 'MainHeaderTemplate',
   components: { UserDashboardItems, LazyImg },
+  mixins: [mixinAuth],
   data() {
     return {
       user: new User(),
       isUserLogin: false
-    }
-  },
-  computed: {
-    isDomainSameWithEnv () {
-      if (typeof window === 'undefined') {
-        return true
-      }
-      return document.location.host === process.env.APP_DOMAIN
     }
   },
   mounted () {

@@ -6,7 +6,7 @@
                class="logo-image" />
       </router-link>
     </div>
-    <div v-if="isDomainSameWithEnv"
+    <div v-if="domainSameWithAppDomain"
          class="header-box full-height flex justify-center items-center">
       <q-img :src="event.logo"
              class="header-logo-img" />
@@ -19,25 +19,17 @@
 
 <script>
 import { User } from 'src/models/User.js'
-import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
+import { mixinAuth, mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import BtnUserProfileMenu from 'components/BtnUserProfileMenu.vue'
 
 export default {
   name: 'TripleTitleSetPanel',
   components: { BtnUserProfileMenu },
-  mixins: [mixinTripleTitleSet],
+  mixins: [mixinAuth, mixinTripleTitleSet],
   data: () => ({
     user: new User(),
     activePage: null
   }),
-  computed: {
-    isDomainSameWithEnv () {
-      if (typeof window === 'undefined') {
-        return true
-      }
-      return document.location.host === process.env.APP_DOMAIN
-    }
-  },
   mounted () {
     this.loadAuthData()
     if (window.innerWidth < 1024) {
