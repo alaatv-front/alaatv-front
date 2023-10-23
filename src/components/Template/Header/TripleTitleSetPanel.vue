@@ -6,8 +6,7 @@
                class="logo-image" />
       </router-link>
     </div>
-    <div v-if="domainSameWithAppDomain"
-         class="header-box full-height flex justify-center items-center">
+    <div class="header-box full-height flex justify-center items-center">
       <q-img :src="event.logo"
              class="header-logo-img" />
     </div>

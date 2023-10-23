@@ -3,7 +3,8 @@
     <div v-if="isDesktop"
          class="side-menu">
       <div class="menu-logo">
-        <router-link :to="{name: 'Public.Home'}">
+        <router-link v-if="domainSameWithAppDomain"
+                     :to="{name: 'Public.Home'}">
           <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
                  class="logo-image" />
         </router-link>
@@ -92,10 +93,12 @@
 import { mapMutations } from 'vuex'
 import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
 import { APIGateway } from 'src/api/APIGateway'
+import { mixinAuth } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'TripleTitleSetPanel',
   components: { LayoutMenu },
+  mixins: [mixinAuth],
   data: () => ({
     isActive: null,
     isAdmin: false,
