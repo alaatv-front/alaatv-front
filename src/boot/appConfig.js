@@ -5,7 +5,7 @@ const APP_DOMAIN = process.env.APP_DOMAIN
 
 export default boot(({ app }) => {
   // app.config.unwrapInjectedRef = true
-  app.config.globalProperties.$env = {
+  app.config.globalProperties.$q.$env = {
     APP_ENV,
     APP_DOMAIN
   }
