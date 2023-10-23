@@ -1,20 +1,26 @@
-import { APIGateway } from 'src/api/APIGateway'
-import { User } from 'src/models/User'
+import { User } from 'src/models/User.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 
 const mixinAuth = {
   data () {
     return {
       user: new User(),
-      isUserLogin: false
+      isUserLogin: false,
+      domainSameWithAppDomain: false,
+      appDomain: this.$evn.APP_DOMAIN
     }
   },
   mounted () {
     this.loadAuthData()
+    this.loadDomainSameWithAppDomain()
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
+    },
+    loadDomainSameWithAppDomain () { // prevent Hydration node mismatch
+      this.domainSameWithAppDomain = window.location.host === this.appDomain
     },
     async getUserData () {
       APIGateway.user.showUser()

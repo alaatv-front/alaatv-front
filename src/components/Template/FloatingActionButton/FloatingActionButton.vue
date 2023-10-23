@@ -8,19 +8,19 @@
            label-position="top"
            external-label
            color="primary"
-           icon="isax:edit"
+           icon="ph:pencil"
            direction="up">
       <template v-if="!pageBuilderEditable">
         <q-fab-action external-label
                       label-position="right"
                       color="primary"
-                      icon="isax:grid-edit"
+                      icon="ph:grid-nine"
                       label="ویرایش صفحه"
                       @click="togglePageBuilderEditable" />
         <q-fab-action external-label
                       label-position="right"
                       color="primary"
-                      icon="isax:subtitle"
+                      icon="ph:planet"
                       label="ویرایش SEO"
                       @click="openSeoDialog" />
       </template>
@@ -28,49 +28,49 @@
         <q-fab-action external-label
                       label-position="right"
                       color="info"
-                      icon="isax:eye"
+                      icon="ph:eye"
                       label="نمایش کانفیگ صفحه"
                       @click="showPageBuilderShowConfigs" />
         <q-fab-action external-label
                       label-position="right"
                       color="info"
-                      icon="isax:eye"
+                      icon="ph:eye"
                       label="نمایش کانفیگ منو"
                       @click="showMenuItemsConfigsDialog" />
         <q-fab-action external-label
                       label-position="right"
                       color="info"
-                      icon="isax:eye"
+                      icon="ph:eye"
                       label="وارد کردن کانفیگ صفحه"
                       @click="showPageBuilderImportConfigs" />
         <q-fab-action external-label
                       label-position="right"
                       color="info"
-                      icon="isax:eye"
+                      icon="ph:eye"
                       label="وارد کردن کانفیگ منو"
                       @click="showMenuItemsImportConfigDialog" />
         <q-fab-action external-label
                       label-position="right"
                       color="info"
-                      icon="isax:eye"
+                      icon="ph:eye"
                       label="پیشنمایش"
                       @click="togglePageBuilderEditable" />
         <q-fab-action external-label
                       label-position="right"
                       color="positive"
-                      icon="isax:clipboard-tick"
+                      icon="ph:copy"
                       label="ذخیره تنظیمات صفحه"
                       @click="acceptPageBuilderConfig" />
         <q-fab-action external-label
                       label-position="right"
                       color="positive"
-                      icon="isax:clipboard-tick"
+                      icon="ph:copy"
                       label="ذخیره تنظیمات منو"
                       @click="acceptMenuItemsConfig" />
         <q-fab-action external-label
                       label-position="right"
                       color="negative"
-                      icon="isax:forbidden"
+                      icon="ph:x"
                       label="انصراف"
                       @click="togglePageBuilderEditable" />
       </template>

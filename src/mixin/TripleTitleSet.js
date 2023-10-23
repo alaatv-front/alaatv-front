@@ -1,3 +1,4 @@
+import { User } from 'src/models/User.js'
 import { Content } from 'src/models/Content.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 
@@ -5,6 +6,8 @@ const mixinTripleTitleSet = {
   data: () => {
     return {
       isVideoWatched: false,
+      user: new User(),
+      isUserLogin: false,
       event: {
         id: null,
         logo: null,
@@ -12,10 +15,29 @@ const mixinTripleTitleSet = {
       }
     }
   },
+  // mixins: [mixinAuth],
   created() {
     this.setEvent()
   },
+  mounted() {
+    this.$bus.on('onLoggedIn', () => {
+      this.$store.commit('AppLayout/updateLoginDialog', false)
+      this.afterAuthenticate()
+    })
+    this.loadAuthData()
+    if (this.isUserLogin) {
+      this.$nextTick(() => {
+        this.afterAuthenticate()
+      })
+    }
+  },
   methods: {
+    loadAuthData () { // prevent Hydration node mismatch
+      this.user = this.$store.getters['Auth/user']
+      this.isUserLogin = this.$store.getters['Auth/isUserLogin']
+    },
+    afterAuthenticate () {
+    },
     setEvent() {
       if (!this.$route.params.eventName) {
         return

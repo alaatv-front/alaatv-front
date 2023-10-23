@@ -30,7 +30,7 @@
                    dense
                    size="md"
                    color="white"
-                   icon="isax:logout"
+                   icon="ph:sign-out"
                    @click="toggleLogoutDialog" />
           </q-item>
         </q-list>

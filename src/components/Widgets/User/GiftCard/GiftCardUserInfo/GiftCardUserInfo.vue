@@ -15,8 +15,7 @@
                 </div>
                 <div class="input">
                   <q-input v-model="localUser.first_name"
-                           class="field-md"
-                           filled />
+                           class="field-md" />
                 </div>
               </div>
             </div>
@@ -27,8 +26,7 @@
                 </div>
                 <div class="input">
                   <q-input v-model="localUser.last_name"
-                           class="field-md"
-                           filled />
+                           class="field-md" />
                 </div>
               </div>
             </div>
@@ -39,8 +37,7 @@
                 </div>
                 <div class="input">
                   <q-input v-model="localUser.mobile"
-                           class="field-md"
-                           filled />
+                           class="field-md" />
                 </div>
               </div>
             </div>
@@ -51,8 +48,7 @@
                 </div>
                 <div class="input">
                   <q-input v-model="localUser.national_code"
-                           class="field-md"
-                           filled />
+                           class="field-md" />
                 </div>
               </div>
             </div>
@@ -224,8 +220,7 @@
                          :readonly="hasShabaNumber"
                          mask="##-####-####-####-####-####-##"
                          dir="ltr"
-                         class="q-pl-sm field-md"
-                         filled>
+                         class="q-pl-sm field-md">
                   <template #after>
                     IR
                   </template>
@@ -273,8 +268,7 @@
                          :readonly="hasCardNumber"
                          mask="####-####-####-####"
                          dir="ltr"
-                         class="q-pl-sm field-md"
-                         filled />
+                         class="q-pl-sm field-md" />
               </div>
               <div v-if="!targetBank"
                    class="shaba-number-hint">
@@ -1627,23 +1621,6 @@ export default {
 </style>
 
 <style lang="scss">
-.theme--light.v-text-field>.v-input__control>.v-input__slot:before {
-  border: none;
-}
-.v-text-field--filled {
-  border-radius: 8px;
-  background: #EFF4FB;
-  color: #697D9A;
-}
-.theme--light.v-input--is-disabled, .theme--light.v-input--is-disabled input, .theme--light.v-input--is-disabled textarea {
-  color: #697D9A;
-}
-.v-text-field--filled.v-input--dense.v-text-field--single-line>.v-input__control>.v-input__slot {
-  min-height: 48px;
-}
-.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded)>.v-input__control>.v-input__slot {
-  padding: 0 17px;
-}
 .shaba-number-input {
   .shaba-number-checked {
     .v-badge__wrapper {
