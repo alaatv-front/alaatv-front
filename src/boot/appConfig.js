@@ -1,12 +1,12 @@
 import { boot } from 'quasar/wrappers'
 
 const APP_ENV = process.env.APP_ENV
-const APP_DOMAIN = process.env.APP_DOMAIN
+const VITE_APP_DOMAIN = process.env.VITE_APP_DOMAIN
 
 export default boot(({ app }) => {
   // app.config.unwrapInjectedRef = true
-  app.config.globalProperties.$q.$env = {
+  app.config.globalProperties.$env = {
     APP_ENV,
-    APP_DOMAIN
+    VITE_APP_DOMAIN
   }
 })

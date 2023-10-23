@@ -7,7 +7,7 @@ const mixinAuth = {
       user: new User(),
       isUserLogin: false,
       domainSameWithAppDomain: false,
-      appDomain: this.$q?.$env?.APP_DOMAIN
+      appDomain: this.$env?.VITE_APP_DOMAIN || 'office.alaa.tv'
     }
   },
   mounted () {
