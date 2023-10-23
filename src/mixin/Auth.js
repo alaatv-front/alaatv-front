@@ -7,7 +7,7 @@ const mixinAuth = {
       user: new User(),
       isUserLogin: false,
       domainSameWithAppDomain: false,
-      appDomain: this.$env?.VITE_APP_DOMAIN || 'alaatv.com'
+      appDomain: this.$env?.VITE_APP_DOMAIN
     }
   },
   mounted () {

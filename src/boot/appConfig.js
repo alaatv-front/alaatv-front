@@ -1,7 +1,7 @@
 import { boot } from 'quasar/wrappers'
 
 const APP_ENV = process.env.APP_ENV
-const VITE_APP_DOMAIN = process.env.VITE_APP_DOMAIN
+const VITE_APP_DOMAIN = process.env.VITE_APP_DOMAIN || 'alaatv.com'
 
 export default boot(({ app }) => {
   // app.config.unwrapInjectedRef = true
