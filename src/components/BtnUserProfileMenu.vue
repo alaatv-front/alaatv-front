@@ -31,6 +31,7 @@
             </div>
           </div>
         </div>
+        ({{ appDomain }})
         <div v-if="domainSameWithAppDomain"
              class="body">
           <div class="user-panel-base-menu">
