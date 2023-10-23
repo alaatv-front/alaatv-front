@@ -48,7 +48,6 @@
 </template>
 
 <script>
-import process from 'process'
 export default {
   name: 'lazyImg',
   props: {
@@ -92,7 +91,7 @@ export default {
       if (!this.visible) {
         return this.lazyImageSrc
       }
-      if (!process.env.APP_ENV !== 'production' && this.src) {
+      if (!this.$evn.APP_ENV !== 'production' && this.src) {
         return this.src.replace('https://stage-minio.alaatv.com', 'https://nodes.alaatv.com')
       }
       return this.src
