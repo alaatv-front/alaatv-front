@@ -11,6 +11,8 @@ export default function Authenticated (withDialog = false) {
       } else {
         store.commit('AppLayout/updateLoginDialog', true)
       }
+    } else {
+      store.commit('AppLayout/updateLoginDialog', false)
     }
 
     return next()

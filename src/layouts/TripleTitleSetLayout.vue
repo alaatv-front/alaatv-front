@@ -35,7 +35,7 @@
         <div v-if="showHamburger"
              class="drawer-btn hamburger">
           <q-btn class="toolbar-button"
-                 icon="isax:menu-1"
+                 icon="ph:list"
                  color="white"
                  text-color="accent"
                  dense

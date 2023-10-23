@@ -131,13 +131,11 @@ export default {
               value: null
             },
             {
-              type: 'date',
+              type: 'dateTime',
               name: 'birthdate',
               responseKey: 'data.birthdate',
               label: 'تاریخ تولد',
               outlined: true,
-              calendarIcon: ' ',
-              placeholder: ' ',
               col: 'col-xs-6 q-mb-md',
               value: null
             },

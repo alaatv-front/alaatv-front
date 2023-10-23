@@ -26,51 +26,44 @@
       </div>
 
       <div class="row q-col-gutter-md q-my-lg">
-        <div class="col-md-4">
-          <div class="outsideLabel disabled">عنوان</div>
-          <q-select dropdown-icon="isax:arrow-down-1"
+        <div class="col-md-4">sss
+          <q-select v-model="selectedValue"
                     label="انتخاب کنید"
-                    class="field-md"
-                    bottom-slots
+                    hint="متن راهنما"
+                    clearable
+                    outlined
+                    :multiple="false"
+                    placeholder="placeholder"
+                    :options="options" />
+        </div>
+        <div class="col-md-4">
+          <q-select v-model="selectedValue"
+                    label=""
+                    hint="متن راهنما"
                     disable
                     :options="options">
-            <template v-slot:hint>
-              متن راهنما
-            </template>
             <template v-slot:prepend>
-              <q-icon name="isax:arrow-down-1" />
+              <q-icon name="ph:android-logo" />
             </template>
           </q-select>
         </div>
         <div class="col-md-4">
-          <div class="outsideLabel">عنوان</div>
           <q-select v-model="selectedValue"
-                    dropdown-icon="isax:arrow-down-1"
                     label="انتخاب کنید"
-                    class="field-md"
-                    bottom-slots
+                    hint="متن راهنما"
                     :options="options">
-            <template v-slot:hint>
-              متن راهنما
-            </template>
             <template v-slot:prepend>
-              <q-icon name="isax:arrow-down-1" />
+              <q-icon name="ph:android-logo" />
             </template>
           </q-select>
         </div>
         <div class="col-md-4">
-          <div class="outsideLabel">عنوان</div>
           <q-select v-model="value"
-                    dropdown-icon="isax:arrow-down-1"
                     label="انتخاب کنید"
-                    class="field-md"
-                    bottom-slots
+                    hint="متن راهنما"
                     :options="options">
-            <template v-slot:hint>
-              متن راهنما
-            </template>
             <template v-slot:prepend>
-              <q-icon name="isax:arrow-down-1" />
+              <q-icon name="ph:android-logo" />
             </template>
           </q-select>
         </div>
@@ -78,35 +71,23 @@
       <div class="row q-col-gutter-md q-my-lg">
         <div class="col-md-4" />
         <div class="col-md-4">
-          <div class="outsideLabel">عنوان</div>
           <q-select v-model="value"
-                    dropdown-icon="isax:arrow-down-1"
                     label="انتخاب کنید"
-                    class="field-md"
-                    bottom-slots
+                    hint="متن ارور"
                     :class="{'on-error' : errorMode}"
                     :options="options">
-            <template v-slot:hint>
-              متن ارور
-            </template>
             <template v-slot:prepend>
-              <q-icon name="isax:arrow-down-1" />
+              <q-icon name="ph:android-logo" />
             </template>
           </q-select>
         </div>
         <div class="col-md-4">
-          <div class="outsideLabel">عنوان</div>
           <q-select v-model="value"
-                    dropdown-icon="isax:arrow-down-1"
                     label="انتخاب کنید"
-                    class="field-md"
-                    bottom-slots
+                    hint="متن راهنما"
                     :options="options">
-            <template v-slot:hint>
-              متن راهنما
-            </template>
             <template v-slot:prepend>
-              <q-icon name="isax:arrow-down-1" />
+              <q-icon name="ph:android-logo" />
             </template>
           </q-select>
         </div>
@@ -114,50 +95,34 @@
 
       <div class="row q-col-gutter-md q-my-lg">
         <div class="col-md-4">
-          <div class="outsideLabel">عنوان</div>
           <q-select dropdown-icon="isax:arrow-down-1"
                     label="انتخاب کنید"
-                    class="field-lg"
-                    bottom-slots
+                    hint="متن راهنما"
                     disable
                     :options="options">
-            <template v-slot:hint>
-              متن راهنما
-            </template>
             <template v-slot:prepend>
-              <q-icon name="isax:arrow-down-1" />
+              <q-icon name="ph:android-logo" />
             </template>
           </q-select>
         </div>
         <div class="col-md-4">
-          <div class="outsideLabel">عنوان</div>
           <q-select v-model="selectedValue"
-                    dropdown-icon="isax:arrow-down-1"
                     label="انتخاب کنید"
-                    class="field-lg"
-                    bottom-slots
+                    hint="متن راهنما"
                     :options="options">
-            <template v-slot:hint>
-              متن راهنما
-            </template>
             <template v-slot:prepend>
-              <q-icon name="isax:arrow-down-1" />
+              <q-icon name="ph:android-logo" />
             </template>
           </q-select>
         </div>
         <div class="col-md-4">
-          <div class="outsideLabel">عنوان</div>
           <q-select v-model="value"
                     dropdown-icon="isax:arrow-down-1"
                     label="انتخاب کنید"
-                    class="field-lg"
-                    bottom-slots
+                    hint="متن راهنما"
                     :options="options">
-            <template v-slot:hint>
-              متن راهنما
-            </template>
             <template v-slot:prepend>
-              <q-icon name="isax:arrow-down-1" />
+              <q-icon name="ph:android-logo" />
             </template>
           </q-select>
         </div>
@@ -165,35 +130,23 @@
       <div class="row q-col-gutter-md q-my-lg">
         <div class="col-md-4" />
         <div class="col-md-4">
-          <div class="outsideLabel">عنوان</div>
           <q-select v-model="value"
-                    dropdown-icon="isax:arrow-down-1"
                     label="انتخاب کنید"
-                    class="field-lg"
-                    bottom-slots
+                    hint="متن ارور"
                     :class="{'on-error' : errorMode}"
                     :options="options">
-            <template v-slot:hint>
-              متن ارور
-            </template>
             <template v-slot:prepend>
-              <q-icon name="isax:arrow-down-1" />
+              <q-icon name="ph:android-logo" />
             </template>
           </q-select>
         </div>
         <div class="col-md-4">
-          <div class="outsideLabel">عنوان</div>
           <q-select v-model="value"
-                    dropdown-icon="isax:arrow-down-1"
+                    hint="متن راهنما"
                     label="انتخاب کنید"
-                    class="field-lg"
-                    bottom-slots
                     :options="options">
-            <template v-slot:hint>
-              متن راهنما
-            </template>
             <template v-slot:prepend>
-              <q-icon name="isax:arrow-down-1" />
+              <q-icon name="ph:android-logo" />
             </template>
           </q-select>
         </div>

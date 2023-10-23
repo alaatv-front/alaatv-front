@@ -61,14 +61,13 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
 import { SetList } from 'src/models/Set.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import { SetSectionList } from 'src/models/SetSection.js'
+import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import { Content, ContentList } from 'src/models/Content.js'
 import videoBox from 'src/components/DashboardTripleTitleSet/videoBox.vue'
 import commentBox from 'src/components/DashboardTripleTitleSet/CommentBox.vue'
@@ -169,17 +168,17 @@ export default {
       this.isVideoWatched = val
     }
   },
-  mounted() {
-    if (this.$route.params.productId) {
-      this.getProductSets(this.$route.params.productId)
-      this.getProduct()
-    } else {
-      this.$store.commit('TripleTitleSet/updateSetList', [])
-      this.$store.commit('TripleTitleSet/updateTopicList', [])
-    }
-    this.storeSelectedSet(this.$route.params.setId)
-  },
   methods: {
+    afterAuthenticate() {
+      if (this.$route.params.productId) {
+        this.getProductSets(this.$route.params.productId)
+        this.getProduct()
+      } else {
+        this.$store.commit('TripleTitleSet/updateSetList', [])
+        this.$store.commit('TripleTitleSet/updateTopicList', [])
+      }
+      this.storeSelectedSet(this.$route.params.setId)
+    },
     goBack () {
       this.$router.push(
         { name: 'UserPanel.Asset.TripleTitleSet.Products' }

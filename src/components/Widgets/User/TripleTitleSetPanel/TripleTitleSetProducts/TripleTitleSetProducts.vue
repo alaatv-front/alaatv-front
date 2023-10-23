@@ -118,10 +118,10 @@ export default {
       this.getProducts(type.id)
     }
   },
-  mounted () {
-    this.loadData()
-  },
   methods: {
+    afterAuthenticate() {
+      this.loadData()
+    },
     loadData() {
       this.advisorLoading = true
       this.productLoading = true

@@ -21,11 +21,8 @@
                   </q-btn>
                   <div class="order-parent">
                     <q-select v-model="filtersData.sort"
-                              filled
-                              dropdown-icon="mdi-chevron-down"
-                              dense
                               placeholder="مرتب کردن بر اساس"
-                              class="order"
+                              class="no-title"
                               :options="sorts"
                               option-label="text"
                               option-value="value"
@@ -513,10 +510,6 @@ export default {
               }
               @media screen and (max-width: 575px) {
                 width: 152px !important;
-              }
-
-              .order {
-                border-radius: 10px;
               }
             }
           }

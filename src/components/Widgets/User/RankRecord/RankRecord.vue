@@ -40,7 +40,6 @@ export default {
               type: 'select',
               name: 'event_id',
               label: 'رویداد',
-              placeholder: 'انتخاب نمایید',
               responseKey: 'data.events',
               optionLabel: 'title',
               optionValue: 'id',
@@ -53,7 +52,6 @@ export default {
               type: 'select',
               name: 'major_id',
               label: 'رشته شما',
-              placeholder: 'انتخاب نمایید',
               responseKey: 'data.major',
               optionLabel: 'name',
               optionValue: 'id',
@@ -66,7 +64,6 @@ export default {
               type: 'select',
               name: 'region_id',
               label: 'منطقه یا سهمیه',
-              placeholder: 'انتخاب نمایید',
               responseKey: 'data.region',
               optionLabel: 'title',
               optionValue: 'id',
@@ -81,7 +78,6 @@ export default {
               responseKey: 'data.rank',
               label: 'رتبه شما در منطقه',
               outlined: true,
-              placeholder: 'وارد نمایید',
               col: 'col-xs-6 q-pr-md'
             },
             {
@@ -173,76 +169,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-:deep(.title) {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 28px;
-  letter-spacing: -0.03em;
-  color: #333333;
-  margin-top: 20px;
-}
-
-.submitBtn {
-  width: 189px;
-  background: #ffc107;
-  box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
-  border-radius: 8px;
-  color: white;
-}
-
-:deep(.outsideLabel) {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 25px;
-  letter-spacing: 0em;
-  margin-bottom: 11px;
-}
-
-:deep(.q-field--labeled .q-field__native) {
-  padding-top: 0;
-  padding-bottom: 0;
-  color: #aeaeae;
-
-  &:focus {
-    color: black;
-  }
-}
-
-:deep(.q-field__inner) {
-  background: #f6f7f9;
-  border-radius: 8px;
-}
-
-:deep(.q-field--auto-height.q-field--labeled .q-field__control-container) {
-  padding-top: 0;
-  color: #aeaeae;
-
-  &:focus {
-    color: black;
-  }
-}
-
-:deep(.q-field__control) {
-  color: #ffc107;
-  height: 48px;
-}
-
-:deep(.q-input) {
-  border: 0px solid #f6f7f9;
-  border-radius: 8px;
-}
-
-:deep(.q-field--outlined .q-field__control:before) {
-  border: 0px;
-  height: 48px !important;
-}
-
-:deep(.q-field) {
-  height: 48px !important;
-}
-
-:deep(.q-field__append) {
-  height: 48px !important;
-}
 </style>
