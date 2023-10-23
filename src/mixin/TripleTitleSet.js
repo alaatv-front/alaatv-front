@@ -65,7 +65,7 @@ const mixinTripleTitleSet = {
       return new Promise((resolve, reject) => {
         if (!this.isVideoWatched) {
           this.isVideoWatched = true
-          this.watchingContent.loading = true
+          this.contentLoading = true
           const sendData = {
             completely_watched: 1,
             studyevent_id: this.event.id,
@@ -79,14 +79,15 @@ const mixinTripleTitleSet = {
           APIGateway.content.setVideoWatched(sendData)
             .then(() => {
               if (secondsWatched) {
-                this.watchingContent.has_watched = true
+                // this.watchingContent.has_watched = true
+                this.isVideoWatched = true
                 this.syncwatchingContentWithContentInList()
               }
-              this.watchingContent.loading = false
+              this.contentLoading = false
               resolve()
             })
             .catch(() => {
-              this.watchingContent.loading = false
+              this.contentLoading = false
               this.isVideoWatched = false
               reject()
             })
