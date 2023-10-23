@@ -34,7 +34,6 @@ module.exports = configure(function (ctx) {
     boot: [
       'VuexPersistedState', // load store from localstorage to use in other boots (ex: accessToken in axios boot)
       // 'i18n',
-      'evnVariables',
       'icon',
       'axios',
       'appConfig',
