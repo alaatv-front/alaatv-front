@@ -31,7 +31,6 @@
             </div>
           </div>
         </div>
-        ({{ appDomain }})
         <div v-if="domainSameWithAppDomain"
              class="body">
           <div class="user-panel-base-menu">
@@ -43,7 +42,6 @@
   </q-btn>
   <div v-else
        class="sub-mit-box">
-    ({{ appDomain }})
     <q-btn unelevated
            class="btn-style sign-up lt-lg"
            label="ورود"
