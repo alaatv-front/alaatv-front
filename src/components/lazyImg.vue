@@ -81,6 +81,7 @@ export default {
   data () {
     return {
       visible: false,
+      // png;base64 from -> https://png-pixel.com
       lazyImageSrc: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAJCAQAAACRI2S5AAAAEklEQVR42mMsrWfACxhHFYABAIGaCJ524rGEAAAAAElFTkSuQmCC',
       computedWidth: 0,
       computedHeight: 0
