@@ -7,7 +7,7 @@ const mixinAuth = {
       user: new User(),
       isUserLogin: false,
       domainSameWithAppDomain: false,
-      appDomain: this.$evn.APP_DOMAIN
+      appDomain: this.$env?.APP_DOMAIN
     }
   },
   mounted () {
