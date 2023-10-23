@@ -6,7 +6,8 @@
                class="logo-image" />
       </router-link>
     </div>
-    <div class="header-box full-height flex justify-center items-center">
+    <div v-if="domainSameWithAppDomain"
+         class="header-box full-height flex justify-center items-center">
       <q-img :src="event.logo"
              class="header-logo-img" />
     </div>
@@ -18,13 +19,13 @@
 
 <script>
 import { User } from 'src/models/User.js'
-import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
+import { mixinAuth, mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import BtnUserProfileMenu from 'components/BtnUserProfileMenu.vue'
 
 export default {
   name: 'TripleTitleSetPanel',
   components: { BtnUserProfileMenu },
-  mixins: [mixinTripleTitleSet],
+  mixins: [mixinAuth, mixinTripleTitleSet],
   data: () => ({
     user: new User(),
     activePage: null

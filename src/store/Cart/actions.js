@@ -34,7 +34,7 @@ export function addToCart(context, newProductData) {
         icon: 'report_problem',
         actions: [{
           label: 'سبد خرید',
-          icon: 'isax:shopping-cart',
+          icon: 'ph:shopping-cart',
           color: 'white',
           class: 'bg-green-3',
           handler: () => {

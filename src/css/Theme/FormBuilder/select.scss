@@ -1,14 +1,2 @@
-@import "mixin";
 @mixin global-select{
-  .q-field__inner{
-    .q-field__native{
-      padding: 8px 16px;
-    }
-  }
-}
-.form-builder-Select-col {
-  @include global-select;
-  .outsideLabel {
-    @include global-outsideLabel;
-  }
 }
