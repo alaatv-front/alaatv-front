@@ -81,7 +81,7 @@ export default {
   data () {
     return {
       visible: false,
-      lazyImageSrc: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP89v23MQAI8AMdRODaOAAAAABJRU5ErkJggg==',
+      lazyImageSrc: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAJCAQAAACRI2S5AAAAEklEQVR42mMsrWfACxhHFYABAIGaCJ524rGEAAAAAElFTkSuQmCC',
       computedWidth: 0,
       computedHeight: 0
     }
