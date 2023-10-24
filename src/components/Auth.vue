@@ -10,7 +10,8 @@
       <div v-else>
         <div v-if="defaultLayout"
              class="header">
-          <q-btn flat
+          <q-btn v-if="domainSameWithAppDomain"
+                 flat
                  rounded
                  :to="{name: 'Public.Home'}">
             <q-avatar size="42px">

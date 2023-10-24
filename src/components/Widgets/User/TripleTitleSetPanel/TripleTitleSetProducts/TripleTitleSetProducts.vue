@@ -28,7 +28,7 @@
             <div class="row">
               <div class="col-md-12 product-type-input">
                 <q-select v-model="productType"
-                          class="field-md"
+                          class="field-md no-title"
                           dropdown-icon="isax:arrow-down-1"
                           bg-color="white"
                           :options="productTypeOptions"
