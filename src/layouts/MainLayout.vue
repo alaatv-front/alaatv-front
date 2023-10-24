@@ -40,7 +40,8 @@
               </q-card-actions>
             </q-card>
           </q-dialog>
-          <q-dialog v-model="loginDialog">
+          <q-dialog v-model="loginDialog"
+                    :persistent="domainSameWithAppDomain">
             <div class="q-mb-lg">
               <auth-login />
             </div>
@@ -67,6 +68,7 @@ import templateHeader from 'src/components/Template/Header/TemplateHeader.vue'
 import TemplateSideBar from 'src/components/Template/SideBard/TemplateSideBar.vue'
 import QuasarTemplateBuilder from 'quasar-template-builder/src/quasar-template-builder.vue'
 import FloatingActionButton from 'components/Template/FloatingActionButton/FloatingActionButton.vue'
+import { mixinAuth } from 'src/mixin/Mixins'
 // import VersionCheck from 'components/VersionCheck/VersionCheck.vue'
 
 export default {
@@ -80,6 +82,7 @@ export default {
     FloatingActionButton,
     QuasarTemplateBuilder
   },
+  mixins: [mixinAuth],
   data () {
     return {
       user: new User(),

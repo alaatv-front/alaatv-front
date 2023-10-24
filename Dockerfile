@@ -29,12 +29,18 @@ ARG LOG_REQUEST=true
 ARG NODES_SERVER_URL_SSL
 ENV NODES_SERVER_URL_SSL=$NODES_SERVER_URL_SSL
 ARG ASSET_SERVE
+ARG VITE_APP_DOMAIN=alaatv.com
+ARG SENTRY_DSN
+ARG SENTRY_TRACES_SAMPLE_RATE
+ARG SENTRY_REPLAYS_SESSION_SAMPLE_RATE
+ARG SENTRY_REPLAYS_ON_ERROR_SAMPLE_RATE
 
 # Copy all files
 COPY ./ ./
 
 #Run prebuild script to inject env variable from server ( pipline env ) to client (custom-service-worker.js)
 RUN yarn prebuild
+
 # Build app on SSR mode
 RUN yarn build:ssr
 

@@ -28,7 +28,7 @@
             <div class="row">
               <div class="col-md-12 product-type-input">
                 <q-select v-model="productType"
-                          class="field-md"
+                          class="field-md no-title"
                           dropdown-icon="isax:arrow-down-1"
                           bg-color="white"
                           :options="productTypeOptions"
@@ -118,10 +118,10 @@ export default {
       this.getProducts(type.id)
     }
   },
-  mounted () {
-    this.loadData()
-  },
   methods: {
+    afterAuthenticate() {
+      this.loadData()
+    },
     loadData() {
       this.advisorLoading = true
       this.productLoading = true

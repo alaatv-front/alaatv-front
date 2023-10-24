@@ -1,0 +1,10 @@
+@import 'src/css/Theme/spacing.scss';
+
+iframe.raychat_frame {
+  $size-md: map_get($sizes, 'md');
+  @media screen and (max-width: $size-md) {
+    & {
+      bottom: $space-13;
+    }
+  }
+}
