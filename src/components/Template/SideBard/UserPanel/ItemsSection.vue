@@ -2,8 +2,11 @@
   <div class="ItemsSection">
     <item-section v-for="(item, itemIndex) in items"
                   :key="itemIndex"
+                  :icon="item.icon"
+                  :title="item.title"
                   :separator="item.separator"
-                  :selected="item.selected" />
+                  :selected="item.selected"
+                  @click="onClickItem(item)" />
   </div>
 </template>
 
@@ -12,38 +15,16 @@ import ItemSection from 'src/components/Template/SideBard/UserPanel/ItemSection.
 export default {
   name: 'ItemsSection',
   components: { ItemSection },
-  data () {
-    return {
-      items: [
-        {
-          icon: 'ph:house',
-          title: 'داشبورد',
-          selected: false
-        },
-        {
-          separator: true
-        },
-        {
-          icon: 'ph:book-open',
-          title: 'دوره های من',
-          selected: true
-        },
-        {
-          icon: 'ph:bookmarks',
-          title: 'نشان شده ها',
-          selected: false
-        },
-        {
-          icon: 'ph:envelope-simple',
-          title: 'تیکت پشتیبانی',
-          selected: false
-        },
-        {
-          icon: 'ph:user-circle',
-          title: 'اطلاعات کاربری',
-          selected: false
-        }
-      ]
+  props: {
+    items: {
+      type: Array,
+      default: () => []
+    }
+  },
+  emits: ['onClickItem'],
+  methods: {
+    onClickItem (item) {
+      this.$emit('onClickItem', item)
     }
   }
 }

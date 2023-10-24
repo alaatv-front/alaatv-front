@@ -12,7 +12,7 @@
               class="hidden"
               @update:model-value="updateFile()" />
       <q-btn v-if="!controls"
-             icon="isax:camera"
+             icon="ph:camera"
              size="xs"
              color="white"
              text-color="accent"
@@ -46,15 +46,6 @@
            class="phoneNumber q-mt-sm">
         {{ user.mobile }}
       </div>
-    </div>
-    <div class="edit-action">
-      <q-btn class="q-ml-lg justify-end"
-             icon="isax:edit"
-             size="sm"
-             color="white"
-             text-color="accent"
-             unelevated
-             :to="{name: 'UserPanel.Profile'}" />
     </div>
   </div>
 </template>
