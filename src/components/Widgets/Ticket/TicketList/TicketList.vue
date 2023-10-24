@@ -7,6 +7,8 @@
              :to="{name: 'UserPanel.Dashboard'}">
         <q-icon name="isax:layer"
                 class="q-mr-sm" />
+        >
+
       </q-btn>
     </div>
     <div v-if="isEntityReady">
@@ -312,26 +314,26 @@ export default {
       },
       userInputs: [
         { type: 'hidden', options: [], name: 'department_id' },
-        { type: 'select', options: [], name: 'pirority_id', label: 'اولویت', optionLabel: 'title', placeholder: '', col: 'col-md-4 col-sm-6 col-xs-12' },
-        { type: 'select', options: [], name: 'status_id', multiple: true, label: 'وضعیت', placeholder: '', optionLabel: 'title', optionValue: 'id', col: 'col-md-4 col-sm-6 col-xs-12' },
-        { type: 'input', name: 'id', label: 'شماره تیکت', placeholder: '', col: 'col-md-4 col-sm-6 col-xs-12' },
-        { type: 'input', name: 'title', label: 'عنوان', placeholder: '', col: 'col-md-4 col-sm-6 col-xs-12' },
-        { type: 'date', name: 'created_at_since', calendarIcon: ' ', label: 'از تاریخ : ', responseKey: 'data.from', placeholder: '', col: 'col-md-4 col-sm-6 col-xs-12' },
-        { type: 'date', name: 'created_at_till', calendarIcon: ' ', label: 'تا تاریخ : ', placeholder: '', col: 'col-md-4 col-sm-6 col-xs-12' }
+        { type: 'select', options: [], name: 'pirority_id', label: 'اولویت', optionLabel: 'title', col: 'col-md-4 col-sm-6 col-xs-12' },
+        { type: 'select', options: [], name: 'status_id', multiple: true, label: 'وضعیت', optionLabel: 'title', optionValue: 'id', col: 'col-md-4 col-sm-6 col-xs-12' },
+        { type: 'input', name: 'id', label: 'شماره تیکت', col: 'col-md-4 col-sm-6 col-xs-12' },
+        { type: 'input', name: 'title', label: 'عنوان', col: 'col-md-4 col-sm-6 col-xs-12' },
+        { type: 'date', name: 'created_at_since', calendarIcon: ' ', label: 'از تاریخ : ', responseKey: 'data.from', col: 'col-md-4 col-sm-6 col-xs-12' },
+        { type: 'date', name: 'created_at_till', calendarIcon: ' ', label: 'تا تاریخ : ', col: 'col-md-4 col-sm-6 col-xs-12' }
       ],
       adminInputs: [
-        { type: 'input', name: 'has_user_mobile', label: 'شماره همراه', placeholder: '', col: 'col-md-3' },
-        { type: 'input', name: 'has_user_nationalcode', label: 'کد ملی', placeholder: '', col: 'col-md-3' },
-        { type: 'input', name: 'has_user_firstname', label: 'نام', placeholder: '', col: 'col-md-3' },
-        { type: 'input', name: 'has_user_lastname', label: 'نام خانوادگی', placeholder: '', col: 'col-md-3' },
-        { type: 'select', options: [], name: 'department_id', optionLabel: 'title', label: 'گروه', placeholder: '', col: 'col-md-3' },
-        { type: 'select', options: [], name: 'pirority_id', label: 'اولویت', placeholder: '', col: 'col-md-3' },
-        { type: 'select', options: [], name: 'status_id', multiple: true, label: 'وضعیت', placeholder: '', optionLabel: 'title', optionValue: 'id', col: 'col-md-3' },
-        { type: 'input', name: 'order_id', label: 'شماره سفارش', placeholder: '', col: 'col-md-3' },
-        { type: 'input', name: 'id', label: 'شماره تیکت', placeholder: '', col: 'col-md-3' },
-        { type: 'input', name: 'title', label: 'عنوان', placeholder: '', col: 'col-md-3' },
-        { type: 'date', name: 'created_at_since', calendarIcon: ' ', label: 'از تاریخ : ', responseKey: 'data.from', placeholder: '', col: 'col-md-3' },
-        { type: 'date', name: 'created_at_till', calendarIcon: ' ', label: 'تا تاریخ : ', placeholder: '', col: 'col-md-3' },
+        { type: 'input', name: 'has_user_mobile', label: 'شماره همراه', col: 'col-md-3' },
+        { type: 'input', name: 'has_user_nationalcode', label: 'کد ملی', col: 'col-md-3' },
+        { type: 'input', name: 'has_user_firstname', label: 'نام', col: 'col-md-3' },
+        { type: 'input', name: 'has_user_lastname', label: 'نام خانوادگی', col: 'col-md-3' },
+        { type: 'select', options: [], name: 'department_id', optionLabel: 'title', label: 'گروه', col: 'col-md-3' },
+        { type: 'select', options: [], name: 'pirority_id', label: 'اولویت', col: 'col-md-3' },
+        { type: 'select', options: [], name: 'status_id', multiple: true, label: 'وضعیت', optionLabel: 'title', optionValue: 'id', col: 'col-md-3' },
+        { type: 'input', name: 'order_id', label: 'شماره سفارش', col: 'col-md-3' },
+        { type: 'input', name: 'id', label: 'شماره تیکت', col: 'col-md-3' },
+        { type: 'input', name: 'title', label: 'عنوان', col: 'col-md-3' },
+        { type: 'date', name: 'created_at_since', calendarIcon: ' ', label: 'از تاریخ : ', responseKey: 'data.from', col: 'col-md-3' },
+        { type: 'date', name: 'created_at_till', calendarIcon: ' ', label: 'تا تاریخ : ', col: 'col-md-3' },
         { type: 'date', name: 'hasMessageFromDate', calendarIcon: ' ', placeholder: 'تاریخ پاسخ اپراتور از:', col: 'col-md-6' },
         { type: 'date', name: 'hasMessageToDate', calendarIcon: ' ', placeholder: 'تاریخ پاسخ اپراتور تا:', col: 'col-md-6' },
         // {

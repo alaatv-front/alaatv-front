@@ -271,11 +271,10 @@ export default {
       api: APIGateway.ticket.APIAdresses.base,
       inputs: [],
       userInputs: [
-        { type: 'input', name: 'title', responseKey: 'ticket.title', label: 'عنوان', placeholder: '', col: 'col-md-4 col-sm-6 col-xs-12', disable: true },
+        { type: 'input', name: 'title', responseKey: 'ticket.title', label: 'عنوان', col: 'col-md-4 col-sm-6 col-xs-12', disable: true },
         {
           type: 'input',
           name: 'first_name',
-          placeholder: '',
           responseKey: 'ticket.user.first_name',
           label: 'نام',
           col: 'col-md-4 col-sm-6 col-xs-12',
@@ -284,7 +283,6 @@ export default {
         {
           type: 'input',
           name: 'last_name',
-          placeholder: '',
           responseKey: 'ticket.user.last_name',
           label: 'نام خانوادگی',
           col: 'col-md-4 col-sm-6 col-xs-12',
@@ -293,7 +291,6 @@ export default {
         {
           type: 'input',
           name: 'priority',
-          placeholder: '',
           responseKey: 'ticket.priority.title',
           label: 'اولویت',
           col: 'col-md-4 col-sm-6 col-xs-12',
@@ -306,7 +303,6 @@ export default {
           optionLabel: 'title',
           optionValue: 'id',
           responseKey: 'ticket.department.id',
-          placeholder: '',
           label: 'گروه',
           disable: true,
           col: 'col-md-4 col-sm-6 col-xs-12'
@@ -318,7 +314,6 @@ export default {
           optionLabel: 'title',
           optionValue: 'id',
           responseKey: 'ticket.status.id',
-          placeholder: '',
           label: 'وضعیت',
           disable: true,
           col: 'col-md-4 col-sm-6 col-xs-12'
@@ -329,7 +324,6 @@ export default {
           responseKey: 'ticket.created_at',
           calendarIcon: ' ',
           label: 'تاریخ ایجاد',
-          placeholder: '',
           col: 'col-md-4 col-sm-6 col-xs-12',
           disable: true
         },
@@ -338,27 +332,25 @@ export default {
           name: 'created_at',
           responseKey: 'ticket.updated_at',
           calendarIcon: ' ',
-          placeholder: '',
           label: 'تاریخ بروز آوری:',
           col: 'col-md-4 col-sm-6 col-xs-12',
           disable: true
         },
         { type: 'hidden', name: 'id', responseKey: 'ticket.id', placeholder: 'id' },
         { type: 'hidden', name: 'department_title', responseKey: 'ticket.department.title' },
-        { type: 'hidden', name: 'messages', responseKey: 'ticket.messages', placeholder: '' },
-        { type: 'hidden', name: 'img', responseKey: 'ticket.user.photo', placeholder: '' },
-        { type: 'hidden', name: 'logs', responseKey: 'ticket.logs', placeholder: '' },
-        { type: 'hidden', name: 'userId', responseKey: 'ticket.user.id', placeholder: '' },
-        { type: 'hidden', name: 'otherTickets', responseKey: 'other_tickets', placeholder: '' },
+        { type: 'hidden', name: 'messages', responseKey: 'ticket.messages' },
+        { type: 'hidden', name: 'img', responseKey: 'ticket.user.photo' },
+        { type: 'hidden', name: 'logs', responseKey: 'ticket.logs' },
+        { type: 'hidden', name: 'userId', responseKey: 'ticket.user.id' },
+        { type: 'hidden', name: 'otherTickets', responseKey: 'other_tickets' },
         { type: 'hidden', name: 'priority-id', responseKey: 'ticket.priority.id' },
         { type: 'hidden', name: 'rate', responseKey: 'ticket.rate' }
       ],
       adminInputs: [
-        { type: 'input', name: 'title', responseKey: 'ticket.title', label: 'عنوان', placeholder: ' ', col: 'col-md-4', disable: true },
+        { type: 'input', name: 'title', responseKey: 'ticket.title', label: 'عنوان', col: 'col-md-4', disable: true },
         {
           type: 'input',
           name: 'first_name',
-          placeholder: '',
           responseKey: 'ticket.user.first_name',
           label: 'نام',
           col: 'col-md-4',
@@ -367,7 +359,6 @@ export default {
         {
           type: 'input',
           name: 'last_name',
-          placeholder: '',
           responseKey: 'ticket.user.last_name',
           label: 'نام خانوادگی',
           col: 'col-md-4',
@@ -376,7 +367,6 @@ export default {
         {
           type: 'input',
           name: 'priority',
-          placeholder: '',
           responseKey: 'ticket.priority.title',
           label: 'اولویت',
           col: 'col-md-4',
@@ -389,7 +379,6 @@ export default {
           optionLabel: 'title',
           optionValue: 'id',
           responseKey: 'ticket.department.id',
-          placeholder: '',
           label: 'گروه',
           col: 'col-md-4'
         },
@@ -400,7 +389,6 @@ export default {
           optionLabel: 'title',
           optionValue: 'id',
           responseKey: 'ticket.status.id',
-          placeholder: '',
           label: 'وضعیت',
           col: 'col-md-4'
         },
@@ -410,7 +398,6 @@ export default {
           responseKey: 'ticket.created_at',
           calendarIcon: ' ',
           label: 'تاریخ ایجاد',
-          placeholder: '',
           col: 'col-md-4',
           disable: true
         },
@@ -418,7 +405,6 @@ export default {
           type: 'input',
           name: 'national_code',
           responseKey: 'ticket.user.national_code',
-          placeholder: '',
           label: 'کد ملی',
           col: 'col-md-4',
           disable: true
@@ -427,7 +413,6 @@ export default {
           type: 'input',
           name: 'major',
           responseKey: 'ticket.user.major.name',
-          placeholder: '',
           label: 'رشته',
           col: 'col-md-4',
           disable: true
@@ -437,18 +422,17 @@ export default {
           name: 'created_at',
           responseKey: 'ticket.updated_at',
           calendarIcon: ' ',
-          placeholder: '',
           label: 'تاریخ بروز آوری:',
           col: 'col-md-4',
           disable: true
         },
         { type: 'hidden', name: 'id', responseKey: 'ticket.id', placeholder: 'id' },
         { type: 'hidden', name: 'department_title', responseKey: 'ticket.department.title' },
-        { type: 'hidden', name: 'messages', responseKey: 'ticket.messages', placeholder: '' },
-        { type: 'hidden', name: 'img', responseKey: 'ticket.user.photo', placeholder: '' },
-        { type: 'hidden', name: 'logs', responseKey: 'ticket.logs', placeholder: '' },
-        { type: 'hidden', name: 'userId', responseKey: 'ticket.user.id', placeholder: '' },
-        { type: 'hidden', name: 'otherTickets', responseKey: 'other_tickets', placeholder: '' },
+        { type: 'hidden', name: 'messages', responseKey: 'ticket.messages' },
+        { type: 'hidden', name: 'img', responseKey: 'ticket.user.photo' },
+        { type: 'hidden', name: 'logs', responseKey: 'ticket.logs' },
+        { type: 'hidden', name: 'userId', responseKey: 'ticket.user.id' },
+        { type: 'hidden', name: 'otherTickets', responseKey: 'other_tickets' },
         { type: 'hidden', name: 'priority-id', responseKey: 'ticket.priority.id' },
         { type: 'hidden', name: 'rate', responseKey: 'ticket.rate' },
         {

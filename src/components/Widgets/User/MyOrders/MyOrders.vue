@@ -161,12 +161,10 @@ export default {
         {
           type: 'select',
           name: 'paymentStatuses',
-          dropdownIcon: 'isax:arrow-down-1',
           optionValue: 'id',
           optionLabel: 'name',
           multiple: true,
           label: 'وضعیت پرداخت',
-          placeholder: ' ',
           col: 'filter-option col-sm-6 col-lg-4 col-xs-12'
         },
         {

@@ -1,8 +1,8 @@
-@import "mixin";
+@import 'src/css/Theme/Controls/input.scss';
 
-.form-builder-toggle-button-col {
+.form-builder-ToggleButton {
   .outsideLabel {
-    @include global-outsideLabel;
+
   }
 
   .q-btn-group {
@@ -10,7 +10,7 @@
     overflow: hidden;
   }
   .q-btn-toggle {
-    height: 32px;
+    height: $input-height;
     box-shadow: none;
     background-color: var(--3a-Neutral3);
     justify-content: space-between;
@@ -20,7 +20,7 @@
       }
     }
     .q-btn {
-      height: 32px;
+      height: $input-height;
       width: 58px;
       font-style: normal;
       font-weight: 400;

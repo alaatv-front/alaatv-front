@@ -90,7 +90,6 @@ export default {
           responseKey: 'data.title',
           value: '',
           label: 'عنوان',
-          placeholder: '',
           col: 'col-sm-6 col-xs-12'
         },
         {
@@ -98,7 +97,6 @@ export default {
           name: 'priority_id',
           responseKey: 'data.priority',
           label: 'اولویت',
-          placeHolder: '',
           value: '',
           options: this.getPriorityOption(),
           toggleColor: 'blue',
