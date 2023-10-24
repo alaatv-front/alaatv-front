@@ -2,9 +2,6 @@
 @import 'src/css/Theme/spacing.scss';
 @import 'src/css/Theme/Typography/typography.scss';
 
-@mixin global-input {
-}
-
 $input-height: $space-8;
 $field-background: $grey-1;
 $field-disabled-background: $grey-2;
@@ -31,6 +28,17 @@ $q-field__label_margin_bottom: $space-2;
 }
 
 @mixin q-field-mixin {
+
+  $borderStyle: 1.5px solid $grey-4;
+  &.q-field--standard {
+    &.q-field--readonly {
+      .q-field__control {
+        &:before {
+          border-bottom: $borderStyle;
+        }
+      }
+    }
+  }
 
   align-items: flex-end;
   &.q-field--focused {
@@ -128,7 +136,7 @@ $q-field__label_margin_bottom: $space-2;
         background: $field-background;
         height: $input-height;
         border-radius: $space-2;
-        border: 1.5px solid $grey-4;
+        border: $borderStyle;
       }
       &:after {
         display: none;
@@ -199,7 +207,6 @@ $q-field__label_margin_bottom: $space-2;
     -webkit-animation-name: autofill;
     -webkit-animation-fill-mode: both;
   }
-
   @-webkit-keyframes autofill {
     0%,100% {
       color: #666;
