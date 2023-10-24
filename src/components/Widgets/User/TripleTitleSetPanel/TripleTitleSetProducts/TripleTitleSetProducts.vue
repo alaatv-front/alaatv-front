@@ -120,7 +120,7 @@ export default {
   },
   methods: {
     afterAuthenticate() {
-      // this.loadData()
+      this.loadData()
     },
     loadData() {
       this.advisorLoading = true
