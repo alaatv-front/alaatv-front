@@ -49,8 +49,8 @@ module.exports = configure(function (ctx) {
       'gtm',
       'PhosphorIcons',
       'ewano',
-      'androidGetOldDb'
-      // 'sentry'
+      'androidGetOldDb',
+      'sentry'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css

@@ -476,7 +476,4 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.q-field--standard .q-field__control:before {
-  border-bottom: 0px;
-}
 </style>

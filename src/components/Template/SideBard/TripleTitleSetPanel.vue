@@ -233,7 +233,12 @@ export default {
     },
     logOut() {
       this.toggleLogoutDialog()
-      this.$store.dispatch('Auth/logOut')
+      const redirectAfterLogout = this.domainSameWithAppDomain
+      this.$store.dispatch('Auth/logOut', { redirectTo: redirectAfterLogout })
+      if (!this.domainSameWithAppDomain) {
+        const route = this.$router.resolve({ name: 'login' })
+        window.location.href = route.path
+      }
     },
     fillTopicsRouteArray (topicList) {
       this.topicsRouteArray[0].children = []
