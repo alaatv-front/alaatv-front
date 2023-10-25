@@ -28,7 +28,7 @@
       <component :is="parentComponent"
                  :to="slide.link"
                  :href="slide.link"
-                 class="cursor-pointer"
+                 class="slider-parent"
                  @click="takeAction(slide)">
         <lazy-img v-if="slide.photo.src !== ''"
                   :height="slide.photo.height"
@@ -238,6 +238,12 @@ export default {
   width: 100%;
   &:deep(.q-carousel__slide) {
     padding: 0;
+    display: block;
+
+    .slider-parent{
+      cursor: pointer;
+      display: block;
+    }
     .slider-image {
       width: 100%;
     }

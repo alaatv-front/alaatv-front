@@ -188,7 +188,7 @@ export default {
       return this.currentTimed
     },
     videoLength() {
-      return this.player.duration()
+      return this.player ? this.player.duration() : 0
     }
   },
   watch: {
@@ -223,12 +223,10 @@ export default {
       })
     }
   },
-  created() {
+  mounted() {
     this.width = this.overPlayerWidth
     this.setPoster()
     this.setSources()
-  },
-  mounted() {
     if (this.needReInitVideo) {
       this.$nextTick(() => {
         this.reInitVideo()
