@@ -188,7 +188,7 @@ export default {
       return this.currentTimed
     },
     videoLength() {
-      return this.player.duration()
+      return this.player ? this.player.duration() : 0
     }
   },
   watch: {

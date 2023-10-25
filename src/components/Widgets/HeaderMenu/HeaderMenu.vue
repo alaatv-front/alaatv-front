@@ -207,12 +207,14 @@ export default {
     }
   },
   mounted() {
-    if (this.localOptions.sticky) {
-      this.scrollEventIsAdded = true
-      this.addScrollEventListener()
+    if (typeof window !== 'undefined') {
+      if (this.localOptions.sticky) {
+        this.scrollEventIsAdded = true
+        this.addScrollEventListener()
+      }
+      this.windowWidth = window.innerWidth
+      window.addEventListener('resize', this.onResize)
     }
-    this.windowWidth = window.innerWidth
-    window.addEventListener('resize', this.onResize)
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.onResize)
