@@ -175,7 +175,6 @@ export default {
           responseKey: 'since',
           label: 'تاریخ سفارش از',
           placeholder: ' از',
-          calendarIcon: ' ',
           col: 'col-lg-3 col-sm-6 col-xs-12'
         },
         {
@@ -183,7 +182,6 @@ export default {
           name: 'till',
           label: 'تاریخ سفارش تا',
           placeholder: 'تا',
-          calendarIcon: ' ',
           col: 'col-lg-3 col-sm-6 col-xs-12'
         },
         {
@@ -402,30 +400,6 @@ export default {
         .expand-filter{
           &:deep(.q-item-type){
             display: none;
-          }
-          .filter-option {
-            .q-field {
-              .q-field__inner {
-                .q-field__control {
-                  background-color: white;
-                }
-              }
-            }
-          }
-          .form-builder-date-time-col {
-            .form-calender {
-              .q-field__inner {
-                .q-field__control {
-                  .q-field__control-container {
-                    .q-field__native {
-                      &.q-placeholder {
-                        background: white;
-                      }
-                    }
-                  }
-                }
-              }
-            }
           }
           .filter-items{
             font-weight: 400!important;
