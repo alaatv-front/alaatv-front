@@ -1,5 +1,5 @@
-import { Authenticated, IncompleteProfile } from './middleware/middleware.js'
 import EntityCrudRoutes from './EntityCrudRoutes.js'
+import { Authenticated, IncompleteProfile } from './middleware/middleware.js'
 
 const routes = [
   {
@@ -232,7 +232,6 @@ const routes = [
               {
                 path: ':live_name',
                 meta: {
-                  // middlewares: [Authenticated(false)],
                   hasDynamicSettingWithParams: true
                 },
                 name: 'Public.Live.DynamicName',

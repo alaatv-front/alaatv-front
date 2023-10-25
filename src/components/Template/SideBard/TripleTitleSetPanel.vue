@@ -236,7 +236,7 @@ export default {
       const redirectAfterLogout = this.domainSameWithAppDomain
       this.$store.dispatch('Auth/logOut', { redirectTo: redirectAfterLogout })
       if (!this.domainSameWithAppDomain) {
-        const { route } = this.$router.resolve({ name: 'login' })
+        const route = this.$router.resolve({ name: 'login' })
         window.location.href = route.path
       }
     },
