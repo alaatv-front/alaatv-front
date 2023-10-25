@@ -8,6 +8,10 @@
       <div class="title-section">
         {{ title }}
       </div>
+      <div v-if="expandable"
+           class="icon-expand">
+        <q-icon name="ph:caret-down" />
+      </div>
     </template>
   </div>
 </template>
@@ -29,6 +33,10 @@ export default {
       default: false
     },
     selected: {
+      type: Boolean,
+      default: false
+    },
+    expandable: {
       type: Boolean,
       default: false
     }
@@ -68,8 +76,8 @@ export default {
   .icon-section {
     width: $icon-width;
     .q-icon {
+      color: $grey-7;
       font-size: $icon-width;
-      color: $grey-7
     }
   }
   .title-section {
@@ -77,6 +85,11 @@ export default {
     width: calc( 100% - #{$icon-width} );
     margin-left: $space-2;
     color: $grey-9
+  }
+  .icon-expand{}
+  .q-icon{
+    color: $grey-9 ;
+    font-size: $space-4
   }
 }
 .ItemSection:hover{

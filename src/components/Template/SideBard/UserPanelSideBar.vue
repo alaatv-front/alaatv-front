@@ -22,36 +22,23 @@ export default {
     return {
       items: [
         {
-          icon: 'ph:house',
-          title: 'داشبورد',
-          selected: false,
-          route: { name: 'UserPanel.Dashboard' }
-        },
-        {
-          separator: true
-        },
-        {
           icon: 'ph:book-open',
           title: 'دوره های من',
-          selected: true,
           route: { name: 'UserPanel.MyPurchases' }
         },
         {
           icon: 'ph:bookmarks',
           title: 'نشان شده ها',
-          selected: false,
           route: { name: 'UserPanel.MyFavorites' }
         },
         {
           icon: 'ph:envelope-simple',
           title: 'تیکت پشتیبانی',
-          selected: false,
           route: { name: 'UserPanel.Ticket.Index' }
         },
         {
           icon: 'ph:user-circle',
           title: 'اطلاعات کاربری',
-          selected: false,
           route: { name: 'UserPanel.Profile' }
         },
         {
@@ -60,14 +47,23 @@ export default {
         {
           icon: 'ph:credit-card',
           title: 'سفارش های من',
-          selected: false,
           route: { name: 'UserPanel.MyOrders' }
         },
         {
           icon: 'ph:money',
           title: 'کارت هدیه',
-          route: { name: 'UserPanel.Asset.GiftCard.MyGiftCards' },
-          selected: false
+          route: { name: 'UserPanel.Asset.GiftCard.MyGiftCards' }
+        },
+        {
+          separator: true
+        },
+        {
+          icon: 'ph:radio',
+          title: 'داشبوردهام',
+          expandable: true,
+          subItems: {
+            title: 'راه ابریشم'
+          }
         }
       ]
     }
@@ -101,7 +97,7 @@ export default {
   height: 100%;
   background: $grey-1;
   .user-info-section {
-    padding: 40px 40px 24px;
+    padding: 40px 40px 12px;
   }
   .items-section {
     padding: 12px 40px 40px;

@@ -37,11 +37,10 @@
                @click="discardUpdate" />
       </div>
     </div>
-    <div class="q-ml-lg namePhone full-width">
-      <div class="fullName ellipsis-2-lines">
-        <q-tooltip> {{ fullName }} </q-tooltip>
+    <div class="q-ml-lg namePhone">
+      <h6 class="fullName ellipsis-2-lines">
         {{ fullName }}
-      </div>
+      </h6>
       <div v-if="user.mobile"
            class="phoneNumber q-mt-sm">
         {{ user.mobile }}
@@ -49,6 +48,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import LazyImg from 'components/lazyImg.vue'
 import { mixinAuth } from 'src/mixin/Mixins.js'
@@ -108,19 +108,40 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "src/css/Theme/colors.scss";
+@import "src/css/Theme/spacing.scss";
+@import "src/css/Theme/Typography/typography.scss";
+
 .UserInfoSection {
   display: flex;
   flex-wrap: nowrap;
   position: relative;
   .user-photo {
-    width: 80px;
-    padding: 5px;
+    padding: $space-1;
+    .q-avatar{
+      font-size:56px
+    }
+    .photo-edit{
+      position:absolute;
+      top:$space-9;
+      left:0;
+    }
   }
   .namePhone {
     width: calc( 100% - 80px );
-    .fullName {
-      width: 100%;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: $space-4;
+  .phoneNumber{
+    @include body2;
+    color: $grey-7;
+  }
+  }
+  .fullName {
+    width: 100%;
+    color: $grey-9;
+    text-wrap: nowrap;
   }
   .edit-action {
     position: absolute;

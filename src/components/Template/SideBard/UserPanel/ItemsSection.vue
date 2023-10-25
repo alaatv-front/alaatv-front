@@ -6,6 +6,7 @@
                   :title="item.title"
                   :separator="item.separator"
                   :selected="item.selected"
+                  :expandable="item.expandable"
                   @click="onClickItem(item)" />
   </div>
 </template>
