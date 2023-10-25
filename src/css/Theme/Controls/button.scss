@@ -1,205 +1,188 @@
-@import "src/css/Theme/Typography/typography.scss";
+@import 'src/css/Theme/colors.scss';
+@import 'src/css/Theme/radius.scss';
+@import 'src/css/Theme/spacing.scss';
+@import 'src/css/Theme/Typography/typography.scss';
+
+@mixin btn-padding-by-size($size) {
+  @if $size == 'xs' {
+    border-radius: $radius-2;
+    padding: $space-1 $space-2 !important;
+    .q-btn__content {
+      @include subtitle2;
+      .q-icon {
+        font-size: 16px;
+      }
+    }
+  } @else if $size == 'sm' {
+    border-radius: $radius-3;
+    padding: $space-1 $space-3 !important;
+    .q-btn__content {
+      @include subtitle2;
+      .q-icon {
+        font-size: 16px;
+      }
+    }
+  } @else if $size == 'md' {
+    border-radius: $radius-3;
+    padding: $space-2 $space-4 !important;
+    .q-btn__content {
+      @include subtitle2;
+      .q-icon {
+        font-size: 16px;
+      }
+    }
+  } @else if $size == 'lg' {
+    border-radius: $radius-3;
+    padding: $space-3 $space-4 !important;
+    .q-btn__content {
+      @include subtitle1;
+      .q-icon {
+        font-size: 20px;
+      }
+    }
+  } @else if $size == 'xl' {
+    border-radius: $radius-3;
+    padding: $space-4 $space-4 !important;
+    .q-btn__content {
+      @include subtitle1;
+      .q-icon {
+        font-size: 20px;
+      }
+    }
+  }
+}
 
 .q-btn {
-  .q-btn__content {
-    border-radius: inherit;
-  }
-  &.keep-min-width {
-    min-width: 96px;
-  }
-  &.q-btn--outline:before {
-    border: 1px solid $grey-5;
-  }
-  &.q-btn--outline:hover {
-    //border: 1px solid $grey-6;
-  }
-  &.q-btn--outline:focus {
-    border: 1px solid $grey-6;
-    box-shadow: 0 0 0 4px $grey-2;
+  font-size: 1em !important;
+
+  &[style*='font-size:8px'] {
+    @include btn-padding-by-size('xs')
   }
 
-  &.q-hoverable:hover > .q-focus-helper {
-      opacity: 0.15;
-    }
-  &.q-focusable:focus {
-      box-shadow: 0 0 0 4px #E8E8E8;
-    }
-  &.q-focusable:focus > .q-focus-helper {
-      opacity: 0.22 !important;
-    }
-  &.q-btn--actionable.q-btn--standard:active:before,
-  &.q-btn--actionable.q-btn--standard.q-btn--active:before {
-      //box-shadow: 0 0 0 4px #FFF2C9 !important;
-    }
-  &.disabled {
-      &.q-btn--outline {
-        border: 1px solid #E8E8E8;
-      }
-      background: $grey-2 !important;
-      .q-btn__content{
-        color: $grey-4;
-      }
-    }
+  &[style*='font-size:10px'] {
+    @include btn-padding-by-size('sm')
+  }
+
+  &[style*='font-size:14px'] {
+    @include btn-padding-by-size('md')
+  }
+
+  &[style*='font-size:20px'] {
+    @include btn-padding-by-size('lg')
+  }
+
+  &[style*='font-size:24px'] {
+    @include btn-padding-by-size('xl')
+  }
+
   &:before {
-      box-shadow: none;
+    box-shadow: none;
+  }
+
+  &.disabled,
+  &[disabled] {
+    opacity: 1 !important;
+  }
+
+  &:hover {
+    .q-focus-helper {
+      opacity: 0 !important;
     }
+  }
+
   .q-btn__content {
-      margin: 0;
+    .q-icon {
+      &.on-left {
+        margin-right: $space-1;
+      }
+
+      &.on-right {
+        margin-left: $space-1;
+      }
     }
-  &.q-btn--square {
+  }
 
-      &.q-btn-xs {
-        padding:  7px;
+  &.bg-primary {
+    color: $grey-9 !important;
+
+    &.disabled,
+    &[disabled] {
+      background: $primary-1 !important;
+      color: $primary-3 !important;
+
+      &:hover {
+        background: $primary-1 !important;
       }
-
-      &.q-btn-sm {
-        padding: 8px;
-      }
-
-      &.q-btn-md {
-        padding: 11px;
-      }
-
-      &.q-btn-lg {
-        padding: 14px;
-      }
-
-      &.q-btn-xl {
-        padding: 16px;
-      }
-
     }
 
-  &.q-btn--flat{
-    padding: 0 4px 0 4px;
     &:hover {
-      background: $grey-2;
+      background: $primary-4 !important;
     }
   }
-    //
-    //&.q-btn--outline::before {
-    //  border: 2px solid currentColor;
-    //  box-sizing: border-box;
-    //  filter: drop-shadow(-2px -4px 10px rgba(255, 255, 255, 0.6)) drop-shadow(2px 4px 10px rgba(112, 108, 162, 0.05));
-    //}
-}
-.q-btn:not(.q-btn--square, .q-btn--round) {
-    &.q-btn-xs {
-      padding:  3px 12px 4px;
-      .q-btn__content {
-        @include subtitle2;
-        .q-icon {
-          width: 14px;
-          height: 14px;
-          font-size: 14px;
-          &.on-left {
-            margin-right: 4px;
-          }
-          &.on-right {
-            margin-left: 4px;
-          }
-        }
+
+  &.bg-secondary {
+    color: $grey-1 !important;
+
+    &.disabled,
+    &[disabled] {
+      background: $secondary-1 !important;
+      color: $secondary-2 !important;
+
+      &:hover {
+        background: $secondary-1 !important;
       }
     }
-    &.q-btn-sm {
-      padding: 5px 12px 6px;
-      .q-btn__content {
-        @include subtitle2;
-        .q-icon {
-          width: 16px;
-          height: 16px;
-          font-size: 16px;
-          &.on-left {
-            margin-right: 4px;
-          }
-          &.on-right {
-            margin-left: 4px;
-          }
-        }
-      }
-    }
-    &.q-btn-md {
-     font-size: 16px;
-     padding: 8px 16px;
-    }
-    &.q-btn-lg {
-      font-size: 16px;
-      padding: 12px 16px;
-    }
-    &.q-btn-xl {
-      font-size: 16px;
-      padding: 14px 18px;
+
+    &:hover {
+      background: $secondary-4 !important;
     }
   }
- .q-btn:not(.q-btn--rounded, .q-btn--round) {
-   border-radius: 8px;
- }
 
-.btn-sm {
-  padding: 0 5px 0 7px;
-  font-size: 14px;
+  &.bg-grey {
+    color: $grey-9 !important;
+    background: $grey-2 !important;
+
+    &.disabled,
+    &[disabled] {
+      background: $grey-2 !important;
+      color: $grey-4 !important;
+
+      &:hover {
+        background: $secondary-1 !important;
+      }
+    }
+
+    &:hover {
+      background: $grey-3 !important;
+    }
+  }
+
+  &.q-btn--outline {
+    &.bg-grey {
+      color: $grey-9 !important;
+      background: $grey-1 !important;
+
+      &.disabled,
+      &[disabled] {
+        background: $grey-2 !important;
+        color: $grey-4 !important;
+
+        &:hover {
+          background: $secondary-1 !important;
+        }
+      }
+
+      &:before {
+        border: solid 1.5px $grey-4;
+      }
+
+      &:hover {
+        background: $grey-3 !important;
+      }
+
+      .q-btn__content {
+        color: $grey-9 !important;
+      }
+    }
+  }
 }
-
-  //
-  //&.q-btn--outline::before {
-  //  border: 2px solid currentColor;
-  //  box-sizing: border-box;
-  //  filter: drop-shadow(-2px -4px 10px rgba(255, 255, 255, 0.6)) drop-shadow(2px 4px 10px rgba(112, 108, 162, 0.05));
-  //}
-//.q-btn:not(.q-btn--square, .q-btn--round , .q-btn--flat) {
-//  &.q-btn-xs {
-//    font-size: 14px;
-//    padding: 3px 12px 4px;
-//    gap: 4px;
-//    line-height: 21px;
-//    font-weight: 600;
-//    width: 54px;
-//    height: 21px;
-//  }
-//  &.q-btn-sm {
-//    font-size: 14px;
-//    padding: 6px 12px;
-//  }
-//
-//  // md size
-//  font-size: 16px;
-//  // padding: 8px 16px;
-//
-//  &.q-btn-lg {
-//    font-size: 16px;
-//    padding: 12px 16px;
-//  }
-//}
-//
-//.q-btn {
-//  font-style: normal;
-//  font-weight: 500;
-//  line-height: 24px;
-//  padding: 0;
-//  align-items: center;
-//  text-align: center;
-//  &.q-btn--outline::before {
-//    border: 2px solid currentColor;
-//    box-sizing: border-box;
-//    filter: drop-shadow(-2px -4px 10px rgba(255, 255, 255, 0.6)) drop-shadow(2px 4px 10px rgba(112, 108, 162, 0.05));
-//  }
-//  .q-btn__content {
-//    margin: 8px;
-//  }
-//}
-//.q-btn:not(.q-btn--rounded) {
-//  border-radius: 10px;
-//}
-//.btn-sm {
-//  padding: 0 5px 0 7px;
-//  font-size: 14px;
-//
-//}
-//.btn-md {
-//  padding: 0 30px;
-//  font-size: 14px;
-//}
-//.btn-lg {
-//  padding: 2px 73px 2px 73px;
-//  font-size: 16px;
-//}
