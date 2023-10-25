@@ -34,7 +34,7 @@ export default {
           icon: 'ph:book-open',
           title: 'دوره های من',
           selected: true,
-          route: { name: 'UserPanel.Asset' }
+          route: { name: 'UserPanel.MyPurchases' }
         },
         {
           icon: 'ph:bookmarks',
@@ -46,7 +46,7 @@ export default {
           icon: 'ph:envelope-simple',
           title: 'تیکت پشتیبانی',
           selected: false,
-          route: { name: 'UserPanel.Ticket' }
+          route: { name: 'UserPanel.Ticket.Index' }
         },
         {
           icon: 'ph:user-circle',
@@ -64,22 +64,9 @@ export default {
           route: { name: 'UserPanel.MyOrders' }
         },
         {
-          icon: 'ph:wallet',
-          title: 'کیف پول و تراکنش',
-          selected: false,
-          route: { name: 'UserPanel.MyPurchases' }
-        },
-        {
           icon: 'ph:money',
           title: 'کارت هدیه',
-          selected: false
-        },
-        {
-          separator: true
-        },
-        {
-          icon: 'ph:gear-six',
-          title: 'تنظیمات',
+          route: { name: 'UserPanel.Asset.GiftCard.MyGiftCards' },
           selected: false
         }
       ]
