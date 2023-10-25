@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-center q-my-md new-theme">
+  <div class="row justify-center q-my-md new-theme bg-white">
     <div class="col-md-9">
       <h2>
         Text Input
@@ -28,6 +28,165 @@
       </div>
 
       <div class="row q-col-gutter-md q-my-lg">
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="Label (stacked)"
+                   placeholder="placeholder"
+                   hint="hint" />
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   error
+                   label="error"
+                   placeholder="placeholder"
+                   hint="hint" />
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   error
+                   label="append with error"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #append>
+              append
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="append icon"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #append>
+              <q-icon name="ph:apple-logo" />
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="prepend icon"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #prepend>
+              <!--              <q-btn flat-->
+              <!--                     icon="ph:telegram-logo" />-->
+              <q-icon name="ph:telegram-logo" />
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="append prepend icon"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #append>
+              <q-icon name="ph:apple-logo" />
+              <q-icon name="ph:apple-logo" />
+            </template>
+            <template #prepend>
+              <q-icon name="ph:apple-logo" />
+              <q-icon name="ph:apple-logo" />
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="append button"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #append>
+              <q-btn flat
+                     icon="ph:apple-logo" />
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="prepend button"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #prepend>
+              <q-btn square
+                     flat
+                     icon="ph:telegram-logo" />
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="append prepend button"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #append>
+              <q-btn flat
+                     icon="ph:telegram-logo" />
+              <q-btn flat
+                     icon="ph:telegram-logo" />
+            </template>
+            <template #prepend>
+              <q-btn flat
+                     icon="ph:apple-logo" />
+              <q-btn flat
+                     icon="ph:apple-logo" />
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="after"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #after>
+              <q-btn>
+                after
+              </q-btn>
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="before"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #before>
+              <q-btn>
+                before
+              </q-btn>
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="after before"
+                   placeholder="placeholder"
+                   hint="hint">
+            <template #after>
+              <q-btn>
+                after
+              </q-btn>
+            </template>
+            <template #before>
+              <q-btn>
+                before
+              </q-btn>
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   disable
+                   label="disable"
+                   placeholder="placeholder"
+                   hint="hint"
+                   stack-label />
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   label="Label (stacked)"
+                   placeholder="placeholder"
+                   hint="hint"
+                   stack-label />
+        </div>
         <div class="col-md-4">
           <div class="outsideLabel">عنوان</div>
           <q-input v-model="input1"

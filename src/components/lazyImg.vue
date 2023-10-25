@@ -48,7 +48,6 @@
 </template>
 
 <script>
-import process from 'process'
 export default {
   name: 'lazyImg',
   props: {
@@ -81,7 +80,8 @@ export default {
   data () {
     return {
       visible: false,
-      lazyImageSrc: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP89v23MQAI8AMdRODaOAAAAABJRU5ErkJggg==',
+      // png;base64 from -> https://png-pixel.com
+      lazyImageSrc: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAJCAQAAACRI2S5AAAAEklEQVR42mMsrWfACxhHFYABAIGaCJ524rGEAAAAAElFTkSuQmCC',
       computedWidth: 0,
       computedHeight: 0
     }
@@ -91,7 +91,7 @@ export default {
       if (!this.visible) {
         return this.lazyImageSrc
       }
-      if (!process.env.APP_ENV !== 'production' && this.src) {
+      if (!this.$env?.APP_ENV !== 'production' && this.src) {
         return this.src.replace('https://stage-minio.alaatv.com', 'https://nodes.alaatv.com')
       }
       return this.src
@@ -215,5 +215,6 @@ export default {
   border-radius: inherit;
   background: transparent;
   display: block;
+  height: auto;
 }
 </style>

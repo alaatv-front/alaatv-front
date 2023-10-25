@@ -1,5 +1,5 @@
-import { APIGateway } from 'src/api/APIGateway'
-import { PageSeo } from 'src/models/PageSeo'
+import { PageSeo } from 'src/models/PageSeo.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 
 const mixinPageOptions = {
   data() {

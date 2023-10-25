@@ -10,7 +10,8 @@
       <div v-else>
         <div v-if="defaultLayout"
              class="header">
-          <q-btn flat
+          <q-btn v-if="domainSameWithAppDomain"
+                 flat
                  rounded
                  :to="{name: 'Public.Home'}">
             <q-avatar size="42px">
@@ -23,13 +24,12 @@
           ثبت نام و ورود
         </div>
         <div class="phone-number">
-          <div class="label">
-            شماره همراه
-          </div>
+          <div class="label" />
           <q-input ref="userName"
                    v-model="username"
                    bottom-slots
                    hide-bottom-space
+                   label="شماره همراه"
                    autocomplete="off"
                    pattern="[0-9]*"
                    inputmode="numeric"
@@ -39,12 +39,11 @@
                    @keydown.enter="getEnter('pass')" />
         </div>
         <div class="national-code">
-          <div class="label">
-            کد ملی
-          </div>
+          <div class="label" />
           <q-input ref="pass"
                    v-model="password"
                    name="pass"
+                   label="کد ملی"
                    hide-bottom-space
                    type="password"
                    pattern="[0-9]*"
@@ -218,37 +217,6 @@ export default {
   &:deep(.q-field--focused .q-field__control) {
     background-color: rgba(255,255,255,0) !important;
     appearance: none;
-    border: 1px solid #FFB74D;
-    box-shadow: 0 0 0 2px #FFEDD2;
-    border-radius: 8px;
-  }
-
-  &:deep(.q-field .q-field__control) {
-    height: 40px;
-    background: #F2F5F9;
-    border-radius: 8px;
-    padding-left: 0;
-  }
-
-  &:deep(.q-field__native) {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 22px;
-    color: #6D708B !important;
-  }
-  :deep(.q-field__native, .q-field__prefix, .q-field__suffix, .q-field__input){
-    padding: 8px 16px;
-    border-radius: 8px
-  }
-
-  :deep(.q-field__control){
-    &::after{
-      height: 0;
-    }
-    &::before{
-      border-bottom: none;
-    }
   }
 }
 @media only screen and (max-width: 1023px){

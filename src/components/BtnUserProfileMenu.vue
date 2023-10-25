@@ -31,7 +31,8 @@
             </div>
           </div>
         </div>
-        <div class="body">
+        <div v-if="domainSameWithAppDomain"
+             class="body">
           <div class="user-panel-base-menu">
             <user-dashboard-items />
           </div>
@@ -59,11 +60,13 @@
 <script>
 import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import { mixinAuth } from 'src/mixin/Mixins.js'
 import UserDashboardItems from 'src/components/UserDashboardItems.vue'
 
 export default {
   name: 'MainHeaderTemplate',
   components: { UserDashboardItems, LazyImg },
+  mixins: [mixinAuth],
   data() {
     return {
       user: new User(),

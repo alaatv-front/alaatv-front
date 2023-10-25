@@ -55,8 +55,8 @@ import fa from 'video.js/dist/lang/fa.json'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinAbrisham } from 'src/mixin/Mixins.js'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
-import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
 import Fullscreen from 'src/assets/js/AndroidPluginRegister.js'
+import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
 // https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8 (Live)
 // https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
 
@@ -246,49 +246,6 @@ export default {
     }
   },
   methods: {
-    handleHotkeys (event) {
-      const key = event.which || event.keyCode
-      event.preventDefault()
-
-      switch (key) {
-        case 32: // Space key
-          if (this.player.paused()) {
-            this.player.play()
-          } else {
-            this.player.pause()
-          }
-          break
-        case 37: // Left arrow key
-          this.player.currentTime(this.player.currentTime() - 5)
-          break
-        case 39: // Right arrow key
-          this.player.currentTime(this.player.currentTime() + 5)
-          break
-        case 38: // up arrow ket
-          this.player.volume(this.player.volume() + 0.1)
-          break
-        case 40: // down arrow ket
-          this.player.volume(this.player.volume() - 0.1)
-          break
-        case 13: // "Enter" key
-          this.player.requestFullscreen()
-          break
-        case 27: // "Esc" key
-          this.player.exitFullscreen()
-          break
-        default:
-          break
-      }
-    },
-    updateTime () {
-      try {
-        const currentTime = this.player.currentTime()
-        const duration = this.player.duration()
-        this.$emit('timeUpdated', { currentTime, duration })
-      } catch (e) {
-
-      }
-    },
     getVast () {
       return APIGateway.vast.getXml()
         .then((vastXml) => {
@@ -467,6 +424,49 @@ export default {
       this.$emit('adEnded')
     },
 
+    handleHotkeys (event) {
+      const key = event.which || event.keyCode
+      event.preventDefault()
+
+      switch (key) {
+        case 32: // Space key
+          if (this.player.paused()) {
+            this.player.play()
+          } else {
+            this.player.pause()
+          }
+          break
+        case 37: // Left arrow key
+          this.player.currentTime(this.player.currentTime() - 5)
+          break
+        case 39: // Right arrow key
+          this.player.currentTime(this.player.currentTime() + 5)
+          break
+        case 38: // up arrow ket
+          this.player.volume(this.player.volume() + 0.1)
+          break
+        case 40: // down arrow ket
+          this.player.volume(this.player.volume() - 0.1)
+          break
+        case 13: // "Enter" key
+          this.player.requestFullscreen()
+          break
+        case 27: // "Esc" key
+          this.player.exitFullscreen()
+          break
+        default:
+          break
+      }
+    },
+    updateTime () {
+      try {
+        const currentTime = this.player.currentTime()
+        const duration = this.player.duration()
+        this.$emit('timeUpdated', { currentTime, duration })
+      } catch (e) {
+
+      }
+    },
     focusOnPlayer () {
       this.player.el().focus()
     },
@@ -479,20 +479,85 @@ export default {
       })
     },
     redefineTap () {
-      this.player.on('touchend', function(e) { // tap
-        if (this.player().controls()) {
-          const classes = [
-            'vjs-tech'
-          ]
-          const canDoAction = !classes.find(className => e.target.classList.contains(className))
-          if (canDoAction) {
-            return
+      const that = this
+      let touchMoved = false
+      let startX = null
+      let startY = null
+      let endX = null
+      let endY = null
+      const getDelta = function (endValue, startValue) {
+        return endValue - startValue
+      }
+      const getDirection = function () {
+        const deltaX = getDelta(endX, startX)
+        const deltaY = getDelta(endY, startY)
+        return (Math.abs(deltaX) >= Math.abs(deltaY)) ? 'horizontal' : 'vertical'
+      }
+
+      this.player.on('touchstart', function(e) {
+        touchMoved = false
+        const touch = e.touches[0] || e.changedTouches[0]
+        startX = touch.pageX
+        startY = touch.pageY
+      })
+      this.player.on('touchmove', function(e) {
+        touchMoved = true
+      })
+      this.player.on('touchend', function(e) {
+        const touch = e.touches[0] || e.changedTouches[0]
+        endX = touch.pageX
+        endY = touch.pageY
+      })
+
+      this.player.on('touchend', function(e) { // tap - touchend
+        const userWasActive = this.player().userWasActive
+        const isStarted = this.player().hasClass('vjs-has-started')
+        const isPlaying = this.player().hasClass('vjs-playing')
+        const isFullscreen = this.player().isFullscreen_
+
+        if (that.isInVastMode) {
+          return
+        }
+
+        if (touchMoved) {
+          const direction = getDirection()
+          if (direction === 'horizontal') {
+            const deltaX = getDelta(endX, startX)
+            if (deltaX > 0) {
+              this.player().currentTime(this.player().currentTime() + 5)
+            } else {
+              this.player().currentTime(this.player().currentTime() - 5)
+            }
+          } else if (isFullscreen) {
+            const deltaY = getDelta(endY, startY)
+            if (deltaY < 0) {
+              this.player().volume(this.player().volume() + 0.1)
+            } else {
+              this.player().volume(this.player().volume() - 0.1)
+            }
           }
-          if (this.player().paused()) {
-            this.player().play()
-          } else {
-            this.player().pause()
-          }
+          return
+        }
+
+        if (!userWasActive && isStarted && isPlaying) {
+          return
+        }
+
+        if (!this.player().controls()) {
+          return
+        }
+
+        const classes = [
+          'vjs-tech'
+        ]
+        const canDoAction = !classes.find(className => e.target.classList.contains(className))
+        if (canDoAction) {
+          return
+        }
+        if (this.player().paused()) {
+          this.player().play()
+        } else {
+          this.player().pause()
         }
       })
     },
@@ -507,7 +572,7 @@ export default {
       if (this.isPlayerSourceList(this.source)) { // old multiple quality type
         videoJsResolutionSwitcher(videojs)
         this.options.plugins.videoJsResolutionSwitcher = {
-          default: 'کیفیت بالا',
+          default: 'کیفیت متوسط',
           dynamicLabel: true
         }
       }
@@ -823,7 +888,7 @@ export default {
     }
     .vjs-loading-spinner {
       right: 50%;
-      margin: -25px -25px 0 0;
+      margin-right: -50px;
       text-align: right;
     }
 

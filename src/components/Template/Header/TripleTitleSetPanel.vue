@@ -18,13 +18,13 @@
 
 <script>
 import { User } from 'src/models/User.js'
-import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
+import { mixinAuth, mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import BtnUserProfileMenu from 'components/BtnUserProfileMenu.vue'
 
 export default {
   name: 'TripleTitleSetPanel',
   components: { BtnUserProfileMenu },
-  mixins: [mixinTripleTitleSet],
+  mixins: [mixinAuth, mixinTripleTitleSet],
   data: () => ({
     user: new User(),
     activePage: null

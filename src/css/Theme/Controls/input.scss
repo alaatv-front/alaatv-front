@@ -1,481 +1,220 @@
-@import 'src/css/Theme/colors';
-@import 'src/css/Theme/sizes';
+@import 'src/css/Theme/colors.scss';
+@import 'src/css/Theme/spacing.scss';
+@import 'src/css/Theme/Typography/typography.scss';
 
-@mixin field-md {
-  .q-field__inner {
-    .q-field__control {
-      height: 40px;
-      padding: 0 16px 12px;
-    }
+$input-height: $space-8;
+$field-background: $grey-1;
+$field-disabled-background: $grey-2;
+$q-field__label_height: 24px; // update on change of label typography
+$q-field__label_margin_bottom: $space-2;
+@mixin q-field__prepend_and_append_icon_style {
+  $icon-size: $space-5;
+  font-family: "Phosphor", serif !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  width: $icon-size;
+  height: $icon-size;
+  &:before {
+    position: absolute;
+    left: 0;
+    background: $field-background;
   }
 }
 
-@mixin field-lg {
-  .q-field__inner {
-    .q-field__control {
-      height: 48px;
-      padding: 0 16px 14px;
-      .q-field__control-container {
-        .q-field__label {
-          top: 12px
+@mixin q-field-mixin {
+
+  $borderStyle: 1.5px solid $grey-4;
+  &.q-field--standard {
+    &.q-field--readonly {
+      .q-field__control {
+        &:before {
+          border-bottom: $borderStyle;
         }
       }
     }
-    .q-field__bottom {
-      top: 30px;
-    }
-  }
-}
-//.new-theme {
-  .q-field--float .q-field__label {
-    max-width: 0;
   }
 
-  .q-field {
-    height: fit-content;
-    @include field-md;
-    &.field-lg {
-      @include field-lg;
-    }
-    .q-field__inner{
-      background: #fff;
-      border-radius: 8px;
-      .q-field__control{
-        background-color : $customGray;
-        border-radius: $radius-10 ;
-        color: #FFCA28;
-        //height: 39px;
-        //padding-left: 10px;
+  align-items: flex-end;
+  &.q-field--focused {
+    .q-field__inner {
+      .q-field__control {
         &:before {
-          border: 1.5px solid $grey-4;
-          border-radius: 8px;
+          border-color: $primary;
         }
-        &:after {
-          display: none;
+      }
+    }
+  }
+  &.q-field--disabled {
+    .q-field__inner {
+      .q-field__control {
+        &:before {
+          background: $field-disabled-background;
+          border-color: $negative-5;
+        }
+        & > div {
+          opacity: 1 !important;
+        }
+        $field-disabled-input-color: $grey-4;
+        .q-field__prepend {
+          color: $field-disabled-input-color;
         }
         .q-field__control-container {
           .q-field__native {
-            @include body2;
-            color: $grey-9;
+            color: $field-disabled-input-color;
+            &::placeholder {
+              color: $field-disabled-input-color;
+            }
+          }
+          .q-field__label {
+            color: $grey-4;
           }
         }
-        .q-field__label {
-          top: 9px;
-          transition: none;
-          transform: none;
-          @include body2;
+        .q-field__append {
+          color: $field-disabled-input-color;
+        }
+      }
+      .q-field__bottom {
+        padding-top: $space-2;
+        .q-field__messages {
           color: $grey-6;
         }
-        .q-field__prepend {
-          padding-right: 4px;
-          color: $grey-6;
-          .q-icon {
-            font-size: 20px;
-          }
+      }
+    }
+  }
+  &.q-field--error {
+    .q-field__inner {
+      .q-field__control {
+        &:before {
+          border-color: $negative-5;
         }
-        .q-field__append{
-          @include body2;
-          padding-left: 4px;
-          color: $grey-6;
-          .q-icon {
-            font-size: 20px;
+        .q-field__append {
+          &.q-anchor--skip {
+            display: none;
           }
         }
       }
       .q-field__bottom {
-        @include caption1;
-        color: #999CA0;
-        top: 25px
-      }
-    }
-    .q-field__marginal {
-      height: inherit;
-    }
-    &.q-field--focused, {
-      .q-field__inner {
-        .q-field__control {
-          outline: auto;
-          &:before {
-            border: 1.5px solid #FFCA2A;
-          }
+        .q-field__messages {
+          color: $negative-5;
         }
       }
     }
-    &.q-field--error, .on-error {
-      .q-field__inner {
-        .q-field__control {
-          outline: auto;
-          &:before {
-            border: 1.5px solid $negative-5;
-          }
-          .q-field__append{
-            .q-icon {
-              &.text-negative {
-                display: none;
-              }
-            }
-          }
-        }
-        .q-field__bottom {
-          color: $negative-5 !important;
-        }
-      }
-    }
-    &.q-textarea--autogrow {
-      .q-textarea {
-        .q-field__control {
-          min-height: 40px;
-          height: auto !important;
-          .q-field--auto-height {
-            .q-field__control, .q-field__native {
-              min-height: auto;
-            }
-          }
-          .q-field__marginal {
-            height: auto;
-          }
-        }
-      }
-    }
-    &.q-textarea{
-      height: auto;
+  }
+  &.no-title {
+    .q-field__inner {
       .q-field__control {
-        min-height: 40px;
-        height: auto ;
-      }
-      &.q-field--labeled {
-        .q-field__control-container {
-          padding-top: 10px;
-        }
-      }
-    }
-    &.q-field--auto-height {
-      .q-field__control, .q-field__native {
-        min-height: 40px;
-      }
-      &.q-field--labeled {
-        .q-field__control-container {
-          padding-top: 0 !important;
-          color: #aeaeae;
-
-          &:focus {
-            color: black;
-          }
-        }
-      }
-    }
-    &.q-field--outlined {
-      .q-field__control:before {
-        border: 0;
-        height: 40px !important;
-      }
-    }
-    &.q-field--disabled {
-      .q-field__inner {
-        .q-field__control {
-          &:before {
-            border: 1.5px solid $grey-3;
-          }
-          .q-field__control-container {
-            .q-field__native {
-              color: $grey-4;
-            }
-          }
-        }
-        .q-field__bottom {
-          color: $grey-4;
-        }
-      }
-    }
-    &.q-field--labeled {
-      .q-field__native {
-        padding-top: 0;
-        padding-bottom: 0;
-        color: #aeaeae;
-
-        &:focus {
-          color: black;
-        }
+        margin-top: 0;
       }
     }
   }
-
-  .outsideLabel {
-    @include body1;
-    margin-bottom: 8px;
-    color: $grey-9;
-    &.disabled {
-      color: $grey-4;
-    }
+  .q-field__before {
+    height: $input-height;
   }
-  .q-input{
-    border: 0 solid #f6f7f9;
-    border-radius: 8px;
-  }
-  .q-field{
-    border-radius: 8px;
-  }
-  .q-field--focused {
-    border: none;
-  }
-
   .q-field__inner {
     .q-field__control {
-      background-color : $customGray;
-      .q-field__append {
-        .q-icon {
-          color: var(--3a-TextPrimary);
-        }
-      }
-
-      .q-field__label {
-        color: var(--3a-TextSecondary);
-      }
-    }
-  }
-//}
-
-@mixin global-input {
-  .q-field__inner {
-    border-radius: 8px;
-    .q-field__control {
-      color: transparent;
-      border-radius: 10px;
-      height: 40px;
-      min-height: 0;
-      padding: 0;
+      height: $input-height;
+      min-height: $input-height;
+      position: relative;
+      align-items: flex-end;
+      padding: 0 $space-4 0 $space-4;
+      margin-top: calc( #{$q-field__label_height} + #{$q-field__label_margin_bottom});
       &:before {
-        border-color: transparent;
+        content: ' ';
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: auto;
+        width: 100%;
+        z-index: 1;
+        position: absolute;
+        background: $field-background;
+        height: $input-height;
+        border-radius: $space-2;
+        border: $borderStyle;
       }
-      &:hover:before {
-        border-color: transparent;
+      &:after {
+        display: none;
       }
-      .q-field__append , .q-field__prepend {
-        height: 40px;
-        min-height: 0;
-        padding: 8px 16px;
-        .q-icon {
-          font-size: 20px;
-        }
-      }
-      .q-field__native, .q-field__prefix, .q-field__suffix, .q-field__input {
-        border-radius: 10px;
-        padding: 8px 16px;
+      .q-field__prepend {
+        height: $input-height;
+        padding-right: $space-1;
+        z-index: 2;
       }
       .q-field__control-container {
+        flex-wrap: wrap;
+        position: unset;
         padding-top: 0;
+        .q-field__native {
+          order: 2;
+          z-index: 2;
+          height: $input-height;
+          min-height: $input-height;
+          padding: 9px 0 10px 0;
+          color: $grey-9;
+          @include body2;
+          white-space: nowrap;
+          overflow: hidden;
+          &::placeholder {
+            color: $grey-6;
+            @include body2;
+          }
+        }
+        .q-field__label {
+          top: 0;
+          order: 1;
+          color: $grey-9;
+          @include body1;
+          max-width: 100%;
+          margin-bottom: $q-field__label_margin_bottom;
+          transform: translateY(calc( -100% - #{$q-field__label_margin_bottom})) scale(1);
+          position: absolute;
+          left: 0;
+        }
       }
-      .q-field__label {
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 24px;
-        margin: -15px 24px;
+      .q-field__append {
+        height: $input-height;
+        padding-left: $space-1;
+        z-index: 2;
       }
+    }
+    .q-field__bottom {
+      padding-top: $space-2;
+      .q-field__messages {
+        color: $grey-6;
+        @include caption1;
+      }
+    }
+  }
+  .q-field__after {
+    height: $input-height;
+  }
+
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: none;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: inherit;
+    -webkit-animation-delay: 1s; /* Safari support - any positive time runs instantly */
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+  }
+  @-webkit-keyframes autofill {
+    0%,100% {
+      color: #666;
+      background: transparent;
     }
   }
 }
 
-//.q-field--float .q-field__label {
-//  max-width: 0;
-//}
-//
-//q-field {
-//  height: 40px;
-//  .q-field__inner{
-//    background: #fff;
-//    border-radius: 8px;
-//    .q-field__control{
-//      background-color : $customGray;
-//      border-radius: $radius-10 ;
-//      color: #FFCA28;
-//      height: 39px;
-//      padding-left: 10px;
-//      &:before {
-//        border: 1.5px solid #999CA0;
-//        border-radius: 8px;
-//      }
-//      &:after {
-//        display: none;
-//      }
-//      .q-field__control-container {
-//        .q-field__native {
-//          font-style: normal;
-//          font-weight: 400;
-//          font-size: 14px;
-//          line-height: 21px;
-//          color: #3F454F;
-//        }
-//      }
-//      .q-field__label {
-//        top: 10px;
-//        font-size: 14px;
-//        transition: none;
-//        transform: none;
-//        font-style: normal;
-//        font-weight: 400;
-//        line-height: 21px;
-//        color: #999CA0;
-//      }
-//      .q-field__append{
-//        display: none;
-//        //height: 40px;
-//        .q-icon{
-//          //color: $customBlack;
-//          //font-size: 20px;
-//          //padding: 7px;
-//        }
-//      }
-//    }
-//    .q-field__bottom {
-//      font-style: normal;
-//      font-weight: 400;
-//      font-size: 12px;
-//      line-height: 18px;
-//      color: #999CA0;
-//      top: 25px
-//    }
-//  }
-//  .q-field__marginal {
-//    height: 40px;
-//  }
-//  &.q-field--focused, {
-//    .q-field__inner {
-//      .q-field__control {
-//        outline: auto;
-//        &:before {
-//          border: 1.5px solid #FFCA2A;
-//        }
-//      }
-//    }
-//  }
-//  &.q-field--error {
-//    .q-field__inner {
-//      .q-field__control {
-//        outline: auto;
-//        &:before {
-//          border: 1.5px solid #EF5350;
-//        }
-//      }
-//      .q-field__bottom {
-//        color: #EF5350 !important;
-//      }
-//    }
-//  }
-//  &.q-textarea--autogrow {
-//    .q-textarea {
-//      .q-field__control {
-//        min-height: 40px;
-//        height: auto !important;
-//        .q-field--auto-height {
-//          .q-field__control, .q-field__native {
-//            min-height: auto;
-//          }
-//        }
-//        .q-field__marginal {
-//          height: auto;
-//        }
-//      }
-//    }
-//  }
-//  &.q-textarea{
-//    height: auto;
-//    .q-field__control {
-//      min-height: 40px;
-//      height: auto ;
-//    }
-//    &.q-field--labeled {
-//      .q-field__control-container {
-//        padding-top: 10px;
-//      }
-//    }
-//  }
-//  &.q-field--auto-height {
-//    .q-field__control, .q-field__native {
-//      min-height: 40px;
-//    }
-//    &.q-field--labeled {
-//      .q-field__control-container {
-//        padding-top: 0 !important;
-//        color: #aeaeae;
-//
-//        &:focus {
-//          color: black;
-//        }
-//      }
-//    }
-//  }
-//  &.q-field--outlined {
-//    .q-field__control:before {
-//      border: 0;
-//      height: 40px !important;
-//    }
-//  }
-//  &.q-field--disabled {
-//    .q-field__inner {
-//      .q-field__bottom {
-//        color: #DBDBDB
-//      }
-//    }
-//  }
-//  &.q-field--labeled {
-//    .q-field__native {
-//      padding-top: 0;
-//      padding-bottom: 0;
-//      color: #aeaeae;
-//
-//      &:focus {
-//        color: black;
-//      }
-//    }
-//  }
-//  &.largeInput {
-//    .q-field__inner {
-//      .q-field__control {
-//        height: 47px;
-//        .q-field__control-container {
-//          .q-field__label {
-//            top: 14px
-//          }
-//        }
-//      }
-//      .q-field__bottom {
-//        top: 30px;
-//      }
-//    }
-//  }
-//}
-//
-//.outsideLabel {
-//  font-size: 14px;
-//  font-weight: 400;
-//  line-height: 25px;
-//  letter-spacing: 0;
-//  margin-bottom: 6px;
-//}
-//
-//.q-input{
-//  border: 0 solid #f6f7f9;
-//  border-radius: 8px;
-//}
-//
-//.q-field{
-//  border-radius: 8px;
-//}
-//.q-field--focused {
-//  border: none;
-//}
-//
-//.q-field__inner {
-//  .q-field__control {
-//    background-color : $customGray;
-//    .q-field__append {
-//      .q-icon {
-//        color: var(--3a-TextPrimary);
-//      }
-//    }
-//
-//    .q-field__label {
-//      color: var(--3a-TextSecondary);
-//    }
-//  }
-//}
+.q-input {
+  @include q-field-mixin;
+}

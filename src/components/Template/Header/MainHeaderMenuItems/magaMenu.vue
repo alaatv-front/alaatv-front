@@ -397,6 +397,7 @@ export default {
   max-width: 1060px !important;
   left: 360px;
   border-radius: 10px;
+  padding: 0;
 
   @media screen and (max-width: 1440px){
     max-width: 850px !important;

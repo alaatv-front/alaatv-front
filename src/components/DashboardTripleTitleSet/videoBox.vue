@@ -16,6 +16,9 @@
           <div class="video-not-available col-12">
             <product-item class="product-item"
                           :options="{
+                            showPrice: domainSameWithAppDomain,
+                            canAddToCart: domainSameWithAppDomain,
+                            routeToProduct: domainSameWithAppDomain,
                             product: selectedProduct
                           }" />
           </div>
@@ -165,15 +168,18 @@
 
 <script>
 import { Content } from 'src/models/Content.js'
+import { mixinAuth } from 'src/mixin/Mixins.js'
+import Bookmark from 'src/components/Bookmark.vue'
 import shareSocial from 'assets/js/shareSocialMedia.js'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
-import ContentVideoPlayer from 'components/Widgets/Content/Show/ContentVideoPlayer/ContentVideoPlayer.vue'
-import Bookmark from 'components/Bookmark.vue'
-import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
+import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
+
+import ContentVideoPlayer from 'src/components/Widgets/Content/Show/ContentVideoPlayer/ContentVideoPlayer.vue'
+
 export default {
   name: 'VideoBox',
-
   components: { ProductItem, Bookmark, ContentVideoPlayer },
+  mixins: [mixinAuth],
 
   props: {
     content: {

@@ -39,29 +39,7 @@
         <!--        -----------------------------------------------------Actions Section--------------------------------------------   -->
         <div class="user-action gt-sm">
           <div class="action-container">
-            <!--            <q-card-section ref="searchInput"-->
-            <!--                            class="search-section">-->
-            <!--              <q-input v-model="searchInput"-->
-            <!--                       filled-->
-            <!--                       class="search-input"-->
-            <!--                       placeholder="جستجو در آلا...">-->
-            <!--                <template v-slot:prepend>-->
-            <!--                  <q-btn flat-->
-            <!--                         rounded-->
-            <!--                         icon="isax:search-normal-1"-->
-            <!--                         class="search"-->
-            <!--                         @click="filterByStatement" />-->
-            <!--                </template>-->
-            <!--              </q-input>-->
-            <!--            </q-card-section>-->
-            <!--            <q-btn-->
-            <!--              icon="isax:notification"-->
-            <!--              unelevated-->
-            <!--              rounded-->
-            <!--              size="12px"-->
-            <!--              class="action-btn"-->
-            <!--            />-->
-            <q-btn icon="isax:shopping-cart gt-xs"
+            <q-btn icon="ph:shopping-cart gt-xs"
                    unelevated
                    size="12px"
                    round
