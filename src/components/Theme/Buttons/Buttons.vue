@@ -19,6 +19,7 @@
         <div class="col-md-3" />
       </div>
       <q-separator />
+      <!-- Fill - Primary-->
       <div class="row q-col-gutter-md q-mt-md">
         <div class="col-md-1">
           XS
@@ -190,6 +191,7 @@
         </div>
       </div>
       <q-separator class="q-my-md" />
+      <!-- Fill - Secondary-->
       <div class="row q-col-gutter-md q-mt-md">
         <div class="col-md-1">
           XS
@@ -361,6 +363,7 @@
         </div>
       </div>
       <q-separator class="q-my-md" />
+      <!-- Fill - Neutral-->
       <div class="row q-col-gutter-md q-mt-md">
         <div class="col-md-1">
           XS
@@ -532,6 +535,7 @@
         </div>
       </div>
       <q-separator class="q-my-md" />
+      <!-- Outline - Neutral-->
       <div class="row q-col-gutter-md q-mt-md">
         <div class="col-md-1">
           XS
@@ -605,7 +609,7 @@
                  outline />
         </div>
         <div class="col-md-1">
-          Fill - Neutral
+          Outline - Neutral
         </div>
       </div>
       <div class="row q-col-gutter-md q-mt-md">
@@ -643,7 +647,7 @@
                  outline />
         </div>
         <div class="col-md-1">
-          Fill - Neutral
+          Outline - Neutral
         </div>
       </div>
       <div class="row q-col-gutter-md q-mt-md">
@@ -681,7 +685,7 @@
                  outline />
         </div>
         <div class="col-md-1">
-          Fill - Neutral
+          Outline - Neutral
         </div>
       </div>
       <div class="row q-col-gutter-md q-mt-md">
@@ -719,7 +723,199 @@
                  outline />
         </div>
         <div class="col-md-1">
-          Fill - Neutral
+          Outline - Neutral
+        </div>
+      </div>
+      <q-separator class="q-my-md" />
+      <!-- Flat - Neutral-->
+      <div class="row q-col-gutter-md q-mt-md">
+        <div class="col-md-1">
+          XS
+        </div>
+        <div class="col-md-3">
+          <q-btn label="متن دکمه"
+                 icon="ph:copyright"
+                 icon-right="ph:arrow-left"
+                 color="grey"
+                 size="xs"
+                 flat />
+        </div>
+        <div class="col-md-3">
+          <q-btn label="متن دکمه"
+                 icon="ph:copyright"
+                 icon-right="ph:arrow-left"
+                 color="grey"
+                 size="xs"
+                 disable
+                 flat />
+        </div>
+        <div class="col-md-2">
+          <q-btn icon="ph:copyright"
+                 color="grey"
+                 size="xs"
+                 flat />
+        </div>
+        <div class="col-md-2">
+          <q-btn icon="ph:copyright"
+                 color="grey"
+                 size="xs"
+                 disable
+                 flat />
+        </div>
+        <div class="col-md-1">
+          Flat - Neutral
+        </div>
+      </div>
+      <div class="row q-col-gutter-md q-mt-md">
+        <div class="col-md-1">
+          SM
+        </div>
+        <div class="col-md-3">
+          <q-btn label="متن دکمه"
+                 icon="ph:copyright"
+                 icon-right="ph:arrow-left"
+                 color="grey"
+                 size="sm"
+                 flat />
+        </div>
+        <div class="col-md-3">
+          <q-btn label="متن دکمه"
+                 icon="ph:copyright"
+                 icon-right="ph:arrow-left"
+                 color="grey"
+                 size="sm"
+                 disable
+                 flat />
+        </div>
+        <div class="col-md-2">
+          <q-btn icon="ph:copyright"
+                 color="grey"
+                 size="sm"
+                 flat />
+        </div>
+        <div class="col-md-2">
+          <q-btn icon="ph:copyright"
+                 color="grey"
+                 size="sm"
+                 disable
+                 flat />
+        </div>
+        <div class="col-md-1">
+          Flat - Neutral
+        </div>
+      </div>
+      <div class="row q-col-gutter-md q-mt-md">
+        <div class="col-md-1">
+          MD
+        </div>
+        <div class="col-md-3">
+          <q-btn label="متن دکمه"
+                 icon="ph:copyright"
+                 icon-right="ph:arrow-left"
+                 color="grey"
+                 size="md"
+                 flat />
+        </div>
+        <div class="col-md-3">
+          <q-btn label="متن دکمه"
+                 icon="ph:copyright"
+                 icon-right="ph:arrow-left"
+                 color="grey"
+                 size="md"
+                 disable
+                 flat />
+        </div>
+        <div class="col-md-2">
+          <q-btn icon="ph:copyright"
+                 color="grey"
+                 size="md"
+                 flat />
+        </div>
+        <div class="col-md-2">
+          <q-btn icon="ph:copyright"
+                 color="grey"
+                 size="md"
+                 disable
+                 flat />
+        </div>
+        <div class="col-md-1">
+          Flat - Neutral
+        </div>
+      </div>
+      <div class="row q-col-gutter-md q-mt-md">
+        <div class="col-md-1">
+          LG
+        </div>
+        <div class="col-md-3">
+          <q-btn label="متن دکمه"
+                 icon="ph:copyright"
+                 icon-right="ph:arrow-left"
+                 color="grey"
+                 size="lg"
+                 flat />
+        </div>
+        <div class="col-md-3">
+          <q-btn label="متن دکمه"
+                 icon="ph:copyright"
+                 icon-right="ph:arrow-left"
+                 color="grey"
+                 size="lg"
+                 disable
+                 flat />
+        </div>
+        <div class="col-md-2">
+          <q-btn icon="ph:copyright"
+                 color="grey"
+                 size="lg"
+                 flat />
+        </div>
+        <div class="col-md-2">
+          <q-btn icon="ph:copyright"
+                 color="grey"
+                 size="lg"
+                 disable
+                 flat />
+        </div>
+        <div class="col-md-1">
+          Flat - Neutral
+        </div>
+      </div>
+      <div class="row q-col-gutter-md q-mt-md">
+        <div class="col-md-1">
+          XL
+        </div>
+        <div class="col-md-3">
+          <q-btn label="متن دکمه"
+                 icon="ph:copyright"
+                 icon-right="ph:arrow-left"
+                 color="grey"
+                 size="xl"
+                 flat />
+        </div>
+        <div class="col-md-3">
+          <q-btn label="متن دکمه"
+                 icon="ph:copyright"
+                 icon-right="ph:arrow-left"
+                 color="grey"
+                 size="xl"
+                 disable
+                 flat />
+        </div>
+        <div class="col-md-2">
+          <q-btn icon="ph:copyright"
+                 color="grey"
+                 size="xl"
+                 flat />
+        </div>
+        <div class="col-md-2">
+          <q-btn icon="ph:copyright"
+                 color="grey"
+                 size="xl"
+                 disable
+                 flat />
+        </div>
+        <div class="col-md-1">
+          Flat - Neutral
         </div>
       </div>
       <q-separator class="q-my-md" />
