@@ -223,10 +223,12 @@ export default {
       })
     }
   },
-  mounted() {
+  created() {
     this.width = this.overPlayerWidth
     this.setPoster()
     this.setSources()
+  },
+  mounted() {
     if (this.needReInitVideo) {
       this.$nextTick(() => {
         this.reInitVideo()
