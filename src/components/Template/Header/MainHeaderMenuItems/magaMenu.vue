@@ -399,7 +399,7 @@ export default {
   border-radius: 10px;
   padding: 0;
 
-  @media screen and (max-width: 1440px){
+  @media screen and (max-width: 1439px){
     max-width: 850px !important;
     width: 850px;
     left: 140px;

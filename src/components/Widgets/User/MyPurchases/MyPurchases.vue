@@ -37,11 +37,7 @@
         </div>
         <div class="q-my-md productsSearch ">
           <q-input v-model="searchTarget"
-                   outlined
-                   standout
                    type="text"
-                   rounded
-                   filled
                    class="form-control m-input m-input--air"
                    placeholder="جستجو ..."
                    @keydown.enter="sortProducts">
