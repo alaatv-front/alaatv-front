@@ -2,23 +2,38 @@
   <div class="ItemSection"
        :class="{'separator': separator, 'selected': selected}">
     <template v-if="!separator">
-      <div class="icon-section">
-        <q-icon :name="icon" />
+      <div v-if="!expandable"
+           class="parent-item">
+        <div class="icon-section">
+          <q-icon :name="icon" />
+        </div>
+        <div class="title-section">
+          {{ title }}
+        </div>
+        <div v-if="expandable"
+             class="icon-expand">
+          <q-icon name="ph:caret-down" />
+        </div>
       </div>
-      <div class="title-section">
-        {{ title }}
-      </div>
-      <div v-if="expandable"
-           class="icon-expand">
-        <q-icon name="ph:caret-down" />
-      </div>
+      <q-expansion-item v-else
+                        :icon="icon"
+                        :label="title"
+                        class="expansion-item">
+        <div class="vertical-separator" />
+        <sub-item v-for="(subItem, itemIndex) in subItems"
+                  :key="itemIndex"
+                  :title="subItem.title" />
+      </q-expansion-item>
     </template>
   </div>
 </template>
 
 <script>
+import SubItem from 'components/Template/SideBard/UserPanel/SubItem.vue'
+
 export default {
   name: 'ItemSection',
+  components: { SubItem },
   props: {
     icon: {
       type: String,
@@ -39,6 +54,10 @@ export default {
     expandable: {
       type: Boolean,
       default: false
+    },
+    subItems: {
+      type: Array,
+      default: () => []
     }
   }
 }
@@ -50,11 +69,28 @@ export default {
 @import "src/css/Theme/Typography/typography.scss";
 
 .ItemSection {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: $space-3 $space-4;
   $icon-width: $space-6;
+  .parent-item{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: $space-3 $space-4;
+  }
+  .parent-item:hover{
+    cursor: pointer;
+    background: $grey-2;
+    border-radius: $space-2;
+  }
+  .childItem{
+        .vertical-separator{
+          border-left: 6px solid green;
+          height: 500px;
+          position: absolute;
+          left: 50%;
+          top: 0;
+          background: $secondary-4;
+    }
+  }
   &.selected {
     background: $secondary-1;
     border-radius: $space-2;
@@ -86,15 +122,14 @@ export default {
     margin-left: $space-2;
     color: $grey-9
   }
-  .icon-expand{}
-  .q-icon{
-    color: $grey-9 ;
-    font-size: $space-4
+  .expansion-item{
+    .q-expansion-item{
+      .q-item:hover{
+        cursor: pointer;
+        background: $grey-2;
+        border-radius: $space-2;
+      }
+    }
   }
-}
-.ItemSection:hover{
-  cursor: pointer;
-  background: $grey-2;
-  border-radius: $space-2;
 }
 </style>

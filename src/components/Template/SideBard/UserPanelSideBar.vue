@@ -61,9 +61,32 @@ export default {
           icon: 'ph:radio',
           title: 'داشبوردهام',
           expandable: true,
-          subItems: {
-            title: 'راه ابریشم'
-          }
+          subItems: [
+            {
+              title: 'راه ابریشم',
+              route: { name: 'UserPanel.Profile' }
+            },
+            {
+              title: ' راه ابریشم پرو',
+              route: { name: 'UserPanel.Profile' }
+            },
+            {
+              title: ' راه ابریشم ۲',
+              route: { name: 'UserPanel.Profile' }
+            },
+            {
+              title: 'چترنجات',
+              route: { name: 'UserPanel.Profile' }
+            },
+            {
+              title: 'امتحان نهایی',
+              route: { name: 'UserPanel.Profile' }
+            },
+            {
+              title: '110',
+              route: { name: 'UserPanel.Profile' }
+            }
+          ]
         }
       ]
     }

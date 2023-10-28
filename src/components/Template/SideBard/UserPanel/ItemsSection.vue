@@ -7,6 +7,7 @@
                   :separator="item.separator"
                   :selected="item.selected"
                   :expandable="item.expandable"
+                  :subItems="item.subItems"
                   @click="onClickItem(item)" />
   </div>
 </template>
