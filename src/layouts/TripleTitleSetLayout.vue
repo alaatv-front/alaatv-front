@@ -272,8 +272,8 @@ export default {
       }
     }
     .header {
-      display: grid;
-      grid-template-columns: auto auto;
+      //display: grid;
+      //grid-template-columns: auto auto;
       padding: 0 25px;
       .product-box {
         margin-bottom: 20px;
@@ -285,6 +285,11 @@ export default {
             border-radius: 10px;
           }
         }
+      }
+      .back-btn {
+        position: absolute;
+        top: 70px;
+        left: 350px;
       }
     }
     .side-menu-body {

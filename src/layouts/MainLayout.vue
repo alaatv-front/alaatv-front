@@ -41,7 +41,7 @@
             </q-card>
           </q-dialog>
           <q-dialog v-model="loginDialog"
-                    :persistent="domainSameWithAppDomain">
+                    :persistent="!domainSameWithAppDomain">
             <div class="q-mb-lg">
               <auth-login />
             </div>

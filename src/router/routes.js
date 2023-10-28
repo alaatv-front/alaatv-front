@@ -535,7 +535,10 @@ const routes = [
                   {
                     name: 'UserPanel.Asset.TripleTitleSet.Products',
                     path: '',
-                    component: () => import('src/pages/User/Dashboard/TripleTitleSet/Products.vue')
+                    component: () => import('src/pages/User/Dashboard/TripleTitleSet/Products.vue'),
+                    layoutConfig: {
+                      layoutView: 'lHh Lpr fFf'
+                    }
                   },
                   {
                     name: 'UserPanel.Asset.TripleTitleSet.Dashboard',

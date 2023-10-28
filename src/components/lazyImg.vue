@@ -34,8 +34,10 @@
          :src="lazyImageSrc"
          :width="computedWidth"
          :height="computedHeight"
+         :style="{height: computedHeightForStyle, width: computedWidthForStyle}"
          @click="onClick">
-    <!--    :style="{height: computedHeight+'px', width: computedWidth+'px'}"-->
+    <!--    :style="{height: computedHeightForStyle, width: computedWidthForStyle}"-->
+    <!--    :style="{height: computedHeightForStyle, width: computedWidthForStyle}"-->
     <img v-else
          ref="LazyImage"
          v-intersection.once="onIntersection"
@@ -98,6 +100,20 @@ export default {
     },
     customClass () {
       return this.class
+    },
+    computedWidthForStyle () {
+      if (this.visible || !this.computedWidth) {
+        return null
+      }
+
+      return this.computedWidth + 'px'
+    },
+    computedHeightForStyle () {
+      if (this.visible || !this.computedHeight) {
+        return null
+      }
+
+      return this.computedHeight + 'px'
     },
     normalizedSizeWithPx () {
       return {
