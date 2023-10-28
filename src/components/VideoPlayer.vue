@@ -366,8 +366,8 @@ export default {
         const playerSourceList = new PlayerSourceList([{
           src: this.vastSrc,
           type: 'video/mp4',
-          label: 'کیفیت عالی',
-          caption: 'کیفیت عالی',
+          label: 'کیفیت متوسط',
+          caption: 'کیفیت متوسط',
           link: this.vastSrc,
           res: 720,
           selected: false
@@ -412,15 +412,13 @@ export default {
       this.hideVastElement('VastSkipAdBtn')
       this.hideVastElement('VastLinkBtn')
       this.player.removeClass('vjs-ad-playing')
-      // setTimeout(() => {
       this.setPoster()
       this.setSources()
       const source = this.isPlayerSourceList() ? this.source.list : this.source
-      this.player.src(source)
+      // this.player.src(source)
+      this.player.updateSrc(source)
       this.player.poster(this.poster)
-      // this.player.reset()
       this.player.play()
-      // }, 100)
       this.$emit('adEnded')
     },
 
