@@ -78,8 +78,14 @@ export default {
   }
   .parent-item:hover{
     cursor: pointer;
-    background: $grey-2;
-    border-radius: $space-2;
+    .title-section{
+      color: $secondary-6
+    }
+    .icon-section{
+      .q-icon{
+        color: $secondary-6
+      }
+    }
   }
   .childItem{
         .vertical-separator{
