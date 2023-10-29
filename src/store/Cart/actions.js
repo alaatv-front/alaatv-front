@@ -47,7 +47,8 @@ export function addToCart(context, newProductData) {
       this.dispatch('Cart/reviewCart')
     }
     const pushAEEEvent = (product) => {
-      AEE.productAddToCart('product.addToCart', [product.eec.getData()])
+      const productToPush = new Product(product)
+      AEE.productAddToCart('product.addToCart', [productToPush.eec.getData()])
     }
 
     setCartLoading(true)
