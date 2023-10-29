@@ -12,7 +12,9 @@
 // const ESLintPlugin = require('eslint-webpack-plugin')
 const { configure } = require('quasar/wrappers')
 // const path = require('path')
+const VitePlugin = require('@sentry/vite-plugin')
 const { generateWidgetList } = require('./src/widgetListGetter/index')
+const sentryVitePlugin = VitePlugin.sentryVitePlugin
 require('dotenv').config()
 
 module.exports = configure(function (ctx) {
@@ -80,13 +82,17 @@ module.exports = configure(function (ctx) {
       rtl: true, // https://v2.quasar.dev/options/rtl-support
       preloadChunks: true,
       showProgress: true,
-      sourcemap: false,
+      // https://github.com/vitejs/vite/issues/2433
+      // export NODE_OPTIONS=--max-old-space-size=32768
+      sourcemap: true,
       gzip: true,
       analyze: false,
       // publicPath: (process.env.ASSET_SERVE === 'remote') ? (process.env.NODES_SERVER_URL_SSL || '/') : '/',
       // publicPath: '/',
       env: process.env,
       extendViteConf(viteConf, { isServer, isClient }) {
+        // console.log('viteConf.build', viteConf.build)
+        viteConf.build.sourcemap = true
         // Set the base URL based on the environment
         if (process.env.ASSET_SERVE === 'remote') {
           viteConf.base = process.env.NODES_SERVER_URL_SSL || '/'
@@ -105,7 +111,14 @@ module.exports = configure(function (ctx) {
       },
       minify: true,
       polyfillModulePreload: true,
-      vitePlugins: []
+      vitePlugins: [
+        // // Put the Sentry vite plugin after all other plugins
+        sentryVitePlugin({
+          org: process.env.SENTRY_ORG,
+          project: process.env.SENTRY_PROJECT,
+          authToken: process.env.SENTRY_AUTH_TOKEN
+        })
+      ]
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
