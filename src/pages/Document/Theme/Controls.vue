@@ -53,25 +53,25 @@ import Badge from 'components/Theme/Badge/Badge.vue'
 export default {
   name: 'Controls',
   components: {
-    Buttons,
-    Dropdown,
-    Avatar,
-    Checkbox,
+    Badge,
     Color,
-    ProgressTheme,
+    Toast,
+    Avatar,
+    Scroll,
+    Tooltip,
+    Buttons,
+    Checkbox,
+    Dropdown,
+    RadioBtn,
+    TextInput,
+    Typography,
     SliderRange,
     ToggleTheme,
-    RadioBtn,
-    PaginationTheme,
-    Typography,
-    Scroll,
-    TextInput,
     BreadCrumbs,
-    Tooltip,
-    Toast,
     ExampleTabs,
     ExampleDialog,
-    Badge
+    ProgressTheme,
+    PaginationTheme
   },
   data () {
     return {

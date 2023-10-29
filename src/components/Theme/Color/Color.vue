@@ -264,6 +264,7 @@ export default {
   .primary{
     .primary-1{
       background: $primary-1;
+      //background: lighten($primary-1);
     }
     .primary-2{
       background: $primary-2;
