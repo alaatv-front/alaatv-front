@@ -57,6 +57,7 @@ import { mixinAbrisham } from 'src/mixin/Mixins.js'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import Fullscreen from 'src/assets/js/AndroidPluginRegister.js'
 import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
+import { Capacitor } from '@capacitor/core'
 // https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8 (Live)
 // https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
 
@@ -188,7 +189,7 @@ export default {
       return this.currentTimed
     },
     videoLength() {
-      return this.player.duration()
+      return this.player ? this.player.duration() : 0
     }
   },
   watch: {
@@ -366,8 +367,8 @@ export default {
         const playerSourceList = new PlayerSourceList([{
           src: this.vastSrc,
           type: 'video/mp4',
-          label: 'کیفیت عالی',
-          caption: 'کیفیت عالی',
+          label: 'کیفیت متوسط',
+          caption: 'کیفیت متوسط',
           link: this.vastSrc,
           res: 720,
           selected: false
@@ -412,15 +413,13 @@ export default {
       this.hideVastElement('VastSkipAdBtn')
       this.hideVastElement('VastLinkBtn')
       this.player.removeClass('vjs-ad-playing')
-      // setTimeout(() => {
       this.setPoster()
       this.setSources()
       const source = this.isPlayerSourceList() ? this.source.list : this.source
-      this.player.src(source)
+      // this.player.src(source)
+      this.player.updateSrc(source)
       this.player.poster(this.poster)
-      // this.player.reset()
       this.player.play()
-      // }, 100)
       this.$emit('adEnded')
     },
 
@@ -579,7 +578,8 @@ export default {
 
       this.player = videojs(this.$refs.videoPlayer, this.options, function() {
         this.on('fullscreenchange', async function() {
-          if (window === undefined) {
+          const isNativeApp = Capacitor.isNativePlatform()
+          if (!isNativeApp || Capacitor.getPlatform() !== 'android' || window === undefined) {
             return
           }
           if (this.isFullscreen()) {
