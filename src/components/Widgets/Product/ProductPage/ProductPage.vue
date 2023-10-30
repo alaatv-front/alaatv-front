@@ -2,7 +2,8 @@
   <div class="product-page-container new-theme"
        :class="{ 'hasInstallment': hasInstallment }">
     <div class="product-background">
-      <div class="background-image"
+      <div v-if="product.photo"
+           class="background-image"
            :style="{backgroundImage: `url(${product.photo})`}">
         <div class="background-filter" />
       </div>
@@ -142,10 +143,10 @@ if (typeof window !== 'undefined') {
 export default defineComponent({
   name: 'ProductPage',
   components: {
-    ProductIntroBox,
-    ProductInfoTab,
     Bookmark,
-    ShareNetwork
+    ShareNetwork,
+    ProductInfoTab,
+    ProductIntroBox
   },
   mixins: [mixinWidget, mixinPrefetchServerData],
   data() {
@@ -182,22 +183,13 @@ export default defineComponent({
       return false
     }
   },
-  mounted() {
+  mounted () {
     this.calculateDescriptionHight()
   },
   methods: {
-    getProductRequest() {
-      if (!this.productId) {
-        return new Promise((resolve, reject) => {
-          reject()
-        })
-      }
-
-      return APIGateway.product.show(this.productId)
-    },
     prefetchServerDataPromise () {
       this.loading = true
-      return this.getProductRequest()
+      return APIGateway.product.show(this.productId)
     },
     prefetchServerDataPromiseThen (product) {
       this.product = product

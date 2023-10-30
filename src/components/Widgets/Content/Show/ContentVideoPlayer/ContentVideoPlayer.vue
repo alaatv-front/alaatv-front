@@ -18,7 +18,7 @@
           <q-pagination v-model="contentNumber"
                         :max="set.contents.list.length"
                         :to-fn="goToContentPage"
-                        :max-pages="3"
+                        :max-pages="6"
                         direction-links
                         icon-prev="fast_rewind"
                         icon-next="fast_forward" />
@@ -167,6 +167,10 @@ export default {
   .paginate {
     flex-wrap: wrap;
     :deep(.q-pagination) {
+      .q-btn {
+        width: 30px;
+        height: 30px;
+      }
       .q-pagination__content {
         .q-pagination__middle {
           display: inline-flex;
