@@ -71,13 +71,24 @@ export default {
       return this.$store.getters['Auth/isUserLogin']
     }
   },
+  mounted() {
+    this.$bus.on('onLoggedIn', () => {
+      this.emitBookmarkClicked()
+    })
+  },
   methods: {
-    bookmark () {
+    bookmark (e) {
+      e.preventDefault()
+      e.stopPropagation()
+      if (!this.isUserLogin) {
+        this.$store.commit('Auth/updateRedirectTo', { name: this.$route.name, params: this.$route.params })
+        this.$store.commit('AppLayout/updateLoginDialog', true)
+        return
+      }
+      this.emitBookmarkClicked()
+    },
+    emitBookmarkClicked() {
       this.$emit('clicked')
-      // if (!this.isUserLogin) {
-      //   this.$store.commit('Auth/updateRedirectTo', { name: this.$route.name, params: this.$route.params })
-      //   this.$store.commit('AppLayout/updateLoginDialog', true)
-      // }
     }
   }
 }
