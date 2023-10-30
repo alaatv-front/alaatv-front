@@ -28,7 +28,7 @@
       <component :is="parentComponent"
                  :to="slide.link"
                  :href="slide.link"
-                 class="cursor-pointer"
+                 class="slider-parent"
                  @click="takeAction(slide)">
         <lazy-img v-if="slide.photo.src !== ''"
                   :height="slide.photo.height"
@@ -212,11 +212,11 @@ export default {
       let result = {}
       if (this.windowWidth >= 1920) {
         result = features.xl.src !== '' ? features.xl : features.lg.src !== '' ? features.lg : features.sm.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs
-      } else if (this.windowWidth <= 1919 && this.windowWidth > 1440) {
+      } else if (this.windowWidth <= 1919 && this.windowWidth >= 1440) {
         result = features.lg.src !== '' ? features.lg : features.md.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.xl
-      } else if (this.windowWidth <= 1439 && this.windowWidth > 1024) {
+      } else if (this.windowWidth <= 1439 && this.windowWidth >= 1024) {
         result = features.md.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.lg.src !== '' ? features.lg : features.xl
-      } else if (this.windowWidth <= 1023 && this.windowWidth > 600) {
+      } else if (this.windowWidth <= 1023 && this.windowWidth >= 600) {
         result = features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.md.src !== '' ? features.md : features.lg.src !== '' ? features.lg : features.xl
       } else if (this.windowWidth <= 599) {
         result = features.xs.src !== '' ? features.xs : features.sm.src !== '' ? features.sm : features.md.src !== '' ? features.md : features.lg.src !== '' ? features.lg : features.xl
@@ -238,6 +238,14 @@ export default {
   width: 100%;
   &:deep(.q-carousel__slide) {
     padding: 0;
+    display: block;
+    background: transparent;
+
+    .slider-parent{
+      cursor: pointer;
+      display: block;
+      background: transparent;
+    }
     .slider-image {
       width: 100%;
     }

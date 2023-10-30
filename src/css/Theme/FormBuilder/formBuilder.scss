@@ -9,15 +9,21 @@
 @import 'src/css/Theme/FormBuilder/toggleButton';
 
 @import 'src/css/Theme/colors.scss';
+@import 'src/css/Theme/Controls/input.scss';
 @import 'src/css/Theme/Typography/typography.scss';
 
 [class^="form-builder"] {
   position: relative;
+  &:not(.form-builder-ToggleButton) {
+    .outsideLabel {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
   .outsideLabel {
-    position: absolute;
-    left: 0;
-    top: 0;
     color: $grey-9;
     @include body2;
+    margin-bottom: $q-field__label_margin_bottom;
   }
 }

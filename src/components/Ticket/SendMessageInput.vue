@@ -55,7 +55,7 @@
               <q-btn unelevated
                      class="btn  actionBtn btnRecordVoiceForUpload"
                      color="positive"
-                     icon="isax:microphone"
+                     icon="ph:microphone"
                      :loading="microphoneBtnLoading"
                      @click="recordVoice(true)" />
             </div>
@@ -64,7 +64,7 @@
               <q-btn unelevated
                      class="btn  actionBtn btnRecordVoiceForUpload"
                      color="negative"
-                     icon="isax:pause"
+                     icon="ph:pause-circle"
                      @click="recordVoice(false)" />
             </div>
           </div>
@@ -73,7 +73,7 @@
             <q-btn unelevated
                    class="btn  actionBtn"
                    color="primary"
-                   icon="isax:image"
+                   icon="ph:image"
                    :loading="sendLoading"
                    @click="getFile">
               <input ref="myFileInput"
@@ -130,7 +130,7 @@
                   <q-btn unelevated
                          class="imageBtn BtnSuccess"
                          :loading="sendLoading"
-                         icon="isax:tick-square"
+                         icon="ph:check"
                          @click="emitData(false)" />
                   <q-btn v-if="isAdmin"
                          unelevated
@@ -147,7 +147,7 @@
             <q-btn unelevated
                    square
                    color="teal-7"
-                   icon="attach_file"
+                   icon="ph:paperclip"
                    class="actionBtn full-height attach-file"
                    :loading="sendLoading"
                    @click="$refs.fileInput.click()" />
@@ -163,14 +163,14 @@
                    unelevated
                    class="btn  actionBtn sendBtn BtnSuccess "
                    :loading="sendLoading"
-                   icon="isax:send-1"
+                   icon="ph:paper-plane-right"
                    @click="emitData(false)" />
             <q-btn v-if="isAdmin"
                    size="12px"
                    unelevated
                    class="btn  actionBtn sendBtn BtnWarning"
                    :loading="sendLoading"
-                   icon="isax:directbox-send"
+                   icon="ph:paper-plane-tilt"
                    @click="emitData(true)">
               <q-tooltip>
                 ارسال به صورت خصوصی
@@ -183,7 +183,7 @@
             <q-btn unelevated
                    color="negative"
                    class="btn  actionBtn"
-                   icon="isax:play-remove"
+                   icon="ph:trash"
                    @click="clearMessage">
               <q-tooltip>
                 حذف ویس
@@ -604,6 +604,8 @@ export default {
 </style>
 
 <style scoped lang="scss">
+@import 'src/css/Theme/spacing.scss';
+
 .imageModal {
   .imageModal-card {
     width: 320px;
@@ -673,6 +675,7 @@ export default {
   .imageInput {
     border: 1px solid #ced4da;
     color: #575962;
+    margin-left: 16px;
 
     &:deep(.q-field__native) {
       margin-left: 10px;
@@ -716,7 +719,7 @@ export default {
 .SendMessageInput {
   display: flex;
   min-height: 40px;
-
+  margin-right: $space-4;
   .input-group-prepend {
     height: 100%;
     .btn {
