@@ -74,10 +74,10 @@ export default {
   methods: {
     bookmark () {
       this.$emit('clicked')
-      if (!this.isUserLogin) {
-        this.$store.commit('Auth/updateRedirectTo', { name: this.$route.name, params: this.$route.params })
-        this.$store.commit('AppLayout/updateLoginDialog', true)
-      }
+      // if (!this.isUserLogin) {
+      //   this.$store.commit('Auth/updateRedirectTo', { name: this.$route.name, params: this.$route.params })
+      //   this.$store.commit('AppLayout/updateLoginDialog', true)
+      // }
     }
   }
 }
