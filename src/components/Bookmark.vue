@@ -71,11 +71,6 @@ export default {
       return this.$store.getters['Auth/isUserLogin']
     }
   },
-  mounted() {
-    this.$bus.on('onLoggedIn', () => {
-      this.emitBookmarkClicked()
-    })
-  },
   methods: {
     bookmark (e) {
       e.preventDefault()
@@ -85,9 +80,6 @@ export default {
         this.$store.commit('AppLayout/updateLoginDialog', true)
         return
       }
-      this.emitBookmarkClicked()
-    },
-    emitBookmarkClicked() {
       this.$emit('clicked')
     }
   }
