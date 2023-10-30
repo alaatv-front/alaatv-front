@@ -63,10 +63,10 @@ import ProductPriceWithPopup from 'src/components/Widgets/Product/ProductPriceWi
 export default defineComponent({
   name: 'ProductIntroBox',
   components: {
+    lazyImg,
     VideoPlayer,
     ProductAttributes,
-    ProductPriceWithPopup,
-    lazyImg
+    ProductPriceWithPopup
   },
   mixins: [mixinWidget],
   emits: ['updateProduct', 'updateProductLoading'],
