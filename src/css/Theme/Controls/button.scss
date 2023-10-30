@@ -87,12 +87,35 @@
 
   &.disabled,
   &[disabled] {
-    opacity: 1 !important;
+    opacity: 0.2 !important;
   }
 
   &:hover {
     .q-focus-helper {
-      opacity: 0 !important;
+      opacity: 1 !important;
+      background: rgba($grey-1, 0.2) !important;
+      &:before {
+        display: none;
+      }
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  &.q-btn--active {
+    &:before {
+      box-shadow: unset !important;
+      color: unset;
+      background: inherit;
+      opacity: 0.2;
+      position: absolute;
+      top: -$space-1;
+      left: -$space-1;
+      right: -$space-1;
+      bottom: -$space-1;
+      width: calc( 100% + 8px );
+      height: calc( 100% + 8px );
     }
   }
 
@@ -110,57 +133,19 @@
 
   &.bg-primary {
     color: $grey-9 !important;
-
-    &.disabled,
-    &[disabled] {
-      background: $primary-1 !important;
-      color: $primary-3 !important;
-
-      &:hover {
-        background: $primary-1 !important;
-      }
-    }
-
-    &:hover {
-      background: $primary-4 !important;
-    }
   }
 
   &.bg-secondary {
     color: $grey-1 !important;
+  }
 
-    &.disabled,
-    &[disabled] {
-      background: $secondary-1 !important;
-      color: $secondary-2 !important;
-
-      &:hover {
-        background: $secondary-1 !important;
-      }
-    }
-
-    &:hover {
-      background: $secondary-4 !important;
-    }
+  &.bg-accent {
+    background: $accent-5 !important;
   }
 
   &.bg-grey {
     color: $grey-9 !important;
     background: $grey-2 !important;
-
-    &.disabled,
-    &[disabled] {
-      background: $grey-2 !important;
-      color: $grey-4 !important;
-
-      &:hover {
-        background: $grey-2 !important;
-      }
-    }
-
-    &:hover {
-      background: $grey-3 !important;
-    }
   }
 
   &.q-btn--outline {
