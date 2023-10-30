@@ -24,6 +24,9 @@
         <div class="title-box main-title ellipsis-2-lines"
              :class="[localOptions.theme]">
           {{ product.title }}
+          <q-tooltip>
+            {{ product.title }}
+          </q-tooltip>
         </div>
       </router-link>
       <div v-if="localOptions.showBookmark"
@@ -53,7 +56,7 @@
               <div class="price-container">
                 <div class="final-price-box">
                   <div class="final-price">
-                    {{ finalPrice }}
+                    {{ finalPrice === 0 ? 'رایگان' : finalPrice }}
                   </div>
                   <div class="price-Toman">تومان</div>
                 </div>

@@ -66,7 +66,7 @@
                   <div class="price-container row text-center">
                     <div class="final-price-box col-xs-12 col-sm-6">
                       <div class="final-price">
-                        {{ finalPrice }}
+                        {{ finalPrice === 0 ? 'رایگان' : finalPrice }}
                       </div>
                       <div class="price-Toman">تومان</div>
                     </div>

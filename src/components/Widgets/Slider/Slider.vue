@@ -239,10 +239,12 @@ export default {
   &:deep(.q-carousel__slide) {
     padding: 0;
     display: block;
+    background: transparent;
 
     .slider-parent{
       cursor: pointer;
       display: block;
+      background: transparent;
     }
     .slider-image {
       width: 100%;
