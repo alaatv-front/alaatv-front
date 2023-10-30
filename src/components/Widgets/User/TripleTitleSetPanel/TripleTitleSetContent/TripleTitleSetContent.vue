@@ -267,14 +267,24 @@ export default {
         })
         return
       }
-      this.$router.push({
-        name: 'UserPanel.Asset.TripleTitleSet.Content',
-        params: {
-          productId: this.$route.params.productId,
-          setId: this.selectedSet.id,
-          contentId
-        }
-      })
+      if (this.isAdvisor) {
+        this.$router.push({
+          name: 'UserPanel.Asset.TripleTitleSet.Adviser.Content',
+          params: {
+            setId: this.selectedSet.id,
+            contentId
+          }
+        })
+      } else {
+        this.$router.push({
+          name: 'UserPanel.Asset.TripleTitleSet.Content',
+          params: {
+            productId: this.$route.params.productId,
+            setId: this.selectedSet.id,
+            contentId
+          }
+        })
+      }
     },
     updateSelectedSet(set) {
       this.$store.commit('TripleTitleSet/setSelectedSet', set)
