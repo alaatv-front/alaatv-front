@@ -20,6 +20,7 @@ $q-field__label_margin_bottom: $space-2;
   overflow: hidden;
   width: $icon-size;
   height: $icon-size;
+  font-size: $icon-size;
   &:before {
     position: absolute;
     left: 0;

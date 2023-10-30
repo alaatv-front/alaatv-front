@@ -58,33 +58,33 @@ export default {
           separator: true
         },
         {
-          icon: 'ph:radio',
-          title: 'داشبوردهام',
+          icon: 'ph:monitor-play',
+          title: 'داشبوردهای آلاء',
           expandable: true,
           subItems: [
             {
               title: 'راه ابریشم',
-              route: { name: 'UserPanel.Profile' }
+              route: { name: 'UserPanel.Asset.Abrisham.Progress' }
             },
             {
               title: ' راه ابریشم پرو',
-              route: { name: 'UserPanel.Profile' }
+              route: { name: 'UserPanel.Asset.AbrishamPro.Progress' }
             },
             {
               title: ' راه ابریشم ۲',
-              route: { name: 'UserPanel.Profile' }
+              route: { name: 'UserPanel.Asset.TripleTitleSet.Products', params: { eventName: 'abrisham2' } }
             },
             {
               title: 'چترنجات',
-              route: { name: 'UserPanel.Profile' }
+              route: { name: 'UserPanel.Asset.TripleTitleSet.Products', params: { eventName: 'chatre-nejat' } }
             },
             {
               title: 'امتحان نهایی',
-              route: { name: 'UserPanel.Profile' }
+              route: { name: 'UserPanel.Asset.TripleTitleSet.Products', params: { eventName: 'emtahan-nahaee' } }
             },
             {
               title: '110',
-              route: { name: 'UserPanel.Profile' }
+              route: { name: 'UserPanel.Asset.TripleTitleSet.Products', params: { eventName: '110' } }
             }
           ]
         }

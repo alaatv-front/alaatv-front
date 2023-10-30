@@ -4,7 +4,6 @@
     .q-item{
       .q-item__section{
         .q-icon{
-
           &.q-expansion-item__toggle-icon{
             @include q-field__prepend_and_append_icon_style;
             &:before {

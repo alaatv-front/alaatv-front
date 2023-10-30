@@ -26,17 +26,24 @@ export default {
   display: flex;
   align-items: center;
   width:100%;
-  padding: $space-2 $space-4;
+  padding: $space-2 $space-3;
   justify-content: flex-start;
   .title-section{
     @include body1;
-    margin-left: $space-2;
     color: $grey-9
+  }
+  &.selected {
+    background: $secondary-1;
+    border-radius: $space-2;
+    .title-section{
+      color: $secondary-6
+    }
   }
 }
 .SubItem:hover{
   cursor: pointer;
-  background: $grey-2;
-  border-radius: $space-2;
+  .title-section{
+    color: $secondary-6
+  }
 }
 </style>
