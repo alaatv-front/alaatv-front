@@ -143,31 +143,11 @@
       color: $grey-9 !important;
       background: $grey-1 !important;
 
-      &.disabled,
-      &[disabled] {
-        background: $grey-1 !important;
-        color: $grey-4 !important;
-
-        &:before {
-          border: solid 1px $grey-4;
-        }
-
-        &:hover {
-          background: $grey-1 !important;
-          &:before {
-            border: solid 1px $grey-4;
-          }
-        }
-        .q-btn__content {
-          color: $grey-4 !important;
-        }
-      }
-
       &:before {
         border: solid 1.5px $grey-4;
       }
 
-      &:hover {
+      &:hover:not(.disabled) {
         background: $grey-2 !important;
         &:before {
           border: solid 1px $grey-6;
@@ -183,26 +163,6 @@
   @mixin flat-btn () {
     color: $grey-9 !important;
     background: transparent !important;
-
-    &.disabled,
-    &[disabled] {
-      background: transparent !important;
-      color: $grey-4 !important;
-
-      &:before {
-        border: none;
-      }
-
-      &:hover {
-        background: $grey-1 !important;
-        &:before {
-          border: none;
-        }
-      }
-      .q-btn__content {
-        color: $grey-4 !important;
-      }
-    }
 
     &:before {
       border: none;
