@@ -39,11 +39,9 @@
         <!--        -----------------------------------------------------Actions Section--------------------------------------------   -->
         <div class="user-action gt-sm">
           <div class="action-container">
-            <q-btn icon="ph:shopping-cart gt-xs"
-                   unelevated
-                   size="12px"
-                   round
-                   class="action-btn"
+            <q-btn icon="ph:shopping-cart"
+                   flat
+                   class="action-btn gt-xs"
                    :loading="cartLoading"
                    :to="{name: 'Public.Checkout.Review'}">
               <q-badge v-if="mounted && cartOrdersCount > 0"

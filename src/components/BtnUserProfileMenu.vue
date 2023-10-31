@@ -1,7 +1,6 @@
 <template>
   <q-btn v-if="isUserLogin"
          flat
-         round
          class="BtnUserProfileMenu">
     <lazy-img :src="user.photo"
               :alt="'user photo'"
@@ -96,6 +95,8 @@ export default {
   //margin-left: 18px;
   width: 48px;
   height: 48px;
+  padding: 0 !important;
+  overflow: hidden;
   border-radius: 16px;
   :deep(.q-btn__content) {
     width: 100%;

@@ -1,241 +1,36 @@
 <template>
-  <div class="row justify-center q-my-md">
-    <div class="col-md-9">
-      <h2>Buttons</h2>
-      <div class="row q-col-gutter-md">
-        <div class="col-md-1" />
-        <div class="col-md-2">
-          button (default)
-        </div>
-        <div class="col-md-2">
-          button (disable)
-        </div>
-        <div class="col-md-2">
-          icon button (default)
-        </div>
-        <div class="col-md-2">
-          icon button (disable)
-        </div>
-        <div class="col-md-3" />
-      </div>
-      <div class="row q-col-gutter-md q-mt-md">
-        <div class="col-md-1">
-          Extra Small
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-xs btn-primary"
-                 label="متن دکمه"
-                 text-color="grey-9"
-                 icon="copyright"
-                 icon-right="isax:arrow-left"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-xs btn-primary"
-                 disable
-                 label="متن دکمه"
-                 icon="copyright"
-                 icon-right="isax:arrow-left"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-xs btn-primary"
-                 square
-                 icon="search"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-xs btn-primary"
-                 color="primary "
-                 square
-                 disable
-                 icon="search" />
-        </div>
-        <div class="col-md-3">
-          Standard
-        </div>
-      </div>
-      <div class="row q-col-gutter-md q-mt-md">
-        <div class="col-md-1">
-          Small
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-sm"
-                 label="متن دکمه"
-                 outline
-                 text-color="grey-9"
-                 icon="copyright"
-                 icon-right="isax:arrow-left"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-sm"
-                 label="متن دکمه"
-                 outline
-                 text-color="grey-9"
-                 icon="copyright"
-                 icon-right="isax:arrow-left"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-sm"
-                 label="متن دکمه"
-                 outline
-                 text-color="grey-9"
-                 icon="copyright"
-                 icon-right="isax:arrow-left"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-sm"
-                 label="متن دکمه"
-                 outline
-                 disable
-                 text-color="grey-9"
-                 icon="copyright"
-                 icon-right="isax:arrow-left"
-                 color="primary" />
-        </div>
-        <div class="col-md-3">
-          Outline
-        </div>
-      </div>
-      <div class="row q-col-gutter-md q-mt-md">
-        <div class="col-md-1">
-          Medium
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-md"
-                 flat
-                 label="متن دکمه"
-                 text-color="grey-9"
-                 icon="copyright"
-                 icon-right="isax:arrow-left" />
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-md"
-                 flat
-                 label="متن دکمه"
-                 disable
-                 text-color="grey-9"
-                 icon="copyright"
-                 icon-right="isax:arrow-left" />
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-md"
-                 square
-                 flat
-                 icon="search" />
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-md"
-                 square
-                 flat
-                 disable
-                 icon="search" />
-        </div>
-        <div class="col-md-3">
-          Flat
-        </div>
-      </div>
-      <div class="row q-col-gutter-md q-mt-md">
-        <div class="col-md-1">
-          Large
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-lg btn-primary"
-                 label="متن دکمه"
-                 text-color="grey-9"
-                 icon="copyright"
-                 icon-right="isax:arrow-left"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-lg btn-primary"
-                 disable
-                 label="متن دکمه"
-                 icon="copyright"
-                 icon-right="isax:arrow-left"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-lg btn-primary"
-                 square
-                 icon="search"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-lg btn-primary"
-                 color="primary "
-                 square
-                 disable
-                 icon="search" />
-        </div>
-        <div class="col-md-3">
-          Rounded
-        </div>
-      </div>
-      <div class="row q-col-gutter-md q-mt-lg">
-        <div class="col-md-1">
-          Extra Large
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-xl btn-primary"
-                 label="متن دکمه"
-                 text-color="grey-9"
-                 icon="copyright"
-                 icon-right="isax:arrow-left"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-xl btn-primary"
-                 disable
-                 label="متن دکمه"
-                 icon="copyright"
-                 icon-right="isax:arrow-left"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-xl btn-primary"
-                 square
-                 icon="search"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-xl btn-primary"
-                 color="primary "
-                 square
-                 disable
-                 icon="search" />
-        </div>
-        <div class="col-md-3">
-          Square
-        </div>
-      </div>
+  <q-splitter v-model="splitterModel">
+    <template v-slot:before>
+      <q-tabs v-model="tab"
+              dense
+              class="text-grey"
+              active-color="primary"
+              indicator-color="primary"
+              align="justify"
+              vertical>
+        <q-tab v-for="(component, componentIndex) in components"
+               :key="componentIndex"
+               :name="component.name"
+               :label="component.label" />
+      </q-tabs>
+    </template>
 
-    </div>
-  </div>
-  <badge />
-  <bread-crumbs />
-  <checkbox />
-  <example-dialog />
-  <color />
-  <progress-theme />
-  <slider-range />
-  <example-tabs />
-  <toggle-theme />
-  <radio-btn />
-  <pagination-theme />
-  <scroll />
-  <toast />
-  <tooltip />
-  <typography />
-  <avatar />
-  <text-input />
-  <dropdown />
+    <template v-slot:after>
+      <q-tab-panels v-model="tab"
+                    animated>
+        <q-tab-panel v-for="(component, componentIndex) in components"
+                     :key="componentIndex"
+                     :name="component.name">
+          <component :is="component.name" />
+        </q-tab-panel>
+      </q-tab-panels>
+    </template>
+
+  </q-splitter>
 </template>
 
 <script>
+import Buttons from 'src/components/Theme/Buttons/Buttons.vue'
 import Checkbox from 'components/Theme/Controls/Checkbox/Checkbox.vue'
 import Color from 'components/Theme/Color/Color.vue'
 import ProgressTheme from 'components/Theme/Controls/ProgressTheme/ProgressTheme.vue'
@@ -258,24 +53,109 @@ import Badge from 'components/Theme/Badge/Badge.vue'
 export default {
   name: 'Controls',
   components: {
-    Dropdown,
-    Avatar,
-    Checkbox,
+    Badge,
     Color,
-    ProgressTheme,
+    Toast,
+    Avatar,
+    Scroll,
+    Tooltip,
+    Buttons,
+    Checkbox,
+    Dropdown,
+    RadioBtn,
+    TextInput,
+    Typography,
     SliderRange,
     ToggleTheme,
-    RadioBtn,
-    PaginationTheme,
-    Typography,
-    Scroll,
-    TextInput,
     BreadCrumbs,
-    Tooltip,
-    Toast,
     ExampleTabs,
     ExampleDialog,
-    Badge
+    ProgressTheme,
+    PaginationTheme
+  },
+  data () {
+    return {
+      tab: 'buttons',
+      splitterModel: 20,
+      components: [
+        {
+          label: 'buttons',
+          name: 'buttons'
+        },
+        {
+          label: 'badge',
+          name: 'badge'
+        },
+        {
+          label: 'bread-crumbs',
+          name: 'bread-crumbs'
+        },
+        {
+          label: 'checkbox',
+          name: 'checkbox'
+        },
+        {
+          label: 'example-dialog',
+          name: 'example-dialog'
+        },
+        {
+          label: 'color',
+          name: 'color'
+        },
+        {
+          label: 'progress-theme',
+          name: 'progress-theme'
+        },
+        {
+          label: 'slider-range',
+          name: 'slider-range'
+        },
+        {
+          label: 'example-tabs',
+          name: 'example-tabs'
+        },
+        {
+          label: 'toggle-theme',
+          name: 'toggle-theme'
+        },
+        {
+          label: 'radio-btn',
+          name: 'radio-btn'
+        },
+        {
+          label: 'pagination-theme',
+          name: 'pagination-theme'
+        },
+        {
+          label: 'scroll',
+          name: 'scroll'
+        },
+        {
+          label: 'toast',
+          name: 'toast'
+        },
+        {
+          label: 'tooltip',
+          name: 'tooltip'
+        },
+        {
+          label: 'typography',
+          name: 'typography'
+        },
+        {
+          label: 'avatar',
+          name: 'avatar'
+        },
+        {
+          label: 'text-input',
+          name: 'text-input'
+        },
+        {
+          label: 'dropdown',
+          name: 'dropdown'
+        }
+      ]
+    }
   }
 }
 </script>
