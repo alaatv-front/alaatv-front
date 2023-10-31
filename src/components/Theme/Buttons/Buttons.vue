@@ -44,11 +44,13 @@
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
+                     square
                      size="xs" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
+                     square
                      size="xs"
                      disable />
             </div>
@@ -78,11 +80,13 @@
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
+                     square
                      size="sm" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
+                     square
                      size="sm"
                      disable />
             </div>
@@ -112,11 +116,13 @@
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
+                     square
                      size="md" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
+                     square
                      size="md"
                      disable />
             </div>
@@ -146,11 +152,13 @@
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
+                     square
                      size="lg" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
+                     square
                      size="lg"
                      disable />
             </div>
@@ -180,11 +188,13 @@
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
+                     square
                      size="xl" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
+                     square
                      size="xl"
                      disable />
             </div>
@@ -216,11 +226,13 @@
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="secondary"
+                     square
                      size="xs" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="secondary"
+                     square
                      size="xs"
                      disable />
             </div>
@@ -250,11 +262,13 @@
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="secondary"
+                     square
                      size="sm" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="secondary"
+                     square
                      size="sm"
                      disable />
             </div>

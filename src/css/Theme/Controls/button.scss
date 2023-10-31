@@ -3,82 +3,72 @@
 @import 'src/css/Theme/spacing.scss';
 @import 'src/css/Theme/Typography/typography.scss';
 
-@mixin btn-padding-by-size($size) {
+@mixin btn-handle-size ($radius, $padding-x, $padding-y, $square-padding, $icon-font-size) {
+  border-radius: $radius;
+  padding: $padding-x $padding-y !important;
+  &.q-btn--square {
+    padding: $square-padding !important;
+  }
+  .q-btn__content {
+    @content;
+    .q-icon {
+      font-size: $icon-font-size;
+    }
+  }
+}
+
+@mixin btn-handle-sizes($size) {
   @if $size == 'xs' {
-    border-radius: $radius-2;
-    padding: $space-1 $space-2 !important;
-    .q-btn__content {
+    @include btn-handle-size($radius-2, $space-1, $space-2, $space-1, 16px) {
       @include subtitle2;
-      .q-icon {
-        font-size: 16px;
-      }
     }
   } @else if $size == 'sm' {
-    border-radius: $radius-3;
-    padding: $space-1 $space-3 !important;
-    .q-btn__content {
+    @include btn-handle-size($radius-3, $space-1, $space-3, $space-2, 16px) {
       @include subtitle2;
-      .q-icon {
-        font-size: 16px;
-      }
     }
   } @else if $size == 'md' {
-    border-radius: $radius-3;
-    padding: $space-2 $space-4 !important;
-    .q-btn__content {
+    @include btn-handle-size($radius-3, $space-2, $space-4, $space-3, 16px) {
       @include subtitle2;
-      .q-icon {
-        font-size: 16px;
-      }
     }
   } @else if $size == 'lg' {
-    border-radius: $radius-3;
-    padding: $space-3 $space-4 !important;
-    .q-btn__content {
+    @include btn-handle-size($radius-3, $space-3, $space-4, $space-4, 20px) {
       @include subtitle1;
-      .q-icon {
-        font-size: 20px;
-      }
     }
   } @else if $size == 'xl' {
-    border-radius: $radius-3;
-    padding: $space-4 $space-4 !important;
-    .q-btn__content {
+    @include btn-handle-size($radius-3, $space-4, $space-4, $space-5, 20px) {
       @include subtitle1;
-      .q-icon {
-        font-size: 20px;
-      }
     }
   }
 }
 
 .q-btn {
   font-size: 1em !important;
+  min-height: auto;
 
   // xs
   &[style*='font-size:8px'] {
-    @include btn-padding-by-size('xs')
+    @include btn-handle-sizes('xs')
   }
 
   // sm
   &[style*='font-size:10px'] {
-    @include btn-padding-by-size('sm')
+    @include btn-handle-sizes('sm')
   }
 
   // md
   &[style*='font-size:14px'] {
-    @include btn-padding-by-size('md');
+    @include btn-handle-sizes('md');
   }
-  @include btn-padding-by-size('md');
+  @include btn-handle-sizes('md');
 
   // lg
   &[style*='font-size:20px'] {
-    @include btn-padding-by-size('lg')
+    @include btn-handle-sizes('lg')
   }
 
   // xl
   &[style*='font-size:24px'] {
-    @include btn-padding-by-size('xl')
+    @include btn-handle-sizes('xl')
   }
 
   &:before {
