@@ -240,10 +240,13 @@ export default {
     },
     isInViewport() {
       const el = document.getElementsByClassName(this.localOptions.stickyClass)[0]
-      const rect = el.getBoundingClientRect()
-      return (
-        rect.top <= rect.height && rect.bottom >= 0
-      )
+      if (el) {
+        const rect = el.getBoundingClientRect()
+        return (
+          rect.top <= rect.height && rect.bottom >= 0
+        )
+      }
+      return false
     },
     routeTo(name) {
       this.$router.push({ name })
