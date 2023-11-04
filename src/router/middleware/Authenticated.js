@@ -12,11 +12,13 @@ export default function Authenticated (withDialog = false) {
         if (typeof window !== 'undefined') {
           setTimeout(() => {
             store.commit('AppLayout/updateLoginDialog', true)
+            store.commit('AppLayout/updateLoginDialogPersistent', true)
           }, 1000)
         }
       }
     } else {
       store.commit('AppLayout/updateLoginDialog', false)
+      store.commit('AppLayout/updateLoginDialogPersistent', false)
     }
 
     return next()

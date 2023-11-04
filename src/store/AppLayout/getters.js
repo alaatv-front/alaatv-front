@@ -11,6 +11,9 @@ const getters = {
   loginDialog: (state) => {
     return state.loginDialog
   },
+  loginDialogPersistent: (state) => {
+    return state.loginDialogPersistent
+  },
   confirmDialog: (state) => {
     return state.confirmDialog
   },
