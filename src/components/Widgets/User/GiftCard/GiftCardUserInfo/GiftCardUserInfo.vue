@@ -452,8 +452,7 @@
       </div>
     </div>
     <q-dialog v-model="showNationalCard">
-      <lazy-img :src="nationalCardPicURL"
-                class="full-width" />
+      <lazy-img :src="nationalCardPicURL" />
     </q-dialog>
   </div>
 </template>
