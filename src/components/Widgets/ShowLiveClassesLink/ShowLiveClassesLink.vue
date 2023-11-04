@@ -170,7 +170,6 @@ export default {
       if (this.isUserLogin) {
         this.dialog = !this.dialog
         this.getLiveConductors()
-        return
       }
 
       this.$store.commit('AppLayout/updateLoginDialog', true)

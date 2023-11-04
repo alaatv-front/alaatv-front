@@ -9,7 +9,11 @@ export default function Authenticated (withDialog = false) {
       if (!withDialog) {
         return next({ name: 'login' })
       } else {
-        store.commit('AppLayout/updateLoginDialog', true)
+        if (typeof window !== 'undefined') {
+          setTimeout(() => {
+            store.commit('AppLayout/updateLoginDialog', true)
+          }, 1000)
+        }
       }
     } else {
       store.commit('AppLayout/updateLoginDialog', false)
