@@ -13,8 +13,10 @@ const mutations = {
     state.bubbleSize = newInfo
   },
   updateLoginDialog: (state, newInfo) => {
-    console.trace()
     state.loginDialog = newInfo
+  },
+  updateLoginDialogPersistent: (state, newInfo) => {
+    state.loginDialogPersistent = newInfo
   },
   updateLayoutHeaderType: (state, newInfo) => {
     state.layoutHeaderType = newInfo
