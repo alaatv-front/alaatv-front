@@ -100,6 +100,7 @@
                    @click="socialMediaDialog = !socialMediaDialog" />
             <bookmark :is-favored="contentFavored"
                       :loading="bookmarkLoading"
+                      :flat="true"
                       :class-name="'icon-btn'"
                       @clicked="handleContentBookmark" />
           </div>

@@ -5,6 +5,7 @@
       <div class="title">
         <bookmark v-if="localOptions.showBtnFavorSet && !set.loading"
                   :is-favored="set.is_favored"
+                  :flat="false"
                   :loading="bookmarkLoading"
                   @clicked="handleSetBookmark" />
         <template v-if="set.loading">

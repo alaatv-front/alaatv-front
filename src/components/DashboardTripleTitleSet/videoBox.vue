@@ -87,6 +87,7 @@
               <!--              <i class="fi fi-rr-share icon " />-->
             </q-btn>
             <bookmark :is-favored="contentFavored"
+                      :flat="true"
                       :loading="bookmarkLoading"
                       @clicked="handleContentBookmark" />
           </div>

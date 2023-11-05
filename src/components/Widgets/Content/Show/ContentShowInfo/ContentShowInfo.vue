@@ -31,6 +31,7 @@
           </q-btn>
           <bookmark :is-favored="content.is_favored"
                     :loading="bookmarkLoading"
+                    :flat="true"
                     @clicked="handleContentBookmark" />
         </div>
         <h6 class="set-title">

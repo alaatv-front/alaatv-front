@@ -17,7 +17,7 @@
     </template>
   </q-btn>
 </template>
-
+0
 <script>
 export default {
   name: 'Bookmark',
@@ -89,7 +89,6 @@ export default {
 
 <style scoped lang="scss">
 .bookmark-btn {
-  margin: 5px;
   &.favored-state {
   }
   &.unfavored-state {

@@ -38,7 +38,7 @@
         <div class="q-my-md productsSearch ">
           <q-input v-model="searchTarget"
                    type="text"
-                   class="form-control m-input m-input--air"
+                   class="form-control m-input m-input--air no-title"
                    placeholder="جستجو ..."
                    @keydown.enter="sortProducts">
             <template v-slot:append>
