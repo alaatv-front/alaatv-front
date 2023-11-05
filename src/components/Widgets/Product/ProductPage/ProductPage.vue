@@ -17,6 +17,7 @@
               <div class="header-action">
                 <bookmark :is-favored="product.is_favored"
                           :rounded="false"
+                          :flat="false"
                           :className="'header-action-btn'"
                           :favoredIcon="'bookmark'"
                           :unFavoredIcon="'bookmark_border'"
@@ -57,6 +58,7 @@
                                 :favoredIcon="'bookmark'"
                                 :unFavoredIcon="'bookmark_border'"
                                 :loading="bookmarkLoading"
+                                class="bookmark-btn"
                                 @clicked="handleProductBookmark" />
                       <q-btn icon="ph:share-network"
                              color="grey"
@@ -277,6 +279,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/Theme/spacing.scss";
+
 .product-page-container {
   width: 100%;
   position: relative;
@@ -483,6 +487,10 @@ export default defineComponent({
               display: none;
               justify-content: center;
               align-items: center;
+
+              .bookmark-btn {
+                margin-right: $space-3;
+              }
 
               .header-action-btn {
                 width: 40px;
