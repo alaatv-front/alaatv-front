@@ -15,6 +15,9 @@ const mutations = {
   updateLoginDialog: (state, newInfo) => {
     state.loginDialog = newInfo
   },
+  updateLoginDialogPersistent: (state, newInfo) => {
+    state.loginDialogPersistent = newInfo
+  },
   updateLayoutHeaderType: (state, newInfo) => {
     state.layoutHeaderType = newInfo
   },

@@ -41,7 +41,7 @@
             </q-card>
           </q-dialog>
           <q-dialog v-model="loginDialog"
-                    :persistent="!domainSameWithAppDomain">
+                    :persistent="loginDialogPersistent">
             <div class="q-mb-lg">
               <auth-login />
             </div>
@@ -110,6 +110,14 @@ export default {
       },
       set (newValue) {
         this.$store.commit('AppLayout/updateLoginDialog', !!newValue)
+      }
+    },
+    loginDialogPersistent: {
+      get () {
+        return this.$store.getters['AppLayout/loginDialogPersistent']
+      },
+      set (newValue) {
+        this.$store.commit('AppLayout/updateLoginDialogPersistent', !!newValue)
       }
     },
     confirmDialogData () {
