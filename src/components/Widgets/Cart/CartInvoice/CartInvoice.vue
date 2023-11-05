@@ -1006,6 +1006,7 @@ export default {
           left: 0;
           right: 0;
           display: flex;
+          z-index: 10;
           justify-content: space-between;
           padding: 13px 19px;
           background: #FFFFFF;

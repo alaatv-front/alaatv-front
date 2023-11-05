@@ -384,6 +384,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "src/css/Theme/spacing.scss";
+
 .cart-count {
   font-style: normal;
   font-weight: 400;
@@ -927,7 +929,10 @@ export default {
         width: 144px;
         height: 40px;
         @media screen and (max-width: 599px) {
-          width: 122px;
+          order: 1;
+          width: 100%;
+          margin-bottom: $space-2;
+          margin-left: $spacing-none;
         }
       }
 
@@ -939,7 +944,8 @@ export default {
         height: 40px;
 
         @media screen and (max-width: 599px) {
-          width: 122px;
+          order: 2;
+          width: 100%;
         }
 
         @media screen and (max-width: 360px) {
