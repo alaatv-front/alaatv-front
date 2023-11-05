@@ -7,8 +7,11 @@ export default boot(({ app, router }) => {
   }
 
   router.beforeEach((to, from, next) => {
+    console.warn('beforeEach route to: ', to)
+    console.warn('beforeEach route from: ', from)
     if (!hasEwanoQuery(to) && hasEwanoQuery(from)) {
       to.query.ewano = 1
+      console.warn('add Ewano library from cdn')
       app.mixin(
         createMetaMixin(function () {
           return {

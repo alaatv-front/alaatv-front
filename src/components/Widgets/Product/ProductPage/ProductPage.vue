@@ -17,16 +17,16 @@
               <div class="header-action">
                 <bookmark :is-favored="product.is_favored"
                           :rounded="false"
-                          :color="'white'"
+                          :flat="false"
                           :className="'header-action-btn'"
                           :favoredIcon="'bookmark'"
                           :unFavoredIcon="'bookmark_border'"
                           :loading="bookmarkLoading"
                           @clicked="handleProductBookmark" />
-                <q-btn icon="share"
+                <q-btn icon="ph:share-network"
+                       square
                        text-color="black"
-                       color="white"
-                       class="header-action-btn">
+                       color="grey">
                   <q-tooltip anchor="top middle"
                              self="bottom middle"
                              :offset="[10, 10]">
@@ -54,15 +54,14 @@
                     <div class="short-description-title__action">
                       <bookmark :is-favored="product.is_favored"
                                 :rounded="false"
-                                :color="'white'"
-                                :className="'header-action-btn'"
+                                :flat="false"
                                 :favoredIcon="'bookmark'"
                                 :unFavoredIcon="'bookmark_border'"
                                 :loading="bookmarkLoading"
+                                class="bookmark-btn"
                                 @clicked="handleProductBookmark" />
-                      <q-btn icon="share"
-                             text-color="black"
-                             color="white"
+                      <q-btn icon="ph:share-network"
+                             color="grey"
                              class="header-action-btn">
                         <q-tooltip anchor="top middle"
                                    self="bottom middle"
@@ -280,6 +279,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/Theme/spacing.scss";
+
 .product-page-container {
   width: 100%;
   position: relative;
@@ -393,8 +394,6 @@ export default defineComponent({
           .header-action-btn {
             width: 40px;
             height: 40px;
-            border-radius: 8px;
-            background:#FFF;
 
             &:not(:last-child) {
               margin-right: 12px;
@@ -488,6 +487,10 @@ export default defineComponent({
               display: none;
               justify-content: center;
               align-items: center;
+
+              .bookmark-btn {
+                margin-right: $space-3;
+              }
 
               .header-action-btn {
                 width: 40px;

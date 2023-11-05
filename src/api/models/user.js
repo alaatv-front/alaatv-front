@@ -95,6 +95,7 @@ export default class UserAPI extends APIRepository {
       createEventResult: this.name + this.APIAdresses.createEventResult,
       baseAdmin: this.name + this.APIAdresses.baseAdmin,
       nationalCard: this.name + this.APIAdresses.nationalCard,
+      nationalCardPhoto: this.name + this.APIAdresses.nationalCardPhoto,
       getUserRoleAndPermission: this.name + this.APIAdresses.getUserRoleAndPermission,
       saveExam: this.name + this.APIAdresses.saveExam
     }

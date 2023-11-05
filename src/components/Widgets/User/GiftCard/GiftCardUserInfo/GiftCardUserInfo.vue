@@ -143,10 +143,10 @@
                   </div>
                   <div v-if="nationalCardPicFile && !nationalCardPicURL"
                        class="selected-pic">
-                    <q-btn fab
-                           icon="isax:trash"
+                    <q-btn icon="ph:trash-simple"
+                           flat
+                           square
                            class="q-my-sm remove-btn"
-                           color="red"
                            @click="removeNationalCardPicFile" />
                     <q-img :src="nationalCardPicObjectURL" />
                     <div class="btn-upload">
@@ -452,8 +452,7 @@
       </div>
     </div>
     <q-dialog v-model="showNationalCard">
-      <lazy-img :src="nationalCardPicURL"
-                class="full-width" />
+      <lazy-img :src="nationalCardPicURL" />
     </q-dialog>
   </div>
 </template>
@@ -1360,7 +1359,6 @@ export default {
               color: #8798B1;
             }
             .target-bank-logo {
-              width: 80px;
             }
           }
           .shaba-number-input {

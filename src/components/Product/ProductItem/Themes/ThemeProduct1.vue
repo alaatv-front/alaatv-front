@@ -25,13 +25,12 @@
           </div>
         </router-link>
       </div>
-      <div class="product-action-container">
-        <bookmark v-if="localOptions.showBookmark"
-                  class="product-item-bookmark"
-                  :is-favored="localOptions.product.is_favored"
-                  :loading="bookmarkLoading"
-                  @clicked="handleProductBookmark" />
-      </div>
+      <bookmark v-if="localOptions.showBookmark"
+                :is-favored="localOptions.product.is_favored"
+                :loading="bookmarkLoading"
+                :flat="true"
+                @clicked="handleProductBookmark" />
+
       <div v-if="product.attributes && localOptions.theme !== 'theme2'"
            class="info-box col-12">
         <div class="teacher-image">
@@ -80,14 +79,13 @@
         </div>
         <div class="action-btn col-sm-6 col-xs-12">
           <q-btn v-if="localOptions.canAddToCart"
-                 unelevated
-                 text-color="grey-9"
                  label="ثبت نام"
                  :loading="cart.loading"
                  :productId="product.id"
                  :data-product-id="product.id"
                  :square="mobileMode"
                  class="add-to-cart-btn q-btn-md"
+                 color="primary"
                  :class="localOptions.theme"
                  icon-right="ph:plus"
                  @click="addToCart" />
@@ -98,8 +96,7 @@
         <div class="more-detail product-more-detail">
           {{ localOptions.customActionMessage }}
         </div>
-        <q-btn unelevated
-               class="btn-green"
+        <q-btn color="secondary"
                @click="customActionClicked">
           <span>
             {{ localOptions.customActionLabel }}
@@ -429,7 +426,6 @@ export default defineComponent({
   }
 
   .add-to-cart-btn {
-    background: $primary;
     height: inherit;
 
     .btn-text {

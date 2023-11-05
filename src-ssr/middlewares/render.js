@@ -12,11 +12,11 @@ export default ssrMiddleware(({ app, resolve, render, serve }) => {
 
     const reqTimestamp = Date.now()
     if (logRequest) {
-      console.log('req timestamp: ' + reqTimestamp + ' ----> ', {
+      console.log('req timestamp: ' + reqTimestamp + ' ----> ' + JSON.stringify({
         url: req.url,
         method: req.method,
         rawHeaders: req.rawHeaders
-      })
+      }))
     }
 
     res.setHeader('Content-Type', 'text/html')
@@ -26,13 +26,13 @@ export default ssrMiddleware(({ app, resolve, render, serve }) => {
         // now let's send the rendered html to the client
         res.send(html)
         if (logRequest) {
-          console.log('res timestamp: ' + Date.now() + ' ----> ', {
+          console.log('res timestamp: ' + Date.now() + ' ----> ' + JSON.stringify({
             reqTimestamp: reqTimestamp,
             statusCode: res.statusCode,
             url: res.req.url,
             method: res.req.method,
             _header: res._header
-          })
+          }))
         }
       })
       .catch(err => {

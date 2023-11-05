@@ -11,10 +11,9 @@
       <div class="q-pa-md q-mb-lg q-mx-sm content-info">
         <div dir="ltr"
              class="float-right">
-          <q-btn icon="isax:share"
-                 flat
-                 color="black"
-                 size="13px">
+          <q-btn icon="ph:share-network"
+                 square
+                 flat>
             <q-tooltip anchor="top middle"
                        self="bottom middle"
                        :offset="[10, 10]">
@@ -32,6 +31,7 @@
           </q-btn>
           <bookmark :is-favored="content.is_favored"
                     :loading="bookmarkLoading"
+                    :flat="true"
                     @clicked="handleContentBookmark" />
         </div>
         <h6 class="set-title">

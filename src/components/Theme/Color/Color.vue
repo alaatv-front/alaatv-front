@@ -73,37 +73,37 @@
             </q-card-section>
           </q-card>
         </div>
-        <div class="col-md-1 q-mx-md tertiary">
+        <div class="col-md-1 q-mx-md accent">
           <q-card>
-            <q-card-section class="tertiary-1">
-              tertiary-1
+            <q-card-section class="accent-1">
+              accent-1
             </q-card-section>
-            <q-card-section class="tertiary-2">
-              tertiary-2
+            <q-card-section class="accent-2">
+              accent-2
             </q-card-section>
-            <q-card-section class="tertiary-3">
-              tertiary-3
+            <q-card-section class="accent-3">
+              accent-3
             </q-card-section>
-            <q-card-section class="tertiary-4">
-              tertiary-4
+            <q-card-section class="accent-4">
+              accent-4
             </q-card-section>
-            <q-card-section class="tertiary-5">
-              tertiary-5
+            <q-card-section class="accent-5">
+              accent-5
             </q-card-section>
-            <q-card-section class="tertiary-6">
-              tertiary-6
+            <q-card-section class="accent-6">
+              accent-6
             </q-card-section>
-            <q-card-section class="tertiary-7">
-              tertiary-7
+            <q-card-section class="accent-7">
+              accent-7
             </q-card-section>
-            <q-card-section class="tertiary-8">
-              tertiary-8
+            <q-card-section class="accent-8">
+              accent-8
             </q-card-section>
-            <q-card-section class="tertiary-9">
-              tertiary-9
+            <q-card-section class="accent-9">
+              accent-9
             </q-card-section>
-            <q-card-section class="tertiary-10">
-              tertiary-10
+            <q-card-section class="accent-10">
+              accent-10
             </q-card-section>
           </q-card>
         </div>
@@ -253,6 +253,7 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
   name: 'Color'
@@ -325,36 +326,36 @@ export default {
       background: $secondary-10;
     }
   }
-  .tertiary{
-    .tertiary-1{
-      background: $tertiary-1;
+  .accent{
+    .accent-1{
+      background: $accent-1;
     }
-    .tertiary-2{
-      background: $tertiary-2;
+    .accent-2{
+      background: $accent-2;
     }
-    .tertiary-3{
-      background: $tertiary-3;
+    .accent-3{
+      background: $accent-3;
     }
-    .tertiary-4{
-      background: $tertiary-4;
+    .accent-4{
+      background: $accent-4;
     }
-    .tertiary-5{
-      background: $tertiary-5;
+    .accent-5{
+      background: $accent-5;
     }
-    .tertiary-6{
-      background: $tertiary-6;
+    .accent-6{
+      background: $accent-6;
     }
-    .tertiary-7{
-      background: $tertiary-7;
+    .accent-7{
+      background: $accent-7;
     }
-    .tertiary-8{
-      background: $tertiary-8;
+    .accent-8{
+      background: $accent-8;
     }
-    .tertiary-9{
-      background: $tertiary-9;
+    .accent-9{
+      background: $accent-9;
     }
-    .tertiary-10{
-      background: $tertiary-10;
+    .accent-10{
+      background: $accent-10;
     }
   }
   .positive{

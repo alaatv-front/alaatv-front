@@ -1,10 +1,11 @@
 <template>
-  <q-btn :class="computedClassName"
-         class="bookmark-btn"
-         :rounded="rounded"
-         :flat="!color"
+  <q-btn class="bookmark-btn"
+         square
+         :flat="flat"
+         color="grey"
          :loading="loading"
          :icon="isFavored ? favoredIcon : unFavoredIcon"
+         :class="className"
          @click="bookmark">
     <q-tooltip anchor="top middle"
                self="bottom middle"
@@ -16,7 +17,6 @@
     </template>
   </q-btn>
 </template>
-
 <script>
 export default {
   name: 'Bookmark',
@@ -29,16 +29,16 @@ export default {
       default: false,
       type: Boolean
     },
-    rounded: {
+    flat: {
       default: true,
       type: Boolean
     },
     favoredIcon: {
-      default: 'ph:book-bookmark',
+      default: 'bookmark',
       type: String
     },
     unFavoredIcon: {
-      default: 'ph:book-bookmark',
+      default: 'ph:bookmark-simple',
       type: String
     },
     className: {
@@ -72,12 +72,15 @@ export default {
     }
   },
   methods: {
-    bookmark () {
-      this.$emit('clicked')
+    bookmark (e) {
+      e.preventDefault()
+      e.stopPropagation()
       if (!this.isUserLogin) {
         this.$store.commit('Auth/updateRedirectTo', { name: this.$route.name, params: this.$route.params })
         this.$store.commit('AppLayout/updateLoginDialog', true)
+        return
       }
+      this.$emit('clicked')
     }
   }
 }
@@ -85,11 +88,7 @@ export default {
 
 <style scoped lang="scss">
 .bookmark-btn {
-  z-index: 1000;
-  padding: 5px;
-  margin: 5px;
   &.favored-state {
-    color: $primary;
   }
   &.unfavored-state {
 
