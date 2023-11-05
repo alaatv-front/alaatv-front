@@ -16,54 +16,17 @@
               <div class="icon-box">
                 <div class="telegram">
                   <q-btn flat
-                         rounded
+                         square
                          class="btn-social"
-                         :href="'https://telegram.me/alaa_sanatisharif'">
-                    <svg width="24"
-                         height="24"
-                         viewBox="0 0 24 24"
-                         fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                      <path d="M7.85 12.8299L9.58 13.4099C10.06 13.5699 10.43 13.9399 10.59 14.4199L11.17 16.1499C11.66 17.6399 13.76 17.6099 14.22 16.1199L16.17 9.83988C16.55 8.58988 15.4 7.43989 14.17 7.81989L7.88 9.76987C6.39 10.2399 6.37 12.3399 7.85 12.8299Z"
-                            stroke="#8a8ca6"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round" />
-                      <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22Z"
-                            stroke="#8a8ca6"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                  </q-btn>
+                         icon="ph:telegram-logo"
+                         :href="'https://telegram.me/alaa_sanatisharif'" />
                 </div>
                 <div class="instagram">
                   <q-btn flat
-                         rounded
+                         square
                          class="btn-social"
-                         :href="'https://www.instagram.com/alaa_sanatisharif'">
-                    <svg width="24"
-                         height="24"
-                         viewBox="0 0 24 24"
-                         fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z"
-                            stroke="#8a8ca6"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round" />
-                      <path d="M12 15.5C13.933 15.5 15.5 13.933 15.5 12C15.5 10.067 13.933 8.5 12 8.5C10.067 8.5 8.5 10.067 8.5 12C8.5 13.933 10.067 15.5 12 15.5Z"
-                            stroke="#8a8ca6"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round" />
-                      <path d="M17.6361 7H17.6477"
-                            stroke="#8a8ca6"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                  </q-btn>
+                         icon="ph:instagram-logo"
+                         :href="'https://www.instagram.com/alaa_sanatisharif'" />
                 </div>
               </div>
             </div>

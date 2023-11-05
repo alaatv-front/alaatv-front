@@ -11,18 +11,15 @@
     <div class="flex btn-style">
       <q-btn v-if="saveMode"
              :disabled="doesntHaveContent"
-             unelevated
              :loading="loading"
-             flat
-             color="red"
+             color="grey"
              class="cancel btn-size"
              label="لغو"
              @click="cancel" />
       <q-btn v-if="saveMode || value.length === 0"
              :disabled="doesntHaveContent"
              :loading="loading"
-             unelevated
-             color="positive"
+             color="secondary"
              label="ذخیره"
              class="submit btn-size"
              @click="saveComment" />

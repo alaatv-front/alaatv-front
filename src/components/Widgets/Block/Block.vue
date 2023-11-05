@@ -11,7 +11,7 @@
              color="primary"
              square
              class="q-btn-sm"
-             :icon="isGridView ? 'sync_alt' : 'grid_view'"
+             :icon="isGridView ? 'ph:arrows-left-right' : 'ph:grid-four'"
              @click="isGridView = !isGridView" />
     </div>
     <!--    <div class="block-container">-->

@@ -8,7 +8,7 @@
             {{ header.title }}
           </span>
           <q-btn v-if="header.button"
-                 unelevated
+                 flat
                  class="slot-header-box-days"
                  :label=" header.button.title"
                  @click="btnClicked" />

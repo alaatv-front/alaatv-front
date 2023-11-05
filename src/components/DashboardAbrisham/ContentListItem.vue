@@ -67,9 +67,9 @@
             </p>
           </div>
           <div>
-            <q-btn unelevated
-                   icon="isax:document-download"
-                   class="icon-btn"
+            <q-btn flat
+                   square
+                   icon="ph:download"
                    :href="content.file.pamphlet[0].link" />
           </div>
         </div>

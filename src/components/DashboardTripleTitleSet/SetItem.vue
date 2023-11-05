@@ -63,13 +63,10 @@
                 <q-icon name="menu_book" />
                 {{ setItem.last_content_user_watched?.title }}
               </div>
-              <div class="last-content-link">
-                <q-btn v-if="setItem.last_content_user_watched?.id"
-                       flat
-                       class="q-btn-sm"
-                       icon-right="chevron_left"
-                       :to="{ name: 'UserPanel.Asset.TripleTitleSet.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }">مشاهده</q-btn>
-              </div>
+              <q-btn v-if="setItem.last_content_user_watched?.id"
+                     flat
+                     icon-right="chevron_left"
+                     :to="{ name: 'UserPanel.Asset.TripleTitleSet.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }">مشاهده</q-btn>
             </div>
           </div>
         </q-card-section>
@@ -94,7 +91,6 @@
             <div class="last-content-link">
               <q-btn v-if="setItem.last_content_user_watched?.id"
                      flat
-                     class="q-btn-sm"
                      icon-right="chevron_left"
                      :to="{ name: 'UserPanel.Asset.TripleTitleSet.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }">مشاهده</q-btn>
             </div>
@@ -321,6 +317,7 @@ export default {
           justify-content: space-between;
           align-items: center;
 
+          $last-content-link: 100px;
           .last-content-section {
             font-style: normal;
             font-weight: 400;
@@ -328,17 +325,11 @@ export default {
             line-height: 19px;
             letter-spacing: -0.02em;
             color: #6C6C6C;
-            width: calc( 100% - 85px );
+            width: calc( 100% - #{$last-content-link} );
           }
 
           .last-content-link {
-            font-style: normal;
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 22px;
-            letter-spacing: -0.03em;
-            color: #333333;
-            width: 85px;
+            width: $last-content-link;
           }
         }
       }

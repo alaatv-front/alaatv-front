@@ -65,13 +65,12 @@
                 <q-icon name="menu_book" />
                 {{ product.title }}
               </div>
-              <div class="last-content-link">
-                <q-btn flat
-                       class="q-btn-sm"
-                       icon-right="chevron_left"
-                       :to="{ name: 'UserPanel.Asset.TripleTitleSet.Content', params: {productId: product.id, setId: product.last_content_user_watched.set.id, contentId: product.last_content_user_watched?.id} }">مشاهده</q-btn>
-              </div>
+              <q-btn flat
+                     class="size-md"
+                     icon-right="chevron_left"
+                     :to="{ name: 'UserPanel.Asset.TripleTitleSet.Content', params: {productId: product.id, setId: product.last_content_user_watched.set.id, contentId: product.last_content_user_watched?.id} }">مشاهده</q-btn>
             </div>
+
           </div>
         </q-card-section>
       </q-card-section>
@@ -92,13 +91,12 @@
               <q-icon name="menu_book" />
               {{ product.title }}
             </div>
-            <div class="last-content-link">
-              <q-btn flat
-                     class="q-btn-sm"
-                     icon-right="chevron_left"
-                     :to="{ name: 'UserPanel.Asset.TripleTitleSet.Content', params: {productId: product.id, setId: product.last_content_user_watched.set.id, contentId: product.last_content_user_watched?.id} }">مشاهده</q-btn>
-            </div>
+            <q-btn flat
+                   class="size-md"
+                   icon-right="chevron_left"
+                   :to="{ name: 'UserPanel.Asset.TripleTitleSet.Content', params: {productId: product.id, setId: product.last_content_user_watched.set.id, contentId: product.last_content_user_watched?.id} }">مشاهده</q-btn>
           </div>
+
         </div>
       </q-card-section>
     </q-card-section>
@@ -336,17 +334,6 @@ export default {
             line-height: 19px;
             letter-spacing: -0.02em;
             color: #6C6C6C;
-            width: calc( 100% - 85px );
-          }
-
-          .last-content-link {
-            font-style: normal;
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 22px;
-            letter-spacing: -0.03em;
-            color: #333333;
-            width: 85px;
           }
         }
       }

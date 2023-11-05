@@ -7,8 +7,6 @@
            style="font-size: 14px">
         <div class="q-mr-sm">5000 تومان به آلاء کمک</div>
         <q-btn-toggle v-model="donate"
-                      unelevated
-                      glossy
                       toggle-color="primary"
                       :options="[
                         {label: 'میکنم', value: 'doHelp'},

@@ -52,17 +52,13 @@
       </span>
     </div>
     <div class="price-action">
-      <q-btn :color="!localOptions.product.payment_default || localOptions.product.payment_default === 1 ? 'primary' : 'grey-3'"
-             text-color="grey-9"
-             unelevated
+      <q-btn :color="!localOptions.product.payment_default || localOptions.product.payment_default === 1 ? 'primary' : 'grey'"
              class="action-btn"
              :class="{'full-width': !hasInstallment}"
              :label="hasInstallment ? 'ثبت نام نقدی' : 'ثبت نام'"
              @click="paymentAction('cash')" />
       <q-btn v-if="hasInstallment"
-             :color="localOptions.product?.payment_default || localOptions.product.payment_default === 2 ? 'primary' : 'grey-3'"
-             text-color="grey-9"
-             unelevated
+             :color="localOptions.product?.payment_default || localOptions.product.payment_default === 2 ? 'primary' : 'grey'"
              class="action-btn gesti"
              label="ثبت نام اقساطی"
              @click="paymentAction('installment')" />
