@@ -29,8 +29,9 @@
                  :after-send-data="afterSendData">
       <template #after-form-builder>
         <div class="col-12 q-my-md flex justify-end">
-          <q-btn class="submitBtn"
-                 label="ثبت تغییرات"
+          <q-btn label="ثبت تغییرات"
+                 color="primary"
+                 size="lg"
                  @click="submit" />
         </div>
       </template>
@@ -669,9 +670,5 @@ export default {
 
 .submitBtn {
   width: 189px;
-  background: #ffc107;
-  box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
-  border-radius: 8px;
-  color: white;
 }
 </style>

@@ -46,28 +46,28 @@
   min-height: auto;
 
   // xs
-  &[style*='font-size:8px'] {
+  &.size-xs {
     @include btn-handle-sizes('xs')
   }
 
   // sm
-  &[style*='font-size:10px'] {
+  &.size-sm {
     @include btn-handle-sizes('sm')
   }
 
   // md
-  &[style*='font-size:14px'] {
+  &.size-md {
     @include btn-handle-sizes('md');
   }
   @include btn-handle-sizes('md');
 
   // lg
-  &[style*='font-size:20px'] {
+  &.size-lg {
     @include btn-handle-sizes('lg')
   }
 
   // xl
-  &[style*='font-size:24px'] {
+  &.size-xl {
     @include btn-handle-sizes('xl')
   }
 

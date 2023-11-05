@@ -70,9 +70,8 @@
         </div>
         <div v-if="content.id"
              class="icon-btn-box">
-          <q-btn dark
-                 unelevated
-                 class="seen-btn"
+          <q-btn class="seen-btn"
+                 color="accent"
                  :class="{ 'seen-video-btn': content.has_watched, 'video-btn': !content.has_watched }"
                  :loading="content.loading"
                  @click="clickSeenButton">
@@ -88,18 +87,20 @@
             </span>
           </q-btn>
           <div class="video-box-icon">
-            <q-btn unelevated
-                   icon="isax:document-download"
+            <q-btn flat
+                   square
+                   icon="ph:download"
                    class="icon-btn"
                    :disable="!content.file"
                    @click="downloadVideo= !downloadVideo" />
-            <q-btn unelevated
+            <q-btn square
                    flat
                    class="icon-btn"
-                   icon="isax:share"
+                   icon="ph:share-network"
                    @click="socialMediaDialog = !socialMediaDialog" />
             <bookmark :is-favored="contentFavored"
                       :loading="bookmarkLoading"
+                      :class-name="'icon-btn'"
                       @clicked="handleContentBookmark" />
           </div>
         </div>
@@ -170,7 +171,7 @@
             {{item.res}}
           </div>
           <q-btn unelevated
-                 icon="isax:document-download"
+                 icon="ph:download"
                  :href="item.link + (item.link.includes('?') ? '' : '?') +'download=1'"
                  class="download-btn" />
         </div>
@@ -630,41 +631,28 @@ export default {
                 }
 
                 .seen-video-btn {
-                    background-color: #ffffff;
-                    color: #ff8f00;
                     width: 120px;
                     height: 48px;
-                    border-radius: 10px;
-                    border: solid 2px #ff8f00;
-                    box-shadow: none;
                     @media screen and (max-width: 768px) {
                         width: 110px !important;
                         height: 36px !important;
-                        border: solid 1px #ff8f00 !important;
                     }
 
                     .video-btn-text {
-                        font-size: 16px;
                         font-weight: 500;
                         @media screen and (max-width: 768px) {
-                            font-size: 14px !important;
                         }
                     }
                 }
 
                 .seen-icon {
                     margin-top: 5px;
-                    font-size: 14px;
                     margin-right: 5px;
                 }
 
                 .video-btn {
-                    background-color: #ff8f00;
-                    color: #ffffff;
                     width: 120px;
                     height: 48px;
-                    border-radius: 10px;
-                    box-shadow: 0 5px 10px 0 rgba(62, 84, 128, 0.2);
                     @media screen and (max-width: 576px) {
                         height: 40px;
                     }
@@ -686,13 +674,7 @@ export default {
                       margin-left: 20px;
                       &:deep(.q-btn__content){
                         margin: 0;
-                        color: #3e5480;
-                        font-size: 18px;
                       }
-                    }
-
-                    .favorite-bookmark {
-                        color: #ff8f00;
                     }
                 }
             }

@@ -1,10 +1,11 @@
 <template>
-  <q-btn :class="computedClassName"
-         class="bookmark-btn"
-         :rounded="rounded"
-         :flat="!color"
+  <q-btn class="bookmark-btn"
+         square
+         :flat="flat"
+         color="grey"
          :loading="loading"
          :icon="isFavored ? favoredIcon : unFavoredIcon"
+         :class="className"
          @click="bookmark">
     <q-tooltip anchor="top middle"
                self="bottom middle"
@@ -29,16 +30,16 @@ export default {
       default: false,
       type: Boolean
     },
-    rounded: {
+    flat: {
       default: true,
       type: Boolean
     },
     favoredIcon: {
-      default: 'ph:book-bookmark',
+      default: 'bookmark',
       type: String
     },
     unFavoredIcon: {
-      default: 'ph:book-bookmark',
+      default: 'ph:bookmark-simple',
       type: String
     },
     className: {
@@ -88,11 +89,8 @@ export default {
 
 <style scoped lang="scss">
 .bookmark-btn {
-  z-index: 1000;
-  padding: 5px;
   margin: 5px;
   &.favored-state {
-    color: $primary;
   }
   &.unfavored-state {
 

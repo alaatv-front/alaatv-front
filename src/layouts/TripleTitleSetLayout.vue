@@ -19,7 +19,7 @@
         </div>
         <div class="back-btn">
           <q-btn flat
-                 icon-right="chevron_left"
+                 icon-right="ph:caret-left"
                  :to="{ name: 'UserPanel.Asset.TripleTitleSet.Products' }">بازگشت</q-btn>
         </div>
       </div>

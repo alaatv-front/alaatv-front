@@ -20,9 +20,10 @@
       <q-card class="sms-help-dialog">
         <q-card-section class="sms-help-dialog_header">
           <span class="sms-help-dialog_header__title">راهنمای کدهای پیامکی</span>
-          <q-btn icon="close"
+          <q-btn icon="ph:x"
                  class="sms-help-dialog_header__closeBtn"
                  flat
+                 square
                  @click="toggleDialog" />
         </q-card-section>
         <q-separator class="grey1" />
@@ -49,6 +50,7 @@
                         align="right">
           <q-btn label="فهمیدم"
                  class="action-btn"
+                 color="secondary"
                  @click="toggleDialog" />
         </q-card-actions>
       </q-card>
@@ -207,24 +209,15 @@ export default {
 
   &_action {
     padding: 0 20px 20px;
+    position: absolute;
     .action-btn {
       width: 96px;
       height: 32px;
       min-width: 96px;
-      padding: 4px 16px;
       display: flex;
       justify-content: center;
       align-items: center;
-      border-radius: 8px;
-      background: #09AC73;
-      color: #FFF;
       text-align: center;
-      font-feature-settings: 'clig' off, 'liga' off;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      letter-spacing: -0.42px;
     }
   }
 }

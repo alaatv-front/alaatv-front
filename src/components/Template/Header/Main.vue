@@ -41,7 +41,9 @@
           <div class="action-container">
             <q-btn icon="ph:shopping-cart"
                    flat
-                   class="action-btn gt-xs"
+                   square
+                   size="xl"
+                   class="size-xl"
                    :loading="cartLoading"
                    :to="{name: 'Public.Checkout.Review'}">
               <q-badge v-if="mounted && cartOrdersCount > 0"
@@ -318,78 +320,13 @@ export default {
       .user-action {
         .action-container {
           display: flex;
-          height: 42px;
-          .search-section {
-            height: 40px;
-            .search-input {
-              width: 300px;
-              height: 40px;
-              background: #F1F3F4;
-              //border-radius: 10px;
-
-              &:deep(.q-field__append) {
-                padding-right: 8px !important;
-
-                .q-icon {
-                  color: #6D708B;
-                  cursor: pointer;
-                }
-              }
-
-              &:deep(.q-field__control) {
-                background: #F1F3F4;
-                height: 40px;
-              }
-
-              &:deep(.q-field__marginal) {
-                height: auto;
-                padding: 0;
-              }
-
-              .search {
-                color: #6D708B;
-                height: 40px;
-                width: 40px;
-                :deep(.q-field__inner .q-field__control .q-field__append .q-icon) {
-                  color: #6D708B;
-                }
-                :deep(.q-btn__content) {
-                  margin: 0;
-                }
-              }
-            }
-            @media screen and (max-width: 780px) {
-              display: none;
-            }
+          .q-btn{
+            margin-right: 4px ;
           }
-          &:deep(.q-card__section) {
-            padding: 0;
-            margin-right: 18px;
-
-            .q-field--filled .q-field__inner .q-field__control {
-              background: #F1F3F4;
-            }
-
-            .q-field--filled .q-field__inner .q-field__control .q-field__append, .q-field--filled .q-field__inner .q-field__control .q-field__prepend {
-              padding-right: 16px;
-              padding-left: 12px;
-              height: 40px;
-            }
-
-            .q-field__inner {
-              //border-radius: 0px;
-              .q-field__control {
-                color: transparent;
-                min-height: 0;
-                padding: 0;
-                &:before {
-                  border-color: transparent;
-                }
-                &:hover:before {
-                  border-color: transparent;
-                }
-              }
-            }
+          .q-badge{
+            position: absolute ;
+            right : 10% ;
+            top : 10% ;
           }
         }
         .sign-up-btn {
@@ -410,10 +347,6 @@ export default {
         align-items: center;
         height: 72px;
         justify-self: flex-end;
-        .action-btn {
-          margin: 4px;
-          color: #333;
-        }
         .fit-profile-img {
           width: 48px;
           height: 48px;

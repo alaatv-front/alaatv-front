@@ -49,11 +49,10 @@
             </template>
 
             <template v-slot:after>
-              <q-btn round
-                     dense
-                     unelevated
+              <q-btn flat
+                     square
                      color="primary"
-                     icon="search"
+                     icon="ph:magnifying-glass"
                      @click="sortProducts" />
             </template>
           </q-input>

@@ -45,9 +45,8 @@
         </div>
         <div v-if="content.id"
              class="icon-btn-box">
-          <q-btn dark
-                 unelevated
-                 class="seen-btn"
+          <q-btn class="seen-btn"
+                 color="accent"
                  :class="{ 'seen-video-btn': content.has_watched, 'video-btn': !content.has_watched }"
                  :loading="content.loading"
                  @click="clickSeenButton">
@@ -63,10 +62,11 @@
             </span>
           </q-btn>
           <div class="video-box-icon">
-            <q-btn unelevated
+            <q-btn flat
+                   square
                    :href="content.isPamphlet() ? content.file?.pamphlet[0]?.link: null"
                    :target="content.isPamphlet() ? '_blank': null"
-                   icon="isax:document-download"
+                   icon="ph:download"
                    :disable="!content.file"
                    @click="downloadContent">
               <q-tooltip anchor="top middle"
@@ -75,8 +75,9 @@
                 دانلود
               </q-tooltip>
             </q-btn>
-            <q-btn unelevated
-                   icon="isax:share"
+            <q-btn flat
+                   square
+                   icon="ph:share-network"
                    @click="socialMediaDialog = !socialMediaDialog">
               <q-tooltip anchor="top middle"
                          self="bottom middle"
@@ -156,10 +157,10 @@
           <div class="quality">
             {{item.res}}
           </div>
-          <q-btn unelevated
-                 icon="isax:document-download"
-                 :href="item.link + (item.link.includes('?') ? '' : '?') +'download=1'"
-                 class="download-btn" />
+          <q-btn flat
+                 square
+                 icon="ph:download"
+                 :href="item.link + (item.link.includes('?') ? '' : '?') +'download=1'" />
         </div>
       </q-card-section>
     </q-card>

@@ -17,16 +17,15 @@
               <div class="header-action">
                 <bookmark :is-favored="product.is_favored"
                           :rounded="false"
-                          :color="'white'"
                           :className="'header-action-btn'"
                           :favoredIcon="'bookmark'"
                           :unFavoredIcon="'bookmark_border'"
                           :loading="bookmarkLoading"
                           @clicked="handleProductBookmark" />
-                <q-btn icon="share"
+                <q-btn icon="ph:share-network"
+                       square
                        text-color="black"
-                       color="white"
-                       class="header-action-btn">
+                       color="grey">
                   <q-tooltip anchor="top middle"
                              self="bottom middle"
                              :offset="[10, 10]">
@@ -54,7 +53,6 @@
                     <div class="short-description-title__action">
                       <bookmark :is-favored="product.is_favored"
                                 :rounded="false"
-                                :color="'white'"
                                 :className="'header-action-btn'"
                                 :favoredIcon="'bookmark'"
                                 :unFavoredIcon="'bookmark_border'"

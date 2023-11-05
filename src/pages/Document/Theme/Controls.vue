@@ -30,16 +30,16 @@
 </template>
 
 <script>
-import Buttons from 'src/components/Theme/Buttons/Buttons.vue'
-import Checkbox from 'components/Theme/Controls/Checkbox/Checkbox.vue'
 import Color from 'components/Theme/Color/Color.vue'
-import ProgressTheme from 'components/Theme/Controls/ProgressTheme/ProgressTheme.vue'
-import SliderRange from 'components/Theme/Controls/Slider&Range/Slider&Range.vue'
-import ToggleTheme from 'components/Theme/Controls/ToggleTheme/ToggleTheme.vue'
+import Buttons from 'src/components/Theme/Buttons/Buttons.vue'
+import Scroll from 'components/Theme/Controls/Scroll/Scroll.vue'
+import Checkbox from 'components/Theme/Controls/Checkbox/Checkbox.vue'
 import RadioBtn from 'src/components/Theme/Controls/RadioBtn/RadioBtn.vue'
+import ToggleTheme from 'components/Theme/Controls/ToggleTheme/ToggleTheme.vue'
+import SliderRange from 'components/Theme/Controls/Slider&Range/Slider&Range.vue'
+import ProgressTheme from 'components/Theme/Controls/ProgressTheme/ProgressTheme.vue'
 import PaginationTheme from 'src/components/Theme/Controls/PaginationTheme/PaginationTheme.vue'
 import Typography from 'components/Theme/Typography/Typography.vue'
-import Scroll from 'components/Theme/Controls/Scroll/Scroll.vue'
 import Avatar from 'components/Theme/Controls/Avatar/Avatar.vue'
 import TextInput from 'components/Theme/TextInput/TextInput.vue'
 import Dropdown from 'components/Theme/Controls/Dropdown/Dropdown.vue'

@@ -31,27 +31,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="primary"
-                     size="xs" />
+                     class="size-xs" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="primary"
-                     size="xs"
+                     class="size-xs"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
                      square
-                     size="xs" />
+                     class="size-xs" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
                      square
-                     size="xs"
+                     class="size-xs"
                      disable />
             </div>
             <div class="col-md-1">
@@ -67,27 +67,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="primary"
-                     size="sm" />
+                     class="size-sm" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="primary"
-                     size="sm"
+                     class="size-sm"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
                      square
-                     size="sm" />
+                     class="size-sm" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
                      square
-                     size="sm"
+                     class="size-sm"
                      disable />
             </div>
             <div class="col-md-1">
@@ -103,27 +103,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="primary"
-                     size="md" />
+                     class="size-md" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="primary"
-                     size="md"
+                     class="size-md"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
                      square
-                     size="md" />
+                     class="size-md" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
                      square
-                     size="md"
+                     class="size-md"
                      disable />
             </div>
             <div class="col-md-1">
@@ -139,27 +139,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="primary"
-                     size="lg" />
+                     class="size-lg" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="primary"
-                     size="lg"
+                     class="size-lg"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
                      square
-                     size="lg" />
+                     class="size-lg" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
                      square
-                     size="lg"
+                     class="size-lg"
                      disable />
             </div>
             <div class="col-md-1">
@@ -175,27 +175,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="primary"
-                     size="xl" />
+                     class="size-xl" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="primary"
-                     size="xl"
+                     class="size-xl"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
                      square
-                     size="xl" />
+                     class="size-xl" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="primary"
                      square
-                     size="xl"
+                     class="size-xl"
                      disable />
             </div>
             <div class="col-md-1">
@@ -213,27 +213,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="secondary"
-                     size="xs" />
+                     class="size-xs" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="secondary"
-                     size="xs"
+                     class="size-xs"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="secondary"
                      square
-                     size="xs" />
+                     class="size-xs" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="secondary"
                      square
-                     size="xs"
+                     class="size-xs"
                      disable />
             </div>
             <div class="col-md-1">
@@ -249,27 +249,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="secondary"
-                     size="sm" />
+                     class="size-sm" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="secondary"
-                     size="sm"
+                     class="size-sm"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="secondary"
                      square
-                     size="sm" />
+                     class="size-sm" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="secondary"
                      square
-                     size="sm"
+                     class="size-sm"
                      disable />
             </div>
             <div class="col-md-1">
@@ -285,25 +285,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="secondary"
-                     size="md" />
+                     class="size-md" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="secondary"
-                     size="md"
+                     class="size-md"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="secondary"
-                     size="md" />
+                     square
+                     class="size-md" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="secondary"
-                     size="md"
+                     square
+                     class="size-md"
                      disable />
             </div>
             <div class="col-md-1">
@@ -319,25 +321,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="secondary"
-                     size="lg" />
+                     class="size-lg" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="secondary"
-                     size="lg"
+                     class="size-lg"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="secondary"
-                     size="lg" />
+                     square
+                     class="size-lg" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="secondary"
-                     size="lg"
+                     square
+                     class="size-lg"
                      disable />
             </div>
             <div class="col-md-1">
@@ -353,25 +357,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="secondary"
-                     size="xl" />
+                     class="size-xl" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="secondary"
-                     size="xl"
+                     class="size-xl"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="secondary"
-                     size="xl" />
+                     square
+                     class="size-xl" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="secondary"
-                     size="xl"
+                     square
+                     class="size-xl"
                      disable />
             </div>
             <div class="col-md-1">
@@ -389,25 +395,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="accent"
-                     size="xs" />
+                     class="size-xs" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="accent"
-                     size="xs"
+                     class="size-xs"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="accent"
-                     size="xs" />
+                     square
+                     class="size-xs" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="accent"
-                     size="xs"
+                     square
+                     class="size-xs"
                      disable />
             </div>
             <div class="col-md-1">
@@ -423,25 +431,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="accent"
-                     size="sm" />
+                     class="size-sm" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="accent"
-                     size="sm"
+                     class="size-sm"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="accent"
-                     size="sm" />
+                     square
+                     class="size-sm" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="accent"
-                     size="sm"
+                     square
+                     class="size-sm"
                      disable />
             </div>
             <div class="col-md-1">
@@ -457,25 +467,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="accent"
-                     size="md" />
+                     class="size-md" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="accent"
-                     size="md"
+                     class="size-md"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="accent"
-                     size="md" />
+                     square
+                     class="size-md" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="accent"
-                     size="md"
+                     square
+                     class="size-md"
                      disable />
             </div>
             <div class="col-md-1">
@@ -491,25 +503,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="accent"
-                     size="lg" />
+                     class="size-lg" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="accent"
-                     size="lg"
+                     class="size-lg"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="accent"
-                     size="lg" />
+                     square
+                     class="size-lg" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="accent"
-                     size="lg"
+                     square
+                     class="size-lg"
                      disable />
             </div>
             <div class="col-md-1">
@@ -525,25 +539,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="accent"
-                     size="xl" />
+                     class="size-xl" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="accent"
-                     size="xl"
+                     class="size-xl"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="accent"
-                     size="xl" />
+                     square
+                     class="size-xl" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="accent"
-                     size="xl"
+                     square
+                     class="size-xl"
                      disable />
             </div>
             <div class="col-md-1">
@@ -561,25 +577,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="xs" />
+                     class="size-xs" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="xs"
+                     class="size-xs"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="xs" />
+                     square
+                     class="size-xs" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="xs"
+                     square
+                     class="size-xs"
                      disable />
             </div>
             <div class="col-md-1">
@@ -595,25 +613,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="sm" />
+                     class="size-sm" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="sm"
+                     class="size-sm"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="sm" />
+                     square
+                     class="size-sm" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="sm"
+                     square
+                     class="size-sm"
                      disable />
             </div>
             <div class="col-md-1">
@@ -629,25 +649,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="md" />
+                     class="size-md" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="md"
+                     class="size-md"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="md" />
+                     square
+                     class="size-md" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="md"
+                     square
+                     class="size-md"
                      disable />
             </div>
             <div class="col-md-1">
@@ -663,25 +685,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="lg" />
+                     class="size-lg" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="lg"
+                     class="size-lg"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="lg" />
+                     square
+                     class="size-lg" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="lg"
+                     square
+                     class="size-lg"
                      disable />
             </div>
             <div class="col-md-1">
@@ -697,25 +721,27 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="xl" />
+                     class="size-xl" />
             </div>
             <div class="col-md-3">
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="xl"
+                     class="size-xl"
                      disable />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="xl" />
+                     square
+                     class="size-xl" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="xl"
+                     square
+                     class="size-xl"
                      disable />
             </div>
             <div class="col-md-1">
@@ -734,7 +760,7 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="xs"
+                     class="size-xs"
                      outline />
             </div>
             <div class="col-md-3">
@@ -742,20 +768,22 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="xs"
+                     class="size-xs"
                      disable
                      outline />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="xs"
+                     square
+                     class="size-xs"
                      outline />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="xs"
+                     square
+                     class="size-xs"
                      disable
                      outline />
             </div>
@@ -772,7 +800,7 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="sm"
+                     class="size-sm"
                      outline />
             </div>
             <div class="col-md-3">
@@ -780,20 +808,22 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="sm"
+                     class="size-sm"
                      disable
                      outline />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="sm"
+                     square
+                     class="size-sm"
                      outline />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="sm"
+                     square
+                     class="size-sm"
                      disable
                      outline />
             </div>
@@ -810,7 +840,7 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="md"
+                     class="size-md"
                      outline />
             </div>
             <div class="col-md-3">
@@ -818,20 +848,22 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="md"
+                     class="size-md"
                      disable
                      outline />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="md"
+                     square
+                     class="size-md"
                      outline />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="md"
+                     square
+                     class="size-md"
                      disable
                      outline />
             </div>
@@ -848,7 +880,7 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="lg"
+                     class="size-lg"
                      outline />
             </div>
             <div class="col-md-3">
@@ -856,20 +888,22 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="lg"
+                     class="size-lg"
                      disable
                      outline />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="lg"
+                     square
+                     class="size-lg"
                      outline />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="lg"
+                     square
+                     class="size-lg"
                      disable
                      outline />
             </div>
@@ -886,7 +920,7 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="xl"
+                     class="size-xl"
                      outline />
             </div>
             <div class="col-md-3">
@@ -894,20 +928,22 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="xl"
+                     class="size-xl"
                      disable
                      outline />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="xl"
+                     square
+                     class="size-xl"
                      outline />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="xl"
+                     square
+                     class="size-xl"
                      disable
                      outline />
             </div>
@@ -927,7 +963,7 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="xs"
+                     class="size-xs"
                      flat />
             </div>
             <div class="col-md-3">
@@ -935,20 +971,22 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="xs"
+                     class="size-xs"
                      disable
                      flat />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="xs"
+                     square
+                     class="size-xs"
                      flat />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="xs"
+                     square
+                     class="size-xs"
                      disable
                      flat />
             </div>
@@ -965,7 +1003,7 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="sm"
+                     class="size-sm"
                      flat />
             </div>
             <div class="col-md-3">
@@ -973,20 +1011,22 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="sm"
+                     class="size-sm"
                      disable
                      flat />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="sm"
+                     square
+                     class="size-sm"
                      flat />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="sm"
+                     square
+                     class="size-sm"
                      disable
                      flat />
             </div>
@@ -1003,7 +1043,7 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="md"
+                     class="size-md"
                      flat />
             </div>
             <div class="col-md-3">
@@ -1011,20 +1051,22 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="md"
+                     class="size-md"
                      disable
                      flat />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="md"
+                     square
+                     class="size-md"
                      flat />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="md"
+                     square
+                     class="size-md"
                      disable
                      flat />
             </div>
@@ -1041,7 +1083,7 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="lg"
+                     class="size-lg"
                      flat />
             </div>
             <div class="col-md-3">
@@ -1049,20 +1091,22 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="lg"
+                     class="size-lg"
                      disable
                      flat />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="lg"
+                     class="size-lg"
+                     square
                      flat />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="lg"
+                     square
+                     class="size-lg"
                      disable
                      flat />
             </div>
@@ -1078,7 +1122,7 @@
               <q-btn label="متن دکمه"
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
-                     size="xl"
+                     class="size-xl"
                      flat />
             </div>
             <div class="col-md-3">
@@ -1086,20 +1130,22 @@
                      icon="ph:copyright"
                      icon-right="ph:arrow-left"
                      color="grey"
-                     size="xl"
+                     class="size-xl"
                      disable
                      flat />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="xl"
+                     square
+                     class="size-xl"
                      flat />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      color="grey"
-                     size="xl"
+                     square
+                     class="size-xl"
                      disable
                      flat />
             </div>

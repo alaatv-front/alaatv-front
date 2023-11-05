@@ -2,9 +2,10 @@
   <div>
     <div class="lt-sm flex justify-end">
       <q-btn flat
+             square
              color="grey"
              :to="{name: 'UserPanel.Dashboard'}">
-        <q-icon name="isax:layer"
+        <q-icon name="ph:stack"
                 class="q-mr-sm" />
         >
       </q-btn>
@@ -24,8 +25,7 @@
           </div>
           <div class="back-to-shop">
             <q-btn class="back-to-shop-btn"
-                   flat
-                   :color="'primary'"
+                   color="secondary"
                    label="رفتن به فروشگاه"
                    :to="{name:'Public.Shop'}" />
           </div>
@@ -62,10 +62,9 @@
                 </q-input>
               </div>
               <div class="col-lg-8 col-xl-8 col-sm-6 col-xs-3 text-right">
-                <q-btn unelevated
-                       class="filter-toggle"
-                       :class="filterExpanded? 'gray-bg': 'bg-white'"
-                       icon="isax:filter"
+                <q-btn :color="filterExpanded? 'accent': 'grey'"
+                       square
+                       icon="ph:funnel"
                        @click="filterExpanded = !filterExpanded" />
               </div>
             </div>
@@ -493,9 +492,6 @@ export default {
     }
   }
 }
-.filter-toggle{
-  color:#6D708B;
-}
 .gray-bg{
   background: #E4E8EF;
 }
@@ -752,16 +748,8 @@ export default {
     }
   }
   .back-to-shop-btn {
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 28px;
     text-align: center;
-    color: #8075DC;
-    @media screen and (max-width: 599px) {
-      font-size: 14px;
-      line-height: 22px;
-      color: #8075DC;
-    }
+    margin-top: 16px;
   }
 }
 </style>

@@ -15,28 +15,23 @@
                     class="hidden"
                     @update:model-value="updateFile()" />
             <q-btn v-if="!controls"
-                   icon="isax:camera"
-                   size="xs"
-                   color="white"
-                   text-color="accent"
-                   round
-                   class="photo-edit"
+                   icon="ph:camera"
+                   flat
+                   square
+                   class="photo-edit size-xs"
                    @click="updatePhoto" />
             <div v-if="controls"
                  class="controls">
-              <q-btn icon="isax:tick-circle"
-                     size="xs"
-                     round
-                     color="green"
-                     text-color="white"
-                     class="controls-btn q-mr-xs"
+              <q-btn icon="ph:check-circle"
+                     square
+                     class="size-xs"
+                     color="primary"
                      @click="confirmUpdate" />
-              <q-btn icon="isax:close-circle"
-                     size="xs"
-                     round
-                     color="red"
+              <q-btn icon="ph:x-circle"
+                     class="size-xs"
+                     square
+                     color="grey"
                      text-color="white"
-                     class="controls-btn"
                      @click="discardUpdate" />
             </div>
           </div>
@@ -51,12 +46,10 @@
             </div>
           </div>
           <div class="edit-action">
-            <q-btn class="q-ml-lg justify-end"
-                   icon="isax:edit"
-                   size="sm"
-                   color="white"
-                   text-color="accent"
-                   unelevated
+            <q-btn class="size-xs"
+                   icon="ph:note-pencil"
+                   flat
+                   square
                    :to="{name: 'UserPanel.Profile'}" />
           </div>
         </div>
@@ -421,9 +414,7 @@ export default {
   height: 22px;
 }
 .photo-edit {
-  font-size: 7px;
   position: absolute;
-  border-radius: 50%;
   top: 45px;
   left: 0;
 }
@@ -434,10 +425,6 @@ export default {
 .phoneNumber {
   font-size: 14px;
   color: #656f7b;
-}
-.controls-btn {
-  font-size: 10px !important;
-  border-radius: 50%;
 }
 .status {
   background: #f1f3f4;
