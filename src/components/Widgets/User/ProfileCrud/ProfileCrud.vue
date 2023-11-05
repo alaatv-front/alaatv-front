@@ -31,7 +31,7 @@
         <div class="col-12 q-my-md flex justify-end">
           <q-btn label="ثبت تغییرات"
                  color="primary"
-                 size="lg"
+                 class="size-lg"
                  @click="submit" />
         </div>
       </template>

@@ -9,7 +9,7 @@
       <div class="col-12 q-my-md flex justify-end">
         <q-btn label="ثبت رتبه کنکور"
                color="primary"
-               size="lg"
+               class="size-lg"
                @click="submitAction" />
       </div>
     </template>

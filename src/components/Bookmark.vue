@@ -17,7 +17,6 @@
     </template>
   </q-btn>
 </template>
-0
 <script>
 export default {
   name: 'Bookmark',
