@@ -3,6 +3,7 @@
     <div class="content-item-top-border" />
     <div class="content-item-title q-px-md-lg q-px-xs-md">
       <bookmark v-if="canFavor"
+                :flat="true"
                 :is-favored="localContent.is_favored"
                 :loading="bookmarkLoading"
                 @clicked="handleContentBookmark" />

@@ -4,12 +4,8 @@
          class="lt-sm flex justify-end">
       <q-btn flat
              color="grey"
-             :to="{name: 'UserPanel.Dashboard'}">
-        <q-icon name="isax:layer"
-                class="q-mr-sm" />
-        >
-
-      </q-btn>
+             icon="ph:stack"
+             :to="{name: 'UserPanel.Dashboard'}" />
     </div>
     <div v-if="isEntityReady">
       <entity-index v-model:value="inputs"
@@ -57,12 +53,11 @@
           </template>
           <template v-if="inputData.col.name === 'actions'">
             <div v-if="!isInAdminPage">
-              <q-btn round
-                     flat
-                     dense
+              <q-btn flat
+                     square
                      size="md"
                      color="info"
-                     icon="info"
+                     icon="ph:info"
                      :to="{name:options.showRouteName, params: {id: inputData.props.row.id}}">
                 <q-tooltip>
                   مشاهده
@@ -71,53 +66,47 @@
             </div>
             <div v-else>
               <div v-if="inputData.props.expand">
-                <q-btn round
+                <q-btn square
                        flat
-                       dense
                        color="green"
                        icon="check"
                        :loading="loading"
                        class="q-mr-md"
                        @click="updateTicket(inputData.props)" />
-                <q-btn round
-                       flat
-                       dense
+                <q-btn flat
+                       square
                        color="red"
-
                        icon="close"
                        @click="inputData.props.expand = false" />
 
               </div>
               <template v-else>
-                <q-btn round
-                       flat
-                       dense
+                <q-btn flat
+                       square
                        size="md"
-                       color="info"
-                       icon="info"
+                       color="grey"
+                       icon="ph:info"
                        :to="{name:options.showRouteName, params: {id: inputData.props.row.id}}">
                   <q-tooltip>
                     مشاهده
                   </q-tooltip>
                 </q-btn>
-                <q-btn round
-                       flat
-                       dense
+                <q-btn flat
+                       square
                        size="md"
                        color="amber-14"
-                       icon="edit"
+                       icon="ph:pencil-simple"
                        class="q-ml-xs"
                        @click="setEditMode(inputData.props)">
                   <q-tooltip>
                     ویرایش
                   </q-tooltip>
                 </q-btn>
-                <q-btn round
-                       flat
-                       dense
+                <q-btn flat
+                       square
                        size="md"
                        color="negative"
-                       icon="delete"
+                       icon="ph:trash-simple"
                        :loading="loading"
                        class="q-ml-md"
                        @click="showConfirmRemoveDialog(inputData.props.row, 'id', 'آیا از حذف تیکت اطمینان دارید ؟')">
