@@ -29,10 +29,11 @@
 import Ewano from 'src/assets/js/Ewano.js'
 import mixinAuthData from 'src/mixin/AuthData.js'
 import { APIGateway } from 'src/api/APIGateway.js'
+import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 
 export default {
   name: 'EwanoThankYouPage',
-  mixins: [mixinAuthData],
+  mixins: [mixinAuthData, mixinEwano],
   data() {
     return {
       loading: false,
@@ -40,9 +41,6 @@ export default {
     }
   },
   computed: {
-    isEwanoUser () {
-      return !!this.$route.query.ewano
-    },
     ewanoOrderId () {
       return this.$route.query.ewano_order_id
     },
@@ -54,9 +52,9 @@ export default {
     }
   },
   mounted () {
-    // console.warn('EwanoThankYouPage loaded')
-    // console.warn('window.location.href: ', window.location.href)
-    // console.warn('EwanoThankYouPage isEwanoUser: ', this.isEwanoUser)
+    console.warn('EwanoThankYouPage loaded')
+    console.warn('window.location.href: ', window.location.href)
+    console.warn('EwanoThankYouPage isEwanoUser: ', this.isEwanoUser)
     if (!this.isEwanoUser) {
       return
     }

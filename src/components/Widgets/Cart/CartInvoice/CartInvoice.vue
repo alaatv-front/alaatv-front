@@ -225,6 +225,7 @@ import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { GatewayList } from 'src/models/Gateway.js'
 import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
+import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 let StickySidebar
@@ -238,7 +239,7 @@ if (typeof window !== 'undefined') {
 export default {
   name: 'CartInvoice',
   components: { LazyImg, AuthLogin, Donate },
-  mixins: [mixinWidget],
+  mixins: [mixinWidget, mixinEwano],
   props: {
     options: {
       type: Object,
@@ -293,9 +294,6 @@ export default {
     }
   },
   computed: {
-    isEwanoUser () {
-      return !!this.$route.query.ewano
-    },
     cartLoading () {
       return this.cart.loading
     },
@@ -511,7 +509,7 @@ export default {
         })
     },
 
-    payment() {
+    payment () {
       if (this.isEwanoUser) {
         this.$store.commit('loading/loading', true)
         APIGateway.ewano.makeOrder()
