@@ -62,9 +62,8 @@
         </div>
       </div>
     </q-drawer>
-    <q-separator v-if="localOptions.showSeparator"
-                 class="separator"
-                 vertical />
+    <separator-widget v-if="localOptions.showSeparator"
+                      :options="localOptions.separator" />
   </div>
 </template>
 
@@ -72,6 +71,7 @@
 import { mixinWidget, mixinAuth } from 'src/mixin/Mixins.js'
 import ImageWidget from 'components/Widgets/ImageWidget/ImageWidget.vue'
 import TextWidget from 'components/Widgets/TextWidget/TextWidget.vue'
+import separatorWidget from 'components/Widgets/Separator/Separator.vue'
 import { defineAsyncComponent } from 'vue'
 
 export default {
@@ -79,6 +79,7 @@ export default {
   components: {
     ImageWidget,
     TextWidget,
+    separatorWidget,
     Timer: defineAsyncComponent(() => import('components/Widgets/Timer/Timer.vue'))
   },
   mixins: [mixinWidget, mixinAuth],
@@ -111,6 +112,31 @@ export default {
         eventName: null,
         eventArgs: null,
         borderRadius: '8px',
+        separator: {
+          spaced: false,
+          dark: false,
+          inset: false,
+          vertical: false,
+          image: null,
+          ImageStyle: null,
+          ImageClassName: null,
+          height: {
+            xl: '',
+            lg: '',
+            md: '',
+            sm: '',
+            xs: ''
+          },
+          width: {
+            xl: '',
+            lg: '',
+            md: '',
+            sm: '',
+            xs: ''
+          },
+          style: {},
+          className: ''
+        },
         responsiveSpacing: {
           xs: {
             marginTop: null,

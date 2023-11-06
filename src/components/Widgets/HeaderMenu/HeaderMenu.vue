@@ -44,9 +44,6 @@
            class="row">
         <component :is="component.name"
                    :options="component.options" />
-        <q-separator v-if="index < localOptions[size].centerSectionWidgets.length - 1"
-                     class="separator"
-                     vertical />
       </div>
     </div>
     <div v-if="localOptions.hasAction"
@@ -355,12 +352,6 @@ $backgrounds: (
     display: flex;
     align-items: center;
 
-    .separator {
-      height: 16px;
-      align-self: center;
-      color: $grey4;
-    }
-
     .routes-list {
       display: flex;
 
@@ -373,12 +364,6 @@ $backgrounds: (
 
         &:deep(.q-focus-helper) {
           display: none;
-        }
-        .separator {
-          height: 16px;
-          align-self: center;
-          margin-left: 36px;
-          color: $grey4;
         }
       }
     }

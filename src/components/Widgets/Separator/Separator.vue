@@ -8,10 +8,11 @@
            alt="separator"
            :height="getSeparatorHeight()"
            :width="getSeparatorWidth()"
-           :style="getSeparatorHeight()"
-           :class="localOptions.ImageClassName" /></div>
+           :class="localOptions.ImageClassName" />
+  </div>
   <q-separator v-else
-               :style="localOptions.style"
+               class="separator"
+               :style="[localOptions.style, {width: getSeparatorWidth(), height: getSeparatorHeight()}]"
                :class="localOptions.className"
                :spaced="localOptions.spaced"
                :dark="localOptions.dark"
@@ -101,8 +102,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.separator {
+  align-self: center;
+}
 .separator-image-wrapper {
-  width: 100%;
+  //width: 100%;
 
   .separator-image {
     width: 100%;
