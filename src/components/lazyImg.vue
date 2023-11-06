@@ -27,7 +27,6 @@
   <template v-else>
     <img v-if="width && height"
          ref="LazyImage"
-         v-intersection.once="onIntersection"
          :class="customClass"
          class="lazy-img"
          :alt="alt"
@@ -40,7 +39,6 @@
     <!--    :style="{height: computedHeightForStyle, width: computedWidthForStyle}"-->
     <img v-else
          ref="LazyImage"
-         v-intersection.once="onIntersection"
          :class="customClass"
          class="lazy-img"
          :src="computedSrc"
@@ -148,9 +146,27 @@ export default {
   },
   mounted() {
     this.updateLazyImageSrc()
+    this.observeImageIntersection()
     window.addEventListener('resize', this.onresize)
   },
   methods: {
+    observeImageIntersection () {
+      const image = this.$refs.LazyImage
+      if (!image) {
+        return
+      }
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Element is in view
+            this.visible = true
+            this.updateLazyImageSrc()
+            observer.unobserve(image)
+          }
+        })
+      })
+      observer.observe(image)
+    },
     onClick () {
       this.$emit('click')
     },
