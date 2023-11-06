@@ -1,6 +1,6 @@
 <template>
   <div class="cart-container">
-    <template v-if="loading">
+    <template v-if="loading && !isEwanoUser">
       <q-skeleton type="circle" />
     </template>
     <template v-else>
@@ -25,22 +25,24 @@
       <!--      <span class="tracking-code">{{ trackingCode }}</span>-->
       <!--    </div>-->
       </template>
-      <q-btn v-if="ticketId"
-             :to="{name: 'UserPanel.Ticket.Show', params: {id: ticketId}}"
-             color="primary"
-             class="redirect-element">
-        مشاهده تیکت مربوطه
-      </q-btn>
-      <router-link v-if="hasPaid"
-                   :to="{name: 'UserPanel.MyPurchases'}"
-                   class="redirect-element">
-        فیلم ها و جزوه های من
-      </router-link>
-      <router-link v-else
-                   :to="{name: 'Public.Shop'}"
-                   class="redirect-element">
-        بازگشت به فروشگاه
-      </router-link>
+      <template v-if="!loading">
+        <q-btn v-if="ticketId"
+               :to="{name: 'UserPanel.Ticket.Show', params: {id: ticketId}}"
+               color="primary"
+               class="redirect-element">
+          مشاهده تیکت مربوطه
+        </q-btn>
+        <router-link v-if="hasPaid"
+                     :to="{name: 'UserPanel.MyPurchases'}"
+                     class="redirect-element">
+          فیلم ها و جزوه های من
+        </router-link>
+        <router-link v-else
+                     :to="{name: 'Public.Shop'}"
+                     class="redirect-element">
+          بازگشت به فروشگاه
+        </router-link>
+      </template>
     </template>
   </div>
 </template>
@@ -69,6 +71,7 @@ export default {
     }
   },
   mounted () {
+    this.setIsEwanoUserValue()
     this.onLoadPage()
     this.$bus.on('ThankYouPageInvoiceLoading', (status) => {
       this.loading = status

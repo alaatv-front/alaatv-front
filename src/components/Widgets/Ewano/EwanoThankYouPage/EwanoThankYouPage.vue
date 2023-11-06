@@ -72,7 +72,6 @@ export default {
     checkEwanoPaymentResult () {
       this.changeLoadingState(true)
       Ewano.paymentResult((status) => {
-        console.warn('Ewano.paymentResult status => ', status)
         if (status) {
           this.pay()
         } else {
