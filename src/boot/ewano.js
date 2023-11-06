@@ -24,6 +24,7 @@ export default boot(({ app, router }) => {
     console.warn('beforeEach route to: ', to)
     console.warn('beforeEach route from: ', from)
     console.warn('beforeEach currentRouteHasEwanoQuery: ', currentRouteHasEwanoQuery())
+    console.warn('beforeEach isLoadedEwanoLibrary: ', isLoadedEwanoLibrary())
 
     if (currentRouteHasEwanoQuery() && !isLoadedEwanoLibrary()) {
       console.warn('add Ewano library from cdn')
