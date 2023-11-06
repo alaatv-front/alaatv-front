@@ -122,9 +122,9 @@
                 </div>
 
                 <div class="payment-gateway row">
-                  <div v-if="localOptions.hasPaymentMethod && !localOptions.dense">
-                    <p class="payment-title col-md-12 col-sm-2 col-xs-12">{{localOptions.paymentMethod}}</p>
-                    <div class="banks-gateway-list col-md-12 col-sm-4 col-xs-12">
+                  <template v-if="localOptions.hasPaymentMethod && !localOptions.dense">
+                    <div class="payment-title col-12">{{localOptions.paymentMethod}}</div>
+                    <div class="banks-gateway-list col-12">
                       <div class="row q-col-gutter-sm">
                         <template v-if="gateways.loading">
                           کمی صبر کنید...
@@ -154,7 +154,7 @@
                         </template>
                       </div>
                     </div>
-                  </div>
+                  </template>
 
                   <div v-if="!localOptions.dense"
                        class="payment-description col-md-12 col-sm-6 col-xs-12">
@@ -367,9 +367,9 @@ export default {
           displayName: 'اوانو',
           description: 'اوانو',
           order: 1,
-          photo: 'https://ewano.app/assets/images/logo.svg'
+          photo: 'https://nodes.alaatv.com/upload/alaaPages/2023-11/ewano_logo.png'
         }])
-
+        this.selectedBank = this.gateways.list[0].name
         return
       }
 
@@ -812,9 +812,6 @@ export default {
 
               .banks-gateway-list {
                 margin-bottom: 20px;
-                display: flex;
-                justify-content: space-between;
-                flex-wrap: wrap;
 
                 @media screen and (max-width: 1439px) {
                   margin-bottom: 8px;
