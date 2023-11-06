@@ -55,10 +55,12 @@
 </template>
 
 <script>
-import { User } from 'src/models/User'
+import { User } from 'src/models/User.js'
+import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 
 export default {
   name: 'UserDashboardItems',
+  mixins: [mixinEwano],
   data() {
     return {
       isAdmin: false,
@@ -168,11 +170,6 @@ export default {
           children: []
         }
       ]
-    }
-  },
-  computed: {
-    isEwanoUser () {
-      return !!this.$route.query.ewano
     }
   },
   mounted () {

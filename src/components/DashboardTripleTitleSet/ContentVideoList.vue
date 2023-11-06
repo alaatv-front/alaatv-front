@@ -5,6 +5,7 @@
       <div class="q-px-md row header">
         <q-btn v-if="!hidePrevBtn"
                flat
+               square
                class="q-mt-md"
                icon="chevron_right"
                @click="previousSetClicked" />
@@ -13,6 +14,7 @@
         </div>
         <q-btn v-if="!hideNextBtn"
                flat
+               square
                icon="chevron_left"
                class="q-mt-md"
                @click="nextSetClicked" />

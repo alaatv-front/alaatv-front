@@ -77,9 +77,10 @@
                     </q-tooltip>
                   </div>
                   <q-btn v-if="!order.hasGrand()"
-                         unelevated
+                         flat
+                         square
                          class="trash-button"
-                         icon="isax:trash"
+                         icon="ph:trash-simple"
                          @click="changeDialogState(true, order)" />
                 </div>
 
@@ -87,7 +88,7 @@
                      class="product-information">
                   <div v-if="getProductKey(order, 'attributes').info.teacher"
                        class="product-info">
-                    <q-icon name="isax:teacher"
+                    <q-icon name="ph:student"
                             class="info-icon" />
                     <div class="info-value">
                       {{ getProductKey(order, 'attributes').info.teacher.join('، ') }}
@@ -95,7 +96,7 @@
                   </div>
                   <div v-if="getProductKey(order, 'attributes').info.major"
                        class="product-info">
-                    <q-icon name="isax:book-1"
+                    <q-icon name="ph:book-open"
                             class="info-icon" />
                     <div class="info-value">
                       رشته تحصیلی: {{ getProductKey(order, 'attributes').info.major.join(' - ') }}
@@ -103,7 +104,7 @@
                   </div>
                   <div v-if="getProductKey(order, 'attributes').info.production_year"
                        class="product-info">
-                    <q-icon name="isax:menu-board4"
+                    <q-icon name="ph:calendar"
                             class="info-icon" />
                     <div class="info-value">
                       {{ getProductKey(order, 'attributes').info.production_year.join('، ') }}
@@ -162,9 +163,10 @@
                                   :class="index !== 0 ? 'without-trash': ''">
                               {{ orderProduct.price.toman('final') }}
                             </span>
-                            <q-btn unelevated
+                            <q-btn flat
+                                   square
                                    class="trash-button"
-                                   icon="isax:trash"
+                                   icon="ph:trash-simple"
                                    @click="changeDialogState(true, orderProduct)" />
                           </div>
                         </div>
@@ -177,7 +179,7 @@
                         </router-link>
                         <q-btn-dropdown class="details-button"
                                         label="جزئیات محصول"
-                                        dropdown-icon="isax:arrow-up-2"
+                                        dropdown-icon="ph:caret-up"
                                         flat
                                         @click="expandedObject[i] = !expandedObject[i]" />
                       </q-card-section>
@@ -193,15 +195,16 @@
     <q-dialog v-model="dialogState"
               class="delete-dialog">
       <q-card class="delete-dialog-card">
-        <q-card-section class="close-button-section">
-          <q-icon class="close-dialog-button"
-                  name="isax:close-circle"
-                  @click="changeDialogState(false)" />
-        </q-card-section>
+
+        <q-btn square
+               icon="ph:x"
+               size="xl"
+               flat
+               @click="changeDialogState(false)" />
 
         <q-card-section class="delete-dialog-card-section">
           <div class="info-icon">
-            <q-icon name="isax:info-circle" />
+            <q-icon name="ph:info" />
           </div>
 
           <p class="are-u-sure-statement">آیا از حذف محصول مطمئن هستید؟</p>
@@ -209,14 +212,14 @@
 
         <q-card-actions class="delete-dialog-card-actions">
           <q-btn class="dont-delete-button"
-                 unelevated
+                 color="grey"
                  :loading="cart.loading"
                  @click="changeDialogState(false)">
             انصراف
           </q-btn>
 
           <q-btn class="surely-delete-button"
-                 unelevated
+                 color="primary"
                  :loading="cart.loading"
                  @click="removeItem">
             بله، مطمئن هستم
@@ -381,6 +384,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "src/css/Theme/spacing.scss";
+
 .cart-count {
   font-style: normal;
   font-weight: 400;
@@ -521,20 +526,6 @@ export default {
                 position: absolute;
                 padding-right: 36px;
                 font-size: 14px;
-              }
-            }
-
-            .trash-button {
-
-              &:deep(.q-btn__content) {
-                @media screen and (max-width: 599px) {
-                  align-items: normal;
-                }
-              }
-
-              &:deep(.q-icon) {
-                font-size: 18px;
-                color: #434765;
               }
             }
           }
@@ -898,16 +889,7 @@ export default {
     max-width: 100%;
     background: #FFFFFF;
     border-radius: 10px;
-
-    .close-button-section {
-      padding: 12px 12px 0 12px;
-      text-align: right;
-      .close-dialog-button {
-        font-size: 24px;
-        color: #6D708B;
-        cursor: pointer;
-      }
-    }
+    text-align: end;
 
     .delete-dialog-card-section {
       padding: 0 24px 24px 24px;
@@ -944,21 +926,13 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 22px;
-        letter-spacing: -0.03em;
-        color: #FFFFFF;
         width: 144px;
         height: 40px;
-        background: $primary;
-        box-shadow: 0 4px 12px rgba(62, 61, 67, 0.15);
-        border-radius: 8px;
-        cursor: pointer;
-
         @media screen and (max-width: 599px) {
-          width: 122px;
+          order: 1;
+          width: 100%;
+          margin-bottom: $space-2;
+          margin-left: $spacing-none;
         }
       }
 
@@ -966,20 +940,12 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-style: normal;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 22px;
         width: 144px;
         height: 40px;
-        color: #6D708B;
-        background: #F6F9FF;
-        border-radius: 8px;
-        padding: 9px;
-        cursor: pointer;
 
         @media screen and (max-width: 599px) {
-          width: 122px;
+          order: 2;
+          width: 100%;
         }
 
         @media screen and (max-width: 360px) {

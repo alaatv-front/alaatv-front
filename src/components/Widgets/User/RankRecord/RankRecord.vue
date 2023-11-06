@@ -7,8 +7,9 @@
                  :default-layout="false">
     <template #after-form-builder>
       <div class="col-12 q-my-md flex justify-end">
-        <q-btn class="submitBtn"
-               label="ثبت رتبه کنکور"
+        <q-btn label="ثبت رتبه کنکور"
+               color="primary"
+               class="size-lg"
                @click="submitAction" />
       </div>
     </template>

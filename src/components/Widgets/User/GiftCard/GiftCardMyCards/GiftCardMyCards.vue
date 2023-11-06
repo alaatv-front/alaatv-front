@@ -92,8 +92,9 @@
     <div class="text-center">
       <div class="table-title">
         لیست کارت ها
-        <q-btn icon="isax:filter"
+        <q-btn icon="ph:funnel"
                flat
+               square
                class="absolute-top-right"
                @click="onToggleFilter" />
       </div>
@@ -145,29 +146,10 @@
                   class="isAssigned-column">
               <div class="share-box">
                 {{ props.value === 0 ? 'اشتراک گذاری:' : 'به اشتراک گذاشته اید' }}
-                <q-btn class="icon-container"
+                <q-btn square
+                       flat
+                       icon="ph:copy"
                        :loading="props.row.loading">
-                  <svg width="24"
-                       height="24"
-                       viewBox="0 0 24 24"
-                       fill="none"
-                       xmlns="http://www.w3.org/2000/svg">
-                    <path d="M16.33 7.90998V15.14C16.33 16.8 14.99 18.14 13.33 18.14H7.79004C6.13004 18.14 4.79004 16.8 4.79004 15.14V5.97998C4.79004 4.31998 6.13004 2.97998 7.79004 2.97998H11.4C11.64 2.97998 11.87 3.06998 12.03 3.23998L16.06 7.26998C16.23 7.43998 16.32 7.66998 16.32 7.89998L16.33 7.90998Z"
-                          stroke="white"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round" />
-                    <path d="M19.21 10.79V18.02C19.21 19.68 17.87 21.02 16.21 21.02H8.97998"
-                          stroke="white"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round" />
-                    <path d="M16.14 7.76998H13.54C12.44 7.76998 11.54 6.86998 11.54 5.76998V3.24998"
-                          stroke="white"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round" />
-                  </svg>
                   <q-popup-proxy :offset="[10, 10]"
                                  transition-show="flip-up"
                                  transition-hide="flip-down">
@@ -187,8 +169,9 @@
                     </q-list>
                   </q-popup-proxy>
                 </q-btn>
-                <q-btn color="orange"
-                       icon="ph:caret-circle-down"
+                <q-btn square
+                       flat
+                       icon="ph:download-simple"
                        :to="{name: 'UserPanel.Asset.GiftCard.download', params:{ referralCode: props.row.id }}" />
               </div>
             </q-td>
@@ -542,18 +525,6 @@ export default {
         @media screen and (max-width: 599px) {
           font-size: 16px;
         }
-      }
-
-      .icon-container {
-        width: 32px;
-        height: 32px;
-        background: #FF9000;
-        box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
-        border-radius: 8px;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
       }
     }
   }

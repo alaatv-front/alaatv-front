@@ -26,11 +26,9 @@
       <div class="log-out menu-items">
         <q-list class="menu-items-list">
           <q-item class="menu-item">
-            <q-btn round
+            <q-btn square
                    flat
-                   dense
-                   size="md"
-                   color="white"
+                   class="size-md"
                    icon="ph:sign-out"
                    @click="toggleLogoutDialog" />
           </q-item>

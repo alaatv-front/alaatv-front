@@ -1,205 +1,186 @@
-@import "src/css/Theme/Typography/typography.scss";
+@import 'src/css/Theme/colors.scss';
+@import 'src/css/Theme/radius.scss';
+@import 'src/css/Theme/spacing.scss';
+@import 'src/css/Theme/Typography/typography.scss';
+
+@mixin btn-handle-size ($radius, $padding-x, $padding-y, $square-padding, $icon-font-size) {
+  border-radius: $radius;
+  padding: $padding-x $padding-y !important;
+  &.q-btn--square {
+    padding: $square-padding !important;
+  }
+  .q-btn__content {
+    @content;
+    .q-icon {
+      font-size: $icon-font-size;
+    }
+  }
+}
+
+@mixin btn-handle-sizes($size) {
+  @if $size == 'xs' {
+    @include btn-handle-size($radius-2, $space-1, $space-2, $space-1, 16px) {
+      @include subtitle2;
+    }
+  } @else if $size == 'sm' {
+    @include btn-handle-size($radius-3, $space-1, $space-3, $space-2, 16px) {
+      @include subtitle2;
+    }
+  } @else if $size == 'md' {
+    @include btn-handle-size($radius-3, $space-2, $space-4, $space-3, 16px) {
+      @include subtitle2;
+    }
+  } @else if $size == 'lg' {
+    @include btn-handle-size($radius-3, $space-3, $space-4, $space-4, 20px) {
+      @include subtitle1;
+    }
+  } @else if $size == 'xl' {
+    @include btn-handle-size($radius-3, $space-4, $space-4, $space-5, 20px) {
+      @include subtitle1;
+    }
+  }
+}
 
 .q-btn {
-  .q-btn__content {
-    border-radius: inherit;
-  }
-  &.keep-min-width {
-    min-width: 96px;
-  }
-  &.q-btn--outline:before {
-    border: 1px solid $grey-5;
-  }
-  &.q-btn--outline:hover {
-    //border: 1px solid $grey-6;
-  }
-  &.q-btn--outline:focus {
-    border: 1px solid $grey-6;
-    box-shadow: 0 0 0 4px $grey-2;
+  font-size: 1em !important;
+  min-height: auto;
+
+  // xs
+  &.size-xs {
+    @include btn-handle-sizes('xs')
   }
 
-  &.q-hoverable:hover > .q-focus-helper {
-      opacity: 0.15;
-    }
-  &.q-focusable:focus {
-      box-shadow: 0 0 0 4px #E8E8E8;
-    }
-  &.q-focusable:focus > .q-focus-helper {
-      opacity: 0.22 !important;
-    }
-  &.q-btn--actionable.q-btn--standard:active:before,
-  &.q-btn--actionable.q-btn--standard.q-btn--active:before {
-      //box-shadow: 0 0 0 4px #FFF2C9 !important;
-    }
-  &.disabled {
-      &.q-btn--outline {
-        border: 1px solid #E8E8E8;
-      }
-      background: $grey-2 !important;
-      .q-btn__content{
-        color: $grey-4;
-      }
-    }
+  // sm
+  &.size-sm {
+    @include btn-handle-sizes('sm')
+  }
+
+  // md
+  &.size-md {
+    @include btn-handle-sizes('md');
+  }
+  @include btn-handle-sizes('md');
+
+  // lg
+  &.size-lg {
+    @include btn-handle-sizes('lg')
+  }
+
+  // xl
+  &.size-xl {
+    @include btn-handle-sizes('xl')
+  }
+
   &:before {
-      box-shadow: none;
+    box-shadow: none;
+  }
+
+  &.disabled,
+  &[disabled] {
+    opacity: 0.2 !important;
+  }
+
+  &:hover {
+    .q-focus-helper {
+      opacity: 1 !important;
+      background: rgba($grey-1, 0.2) !important;
+      &:before {
+        display: none;
+      }
+      &:after {
+        display: none;
+      }
     }
+  }
+
+  &.q-btn--active {
+    &:before {
+      box-shadow: unset !important;
+      color: unset;
+      background: inherit;
+      opacity: 0.2;
+      position: absolute;
+      top: -$space-1;
+      left: -$space-1;
+      right: -$space-1;
+      bottom: -$space-1;
+      width: calc( 100% + 8px );
+      height: calc( 100% + 8px );
+    }
+  }
+
   .q-btn__content {
-      margin: 0;
+    .q-icon {
+      &.on-left {
+        margin-right: $space-1;
+      }
+
+      &.on-right {
+        margin-left: $space-1;
+      }
     }
-  &.q-btn--square {
+  }
 
-      &.q-btn-xs {
-        padding:  7px;
+  &.bg-primary {
+    color: $grey-9 !important;
+  }
+
+  &.bg-secondary {
+    color: $grey-1 !important;
+  }
+
+  &.bg-accent {
+    background: $accent-5 !important;
+  }
+
+  &.bg-grey {
+    color: $grey-9 !important;
+    background: $grey-2 !important;
+  }
+
+  &.q-btn--outline {
+    &.text-grey {
+      color: $grey-9 !important;
+      background: $grey-1 !important;
+
+      &:before {
+        border: solid 1.5px $grey-4;
       }
 
-      &.q-btn-sm {
-        padding: 8px;
+      &:hover:not(.disabled) {
+        background: $grey-2 !important;
+        &:before {
+          border: solid 1px $grey-6;
+        }
       }
 
-      &.q-btn-md {
-        padding: 11px;
+      .q-btn__content {
+        color: $grey-9 !important;
       }
+    }
+  }
 
-      &.q-btn-lg {
-        padding: 14px;
-      }
+  @mixin flat-btn () {
+    color: $grey-9 !important;
+    background: transparent !important;
 
-      &.q-btn-xl {
-        padding: 16px;
-      }
-
+    &:before {
+      border: none;
     }
 
-  &.q-btn--flat{
-    padding: 0 4px 0 4px;
     &:hover {
-      background: $grey-2;
+      background: $grey-2 !important;
+    }
+
+    .q-btn__content {
+      color: $grey-9 !important;
     }
   }
-    //
-    //&.q-btn--outline::before {
-    //  border: 2px solid currentColor;
-    //  box-sizing: border-box;
-    //  filter: drop-shadow(-2px -4px 10px rgba(255, 255, 255, 0.6)) drop-shadow(2px 4px 10px rgba(112, 108, 162, 0.05));
-    //}
-}
-.q-btn:not(.q-btn--square, .q-btn--round) {
-    &.q-btn-xs {
-      padding:  3px 12px 4px;
-      .q-btn__content {
-        @include subtitle2;
-        .q-icon {
-          width: 14px;
-          height: 14px;
-          font-size: 14px;
-          &.on-left {
-            margin-right: 4px;
-          }
-          &.on-right {
-            margin-left: 4px;
-          }
-        }
-      }
+
+  &.q-btn--flat {
+    &.text-grey {
+      @include flat-btn();
     }
-    &.q-btn-sm {
-      padding: 5px 12px 6px;
-      .q-btn__content {
-        @include subtitle2;
-        .q-icon {
-          width: 16px;
-          height: 16px;
-          font-size: 16px;
-          &.on-left {
-            margin-right: 4px;
-          }
-          &.on-right {
-            margin-left: 4px;
-          }
-        }
-      }
-    }
-    &.q-btn-md {
-     font-size: 16px;
-     padding: 8px 16px;
-    }
-    &.q-btn-lg {
-      font-size: 16px;
-      padding: 12px 16px;
-    }
-    &.q-btn-xl {
-      font-size: 16px;
-      padding: 14px 18px;
-    }
+    @include flat-btn();
   }
- .q-btn:not(.q-btn--rounded, .q-btn--round) {
-   border-radius: 8px;
- }
-
-.btn-sm {
-  padding: 0 5px 0 7px;
-  font-size: 14px;
 }
-
-  //
-  //&.q-btn--outline::before {
-  //  border: 2px solid currentColor;
-  //  box-sizing: border-box;
-  //  filter: drop-shadow(-2px -4px 10px rgba(255, 255, 255, 0.6)) drop-shadow(2px 4px 10px rgba(112, 108, 162, 0.05));
-  //}
-//.q-btn:not(.q-btn--square, .q-btn--round , .q-btn--flat) {
-//  &.q-btn-xs {
-//    font-size: 14px;
-//    padding: 3px 12px 4px;
-//    gap: 4px;
-//    line-height: 21px;
-//    font-weight: 600;
-//    width: 54px;
-//    height: 21px;
-//  }
-//  &.q-btn-sm {
-//    font-size: 14px;
-//    padding: 6px 12px;
-//  }
-//
-//  // md size
-//  font-size: 16px;
-//  // padding: 8px 16px;
-//
-//  &.q-btn-lg {
-//    font-size: 16px;
-//    padding: 12px 16px;
-//  }
-//}
-//
-//.q-btn {
-//  font-style: normal;
-//  font-weight: 500;
-//  line-height: 24px;
-//  padding: 0;
-//  align-items: center;
-//  text-align: center;
-//  &.q-btn--outline::before {
-//    border: 2px solid currentColor;
-//    box-sizing: border-box;
-//    filter: drop-shadow(-2px -4px 10px rgba(255, 255, 255, 0.6)) drop-shadow(2px 4px 10px rgba(112, 108, 162, 0.05));
-//  }
-//  .q-btn__content {
-//    margin: 8px;
-//  }
-//}
-//.q-btn:not(.q-btn--rounded) {
-//  border-radius: 10px;
-//}
-//.btn-sm {
-//  padding: 0 5px 0 7px;
-//  font-size: 14px;
-//
-//}
-//.btn-md {
-//  padding: 0 30px;
-//  font-size: 14px;
-//}
-//.btn-lg {
-//  padding: 2px 73px 2px 73px;
-//  font-size: 16px;
-//}

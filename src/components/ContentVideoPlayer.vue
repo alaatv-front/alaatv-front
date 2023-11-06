@@ -25,10 +25,9 @@
                     clickable
                     @click="goToTimpoint(timepoint)">
               <q-item-section avatar>
-                <bookmark color="white"
-                          size="30"
-                          :is-favored="timepoint.is_favored"
+                <bookmark :is-favored="timepoint.is_favored"
                           :loading="timepoint.loading"
+                          :flat="true"
                           @clicked="handleTimepointBookmark(timepoint.id)" />
               </q-item-section>
               <q-item-section class="text-section">

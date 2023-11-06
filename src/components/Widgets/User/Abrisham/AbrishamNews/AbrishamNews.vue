@@ -12,9 +12,9 @@
                   </p>
                 </div>
                 <div class="filter-select">
-                  <q-btn unelevated
-                         class="filter-default"
-                         :class="{'filter-button':!doFilter , 'filter-clicked':doFilter}"
+                  <q-btn class="filter-default"
+                         :outline="!doFilter"
+                         color="grey"
                          @click="clicked">
                     فیلترها
                     <i class="fi fi-rr-settings-sliders icon" />
@@ -42,10 +42,7 @@
                             option-label="title"
                             option-value="id"
                             use-input
-                            dropdown-icon="mdi-chevron-down"
-                            dense
                             background-color="#eff3ff"
-                            filled
                             label="درس"
                             placeholder="درس"
                             class="lesson"
@@ -60,9 +57,6 @@
                 <div class="category-parent">
                   <q-select v-model="filtersData.category"
                             :options="categories"
-                            filled
-                            dropdown-icon="mdi-chevron-down"
-                            dense
                             label="دسته بندی"
                             placeholder="دسته بندی"
                             class="category"
@@ -461,12 +455,6 @@ export default {
             }
 
             .filter-default {
-              width: 119px;
-              height: 48px;
-              color: #3e5480;
-              font-size: 16px;
-              font-weight: 500;
-              border-radius: 10px;
               margin-right: 16px;
               justify-content: space-between;
               @media screen and (max-width: 1264px) {
@@ -486,9 +474,7 @@ export default {
               }
 
               &.filter-clicked {
-                border: solid 4px #eff3ff;
-                box-sizing: border-box;
-                background-color: #ffffff;
+                border: solid 2px #eff3ff;
               }
 
               .fi {
