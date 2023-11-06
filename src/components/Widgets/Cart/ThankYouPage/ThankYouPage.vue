@@ -4,25 +4,27 @@
       <q-skeleton type="circle" />
     </template>
     <template v-else>
-      <div class="cart-image">
-        <q-img v-if="hasPaid"
-               src="https://nodes.alaatv.com/aaa/landing/Soalaa/States/thankyou_page.png" />
-        <q-icon v-else
-                name="error"
-                color="red" />
-      </div>
-      <div v-if="hasPaid"
-           class="title">
-        ثبت نام شما با موفقیت انجام شد
-      </div>
-      <div v-else
-           class="title">
-        متاسفانه پرداخت انجام نشد :(
-      </div>
+      <template v-if="!isEwanoUser">
+        <div class="cart-image">
+          <q-img v-if="hasPaid"
+                 src="https://nodes.alaatv.com/aaa/landing/Soalaa/States/thankyou_page.png" />
+          <q-icon v-else
+                  name="error"
+                  color="red" />
+        </div>
+        <div v-if="hasPaid"
+             class="title">
+          ثبت نام شما با موفقیت انجام شد
+        </div>
+        <div v-else
+             class="title">
+          متاسفانه پرداخت انجام نشد :(
+        </div>
       <!--    <div class="tracking-code-container">-->
       <!--      <span class="tracking-code-title">کد پیگیری:</span>-->
       <!--      <span class="tracking-code">{{ trackingCode }}</span>-->
       <!--    </div>-->
+      </template>
       <q-btn v-if="ticketId"
              :to="{name: 'UserPanel.Ticket.Show', params: {id: ticketId}}"
              color="primary"
@@ -46,11 +48,12 @@
 <script>
 import mixinAuthData from 'src/mixin/AuthData.js'
 import { APIGateway } from 'src/api/APIGateway.js'
+import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default {
   name: 'ThankYouPage',
-  mixins: [mixinAuthData],
+  mixins: [mixinAuthData, mixinEwano],
   data() {
     return {
       loading: false,
