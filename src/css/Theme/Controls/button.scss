@@ -3,11 +3,15 @@
 @import 'src/css/Theme/spacing.scss';
 @import 'src/css/Theme/Typography/typography.scss';
 
+@mixin q-btn-square($square-padding) {
+  padding: $square-padding !important;
+}
+
 @mixin btn-handle-size ($radius, $padding-x, $padding-y, $square-padding, $icon-font-size) {
   border-radius: $radius;
-  padding: $padding-x $padding-y !important;
+  padding: $padding-x $padding-y;
   &.q-btn--square {
-    padding: $square-padding !important;
+   @include q-btn-square($square-padding)
   }
   .q-btn__content {
     @content;
@@ -40,147 +44,149 @@
     }
   }
 }
+body {
+  .q-btn {
+    //font-size: 1em !important;
+    min-height: auto;
 
-.q-btn {
-  font-size: 1em !important;
-  min-height: auto;
+    // xs
+    &.size-xs {
+      @include btn-handle-sizes('xs')
+    }
 
-  // xs
-  &.size-xs {
-    @include btn-handle-sizes('xs')
-  }
+    // sm
+    &.size-sm {
+      @include btn-handle-sizes('sm')
+    }
 
-  // sm
-  &.size-sm {
-    @include btn-handle-sizes('sm')
-  }
-
-  // md
-  &.size-md {
+    // md
+    &.size-md {
+      @include btn-handle-sizes('md');
+    }
     @include btn-handle-sizes('md');
-  }
-  @include btn-handle-sizes('md');
 
-  // lg
-  &.size-lg {
-    @include btn-handle-sizes('lg')
-  }
-
-  // xl
-  &.size-xl {
-    @include btn-handle-sizes('xl')
-  }
-
-  &:before {
-    box-shadow: none;
-  }
-
-  &.disabled,
-  &[disabled] {
-    opacity: 0.2 !important;
-  }
-
-  &:hover {
-    .q-focus-helper {
-      opacity: 1 !important;
-      background: rgba($grey-1, 0.2) !important;
-      &:before {
-        display: none;
-      }
-      &:after {
-        display: none;
-      }
+    // lg
+    &.size-lg {
+      @include btn-handle-sizes('lg')
     }
-  }
 
-  &.q-btn--active {
+    // xl
+    &.size-xl {
+      @include btn-handle-sizes('xl')
+    }
+
     &:before {
-      box-shadow: unset !important;
-      color: unset;
-      background: inherit;
-      opacity: 0.2;
-      position: absolute;
-      top: -$space-1;
-      left: -$space-1;
-      right: -$space-1;
-      bottom: -$space-1;
-      width: calc( 100% + 8px );
-      height: calc( 100% + 8px );
+      box-shadow: none;
     }
-  }
 
-  .q-btn__content {
-    .q-icon {
-      &.on-left {
-        margin-right: $space-1;
-      }
+    &.disabled,
+    &[disabled] {
+      opacity: 0.2 !important;
+    }
 
-      &.on-right {
-        margin-left: $space-1;
+
+    &.q-hoverable:hover {
+      & > .q-focus-helper {
+        opacity: 1;
+        background: rgba($grey-1, 0.2);
+        &:before {
+          display: none;
+        }
+        &:after {
+          display: none;
+        }
       }
     }
-  }
 
-  &.bg-primary {
-    color: $grey-9 !important;
-  }
+    &.q-btn--active.q-btn--actionable {
+      &:before {
+        box-shadow: unset;
+        color: unset;
+        background: inherit;
+        opacity: 0.2;
+        position: absolute;
+        top: -$space-1;
+        left: -$space-1;
+        right: -$space-1;
+        bottom: -$space-1;
+        width: calc( 100% + 8px );
+        height: calc( 100% + 8px );
+      }
+    }
 
-  &.bg-secondary {
-    color: $grey-1 !important;
-  }
+    .q-btn__content {
+      .q-icon {
+        &.on-left {
+          margin-right: $space-1;
+        }
 
-  &.bg-accent {
-    background: $accent-5 !important;
-  }
+        &.on-right {
+          margin-left: $space-1;
+        }
+      }
+    }
 
-  &.bg-grey {
-    color: $grey-9 !important;
-    background: $grey-2 !important;
-  }
-
-  &.q-btn--outline {
-    &.text-grey {
+    &.bg-primary {
       color: $grey-9 !important;
-      background: $grey-1 !important;
+    }
+
+    &.bg-secondary {
+      color: $grey-1 !important;
+    }
+
+    &.bg-accent {
+      background: $accent-5 !important;
+    }
+
+    &.bg-grey {
+      color: $grey-9 !important;
+      background: $grey-2 !important;
+    }
+
+    &.q-btn--outline {
+      &.text-grey {
+        color: $grey-9 !important;
+        background: $grey-1 !important;
+
+        &:before {
+          border: solid 1.5px $grey-4;
+        }
+
+        &:hover:not(.disabled) {
+          background: $grey-2 !important;
+          &:before {
+            border: solid 1px $grey-6;
+          }
+        }
+
+        .q-btn__content {
+          color: $grey-9 !important;
+        }
+      }
+    }
+
+    @mixin flat-btn () {
+      color: $grey-9 !important;
+      background: transparent ;
 
       &:before {
-        border: solid 1.5px $grey-4;
+        border: none;
       }
 
-      &:hover:not(.disabled) {
-        background: $grey-2 !important;
-        &:before {
-          border: solid 1px $grey-6;
-        }
+      &:hover {
+        background: $grey-2 ;
       }
 
       .q-btn__content {
         color: $grey-9 !important;
       }
     }
-  }
 
-  @mixin flat-btn () {
-    color: $grey-9 !important;
-    background: transparent !important;
-
-    &:before {
-      border: none;
-    }
-
-    &:hover {
-      background: $grey-2 !important;
-    }
-
-    .q-btn__content {
-      color: $grey-9 !important;
-    }
-  }
-
-  &.q-btn--flat {
-    &.text-grey {
+    &.q-btn--flat {
+      &.text-grey {
+        @include flat-btn();
+      }
       @include flat-btn();
     }
-    @include flat-btn();
   }
 }

@@ -4,17 +4,12 @@
       <div class="header-section">
         <!--        -----------------------------------------------------Logo Section--------------------------------------------   -->
         <div class="logo-section">
-          <div class="drawer-btn hamburger">
-            <q-btn v-if="showHamburger"
-                   class="toolbar-button lt-md"
-                   icon="isax:menu-1"
-                   color="white"
-                   text-color="accent"
-                   dense
-                   unelevated
-                   square
-                   @click="toggleLeftDrawer" />
-          </div>
+          <q-btn v-if="showHamburger"
+                 class="toolbar-button lt-md"
+                 icon="ph:list"
+                 color="grey"
+                 square
+                 @click="toggleLeftDrawer" />
           <div class="logo-pic">
             <div class="homepage">
               <lazy-img src="https://nodes.alaatv.com/upload/alaa-logo.png"

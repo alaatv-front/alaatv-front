@@ -4,17 +4,11 @@
             padding>
       <div v-if="showHamburger"
            class="drawer-btn hamburger">
-        <q-btn class="toolbar-button"
-               icon="isax:menu-1"
-               color="white"
-               text-color="accent"
-               dense
-               unelevated
+        <q-btn icon="ph:list"
+               flat
                @click="toggleLeftDrawer" />
       </div>
       <q-input v-model="searchText"
-               dense
-               filled
                class="gray-input search-input"
                placeholder="جست و جو"
                @update:model-value ="search(topicsRouteArray)">

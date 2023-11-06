@@ -28,14 +28,14 @@ export function addToCart(context, newProductData) {
       Notify.create({
         type: 'positive',
         color: 'positive',
-        timeout: 5000,
+        timeout: 500000,
         position: 'top',
         message: 'محصول به سبد خرید اضافه شد.',
         icon: 'report_problem',
         actions: [{
           label: 'سبد خرید',
           icon: 'ph:shopping-cart',
-          color: 'white',
+          color: 'grey',
           class: 'bg-green-3',
           handler: () => {
             this.$router.push({ name: 'Public.Checkout.Review' })

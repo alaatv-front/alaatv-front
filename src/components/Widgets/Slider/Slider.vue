@@ -234,6 +234,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/Theme/spacing.scss';
+@import 'src/css/Theme/Controls/button.scss';
+
 .slider-widget {
   width: 100%;
   &:deep(.q-carousel__slide) {
@@ -248,6 +251,11 @@ export default {
     }
     .slider-image {
       width: 100%;
+    }
+  }
+  &:deep(.q-carousel__control) {
+    .q-btn{
+      @include q-btn-square($space-2);
     }
   }
   //.image {
