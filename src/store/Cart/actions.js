@@ -35,7 +35,7 @@ export function addToCart(context, newProductData) {
         actions: [{
           label: 'سبد خرید',
           icon: 'ph:shopping-cart',
-          color: 'white',
+          color: 'grey',
           class: 'bg-green-3',
           handler: () => {
             this.$router.push({ name: 'Public.Checkout.Review' })

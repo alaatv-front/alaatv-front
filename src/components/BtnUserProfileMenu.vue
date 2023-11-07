@@ -41,16 +41,16 @@
   </q-btn>
   <div v-else
        class="sub-mit-box">
-    <q-btn unelevated
-           class="btn-style sign-up lt-lg"
+    <q-btn class="btn-style  lt-lg"
+           flat
            label="ورود"
            :to="{ name: 'login' }" />
-    <q-btn unelevated
-           class="btn-style gt-md"
+    <q-btn class="btn-style gt-md"
+           flat
            label="ورود"
            :to="{ name: 'login' }" />
-    <q-btn unelevated
-           class="btn-style sign-up gt-md"
+    <q-btn color="primary"
+           class="btn-style  gt-md"
            label="ثبت نام"
            :to="{ name: 'login' }" />
   </div>
@@ -91,6 +91,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import 'src/css/Theme/spacing.scss';
+
 .BtnUserProfileMenu {
   //margin-left: 18px;
   width: 48px;
@@ -121,19 +123,9 @@ export default {
 
   .btn-style{
     width: 96px;
-    //color: #6D708B;
-    color: #333333 !important;
-
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 22px;
+    margin-right:$space-2 ;
     align-items: center;
     text-align: center;
-    letter-spacing: -0.03em;
-  }
-  .sign-up {
-    background: #FFC107;
   }
 }
 </style>

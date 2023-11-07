@@ -11,7 +11,7 @@
           <div class="flex  bg-white full-height full-width items-center justify-center">
             <q-icon color="primary"
                     size="lg"
-                    name="isax:user" />
+                    name="ph:user" />
           </div>
         </template>
       </q-img>
@@ -30,12 +30,12 @@
         </span>
         <q-icon v-if="!isInAdminPage"
                 size="16px"
-                name="isax:user"
+                name="ph:user"
                 class="user-icon" />
       </div>
       <div v-if="data.is_private"
            class="q-ml-xl">
-        <q-icon name="isax:info-circle"
+        <q-icon name="ph:info"
                 size="sm"
                 class="q-mb-xs"
                 color="grey" />
@@ -65,7 +65,7 @@
           <q-btn color="primary"
                  :href="data.files.file"
                  target="_blank"
-                 icon-right="isax:document-download">
+                 icon-right="ph:download">
             <span class="q-pr-sm">دانلود فایل</span>
           </q-btn>
         </div>
@@ -79,7 +79,7 @@
         </q-chip>
         <q-expansion-item v-if="!userIsCustomer"
                           class="report-panel"
-                          icon="isax:ticket"
+                          icon="ph:ticket"
                           label="گزارش پاسخ نامناسب">
           <q-card>
             <p v-if="data.report.has_reported === 1">
