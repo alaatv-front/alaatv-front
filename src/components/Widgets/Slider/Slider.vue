@@ -255,7 +255,7 @@ export default {
   }
   &:deep(.q-carousel__control) {
     .q-btn{
-      @include q-btn-square($space-2);
+      @include btn-handle-square-padding('xs')
     }
   }
   //.image {

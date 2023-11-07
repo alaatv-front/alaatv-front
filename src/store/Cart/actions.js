@@ -28,7 +28,7 @@ export function addToCart(context, newProductData) {
       Notify.create({
         type: 'positive',
         color: 'positive',
-        timeout: 500000,
+        timeout: 5000,
         position: 'top',
         message: 'محصول به سبد خرید اضافه شد.',
         icon: 'report_problem',

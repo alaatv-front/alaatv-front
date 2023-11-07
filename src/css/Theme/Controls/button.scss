@@ -3,51 +3,110 @@
 @import 'src/css/Theme/spacing.scss';
 @import 'src/css/Theme/Typography/typography.scss';
 
-@mixin q-btn-square($square-padding) {
+@mixin btn-content-typo ($size) {
+  @if index(('xs', 'sm', 'md'), $size) {
+    @include subtitle2;
+  } @else if index(('lg', 'xl'), $size) {
+    @include subtitle1;
+  }
+}
+
+@mixin btn-icon-typo ($size) {
+  @if index(('xs', 'sm', 'md'), $size) {
+    font-size: 16px;
+  } @else if index(('lg', 'xl'), $size) {
+    font-size: 20px;
+  }
+}
+
+@mixin btn-handle-radius ($size) {
+  $target-radius : $radius-1;
+  @if $size == 'xs' {
+    $target-radius : $radius-2;
+  } @else if index(('sm', 'md', 'lg', 'xl'), $size) {
+    $target-radius : $radius-3;
+  }
+  border-radius : $target-radius;
+}
+
+@mixin btn-handle-round-padding($size){
+  $round-padding : $space-1;
+  @if $size == 'xs' {
+    $round-padding : $space-1;
+  } @else if $size == 'sm' {
+    $round-padding : $space-2;
+  } @else if $size == 'md' {
+    $round-padding : $space-3;
+  } @else if $size == 'lg' {
+    $round-padding : $space-4;
+  } @else if $size == 'xl' {
+    $round-padding : $space-5;
+  }
+  padding: $round-padding !important;
+}
+
+@mixin btn-handle-square-padding ($size) {
+  $square-padding : $space-1;
+  @if $size == 'xs' {
+    $square-padding : $space-1;
+  } @else if $size == 'sm' {
+    $square-padding : $space-2;
+  } @else if $size == 'md' {
+    $square-padding : $space-3;
+  } @else if $size == 'lg' {
+    $square-padding : $space-4;
+  } @else if $size == 'xl' {
+    $square-padding : $space-5;
+  }
   padding: $square-padding !important;
 }
 
-@mixin btn-handle-size ($radius, $padding-x, $padding-y, $square-padding, $icon-font-size) {
-  border-radius: $radius;
-  padding: $padding-x $padding-y;
+@mixin btn_handle_padding ($size){
+  $target-padding-x : $space-1;
+  $target-padding-y : $space-2;
+  @if $size == 'xs' {
+    $target-padding-x : $space-1;
+    $target-padding-y : $space-2;
+  } @else if $size == 'sm' {
+    $target-padding-x : $space-1;
+    $target-padding-y : $space-3;
+  } @else if $size == 'md' {
+    $target-padding-x : $space-2;
+    $target-padding-y : $space-4;
+  } @else if $size == 'lg' {
+    $target-padding-x : $space-3;
+    $target-padding-y : $space-4;
+  } @else if $size == 'xl' {
+    $target-padding-x : $space-4;
+    $target-padding-y : $space-4;
+  }
+
+  padding: $target-padding-x $target-padding-y;
+}
+
+@mixin btn-handle-sizes ($size) {
+  @include btn-handle-radius($size);
+  @include btn_handle_padding($size);
   &.q-btn--square {
-   @include q-btn-square($square-padding)
+    @include btn-handle-square-padding($size);
+  }
+  &.q-btn--round{
+    @include btn-handle-round-padding($size);
+    border-radius: $radius-round !important;
   }
   .q-btn__content {
-    @content;
+    @include btn-content-typo($size);
     .q-icon {
-      font-size: $icon-font-size;
+      @include btn-icon-typo($size);
     }
   }
 }
 
-@mixin btn-handle-sizes($size) {
-  @if $size == 'xs' {
-    @include btn-handle-size($radius-2, $space-1, $space-2, $space-1, 16px) {
-      @include subtitle2;
-    }
-  } @else if $size == 'sm' {
-    @include btn-handle-size($radius-3, $space-1, $space-3, $space-2, 16px) {
-      @include subtitle2;
-    }
-  } @else if $size == 'md' {
-    @include btn-handle-size($radius-3, $space-2, $space-4, $space-3, 16px) {
-      @include subtitle2;
-    }
-  } @else if $size == 'lg' {
-    @include btn-handle-size($radius-3, $space-3, $space-4, $space-4, 20px) {
-      @include subtitle1;
-    }
-  } @else if $size == 'xl' {
-    @include btn-handle-size($radius-3, $space-4, $space-4, $space-5, 20px) {
-      @include subtitle1;
-    }
-  }
-}
 body {
   .q-btn {
-    //font-size: 1em !important;
+    font-size: 1em !important;
     min-height: auto;
+    min-width: auto;
 
     // xs
     &.size-xs {
@@ -135,7 +194,7 @@ body {
     }
 
     &.bg-accent {
-      background: $accent-5 !important;
+      background: $accent !important;
     }
 
     &.bg-grey {
@@ -143,25 +202,33 @@ body {
       background: $grey-2 !important;
     }
 
-    &.q-btn--outline {
-      &.text-grey {
-        color: $grey-9 !important;
-        background: $grey-1 !important;
+    @mixin outline-btn(){
+      color: $grey-9 !important;
+      background: $grey-1 !important;
 
+      &:before {
+        border: solid 1.5px $grey-4;
+      }
+
+      &:hover:not(.disabled) {
+        background: $grey-2 !important;
         &:before {
-          border: solid 1.5px $grey-4;
+          border: solid 1px $grey-6;
         }
+      }
 
-        &:hover:not(.disabled) {
-          background: $grey-2 !important;
-          &:before {
-            border: solid 1px $grey-6;
-          }
-        }
+      .q-btn__content {
+        color: $grey-9 !important;
+      }
+    }
 
-        .q-btn__content {
-          color: $grey-9 !important;
-        }
+    &.q-btn--outline {
+      @include outline-btn();
+      &.q-btn--round{
+        @include outline-btn();
+      }
+      &.text-grey {
+        @include outline-btn();
       }
     }
 
@@ -188,5 +255,6 @@ body {
       }
       @include flat-btn();
     }
+
   }
 }
