@@ -1,44 +1,48 @@
 <template>
   <div class="cart-container">
-    <template v-if="loading">
+    <template v-if="loading && !isEwanoUser">
       <q-skeleton type="circle" />
     </template>
     <template v-else>
-      <div class="cart-image">
-        <q-img v-if="hasPaid"
-               src="https://nodes.alaatv.com/aaa/landing/Soalaa/States/thankyou_page.png" />
-        <q-icon v-else
-                name="error"
-                color="red" />
-      </div>
-      <div v-if="hasPaid"
-           class="title">
-        ثبت نام شما با موفقیت انجام شد
-      </div>
-      <div v-else
-           class="title">
-        متاسفانه پرداخت انجام نشد :(
-      </div>
+      <template v-if="!isEwanoUser">
+        <div class="cart-image">
+          <q-img v-if="hasPaid"
+                 src="https://nodes.alaatv.com/aaa/landing/Soalaa/States/thankyou_page.png" />
+          <q-icon v-else
+                  name="error"
+                  color="red" />
+        </div>
+        <div v-if="hasPaid"
+             class="title">
+          ثبت نام شما با موفقیت انجام شد
+        </div>
+        <div v-else
+             class="title">
+          متاسفانه پرداخت انجام نشد :(
+        </div>
       <!--    <div class="tracking-code-container">-->
       <!--      <span class="tracking-code-title">کد پیگیری:</span>-->
       <!--      <span class="tracking-code">{{ trackingCode }}</span>-->
       <!--    </div>-->
-      <q-btn v-if="ticketId"
-             :to="{name: 'UserPanel.Ticket.Show', params: {id: ticketId}}"
-             color="primary"
-             class="redirect-element">
-        مشاهده تیکت مربوطه
-      </q-btn>
-      <router-link v-if="hasPaid"
-                   :to="{name: 'UserPanel.MyPurchases'}"
-                   class="redirect-element">
-        فیلم ها و جزوه های من
-      </router-link>
-      <router-link v-else
-                   :to="{name: 'Public.Shop'}"
-                   class="redirect-element">
-        بازگشت به فروشگاه
-      </router-link>
+      </template>
+      <template v-if="!loading">
+        <q-btn v-if="ticketId"
+               :to="{name: 'UserPanel.Ticket.Show', params: {id: ticketId}}"
+               color="primary"
+               class="redirect-element">
+          مشاهده تیکت مربوطه
+        </q-btn>
+        <router-link v-if="hasPaid"
+                     :to="{name: 'UserPanel.MyPurchases'}"
+                     class="redirect-element">
+          فیلم ها و جزوه های من
+        </router-link>
+        <router-link v-else
+                     :to="{name: 'Public.Shop'}"
+                     class="redirect-element">
+          بازگشت به فروشگاه
+        </router-link>
+      </template>
     </template>
   </div>
 </template>
@@ -46,11 +50,12 @@
 <script>
 import mixinAuthData from 'src/mixin/AuthData.js'
 import { APIGateway } from 'src/api/APIGateway.js'
+import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default {
   name: 'ThankYouPage',
-  mixins: [mixinAuthData],
+  mixins: [mixinAuthData, mixinEwano],
   data() {
     return {
       loading: false,
@@ -66,6 +71,7 @@ export default {
     }
   },
   mounted () {
+    this.setIsEwanoUserValue()
     this.onLoadPage()
     this.$bus.on('ThankYouPageInvoiceLoading', (status) => {
       this.loading = status

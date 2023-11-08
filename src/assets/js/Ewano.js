@@ -23,6 +23,10 @@ class Ewano {
   }
 
   static paymentResult (resultCallback) {
+    if (!window.ewano) {
+      console.warn('paymentResult -> window.ewano: ', window.ewano)
+      return () => {}
+    }
     console.warn('ewano.paymentResult()')
     window.ewano.paymentResult = (status) => { // status: Boolean
       console.warn('ewano.paymentResult() -> resultCallback(' + status + ')')
