@@ -134,12 +134,14 @@ export default defineComponent({
     justify-content: space-between;
     position: relative;
     width: 1130px;
+    padding-top: 50px;
     padding-bottom: 78px;
     @media screen and (max-width: 1439px) {
       width: 964px;
     }
     @media screen and (max-width: 1023px) {
       width: 540px;
+      padding-top: 48px;
     }
     @media screen and (max-width: 599px) {
       width: 100%;
@@ -148,19 +150,28 @@ export default defineComponent({
       flex-wrap: nowrap;
       justify-content: flex-start;
       padding-bottom: 86px;
+      padding-top: 40px;
     }
     .item {
       position: relative;
-      z-index: 99999;
+      z-index: 1;
       &:after {
         content: ' ';
         position: absolute;
-        z-index: -9999;
+        z-index: -1;
         height: 24px;
         left: 5px;
         top: calc( 50% - 12px );
-        width: 200%;
+        width: 160px;
         background: #19172E;
+        @media screen and (max-width: 1439px) {
+          width: 140px;
+        }
+        @media screen and (max-width: 1023px) {
+          width: 75px;
+          height: 20px;
+          top: calc( 50% - 10px );
+        }
       }
       &:last-child {
         &:after {

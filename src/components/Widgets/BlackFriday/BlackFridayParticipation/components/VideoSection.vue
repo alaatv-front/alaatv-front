@@ -9,7 +9,7 @@
     <div class="video-section">
       <q-btn icon="ph:caret-right"
              class="arrow arrow-right" />
-      <div class="video-box unlock">
+      <div class="video-box lock">
         <div class="state-layer state-unlock">
           <svg xmlns="http://www.w3.org/2000/svg"
                width="64"
@@ -31,6 +31,17 @@
               </clipPath>
             </defs>
           </svg>
+        </div>
+        <div class="state-layer state-lock">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               width="64"
+               height="64"
+               viewBox="0 0 64 64"
+               fill="none">
+            <path d="M52 20H44V14C44 10.8174 42.7357 7.76515 40.4853 5.51472C38.2348 3.26428 35.1826 2 32 2C28.8174 2 25.7652 3.26428 23.5147 5.51472C21.2643 7.76515 20 10.8174 20 14V20H12C10.9391 20 9.92172 20.4214 9.17157 21.1716C8.42143 21.9217 8 22.9391 8 24V52C8 53.0609 8.42143 54.0783 9.17157 54.8284C9.92172 55.5786 10.9391 56 12 56H52C53.0609 56 54.0783 55.5786 54.8284 54.8284C55.5786 54.0783 56 53.0609 56 52V24C56 22.9391 55.5786 21.9217 54.8284 21.1716C54.0783 20.4214 53.0609 20 52 20ZM24 14C24 11.8783 24.8429 9.84344 26.3431 8.34315C27.8434 6.84285 29.8783 6 32 6C34.1217 6 36.1566 6.84285 37.6569 8.34315C39.1571 9.84344 40 11.8783 40 14V20H24V14ZM52 52H12V24H52V52ZM35 38C35 38.5933 34.8241 39.1734 34.4944 39.6667C34.1648 40.1601 33.6962 40.5446 33.148 40.7716C32.5999 40.9987 31.9967 41.0581 31.4147 40.9424C30.8328 40.8266 30.2982 40.5409 29.8787 40.1213C29.4591 39.7018 29.1734 39.1672 29.0576 38.5853C28.9419 38.0033 29.0013 37.4001 29.2284 36.852C29.4554 36.3038 29.8399 35.8352 30.3333 35.5056C30.8266 35.1759 31.4067 35 32 35C32.7956 35 33.5587 35.3161 34.1213 35.8787C34.6839 36.4413 35 37.2043 35 38Z"
+                  fill="#D0CCF4" />
+          </svg>
+          <div class="lock-message">هرروز فقط میتونی یه فیلم رو ببینی!</div>
         </div>
       </div>
       <q-btn icon="ph:caret-left"
@@ -70,6 +81,14 @@ export default defineComponent({
     letter-spacing: -0.96px;
     margin-bottom: 20px;
     width: 100%;
+    @media screen and (max-width: 1023px) {
+      font-size: 28px;
+      letter-spacing: -0.84px;
+    }
+    @media screen and (max-width: 599px) {
+      font-size: 24px;
+      letter-spacing: -0.72px;
+    }
   }
   .description {
     color: #FFF;
@@ -82,6 +101,17 @@ export default defineComponent({
     letter-spacing: -0.54px;
     margin-bottom: 60px;
     width: 711px;
+    @media screen and (max-width: 1439px) {
+      width: 711px;
+    }
+    @media screen and (max-width: 1023px) {
+      width: 540px;
+      font-size: 16px;
+      letter-spacing: -0.48px;
+    }
+    @media screen and (max-width: 599px) {
+      width: 320px;
+    }
   }
   .video-section {
     position: relative;
@@ -95,6 +125,13 @@ export default defineComponent({
       @media screen and (max-width: 1439px) {
         width: 472px;
         height: 264px;
+        border-radius: 16px;
+      }
+      @media screen and (max-width: 1023px) {
+        border-radius: 16.168px;
+      }
+      @media screen and (max-width: 599px) {
+        border-radius: 9.583px;
       }
       @media screen and (max-width: 1023px) {
         width: 540px;
@@ -103,6 +140,24 @@ export default defineComponent({
       @media screen and (max-width: 599px) {
         width: 320px;
         height: 179px;
+      }
+      @media screen and (max-width: 360px) {
+        max-width: 100%;
+        height: 179px;
+      }
+      &.unlock {
+        .state-layer {
+          &.state-unlock {
+            display: flex;
+          }
+        }
+      }
+      &.lock {
+        .state-layer {
+          &.state-lock {
+            display: flex;
+          }
+        }
       }
       .state-layer {
         position: absolute;
@@ -115,8 +170,62 @@ export default defineComponent({
         justify-content: center;
         align-items: center;
         &.state-unlock {
+          display: none;
           svg {
             cursor: pointer;
+            @media screen and (max-width: 1439px) {
+              width: 45.222px;
+              height: 45.222px;
+            }
+            @media screen and (max-width: 1023px) {
+              width: 51.737px;
+              height: 51.737px;
+            }
+            @media screen and (max-width: 599px) {
+              width: 30.666px;
+              height: 30.666px;
+            }
+          }
+        }
+        &.state-lock {
+          display: none;
+          flex-flow: column;
+          border-radius: 20px;
+          @media screen and (max-width: 1439px) {
+            border-radius: 16px;
+          }
+          @media screen and (max-width: 1023px) {
+            border-radius: 16.168px;
+          }
+          @media screen and (max-width: 599px) {
+            border-radius: 9.583px;
+          }
+          background: rgba(20, 19, 24, 0.40);
+          svg {
+            cursor: pointer;
+            margin-bottom: 8px;
+            @media screen and (max-width: 1439px) {
+              width: 45.222px;
+              height: 45.222px;
+            }
+            @media screen and (max-width: 1023px) {
+              width: 51.737px;
+              height: 51.737px;
+            }
+            @media screen and (max-width: 599px) {
+              width: 30.666px;
+              height: 30.666px;
+            }
+          }
+          .lock-message {
+            color: #D0CCF4;
+            text-align: center;
+            font-family: ModamFaNumWeb,serif;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            letter-spacing: -0.6px;
           }
         }
       }
@@ -131,24 +240,50 @@ export default defineComponent({
       box-shadow: 0 3px 2px 0 rgba(16, 24, 40, 0.06), 0 3px 3px 0 rgba(16, 24, 40, 0.08);
       top: calc( 50% - 20px );
       @media screen and (max-width: 1023px) {
-        width: 32.335px;
-        height: 32.335px;
+        $target-width: 32.335px;
+        width: $target-width;
+        height: $target-width;
+        top: calc( 50% - ( #{$target-width} / 2 ) );
       }
       @media screen and (max-width: 599px) {
-        width: 32px;
-        height: 32px;
+        $target-width: 32px;
+        width: $target-width;
+        height: $target-width;
+        top: calc( 50% - ( #{$target-width} / 2 ) );
       }
       .q-btn__content {
         .q-icon {
           font-size: 20px;
+          @media screen and (max-width: 1023px) {
+            font-size: 16.168px;
+          }
+          @media screen and (max-width: 599px) {
+            font-size: 16px;
+          }
           color: #D0CCF4;
         }
       }
       &.arrow-left {
         right: -20px;
+        @media screen and (max-width: 1023px) {
+          $target-width: 32.335px;
+          right: calc( #{$target-width} / -2 );
+        }
+        @media screen and (max-width: 599px) {
+          $target-width: 32px;
+          right: calc( #{$target-width} / -2 );
+        }
       }
       &.arrow-right {
         left: -20px;
+        @media screen and (max-width: 1023px) {
+          $target-width: 32.335px;
+          left: calc( #{$target-width} / -2 );
+        }
+        @media screen and (max-width: 599px) {
+          $target-width: 32px;
+          left: calc( #{$target-width} / -2 );
+        }
       }
     }
   }

@@ -1,25 +1,96 @@
 <template>
-  <q-card class="BlackFridayRewardsInsideDialog">
-    <div class="reward-item">
-      <div class="reward-item-title">
-        سبد بی نهایت آلاء :
-      </div>
-      <div class="reward-item-action">
-        سبد بی نهایت آلاء :
-      </div>
+  <div class="BlackFridayRewardsInsideDialog">
+    <div class="top-image">
+      <lazy-img :src="image"
+                width="368"
+                height="264"
+                class="image" />
     </div>
-  </q-card>
+    <q-card>
+      <div class="header">
+        <div class="title"
+             v-html="title" />
+        <div class="action">
+          <q-btn v-close-popup
+                 flat
+                 square
+                 class="size-xs"
+                 color="grey"
+                 icon="ph:x" />
+        </div>
+      </div>
+      <div class="body">
+        <div class="message"
+             v-html="message" />
+        <div v-if="hasCoupon"
+             class="coupon-box">
+          <div class="title-section">
+            کد تخفیف
+            <span>
+              {{ couponTitle }}
+            </span>
+            :
+          </div>
+          <div class="code-section">
+            <div class="code">
+              GFDfgkler0
+            </div>
+            <q-btn flat
+                   class="btn-copy"
+                   icon="ph:copy"
+                   label="کپی" />
+          </div>
+        </div>
+      </div>
+      <div v-if="hasAction"
+           class="action-section">
+        <q-btn class="action-btn">
+          <template v-if="state === 'watch-video-0'">
+            متوجه شدم
+          </template>
+          <template v-else-if="state.includes('watch-video-')">
+            استفاده از کد تخفیف
+            <q-icon name="ph:caret-left" />
+          </template>
+          <template v-else-if="state.includes('participate-success-coupon')">
+            استفاده از کد تخفیف
+            <q-icon name="ph:caret-left" />
+          </template>
+          <template v-else-if="state.includes('participate-success-infinity')">
+            <q-icon name="ph:envelope-simple" />
+            ارسال تیکت پشتیبانی
+          </template>
+        </q-btn>
+      </div>
+    </q-card>
+  </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
+import LazyImg from 'components/lazyImg.vue'
 
 export default defineComponent({
   name: 'BlackFridayRewardsInsideDialog',
+  components: { LazyImg },
   props: {
     state: {
       type: String,
-      default: 'watch-video-1'
+      // validator: (val) => [
+      //   'watch-video-0',
+      //   'watch-video-1',
+      //   'watch-video-2',
+      //   'watch-video-3',
+      //   'watch-video-4',
+      //   'watch-video-5',
+      //   'watch-video-6',
+      //   'watch-video-7',
+      //   'participate-success-coupon',
+      //   'participate-success-infinity',
+      //   'participate-fail-has-chance',
+      //   'participate-fail-no-chance'
+      // ].includes(val),
+      default: null
     },
     couponTitle: {
       type: String,
