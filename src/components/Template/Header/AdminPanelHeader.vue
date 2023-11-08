@@ -7,12 +7,9 @@
           <div class="drawer-btn hamburger">
             <q-btn v-if="showHamburger"
                    class="toolbar-button q-btn-sm"
-                   icon="isax:menu-1"
-                   color="white"
-                   text-color="accent"
-                   dense
+                   icon="ph:list"
                    square
-                   unelevated
+                   color="grey"
                    @click="toggleLeftDrawer" />
           </div>
           <div class="logo-pic">
