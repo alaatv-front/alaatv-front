@@ -10,6 +10,7 @@ export default boot(({ app, router }) => {
   Sentry.init({
     app,
     dsn: sentryDsn,
+    telemetry: false,
     integrations: [
       new Sentry.BrowserTracing({
         routingInstrumentation: Sentry.vueRouterInstrumentation(router)
