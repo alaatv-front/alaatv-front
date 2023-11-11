@@ -191,6 +191,18 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import "src/css/Theme/Typography/typography.scss";
 
+$productFontFamily: v-bind('localOptions.typography.fontFamily');
+$titleColor: v-bind('localOptions.typography.titleColor');
+$priceColor: v-bind('localOptions.typography.priceColor');
+$finalColor: v-bind('localOptions.typography.finalColor');
+$titleColor: v-bind('localOptions.typography.titleColor');
+$simpleTextColor: v-bind('localOptions.typography.simpleTextColor');
+$separatorColor: v-bind('localOptions.typography.separatorColor');
+$actionColor: v-bind('localOptions.typography.actionColor');
+$actionHoverColor: v-bind('localOptions.typography.actionHoverColor');
+$installmentColor: v-bind('localOptions.typography.installmentColor');
+$installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBackground');
+
 @mixin instalment-label () {
   display: flex;
   padding: 4px 6px;
@@ -198,11 +210,12 @@ export default defineComponent({
   align-items: center;
   gap: 12px;
   border-radius: 6px;
-  background: linear-gradient(-90deg, #2CB2C5 0.01%, #31B470 99.99%);
+  background: $installmentBadgeBackground;
   color: #FFF;
   text-align: right;
   font-size: 12px;
   font-style: normal;
+  font-family: IRANSansXFaNum;
   font-weight: 600;
   line-height: normal;
   letter-spacing: -0.36px;
@@ -210,10 +223,11 @@ export default defineComponent({
 
 .theme2-container {
   height: inherit;
-  background-color: #ffffff;
+  // background-color: #ffffff;
   border-radius: 20px;
   padding-top: 20px;
   margin-top: 45px;
+  font-family: $productFontFamily;
 
   &.vertical {
     .product-discount-badge {
@@ -305,16 +319,19 @@ export default defineComponent({
         .main-title {
           margin-bottom: 0;
           @include subtitle2;
+          color: $titleColor;
 
           a {
+            color: $titleColor;
           }
 
           .title-box {
             height: 44px;
             text-align: center;
-
+            color: $titleColor;
             .title-text {
               -webkit-line-clamp: 2;
+              color: $titleColor;
             }
           }
         }
@@ -422,6 +439,7 @@ export default defineComponent({
     .title-box {
       min-height: 42px;
       text-align: center;
+      color: $titleColor;
     }
 
     .price-box {
@@ -456,13 +474,13 @@ export default defineComponent({
             font-weight: 1024;
             line-height: normal;
             letter-spacing: -0.36px;
-            color: #009688;
+            color: $finalColor;
             margin-left: 8px;
           }
         }
 
         .main-price {
-          color: #9E9E9E;
+          color: $priceColor;
           font-size: 14px;
           font-style: normal;
           font-weight: 400;
@@ -472,7 +490,7 @@ export default defineComponent({
         }
 
         .price-Toman {
-          color: #616161;
+          color: $priceColor;
           font-size: 10px;
           font-style: normal;
           font-weight: 400;
@@ -497,6 +515,7 @@ export default defineComponent({
 
       .action-separator {
         margin: 12px 0;
+        background: $separatorColor;
         @media screen and (max-width: 1023px){
           margin: 4px 0;
         }
@@ -528,7 +547,7 @@ export default defineComponent({
             letter-spacing: -0.42px;
           }
           .price {
-            color: #FF8518;
+            color: $installmentColor;
             text-align: right;
             font-size: 14px;
             font-style: normal;
@@ -652,14 +671,14 @@ export default defineComponent({
   .link-to-product-page {
     width: 100%;
     background: transparent;
-    color: #9e9e9e;
+    color: $actionColor;
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
     line-height: 196.5%;
 
     &:hover {
-      color: #26A69A;
+      color: $actionHoverColor;
     }
 
     .btn-text {
