@@ -18,16 +18,18 @@
       <q-dialog v-model="dialog">
         <inside-dialog :state="videoDialogState"
                        :coupon-title="watchedVideoCoupon.discount_in_letters"
-                       :coupon-code="watchedVideoCoupon.code" />
+                       :coupon-code="watchedVideoCoupon.code"
+                       :scroll-to-element-class-name="localOptions.scrollTo" />
       </q-dialog>
     </template>
   </div>
 </template>
 
 <script>
+import bcryptjs from 'bcryptjs'
 import { defineComponent } from 'vue'
 import { Coupon } from 'src/models/Coupon.js'
-import { mixinAuth } from 'src/mixin/Mixins.js'
+import { mixinWidget, mixinAuth } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import StepSection from './components/StepSection.vue'
 import VideoSection from './components/VideoSection.vue'
@@ -36,15 +38,19 @@ import { BlackFridayVideo } from 'src/models/BlackFridayVideo.js'
 import { BlackFridayCampaignData } from 'src/models/BlackFridayCampaignData.js'
 
 export default defineComponent({
-  name: 'BlackFridayParticipation',
+  name: 'BlackFridayShowVideo',
   components: { VideoSection, StepSection, InsideDialog },
+  mixins: [mixinWidget, mixinAuth],
   data () {
     return {
       dialog: false,
       currentVideoWatched: false,
       watchedVideoCoupon: new Coupon(),
       videoDialogState: null,
-      blackFridayCampaignData: new BlackFridayCampaignData()
+      blackFridayCampaignData: new BlackFridayCampaignData(),
+      defaultOptions: {
+        scrollTo: null
+      }
     }
   },
   computed: {
@@ -84,29 +90,41 @@ export default defineComponent({
       if (!this.isVideoActive(videoIndex)) {
         return
       }
+      this.beforeChangeSelectedVideo()
       this.setVideoSelected(videoIndex)
     },
     async onWatched () {
-      const bcrypt = dcodeIO.bcrypt
+      if (this.selectedVideoIndex === 0) {
+        return
+      }
+      if (this.selectedVideo.has_watched) {
+        return
+      }
+      const userMobile = this.user.mobile
       const contentId = this.selectedVideo.id
-      const hashPass = 'XLfqzfD8n5qHbu6w'.concat('userMobile', contentId)
-      const token = await bcrypt.hash(hashPass, 1)
+      const hashPass = 'XLfqzfD8n5qHbu6w'.concat(userMobile, contentId)
+      const token = await bcryptjs.hash(hashPass, 1)
 
-      // this.watchedVideoCoupon.loading = true
-      // APIGateway.blackFriday.getCouponByWatchVideo({
-      //   content_id: contentId,
-      //   token
-      // })
-      //   .then((coupon) => {
-      //     this.currentVideoWatched = true
-      //     this.watchedVideoCoupon = new Coupon(coupon)
-      //     this.watchedVideoCoupon.loading = false
-      //   })
-      //   .catch(() => {
-      //     this.watchedVideoCoupon.loading = false
-      //   })
+      this.watchedVideoCoupon.loading = true
+      APIGateway.blackFriday.getCouponByWatchVideo({
+        content_id: contentId,
+        token
+      })
+        .then((coupon) => {
+          this.currentVideoWatched = true
+          this.watchedVideoCoupon = new Coupon(coupon)
+          this.watchedVideoCoupon.loading = false
+        })
+        .catch(() => {
+          this.watchedVideoCoupon.loading = false
+        })
     },
     onPlay () {
+      // const contentId = this.selectedVideo.id
+      // APIGateway.content.setVideoUnWatched({
+      //   watchable_id: contentId
+      // })
+
       if (this.selectedVideo.has_played) {
         return
       }
@@ -176,6 +194,7 @@ export default defineComponent({
     showVideoDialog (state) {
       this.videoDialogState = state
       this.showDialog()
+      this.getBlackFridayCampaignData()
     },
     getVideoDialogState () {
       return 'watch-video-' + this.selectedVideoIndex
