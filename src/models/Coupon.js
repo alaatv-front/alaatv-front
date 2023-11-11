@@ -6,6 +6,7 @@ class Coupon extends Model {
       { key: 'id' },
       { key: 'couponCode' },
       { key: 'couponName' },
+      { key: 'discount_in_letters' },
       { key: 'detail' },
       {
         key: 'numberOfProducts',

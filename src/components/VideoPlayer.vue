@@ -87,6 +87,14 @@ export default {
         return ''
       }
     },
+    disableProgressControl: {
+      type: Boolean,
+      default: false
+    },
+    disablePlaybackRateMenuButton: {
+      type: Boolean,
+      default: false
+    },
     overPlayer: {
       type: Boolean,
       default: true
@@ -639,6 +647,12 @@ export default {
       this.player.on('ended', () => {
         this.$emit('ended')
       })
+      if (this.disableProgressControl) {
+        this.player.controlBar.progressControl.disable()
+      }
+      if (this.disablePlaybackRateMenuButton) {
+        this.player.controlBar.PlaybackRateMenuButton.disable()
+      }
 
       // const events = [
       //   'loadstart',

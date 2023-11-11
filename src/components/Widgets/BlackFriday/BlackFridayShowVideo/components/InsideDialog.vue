@@ -33,7 +33,7 @@
           </div>
           <div class="code-section">
             <div class="code">
-              GFDfgkler0
+              {{ couponCode }}
             </div>
             <q-btn flat
                    class="btn-copy"
@@ -76,25 +76,29 @@ export default defineComponent({
   props: {
     state: {
       type: String,
-      // validator: (val) => [
-      //   'watch-video-0',
-      //   'watch-video-1',
-      //   'watch-video-2',
-      //   'watch-video-3',
-      //   'watch-video-4',
-      //   'watch-video-5',
-      //   'watch-video-6',
-      //   'watch-video-7',
-      //   'participate-success-coupon',
-      //   'participate-success-infinity',
-      //   'participate-fail-has-chance',
-      //   'participate-fail-no-chance'
-      // ].includes(val),
+      validator: (val) => [
+        'watch-video-0',
+        'watch-video-1',
+        'watch-video-2',
+        'watch-video-3',
+        'watch-video-4',
+        'watch-video-5',
+        'watch-video-6',
+        'watch-video-7',
+        'participate-success-coupon',
+        'participate-success-infinity',
+        'participate-fail-has-chance',
+        'participate-fail-no-chance'
+      ].includes(val),
       default: null
     },
     couponTitle: {
       type: String,
-      default: '۱ میلیون تومانی'
+      default: ''
+    },
+    couponCode: {
+      type: String,
+      default: ''
     }
   },
   data () {
