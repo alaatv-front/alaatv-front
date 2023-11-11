@@ -16,7 +16,9 @@
                     class="step-section"
                     @onSelectStep="onSelectStep" />
       <q-dialog v-model="dialog">
-        <inside-dialog :state="videoDialogState" />
+        <inside-dialog :state="videoDialogState"
+                       :coupon-title="watchedVideoCoupon.discount_in_letters"
+                       :coupon-code="watchedVideoCoupon.code" />
       </q-dialog>
     </template>
   </div>
@@ -24,6 +26,8 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { Coupon } from 'src/models/Coupon.js'
+import { mixinAuth } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import StepSection from './components/StepSection.vue'
 import VideoSection from './components/VideoSection.vue'
@@ -38,6 +42,7 @@ export default defineComponent({
     return {
       dialog: false,
       currentVideoWatched: false,
+      watchedVideoCoupon: new Coupon(),
       videoDialogState: null,
       blackFridayCampaignData: new BlackFridayCampaignData()
     }
@@ -81,8 +86,25 @@ export default defineComponent({
       }
       this.setVideoSelected(videoIndex)
     },
-    onWatched () {
-      this.currentVideoWatched = true
+    async onWatched () {
+      const bcrypt = dcodeIO.bcrypt
+      const contentId = this.selectedVideo.id
+      const hashPass = 'XLfqzfD8n5qHbu6w'.concat('userMobile', contentId)
+      const token = await bcrypt.hash(hashPass, 1)
+
+      // this.watchedVideoCoupon.loading = true
+      // APIGateway.blackFriday.getCouponByWatchVideo({
+      //   content_id: contentId,
+      //   token
+      // })
+      //   .then((coupon) => {
+      //     this.currentVideoWatched = true
+      //     this.watchedVideoCoupon = new Coupon(coupon)
+      //     this.watchedVideoCoupon.loading = false
+      //   })
+      //   .catch(() => {
+      //     this.watchedVideoCoupon.loading = false
+      //   })
     },
     onPlay () {
       if (this.selectedVideo.has_played) {

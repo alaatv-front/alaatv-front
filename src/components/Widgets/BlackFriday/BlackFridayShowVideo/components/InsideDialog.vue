@@ -33,7 +33,7 @@
           </div>
           <div class="code-section">
             <div class="code">
-              GFDfgkler0
+              {{ couponCode }}
             </div>
             <q-btn flat
                    class="btn-copy"
@@ -94,7 +94,11 @@ export default defineComponent({
     },
     couponTitle: {
       type: String,
-      default: '۱ میلیون تومانی'
+      default: ''
+    },
+    couponCode: {
+      type: String,
+      default: ''
     }
   },
   data () {
