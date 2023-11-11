@@ -47,7 +47,8 @@
             <div class="lock-message">هرروز فقط میتونی یه فیلم رو ببینی!</div>
           </div>
         </template>
-        <video-player ref="videoPlayer"
+        <video-player v-if="localVideo.is_actice"
+                      ref="videoPlayer"
                       :key="videoKey"
                       :has-vast="false"
                       :show-btn="false"
@@ -59,6 +60,11 @@
                       @pause="onPause"
                       @ended="onEnded"
                       @play="onPlay" />
+        <lazy-img v-else
+                  :src="localVideo.thumbnail"
+                  class="full-width"
+                  width="16"
+                  height="9" />
       </div>
       <q-btn icon="ph:caret-left"
              class="arrow arrow-left"
@@ -69,13 +75,14 @@
 
 <script>
 import { defineComponent } from 'vue'
+import LazyImg from 'src/components/lazyImg.vue'
 import VideoPlayer from 'src/components/VideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import { BlackFridayVideo } from 'src/models/BlackFridayVideo.js'
 
 export default defineComponent({
   name: 'VideoSection',
-  components: { VideoPlayer },
+  components: { LazyImg, VideoPlayer },
   props: {
     video: {
       type: BlackFridayVideo,
@@ -229,6 +236,9 @@ export default defineComponent({
       background: #19172E;
       box-shadow: 0 0 32px 0 rgba(51, 51, 51, 0.09);
       overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       @media screen and (max-width: 1439px) {
         width: 472px;
         height: 264px;
