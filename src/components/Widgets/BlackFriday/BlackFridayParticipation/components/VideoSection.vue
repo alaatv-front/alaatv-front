@@ -1,16 +1,19 @@
 <template>
   <div class="VideoSection">
     <div class="title">
-      عنوان فرضی 1
+      {{ localVideo.title }}
     </div>
-    <div class="description">
-      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز
-    </div>
+    <div class="description"
+         v-html="localVideo.description" />
     <div class="video-section">
       <q-btn icon="ph:caret-right"
-             class="arrow arrow-right" />
-      <div class="video-box lock">
-        <div class="state-layer state-unlock">
+             class="arrow arrow-right"
+             @click="onPrev" />
+      <div class="video-box"
+           :class="{ 'unlock': localVideo.is_actice, 'lock': !localVideo.is_actice }">
+        <div v-if="!isPlaying"
+             class="state-layer state-unlock"
+             @click="playVideo">
           <svg xmlns="http://www.w3.org/2000/svg"
                width="64"
                height="64"
@@ -32,7 +35,8 @@
             </defs>
           </svg>
         </div>
-        <div class="state-layer state-lock">
+        <div v-if="!isPlaying"
+             class="state-layer state-lock">
           <svg xmlns="http://www.w3.org/2000/svg"
                width="64"
                height="64"
@@ -43,21 +47,93 @@
           </svg>
           <div class="lock-message">هرروز فقط میتونی یه فیلم رو ببینی!</div>
         </div>
+        <video-player ref="videoPlayer"
+                      :has-vast="false"
+                      :show-btn="false"
+                      :source="localVideoSource"
+                      :poster="localVideo.thumbnail"
+                      @pause="onPause"
+                      @ended="onEnded"
+                      @play="onPlay" />
       </div>
       <q-btn icon="ph:caret-left"
-             class="arrow arrow-left" />
+             class="arrow arrow-left"
+             @click="onNext" />
     </div>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
+import VideoPlayer from 'src/components/VideoPlayer.vue'
+import { PlayerSourceList } from 'src/models/PlayerSource.js'
+import { BlackFridayVideo } from 'src/models/BlackFridayVideo.js'
 
 export default defineComponent({
   name: 'VideoSection',
+  components: { VideoPlayer },
+  props: {
+    video: {
+      type: BlackFridayVideo,
+      default: new BlackFridayVideo()
+    }
+  },
+  emits: ['update:video', 'next', 'prev', 'play', 'watched', 'ended'],
   data () {
     return {
+      isPlaying: false
+    }
+  },
+  computed: {
+    localVideo: {
+      get () {
+        return this.video
+      },
+      set (newValue) {
+        this.$emit('update:video', newValue)
+      }
+    },
+    localVideoSource () {
+      return new PlayerSourceList(this.localVideo.file.video)
+    }
+  },
+  methods: {
+    isCurrent (videoIndex) {
+      if (this.localBlackFridayCampaignData.videos.list.length === 0) {
+        return false
+      }
 
+      const lastActiveIndex = this.getLastActiveIndex()
+
+      return videoIndex === lastActiveIndex
+    },
+    getLastActiveIndex () {
+      let activeIndex = 0
+      this.localBlackFridayCampaignData.videos.list.forEach((video, videoIndex) => {
+        if (video.is_actice && activeIndex < videoIndex) {
+          activeIndex = videoIndex
+        }
+      })
+
+      return activeIndex
+    },
+    onPlay () {
+      this.isPlaying = true
+    },
+    onPause () {
+      this.isPlaying = false
+    },
+    onEnded () {
+      this.$emit('ended')
+    },
+    onPrev () {
+      this.$emit('prev')
+    },
+    onNext () {
+      this.$emit('next')
+    },
+    playVideo () {
+      this.$refs.videoPlayer.player.play()
     }
   }
 })
@@ -122,6 +198,7 @@ export default defineComponent({
       border-radius: 20px;
       background: #19172E;
       box-shadow: 0 0 32px 0 rgba(51, 51, 51, 0.09);
+      overflow: hidden;
       @media screen and (max-width: 1439px) {
         width: 472px;
         height: 264px;
@@ -227,6 +304,11 @@ export default defineComponent({
             line-height: normal;
             letter-spacing: -0.6px;
           }
+        }
+      }
+      :deep(.vPlayer) {
+        .vjs-big-play-button {
+          display: none;
         }
       }
     }

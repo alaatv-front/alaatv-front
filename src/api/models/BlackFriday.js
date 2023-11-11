@@ -16,7 +16,7 @@ export default class BlackFridayAPI extends APIRepository {
     }
   }
 
-  get (cache = { TTL: 1000 }) {
+  getCampaignData (cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

@@ -9,11 +9,13 @@ class BlackFridayVideo extends Model {
   constructor (data) {
     super(data, [
       { key: 'id' },
-      { key: 'is_actice' },
-      { key: 'has_watched' },
       { key: 'title' },
       { key: 'description' },
       { key: 'coupon_display_title' }, // جایزه 300 هزار تومانی
+      { key: 'is_actice' },
+      { key: 'has_played' },
+      { key: 'has_watched' },
+      { key: 'includes_coupon' },
       { key: 'thumbnail' },
       {
         key: 'file',
