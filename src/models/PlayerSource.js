@@ -12,6 +12,10 @@ class PlayerSource extends Model {
         default: 'video/mp4'
       },
       {
+        key: 'ext',
+        default: 'mp4'
+      },
+      {
         key: 'label',
         default: ''
       },
@@ -36,8 +40,14 @@ class PlayerSource extends Model {
     if (!this.label && this.res) {
       this.label = this.res
     }
+    if (!this.label && this.caption) {
+      this.label = this.caption
+    }
     if (!this.src && this.link) {
       this.src = this.link
+    }
+    if (this.type === 'video') {
+      this.type = 'video/mp4'
     }
   }
 }

@@ -86,7 +86,7 @@ export default class PageSettingAPI extends APIRepository {
     })
   }
 
-  get (data, cache = { TTL: 300000 }) {
+  get (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

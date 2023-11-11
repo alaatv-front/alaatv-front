@@ -87,6 +87,14 @@ export default {
         return ''
       }
     },
+    disableProgressControl: {
+      type: Boolean,
+      default: false
+    },
+    disablePlaybackRateMenuButton: {
+      type: Boolean,
+      default: false
+    },
     overPlayer: {
       type: Boolean,
       default: true
@@ -111,7 +119,7 @@ export default {
       type: Number
     }
   },
-  emits: ['seeked', 'adStarted', 'adEnded', 'update:sideBar', 'timeUpdated'],
+  emits: ['seeked', 'play', 'pause', 'ended', 'adStarted', 'adEnded', 'update:sideBar', 'timeUpdated'],
   data() {
     return {
       needReInitVideo: false,
@@ -629,6 +637,22 @@ export default {
       })
 
       this.player.on('keydown', this.handleHotkeys)
+
+      this.player.on('play', () => {
+        this.$emit('play')
+      })
+      this.player.on('pause', () => {
+        this.$emit('pause')
+      })
+      this.player.on('ended', () => {
+        this.$emit('ended')
+      })
+      if (this.disableProgressControl) {
+        this.player.controlBar.progressControl.disable()
+      }
+      if (this.disablePlaybackRateMenuButton) {
+        this.player.controlBar.PlaybackRateMenuButton.disable()
+      }
 
       // const events = [
       //   'loadstart',

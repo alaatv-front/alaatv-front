@@ -89,6 +89,19 @@ import ThemeDefault from 'components/Product/ProductItem/Themes/ThemeDefault.vue
 import ThemeProduct1 from 'components/Product/ProductItem/Themes/ThemeProduct1.vue'
 import ThemeProduct2 from 'components/Product/ProductItem/Themes/ThemeProduct2.vue'
 
+const defaultTypography = {
+  fontFamily: 'iranyekan',
+  titleColor: '#D1D1D1',
+  priceColor: '#9E9E9E',
+  finalColor: '#009688',
+  simpleTextColor: '#757575',
+  separatorColor: '#EEEEEE',
+  actionColor: '#9e9e9e',
+  actionHoverColor: '#26A69A',
+  installmentColor: '#FF8518',
+  installmentBadgeBackground: 'linear-gradient(-90deg, #2CB2C5 0.01%, #31B470 99.99%)'
+}
+
 export default defineComponent({
   name: 'productItem',
   components: {
@@ -190,11 +203,54 @@ export default defineComponent({
           paddingBottom: null
         }
       },
+      backgrounds: {
+        xs: {
+          size: null,
+          color: 'rgba(255,255,255, 1)',
+          image: null,
+          repeat: null,
+          position: null,
+          attachment: null
+        },
+        sm: {
+          size: null,
+          color: 'rgba(255,255,255, 1)',
+          image: null,
+          repeat: null,
+          position: null,
+          attachment: null
+        },
+        md: {
+          size: null,
+          color: 'rgba(255,255,255, 1)',
+          image: null,
+          repeat: null,
+          position: null,
+          attachment: null
+        },
+        lg: {
+          size: null,
+          color: 'rgba(255,255,255, 1)',
+          image: null,
+          repeat: null,
+          position: null,
+          attachment: null
+        },
+        xl: {
+          size: null,
+          color: 'rgba(255,255,255, 1)',
+          image: null,
+          repeat: null,
+          position: null,
+          attachment: null
+        }
+      },
       minWidth: 'auto',
       canAddToCart: true,
       customAction: false,
       customActionLabel: null,
       customActionMessage: null,
+      typography: defaultTypography,
       loading: false,
       showPrice: true,
       product: new Product(),
@@ -477,6 +533,49 @@ $responsiveSpacing: (
         paddingBottom: v-bind('defaultOptions.responsiveSpacing.xl.paddingBottom'),
     )
 );
+$backgrounds: (
+    xs: (
+        size: v-bind('localOptions.backgrounds.xs.size'),
+        color: v-bind('localOptions.backgrounds.xs.color'),
+        image: v-bind('localOptions.backgrounds.xs.image'),
+        repeat: v-bind('localOptions.backgrounds.xs.repeat'),
+        position: v-bind('localOptions.backgrounds.xs.position'),
+        attachment: v-bind('localOptions.backgrounds.xs.attachment')
+    ),
+    sm: (
+        size: v-bind('localOptions.backgrounds.sm.size'),
+        color: v-bind('localOptions.backgrounds.sm.color'),
+        image: v-bind('localOptions.backgrounds.sm.image'),
+        repeat: v-bind('localOptions.backgrounds.sm.repeat'),
+        position: v-bind('localOptions.backgrounds.sm.position'),
+        attachment: v-bind('localOptions.backgrounds.sm.attachment')
+    ),
+    md: (
+        size: v-bind('localOptions.backgrounds.md.size'),
+        color: v-bind('localOptions.backgrounds.md.color'),
+        image: v-bind('localOptions.backgrounds.md.image'),
+        repeat: v-bind('localOptions.backgrounds.md.repeat'),
+        position: v-bind('localOptions.backgrounds.md.position'),
+        attachment: v-bind('localOptions.backgrounds.md.attachment')
+    ),
+    lg: (
+        size: v-bind('localOptions.backgrounds.lg.size'),
+        color: v-bind('localOptions.backgrounds.lg.color'),
+        image: v-bind('localOptions.backgrounds.lg.image'),
+        repeat: v-bind('localOptions.backgrounds.lg.repeat'),
+        position: v-bind('localOptions.backgrounds.lg.position'),
+        attachment: v-bind('localOptions.backgrounds.lg.attachment')
+    ),
+    xl: (
+        size: v-bind('localOptions.backgrounds.xl.size'),
+        color: v-bind('localOptions.backgrounds.xl.color'),
+        // color: red,
+        image: v-bind('localOptions.backgrounds.xl.image'),
+        repeat: v-bind('localOptions.backgrounds.xl.repeat'),
+        position: v-bind('localOptions.backgrounds.xl.position'),
+        attachment: v-bind('localOptions.backgrounds.xl.attachment')
+    )
+);
 $shadows: v-bind('shadows');
 $hoverShadows: v-bind('hoverShadows');
 $border: v-bind('localOptions.borderStyle.borderCssString');
@@ -514,16 +613,8 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
   }
 
   .product-item-box {
-    //display: flex;
-    //flex-direction: column;
-    //width: 100%;
-    //height: inherit;
-    //justify-content: space-between;
-    //margin: auto;
-    //margin: 0 12px;
+    @include media-query-backgrounds($backgrounds, $sizes);
     position: relative;
-    //background-color: #ffffff;
-    //top: 0;
     transition: all ease 0.5s;
     box-shadow: $shadows;
     -webkit-box-shadow: $shadows;
