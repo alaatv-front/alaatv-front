@@ -1,5 +1,6 @@
 @import 'src/css/Theme/colors.scss';
 @import 'src/css/Theme/radius.scss';
+@import 'src/css/Theme/shadow.scss';
 @import 'src/css/Theme/spacing.scss';
 @import 'src/css/Theme/Typography/typography.scss';
 
@@ -102,6 +103,20 @@
   }
 }
 
+@mixin btn-handle-box-shadows($type){
+  $target-box-shadow : $shadow-1;
+  @if ($type == 'primary'){
+    $target-box-shadow:$shadow-primary;
+  }@else if($type == 'secondary'){
+    $target-box-shadow : $shadow-secondary;
+  }@else if($type == 'accent'){
+    $target-box-shadow : $shadow-accent;
+  }@else if(index(('grey', 'flat', 'outline'), $type)){
+    $target-box-shadow : $shadow-grey;
+  }
+  box-shadow: $target-box-shadow;
+}
+
 body {
   .q-btn {
     font-size: 1em !important;
@@ -140,19 +155,15 @@ body {
 
     &.disabled,
     &[disabled] {
-      opacity: 0.2 !important;
+      opacity: 0.24 !important;
     }
-
 
     &.q-hoverable:hover {
       & > .q-focus-helper {
         opacity: 1;
-        background: rgba($grey-1, 0.2);
-        &:before {
-          display: none;
-        }
-        &:after {
-          display: none;
+        background: $lighten-5;
+        &:before{
+          display:none;
         }
       }
     }
@@ -187,39 +198,65 @@ body {
 
     &.bg-primary {
       color: $grey-9 !important;
+      //&.q-hoverable:hover {
+      //  opacity: 1;
+      //  & > .q-focus-helper {
+      //    background: $lighten-5;
+      //  }
+      //}
+      &.q-btn--active.q-btn--actionable:focus{
+        @include btn-handle-box-shadows('primary')
+      }
     }
 
     &.bg-secondary {
       color: $grey-1 !important;
+      &.q-hoverable:hover {
+        & > .q-focus-helper {
+          background: $lighten-5;
+        }
+      }
+      &.q-btn--active.q-btn--actionable:focus{
+        @include btn-handle-box-shadows('secondary')
+      }
     }
 
     &.bg-accent {
       background: $accent !important;
+      &.q-btn--active.q-btn--actionable:focus{
+        @include btn-handle-box-shadows('accent')
+      }
     }
 
     &.bg-grey {
       color: $grey-9 !important;
       background: $grey-2 !important;
+      &.q-btn--active.q-btn--actionable:focus{
+        @include btn-handle-box-shadows('grey')
+      }
     }
 
     @mixin outline-btn(){
       color: $grey-9 !important;
-      background: $grey-1 !important;
 
       &:before {
         border: solid 1.5px $grey-4;
       }
 
-      &:hover:not(.disabled) {
-        background: $grey-2 !important;
-        &:before {
-          border: solid 1px $grey-6;
+      &.q-btn--active.q-btn--actionable:focus{
+        @include btn-handle-box-shadows('grey')
+      }
+
+      &.q-hoverable:hover:not(.disabled) {
+        & > .q-focus-helper {
+          background: $darken-1;
         }
       }
 
       .q-btn__content {
         color: $grey-9 !important;
       }
+
     }
 
     &.q-btn--outline {
@@ -233,27 +270,33 @@ body {
     }
 
     @mixin flat-btn () {
-      color: $grey-9 !important;
+      color: $grey-9 ;
       background: transparent ;
 
       &:before {
         border: none;
       }
 
-      &:hover {
-        background: $grey-2 ;
+      &.q-hoverable:hover {
+        & > .q-focus-helper {
+          background: $darken-1;
+        }
+      }
+
+      &.q-btn--active.q-btn--actionable:focus{
+        @include btn-handle-box-shadows('grey');
       }
 
       .q-btn__content {
-        color: $grey-9 !important;
+        color: $grey-9 ;
       }
     }
 
     &.q-btn--flat {
+      @include flat-btn();
       &.text-grey {
         @include flat-btn();
       }
-      @include flat-btn();
     }
 
   }
