@@ -36,10 +36,8 @@
              class="drawer-btn hamburger">
           <q-btn class="toolbar-button"
                  icon="ph:list"
-                 color="white"
-                 text-color="accent"
-                 dense
-                 unelevated
+                 square
+                 color="grey"
                  @click="toggleLeftDrawer" />
         </div>
         <div class="breadcrumbs flex items-center">

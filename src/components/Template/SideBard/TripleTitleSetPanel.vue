@@ -53,12 +53,10 @@
               هشدار
             </div>
           </div>
-          <div class="close">
-            <q-btn color="grey"
-                   icon="close"
-                   flat
-                   @click="toggleLogoutDialog" />
-          </div>
+          <q-btn color="grey"
+                 icon="ph:x"
+                 @click="toggleLogoutDialog" />
+
         </q-card-section>
         <q-separator />
         <q-card-section>
@@ -135,7 +133,7 @@ export default {
     topicsRouteArray: [
       {
         title: 'سر فصل ها',
-        icon: 'isax:document-upload',
+        icon: 'ph:book-open-text',
         routeName: '',
         active: false,
         show: true,

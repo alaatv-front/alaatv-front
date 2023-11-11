@@ -3,143 +3,206 @@
 @import 'src/css/Theme/spacing.scss';
 @import 'src/css/Theme/Typography/typography.scss';
 
-@mixin btn-handle-size ($radius, $padding-x, $padding-y, $square-padding, $icon-font-size) {
-  border-radius: $radius;
-  padding: $padding-x $padding-y !important;
-  &.q-btn--square {
-    padding: $square-padding !important;
-  }
-  .q-btn__content {
-    @content;
-    .q-icon {
-      font-size: $icon-font-size;
-    }
+@mixin btn-content-typo ($size) {
+  @if index(('xs', 'sm', 'md'), $size) {
+    @include subtitle2;
+  } @else if index(('lg', 'xl'), $size) {
+    @include subtitle1;
   }
 }
 
-@mixin btn-handle-sizes($size) {
+@mixin btn-icon-typo ($size) {
+  @if index(('xs', 'sm', 'md'), $size) {
+    font-size: 16px;
+  } @else if index(('lg', 'xl'), $size) {
+    font-size: 20px;
+  }
+}
+
+@mixin btn-handle-radius ($size) {
+  $target-radius : $radius-1;
   @if $size == 'xs' {
-    @include btn-handle-size($radius-2, $space-1, $space-2, $space-1, 16px) {
-      @include subtitle2;
-    }
+    $target-radius : $radius-2;
+  } @else if index(('sm', 'md', 'lg', 'xl'), $size) {
+    $target-radius : $radius-3;
+  }
+  border-radius : $target-radius;
+}
+
+@mixin btn-handle-round-padding($size){
+  $round-padding : $space-1;
+  @if $size == 'xs' {
+    $round-padding : $space-1;
   } @else if $size == 'sm' {
-    @include btn-handle-size($radius-3, $space-1, $space-3, $space-2, 16px) {
-      @include subtitle2;
-    }
+    $round-padding : $space-2;
   } @else if $size == 'md' {
-    @include btn-handle-size($radius-3, $space-2, $space-4, $space-3, 16px) {
-      @include subtitle2;
-    }
+    $round-padding : $space-3;
   } @else if $size == 'lg' {
-    @include btn-handle-size($radius-3, $space-3, $space-4, $space-4, 20px) {
-      @include subtitle1;
-    }
+    $round-padding : $space-4;
   } @else if $size == 'xl' {
-    @include btn-handle-size($radius-3, $space-4, $space-4, $space-5, 20px) {
-      @include subtitle1;
+    $round-padding : $space-5;
+  }
+  padding: $round-padding !important;
+}
+
+@mixin btn-handle-square-padding ($size) {
+  $square-padding : $space-1;
+  @if $size == 'xs' {
+    $square-padding : $space-1;
+  } @else if $size == 'sm' {
+    $square-padding : $space-2;
+  } @else if $size == 'md' {
+    $square-padding : $space-3;
+  } @else if $size == 'lg' {
+    $square-padding : $space-4;
+  } @else if $size == 'xl' {
+    $square-padding : $space-5;
+  }
+  padding: $square-padding !important;
+}
+
+@mixin btn_handle_padding ($size){
+  $target-padding-x : $space-1;
+  $target-padding-y : $space-2;
+  @if $size == 'xs' {
+    $target-padding-x : $space-1;
+    $target-padding-y : $space-2;
+  } @else if $size == 'sm' {
+    $target-padding-x : $space-1;
+    $target-padding-y : $space-3;
+  } @else if $size == 'md' {
+    $target-padding-x : $space-2;
+    $target-padding-y : $space-4;
+  } @else if $size == 'lg' {
+    $target-padding-x : $space-3;
+    $target-padding-y : $space-4;
+  } @else if $size == 'xl' {
+    $target-padding-x : $space-4;
+    $target-padding-y : $space-4;
+  }
+
+  padding: $target-padding-x $target-padding-y;
+}
+
+@mixin btn-handle-sizes ($size) {
+  @include btn-handle-radius($size);
+  @include btn_handle_padding($size);
+  &.q-btn--square {
+    @include btn-handle-square-padding($size);
+  }
+  &.q-btn--round{
+    @include btn-handle-round-padding($size);
+    border-radius: $radius-round !important;
+  }
+  .q-btn__content {
+    @include btn-content-typo($size);
+    .q-icon {
+      @include btn-icon-typo($size);
     }
   }
 }
 
-.q-btn {
-  font-size: 1em !important;
-  min-height: auto;
+body {
+  .q-btn {
+    font-size: 1em !important;
+    min-height: auto;
+    min-width: auto;
 
-  // xs
-  &.size-xs {
-    @include btn-handle-sizes('xs')
-  }
+    // xs
+    &.size-xs {
+      @include btn-handle-sizes('xs')
+    }
 
-  // sm
-  &.size-sm {
-    @include btn-handle-sizes('sm')
-  }
+    // sm
+    &.size-sm {
+      @include btn-handle-sizes('sm')
+    }
 
-  // md
-  &.size-md {
+    // md
+    &.size-md {
+      @include btn-handle-sizes('md');
+    }
     @include btn-handle-sizes('md');
-  }
-  @include btn-handle-sizes('md');
 
-  // lg
-  &.size-lg {
-    @include btn-handle-sizes('lg')
-  }
-
-  // xl
-  &.size-xl {
-    @include btn-handle-sizes('xl')
-  }
-
-  &:before {
-    box-shadow: none;
-  }
-
-  &.disabled,
-  &[disabled] {
-    opacity: 0.2 !important;
-  }
-
-  &:hover {
-    .q-focus-helper {
-      opacity: 1 !important;
-      background: rgba($grey-1, 0.2) !important;
-      &:before {
-        display: none;
-      }
-      &:after {
-        display: none;
-      }
+    // lg
+    &.size-lg {
+      @include btn-handle-sizes('lg')
     }
-  }
 
-  &.q-btn--active {
+    // xl
+    &.size-xl {
+      @include btn-handle-sizes('xl')
+    }
+
     &:before {
-      box-shadow: unset !important;
-      color: unset;
-      background: inherit;
-      opacity: 0.2;
-      position: absolute;
-      top: -$space-1;
-      left: -$space-1;
-      right: -$space-1;
-      bottom: -$space-1;
-      width: calc( 100% + 8px );
-      height: calc( 100% + 8px );
+      box-shadow: none;
     }
-  }
 
-  .q-btn__content {
-    .q-icon {
-      &.on-left {
-        margin-right: $space-1;
-      }
+    &.disabled,
+    &[disabled] {
+      opacity: 0.2 !important;
+    }
 
-      &.on-right {
-        margin-left: $space-1;
+
+    &.q-hoverable:hover {
+      & > .q-focus-helper {
+        opacity: 1;
+        background: rgba($grey-1, 0.2);
+        &:before {
+          display: none;
+        }
+        &:after {
+          display: none;
+        }
       }
     }
-  }
 
-  &.bg-primary {
-    color: $grey-9 !important;
-  }
+    &.q-btn--active.q-btn--actionable {
+      &:before {
+        box-shadow: unset;
+        color: unset;
+        background: inherit;
+        opacity: 0.2;
+        position: absolute;
+        top: -$space-1;
+        left: -$space-1;
+        right: -$space-1;
+        bottom: -$space-1;
+        width: calc( 100% + 8px );
+        height: calc( 100% + 8px );
+      }
+    }
 
-  &.bg-secondary {
-    color: $grey-1 !important;
-  }
+    .q-btn__content {
+      .q-icon {
+        &.on-left {
+          margin-right: $space-1;
+        }
 
-  &.bg-accent {
-    background: $accent-5 !important;
-  }
+        &.on-right {
+          margin-left: $space-1;
+        }
+      }
+    }
 
-  &.bg-grey {
-    color: $grey-9 !important;
-    background: $grey-2 !important;
-  }
+    &.bg-primary {
+      color: $grey-9 !important;
+    }
 
-  &.q-btn--outline {
-    &.text-grey {
+    &.bg-secondary {
+      color: $grey-1 !important;
+    }
+
+    &.bg-accent {
+      background: $accent !important;
+    }
+
+    &.bg-grey {
+      color: $grey-9 !important;
+      background: $grey-2 !important;
+    }
+
+    @mixin outline-btn(){
       color: $grey-9 !important;
       background: $grey-1 !important;
 
@@ -158,29 +221,40 @@
         color: $grey-9 !important;
       }
     }
-  }
 
-  @mixin flat-btn () {
-    color: $grey-9 !important;
-    background: transparent !important;
-
-    &:before {
-      border: none;
+    &.q-btn--outline {
+      @include outline-btn();
+      &.q-btn--round{
+        @include outline-btn();
+      }
+      &.text-grey {
+        @include outline-btn();
+      }
     }
 
-    &:hover {
-      background: $grey-2 !important;
-    }
-
-    .q-btn__content {
+    @mixin flat-btn () {
       color: $grey-9 !important;
-    }
-  }
+      background: transparent ;
 
-  &.q-btn--flat {
-    &.text-grey {
+      &:before {
+        border: none;
+      }
+
+      &:hover {
+        background: $grey-2 ;
+      }
+
+      .q-btn__content {
+        color: $grey-9 !important;
+      }
+    }
+
+    &.q-btn--flat {
+      &.text-grey {
+        @include flat-btn();
+      }
       @include flat-btn();
     }
-    @include flat-btn();
+
   }
 }
