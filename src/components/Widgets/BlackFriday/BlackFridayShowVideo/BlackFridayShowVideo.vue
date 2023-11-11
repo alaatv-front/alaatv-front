@@ -87,9 +87,9 @@ export default defineComponent({
   },
   methods: {
     onSelectStep (videoIndex) {
-      if (!this.isVideoActive(videoIndex)) {
-        return
-      }
+      // if (!this.isVideoActive(videoIndex)) {
+      //   return
+      // }
       this.beforeChangeSelectedVideo()
       this.setVideoSelected(videoIndex)
     },
