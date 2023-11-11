@@ -3964,7 +3964,7 @@
           "options": {
             "className": "",
             "height": "auto",
-            "boxed": false,
+            "boxed": true,
             "boxedWidth": 1200,
             "paddingOfBoxedInFullWidth": "30px",
             "responsiveBoxedWidth": true,
@@ -3976,13 +3976,13 @@
                 "width": "540px"
               },
               "md": {
-                "width": "964px"
+                "width": "800px"
               },
               "lg": {
-                "width": "1360px"
+                "width": "1130px"
               },
               "xl": {
-                "width": "1360px"
+                "width": "1130px"
               }
             },
             "gutterXSize": null,
