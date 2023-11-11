@@ -28,6 +28,7 @@
             کد تخفیف
             <span>
               {{ couponTitle }}
+              تومانی
             </span>
             :
           </div>
@@ -38,13 +39,16 @@
             <q-btn flat
                    class="btn-copy"
                    icon="ph:copy"
-                   label="کپی" />
+                   label="کپی"
+                   @click="copyCode" />
           </div>
         </div>
       </div>
       <div v-if="hasAction"
            class="action-section">
-        <q-btn class="action-btn">
+        <q-btn v-close-popup
+               class="action-btn"
+               @click="onAction">
           <template v-if="state === 'watch-video-0'">
             متوجه شدم
           </template>
@@ -68,6 +72,7 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { copyToClipboard } from 'quasar'
 import LazyImg from 'components/lazyImg.vue'
 
 export default defineComponent({
@@ -97,6 +102,10 @@ export default defineComponent({
       default: ''
     },
     couponCode: {
+      type: String,
+      default: ''
+    },
+    scrollToElementClassName: {
       type: String,
       default: ''
     }
@@ -169,15 +178,17 @@ export default defineComponent({
       }
 
       if (this.state.includes('watch-video-')) {
-        return 'جایزه امروز آلا، کد تخفیفn هزار تومانه و تا ۱۰ آذر معتبره!' +
-          '<br/>' +
-          '(برای حداقل خرید n هزار تومان)'
+        return 'جایزه امروز آلا، کد تخفیف' + this.couponTitle + ' تومانه و تا ۱۰ آذر معتبره!'
+        // +
+        // '<br/>' +
+        // '(برای حداقل خرید n هزار تومان)'
       }
 
       if (this.state === 'participate-success-coupon') {
-        return 'درسته "سرعت بی نهایت" نبردی ولی ۱ میلیون تومان تخفیف بردی!' +
-          '<br/>' +
-          '(برای حداقل خرید n هزار تومان)'
+        return 'درسته "سرعت بی نهایت" نبردی ولی ۱ میلیون تومان تخفیف بردی!'
+        // +
+        // '<br/>' +
+        // '(برای حداقل خرید n هزار تومان)'
       }
 
       if (this.state === 'participate-success-infinity') {
@@ -229,6 +240,36 @@ export default defineComponent({
       }
 
       return false
+    }
+  },
+  methods: {
+    copyCode () {
+      copyToClipboard(this.couponCode)
+        .then(() => {
+          this.$q.notify({
+            message: 'کپی شد',
+            type: 'positive'
+          })
+        })
+        .catch(() => {
+          this.$q.notify({
+            type: 'negative',
+            message: 'مشکلی در کپی کردن رخ داده است.'
+          })
+        })
+    },
+    onAction () {
+      this.scrollToElement(this.scrollToElementClassName)
+    },
+    scrollToElement(className) {
+      const el = document.getElementsByClassName(className)[0]
+      const headerOffset = 0
+      const elementPosition = el.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
     }
   }
 })

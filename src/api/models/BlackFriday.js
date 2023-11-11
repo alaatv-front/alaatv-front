@@ -60,7 +60,7 @@ export default class BlackFridayAPI extends APIRepository {
         token: '' // String
       }, data),
       resolveCallback: (response) => {
-        return new Coupon(response.data.data)
+        return new Coupon(response.data)
       },
       rejectCallback: (error) => {
         return error
