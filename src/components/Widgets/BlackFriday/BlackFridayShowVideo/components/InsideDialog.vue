@@ -46,7 +46,8 @@
       </div>
       <div v-if="hasAction"
            class="action-section">
-        <q-btn class="action-btn"
+        <q-btn v-close-popup
+               class="action-btn"
                @click="onAction">
           <template v-if="state === 'watch-video-0'">
             متوجه شدم
