@@ -1,17 +1,18 @@
 <template>
-  <q-card class="BlackFridayRewardsInsideDialog">
-    <div v-for="(rewar, rewarIndex) in reward"
-         :key="rewarIndex"
+  <q-card v-if="isMount"
+          class="BlackFridayRewardsInsideDialog">
+    <div v-for="(reward, rewardIndex) in rewards"
+         :key="rewardIndex"
          class="reward-item">
       <div class="reward-item-title">
-        {{ rewar.title }}
+        {{ reward.title }}
         :
       </div>
       <div class="reward-item-action">
-        <div v-if="rewar.code"
+        <div v-if="reward.code"
              class="code-section">
           <div class="code">
-            {{ rewar.code }}
+            {{ reward.code }}
           </div>
           <q-btn flat
                  class="btn-copy"
@@ -34,139 +35,18 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'BlackFridayRewardsInsideDialog',
   props: {
-    reward: {
+    rewards: {
       type: Array,
       default: () => []
     }
   },
   data () {
     return {
+      isMount: false
     }
   },
-  computed: {
-    image () {
-      if (!this.state) {
-        return 'https://nodes.alaatv.com/upload/alaaPages/2023-11/011699447502.png'
-      }
-
-      if (this.state.includes('watch-video-')) {
-        return 'https://nodes.alaatv.com/upload/alaaPages/2023-11/011699447502.png'
-      }
-
-      if (this.state.includes('participate-success-')) {
-        return 'https://nodes.alaatv.com/upload/alaaPages/2023-11/021699447376.png'
-      }
-
-      if (this.state.includes('participate-fail-')) {
-        return 'https://nodes.alaatv.com/upload/alaaPages/2023-11/031699447581.png'
-      }
-
-      return 'https://nodes.alaatv.com/upload/alaaPages/2023-11/011699447502.png'
-    },
-    title () {
-      if (!this.state) {
-        return ''
-      }
-
-      if (this.state === 'watch-video-0') {
-        return 'آلایی جان !'
-      }
-
-      if (this.state.includes('watch-video-')) {
-        return 'ممنون که به فکر خودتی ...'
-      }
-
-      if (this.state === 'participate-success-coupon') {
-        return 'سورپرایز ۱,۰۰۰,۰۰۰ تومانی'
-      }
-
-      if (this.state === 'participate-success-infinity') {
-        return 'این اووووج خوش شانسیه !'
-      }
-
-      if (this.state === 'participate-fail-has-chance') {
-        return 'شانس نیوردی!'
-      }
-
-      if (this.state === 'participate-fail-no-chance') {
-        return 'نشد که بشه !'
-      }
-
-      return ''
-    },
-    message () {
-      if (!this.state) {
-        return ''
-      }
-
-      if (this.state === 'watch-video-0') {
-        return '۷ روز با همیم تا ۷ قانون ارزشمند رتبه برتر ها رو مرور کنیم.' +
-          '<br/>' +
-          'فردا همینجا میبینمت ...'
-      }
-
-      if (this.state.includes('watch-video-')) {
-        return 'جایزه امروز آلا، کد تخفیفn هزار تومانه و تا ۱۰ آذر معتبره!' +
-          '<br/>' +
-          '(برای حداقل خرید n هزار تومان)'
-      }
-
-      if (this.state === 'participate-success-coupon') {
-        return 'درسته "سرعت بی نهایت" نبردی ولی ۱ میلیون تومان تخفیف بردی!' +
-          '<br/>' +
-          '(برای حداقل خرید n هزار تومان)'
-      }
-
-      if (this.state === 'participate-success-infinity') {
-        return 'برنده "سرعت بی نهایت" شدی و تا کنکور 1403 هر دوره‌ای رو بخوایی بهت هدیه میدیم!' +
-          '<br/>' +
-          ' به پشتیبانی پیام بده:'
-      }
-
-      if (this.state === 'participate-fail-has-chance') {
-        return 'فردا هم فرصت داری هم جایزه جلسه بعد بگیری و هم شانس دیگه‌ت رو امتحان کنی...'
-      }
-
-      if (this.state === 'participate-fail-no-chance') {
-        return 'اما توی این ۷ روز ۷ قانون رتبه برتر ها رو یاد گرفتی و این بزرگترین هدیه به خودت بود.'
-      }
-
-      return ''
-    },
-    hasAction () {
-      if (!this.state) {
-        return false
-      }
-
-      return !this.state.includes('participate-fail-')
-    },
-    hasCoupon () {
-      if (!this.state) {
-        return false
-      }
-
-      if (this.state === 'watch-video-0') {
-        return false
-      }
-
-      if (this.state.includes('watch-video-')) {
-        return true
-      }
-
-      if (this.state === 'participate-success-coupon') {
-        return true
-      }
-
-      if (this.state === 'participate-success-infinity') {
-        return false
-      }
-
-      if (this.state.includes('participate-fail-')) {
-        return false
-      }
-
-      return false
-    }
+  mounted() {
+    this.isMount = true
   }
 })
 
