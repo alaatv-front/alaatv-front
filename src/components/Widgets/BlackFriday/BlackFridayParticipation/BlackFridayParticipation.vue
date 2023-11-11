@@ -6,12 +6,15 @@
                :thickness="10" />
     <template v-else>
       <video-section class="show-video-section"
-                     :video="currentVideo"
+                     :video="selectedVideo"
+                     @watched="onWatched"
+                     @play="onPlay"
                      @ended="onEnded"
                      @prev="onPrev"
                      @next="onNext" />
       <step-section :black-friday-campaign-data="blackFridayCampaignData"
-                    class="step-section" />
+                    class="step-section"
+                    @onSelectStep="onSelectStep" />
       <q-dialog v-model="dialog">
         <inside-dialog :state="videoDialogState" />
       </q-dialog>
@@ -34,6 +37,7 @@ export default defineComponent({
   data () {
     return {
       dialog: false,
+      currentVideoWatched: false,
       videoDialogState: null,
       blackFridayCampaignData: new BlackFridayCampaignData()
     }
@@ -45,27 +49,114 @@ export default defineComponent({
       }
 
       return this.blackFridayCampaignData.videos.list.find((video, videoIndex) => this.isCurrent(videoIndex))
+    },
+    selectedVideoIndex () {
+      if (this.blackFridayCampaignData.videos.list.length === 0) {
+        return null
+      }
+
+      const selectedVideoIndex = this.blackFridayCampaignData.videos.list.findIndex(video => video.selected)
+      if (selectedVideoIndex !== -1) {
+        return selectedVideoIndex
+      }
+
+      return this.getLastActiveIndex()
+    },
+    selectedVideo () {
+      if (this.blackFridayCampaignData.videos.list.length === 0) {
+        return new BlackFridayVideo()
+      }
+
+      const selectedVideo = this.blackFridayCampaignData.videos.list[this.selectedVideoIndex]
+      return selectedVideo || this.currentVideo
     }
   },
   mounted () {
     this.getBlackFridayCampaignData()
   },
   methods: {
+    onSelectStep (videoIndex) {
+      if (!this.isVideoActive(videoIndex)) {
+        return
+      }
+      this.setVideoSelected(videoIndex)
+    },
+    onWatched () {
+      this.currentVideoWatched = true
+    },
+    onPlay () {
+      if (this.selectedVideo.has_played) {
+        return
+      }
+      const contentId = this.selectedVideo.id
+      APIGateway.content.setVideoWatched({
+        completely_watched: 0,
+        watchable_id: contentId,
+        watchable_type: 'content'
+      })
+        .then(() => {
+        })
+        .catch(() => {
+        })
+    },
     onEnded () {
-      this.showVideoDialog()
+      this.beforeChangeSelectedVideo()
     },
     onPrev () {
-      this.$emit('prev')
+      this.beforeChangeSelectedVideo()
+      const prevIndex = this.getPrevIndex()
+      if (!this.isVideoActive(prevIndex)) {
+        return
+      }
+      this.setVideoSelected(prevIndex)
     },
     onNext () {
-      this.$emit('next')
+      this.beforeChangeSelectedVideo()
+      const nextIndex = this.getNextIndex()
+      if (!this.isVideoActive(nextIndex)) {
+        return
+      }
+      this.setVideoSelected(nextIndex)
+    },
+    isVideoActive (videoIndex) {
+      if (!this.blackFridayCampaignData.videos.list[videoIndex]) {
+        return false
+      }
+
+      return !!this.blackFridayCampaignData.videos.list[videoIndex].is_actice
+    },
+    beforeChangeSelectedVideo () {
+      if (this.currentVideoWatched) {
+        const videoDialogState = this.getVideoDialogState()
+        this.showVideoDialog(videoDialogState)
+      }
+      this.currentVideoWatched = false
+    },
+    getNextIndex () {
+      if (this.blackFridayCampaignData.videos.list[this.selectedVideoIndex + 1]) {
+        return this.selectedVideoIndex + 1
+      }
+
+      return this.selectedVideoIndex
+    },
+    getPrevIndex () {
+      if (this.blackFridayCampaignData.videos.list[this.selectedVideoIndex - 1]) {
+        return this.selectedVideoIndex - 1
+      }
+
+      return this.selectedVideoIndex
+    },
+    setVideoSelected (videoIndex) {
+      this.blackFridayCampaignData.videos.list.forEach((item, itemIndex) => {
+        item.selected = videoIndex === itemIndex
+      })
     },
     showVideoDialog (state) {
       this.videoDialogState = state
       this.showDialog()
     },
     getVideoDialogState () {
-
+      return 'watch-video-' + this.selectedVideoIndex
     },
     showDialog () {
       this.dialog = true

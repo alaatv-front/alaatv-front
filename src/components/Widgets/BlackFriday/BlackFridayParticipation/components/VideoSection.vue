@@ -48,10 +48,14 @@
           <div class="lock-message">هرروز فقط میتونی یه فیلم رو ببینی!</div>
         </div>
         <video-player ref="videoPlayer"
+                      :key="videoKey"
                       :has-vast="false"
                       :show-btn="false"
                       :source="localVideoSource"
                       :poster="localVideo.thumbnail"
+                      :disable-progress-control="true"
+                      :disable-playback-rate-menu-button="true"
+                      @timeUpdated="onTimeUpdated"
                       @pause="onPause"
                       @ended="onEnded"
                       @play="onPlay" />
@@ -81,7 +85,8 @@ export default defineComponent({
   emits: ['update:video', 'next', 'prev', 'play', 'watched', 'ended'],
   data () {
     return {
-      isPlaying: false
+      isPlaying: false,
+      videoKey: Date.now()
     }
   },
   computed: {
@@ -118,18 +123,28 @@ export default defineComponent({
       return activeIndex
     },
     onPlay () {
+      this.$emit('play')
       this.isPlaying = true
+    },
+    onTimeUpdated ({ currentTime, duration }) {
+      const watchedPercent = (currentTime / duration)
+      if (watchedPercent > 0.5) {
+        this.$emit('watched')
+      }
     },
     onPause () {
       this.isPlaying = false
     },
     onEnded () {
+      this.videoKey = Date.now()
       this.$emit('ended')
     },
     onPrev () {
+      this.videoKey = Date.now()
       this.$emit('prev')
     },
     onNext () {
+      this.videoKey = Date.now()
       this.$emit('next')
     },
     playVideo () {

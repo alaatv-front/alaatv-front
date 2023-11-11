@@ -86,7 +86,7 @@ export default class PageSettingAPI extends APIRepository {
     })
   }
 
-  get (data, cache = { TTL: 300000 }) {
+  get (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -95,6 +95,7 @@ export default class PageSettingAPI extends APIRepository {
       data: { service_id: this.serviceId },
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
+        console.log('response.data.data', response.data.data.value.sections[0].data.rows[0].cols[0].widgets.length)
         return new PageSetting(response.data.data)
       },
       rejectCallback: (error) => {
