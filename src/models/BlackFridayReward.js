@@ -11,6 +11,7 @@ class BlackFridayReward extends Model {
       { key: 'title' },
       { key: 'code' },
       { key: 'discount' },
+      { key: 'discount_in_letters' },
       {
         key: 'coupontype',
         default: {

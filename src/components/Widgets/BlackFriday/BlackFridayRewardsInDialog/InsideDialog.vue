@@ -1,11 +1,28 @@
 <template>
   <q-card class="BlackFridayRewardsInsideDialog">
-    <div class="reward-item">
+    <div v-for="(rewar, rewarIndex) in reward"
+         :key="rewarIndex"
+         class="reward-item">
       <div class="reward-item-title">
-        سبد بی نهایت آلاء :
+        {{ rewar.title }}
+        :
       </div>
       <div class="reward-item-action">
-        سبد بی نهایت آلاء :
+        <div v-if="rewar.code"
+             class="code-section">
+          <div class="code">
+            {{ rewar.code }}
+          </div>
+          <q-btn flat
+                 class="btn-copy"
+                 icon="ph:copy"
+                 label="کپی" />
+        </div>
+        <q-btn v-else
+               class="btn-send-ticket">
+          <q-icon name="ph:envelope-simple" />
+          ارسال تیکت
+        </q-btn>
       </div>
     </div>
   </q-card>
@@ -17,18 +34,13 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'BlackFridayRewardsInsideDialog',
   props: {
-    state: {
-      type: String,
-      default: 'watch-video-1'
-    },
-    couponTitle: {
-      type: String,
-      default: '۱ میلیون تومانی'
+    reward: {
+      type: Array,
+      default: () => []
     }
   },
   data () {
     return {
-
     }
   },
   computed: {
@@ -162,143 +174,99 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .BlackFridayRewardsInsideDialog {
+  padding: 20px;
   display: flex;
-  flex-wrap: wrap;
+  flex-flow: column;
+  flex-direction: column;
   justify-content: center;
-  .top-image {
+  align-items: center;
+  border-radius: 16px;
+  background: #19172E;
+  width: 339px;
+  .reward-item {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-bottom: solid 1px #2F2A5B;
     width: 100%;
     display: flex;
-    justify-content: center;
-    :deep(.image) {
-      width: 184px;
+    flex-wrap: nowrap;
+    &:first-child {
+      padding-top: 0;
     }
-  }
-  .q-card {
-    width: 495px;
-    border-radius: 16px;
-    background: #19172E;
-    .header {
-      padding: 20px 24px 0 32px;
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    $action-width: 153px;
+    .reward-item-title {
+      width: calc( 100% - #{$action-width} );
       display: flex;
-      $action-width: 24px;
-      .title {
+      align-items: center;
+      justify-content: flex-start;
+      color: #FFF;
+      font-family: ModamFaNumWeb,serif;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: -0.64px;
+    }
+    .reward-item-action {
+      width: $action-width;
+      .btn-send-ticket {
+        width: 100%;
+        padding: 8px;
+        border-radius: 12px;
+        background: #D14835;
         color: #FFF;
         text-align: center;
         font-family: ModamFaNumWeb,serif;
-        font-size: 24px;
+        font-size: 16px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
         letter-spacing: -0.48px;
-        width: calc( 100% - #{$action-width} );
-      }
-      .action {
-        width: $action-width;
-        :deep(.q-btn) {
-          .q-btn__content {
-            color: #D0CCF4 !important;
-          }
+        .q-icon {
+          font-size: 20px;
+          margin-right: 4px;
         }
       }
-    }
-    .body {
-      padding: 32px;
-      .message {
-        color: #FFF;
-        text-align: center;
-        font-family: ModamFaNumWeb,serif;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        letter-spacing: -0.54px;
-        margin-bottom: 24px;
-      }
-      .coupon-box {
+      $code-section-width: 153px;
+      $code-section-height: 40px;
+      .code-section {
+        width: $code-section-width;
+        height: $code-section-height;
+        border-radius: 12px;
+        background: #2F2A5B;
         display: flex;
-        $code-section-width: 211px;
-        $code-section-height: 48px;
-        .title-section {
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
-          height: $code-section-height;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px;
+        .code {
           color: #FFF;
           font-family: ModamFaNumWeb,serif;
-          font-size: 20px;
+          text-align: right;
+          font-size: 16px;
           font-style: normal;
-          font-weight: 700;
+          font-weight: 400;
           line-height: normal;
-          letter-spacing: -0.8px;
-          width: calc( 100% - #{$code-section-width} );
-          span {
-            color: #F7AFA4;
-            font-family: ModamFaNumWeb,serif;
-            font-size: 20px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: normal;
-            letter-spacing: -0.8px;
-          }
+          letter-spacing: -0.32px;
         }
-        .code-section {
-          width: $code-section-width;
-          height: $code-section-height;
-          border-radius: 12px;
-          background: #2F2A5B;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 12px 16px;
-          .code {
-            color: #FFF;
+        :deep(.q-btn.q-btn--flat.btn-copy) {
+          padding: 0 !important;
+          .q-btn__content {
+            color: #D0CCF4 !important;
             font-family: ModamFaNumWeb,serif;
-            font-size: 18px;
+            text-align: right;
+            font-size: 16px;
             font-style: normal;
             font-weight: 400;
             line-height: normal;
-            letter-spacing: -0.36px;
-          }
-          :deep(.q-btn.q-btn--flat.btn-copy) {
-            padding: 0 !important;
-            .q-btn__content {
-              color: #D0CCF4 !important;
-              font-family: ModamFaNumWeb,serif;
-              font-size: 18px;
-              font-style: normal;
-              font-weight: 400;
-              line-height: normal;
-              letter-spacing: -0.36px;
-              .q-icon {
-                font-size: 24px;
-              }
+            letter-spacing: -0.32px;
+            .q-icon {
+              margin-right: 4px;
+              font-size: 20px;
             }
-          }
-        }
-      }
-    }
-    .action-section {
-      padding-right: 32px;
-      padding-left: 32px;
-      padding-bottom: 32px;
-      :deep(.action-btn.q-btn) {
-        width: 100%;
-        height: 48px;
-        padding: 12px !important;
-        border-radius: 12px;
-        background: #D14835;
-        .q-btn__content {
-          color: #FFF;
-          text-align: center;
-          font-family: ModamFaNumWeb,serif;
-          font-size: 16px;
-          font-style: normal;
-          font-weight: 700;
-          line-height: normal;
-          letter-spacing: -0.48px;
-          .q-icon {
-            font-size: 20px;
-            margin: 0 4px;
           }
         }
       }
