@@ -59,8 +59,10 @@ export default {
       return
     }
 
-    Ewano.onWebAppReady()
-    this.checkEwanoPaymentResult()
+    setTimeout(() => {
+      this.checkEwanoPaymentResult()
+      Ewano.onWebAppReady()
+    }, 1000)
   },
   methods: {
     changeLoadingState (state) {

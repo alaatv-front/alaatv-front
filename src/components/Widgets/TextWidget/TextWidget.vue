@@ -1,17 +1,33 @@
 <template>
   <div class="text-widget-container"
        :style="localOptions.style"
-       :class="[localOptions.className, {'theme__1': localOptions.activeTheme === 'theme1'}, responsiveShow]">
+       :class="[localOptions.className, localOptions.activeTheme, responsiveShow]">
+    <div class="blackFriday-image-wrapper">
+      <lazy-img v-if="localOptions.activeTheme === 'blackFriday'"
+                :src="'https://nodes.alaatv.com/upload/alaaPages/2023-11/star1699446511.png'"
+                :alt="'star'"
+                class="img-blackFriday" />
+    </div>
     <span class="text"
           v-html="localOptions.text" />
+    <div class="blackFriday-image-wrapper">
+      <lazy-img v-if="localOptions.activeTheme === 'blackFriday'"
+                :src="'https://nodes.alaatv.com/upload/alaaPages/2023-11/star1699446511.png'"
+                :alt="'star'"
+                class="img-blackFriday" />
+    </div>
   </div>
 </template>
 
 <script>
 import { mixinWidget } from 'src/mixin/Mixins.js'
+import LazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'TextWidget',
+  components: {
+    LazyImg
+  },
   mixins: [mixinWidget],
   data() {
     return {
@@ -117,7 +133,7 @@ export default {
           }
         },
         hasTheme: null,
-        activeTheme: null,
+        activeTheme: 'default',
         themes: {
           theme1: {
             borderColor: null,
@@ -207,7 +223,7 @@ $responsiveSpacing: (
 .text-widget-container {
   @include media-query-spacings($responsiveSpacing, $sizes);
 
-  &.theme__1 {
+  &.theme1 {
 
     &::before {
       content: "";
@@ -219,6 +235,21 @@ $responsiveSpacing: (
       right: v-bind('localOptions.themes.theme1.right');
       bottom: v-bind('localOptions.themes.theme1.bottom');
       border-top: v-bind('localOptions.themes.theme1.borderSize') solid v-bind('localOptions.themes.theme1.borderColor');
+    }
+  }
+  &.blackFriday {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .blackFriday-image-wrapper {
+      display: flex;
+      width: 28px;
+      height: 28px;
+      margin: 0 8px;
+      .img-blackFriday {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
   @media screen and(max-width: 599px) {

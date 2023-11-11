@@ -25,7 +25,7 @@
               <q-btn v-if="order.orderProductId"
                      unelevated
                      class="trash-button"
-                     icon="isax:trash"
+                     icon="ph:trash-simple"
                      @click="changeDialogState(true,order, order.orderProductId)" />
             </div>
 
@@ -33,7 +33,7 @@
                  class="product-information">
               <div v-if="order.grand.attributes.info.teacher"
                    class="product-info">
-                <q-icon name="isax:teacher"
+                <q-icon name="ph:student"
                         class="info-icon" />
                 <div class="info-value">
                   {{ order.grand.attributes.info.teacher.join('، ') }}
@@ -42,7 +42,7 @@
 
               <div v-if="order.grand.attributes.info.major"
                    class="product-info">
-                <q-icon name="isax:book-1"
+                <q-icon name="ph:book-open"
                         class="info-icon" />
                 <div class="info-value">
                   رشته تحصیلی: {{ order.grand.attributes.info.major.join(' - ') }}
@@ -51,7 +51,7 @@
 
               <div v-if="order.grand.attributes.info.production_year"
                    class="product-info">
-                <q-icon name="isax:menu-board4"
+                <q-icon name="ph:clipboard-text"
                         class="info-icon" />
                 <div class="info-value">
                   {{ order.grand.attributes.info.production_year.join('، ') }}
@@ -112,9 +112,8 @@
                               :class="index !== 0 ? 'without-trash': ''">
                           {{ orderProduct.price.toman('final') }}
                         </span>
-                        <q-btn unelevated
-                               :class="index === 0 ? 'trash-button': 'hidden-trash-button'"
-                               icon="isax:trash"
+                        <q-btn :class="index === 0 ? 'trash-button': 'hidden-trash-button'"
+                               icon="ph:trash-simple"
                                @click="changeDialogState(true, order, orderProduct)" />
                       </div>
                     </div>
@@ -128,7 +127,7 @@
                     </a>
                     <q-btn-dropdown class="details-button"
                                     label="جزئیات محصول"
-                                    dropdown-icon="isax:arrow-up-2"
+                                    dropdown-icon="ph:caret-up"
                                     flat
                                     @click="expandedObject[i] = !expandedObject[i]" />
                   </q-card-section>
@@ -147,15 +146,14 @@
     <q-card class="delete-dialog-card">
       <q-card-section class="close-button-section">
         <q-icon class="close-dialog-button"
-                name="isax:close-circle"
+                name="ph:x"
                 @click="changeDialogState(false)" />
       </q-card-section>
 
       <q-card-section class="delete-dialog-card-section">
         <div class="info-icon">
-          <q-icon name="isax:info-circle" />
+          <q-icon name="ph:info" />
         </div>
-
         <p class="are-u-sure-statement">آیا از حذف محصول مطمئن هستید؟</p>
       </q-card-section>
 

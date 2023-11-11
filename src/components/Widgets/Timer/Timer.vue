@@ -8,7 +8,14 @@
     <component-wrapper :class="rightComponentClass"
                        class="left-component"
                        :options="localOptions.rightComponentOptions" />
-    <timer-base class="timer-wrapper"
+    <timer-base-black-friday v-if="localOptions.theme === 'blackFriday'"
+                             class="timer-wrapper"
+                             :time="localOptions.time"
+                             :theme="localOptions.theme"
+                             :counters="localOptions.counters"
+                             :timerStyle="localOptions.timerStyle" />
+    <timer-base v-else
+                class="timer-wrapper"
                 :time="localOptions.time"
                 :theme="localOptions.theme"
                 :counters="localOptions.counters"
@@ -28,13 +35,15 @@ import { defineComponent } from 'vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import ComponentWrapper from 'src/components/Widgets/ComponentWrapper/ComponentWrapper.vue'
 import TimerBase from 'src/components/Widgets/Timer/TimerBase.vue'
+import TimerBaseBlackFriday from 'src/components/Widgets/Timer/TimerBaseBlackFriday.vue'
 import moment from 'moment-jalaali'
 
 export default defineComponent({
   name: 'Timer',
   components: {
     ComponentWrapper,
-    TimerBase
+    TimerBase,
+    TimerBaseBlackFriday
   },
   mixins: [mixinWidget],
   data() {
