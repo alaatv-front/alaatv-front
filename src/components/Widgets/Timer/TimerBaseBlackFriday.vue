@@ -4,29 +4,29 @@
     <div v-if="counters.seconds"
          class="event-counter-item">
       <div class="event-counter-item-number seconds">
-        <span class="counter-item-number">{{computedSeconds.toString().charAt(0)}}</span>
         <span class="counter-item-number">{{computedSeconds.toString().charAt(1)}}</span>
+        <span class="counter-item-number">{{computedSeconds.toString().charAt(0)}}</span>
       </div>
     </div>
     <div v-if="counters.minutes"
          class="event-counter-item">
       <div class="event-counter-item-number">
-        <span class="counter-item-number">{{computedMinutes.toString().charAt(0)}}</span>
         <span class="counter-item-number">{{computedMinutes.toString().charAt(1)}}</span>
+        <span class="counter-item-number">{{computedMinutes.toString().charAt(0)}}</span>
       </div>
     </div>
     <div v-if="counters.hours"
          class="event-counter-item">
       <div class="event-counter-item-number">
-        <span class="counter-item-number">{{ computedHour.toString().charAt(0) }}</span>
         <span class="counter-item-number">{{ computedHour.toString().charAt(1) }}</span>
+        <span class="counter-item-number">{{ computedHour.toString().charAt(0) }}</span>
       </div>
     </div>
     <div v-if="counters.days"
          class="event-counter-item">
       <div class="event-counter-item-number">
-        <span class="counter-item-number">{{computedDay.toString().charAt(0)}}</span>
         <span class="counter-item-number">{{computedDay.toString().charAt(1)}}</span>
+        <span class="counter-item-number">{{computedDay.toString().charAt(0)}}</span>
       </div>
     </div>
   </div>
