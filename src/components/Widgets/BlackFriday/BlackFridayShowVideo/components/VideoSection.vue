@@ -35,7 +35,8 @@
               </defs>
             </svg>
           </div>
-          <div class="state-layer state-lock">
+          <div class="state-layer state-lock"
+               @click="clickOnLockedState">
             <svg xmlns="http://www.w3.org/2000/svg"
                  width="64"
                  height="64"
@@ -89,7 +90,7 @@ export default defineComponent({
       default: new BlackFridayVideo()
     }
   },
-  emits: ['update:video', 'next', 'prev', 'play', 'watched', 'ended'],
+  emits: ['update:video', 'next', 'prev', 'play', 'watched', 'ended', 'clickOnLockedState'],
   data () {
     return {
       isPlaying: false,
@@ -163,6 +164,9 @@ export default defineComponent({
     onNext () {
       this.refreshPlayer()
       this.$emit('next')
+    },
+    clickOnLockedState () {
+      this.$emit('clickOnLockedState')
     },
     refreshPlayer () {
       this.watched = false
