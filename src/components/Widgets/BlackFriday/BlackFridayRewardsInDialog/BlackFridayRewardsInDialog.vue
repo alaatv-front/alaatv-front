@@ -14,14 +14,19 @@ import { defineComponent } from 'vue'
 import InsideDialog from './InsideDialog.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { BlackFridayCampaignData } from 'src/models/BlackFridayCampaignData.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default defineComponent({
   name: 'BlackFridayRewardsInDialog',
   components: { InsideDialog },
+  mixins: [mixinWidget],
   data () {
     return {
       dialog: false,
-      blackFridayCampaignData: new BlackFridayCampaignData()
+      blackFridayCampaignData: new BlackFridayCampaignData(),
+      defaultOptions: {
+        eventName: 'show-black-friday-rewards-dialog'
+      }
     }
   },
   watch: {
@@ -31,7 +36,7 @@ export default defineComponent({
   },
   mounted () {
     this.getBlackFridayCampaignData()
-    this.$bus.on('show-black-friday-rewards-dialog', this.showDialog)
+    this.$bus.on(this.localOptions.eventName, this.showDialog)
   },
   methods: {
     showDialog () {
