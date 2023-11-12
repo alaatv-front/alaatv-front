@@ -1,5 +1,12 @@
 <template>
   <div class="row col-12">
+    <div v-if="visible"
+         class="col-12">
+      <q-inner-loading :showing="visible"
+                       label="Please wait..."
+                       label-class="text-teal"
+                       label-style="font-size: 1.1em" />
+    </div>
     <div class="col-2">
       <q-input v-model="image.width"
                label="width" />
@@ -13,21 +20,19 @@
     </div>
     <div class="col-12">
       <lazy-img v-if="size"
-                :src="banner.features[size].src" />
+                :src="banner.features[size].src"
+                class="fullscreen" />
       <lazy-img v-else
-                :src="banner.photo.src" />
+                :src="banner.photo.src"
+                class="fullscreen" />
     </div>
-    <q-inner-loading :showing="visible"
-                     label="Please wait..."
-                     label-class="text-teal"
-                     label-style="font-size: 1.1em" />
   </div>
 </template>
 
 <script>
-import LazyImg from 'components/lazyImg.vue'
 import { Banner } from 'src/models/Banner.js'
-import imageUploadInputs from 'components/Utils/ImageUploadInput.vue'
+import LazyImg from 'src/components/lazyImg.vue'
+import imageUploadInputs from 'src/components/Utils/ImageUploadInput.vue'
 
 export default {
   name: 'bannerPreview',
