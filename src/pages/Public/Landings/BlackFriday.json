@@ -673,34 +673,34 @@
                     "className": "",
                     "backgrounds": {
                       "xs": {
-                        "size": null,
+                        "size": "cover",
                         "color": null,
-                        "image": "url('https://nodes.alaatv.com/upload/alaaPages/2023-09/Rectangle%2044.png')",
+                        "image": "url('https://nodes.alaatv.com/upload/alaaPages/2023-11/3601699710326.png')",
                         "repeat": null,
                         "position": null,
                         "attachment": null
                       },
                       "sm": {
-                        "size": null,
+                        "size": "cover",
                         "color": null,
-                        "image": "url('https://nodes.alaatv.com/upload/alaaPages/2023-09/Rectangle%2044.png')",
+                        "image": "url('https://nodes.alaatv.com/upload/alaaPages/2023-11/6001699710321.png')",
                         "repeat": null,
                         "position": null,
                         "attachment": null
                       },
                       "md": {
-                        "size": null,
+                        "size": "cover",
                         "color": null,
-                        "image": "url('https://nodes.alaatv.com/upload/alaaPages/2023-09/Rectangle%2044.png')",
+                        "image": "url('https://nodes.alaatv.com/upload/alaaPages/2023-11/10241699710317.png')",
                         "repeat": null,
                         "position": null,
                         "attachment": null,
                         "backgroundImage": null
                       },
                       "lg": {
-                        "size": null,
+                        "size": "cover",
                         "color": null,
-                        "image": "url('https://nodes.alaatv.com/upload/alaaPages/2023-09/Rectangle%2044.png')",
+                        "image": "url('https://nodes.alaatv.com/upload/alaaPages/2023-11/14401699710312.png')",
                         "repeat": null,
                         "position": null,
                         "attachment": null
@@ -1925,6 +1925,178 @@
                       "leftSectionWidgets": []
                     },
                     "sm": {
+                      "rightSectionWidgets": [],
+                      "centerSectionWidgets": [],
+                      "leftSectionWidgets": [
+                        {
+                          "name": "ActionButton",
+                          "options": {
+                            "color": null,
+                            "icon": null,
+                            "rightIcon": false,
+                            "label": "تخفیف های من",
+                            "flat": false,
+                            "callBack": null,
+                            "imageSource": null,
+                            "className": null,
+                            "fixed": false,
+                            "fixedPosition": null,
+                            "eventArgs": null,
+                            "boxShadows": [],
+                            "hasAction": true,
+                            "action": "link",
+                            "scrollTo": null,
+                            "route": "/login",
+                            "eventName": null,
+                            "topSectionWidgets": [],
+                            "bottomSectionWidgets": [],
+                            "style": {
+                              "background": "",
+                              "color": "#FFF",
+                              "image": null,
+                              "paddingTop": "",
+                              "paddingRight": ""
+                            },
+                            "responsiveSpacing": {
+                              "xs": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": null,
+                                "paddingLeft": null,
+                                "paddingRight": null,
+                                "paddingBottom": null
+                              },
+                              "sm": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": "8px",
+                                "paddingLeft": "16px",
+                                "paddingRight": "16px",
+                                "paddingBottom": "8px"
+                              },
+                              "md": {
+                                "marginTop": null,
+                                "marginLeft": "8px",
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": "8px",
+                                "paddingLeft": "27px",
+                                "paddingRight": "27px",
+                                "paddingBottom": "8px"
+                              },
+                              "lg": {
+                                "marginTop": null,
+                                "marginLeft": "11px",
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": "8px",
+                                "paddingLeft": "27px",
+                                "paddingRight": "27px",
+                                "paddingBottom": "8px"
+                              },
+                              "xl": {
+                                "marginTop": null,
+                                "marginLeft": "11px",
+                                "marginRight": "",
+                                "marginBottom": null,
+                                "paddingTop": "8px",
+                                "paddingLeft": "27px",
+                                "paddingRight": "27px",
+                                "paddingBottom": "8px"
+                              }
+                            },
+                            "hideInAuth": false
+                          }
+                        },
+                        {
+                          "name": "ActionButton",
+                          "options": {
+                            "color": null,
+                            "icon": null,
+                            "rightIcon": false,
+                            "label": "ورود | ثبت نام",
+                            "flat": false,
+                            "callBack": null,
+                            "imageSource": null,
+                            "className": null,
+                            "fixed": false,
+                            "fixedPosition": null,
+                            "eventArgs": null,
+                            "boxShadows": [],
+                            "hasAction": true,
+                            "action": null,
+                            "scrollTo": null,
+                            "route": null,
+                            "eventName": null,
+                            "topSectionWidgets": [],
+                            "bottomSectionWidgets": [],
+                            "style": {
+                              "background": "",
+                              "color": "rgba(255,255,255,1)"
+                            },
+                            "hideInAuth": false,
+                            "outline": false,
+                            "responsiveSpacing": {
+                              "xs": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": null,
+                                "paddingLeft": null,
+                                "paddingRight": null,
+                                "paddingBottom": null
+                              },
+                              "sm": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": "8px",
+                                "paddingLeft": "16px",
+                                "paddingRight": "16px",
+                                "paddingBottom": "8px"
+                              },
+                              "md": {
+                                "marginTop": null,
+                                "marginLeft": "8px",
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": "8px",
+                                "paddingLeft": "27px",
+                                "paddingRight": "27px",
+                                "paddingBottom": "8px"
+                              },
+                              "lg": {
+                                "marginTop": null,
+                                "marginLeft": "11px",
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": "8px",
+                                "paddingLeft": "27px",
+                                "paddingRight": "27px",
+                                "paddingBottom": "8px"
+                              },
+                              "xl": {
+                                "marginTop": null,
+                                "marginLeft": "11px",
+                                "marginRight": "",
+                                "marginBottom": null,
+                                "paddingTop": "8px",
+                                "paddingLeft": "27px",
+                                "paddingRight": "27px",
+                                "paddingBottom": "8px"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "md": {
                       "rightSectionWidgets": [
                         {
                           "name": "imageWidget",
@@ -2066,11 +2238,16 @@
                             "boxShadows": [],
                             "hasAction": true,
                             "action": "link",
-                            "scrollTo": null,
+                            "scrollTo": "faq-row",
                             "route": "/",
                             "eventName": null,
                             "topSectionWidgets": [],
                             "bottomSectionWidgets": [],
+                            "style": {
+                              "background": "",
+                              "image": null,
+                              "color": "rgba(255,255,255,1)"
+                            },
                             "responsiveSpacing": {
                               "xs": {
                                 "marginTop": null,
@@ -2088,44 +2265,40 @@
                                 "marginRight": null,
                                 "marginBottom": null,
                                 "paddingTop": null,
-                                "paddingLeft": "15px",
-                                "paddingRight": "15px",
+                                "paddingLeft": "",
+                                "paddingRight": "",
                                 "paddingBottom": null
                               },
                               "md": {
                                 "marginTop": null,
-                                "marginLeft": null,
-                                "marginRight": "",
+                                "marginLeft": "",
+                                "marginRight": null,
                                 "marginBottom": null,
                                 "paddingTop": null,
-                                "paddingLeft": "36px",
-                                "paddingRight": "36px",
+                                "paddingLeft": "32px",
+                                "paddingRight": "32px",
                                 "paddingBottom": null
                               },
                               "lg": {
                                 "marginTop": null,
-                                "marginLeft": null,
-                                "marginRight": "",
+                                "marginLeft": "",
+                                "marginRight": null,
                                 "marginBottom": null,
                                 "paddingTop": null,
-                                "paddingLeft": "36px",
-                                "paddingRight": "36px",
+                                "paddingLeft": "40px",
+                                "paddingRight": "40px",
                                 "paddingBottom": null
                               },
                               "xl": {
                                 "marginTop": null,
-                                "marginLeft": null,
-                                "marginRight": "",
+                                "marginLeft": "",
+                                "marginRight": null,
                                 "marginBottom": null,
                                 "paddingTop": null,
-                                "paddingLeft": "36px",
-                                "paddingRight": "36px",
+                                "paddingLeft": "40px",
+                                "paddingRight": "40px",
                                 "paddingBottom": null
                               }
-                            },
-                            "style": {
-                              "background": "",
-                              "color": "rgba(255,255,255,1)"
                             },
                             "showSeparator": true,
                             "separator": {
@@ -2171,68 +2344,14 @@
                             "eventArgs": null,
                             "boxShadows": [],
                             "hasAction": true,
-                            "action": "scroll",
-                            "scrollTo": "courses",
+                            "action": null,
+                            "scrollTo": null,
                             "route": null,
                             "eventName": null,
                             "topSectionWidgets": [],
                             "bottomSectionWidgets": [],
-                            "responsiveSpacing": {
-                              "xs": {
-                                "marginTop": null,
-                                "marginLeft": null,
-                                "marginRight": null,
-                                "marginBottom": null,
-                                "paddingTop": null,
-                                "paddingLeft": null,
-                                "paddingRight": null,
-                                "paddingBottom": null
-                              },
-                              "sm": {
-                                "marginTop": null,
-                                "marginLeft": null,
-                                "marginRight": null,
-                                "marginBottom": null,
-                                "paddingTop": null,
-                                "paddingLeft": "15px",
-                                "paddingRight": "15px",
-                                "paddingBottom": null
-                              },
-                              "md": {
-                                "marginTop": null,
-                                "marginLeft": "",
-                                "marginRight": "",
-                                "marginBottom": null,
-                                "paddingTop": null,
-                                "paddingLeft": "32px",
-                                "paddingRight": "32px",
-                                "paddingBottom": null
-                              },
-                              "lg": {
-                                "marginTop": null,
-                                "marginLeft": "",
-                                "marginRight": "",
-                                "marginBottom": null,
-                                "paddingTop": null,
-                                "paddingLeft": "40px",
-                                "paddingRight": "40px",
-                                "paddingBottom": null
-                              },
-                              "xl": {
-                                "marginTop": null,
-                                "marginLeft": "",
-                                "marginRight": "",
-                                "marginBottom": null,
-                                "paddingTop": null,
-                                "paddingLeft": "40px",
-                                "paddingRight": "40px",
-                                "paddingBottom": null
-                              }
-                            },
                             "style": {
-                              "background": "",
-                              "color": "rgba(255,255,255,1)",
-                              "backgroundImage": null
+                              "color": "rgba(255,255,255,1)"
                             },
                             "showSeparator": true,
                             "separator": {
@@ -2279,67 +2398,39 @@
                             "boxShadows": [],
                             "hasAction": true,
                             "action": "scroll",
-                            "scrollTo": "faq-row",
+                            "scrollTo": null,
                             "route": null,
                             "eventName": null,
                             "topSectionWidgets": [],
                             "bottomSectionWidgets": [],
-                            "responsiveSpacing": {
-                              "xs": {
-                                "marginTop": null,
-                                "marginLeft": null,
-                                "marginRight": null,
-                                "marginBottom": null,
-                                "paddingTop": null,
-                                "paddingLeft": null,
-                                "paddingRight": null,
-                                "paddingBottom": null
-                              },
-                              "sm": {
-                                "marginTop": null,
-                                "marginLeft": null,
-                                "marginRight": null,
-                                "marginBottom": null,
-                                "paddingTop": null,
-                                "paddingLeft": "15px",
-                                "paddingRight": "15px",
-                                "paddingBottom": null
-                              },
-                              "md": {
-                                "marginTop": null,
-                                "marginLeft": "",
-                                "marginRight": null,
-                                "marginBottom": null,
-                                "paddingTop": null,
-                                "paddingLeft": "36px",
-                                "paddingRight": "36px",
-                                "paddingBottom": null
-                              },
-                              "lg": {
-                                "marginTop": null,
-                                "marginLeft": "",
-                                "marginRight": null,
-                                "marginBottom": null,
-                                "paddingTop": null,
-                                "paddingLeft": "36px",
-                                "paddingRight": "36px",
-                                "paddingBottom": null
-                              },
-                              "xl": {
-                                "marginTop": null,
-                                "marginLeft": "",
-                                "marginRight": null,
-                                "marginBottom": null,
-                                "paddingTop": null,
-                                "paddingLeft": "36px",
-                                "paddingRight": "36px",
-                                "paddingBottom": null
-                              }
-                            },
                             "style": {
-                              "background": "",
-                              "image": null,
                               "color": "rgba(255,255,255,1)"
+                            },
+                            "showSeparator": false,
+                            "separator": {
+                              "spaced": false,
+                              "dark": false,
+                              "inset": false,
+                              "vertical": false,
+                              "image": "https://nodes.alaatv.com/upload/alaaPages/2023-11/vector1699361238.png",
+                              "ImageStyle": null,
+                              "ImageClassName": null,
+                              "height": {
+                                "xl": "16px",
+                                "lg": "",
+                                "md": "",
+                                "sm": "",
+                                "xs": ""
+                              },
+                              "width": {
+                                "xl": "16px",
+                                "lg": "",
+                                "md": "",
+                                "sm": "",
+                                "xs": ""
+                              },
+                              "style": {},
+                              "className": ""
                             }
                           }
                         }
@@ -2349,90 +2440,9 @@
                           "name": "ActionButton",
                           "options": {
                             "color": null,
-                            "icon": "ph:gift",
-                            "rightIcon": false,
-                            "label": "تخفیف های من",
-                            "flat": false,
-                            "callBack": null,
-                            "imageSource": null,
-                            "className": null,
-                            "fixed": false,
-                            "fixedPosition": null,
-                            "eventArgs": null,
-                            "boxShadows": [],
-                            "hasAction": true,
-                            "action": "event",
-                            "scrollTo": null,
-                            "route": "/login",
-                            "eventName": "show-black-friday-rewards-dialog",
-                            "topSectionWidgets": [],
-                            "bottomSectionWidgets": [],
-                            "responsiveSpacing": {
-                              "xs": {
-                                "marginTop": null,
-                                "marginLeft": null,
-                                "marginRight": null,
-                                "marginBottom": null,
-                                "paddingTop": null,
-                                "paddingLeft": null,
-                                "paddingRight": null,
-                                "paddingBottom": null
-                              },
-                              "sm": {
-                                "marginTop": null,
-                                "marginLeft": null,
-                                "marginRight": null,
-                                "marginBottom": null,
-                                "paddingTop": "8px",
-                                "paddingLeft": "16px",
-                                "paddingRight": "16px",
-                                "paddingBottom": "8px"
-                              },
-                              "md": {
-                                "marginTop": null,
-                                "marginLeft": null,
-                                "marginRight": null,
-                                "marginBottom": null,
-                                "paddingTop": "8px",
-                                "paddingLeft": "23px",
-                                "paddingRight": "23px",
-                                "paddingBottom": "8px"
-                              },
-                              "lg": {
-                                "marginTop": null,
-                                "marginLeft": null,
-                                "marginRight": null,
-                                "marginBottom": null,
-                                "paddingTop": "8px",
-                                "paddingLeft": "23px",
-                                "paddingRight": "23px",
-                                "paddingBottom": "8px"
-                              },
-                              "xl": {
-                                "marginTop": null,
-                                "marginLeft": null,
-                                "marginRight": null,
-                                "marginBottom": null,
-                                "paddingTop": "8px",
-                                "paddingLeft": "23px",
-                                "paddingRight": "23px",
-                                "paddingBottom": "8px"
-                              }
-                            },
-                            "style": {
-                              "background": "",
-                              "color": "rgba(255,255,255,1)"
-                            },
-                            "hideInAuth": false
-                          }
-                        },
-                        {
-                          "name": "ActionButton",
-                          "options": {
-                            "color": null,
                             "icon": null,
                             "rightIcon": false,
-                            "label": "ورود  |  ثبت نام",
+                            "label": "تخفیف های من",
                             "flat": false,
                             "callBack": null,
                             "imageSource": null,
@@ -2448,6 +2458,13 @@
                             "eventName": null,
                             "topSectionWidgets": [],
                             "bottomSectionWidgets": [],
+                            "style": {
+                              "background": "",
+                              "color": "#FFF",
+                              "image": null,
+                              "paddingTop": "",
+                              "paddingRight": ""
+                            },
                             "responsiveSpacing": {
                               "xs": {
                                 "marginTop": null,
@@ -2500,22 +2517,92 @@
                                 "paddingBottom": "8px"
                               }
                             },
+                            "hideInAuth": false
+                          }
+                        },
+                        {
+                          "name": "ActionButton",
+                          "options": {
+                            "color": null,
+                            "icon": null,
+                            "rightIcon": false,
+                            "label": "ورود | ثبت نام",
+                            "flat": false,
+                            "callBack": null,
+                            "imageSource": null,
+                            "className": null,
+                            "fixed": false,
+                            "fixedPosition": null,
+                            "eventArgs": null,
+                            "boxShadows": [],
+                            "hasAction": true,
+                            "action": null,
+                            "scrollTo": null,
+                            "route": null,
+                            "eventName": null,
+                            "topSectionWidgets": [],
+                            "bottomSectionWidgets": [],
                             "style": {
-                              "background": "#FF944A",
-                              "color": "#FFF",
-                              "image": null,
-                              "paddingTop": "",
-                              "paddingRight": ""
+                              "background": "",
+                              "color": "rgba(255,255,255,1)"
                             },
-                            "hideInAuth": true
+                            "hideInAuth": false,
+                            "outline": false,
+                            "responsiveSpacing": {
+                              "xs": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": null,
+                                "paddingLeft": null,
+                                "paddingRight": null,
+                                "paddingBottom": null
+                              },
+                              "sm": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": "8px",
+                                "paddingLeft": "16px",
+                                "paddingRight": "16px",
+                                "paddingBottom": "8px"
+                              },
+                              "md": {
+                                "marginTop": null,
+                                "marginLeft": "8px",
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": "8px",
+                                "paddingLeft": "27px",
+                                "paddingRight": "27px",
+                                "paddingBottom": "8px"
+                              },
+                              "lg": {
+                                "marginTop": null,
+                                "marginLeft": "11px",
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": "8px",
+                                "paddingLeft": "27px",
+                                "paddingRight": "27px",
+                                "paddingBottom": "8px"
+                              },
+                              "xl": {
+                                "marginTop": null,
+                                "marginLeft": "11px",
+                                "marginRight": "",
+                                "marginBottom": null,
+                                "paddingTop": "8px",
+                                "paddingLeft": "27px",
+                                "paddingRight": "27px",
+                                "paddingBottom": "8px"
+                              }
+                            }
                           }
                         }
                       ]
-                    },
-                    "md": {
-                      "rightSectionWidgets": [],
-                      "centerSectionWidgets": [],
-                      "leftSectionWidgets": []
                     },
                     "lg": {
                       "rightSectionWidgets": [],
@@ -2979,9 +3066,125 @@
                     "responsiveShow": {
                       "xl": true,
                       "lg": true,
-                      "md": false,
+                      "md": true,
                       "sm": false,
                       "xs": false
+                    }
+                  }
+                },
+                {
+                  "name": "TextWidget",
+                  "options": {
+                    "text": "<div style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255);\">بـالا تــا دی</span></div>",
+                    "fontFamily": null,
+                    "color": null,
+                    "fontSize": null,
+                    "fontWeight": null,
+                    "fontStyle": null,
+                    "letterSpacing": null,
+                    "xs": {
+                      "fontSize": " 24px",
+                      "fontWeight": "700",
+                      "fontStyle": "normal",
+                      "lineHeight": null,
+                      "letterSpacing": "-0.72px"
+                    },
+                    "sm": {
+                      "fontSize": "40px ",
+                      "fontWeight": "800",
+                      "fontStyle": null,
+                      "lineHeight": null,
+                      "letterSpacing": "-1.2px"
+                    },
+                    "md": {
+                      "fontSize": "48px",
+                      "fontWeight": "800",
+                      "fontStyle": null,
+                      "lineHeight": null,
+                      "letterSpacing": "-2.4px"
+                    },
+                    "lg": {
+                      "fontSize": "48px",
+                      "fontWeight": "800",
+                      "fontStyle": null,
+                      "lineHeight": null,
+                      "letterSpacing": "-1.44px"
+                    },
+                    "xl": {
+                      "fontSize": "48px",
+                      "fontWeight": "800 ",
+                      "fontStyle": null,
+                      "lineHeight": null,
+                      "letterSpacing": "-2.4px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
+                    },
+                    "hasTheme": false,
+                    "activeTheme": "theme1",
+                    "themes": {
+                      "theme1": {
+                        "borderColor": "",
+                        "borderSize": "",
+                        "null": ""
+                      }
+                    },
+                    "style": {},
+                    "responsiveShow": {
+                      "xl": false,
+                      "lg": false,
+                      "md": false,
+                      "sm": true,
+                      "xs": true
                     }
                   }
                 },
@@ -3102,9 +3305,132 @@
                     "responsiveShow": {
                       "xl": true,
                       "lg": true,
-                      "md": false,
+                      "md": true,
                       "sm": false,
                       "xs": false
+                    }
+                  }
+                },
+                {
+                  "name": "TextWidget",
+                  "options": {
+                    "text": "<div style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255);\">بالایی تا دی، چون توی ۷ روز ۷ انرژی مهار ناپذیر رتبه های زیر ۱۰۰۰ آلا رو بهت میگیم و جذاب تر اینکه ۷ جایزه قطعی داری + ۷ شانس بردن جایزه \"سرعت بی نهایت\". کافیه ۷ روز با آلا باشی تا بسازیمت برای هدفت</span></div>",
+                    "fontFamily": null,
+                    "color": null,
+                    "fontSize": null,
+                    "fontWeight": null,
+                    "fontStyle": null,
+                    "letterSpacing": null,
+                    "xs": {
+                      "fontSize": "16px",
+                      "fontWeight": "400",
+                      "fontStyle": null,
+                      "lineHeight": "35px",
+                      "letterSpacing": ""
+                    },
+                    "sm": {
+                      "fontSize": "18px",
+                      "fontWeight": "400",
+                      "fontStyle": null,
+                      "lineHeight": "35px",
+                      "letterSpacing": ""
+                    },
+                    "md": {
+                      "fontSize": "18px",
+                      "fontWeight": "400",
+                      "fontStyle": null,
+                      "lineHeight": "35px",
+                      "letterSpacing": ""
+                    },
+                    "lg": {
+                      "fontSize": "18px",
+                      "fontWeight": "400",
+                      "fontStyle": null,
+                      "lineHeight": "30px",
+                      "letterSpacing": ""
+                    },
+                    "xl": {
+                      "fontSize": "18px",
+                      "fontWeight": "400",
+                      "fontStyle": null,
+                      "lineHeight": "35px",
+                      "letterSpacing": ""
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
+                    },
+                    "style": {
+                      "marginTop": "20px"
+                    },
+                    "responsiveShow": {
+                      "xl": false,
+                      "lg": false,
+                      "md": false,
+                      "sm": true,
+                      "xs": true
                     }
                   }
                 },
@@ -3334,9 +3660,241 @@
                     "responsiveShow": {
                       "xl": true,
                       "lg": true,
-                      "md": false,
+                      "md": true,
                       "sm": false,
                       "xs": false
+                    }
+                  }
+                },
+                {
+                  "name": "ButtonGroup",
+                  "options": {
+                    "buttonList": [
+                      {
+                        "options": {
+                          "color": null,
+                          "icon": "ph:caret-left",
+                          "rightIcon": false,
+                          "label": "ویدیو امروز",
+                          "flat": false,
+                          "callBack": null,
+                          "imageSource": null,
+                          "className": "col-sm-6 col-xs-12",
+                          "fixed": false,
+                          "fixedPosition": null,
+                          "eventArgs": null,
+                          "boxShadows": [],
+                          "hasAction": true,
+                          "action": "scroll",
+                          "scrollTo": "row q-col-gutter-x-sm q-col-gutter-y-xs justify-center items-center content-center",
+                          "route": null,
+                          "eventName": null,
+                          "topSectionWidgets": [],
+                          "bottomSectionWidgets": [],
+                          "style": {
+                            "background": "#D14835",
+                            "color": "#fff",
+                            "backgroundImage": null,
+                            "fontSize": "18px",
+                            "fontWeight": "700"
+                          },
+                          "responsiveSpacing": {
+                            "xs": {
+                              "marginTop": "17px",
+                              "marginLeft": "auto",
+                              "marginRight": "auto ",
+                              "marginBottom": null,
+                              "paddingTop": "8px",
+                              "paddingLeft": "41px",
+                              "paddingRight": "41px",
+                              "paddingBottom": "8px"
+                            },
+                            "sm": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": "12px",
+                              "paddingLeft": "51.5px",
+                              "paddingRight": "51.5px",
+                              "paddingBottom": "12px"
+                            },
+                            "md": {
+                              "marginTop": null,
+                              "marginLeft": "",
+                              "marginRight": "",
+                              "marginBottom": null,
+                              "paddingTop": "15px",
+                              "paddingLeft": "29.5px",
+                              "paddingRight": "29.5px",
+                              "paddingBottom": "15px "
+                            },
+                            "lg": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": "16px",
+                              "paddingLeft": "60px",
+                              "paddingRight": "60px",
+                              "paddingBottom": "16px"
+                            },
+                            "xl": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": "15px",
+                              "paddingLeft": "29.5px",
+                              "paddingRight": "29.5px",
+                              "paddingBottom": "15px"
+                            }
+                          },
+                          "responsiveShow": {
+                            "xl": true,
+                            "lg": true,
+                            "md": true,
+                            "sm": true,
+                            "xs": true
+                          },
+                          "borderRadius": "12px",
+                          "outline": false
+                        },
+                        "name": "شروع !"
+                      },
+                      {
+                        "options": {
+                          "color": null,
+                          "icon": "ph:dice-five",
+                          "rightIcon": true,
+                          "label": "شانس امروز",
+                          "flat": false,
+                          "callBack": null,
+                          "imageSource": null,
+                          "className": "col-sm-6 col-xs-12",
+                          "fixed": false,
+                          "fixedPosition": null,
+                          "eventArgs": null,
+                          "boxShadows": [],
+                          "hasAction": true,
+                          "action": "scroll",
+                          "scrollTo": "contact-form-container new-theme",
+                          "route": null,
+                          "eventName": null,
+                          "topSectionWidgets": [],
+                          "bottomSectionWidgets": [],
+                          "style": {
+                            "background": "",
+                            "color": "rgba(255,255,255,1)",
+                            "backgroundImage": null,
+                            "fontSize": "18px",
+                            "fontWeight": "500"
+                          },
+                          "responsiveSpacing": {
+                            "xs": {
+                              "marginTop": "",
+                              "marginLeft": "auto",
+                              "marginRight": "auto",
+                              "marginBottom": null,
+                              "paddingTop": "8px",
+                              "paddingLeft": "19.5px",
+                              "paddingRight": "19.5px",
+                              "paddingBottom": "8px"
+                            },
+                            "sm": {
+                              "marginTop": " ",
+                              "marginLeft": "24px",
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": "12px",
+                              "paddingLeft": "30px",
+                              "paddingRight": "30px",
+                              "paddingBottom": "12px"
+                            },
+                            "md": {
+                              "marginTop": null,
+                              "marginLeft": "16px",
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": "15px",
+                              "paddingLeft": "24.5px",
+                              "paddingRight": "24.5px",
+                              "paddingBottom": "15px"
+                            },
+                            "lg": {
+                              "marginTop": null,
+                              "marginLeft": "24px",
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": "14px",
+                              "paddingLeft": "28px",
+                              "paddingRight": "28px",
+                              "paddingBottom": "14px"
+                            },
+                            "xl": {
+                              "marginTop": null,
+                              "marginLeft": "24px",
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": "14px",
+                              "paddingLeft": "28px",
+                              "paddingRight": "28px",
+                              "paddingBottom": "14px"
+                            }
+                          },
+                          "responsiveShow": {
+                            "xl": false,
+                            "lg": true,
+                            "md": false,
+                            "sm": false,
+                            "xs": false
+                          },
+                          "borderRadius": "12px",
+                          "outline": true
+                        },
+                        "name": "مشاوره!"
+                      }
+                    ],
+                    "borderStyle": {
+                      "borderCssString": "",
+                      "borderRadiusCssString": ""
+                    },
+                    "boxShadows": [],
+                    "cssHoverEffects": {
+                      "boxShadows": [],
+                      "borderStyle": {
+                        "borderCssString": "",
+                        "borderRadiusCssString": ""
+                      },
+                      "transition": {
+                        "time": 0
+                      },
+                      "transform": {
+                        "rotate": 0,
+                        "scaleX": 1,
+                        "scaleY": 1,
+                        "skewX": 0,
+                        "skewY": 0,
+                        "translateX": 0,
+                        "translateY": 0
+                      }
+                    },
+                    "style": {
+                      "marginTop": "40px",
+                      "marginBottom": "40px",
+                      "image": null,
+                      "color": "rgba(53,240,24,0.72)",
+                      "backgroundImage": null,
+                      "marginLeft": "",
+                      "marginRight": ""
+                    },
+                    "className": "row justify-center",
+                    "responsiveShow": {
+                      "xl": false,
+                      "lg": false,
+                      "md": false,
+                      "sm": true,
+                      "xs": true
                     }
                   }
                 }
@@ -3955,7 +4513,7 @@
             {
               "widgets": [
                 {
-                  "name": "BlackFridayParticipation"
+                  "name": "BlackFridayShowVideo"
                 }
               ],
               "options": {}
@@ -3964,7 +4522,7 @@
           "options": {
             "className": "",
             "height": "auto",
-            "boxed": true,
+            "boxed": false,
             "boxedWidth": 1200,
             "paddingOfBoxedInFullWidth": "30px",
             "responsiveBoxedWidth": true,
@@ -3976,13 +4534,13 @@
                 "width": "540px"
               },
               "md": {
-                "width": "800px"
+                "width": "964px"
               },
               "lg": {
-                "width": "1130px"
+                "width": "1360px"
               },
               "xl": {
-                "width": "1130px"
+                "width": "1360px"
               }
             },
             "gutterXSize": null,
@@ -4153,8 +4711,318 @@
                 {
                   "name": "TextWidget",
                   "options": {
+                    "text": "<div style=\"text-align: center;\"><font color=\"#ffffff\">شانس امروز من</font></div>",
+                    "fontFamily": "ModamFaNumWeb",
+                    "color": null,
+                    "fontSize": null,
+                    "fontWeight": null,
+                    "fontStyle": null,
+                    "letterSpacing": null,
+                    "xs": {
+                      "fontSize": "28px",
+                      "fontWeight": "900",
+                      "fontStyle": "normal",
+                      "lineHeight": "normal",
+                      "letterSpacing": "-0.84px"
+                    },
+                    "sm": {
+                      "fontSize": "28px",
+                      "fontWeight": "900",
+                      "fontStyle": "normal",
+                      "lineHeight": "normal",
+                      "letterSpacing": "-0.84px"
+                    },
+                    "md": {
+                      "fontSize": "32px",
+                      "fontWeight": "900",
+                      "fontStyle": "normal",
+                      "lineHeight": "normal",
+                      "letterSpacing": " -0.96px"
+                    },
+                    "lg": {
+                      "fontSize": "32px",
+                      "fontWeight": "900",
+                      "fontStyle": "normal",
+                      "lineHeight": "normal",
+                      "letterSpacing": " -0.96px"
+                    },
+                    "xl": {
+                      "fontSize": "32px",
+                      "fontWeight": "900",
+                      "fontStyle": "normal",
+                      "lineHeight": "normal",
+                      "letterSpacing": " -0.96px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": "32px",
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": "40px",
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": "40px",
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": "32px",
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": "32px",
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
+                    },
+                    "hasTheme": null,
+                    "activeTheme": "default",
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
+                    },
+                    "style": {}
+                  }
+                },
+                {
+                  "name": "BlackFridayParticipation"
+                }
+              ],
+              "options": {}
+            }
+          ],
+          "options": {
+            "className": "",
+            "height": "auto",
+            "boxed": true,
+            "boxedWidth": 1200,
+            "paddingOfBoxedInFullWidth": "30px",
+            "responsiveBoxedWidth": true,
+            "responsiveBoxedWidths": {
+              "xs": {
+                "width": "320px"
+              },
+              "sm": {
+                "width": "540px"
+              },
+              "md": {
+                "width": "800px"
+              },
+              "lg": {
+                "width": "1130px"
+              },
+              "xl": {
+                "width": "1130px"
+              }
+            },
+            "gutterXSize": null,
+            "gutterYSize": null,
+            "absolute": "none",
+            "backgrounds": {
+              "xs": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "sm": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "md": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "lg": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "xl": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              }
+            },
+            "responsiveSpacing": {
+              "xs": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": "48px",
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "sm": {
+                "marginTop": "",
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": "64px",
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "md": {
+                "marginTop": "",
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": "80px",
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "lg": {
+                "marginTop": "",
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": "88px",
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "xl": {
+                "marginTop": "",
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": "88px",
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              }
+            },
+            "boxShadows": [],
+            "borderStyle": {
+              "borderCssString": "",
+              "borderRadiusCssString": ""
+            },
+            "cssHoverEffects": {
+              "boxShadows": [],
+              "borderStyle": {
+                "borderCssString": "",
+                "borderRadiusCssString": ""
+              },
+              "transition": {
+                "time": 0
+              },
+              "transform": {
+                "rotate": null,
+                "scaleX": null,
+                "scaleY": null,
+                "skewX": null,
+                "skewY": null,
+                "translateX": null,
+                "translateY": null
+              }
+            },
+            "responsiveShow": {
+              "xl": true,
+              "lg": true,
+              "md": true,
+              "sm": true,
+              "xs": true
+            },
+            "alignment": {
+              "justifyContent": {
+                "global": "justify-center",
+                "xl": null,
+                "lg": null,
+                "md": null,
+                "sm": null,
+                "xs": null
+              },
+              "alignItems": {
+                "global": "items-end",
+                "xl": null,
+                "lg": null,
+                "md": null,
+                "sm": null,
+                "xs": null
+              },
+              "alignContent": {
+                "global": null,
+                "xl": null,
+                "lg": null,
+                "md": null,
+                "sm": null,
+                "xs": null
+              }
+            },
+            "style": {
+              "maxWidth": null,
+              "width": null,
+              "backgroundImage": null
+            }
+          }
+        },
+        {
+          "cols": [
+            {
+              "widgets": [
+                {
+                  "name": "BlackFridayTextWidget",
+                  "options": {
                     "text": "<div style=\"text-align: center;\"><font color=\"#ffffff\">تـا 3 آذر (بلک فرایدی) فرصت داری</font></div>",
-                    "fontFamily": null,
+                    "fontFamily": "ModamFaNumWeb",
                     "color": null,
                     "fontSize": null,
                     "fontWeight": null,
@@ -4691,122 +5559,8 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<div style=\"text-align: center;\"><font color=\"#ffffff\">بلک فرایدی و تخفیفاش !</font></div>",
-                    "fontFamily": null,
-                    "color": null,
-                    "fontSize": null,
-                    "fontWeight": null,
-                    "fontStyle": null,
-                    "letterSpacing": null,
-                    "xs": {
-                      "fontSize": "24px",
-                      "fontWeight": "900",
-                      "fontStyle": "normal",
-                      "lineHeight": "normal",
-                      "letterSpacing": "-0.72px"
-                    },
-                    "sm": {
-                      "fontSize": "28px",
-                      "fontWeight": "900",
-                      "fontStyle": "normal",
-                      "lineHeight": "normal",
-                      "letterSpacing": "-0.84px"
-                    },
-                    "md": {
-                      "fontSize": "32px",
-                      "fontWeight": "900",
-                      "fontStyle": "normal",
-                      "lineHeight": "normal",
-                      "letterSpacing": "-0.96px"
-                    },
-                    "lg": {
-                      "fontSize": "32px",
-                      "fontWeight": "900",
-                      "fontStyle": "normal",
-                      "lineHeight": "normal",
-                      "letterSpacing": "-0.96px"
-                    },
-                    "xl": {
-                      "fontSize": "32px",
-                      "fontWeight": "900",
-                      "fontStyle": "normal",
-                      "lineHeight": "normal",
-                      "letterSpacing": "-0.96px"
-                    },
-                    "responsiveSpacing": {
-                      "xs": {
-                        "marginTop": null,
-                        "marginLeft": null,
-                        "marginRight": null,
-                        "marginBottom": "20px",
-                        "paddingTop": null,
-                        "paddingLeft": null,
-                        "paddingRight": null,
-                        "paddingBottom": null
-                      },
-                      "sm": {
-                        "marginTop": null,
-                        "marginLeft": null,
-                        "marginRight": null,
-                        "marginBottom": "20px",
-                        "paddingTop": null,
-                        "paddingLeft": null,
-                        "paddingRight": null,
-                        "paddingBottom": null
-                      },
-                      "md": {
-                        "marginTop": null,
-                        "marginLeft": null,
-                        "marginRight": null,
-                        "marginBottom": "20px",
-                        "paddingTop": null,
-                        "paddingLeft": null,
-                        "paddingRight": null,
-                        "paddingBottom": null
-                      },
-                      "lg": {
-                        "marginTop": null,
-                        "marginLeft": null,
-                        "marginRight": null,
-                        "marginBottom": "20px",
-                        "paddingTop": null,
-                        "paddingLeft": null,
-                        "paddingRight": null,
-                        "paddingBottom": null
-                      },
-                      "xl": {
-                        "marginTop": null,
-                        "marginLeft": null,
-                        "marginRight": null,
-                        "marginBottom": "20px",
-                        "paddingTop": null,
-                        "paddingLeft": null,
-                        "paddingRight": null,
-                        "paddingBottom": null
-                      }
-                    },
-                    "hasTheme": false,
-                    "activeTheme": "default",
-                    "themes": {
-                      "theme1": {
-                        "borderColor": null,
-                        "borderSize": null,
-                        "borderWidth": null,
-                        "borderHeight": null,
-                        "top": null,
-                        "left": null,
-                        "bottom": null,
-                        "right": null
-                      }
-                    },
-                    "style": {}
-                  }
-                },
-                {
-                  "name": "TextWidget",
-                  "options": {
                     "text": "<div style=\"text-align: center;\"><font color=\"#ffffff\">ثبت نام پر تخفیف در جشنواره بالا تا دی آلا (ویژه بلک فرایدی)</font></div>",
-                    "fontFamily": null,
+                    "fontFamily": "ModamFaNumWeb",
                     "color": null,
                     "fontSize": null,
                     "fontWeight": null,
@@ -5711,33 +6465,33 @@
       "className": "",
       "backgrounds": {
         "xs": {
-          "size": null,
+          "size": "cover",
           "color": null,
-          "image": null,
+          "image": "url('https://nodes.alaatv.com/upload/alaaPages/2023-11/600-3601699710670.png')",
           "repeat": null,
           "position": null,
           "attachment": null
         },
         "sm": {
-          "size": null,
+          "size": "cover",
           "color": null,
-          "image": null,
+          "image": "url('https://nodes.alaatv.com/upload/alaaPages/2023-11/1024-6001699710678.png')",
           "repeat": null,
           "position": null,
           "attachment": null
         },
         "md": {
-          "size": null,
+          "size": "cover",
           "color": null,
-          "image": null,
+          "image": "url('https://nodes.alaatv.com/upload/alaaPages/2023-11/1440-10241699710685.png')",
           "repeat": null,
           "position": null,
           "attachment": null
         },
         "lg": {
-          "size": null,
+          "size": "cover",
           "color": null,
-          "image": null,
+          "image": "url('https://nodes.alaatv.com/upload/alaaPages/2023-11/1920-14401699710692.png')",
           "repeat": null,
           "position": null,
           "attachment": null
@@ -6334,7 +7088,7 @@
                       "paddingBottom": "",
                       "backgroundImage": null,
                       "marginLeft": "auto",
-                      "marginRight": "auto"
+                      "marginRight": ""
                     }
                   }
                 }
@@ -6511,7 +7265,7 @@
                       "paddingBottom": "0",
                       "backgroundImage": null,
                       "marginLeft": "auto",
-                      "marginRight": "auto"
+                      "marginRight": ""
                     }
                   }
                 }
@@ -6688,7 +7442,7 @@
                       "paddingBottom": "",
                       "backgroundImage": null,
                       "marginLeft": "auto",
-                      "marginRight": "auto"
+                      "marginRight": ""
                     },
                     "responsiveShow": {
                       "xl": true,
