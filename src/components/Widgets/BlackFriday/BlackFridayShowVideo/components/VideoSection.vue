@@ -10,7 +10,7 @@
              class="arrow arrow-right"
              @click="onPrev" />
       <div class="video-box"
-           :class="{ 'unlock': localVideo.is_actice, 'lock': !localVideo.is_actice }">
+           :class="{ 'unlock': localVideo.is_active, 'lock': !localVideo.is_active }">
         <template v-if="!isPlaying">
           <div class="state-layer state-unlock"
                @click="playVideo">
@@ -35,7 +35,8 @@
               </defs>
             </svg>
           </div>
-          <div class="state-layer state-lock">
+          <div class="state-layer state-lock"
+               @click="clickOnLockedState">
             <svg xmlns="http://www.w3.org/2000/svg"
                  width="64"
                  height="64"
@@ -47,7 +48,7 @@
             <div class="lock-message">هرروز فقط میتونی یه فیلم رو ببینی!</div>
           </div>
         </template>
-        <video-player v-if="localVideo.is_actice"
+        <video-player v-if="localVideo.is_active"
                       ref="videoPlayer"
                       :key="videoKey"
                       :has-vast="false"
@@ -89,7 +90,7 @@ export default defineComponent({
       default: new BlackFridayVideo()
     }
   },
-  emits: ['update:video', 'next', 'prev', 'play', 'watched', 'ended'],
+  emits: ['update:video', 'next', 'prev', 'play', 'watched', 'ended', 'clickOnLockedState'],
   data () {
     return {
       isPlaying: false,
@@ -128,7 +129,7 @@ export default defineComponent({
     getLastActiveIndex () {
       let activeIndex = 0
       this.localBlackFridayCampaignData.videos.list.forEach((video, videoIndex) => {
-        if (video.is_actice && activeIndex < videoIndex) {
+        if (video.is_active && activeIndex < videoIndex) {
           activeIndex = videoIndex
         }
       })
@@ -163,6 +164,9 @@ export default defineComponent({
     onNext () {
       this.refreshPlayer()
       this.$emit('next')
+    },
+    clickOnLockedState () {
+      this.$emit('clickOnLockedState')
     },
     refreshPlayer () {
       this.watched = false
@@ -221,9 +225,11 @@ export default defineComponent({
       width: 540px;
       font-size: 16px;
       letter-spacing: -0.48px;
+      margin-bottom: 48px;
     }
     @media screen and (max-width: 599px) {
       width: 320px;
+      margin-bottom: 32px;
     }
   }
   .video-section {
@@ -245,16 +251,12 @@ export default defineComponent({
         border-radius: 16px;
       }
       @media screen and (max-width: 1023px) {
-        border-radius: 16.168px;
-      }
-      @media screen and (max-width: 599px) {
-        border-radius: 9.583px;
-      }
-      @media screen and (max-width: 1023px) {
+        border-radius: 16.2px;
         width: 540px;
         height: 300px;
       }
       @media screen and (max-width: 599px) {
+        border-radius: 9.58px;
         width: 320px;
         height: 179px;
       }
