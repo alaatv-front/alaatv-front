@@ -198,12 +198,7 @@ body {
 
     &.bg-primary {
       color: $grey-9 !important;
-      //&.q-hoverable:hover {
-      //  opacity: 1;
-      //  & > .q-focus-helper {
-      //    background: $lighten-5;
-      //  }
-      //}
+
       &.q-btn--active.q-btn--actionable:focus{
         @include btn-handle-box-shadows('primary')
       }
@@ -237,7 +232,9 @@ body {
     }
 
     @mixin outline-btn(){
-      color: $grey-9 !important;
+      &.text-grey{
+        color: $grey-9 !important;
+      }
 
       &:before {
         border: solid 1.5px $grey-4;
@@ -270,8 +267,9 @@ body {
     }
 
     @mixin flat-btn () {
-      color: $grey-9 ;
-      background: transparent ;
+      &.text-grey{
+        color: $grey-9 !important;
+      }
 
       &:before {
         border: none;
