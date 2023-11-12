@@ -1,6 +1,7 @@
 <template>
   <div v-intersection="onIntersection"
        class="animation-wrapper"
+       :class="{'cursor-pointer': localOptions.action.hasAction}"
        :style="responsiveBodymovin.style"
        @click="onClickElement">
     <div ref="firstBm"
@@ -142,6 +143,7 @@ export default {
       }
     },
     onClickElement() {
+      this.takeAction()
       if (this.localOptions.animate === 'onClick') {
         this.animationData1.stop()
         this.animationData1.play()
