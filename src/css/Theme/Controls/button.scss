@@ -211,9 +211,9 @@ body {
         color: $grey-9 !important;
       }
 
-      &:before {
-        border: solid 1.5px $grey-4;
-      }
+      //&:before {
+      //  border: solid 1.5px $grey-4;
+      //}
 
       //&.q-btn--active.q-btn--actionable:focus {
       //  @include btn-handle-box-shadows('grey')
@@ -233,7 +233,7 @@ body {
 
     &.q-btn--outline {
       &:before {
-        filter: brightness(150%);
+        filter: brightness(300%);
       }
       @include outline-btn();
       &.q-btn--round{
