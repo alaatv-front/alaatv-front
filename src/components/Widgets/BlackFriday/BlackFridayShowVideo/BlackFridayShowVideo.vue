@@ -7,6 +7,7 @@
     <template v-else>
       <video-section class="show-video-section"
                      :video="selectedVideo"
+                     @clickOnLockedState="clickOnLockedState"
                      @watched="onWatched"
                      @play="onPlay"
                      @ended="onEnded"
@@ -29,11 +30,11 @@
 import bcryptjs from 'bcryptjs'
 import { defineComponent } from 'vue'
 import { Coupon } from 'src/models/Coupon.js'
-import { mixinWidget, mixinAuth } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import StepSection from './components/StepSection.vue'
 import VideoSection from './components/VideoSection.vue'
 import InsideDialog from './components/InsideDialog.vue'
+import { mixinWidget, mixinAuth } from 'src/mixin/Mixins.js'
 import { BlackFridayVideo } from 'src/models/BlackFridayVideo.js'
 import { BlackFridayCampaignData } from 'src/models/BlackFridayCampaignData.js'
 
@@ -84,12 +85,21 @@ export default defineComponent({
   },
   mounted () {
     this.getBlackFridayCampaignData()
+    this.$bus.on('onLoggedIn', () => {
+      this.loadAuthData()
+      this.getBlackFridayCampaignData()
+    })
   },
   methods: {
+    showLoginDialog () {
+      this.$store.commit('Auth/updateRedirectTo', { name: this.$route.name, params: this.$route.params, query: this.$route.query })
+      this.$store.commit('AppLayout/updateLoginDialog', true)
+    },
     onSelectStep (videoIndex) {
-      // if (!this.isVideoActive(videoIndex)) {
-      //   return
-      // }
+      if (!this.isUserLogin) {
+        this.showLoginDialog()
+        return
+      }
       this.beforeChangeSelectedVideo()
       this.setVideoSelected(videoIndex)
     },
@@ -119,7 +129,18 @@ export default defineComponent({
           this.watchedVideoCoupon.loading = false
         })
     },
+    clickOnLockedState () {
+      if (this.isUserLogin) {
+        return
+      }
+
+      this.showLoginDialog()
+    },
     onPlay () {
+      if (!this.isUserLogin) {
+        this.showLoginDialog()
+        return
+      }
       // const contentId = this.selectedVideo.id
       // APIGateway.content.setVideoUnWatched({
       //   watchable_id: contentId
@@ -143,6 +164,10 @@ export default defineComponent({
       this.beforeChangeSelectedVideo()
     },
     onPrev () {
+      if (!this.isUserLogin) {
+        this.showLoginDialog()
+        return
+      }
       this.beforeChangeSelectedVideo()
       const prevIndex = this.getPrevIndex()
       if (!this.isVideoActive(prevIndex)) {
@@ -151,6 +176,10 @@ export default defineComponent({
       this.setVideoSelected(prevIndex)
     },
     onNext () {
+      if (!this.isUserLogin) {
+        this.showLoginDialog()
+        return
+      }
       this.beforeChangeSelectedVideo()
       const nextIndex = this.getNextIndex()
       if (!this.isVideoActive(nextIndex)) {
