@@ -7,7 +7,7 @@
       <div class="option-panel-container q-py-md">
         <div class="row q-col-gutter-sm">
           <div class="input-container col-md-10">
-            <q-input v-model="localOptions.scrollTo"
+            <q-input v-model="localOptions.eventName"
                      label="Event Name" />
           </div>
         </div>
