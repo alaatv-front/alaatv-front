@@ -225,9 +225,11 @@ export default defineComponent({
       width: 540px;
       font-size: 16px;
       letter-spacing: -0.48px;
+      margin-bottom: 48px;
     }
     @media screen and (max-width: 599px) {
       width: 320px;
+      margin-bottom: 32px;
     }
   }
   .video-section {
@@ -249,16 +251,12 @@ export default defineComponent({
         border-radius: 16px;
       }
       @media screen and (max-width: 1023px) {
-        border-radius: 16.168px;
-      }
-      @media screen and (max-width: 599px) {
-        border-radius: 9.583px;
-      }
-      @media screen and (max-width: 1023px) {
+        border-radius: 16.2px;
         width: 540px;
         height: 300px;
       }
       @media screen and (max-width: 599px) {
+        border-radius: 9.58px;
         width: 320px;
         height: 179px;
       }
