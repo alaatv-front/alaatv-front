@@ -10,7 +10,7 @@
              class="arrow arrow-right"
              @click="onPrev" />
       <div class="video-box"
-           :class="{ 'unlock': localVideo.is_actice, 'lock': !localVideo.is_actice }">
+           :class="{ 'unlock': localVideo.is_active, 'lock': !localVideo.is_active }">
         <template v-if="!isPlaying">
           <div class="state-layer state-unlock"
                @click="playVideo">
@@ -48,7 +48,7 @@
             <div class="lock-message">هرروز فقط میتونی یه فیلم رو ببینی!</div>
           </div>
         </template>
-        <video-player v-if="localVideo.is_actice"
+        <video-player v-if="localVideo.is_active"
                       ref="videoPlayer"
                       :key="videoKey"
                       :has-vast="false"
@@ -129,7 +129,7 @@ export default defineComponent({
     getLastActiveIndex () {
       let activeIndex = 0
       this.localBlackFridayCampaignData.videos.list.forEach((video, videoIndex) => {
-        if (video.is_actice && activeIndex < videoIndex) {
+        if (video.is_active && activeIndex < videoIndex) {
           activeIndex = videoIndex
         }
       })

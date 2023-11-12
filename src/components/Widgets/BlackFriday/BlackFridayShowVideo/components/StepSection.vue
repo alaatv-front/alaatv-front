@@ -4,9 +4,9 @@
       <div v-for="(video, videoIndex) in localBlackFridayCampaignData.videos.list"
            :key="videoIndex"
            class="item"
-           :class="{ 'unlock': video.is_actice, 'lock': !video.is_actice, 'current': isCurrent(videoIndex) }">
+           :class="{ 'unlock': video.is_active, 'lock': !video.is_active, 'current': isCurrent(videoIndex) }">
         <q-btn @click="onSelectStep(videoIndex)">
-          <svg v-if="!video.is_actice"
+          <svg v-if="!video.is_active"
                xmlns="http://www.w3.org/2000/svg"
                width="19"
                height="18"
@@ -101,7 +101,7 @@ export default defineComponent({
     getLastActiveIndex () {
       let activeIndex = 0
       this.localBlackFridayCampaignData.videos.list.forEach((video, videoIndex) => {
-        if (video.is_actice && activeIndex < videoIndex) {
+        if (video.is_active && activeIndex < videoIndex) {
           activeIndex = videoIndex
         }
       })
