@@ -40,6 +40,7 @@ import LazyImg from 'components/lazyImg.vue'
 import { BlackFridayCampaignData } from 'src/models/BlackFridayCampaignData.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import InsideDialog from 'src/components/Widgets/BlackFriday/BlackFridayParticipation/InsideDialog.vue'
+import { mixinAuth } from 'src/mixin/Mixins.js'
 
 export default defineComponent({
   name: 'BlackFridayParticipation',
@@ -47,6 +48,7 @@ export default defineComponent({
     LazyImg,
     InsideDialog
   },
+  mixins: [mixinAuth],
   data() {
     return {
       dialog: false,
@@ -73,9 +75,21 @@ export default defineComponent({
   },
   mounted() {
     this.getBlackFridayCampaignData()
+    this.$bus.on('onLoggedIn', () => {
+      this.loadAuthData()
+      this.getBlackFridayCampaignData()
+    })
   },
   methods: {
+    showLoginDialog () {
+      this.$store.commit('Auth/updateRedirectTo', { name: this.$route.name, params: this.$route.params, query: this.$route.query })
+      this.$store.commit('AppLayout/updateLoginDialog', true)
+    },
     participateInLottery() {
+      if (!this.isUserLogin) {
+        this.showLoginDialog()
+        return
+      }
       APIGateway.blackFriday.participateInLottery()
         .then(codeMessageCoupon => {
           this.code = codeMessageCoupon.code
