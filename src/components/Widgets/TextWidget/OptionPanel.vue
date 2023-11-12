@@ -160,7 +160,7 @@ export default defineComponent({
           }
         },
         hasTheme: null,
-        activeTheme: null,
+        activeTheme: 'default',
         themes: {
           theme1: {
             borderColor: null,
@@ -174,7 +174,7 @@ export default defineComponent({
           }
         }
       },
-      themes: ['theme1']
+      themes: ['default', 'theme1', 'blackFriday']
     }
   },
   watch: {

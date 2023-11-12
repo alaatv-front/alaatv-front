@@ -421,7 +421,7 @@ export default defineComponent({
           }
         }
       },
-      themeOptions: ['default', 'theme1'],
+      themeOptions: ['default', 'theme1', 'blackFriday'],
       responsiveOpts: ['xs', 'sm', 'md', 'lg', 'xl'],
       responsive: 'xs'
     }

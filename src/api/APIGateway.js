@@ -34,6 +34,7 @@ import SlideShowAPI from 'src/api/models/slideShow.js'
 import PermissionAPI from 'src/api/models/permission.js'
 import FileUploadAPI from 'src/api/models/FileUpload.js'
 import PageSettingAPI from 'src/api/models/PageSetting.js'
+import BlackFridayAPI from 'src/api/models/BlackFriday.js'
 import ReferralCodeAPI from 'src/api/models/ReferralCode.js'
 import TeleMarketingAPI from 'src/api/models/teleMarketing.js'
 import LiveDescriptionAPI from 'src/api/models/LiveDescription.js'
@@ -76,6 +77,7 @@ export const APIGateway = {
   permission: new PermissionAPI(),
   fileUpload: new FileUploadAPI(),
   pageSetting: new PageSettingAPI(),
+  blackFriday: new BlackFridayAPI(),
   referralCode: new ReferralCodeAPI(),
   teleMarketing: new TeleMarketingAPI(),
   liveDescription: new LiveDescriptionAPI(),

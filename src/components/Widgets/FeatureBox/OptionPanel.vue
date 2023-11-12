@@ -68,7 +68,7 @@
 <script>
 import { defineComponent } from 'vue'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
-import ResponsiveBackGround from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/ResponsiveBackGround.vue'
+import ResponsiveBackGround from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/ResponsiveBackGround/ResponsiveBackGround.vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 import textOptionPanel from 'src/components/Widgets/TextWidget/OptionPanel.vue'
 import ImageWidgetOptionPanel from 'src/components/Widgets/ImageWidget/OptionPanel.vue'
