@@ -86,6 +86,7 @@ export default defineComponent({
   mounted () {
     this.getBlackFridayCampaignData()
     this.$bus.on('onLoggedIn', () => {
+      this.loadAuthData()
       this.getBlackFridayCampaignData()
     })
   },
