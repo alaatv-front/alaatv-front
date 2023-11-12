@@ -174,7 +174,7 @@ export default defineComponent({
           }
         }
       },
-      themes: ['default', 'theme1', 'blackFriday']
+      themes: ['default', 'theme1']
     }
   },
   watch: {
