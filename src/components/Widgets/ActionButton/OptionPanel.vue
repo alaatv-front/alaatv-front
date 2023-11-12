@@ -5,7 +5,7 @@
                      :show-responsive-show="true">
     <template #main-tab>
       <div class="option-panel-container q-py-md">
-        <div class="row q-gutter-sm">
+        <div class="row q-gutter-sm items-center">
           <div class="input-container col-md-2">
             <q-input v-model="localOptions.label"
                      label="label" />
@@ -76,7 +76,7 @@
             <q-input v-model="localOptions.borderRadius"
                      label="border radius" />
           </div>
-          <div class="input-container col-md-1">
+          <div class="input-container col-md-2">
             <div class="outsideLabel">flat</div>
             <q-checkbox v-model="localOptions.flat"
                         left-label />
@@ -87,8 +87,8 @@
                         left-label />
           </div>
           <div class="input-container col-md-2">
-            <div class="outsideLabel">hideInAuth</div>
-            <q-checkbox v-model="localOptions.hideInAuth"
+            <div class="outsideLabel">outline</div>
+            <q-checkbox v-model="localOptions.outline"
                         left-label />
           </div>
           <div class="input-container col-md-2">
@@ -100,6 +100,25 @@
             <div class="outsideLabel">right icon</div>
             <q-checkbox v-model="localOptions.rightIcon" />
           </div>
+          <div class="input-container col-md-3">
+            <q-checkbox v-model="localOptions.displayAuth"
+                        label="display Auth"
+                        push
+                        glossy
+                        toggle-color="primary"
+                        left-label />
+          </div>
+          <div v-if="localOptions.displayAuth"
+               class="input-container col-md-6">
+            <q-btn-toggle v-model="localOptions.showInAuth"
+                          color="grey-4"
+                          text-color="black"
+                          toggle-color="primary"
+                          rounded
+                          unelevated
+                          :options="displayAuthOptions"
+                          left-label />
+          </div>
           <div v-if="localOptions.fixed"
                class="input-container col-md-4">
             <div class="outsideLabel">fix</div>
@@ -107,7 +126,7 @@
                       :options="positionOptions"
                       left-label />
           </div>
-          <div class="input-container q-my-md">
+          <div class="input-container col-md-12 q-my-md">
             <q-input v-model="localOptions.imageSource"
                      label="image source" />
           </div>
@@ -305,6 +324,16 @@ export default defineComponent({
   },
   data () {
     return {
+      displayAuthOptions: [
+        {
+          label: 'نمایش در حالت لاگین',
+          value: true
+        },
+        {
+          label: 'عدم نمایش در حالت لاگین',
+          value: false
+        }
+      ],
       actionOptions: ['scroll', 'link', 'event', 'hamburger_menu'],
       positionOptions: ['top-right', 'top-left', 'bottom-right', 'bottom-left'],
       defaultTextWidget: {

@@ -4,6 +4,7 @@
            :label="localOptions.label"
            :flat="localOptions.flat"
            :disable="disable"
+           :outline="localOptions.outline"
            :class="[localOptions.className, responsiveShow]"
            :style="localOptions.style"
            class="action-btn"
@@ -18,6 +19,7 @@
     <q-btn v-else
            :label="localOptions.label"
            :icon="localOptions.icon"
+           :outline="localOptions.outline"
            :flat="localOptions.flat"
            :class="localOptions.className"
            :style="localOptions.style"
@@ -100,6 +102,7 @@ export default {
         rightIcon: false,
         label: null,
         flat: false,
+        outline: false,
         callBack: null,
         imageSource: null,
         className: null,
@@ -197,7 +200,8 @@ export default {
           xs: true
         },
         boxShadows: [],
-        hideInAuth: false,
+        showInAuth: false,
+        displayAuth: false,
         drawer: {
           overlay: true,
           bordered: true,
@@ -212,6 +216,12 @@ export default {
   computed: {
     hideInAuth() {
       return this.localOptions.hideInAuth ? this.isUserLogin : false
+    },
+    displayAuth() {
+      if (!this.localOptions.displayAuth) {
+        return true
+      }
+      return this.localOptions.showInAuth ? this.isUserLogin : !this.isUserLogin
     },
     shadows () {
       const shadows = []
@@ -349,7 +359,7 @@ $responsiveSpacing: (
     paddingBottom: v-bind('localOptions.responsiveSpacing.xl.paddingBottom'),
   )
 );
-$hideInAuth : v-bind('hideInAuth ? "none" :  "initial"');
+$displayAuth : v-bind('displayAuth ? "initial" :  "none"');
 .drawer {
   z-index: 100;
 
@@ -365,7 +375,7 @@ $hideInAuth : v-bind('hideInAuth ? "none" :  "initial"');
   .action-btn {
     @include media-query-spacings($responsiveSpacing, $sizes);
     box-shadow: $shadows;
-    display: $hideInAuth;
+    display: $displayAuth;
     border-radius: v-bind('localOptions.borderRadius');
     &.fixed-btn {
       position: fixed;
