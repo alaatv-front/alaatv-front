@@ -12,27 +12,112 @@
         </div>
         <div class="slogan-chance">
           <div class="slogan-chance__text">شانس امروز : </div>
-          <div class="slogan-chance__number">۱ عدد</div>
+          <div class="slogan-chance__number">{{ blackFridayCampaignData.chance }} عدد</div>
         </div>
       </div>
       <div class="slogan-body">
         به مدت ۷ روز، هر روز شانس برنده شدن "سرعت بی نهایت" یا همون ثبت نام رایگان توی همه دوره های آلا تا کنکور ۱۴۰۳ داری. این یعنی، سرعت بی نهایت به سمت هدفت. آلا همیشه کنارته رفیق!
       </div>
     </div>
-    <div class="participation-action">
-      امتحان کن!
+    <div class="participation-action"
+         @click="participateInLottery">
+      <div class="participation-action_message">
+        <div class="participation-action_message__text">امتحان</div>
+        <div class="participation-action_message__text">کــــن!</div>
+      </div>
     </div>
+    <q-dialog v-model="dialog">
+      <inside-dialog :state="dialogState"
+                     :coupon-title="coupon.discount_in_letters"
+                     :coupon-code="coupon.code" />
+    </q-dialog>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
 import LazyImg from 'components/lazyImg.vue'
+import { BlackFridayCampaignData } from 'src/models/BlackFridayCampaignData.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+import InsideDialog from 'src/components/Widgets/BlackFriday/BlackFridayParticipation/InsideDialog.vue'
 
 export default defineComponent({
   name: 'BlackFridayParticipation',
   components: {
-    LazyImg
+    LazyImg,
+    InsideDialog
+  },
+  data() {
+    return {
+      dialog: false,
+      blackFridayCampaignData: new BlackFridayCampaignData(),
+      dialogState: null,
+      code: null,
+      message: null,
+      coupon: null
+    }
+  },
+  computed: {
+    selectedVideoIndex () {
+      if (this.blackFridayCampaignData.videos.list.length === 0) {
+        return null
+      }
+
+      const selectedVideoIndex = this.blackFridayCampaignData.videos.list.findIndex(video => video.selected)
+      if (selectedVideoIndex !== -1) {
+        return selectedVideoIndex
+      }
+
+      return this.getLastActiveIndex()
+    }
+  },
+  mounted() {
+    this.getBlackFridayCampaignData()
+  },
+  methods: {
+    participateInLottery() {
+      APIGateway.blackFriday.participateInLottery()
+        .then(codeMessageCoupon => {
+          this.code = codeMessageCoupon.code
+          this.message = codeMessageCoupon.message
+          this.coupon = codeMessageCoupon.coupon
+
+          if (this.code === 1) {
+            this.dialogState = 'participate-success-infinity'
+          } else if (this.code === 2) {
+            this.dialogState = 'participate-success-coupon'
+          } else if (this.code === 3) {
+            if (this.selectedVideoIndex === this.blackFridayCampaignData.videos.list.length - 1) {
+              this.dialogState = 'participate-fail-no-chance'
+            }
+            this.dialogState = 'participate-fail-has-chance'
+          }
+          this.dialog = true
+
+          this.getBlackFridayCampaignData()
+        })
+    },
+    getBlackFridayCampaignData () {
+      this.blackFridayCampaignData.loading = true
+      APIGateway.blackFriday.getCampaignData()
+        .then((blackFridayCampaignData) => {
+          this.blackFridayCampaignData = new BlackFridayCampaignData(blackFridayCampaignData)
+          this.blackFridayCampaignData.loading = false
+        })
+        .catch(() => {
+          this.blackFridayCampaignData.loading = false
+        })
+    },
+    getLastActiveIndex () {
+      let activeIndex = 0
+      this.blackFridayCampaignData.videos.list.forEach((video, videoIndex) => {
+        if (video.is_active && activeIndex < videoIndex) {
+          activeIndex = videoIndex
+        }
+      })
+
+      return activeIndex
+    }
   }
 })
 </script>
@@ -52,15 +137,30 @@ export default defineComponent({
 
   @media screen and (max-width: 1919px) {
     background: url('https://nodes.alaatv.com/upload/alaaPages/2023-11/19201699707964.png');
+    background-repeat: no-repeat;
   }
   @media screen and (max-width: 1439px) {
     background: url('https://nodes.alaatv.com/upload/alaaPages/2023-11/10241699714534.png');
+    background-repeat: no-repeat;
+    height: 178.399px;
+    padding: 37.5px 32px 0;
   }
   @media screen and (max-width: 1023px) {
     background: url('https://nodes.alaatv.com/upload/alaaPages/2023-11/6001699714668.png');
+    background-repeat: no-repeat;
+    height: 490.399px;
+    padding: 40px 40px 0px 40px;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1 0 0;
   }
   @media screen and (max-width: 599px) {
     background: url('https://nodes.alaatv.com/upload/alaaPages/2023-11/3601699714708.png');
+    height: 459.39px;
+    padding: 32px 32px 0px 32px;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1 0 0;
   }
 
   .participation-slogan {
@@ -72,6 +172,10 @@ export default defineComponent({
 
     @media screen and (max-width: 1439px) {
       max-width: 261px;
+    }
+
+    @media screen and (max-width: 1023px) {
+      max-width: 100%;
     }
 
     .slogan-header {
@@ -98,6 +202,11 @@ export default defineComponent({
           font-weight: 900;
           line-height: normal;
           letter-spacing: -0.72px;
+
+          @media screen and (max-width: 1439px) {
+            font-size: 16px;
+            letter-spacing: -0.48px;
+          }
         }
       }
 
@@ -111,6 +220,11 @@ export default defineComponent({
         font-weight: 900;
         line-height: normal;
         letter-spacing: -0.48px;
+
+        @media screen and (max-width: 1439px) {
+          font-size: 14px;
+          letter-spacing: -0.42px;
+        }
 
         &__number {
           margin-left: 1px;
@@ -126,14 +240,22 @@ export default defineComponent({
       line-height: normal;
       letter-spacing: -0.54px;
       margin-top: 16px;
+
+      @media screen and (max-width: 1439px) {
+        font-size: 14px;
+        letter-spacing: -0.42px;
+      }
+
+      @media screen and (max-width: 1439px) {
+        text-align: center;
+        margin-bottom: 50.7px;
+      }
     }
   }
 
   .participation-action {
-    position: absolute;
-    left: 45%;
+    margin: 21.8px auto 0 102.8px;
     display: inline-flex;
-    align-self: center;
     height: 97.2px;
     padding: 19.2px 19.2px 17.84px 14px;
     align-items: center;
@@ -147,6 +269,46 @@ export default defineComponent({
     animation-name: ripple;
     animation-duration: 1.5s;
     animation-iteration-count: infinite;
+
+    @media screen and (max-width: 1439px) {
+      margin: 19.44px auto 0 70.24px;
+      height: 77.759px;
+      width: 77.759px;
+      padding: 15.376px 12.76px 13.256px 10.4px;
+      border-radius: 64.8px;
+      box-shadow: 3.6px 3.6px 9.36px 0px rgba(198, 75, 58, 0.90), -3.6px -3.6px 7.2px 0px rgba(242, 91, 70, 0.90), 3.6px -3.6px 7.2px 0px rgba(198, 75, 58, 0.20), -3.6px 3.6px 7.2px 0px rgba(198, 75, 58, 0.20), -0.72px -0.72px 1.44px 0px rgba(198, 75, 58, 0.50) inset, 0.72px 0.72px 1.44px 0px rgba(242, 91, 70, 0.30) inset;
+    }
+
+    @media screen and (max-width: 1023px) {
+      margin: 0 auto !important;
+    }
+
+    &_message {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      text-align: center;
+
+      &__text {
+        margin: 0 auto;
+        text-align: center;
+        color:#D14835;
+        text-align: right;
+        font-family: ModamFaNumWeb;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 900;
+        line-height: normal;
+        letter-spacing: -0.72px;
+
+        @media screen and (max-width: 1439px) {
+          font-size: 20px;
+          letter-spacing: -0.6px;
+        }
+      }
+    }
   }
 }
 

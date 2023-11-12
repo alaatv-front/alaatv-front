@@ -16,7 +16,7 @@ export default class BlackFridayAPI extends APIRepository {
     }
   }
 
-  getCampaignData (cache = { TTL: 1000 }) {
+  getCampaignData(cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -32,7 +32,7 @@ export default class BlackFridayAPI extends APIRepository {
     })
   }
 
-  participateInLottery (cache = { TTL: 1000 }) {
+  participateInLottery() {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -50,7 +50,7 @@ export default class BlackFridayAPI extends APIRepository {
     })
   }
 
-  getCouponByWatchVideo (data, cache = { TTL: 1000 }) {
+  getCouponByWatchVideo(data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
