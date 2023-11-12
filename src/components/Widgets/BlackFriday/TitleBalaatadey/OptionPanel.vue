@@ -130,9 +130,6 @@ export default defineComponent({
         }
       }
     }
-  },
-  mounted() {
-    console.log(this.localOptions)
   }
 })
 </script>
