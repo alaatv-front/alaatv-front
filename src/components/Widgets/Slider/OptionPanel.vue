@@ -1,63 +1,64 @@
 <template>
   <option-panel-tabs v-model:options="localOptions">
     <template #main-tab>
-      <div class="option-panel-container">
-        <div class="row items-center q-my-md">
-          <q-btn size="md"
-                 class="q-py-lg"
-                 color="green-7"
-                 label="افزودن بنر"
-                 round
-                 dense
-                 icon="add"
-                 @click="addBanner" />
-        </div>
-        <q-table dir="rtl"
-                 title="جدول اسلایدها"
-                 :rows="rows"
-                 :columns="columns"
-                 row-key="name">
-          <template v-slot:body-cell-view="props">
-            <q-td key="view"
-                  :props="props"
-                  auto-width>
-              <q-btn size="sm"
-                     color="secondary"
-                     round
-                     dense
-                     :icon="'edit'"
-                     @click="showFullBanner(props.row.name)" />
-            </q-td>
-          </template>
-          <template v-slot:body-cell-photo="props">
-            <q-td key="photo"
-                  class="thumbnail"
-                  :props="props"
-                  auto-width>
-              <lazy-img :src="props.row.photo"
-                        class="full-width" />
-            </q-td>
-          </template>
-          <template v-slot:body-cell-remove="props">
-            <q-td key="view"
-                  :props="props"
-                  auto-width>
-              <q-btn class="q-mr-lg"
-                     size="sm"
-                     color="red-8"
-                     round
-                     dense
-                     :icon="'delete'"
-                     @click="removeBanner(props.row.name)" />
-            </q-td>
-          </template>
-        </q-table>
-      </div>
+      <q-table dir="rtl"
+               :rows="rows"
+               :columns="columns"
+               row-key="name">
+        <template #top>
+          <div class="col-md-6 col-12">
+            جدول اسلایدها
+          </div>
+          <div class="col-md-6 col-12 flex justify-end">
+            <q-btn size="md"
+                   class="q-py-lg"
+                   color="green-7"
+                   label="افزودن بنر"
+                   dense
+                   icon="add"
+                   @click="addBanner" />
+          </div>
+        </template>
+        <template v-slot:body-cell-view="props">
+          <q-td key="view"
+                :props="props"
+                auto-width>
+            <q-btn size="sm"
+                   color="secondary"
+                   round
+                   dense
+                   :icon="'edit'"
+                   @click="showFullBanner(props.row.name)" />
+          </q-td>
+        </template>
+        <template v-slot:body-cell-photo="props">
+          <q-td key="photo"
+                class="thumbnail"
+                :props="props"
+                auto-width>
+            <lazy-img :src="props.row.photo"
+                      class="full-width" />
+          </q-td>
+        </template>
+        <template v-slot:body-cell-remove="props">
+          <q-td key="view"
+                :props="props"
+                auto-width>
+            <q-btn class="q-mr-lg"
+                   size="sm"
+                   color="red-8"
+                   round
+                   dense
+                   :icon="'delete'"
+                   @click="removeBanner(props.row.name)" />
+          </q-td>
+        </template>
+      </q-table>
     </template>
   </option-panel-tabs>
   <q-dialog v-model="expandBanner">
     <q-card>
-      <q-card-section class="q-pb-none">
+      <q-card-section>
         <q-btn v-close-popup
                icon="close"
                flat
@@ -109,53 +110,54 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-12">
-            <h6 class="q-mb-md">تک عکس (singel image)</h6>
-            <banner-preview v-model:banner="selectedSlide"
-                            v-model:options="localOptions"
-                            @update:src="updateSrc" />
-          </div>
+        <div>
+          <h6 class="q-mb-md">تک عکس (singel image)</h6>
+          <banner-preview v-model:banner="selectedSlide"
+                          v-model:options="localOptions"
+                          @update:src="updateSrc" />
         </div>
-        <q-table dir="rtl"
-                 title="جدول رسپانسیو (multuple images)"
-                 :rows="responsiveRows"
-                 :columns="responsiveColumns"
-                 row-key="name">
-          <template v-slot:body-cell-view="props">
-            <q-td key="view"
-                  :props="props"
-                  auto-width>
-              <q-btn size="sm"
-                     color="secondary"
-                     round
-                     dense
-                     :icon="'edit'"
-                     @click="showFullResponsiveBanner(props.row.name)" />
-            </q-td>
-          </template>
-          <template v-slot:body-cell-thumbnail="props">
-            <q-td key="thumbnail"
-                  class="thumbnail"
-                  :props="props"
-                  auto-width>
-              <lazy-img :src="props.row.thumbnail" />
-            </q-td>
-          </template>
-          <template v-slot:body-cell-remove="props">
-            <q-td key="view"
-                  :props="props"
-                  auto-width>
-              <q-btn class="q-mr-lg"
-                     size="sm"
-                     color="red-8"
-                     round
-                     dense
-                     :icon="'delete'"
-                     @click="removeSizeFeatures(props.row.name)" />
-            </q-td>
-          </template>
-        </q-table>
+        <div>
+          <q-table dir="rtl"
+                   title="جدول رسپانسیو (multuple images)"
+                   :rows="responsiveRows"
+                   :columns="responsiveColumns"
+                   row-key="name">
+            <template v-slot:body-cell-view="props">
+              <q-td key="view"
+                    :props="props"
+                    auto-width>
+                <q-btn size="sm"
+                       color="secondary"
+                       round
+                       dense
+                       :icon="'edit'"
+                       @click="showFullResponsiveBanner(props.row.name)" />
+              </q-td>
+            </template>
+            <template v-slot:body-cell-thumbnail="props">
+              <q-td key="thumbnail"
+                    class="thumbnail"
+                    :props="props"
+                    auto-width>
+                <lazy-img :src="props.row.thumbnail"
+                          class="full-width" />
+              </q-td>
+            </template>
+            <template v-slot:body-cell-remove="props">
+              <q-td key="view"
+                    :props="props"
+                    auto-width>
+                <q-btn class="q-mr-lg"
+                       size="sm"
+                       color="red-8"
+                       round
+                       dense
+                       :icon="'delete'"
+                       @click="removeSizeFeatures(props.row.name)" />
+              </q-td>
+            </template>
+          </q-table>
+        </div>
       </q-card-section>
     </q-card>
   </q-dialog>
