@@ -10,6 +10,10 @@
             <q-input v-model="localOptions.eventName"
                      label="Event Name" />
           </div>
+          <div class="input-container col-md-10">
+            <q-input v-model="localOptions.departmentId"
+                     label="Department Id" />
+          </div>
         </div>
       </div>
     </template>
@@ -37,7 +41,8 @@ export default defineComponent({
   data () {
     return {
       defaultOptions: {
-        eventName: null
+        eventName: null,
+        departmentId: null
       }
     }
   }
