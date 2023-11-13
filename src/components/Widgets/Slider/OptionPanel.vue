@@ -408,6 +408,15 @@ export default defineComponent({
         })
       }
     },
+    isVideo () {
+      return !!this.localOptions.video
+    },
+    isPhoto () {
+      return !!this.localOptions.photo
+    },
+    hasThumbnail () {
+      return this.isVideo() && this.isPhoto()
+    },
     updateTable() {
       for (let i = 0; i < this.localOptions.list.length; i++) {
         this.rows[i] = {

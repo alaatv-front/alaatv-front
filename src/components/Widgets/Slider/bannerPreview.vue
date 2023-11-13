@@ -53,14 +53,10 @@
       </q-tab-panel>
 
       <q-tab-panel name="video">
-        <div class="row col-12">
-          <div class="col-2">
-            <q-input v-model="video.width"
-                     label="width" />
-          </div>
-          <div class="col-2 q-mx-sm">
-            <q-input v-model="video.height"
-                     label="height" />
+        <div class="row q-col-gutter-md">
+          <div class="col-4">
+            <q-input v-model="video.ratio"
+                     label="ratio" />
           </div>
           <div class="col-7">
             <image-upload-inputs v-model:value="video.src" />
