@@ -199,8 +199,17 @@ export default defineComponent({
           padding: 15px;
         }
         border-radius: 100px;
-        background: #5E57AC;
         box-shadow: 0 0 32px 0 rgba(51, 51, 51, 0.09);
+      }
+      &.lock {
+        .q-btn {
+          background: #2F2A5B;
+        }
+      }
+      &.unlock:not(.current) {
+        .q-btn {
+          background: #5E57AC;
+        }
       }
       &.current {
         position: relative;
