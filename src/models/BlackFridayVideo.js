@@ -12,7 +12,7 @@ class BlackFridayVideo extends Model {
       { key: 'title' },
       { key: 'description' },
       { key: 'coupon_display_title' }, // جایزه 300 هزار تومانی
-      { key: 'is_actice' },
+      { key: 'is_active' },
       { key: 'has_played' },
       { key: 'has_watched' },
       { key: 'includes_coupon' },

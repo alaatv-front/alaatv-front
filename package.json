@@ -62,7 +62,7 @@
     "quasar-crud": "^0.3.49",
     "quasar-form-builder": "^0.1.110",
     "quasar-template-builder": "^1.0.23",
-    "quasar-ui-q-page-builder": "^0.1.71",
+    "quasar-ui-q-page-builder": "^0.2.0",
     "socket.io-client": "^4.7.2",
     "sticky-sidebar-v2": "^1.1.1",
     "video.js": "^8.5.2",

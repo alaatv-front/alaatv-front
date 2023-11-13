@@ -1,5 +1,6 @@
 <template>
-  <option-panel-tabs v-model:options="localOptions">
+  <option-panel-tabs v-model:options="localOptions"
+                     :show-action-tab="true">
     <template #main-tab>
       <div class="option-panel-container q-my-md">
         <q-tabs v-model="responsiveTab">
@@ -105,6 +106,14 @@ export default {
             width: null,
             height: null
           }
+        },
+        action: {
+          hasAction: false,
+          actionName: null,
+          scrollTo: null,
+          route: null,
+          eventName: null,
+          eventArgs: null
         }
       }
     }
