@@ -72,6 +72,14 @@ export default {
             width: null,
             height: null
           }
+        },
+        action: {
+          hasAction: false,
+          actionName: null,
+          scrollTo: null,
+          route: null,
+          eventName: null,
+          eventArgs: null
         }
       }
     }
