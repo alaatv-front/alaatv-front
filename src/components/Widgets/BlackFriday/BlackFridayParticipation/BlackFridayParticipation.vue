@@ -271,7 +271,7 @@ export default defineComponent({
     margin: 21.8px auto 0 102.8px;
     display: inline-flex;
     height: 97.2px;
-    padding: 19.2px 19.2px 17.84px 14px;
+    padding: 19.2px 14px 17.84px 19.2px;
     align-items: center;
     flex-shrink: 0;
     height: 97.2px;
@@ -288,7 +288,7 @@ export default defineComponent({
       margin: 19.44px auto 0 70.24px;
       height: 77.759px;
       width: 77.759px;
-      padding: 15.376px 12.76px 13.256px 10.4px;
+      padding: 15.376px 10.4px 13.256px 12.76px;
       border-radius: 64.8px;
       box-shadow: 3.6px 3.6px 9.36px 0px rgba(198, 75, 58, 0.90), -3.6px -3.6px 7.2px 0px rgba(242, 91, 70, 0.90), 3.6px -3.6px 7.2px 0px rgba(198, 75, 58, 0.20), -3.6px 3.6px 7.2px 0px rgba(198, 75, 58, 0.20), -0.72px -0.72px 1.44px 0px rgba(198, 75, 58, 0.50) inset, 0.72px 0.72px 1.44px 0px rgba(242, 91, 70, 0.30) inset;
     }
