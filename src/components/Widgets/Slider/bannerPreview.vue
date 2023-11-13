@@ -53,7 +53,7 @@
       </q-tab-panel>
 
       <q-tab-panel name="video">
-        <div class="row col-12">
+        <div class="row q-col-gutter-md">
           <div class="col-2">
             <q-input v-model="video.width"
                      label="width" />
@@ -66,8 +66,9 @@
             <image-upload-inputs v-model:value="video.src" />
           </div>
           <div class="col-12">
-            <q-video src="https://dl6.webmfiles.org/big-buck-bunny_trailer.webm"
-                     :ratio="16/9"
+            <!--            https://dl6.webmfiles.org/big-buck-bunny_trailer.webm-->
+            <q-video :src="video.src"
+                     :ratio="video.width / video.height"
                      class="full-width" />
           </div>
         </div>
@@ -109,8 +110,8 @@ export default {
       },
       video: {
         src: '',
-        width: 0,
-        height: 0
+        width: 16,
+        height: 9
       }
     }
   },
@@ -120,6 +121,9 @@ export default {
     },
     'image.src'(src) {
       this.updateImage(src)
+    },
+    'video.src'(src) {
+      this.updateVideo(src)
     }
   },
   created() {
@@ -140,7 +144,7 @@ export default {
         this.image.width = this.img.width
         this.image.height = this.img.height
         this.visible = false
-        this.$emit('update:src', {
+        this.$emit('updateImage', {
           src,
           size: this.size,
           width: this.image.width,
@@ -150,6 +154,14 @@ export default {
       this.img.onerror = () => {
         this.visible = false
       }
+    },
+    updateVideo (src) {
+      this.$emit('updateVideo', {
+        src,
+        size: this.size,
+        width: this.video.width,
+        height: this.video.height
+      })
     }
   }
 }

@@ -114,7 +114,8 @@
           <h6 class="q-mb-md">تک عکس (singel image)</h6>
           <banner-preview v-model:banner="selectedSlide"
                           v-model:options="localOptions"
-                          @update:src="updateSrc" />
+                          @updateImage="updateImage"
+                          @updateVideo="updateVideo" />
         </div>
         <div>
           <q-table dir="rtl"
@@ -174,7 +175,8 @@
         <banner-preview v-model:banner="selectedSlide"
                         v-model:options="localOptions"
                         :size="selectedResponsiveSize"
-                        @update:src="updateSrc" />
+                        @updateImage="updateImage"
+                        @updateVideo="updateVideo" />
       </q-card-section>
     </q-card>
   </q-dialog>
@@ -408,6 +410,15 @@ export default defineComponent({
         })
       }
     },
+    isVideo () {
+      return !!this.localOptions.video
+    },
+    isPhoto () {
+      return !!this.localOptions.photo
+    },
+    hasThumbnail () {
+      return this.isVideo() && this.isPhoto()
+    },
     updateTable() {
       for (let i = 0; i < this.localOptions.list.length; i++) {
         this.rows[i] = {
@@ -441,7 +452,7 @@ export default defineComponent({
         })
       })
     },
-    updateSrc (data) {
+    updateImage (data) {
       this.localOptions.list[this.selectedBannerIndex].features[data.size].width = data.width
       this.localOptions.list[this.selectedBannerIndex].features[data.size].height = data.height
       if (data.size) {
@@ -450,6 +461,19 @@ export default defineComponent({
         this.responsiveRows[index].thumbnail = data.src
       } else {
         this.localOptions.list[this.selectedBannerIndex].photo.src = data.src
+      }
+
+      this.$emit('update:options', this.localOptions)
+    },
+    updateVideo (data) {
+      this.localOptions.list[this.selectedBannerIndex].features[data.size].videoWidth = data.width
+      this.localOptions.list[this.selectedBannerIndex].features[data.size].videoHeight = data.height
+      if (data.size) {
+        this.localOptions.list[this.selectedBannerIndex].features[data.size].videoSrc = data.src
+        const index = this.responsiveRows.findIndex(row => row.name === data.size)
+        this.responsiveRows[index].videoSrc = data.src
+      } else {
+        this.localOptions.list[this.selectedBannerIndex].video.src = data.src
       }
 
       this.$emit('update:options', this.localOptions)

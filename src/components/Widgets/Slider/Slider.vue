@@ -210,6 +210,83 @@ export default {
         height: '0'
       }
       let result = {}
+      // this.$q.screen.sizes.md
+      // console.log('this.$q.screen', this.$q.screen)
+      console.log('this.$q.screen.name', this.$q.screen.name)
+      // console.log('this.$q.screen.sizes', this.$q.screen.sizes)
+      // console.log('this.$q.screen.gt', this.$q.screen.gt)
+      const sizeToNumberMap = {
+        xs: 0,
+        sm: 1,
+        md: 2,
+        lg: 3,
+        xl: 4
+      }
+      function getNameBySize (size) {
+        return Object.keys(sizeToNumberMap).find(item => sizeToNumberMap[item] === size)
+      }
+      function getKeyOfLTSize (features, key, sizeName) {
+        const pageSize = sizeToNumberMap[sizeName]
+
+        const ltSize = pageSize - 1
+        return features[sizeName]?.key || getKeyOfLTSize(features, key, getNameBySize(ltSize))
+        // const ltName = getNameBySize(ltSize)
+        // if (!ltName) {
+        //   return null
+        // }
+        //
+        // return getKeyOfLTSize(features, key, ltName)
+      }
+
+      function getKeyOfGTSize (features, key, sizeName) {
+        const pageSize = sizeToNumberMap[sizeName]
+
+        const gtSize = pageSize + 1
+        return features[sizeName]?.key || getKeyOfGTSize(features, key, getNameBySize(gtSize))
+        // const gtName = getNameBySize(gtSize)
+        // if (!gtName) {
+        //   return null
+        // }
+        //
+        // return getKeyOfGTSize(features, key, gtName)
+      }
+
+      const getKeyFromSize = (features, key) => {
+        if (features[this.$q.screen.name]?.key) {
+          return features[this.$q.screen.name].key
+        }
+        const keyOfLTSize = getKeyOfLTSize(features, key, this.$q.screen.name)
+        if (keyOfLTSize) {
+          return keyOfLTSize
+        }
+
+        return getKeyOfGTSize(features, key, this.$q.screen.name)
+      }
+
+      const gg = getKeyFromSize(features, 'src')
+      console.log('gg', gg)
+
+      if (this.windowWidth >= 1920) {
+        result = features.xl.src !== '' ? features.xl : features.lg.src !== '' ? features.lg : features.sm.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs
+      } else if (this.windowWidth <= 1919 && this.windowWidth >= 1440) {
+        result = features.lg.src !== '' ? features.lg : features.md.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.xl
+      } else if (this.windowWidth <= 1439 && this.windowWidth >= 1024) {
+        result = features.md.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.lg.src !== '' ? features.lg : features.xl
+      } else if (this.windowWidth <= 1023 && this.windowWidth >= 600) {
+        result = features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.md.src !== '' ? features.md : features.lg.src !== '' ? features.lg : features.xl
+      } else if (this.windowWidth <= 599) {
+        result = features.xs.src !== '' ? features.xs : features.sm.src !== '' ? features.sm : features.md.src !== '' ? features.md : features.lg.src !== '' ? features.lg : features.xl
+      }
+
+      return Object.assign(defaultResult, result)
+    },
+    responsiveFeaturesForVideo (features) {
+      const defaultResult = {
+        src: '',
+        width: '0',
+        height: '0'
+      }
+      let result = {}
       if (this.windowWidth >= 1920) {
         result = features.xl.src !== '' ? features.xl : features.lg.src !== '' ? features.lg : features.sm.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs
       } else if (this.windowWidth <= 1919 && this.windowWidth >= 1440) {
@@ -228,6 +305,14 @@ export default {
       if (slide.useAEEEvent) {
         this.pushClickedEvent(slide)
       }
+    },
+    hasVideo (slide) {
+      // const hasSimpleVideo = !!slide.video.src
+      // const hasResponsiveVideo = this.responsiveFeatures(slide.features)
+      // const hasResponsiveVideo = !!slide.video.src
+    },
+    hasPhoto (slide) {
+      return !!slide.photo.src
     }
   }
 }
