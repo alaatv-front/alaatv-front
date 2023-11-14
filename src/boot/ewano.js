@@ -1,6 +1,6 @@
 import { boot } from 'quasar/wrappers'
-import Ewano from 'assets/js/Ewano.js'
 import { createMetaMixin } from 'quasar'
+import Ewano from 'src/assets/js/Ewano.js'
 
 export default boot(({ app, router }) => {
   function hasEwanoQuery (route) {

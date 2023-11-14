@@ -57,8 +57,8 @@ export default {
     if (!this.isEwanoUser) {
       return
     }
-
-    this.$bus.on('ewano-payment-result', (status) => {
+    window.document.addEventListener('ewano-payment-result', (event) => {
+      const status = event.detail.status
       this.checkEwanoPaymentResult(status)
     })
 

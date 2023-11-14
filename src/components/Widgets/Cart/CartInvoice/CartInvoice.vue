@@ -355,7 +355,8 @@ export default {
     this.cartReview()
     this.getGateways()
     this.$bus.on('busEvent-refreshCart', this.cartReview)
-    this.$bus.on('ewano-payment-result', (status) => {
+    window.document.addEventListener('ewano-payment-result', (event) => {
+      const status = event.detail.status
       console.warn('CartInvoice->$bus.on->status: ', status)
       if (!this.ewanoCallbackUrlRouteObject?.query) {
         return
