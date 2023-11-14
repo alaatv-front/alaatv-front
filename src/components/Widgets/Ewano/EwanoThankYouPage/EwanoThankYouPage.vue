@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import Ewano from 'src/assets/js/Ewano.js'
 import mixinAuthData from 'src/mixin/AuthData.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
