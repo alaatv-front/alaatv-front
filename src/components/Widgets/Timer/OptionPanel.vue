@@ -78,7 +78,7 @@
           </div>
           <div class="row q-col-gutter-sm q-my-md">
             <div class="col-12 col-md-1 flex flex-center">
-              کانتر ها :
+              شمارنده ها :
             </div>
             <div class="col-12 col-md-9">
               <q-checkbox v-model="localOptions.counters.seconds"
@@ -97,10 +97,9 @@
           </div>
           <div class="row q-col-gutter-sm">
             <div class="col-3">
-              <div class="text-title">timerColor</div>
               <q-input v-model="localOptions.timerStyle.timerColor"
                        filled
-                       label="رنگ کانتر">
+                       label="رنگ شمارنده">
                 <template v-slot:append>
                   <q-icon name="colorize"
                           class="cursor-pointer">
@@ -114,10 +113,9 @@
               </q-input>
             </div>
             <div class="col-3">
-              <div class="text-title">timerBackground</div>
               <q-input v-model="localOptions.timerStyle.timerBackground"
                        filled
-                       label="رنگ پس زمینه کانتر">
+                       label="رنگ پس زمینه شمارنده">
                 <template v-slot:append>
                   <q-icon name="colorize"
                           class="cursor-pointer">
@@ -131,13 +129,11 @@
               </q-input>
             </div>
             <div class="col-3">
-              <div class="text-title">سایز کانتر</div>
               <q-input v-model="localOptions.timerStyle.timerSize"
                        type="text"
-                       label="سایز کانتر" />
+                       label="سایز شمارنده" />
             </div>
             <div class="col-3">
-              <div class="text-title">secondsBackground</div>
               <q-input v-model="localOptions.timerStyle.secondsBackground"
                        filled
                        label="رنگ پس زمینه ثانیه">
@@ -154,10 +150,9 @@
               </q-input>
             </div>
             <div class="col-3">
-              <div class="text-title">رنگ عنوان کانتر</div>
               <q-input v-model="localOptions.timerStyle.timerLabelColor"
                        filled
-                       label="رنگ عنوان کانتر">
+                       label="رنگ عنوان شمارنده">
                 <template v-slot:append>
                   <q-icon name="colorize"
                           class="cursor-pointer">
@@ -171,9 +166,9 @@
               </q-input>
             </div>
             <div class="col-3">
-              <div class="text-title">timerLabelBackground</div>
               <q-input v-model="localOptions.timerStyle.timerLabelBackground"
                        filled
+                       label="پس زمینه عنوان شمارنده"
                        class="my-input">
                 <template v-slot:append>
                   <q-icon name="colorize"
@@ -188,13 +183,11 @@
               </q-input>
             </div>
             <div class="col-3">
-              <div class="text-title">timerLabelSize</div>
               <q-input v-model="localOptions.timerStyle.timerLabelSize"
                        type="text"
-                       label="timerLabelSize" />
+                       label="سایز عنوان تایمر" />
             </div>
             <div class="col-3">
-              <div class="text-title">counterBorderRadius</div>
               <q-slider v-model="localOptions.timerStyle.counterBorderRadius"
                         :min="0"
                         :max="100"
@@ -204,35 +197,35 @@
                         color="primary" />
             </div>
             <div class="col-3">
-              <div class="text-title">counterWidth</div>
               <q-input v-model="localOptions.timerStyle.counterWidth"
                        type="text"
-                       label="عرض کانتر" />
+                       label="عرض شمارنده" />
             </div>
             <div class="col-3">
-              <div class="text-title">counterHeight</div>
               <q-input v-model="localOptions.timerStyle.counterHeight"
                        type="text"
-                       label="ارتفاع کانتر" />
+                       label="ارتفاع شمارنده" />
             </div>
             <div class="col-3">
-              <div class="text-title">counterMargin</div>
               <q-input v-model="localOptions.timerStyle.counterMargin"
                        type="text"
-                       label="فاصله خارجی کانتر" />
+                       label="فاصله خارجی شمارنده" />
             </div>
             <div class="col-3">
-              <div class="text-title">counterPadding</div>
               <q-input v-model="localOptions.timerStyle.counterPadding"
                        type="text"
-                       label="فاصله داخلی کانتر" />
+                       label="فاصله داخلی شمارنده" />
             </div>
             <div class="col-3">
-              <div class="text-title">theme</div>
+              <q-input v-model="localOptions.timerStyle.fontFamily"
+                       type="text"
+                       label="font family" />
+            </div>
+            <div class="col-3">
               <q-select v-model="localOptions.theme"
                         :options="themeOptions"
                         type="text"
-                        label="فاصله داخلی کانتر" />
+                        label="theme" />
             </div>
           </div>
         </q-expansion-item>
