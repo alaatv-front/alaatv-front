@@ -441,6 +441,9 @@ export default defineComponent({
     showFullResponsiveBanner(name) {
       this.expandResponsiveBanner = true
       this.selectedSlide.features[name].src = this.localOptions.list[this.selectedBannerIndex].features[name].src
+      this.selectedSlide.features[name].videoSrc = this.localOptions.list[this.selectedBannerIndex].features[name].videoSrc
+      this.selectedSlide.features[name].videoWidth = this.localOptions.list[this.selectedBannerIndex].features[name].videoWidth
+      this.selectedSlide.features[name].videoHeight = this.localOptions.list[this.selectedBannerIndex].features[name].videoHeight
       this.selectedResponsiveSize = name
     },
     updateResponsiveRows() {

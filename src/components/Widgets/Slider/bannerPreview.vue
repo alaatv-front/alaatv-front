@@ -67,9 +67,16 @@
           </div>
           <div class="col-12">
             <!--            https://dl6.webmfiles.org/big-buck-bunny_trailer.webm-->
-            <q-video :src="video.src"
-                     :ratio="video.width / video.height"
-                     class="full-width" />
+            <!--            <q-video :src="video.src"-->
+            <!--                     :ratio="video.width / video.height"-->
+            <!--                     class="full-width" />-->
+            <video autoplay
+                   loop
+                   muted
+                   class="full-width">
+              <source :src="banner.video.src || banner.features[size].videoSrc">
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
       </q-tab-panel>

@@ -30,18 +30,40 @@
                  :href="slide.link"
                  class="slider-parent"
                  @click="takeAction(slide)">
-        <lazy-img v-if="slide.photo.src !== ''"
-                  :height="slide.photo.height"
-                  :width="slide.photo.width"
-                  :src="slide.photo.src"
-                  :alt="slide.title"
-                  class="slider-image" />
-        <lazy-img v-else
-                  :height="responsiveFeatures(slide.features).height"
-                  :width="responsiveFeatures(slide.features).width"
-                  :src="responsiveFeatures(slide.features).src"
-                  :alt="slide.title"
-                  class="slider-image" />
+        <template v-if="hasPhoto(slide) && !hasVideo(slide)">
+          <lazy-img v-if="slide.photo.src !== ''"
+                    :height="slide.photo.height"
+                    :width="slide.photo.width"
+                    :src="slide.photo.src"
+                    :alt="slide.title"
+                    class="slider-image" />
+          <lazy-img v-else
+                    :height="responsiveFeaturesForPhoto(slide.features).height"
+                    :width="responsiveFeaturesForPhoto(slide.features).width"
+                    :src="responsiveFeaturesForPhoto(slide.features).src"
+                    :alt="slide.title"
+                    class="slider-image" />
+        </template>
+        <template v-if="hasVideo(slide)">
+          <video autoplay
+                 loop
+                 muted
+                 class="full-width">
+            <source :src="slide.video?.src || responsiveFeaturesForVideo(slide.features).videoSrc">
+            Your browser does not support the video tag.
+          </video>
+
+          <!--          <q-video v-if="!!slide.video?.src"-->
+          <!--                   :ratio="slide.video?.width / video?.height"-->
+          <!--                   :src="slide.video?.src"-->
+          <!--                   :alt="slide.title"-->
+          <!--                   class="slider-image" />-->
+          <!--          <q-video v-else-->
+          <!--                   :ratio="getVideoRatio(responsiveFeaturesForVideo(slide.features))"-->
+          <!--                   :src="responsiveFeaturesForVideo(slide.features).videoSrc"-->
+          <!--                   :alt="slide.title"-->
+          <!--                   class="slider-image" />-->
+        </template>
         <q-tooltip v-if="slide.title"
                    :offset="[18, 18]">
           {{ slide.title }}
@@ -203,18 +225,25 @@ export default {
       }
       this.windowWidth = window.innerWidth
     },
-    responsiveFeatures (features) {
+    responsiveFeaturesForPhoto (features) {
       const defaultResult = {
         src: '',
         width: '0',
         height: '0'
       }
-      let result = {}
-      // this.$q.screen.sizes.md
-      // console.log('this.$q.screen', this.$q.screen)
-      console.log('this.$q.screen.name', this.$q.screen.name)
-      // console.log('this.$q.screen.sizes', this.$q.screen.sizes)
-      // console.log('this.$q.screen.gt', this.$q.screen.gt)
+      const result = this.getFeatureFromSizeCheckByKey(features, 'src')
+      return Object.assign(defaultResult, result)
+    },
+    responsiveFeaturesForVideo (features) {
+      const defaultResult = {
+        videoSrc: '',
+        videoWidth: 16,
+        videoHeight: 9
+      }
+      const result = this.getFeatureFromSizeCheckByKey(features, 'videoSrc')
+      return Object.assign(defaultResult, result)
+    },
+    getFeatureFromSizeCheckByKey (features, key) {
       const sizeToNumberMap = {
         xs: 0,
         sm: 1,
@@ -225,81 +254,35 @@ export default {
       function getNameBySize (size) {
         return Object.keys(sizeToNumberMap).find(item => sizeToNumberMap[item] === size)
       }
-      function getKeyOfLTSize (features, key, sizeName) {
+      function getFeatureSizeOfLTSize (features, key, sizeName) {
+        return getFeatureSizeWithCallback(features, key, sizeName, (pageSize) => pageSize - 1)
+      }
+
+      function getFeatureSizeOfGTSize (features, key, sizeName) {
+        return getFeatureSizeWithCallback(features, key, sizeName, (pageSize) => pageSize + 1)
+      }
+
+      function getFeatureSizeWithCallback (features, key, sizeName, cb) {
+        if (features[sizeName] && features[sizeName][key]) {
+          return features[sizeName]
+        }
         const pageSize = sizeToNumberMap[sizeName]
 
-        const ltSize = pageSize - 1
-        return features[sizeName]?.key || getKeyOfLTSize(features, key, getNameBySize(ltSize))
-        // const ltName = getNameBySize(ltSize)
-        // if (!ltName) {
-        //   return null
-        // }
-        //
-        // return getKeyOfLTSize(features, key, ltName)
-      }
-
-      function getKeyOfGTSize (features, key, sizeName) {
-        const pageSize = sizeToNumberMap[sizeName]
-
-        const gtSize = pageSize + 1
-        return features[sizeName]?.key || getKeyOfGTSize(features, key, getNameBySize(gtSize))
-        // const gtName = getNameBySize(gtSize)
-        // if (!gtName) {
-        //   return null
-        // }
-        //
-        // return getKeyOfGTSize(features, key, gtName)
-      }
-
-      const getKeyFromSize = (features, key) => {
-        if (features[this.$q.screen.name]?.key) {
-          return features[this.$q.screen.name].key
-        }
-        const keyOfLTSize = getKeyOfLTSize(features, key, this.$q.screen.name)
-        if (keyOfLTSize) {
-          return keyOfLTSize
+        const cbPageSize = cb(pageSize)
+        const screenName = getNameBySize(cbPageSize)
+        if (!screenName) {
+          return null
         }
 
-        return getKeyOfGTSize(features, key, this.$q.screen.name)
+        return getFeatureSizeWithCallback(features, key, screenName, cb)
       }
 
-      const gg = getKeyFromSize(features, 'src')
-      console.log('gg', gg)
-
-      if (this.windowWidth >= 1920) {
-        result = features.xl.src !== '' ? features.xl : features.lg.src !== '' ? features.lg : features.sm.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs
-      } else if (this.windowWidth <= 1919 && this.windowWidth >= 1440) {
-        result = features.lg.src !== '' ? features.lg : features.md.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.xl
-      } else if (this.windowWidth <= 1439 && this.windowWidth >= 1024) {
-        result = features.md.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.lg.src !== '' ? features.lg : features.xl
-      } else if (this.windowWidth <= 1023 && this.windowWidth >= 600) {
-        result = features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.md.src !== '' ? features.md : features.lg.src !== '' ? features.lg : features.xl
-      } else if (this.windowWidth <= 599) {
-        result = features.xs.src !== '' ? features.xs : features.sm.src !== '' ? features.sm : features.md.src !== '' ? features.md : features.lg.src !== '' ? features.lg : features.xl
+      const keyOfLTSize = getFeatureSizeOfLTSize(features, key, this.$q.screen.name)
+      if (keyOfLTSize) {
+        return keyOfLTSize
       }
 
-      return Object.assign(defaultResult, result)
-    },
-    responsiveFeaturesForVideo (features) {
-      const defaultResult = {
-        src: '',
-        width: '0',
-        height: '0'
-      }
-      let result = {}
-      if (this.windowWidth >= 1920) {
-        result = features.xl.src !== '' ? features.xl : features.lg.src !== '' ? features.lg : features.sm.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs
-      } else if (this.windowWidth <= 1919 && this.windowWidth >= 1440) {
-        result = features.lg.src !== '' ? features.lg : features.md.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.xl
-      } else if (this.windowWidth <= 1439 && this.windowWidth >= 1024) {
-        result = features.md.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.lg.src !== '' ? features.lg : features.xl
-      } else if (this.windowWidth <= 1023 && this.windowWidth >= 600) {
-        result = features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.md.src !== '' ? features.md : features.lg.src !== '' ? features.lg : features.xl
-      } else if (this.windowWidth <= 599) {
-        result = features.xs.src !== '' ? features.xs : features.sm.src !== '' ? features.sm : features.md.src !== '' ? features.md : features.lg.src !== '' ? features.lg : features.xl
-      }
-
-      return Object.assign(defaultResult, result)
+      return getFeatureSizeOfGTSize(features, key, this.$q.screen.name)
     },
     takeAction(slide) {
       if (slide.useAEEEvent) {
@@ -307,12 +290,20 @@ export default {
       }
     },
     hasVideo (slide) {
-      // const hasSimpleVideo = !!slide.video.src
-      // const hasResponsiveVideo = this.responsiveFeatures(slide.features)
-      // const hasResponsiveVideo = !!slide.video.src
+      const hasSimpleVideo = !!slide.video?.src
+      const hasResponsiveVideo = this.responsiveFeaturesForVideo(slide.features)?.videoSrc
+      return !!(hasSimpleVideo || hasResponsiveVideo)
     },
     hasPhoto (slide) {
-      return !!slide.photo.src
+      const hasSimplePhoto = !!slide.photo?.src
+      const hasResponsivePhoto = this.responsiveFeaturesForPhoto(slide.features)?.src
+
+      return !!(hasResponsivePhoto || hasSimplePhoto)
+    },
+    getVideoRatio (featureSize) {
+      const width = featureSize?.videoWidth || 0
+      const height = featureSize?.videoHeight || 1
+      return width / height
     }
   }
 }

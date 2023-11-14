@@ -7,6 +7,7 @@ class Banner extends Model {
       { key: 'title' },
       { key: 'body' },
       { key: 'photo' },
+      { key: 'video' },
       {
         key: 'features',
         default: {
