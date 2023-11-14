@@ -21,11 +21,12 @@ export default boot(({ app, router }) => {
   }
 
   router.beforeEach((to, from, next) => {
-    console.warn('beforeEach route to: ', to)
-    console.warn('beforeEach route from: ', from)
-    console.warn('beforeEach currentRouteHasEwanoQuery: ', currentRouteHasEwanoQuery())
-    console.warn('beforeEach isLoadedEwanoLibrary: ', isLoadedEwanoLibrary())
-
+    if (typeof window !== 'undefined') {
+      console.warn('beforeEach route to: ', to)
+      console.warn('beforeEach route from: ', from)
+      console.warn('beforeEach currentRouteHasEwanoQuery: ', currentRouteHasEwanoQuery())
+      console.warn('beforeEach isLoadedEwanoLibrary: ', isLoadedEwanoLibrary())
+    }
     if (currentRouteHasEwanoQuery() && !isLoadedEwanoLibrary()) {
       console.warn('add Ewano library from cdn')
       app.mixin(
