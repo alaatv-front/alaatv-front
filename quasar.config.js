@@ -87,7 +87,7 @@ module.exports = configure(function (ctx) {
       sourcemap: true,
       gzip: true,
       analyze: false,
-      // publicPath: (process.env.ASSET_SERVE === 'remote') ? (process.env.NODES_SERVER_URL_SSL || '/') : '/',
+      publicPath: (process.env.ASSET_SERVE === 'remote') ? (process.env.NODES_SERVER_URL_SSL || '/') : '/',
       // publicPath: '/',
       env: process.env,
       extendViteConf(viteConf, { isServer, isClient }) {
@@ -114,9 +114,18 @@ module.exports = configure(function (ctx) {
       vitePlugins: [
         // // Put the Sentry vite plugin after all other plugins
         sentryVitePlugin({
+          include: ['./dist'],
+          ignore: ['node_modules', 'quasar.config.js'],
           org: process.env.SENTRY_ORG,
           project: process.env.SENTRY_PROJECT,
-          authToken: process.env.SENTRY_AUTH_TOKEN
+          authToken: process.env.SENTRY_AUTH_TOKEN,
+          // configFile: 'entry.properties',
+          // stripPrefix: ['dist/js'],
+          urlSuffix: '.map',
+          validate: true,
+          rewrite: true,
+          attachCommits: true,
+          includeSourceMaps: true
         })
       ]
     },
