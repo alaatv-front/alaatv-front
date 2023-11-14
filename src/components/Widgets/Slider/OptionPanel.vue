@@ -1,123 +1,123 @@
 <template>
   <option-panel-tabs v-model:options="localOptions">
     <template #main-tab>
-      <div class="option-panel-container">
-        <div class="row items-center q-my-md">
-          <q-btn size="md"
-                 class="q-py-lg"
-                 color="green-7"
-                 label="افزودن بنر"
-                 round
-                 dense
-                 icon="add"
-                 @click="addBanner" />
+      <q-table dir="rtl"
+               :rows="rows"
+               :columns="columns"
+               row-key="name">
+        <template #top>
+          <div class="col-md-6 col-12">
+            جدول اسلایدها
+          </div>
+          <div class="col-md-6 col-12 flex justify-end">
+            <q-btn size="md"
+                   class="q-py-lg"
+                   color="green-7"
+                   label="افزودن بنر"
+                   dense
+                   icon="add"
+                   @click="addBanner" />
+          </div>
+        </template>
+        <template v-slot:body-cell-view="props">
+          <q-td key="view"
+                :props="props"
+                auto-width>
+            <q-btn size="sm"
+                   color="secondary"
+                   round
+                   dense
+                   :icon="'edit'"
+                   @click="showFullBanner(props.row.name)" />
+          </q-td>
+        </template>
+        <template v-slot:body-cell-photo="props">
+          <q-td key="photo"
+                class="thumbnail"
+                :props="props"
+                auto-width>
+            <lazy-img :src="props.row.photo"
+                      class="full-width" />
+          </q-td>
+        </template>
+        <template v-slot:body-cell-remove="props">
+          <q-td key="view"
+                :props="props"
+                auto-width>
+            <q-btn class="q-mr-lg"
+                   size="sm"
+                   color="red-8"
+                   round
+                   dense
+                   :icon="'delete'"
+                   @click="removeBanner(props.row.name)" />
+          </q-td>
+        </template>
+      </q-table>
+    </template>
+  </option-panel-tabs>
+  <q-dialog v-model="expandBanner">
+    <q-card>
+      <q-card-section>
+        <q-btn v-close-popup
+               icon="close"
+               flat
+               round
+               dense
+               @click="responsive = ''" />
+      </q-card-section>
+      <q-card-section>
+        <div class="row">
+          <div class="col-6">
+            <q-input v-model="selectedSlide.title"
+                     label="title" />
+          </div>
+          <div class="col-6">
+            <q-input v-model="selectedSlide.link"
+                     label="link" />
+          </div>
+          <div class="col-6">
+            <div class="cehckBox">
+              <q-checkbox v-model="localOptions.list[selectedBannerIndex].useAEEEvent"
+                          label="استفاده از ایونت GTM"
+                          right-label />
+            </div>
+          </div>
+          <div class="col-12">
+            <div v-if="localOptions.list[selectedBannerIndex].useAEEEvent"
+                 class="action-container q-gutter-lg-md">
+              <div>فیلد های مورد نظر ایونت GTM :</div>
+              <div class="col-9">
+                <div class="outsideLabel">id</div>
+                <q-input v-model="localOptions.list[selectedBannerIndex].AEEEventBody.id"
+                         label="id" />
+              </div>
+              <div class="col-6">
+                <div class="outsideLabel">name</div>
+                <q-input v-model="localOptions.list[selectedBannerIndex].AEEEventBody.name"
+                         label="name" />
+              </div>
+              <div class="col-6">
+                <div class="outsideLabel">creative</div>
+                <q-input v-model="localOptions.list[selectedBannerIndex].AEEEventBody.creative"
+                         label="creative" />
+              </div>
+              <div class="col-6">
+                <div class="outsideLabel">position</div>
+                <q-input v-model="localOptions.list[selectedBannerIndex].AEEEventBody.position"
+                         label="position" />
+              </div>
+            </div>
+          </div>
         </div>
-        <q-table dir="rtl"
-                 title="جدول اسلایدها"
-                 :rows="rows"
-                 :columns="columns"
-                 row-key="name">
-          <template v-slot:body-cell-view="props">
-            <q-td key="view"
-                  :props="props"
-                  auto-width>
-              <q-btn size="sm"
-                     color="secondary"
-                     round
-                     dense
-                     :icon="'edit'"
-                     @click="showFullBanner(props.row.name)" />
-            </q-td>
-          </template>
-          <template v-slot:body-cell-photo="props">
-            <q-td key="photo"
-                  class="thumbnail"
-                  :props="props"
-                  auto-width>
-              <lazy-img :src="props.row.photo" />
-            </q-td>
-          </template>
-          <template v-slot:body-cell-remove="props">
-            <q-td key="view"
-                  :props="props"
-                  auto-width>
-              <q-btn class="q-mr-lg"
-                     size="sm"
-                     color="red-8"
-                     round
-                     dense
-                     :icon="'delete'"
-                     @click="removeBanner(props.row.name)" />
-            </q-td>
-          </template>
-        </q-table>
-      </div>
-      <q-dialog v-model="expandBanner"
-                persistent>
-        <q-card v-ripple
-                class="column card"
-                clickable>
-          <div class="row col-12">
-            <q-card-section class="row items-center q-pb-none">
-              <q-btn v-close-popup
-                     icon="close"
-                     flat
-                     round
-                     dense
-                     @click="responsive = ''" />
-            </q-card-section>
-          </div>
-          <div class="col-12 row">
-            <q-card-section class="col-6">
-              <q-input v-model="selectedSlide.title"
-                       label="title" />
-            </q-card-section>
-            <q-card-section class="col-6">
-              <q-input v-model="selectedSlide.link"
-                       label="link" />
-            </q-card-section>
-            <q-card-section class="col-6">
-              <div class="cehckBox">
-                <q-checkbox v-model="localOptions.list[selectedBannerIndex].useAEEEvent"
-                            label="استفاده از ایونت GTM"
-                            right-label />
-              </div>
-            </q-card-section>
-            <q-card-section class="col-12">
-              <div v-if="localOptions.list[selectedBannerIndex].useAEEEvent"
-                   class="action-container q-gutter-lg-md">
-                <div>فیلد های مورد نظر ایونت GTM :</div>
-                <div class="col-9">
-                  <div class="outsideLabel">id</div>
-                  <q-input v-model="localOptions.list[selectedBannerIndex].AEEEventBody.id"
-                           label="id" />
-                </div>
-                <div class="col-6">
-                  <div class="outsideLabel">name</div>
-                  <q-input v-model="localOptions.list[selectedBannerIndex].AEEEventBody.name"
-                           label="name" />
-                </div>
-                <div class="col-6">
-                  <div class="outsideLabel">creative</div>
-                  <q-input v-model="localOptions.list[selectedBannerIndex].AEEEventBody.creative"
-                           label="creative" />
-                </div>
-                <div class="col-6">
-                  <div class="outsideLabel">position</div>
-                  <q-input v-model="localOptions.list[selectedBannerIndex].AEEEventBody.position"
-                           label="position" />
-                </div>
-              </div>
-            </q-card-section>
-          </div>
-          <div class="singel-image">
-            <q-card-section class="col-12">
-              <h6 class="q-mb-md">تک عکس (singel image)</h6>
-              <banner-preview v-model:banner="selectedSlide"
-                              v-model:options="localOptions"
-                              @update:src="updateSrc" />
-            </q-card-section>
-          </div>
+        <div>
+          <h6 class="q-mb-md">تک عکس (singel image)</h6>
+          <banner-preview v-model:banner="selectedSlide"
+                          v-model:options="localOptions"
+                          @updateImage="updateImage"
+                          @updateVideo="updateVideo" />
+        </div>
+        <div>
           <q-table dir="rtl"
                    title="جدول رسپانسیو (multuple images)"
                    :rows="responsiveRows"
@@ -140,7 +140,17 @@
                     class="thumbnail"
                     :props="props"
                     auto-width>
-                <lazy-img :src="props.row.thumbnail" />
+                <lazy-img v-if="!props.row.video"
+                          :src="props.row.thumbnail"
+                          class="full-width" />
+                <video v-else
+                       autoplay
+                       loop
+                       muted
+                       class="full-width">
+                  <source :src="props.row.video">
+                  Your browser does not support the video tag.
+                </video>
               </q-td>
             </template>
             <template v-slot:body-cell-remove="props">
@@ -157,34 +167,28 @@
               </q-td>
             </template>
           </q-table>
-        </q-card>
-      </q-dialog>
-      <q-dialog v-model="expandResponsiveBanner"
-                persistent>
-        <q-card v-ripple
-                class="column"
-                clickable>
-          <div class="row col-12">
-            <q-card-section class="row items-center q-pb-none">
-              <q-btn v-close-popup
-                     icon="close"
-                     flat
-                     round
-                     dense />
-            </q-card-section>
-          </div>
-          <div class="col-12 row">
-            <q-card-section class="col-12">
-              <banner-preview v-model:banner="selectedSlide"
-                              v-model:options="localOptions"
-                              :size="selectedResponsiveSize"
-                              @update:src="updateSrc" />
-            </q-card-section>
-          </div>
-        </q-card>
-      </q-dialog>
-    </template>
-  </option-panel-tabs>
+        </div>
+      </q-card-section>
+    </q-card>
+  </q-dialog>
+  <q-dialog v-model="expandResponsiveBanner">
+    <q-card>
+      <q-card-section class="q-pb-none">
+        <q-btn v-close-popup
+               icon="close"
+               flat
+               round
+               dense />
+      </q-card-section>
+      <q-card-section>
+        <banner-preview v-model:banner="selectedSlide"
+                        v-model:options="localOptions"
+                        :size="selectedResponsiveSize"
+                        @updateImage="updateImage"
+                        @updateVideo="updateVideo" />
+      </q-card-section>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script>
@@ -287,27 +291,32 @@ export default defineComponent({
         {
           name: 'xl',
           size: 'size >= 1920 px',
-          thumbnail: ''
+          thumbnail: '',
+          video: ''
         },
         {
           name: 'lg',
           size: 'size >= 1440 px',
-          thumbnail: ''
+          thumbnail: '',
+          video: ''
         },
         {
           name: 'md',
           size: 'size >= 1024 px',
-          thumbnail: ''
+          thumbnail: '',
+          video: ''
         },
         {
           name: 'sm',
           size: 'size >= 600 px',
-          thumbnail: ''
+          thumbnail: '',
+          video: ''
         },
         {
           name: 'xs',
           size: 'size >= 0 px',
-          thumbnail: ''
+          thumbnail: '',
+          video: ''
         }
       ],
       defaultOptions: {
@@ -415,6 +424,15 @@ export default defineComponent({
         })
       }
     },
+    isVideo () {
+      return !!this.localOptions.video
+    },
+    isPhoto () {
+      return !!this.localOptions.photo
+    },
+    hasThumbnail () {
+      return this.isVideo() && this.isPhoto()
+    },
     updateTable() {
       for (let i = 0; i < this.localOptions.list.length; i++) {
         this.rows[i] = {
@@ -437,6 +455,9 @@ export default defineComponent({
     showFullResponsiveBanner(name) {
       this.expandResponsiveBanner = true
       this.selectedSlide.features[name].src = this.localOptions.list[this.selectedBannerIndex].features[name].src
+      this.selectedSlide.features[name].videoSrc = this.localOptions.list[this.selectedBannerIndex].features[name].videoSrc
+      this.selectedSlide.features[name].videoWidth = this.localOptions.list[this.selectedBannerIndex].features[name].videoWidth
+      this.selectedSlide.features[name].videoHeight = this.localOptions.list[this.selectedBannerIndex].features[name].videoHeight
       this.selectedResponsiveSize = name
     },
     updateResponsiveRows() {
@@ -444,11 +465,12 @@ export default defineComponent({
         Object.keys(this.localOptions.list[this.selectedBannerIndex].features).forEach(key => {
           if (key === row.name) {
             row.thumbnail = this.localOptions.list[this.selectedBannerIndex].features[key].src
+            row.video = this.localOptions.list[this.selectedBannerIndex].features[key].videoSrc
           }
         })
       })
     },
-    updateSrc (data) {
+    updateImage (data) {
       this.localOptions.list[this.selectedBannerIndex].features[data.size].width = data.width
       this.localOptions.list[this.selectedBannerIndex].features[data.size].height = data.height
       if (data.size) {
@@ -457,6 +479,19 @@ export default defineComponent({
         this.responsiveRows[index].thumbnail = data.src
       } else {
         this.localOptions.list[this.selectedBannerIndex].photo.src = data.src
+      }
+
+      this.$emit('update:options', this.localOptions)
+    },
+    updateVideo (data) {
+      this.localOptions.list[this.selectedBannerIndex].features[data.size].videoWidth = data.width
+      this.localOptions.list[this.selectedBannerIndex].features[data.size].videoHeight = data.height
+      if (data.size) {
+        this.localOptions.list[this.selectedBannerIndex].features[data.size].videoSrc = data.src
+        const index = this.responsiveRows.findIndex(row => row.name === data.size)
+        this.responsiveRows[index].videoSrc = data.src
+      } else {
+        this.localOptions.list[this.selectedBannerIndex].video.src = data.src
       }
 
       this.$emit('update:options', this.localOptions)
