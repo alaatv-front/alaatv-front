@@ -8,6 +8,7 @@
                  class="toolbar-button lt-md"
                  icon="ph:list"
                  color="grey"
+                 flat
                  square
                  @click="toggleLeftDrawer" />
           <div class="logo-pic">
@@ -216,6 +217,7 @@ export default {
       .logo-section {
         align-items: center;
         display: flex;
+        position: relative;
         justify-content: space-between;
         @media screen and (max-width: 1023px) {
           //justify-self: start;
@@ -286,6 +288,12 @@ export default {
           :deep(.q-btn) {
             flex-direction: row !important;
           }
+        }
+        .toolbar-button{
+          position: absolute;
+          left: 0 ;
+          top: 50%;
+          transform: translateY(-50%);
         }
       }
       .tab-section {
