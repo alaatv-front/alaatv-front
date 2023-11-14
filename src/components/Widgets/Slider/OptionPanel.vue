@@ -140,8 +140,17 @@
                     class="thumbnail"
                     :props="props"
                     auto-width>
-                <lazy-img :src="props.row.thumbnail"
+                <lazy-img v-if="!props.row.video"
+                          :src="props.row.thumbnail"
                           class="full-width" />
+                <video v-else
+                       autoplay
+                       loop
+                       muted
+                       class="full-width">
+                  <source :src="props.row.video">
+                  Your browser does not support the video tag.
+                </video>
               </q-td>
             </template>
             <template v-slot:body-cell-remove="props">
@@ -282,27 +291,32 @@ export default defineComponent({
         {
           name: 'xl',
           size: 'size >= 1920 px',
-          thumbnail: ''
+          thumbnail: '',
+          video: ''
         },
         {
           name: 'lg',
           size: 'size >= 1440 px',
-          thumbnail: ''
+          thumbnail: '',
+          video: ''
         },
         {
           name: 'md',
           size: 'size >= 1024 px',
-          thumbnail: ''
+          thumbnail: '',
+          video: ''
         },
         {
           name: 'sm',
           size: 'size >= 600 px',
-          thumbnail: ''
+          thumbnail: '',
+          video: ''
         },
         {
           name: 'xs',
           size: 'size >= 0 px',
-          thumbnail: ''
+          thumbnail: '',
+          video: ''
         }
       ],
       defaultOptions: {
@@ -451,6 +465,7 @@ export default defineComponent({
         Object.keys(this.localOptions.list[this.selectedBannerIndex].features).forEach(key => {
           if (key === row.name) {
             row.thumbnail = this.localOptions.list[this.selectedBannerIndex].features[key].src
+            row.video = this.localOptions.list[this.selectedBannerIndex].features[key].videoSrc
           }
         })
       })

@@ -74,7 +74,7 @@
                    loop
                    muted
                    class="full-width">
-              <source :src="banner.video.src || banner.features[size].videoSrc">
+              <source :src="banner.video?.src || banner.features[size].videoSrc">
               Your browser does not support the video tag.
             </video>
           </div>
@@ -135,6 +135,8 @@ export default {
   },
   created() {
     this.loadImage()
+    this.loadVideo()
+    console.log('banner', this.banner)
   },
   methods: {
     loadImage() {
@@ -142,6 +144,17 @@ export default {
         this.image.src = this.banner.features[this.size].src
       } else {
         this.image.src = this.banner.photo.src
+      }
+    },
+    loadVideo() {
+      if (this.size) {
+        this.video.src = this.banner.features[this.size].videoSrc
+        this.video.width = this.banner.features[this.size].videoWidth
+        this.video.height = this.banner.features[this.size].videoHeight
+      } else {
+        this.video.src = this.banner.video.src
+        this.video.width = this.banner.video.width
+        this.video.height = this.banner.video.height
       }
     },
     updateImage (src) {
