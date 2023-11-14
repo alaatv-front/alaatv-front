@@ -45,7 +45,8 @@
                     class="slider-image" />
         </template>
         <template v-if="hasVideo(slide)">
-          <video autoplay
+          <video :key="videoKey + '-' + index"
+                 autoplay
                  loop
                  muted
                  class="full-width">
@@ -106,6 +107,7 @@ export default {
       fullscreen: ref(false),
       selectedSlide: new Banner(),
       windowWidth: 0,
+      videoKey: Date.now(),
       defaultOptions: {
         list: [],
         control: {
@@ -224,6 +226,7 @@ export default {
         return
       }
       this.windowWidth = window.innerWidth
+      this.videoKey = Date.now()
     },
     responsiveFeaturesForPhoto (features) {
       const defaultResult = {
