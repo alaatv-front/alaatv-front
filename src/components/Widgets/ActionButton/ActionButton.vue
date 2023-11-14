@@ -36,8 +36,8 @@
               :overlay="localOptions.drawer.overlay"
               :breakpoint="localOptions.drawer.breakpoint"
               :bordered="localOptions.drawer.bordered"
-              class="drawer"
-              :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'">
+              :style="localOptions.drawer.style"
+              class="drawer">
       <div class="column drawer-sections">
         <div>
           <template v-for="(component, index) in localOptions.topSectionWidgets"
@@ -203,6 +203,7 @@ export default {
         showInAuth: false,
         displayAuth: false,
         drawer: {
+          style: {},
           overlay: true,
           bordered: true,
           width: 200,
