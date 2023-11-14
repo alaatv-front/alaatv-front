@@ -290,7 +290,8 @@ export default {
         paymentBtn: 'پرداخت و ثبت نهایی',
         hasPaymentBtn: true,
         dense: false
-      }
+      },
+      ewanoCallbackUrlRouteObject: null
     }
   },
   computed: {
@@ -354,6 +355,16 @@ export default {
     this.cartReview()
     this.getGateways()
     this.$bus.on('busEvent-refreshCart', this.cartReview)
+    window.document.addEventListener('ewano-payment-result', (event) => {
+      const status = event.detail.status
+      // console.warn('CartInvoice->$bus.on->status: ', status)
+      if (!this.ewanoCallbackUrlRouteObject?.query) {
+        return
+      }
+      this.ewanoCallbackUrlRouteObject.query.ewano_payment_result_status = status ? 1 : 0
+
+      this.$router.push(this.ewanoCallbackUrlRouteObject)
+    })
   },
   methods: {
     updateEECEvent (value) {
@@ -514,7 +525,8 @@ export default {
         this.$store.commit('loading/loading', true)
         APIGateway.ewano.makeOrder()
           .then(({ ewanoOrderId, alaaOrderId, amount }) => {
-            const callbackUrl = this.$router.resolve({ name: 'UserPanel.ThankYouPage', params: { orderId: alaaOrderId }, query: { ewano_order_id: ewanoOrderId, ewano: 1 } }).fullPath
+            this.ewanoCallbackUrlRouteObject = { name: 'UserPanel.ThankYouPage', params: { orderId: alaaOrderId }, query: { ewano_order_id: ewanoOrderId, ewano: 1 } }
+            const callbackUrl = this.$router.resolve(this.ewanoCallbackUrlRouteObject).fullPath
             this.$store.commit('loading/loading', false)
             Ewano.pay(amount, ewanoOrderId, callbackUrl)
           })
