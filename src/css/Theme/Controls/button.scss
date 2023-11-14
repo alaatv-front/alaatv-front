@@ -234,12 +234,6 @@ body {
         border-width: 1.5px;
       }
       @include outline-btn();
-      &.q-btn--round{
-        @include outline-btn();
-      }
-      //&.text-grey {
-      //  @include outline-btn();
-      //}
     }
 
     @mixin flat-btn () {
