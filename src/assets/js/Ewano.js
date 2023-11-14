@@ -27,7 +27,7 @@ class Ewano {
       // console.warn('paymentResult -> window.ewano: ', window.ewano)
       return () => {}
     }
-    console.warn('ewano.paymentResult()')
+    // console.warn('ewano.paymentResult()')
     window.ewano.paymentResult = (status) => { // status: Boolean
       // console.warn('ewano.paymentResult() -> resultCallback(' + status + ')')
       const ewanoCustomEvent = new CustomEvent('ewano-payment-result', { detail: { status } })
