@@ -75,8 +75,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .btn-group-wrapper {
   @media screen and (max-width: 600px){
-    place-content: center;
-    display: grid;
+    //place-content: center;
+    //display: grid;
   }
 }
 </style>
