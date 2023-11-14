@@ -105,7 +105,6 @@
 
 body {
   .q-btn {
-    font-size: 1em !important;
     min-height: auto;
     min-width: auto;
     color: $grey-1;
@@ -175,6 +174,7 @@ body {
     &.q-hoverable:hover {
       & > .q-focus-helper {
         opacity: 1;
+        // filter: opacity(0.1);
         background: $lighten-5;
         &:before {
           display:none;
@@ -211,29 +211,27 @@ body {
         color: $grey-9 !important;
       }
 
-      //&:before {
-      //  border: solid 1.5px $grey-4;
-      //}
-
-      //&.q-btn--active.q-btn--actionable:focus {
-      //  @include btn-handle-box-shadows('grey')
-      //}
-
       &.q-hoverable:hover:not(.disabled) {
         & > .q-focus-helper {
-          background: $darken-1;
+            background: currentColor;
+            opacity: 0.1;
+          &:before {
+            display:block;
+          }
+          &:after {
+            display:block;
+          }
+        }
+        &:before {
+          display:block;
         }
       }
-
-      .q-btn__content {
-        color: $grey-9 !important;
-      }
-
     }
 
     &.q-btn--outline {
       &:before {
-        filter: brightness(300%);
+        filter: opacity(0.3);
+        border-width: 1.5px;
       }
       @include outline-btn();
       &.q-btn--round{
@@ -258,10 +256,6 @@ body {
           background: $darken-1;
         }
       }
-
-      //&.q-btn--active.q-btn--actionable:focus{
-      //  @include btn-handle-box-shadows('grey');
-      //}
 
       .q-btn__content {
         color: $grey-9 ;

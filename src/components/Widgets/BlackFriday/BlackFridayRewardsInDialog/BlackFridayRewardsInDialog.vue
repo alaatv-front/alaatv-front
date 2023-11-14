@@ -5,7 +5,9 @@
                size="3em"
                :thickness="10" />
     <inside-dialog v-else
-                   :rewards="blackFridayCampaignData.rewards.list" />
+                   :rewards="blackFridayCampaignData.rewards.list"
+                   :department-id="localOptions.departmentId"
+                   @toggle-dialog="toggleDialog" />
   </q-dialog>
 </template>
 
@@ -14,14 +16,20 @@ import { defineComponent } from 'vue'
 import InsideDialog from './InsideDialog.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { BlackFridayCampaignData } from 'src/models/BlackFridayCampaignData.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default defineComponent({
   name: 'BlackFridayRewardsInDialog',
   components: { InsideDialog },
+  mixins: [mixinWidget],
   data () {
     return {
       dialog: false,
-      blackFridayCampaignData: new BlackFridayCampaignData()
+      blackFridayCampaignData: new BlackFridayCampaignData(),
+      defaultOptions: {
+        eventName: 'show-black-friday-rewards-dialog',
+        departmentId: null
+      }
     }
   },
   watch: {
@@ -31,11 +39,11 @@ export default defineComponent({
   },
   mounted () {
     this.getBlackFridayCampaignData()
-    this.$bus.on('show-black-friday-rewards-dialog', this.showDialog)
+    this.$bus.on(this.localOptions.eventName, this.toggleDialog)
   },
   methods: {
-    showDialog () {
-      this.dialog = true
+    toggleDialog () {
+      this.dialog = !this.dialog
     },
     getBlackFridayCampaignData () {
       this.blackFridayCampaignData.loading = true

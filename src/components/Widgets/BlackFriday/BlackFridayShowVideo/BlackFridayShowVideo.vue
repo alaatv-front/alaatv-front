@@ -192,7 +192,7 @@ export default defineComponent({
         return false
       }
 
-      return !!this.blackFridayCampaignData.videos.list[videoIndex].is_actice
+      return !!this.blackFridayCampaignData.videos.list[videoIndex].is_active
     },
     beforeChangeSelectedVideo () {
       if (this.currentVideoWatched) {
@@ -254,7 +254,7 @@ export default defineComponent({
     getLastActiveIndex () {
       let activeIndex = 0
       this.blackFridayCampaignData.videos.list.forEach((video, videoIndex) => {
-        if (video.is_actice && activeIndex < videoIndex) {
+        if (video.is_active && activeIndex < videoIndex) {
           activeIndex = videoIndex
         }
       })
