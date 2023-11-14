@@ -14,6 +14,7 @@
                      @prev="onPrev"
                      @next="onNext" />
       <step-section :black-friday-campaign-data="blackFridayCampaignData"
+                    :selected-step-index="selectedVideoIndex"
                     class="step-section"
                     @onSelectStep="onSelectStep" />
       <q-dialog v-model="dialog">
@@ -156,6 +157,7 @@ export default defineComponent({
         watchable_type: 'content'
       })
         .then(() => {
+          this.blackFridayCampaignData.videos.list[this.selectedVideoIndex].has_played = true
         })
         .catch(() => {
         })

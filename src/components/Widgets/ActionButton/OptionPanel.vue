@@ -137,157 +137,191 @@
               <separator-option-panel v-model:options="localOptions.separator" />
             </q-expansion-item>
           </div>
-          <div v-if="localOptions.hasAction"
-               class="row q-col-gutter-sm">
-            <div class="input-container col-md-2">
-              <q-select v-model="localOptions.action"
-                        :options="actionOptions" />
-            </div>
-            <div v-if="localOptions.action === 'scroll'"
-                 class="input-container col-md-10">
-              <q-input v-model="localOptions.scrollTo"
-                       label="scrollTo" />
-            </div>
-            <div v-if="localOptions.action === 'link'"
-                 class="input-container col-md-10">
-              <q-input v-model="localOptions.route"
-                       label="route" />
-            </div>
-            <div v-if="localOptions.action === 'event'"
-                 class="input-container col-md-5">
-              <q-input v-model="localOptions.eventName"
-                       label="eventName" />
-            </div>
-            <div v-if="localOptions.action === 'event'"
-                 class="input-container col-md-5">
-              <q-input v-model="localOptions.eventArgs"
-                       label="eventArgs" />
-            </div>
-            <div v-if="localOptions.action === 'hamburger_menu'"
-                 class="input-container col-md-12">
-              <q-expansion-item label="topWidgets">
-                <q-card>
-                  <q-card-section v-for="(widget, index) in localOptions.topSectionWidgets"
-                                  :key="index">
-                    <q-expansion-item :label=widget.name
-                                      icon="build">
-                      <template v-slot:header>
-                        <q-item-section avatar>
-                          <q-icon name="build" />
-                        </q-item-section>
-
-                        <q-item-section>
-                          {{ widget.name }}
-                        </q-item-section>
-
-                        <q-item-section side>
-                          <q-btn color="negative"
-                                 flat
-                                 icon="delete"
-                                 @click="deleteWidget('topSectionWidgets', index)" />
-                        </q-item-section>
+          <div class="col-md-12">
+            <div v-if="localOptions.hasAction"
+                 class="row q-col-gutter-sm">
+              <div class="input-container col-md-3">
+                <q-select v-model="localOptions.action"
+                          :options="actionOptions" />
+              </div>
+              <div v-if="localOptions.action === 'scroll'"
+                   class="input-container col-md-10">
+                <q-input v-model="localOptions.scrollTo"
+                         label="scrollTo" />
+              </div>
+              <div v-if="localOptions.action === 'link'"
+                   class="input-container col-md-10">
+                <q-input v-model="localOptions.route"
+                         label="route" />
+              </div>
+              <div v-if="localOptions.action === 'event'"
+                   class="input-container col-md-5">
+                <q-input v-model="localOptions.eventName"
+                         label="eventName" />
+              </div>
+              <div v-if="localOptions.action === 'event'"
+                   class="input-container col-md-5">
+                <q-input v-model="localOptions.eventArgs"
+                         label="eventArgs" />
+              </div>
+              <div v-if="localOptions.action === 'hamburger_menu'"
+                   class="input-container col-md-12">
+                <div class="row q-col-gutter-md">
+                  <div class="col-3">
+                    <q-input v-model="localOptions.drawer.style.backgroundColor"
+                             icon="colorize"
+                             label="background color">
+                      <template v-slot:append>
+                        <q-icon name="colorize"
+                                class="cursor-pointer">
+                          <q-popup-proxy cover
+                                         transition-show="scale"
+                                         transition-hide="scale">
+                            <q-color v-model="localOptions.drawer.style.backgroundColor"
+                                     label="backgroundColor"
+                                     format-model="rgba" />
+                          </q-popup-proxy>
+                        </q-icon>
                       </template>
-                      <q-card>
-                        <q-card-section>
-                          <option-panel v-if="widget.name === 'ActionButton'"
-                                        v-model:options="widget.options" />
-                          <component :is="widget.name.concat('OptionPanel')"
-                                     v-model:options="widget.options" />
-                        </q-card-section>
-                      </q-card>
-                    </q-expansion-item>
-                  </q-card-section>
-                  <q-card-section>
-                    <div class="row q-col-gutter-md">
-                      <div>
-                        <q-btn icon="isax:add"
-                               class="full-width"
-                               color="positive"
-                               label="text"
-                               @click="addTextWidget('topSectionWidgets')" />
-                      </div>
-                      <div>
-                        <q-btn icon="isax:add"
-                               class="full-width"
-                               color="positive"
-                               label="image"
-                               @click="addImageWidget('topSectionWidgets')" />
-                      </div>
-                      <div>
-                        <q-btn icon="isax:add"
-                               class="full-width"
-                               color="positive"
-                               label="action button"
-                               @click="addActionButtonWidget('topSectionWidgets')" />
-                      </div>
-                    </div>
-                  </q-card-section>
-                </q-card>
-              </q-expansion-item>
-              <q-expansion-item label="bottomWidgets">
-                <q-card>
-                  <q-card-section v-for="(widget, index) in localOptions.bottomSectionWidgets"
-                                  :key="index">
-                    <q-expansion-item :label=widget.name
-                                      icon="build">
-                      <template v-slot:header>
-                        <q-item-section avatar>
-                          <q-icon name="build" />
-                        </q-item-section>
+                    </q-input>
+                  </div>
+                  <div class="col-3">
+                    <q-input v-model="localOptions.drawer.width"
+                             label="width(px)" />
+                  </div>
+                  <div class="col-3">
+                    <q-checkbox v-model="localOptions.drawer.bordered"
+                                label="bordered" />
+                  </div>
+                  <div class="col-3">
+                    <q-checkbox v-model="localOptions.drawer.overlay"
+                                label="overlay" />
+                  </div>
+                </div>
+                <q-expansion-item label="topWidgets">
+                  <q-card>
+                    <q-card-section v-for="(widget, index) in localOptions.topSectionWidgets"
+                                    :key="index">
+                      <q-expansion-item :label=widget.name
+                                        icon="build">
+                        <template v-slot:header>
+                          <q-item-section avatar>
+                            <q-icon name="build" />
+                          </q-item-section>
 
-                        <q-item-section>
-                          {{ widget.name }}
-                        </q-item-section>
+                          <q-item-section>
+                            {{ widget.name }}
+                          </q-item-section>
 
-                        <q-item-section side>
-                          <q-btn color="negative"
-                                 flat
-                                 icon="delete"
-                                 @click="deleteWidget('bottomSectionWidgets', index)" />
-                        </q-item-section>
-                      </template>
-                      <q-card>
-                        <q-card-section>
-                          <component :is="widget.name.concat('OptionPanel')"
-                                     v-model:options="widget.options" />
-                        </q-card-section>
-                      </q-card>
-                    </q-expansion-item>
-                  </q-card-section>
-                  <q-card-section>
-                    <div class="row q-col-gutter-md">
-                      <div class="col-3">
-                        <q-btn icon="isax:add"
-                               class="full-width"
-                               color="positive"
-                               label="text"
-                               @click="addTextWidget('bottomSectionWidgets')" />
+                          <q-item-section side>
+                            <q-btn color="negative"
+                                   flat
+                                   icon="delete"
+                                   @click="deleteWidget('topSectionWidgets', index)" />
+                          </q-item-section>
+                        </template>
+                        <q-card>
+                          <q-card-section>
+                            <option-panel v-if="widget.name === 'ActionButton'"
+                                          v-model:options="widget.options" />
+                            <component :is="widget.name.concat('OptionPanel')"
+                                       v-model:options="widget.options" />
+                          </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </q-card-section>
+                    <q-card-section>
+                      <div class="row q-col-gutter-md">
+                        <div>
+                          <q-btn icon="isax:add"
+                                 class="full-width"
+                                 color="positive"
+                                 label="text"
+                                 @click="addTextWidget('topSectionWidgets')" />
+                        </div>
+                        <div>
+                          <q-btn icon="isax:add"
+                                 class="full-width"
+                                 color="positive"
+                                 label="image"
+                                 @click="addImageWidget('topSectionWidgets')" />
+                        </div>
+                        <div>
+                          <q-btn icon="isax:add"
+                                 class="full-width"
+                                 color="positive"
+                                 label="action button"
+                                 @click="addActionButtonWidget('topSectionWidgets')" />
+                        </div>
                       </div>
-                      <div class="col-3">
-                        <q-btn icon="isax:add"
-                               class="full-width"
-                               color="positive"
-                               label="image"
-                               @click="addImageWidget('bottomSectionWidgets')" />
+                    </q-card-section>
+                  </q-card>
+                </q-expansion-item>
+                <q-expansion-item label="bottomWidgets">
+                  <q-card>
+                    <q-card-section v-for="(widget, index) in localOptions.bottomSectionWidgets"
+                                    :key="index">
+                      <q-expansion-item :label=widget.name
+                                        icon="build">
+                        <template v-slot:header>
+                          <q-item-section avatar>
+                            <q-icon name="build" />
+                          </q-item-section>
+
+                          <q-item-section>
+                            {{ widget.name }}
+                          </q-item-section>
+
+                          <q-item-section side>
+                            <q-btn color="negative"
+                                   flat
+                                   icon="delete"
+                                   @click="deleteWidget('bottomSectionWidgets', index)" />
+                          </q-item-section>
+                        </template>
+                        <q-card>
+                          <q-card-section>
+                            <component :is="widget.name.concat('OptionPanel')"
+                                       v-model:options="widget.options" />
+                          </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </q-card-section>
+                    <q-card-section>
+                      <div class="row q-col-gutter-md">
+                        <div class="col-3">
+                          <q-btn icon="isax:add"
+                                 class="full-width"
+                                 color="positive"
+                                 label="text"
+                                 @click="addTextWidget('bottomSectionWidgets')" />
+                        </div>
+                        <div class="col-3">
+                          <q-btn icon="isax:add"
+                                 class="full-width"
+                                 color="positive"
+                                 label="image"
+                                 @click="addImageWidget('bottomSectionWidgets')" />
+                        </div>
+                        <div class="col-3">
+                          <q-btn icon="isax:add"
+                                 class="full-width"
+                                 color="positive"
+                                 label="action button"
+                                 @click="addActionButtonWidget('bottomSectionWidgets')" />
+                        </div>
+                        <div class="col-3">
+                          <q-btn icon="isax:add"
+                                 class="full-width"
+                                 color="positive"
+                                 label="timer"
+                                 @click="addTimerWidget('bottomSectionWidgets')" />
+                        </div>
                       </div>
-                      <div class="col-3">
-                        <q-btn icon="isax:add"
-                               class="full-width"
-                               color="positive"
-                               label="action button"
-                               @click="addActionButtonWidget('bottomSectionWidgets')" />
-                      </div>
-                      <div class="col-3">
-                        <q-btn icon="isax:add"
-                               class="full-width"
-                               color="positive"
-                               label="timer"
-                               @click="addTimerWidget('bottomSectionWidgets')" />
-                      </div>
-                    </div>
-                  </q-card-section>
-                </q-card>
-              </q-expansion-item>
+                    </q-card-section>
+                  </q-card>
+                </q-expansion-item>
+              </div>
             </div>
           </div>
         </div>
@@ -483,6 +517,13 @@ export default defineComponent({
         scrollTo: null,
         route: null,
         eventName: null,
+        drawer: {
+          style: {},
+          overlay: true,
+          bordered: true,
+          width: 200,
+          breakpoint: 500
+        },
         topSectionWidgets: [],
         bottomSectionWidgets: []
       }
