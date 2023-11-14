@@ -5,7 +5,9 @@
                size="3em"
                :thickness="10" />
     <inside-dialog v-else
-                   :rewards="blackFridayCampaignData.rewards.list" />
+                   :rewards="blackFridayCampaignData.rewards.list"
+                   :department-id="localOptions.departmentId"
+                   @toggle-dialog="toggleDialog" />
   </q-dialog>
 </template>
 
@@ -25,7 +27,8 @@ export default defineComponent({
       dialog: false,
       blackFridayCampaignData: new BlackFridayCampaignData(),
       defaultOptions: {
-        eventName: 'show-black-friday-rewards-dialog'
+        eventName: 'show-black-friday-rewards-dialog',
+        departmentId: null
       }
     }
   },
@@ -36,11 +39,11 @@ export default defineComponent({
   },
   mounted () {
     this.getBlackFridayCampaignData()
-    this.$bus.on(this.localOptions.eventName, this.showDialog)
+    this.$bus.on(this.localOptions.eventName, this.toggleDialog)
   },
   methods: {
-    showDialog () {
-      this.dialog = true
+    toggleDialog () {
+      this.dialog = !this.dialog
     },
     getBlackFridayCampaignData () {
       this.blackFridayCampaignData.loading = true

@@ -4,7 +4,7 @@
       <div v-for="(video, videoIndex) in localBlackFridayCampaignData.videos.list"
            :key="videoIndex"
            class="item"
-           :class="{ 'unlock': video.is_active, 'lock': !video.is_active, 'current': isCurrent(videoIndex) }">
+           :class="{ 'unlock': video.is_active, 'lock': !video.is_active, 'current': isCurrent(videoIndex), 'selected': selectedStepIndex === videoIndex }">
         <q-btn @click="onSelectStep(videoIndex)">
           <svg v-if="!video.is_active"
                xmlns="http://www.w3.org/2000/svg"
@@ -59,6 +59,10 @@ export default defineComponent({
     blackFridayCampaignData: {
       type: BlackFridayCampaignData,
       default: new BlackFridayCampaignData()
+    },
+    selectedStepIndex: {
+      type: Number,
+      default: 0
     }
   },
   data () {
@@ -199,8 +203,23 @@ export default defineComponent({
           padding: 15px;
         }
         border-radius: 100px;
-        background: #5E57AC;
         box-shadow: 0 0 32px 0 rgba(51, 51, 51, 0.09);
+      }
+      &.lock {
+        .q-btn {
+          background: #2F2A5B;
+        }
+      }
+      //&.unlock:not(.current) {
+      &.unlock {
+        .q-btn {
+          background: #5E57AC;
+        }
+      }
+      &.selected {
+        .q-btn {
+          background: #D14835;
+        }
       }
       &.current {
         position: relative;
@@ -214,7 +233,7 @@ export default defineComponent({
             padding: 18px;
           }
           border-radius: 100px;
-          background: #D14835;
+          //background: #D14835;
           box-shadow: 0 0 50px 0 rgba(85, 32, 24, 0.32);
         }
         .curren-info {

@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import Ewano from 'src/assets/js/Ewano.js'
 import mixinAuthData from 'src/mixin/AuthData.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
@@ -52,33 +51,37 @@ export default {
     }
   },
   mounted () {
-    console.warn('EwanoThankYouPage loaded')
-    console.warn('window.location.href: ', window.location.href)
-    console.warn('EwanoThankYouPage isEwanoUser: ', this.isEwanoUser)
+    // console.warn('EwanoThankYouPage loaded')
+    // console.warn('window.location.href: ', window.location.href)
+    // console.warn('EwanoThankYouPage isEwanoUser: ', this.isEwanoUser)
     if (!this.isEwanoUser) {
       return
     }
+    window.document.addEventListener('ewano-payment-result', (event) => {
+      const status = event.detail.status
+      this.checkEwanoPaymentResult(status)
+    })
 
-    setTimeout(() => {
-      this.checkEwanoPaymentResult()
-      Ewano.onWebAppReady()
-    }, 1000)
+    if (typeof this.$route.query.ewano_payment_result_status !== 'undefined') {
+      const ewanoPaymentResultStatus = parseInt(this.$route.query.ewano_payment_result_status) === 1
+      // console.warn('EwanoThankYouPage ewanoPaymentResultStatus: ', ewanoPaymentResultStatus)
+      this.checkEwanoPaymentResult(ewanoPaymentResultStatus)
+    }
   },
   methods: {
     changeLoadingState (state) {
       this.loading = state
       this.$bus.emit('ThankYouPageInvoiceLoading', state)
     },
-    checkEwanoPaymentResult () {
+    checkEwanoPaymentResult (status) {
+      // console.warn('EwanoThankYouPage -> checkEwanoPaymentResult -> status: ', status)
       this.changeLoadingState(true)
-      Ewano.paymentResult((status) => {
-        if (status) {
-          this.pay()
-        } else {
-          this.changeLoadingState(false)
-          this.hasPaid = false
-        }
-      })
+      if (status) {
+        this.pay()
+      } else {
+        this.changeLoadingState(false)
+        this.hasPaid = false
+      }
     },
     pay () {
       this.changeLoadingState(true)

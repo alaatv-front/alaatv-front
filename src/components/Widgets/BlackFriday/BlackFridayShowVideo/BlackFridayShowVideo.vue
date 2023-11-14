@@ -14,6 +14,7 @@
                      @prev="onPrev"
                      @next="onNext" />
       <step-section :black-friday-campaign-data="blackFridayCampaignData"
+                    :selected-step-index="selectedVideoIndex"
                     class="step-section"
                     @onSelectStep="onSelectStep" />
       <q-dialog v-model="dialog">
