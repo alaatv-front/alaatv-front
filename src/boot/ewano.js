@@ -1,4 +1,5 @@
 import { boot } from 'quasar/wrappers'
+import Ewano from 'assets/js/Ewano.js'
 import { createMetaMixin } from 'quasar'
 
 export default boot(({ app, router }) => {
@@ -42,6 +43,11 @@ export default boot(({ app, router }) => {
           }
         })
       )
+    }
+
+    if (isLoadedEwanoLibrary()) {
+      Ewano.overridePaymentResult()
+      Ewano.onWebAppReady()
     }
 
     if (!hasEwanoQuery(to) && hasEwanoQuery(from)) {

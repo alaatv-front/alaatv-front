@@ -59,26 +59,30 @@ export default {
       return
     }
 
-    setTimeout(() => {
-      this.checkEwanoPaymentResult()
-      Ewano.onWebAppReady()
-    }, 1000)
+    this.$bus.on('ewano-payment-result', (status) => {
+      this.checkEwanoPaymentResult(status)
+    })
+
+    if (typeof this.$route.query.ewano_payment_result_status !== 'undefined') {
+      const ewanoPaymentResultStatus = parseInt(this.$route.query.ewano_payment_result_status) === 1
+      console.warn('EwanoThankYouPage ewanoPaymentResultStatus: ', ewanoPaymentResultStatus)
+      this.checkEwanoPaymentResult(ewanoPaymentResultStatus)
+    }
   },
   methods: {
     changeLoadingState (state) {
       this.loading = state
       this.$bus.emit('ThankYouPageInvoiceLoading', state)
     },
-    checkEwanoPaymentResult () {
+    checkEwanoPaymentResult (status) {
+      console.warn('EwanoThankYouPage -> checkEwanoPaymentResult -> status: ', status)
       this.changeLoadingState(true)
-      Ewano.paymentResult((status) => {
-        if (status) {
-          this.pay()
-        } else {
-          this.changeLoadingState(false)
-          this.hasPaid = false
-        }
-      })
+      if (status) {
+        this.pay()
+      } else {
+        this.changeLoadingState(false)
+        this.hasPaid = false
+      }
     },
     pay () {
       this.changeLoadingState(true)

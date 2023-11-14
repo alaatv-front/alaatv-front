@@ -28,7 +28,7 @@ export default {
   ],
   beforeMount () {
     // if (this.hasIdInQueryParam()) {
-    Ewano.onWebAppReady()
+    // Ewano.onWebAppReady()
     // }
     if (this.hasIdInQueryParam() && !this.hasEwanoFlagInQueryParam()) {
       this.setEwanoFlagInQueryParam()

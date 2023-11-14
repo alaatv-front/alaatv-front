@@ -1,3 +1,4 @@
+import { EventBus } from 'quasar'
 import { APIGateway } from 'src/api/APIGateway.js'
 
 class Ewano {
@@ -22,7 +23,9 @@ class Ewano {
     return window.ewano.pay(amount, orderId, callbackUrl)
   }
 
-  static paymentResult (resultCallback) {
+  static overridePaymentResult () {
+    const bus = new EventBus()
+
     if (!window.ewano) {
       console.warn('paymentResult -> window.ewano: ', window.ewano)
       return () => {}
@@ -30,7 +33,7 @@ class Ewano {
     console.warn('ewano.paymentResult()')
     window.ewano.paymentResult = (status) => { // status: Boolean
       console.warn('ewano.paymentResult() -> resultCallback(' + status + ')')
-      resultCallback(status)
+      bus.emit('ewano-payment-result', status)
     }
     return window.ewano.paymentResult
   }
