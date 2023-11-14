@@ -157,6 +157,7 @@ export default defineComponent({
         watchable_type: 'content'
       })
         .then(() => {
+          this.blackFridayCampaignData.videos.list[this.selectedVideoIndex].has_played = true
         })
         .catch(() => {
         })
