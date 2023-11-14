@@ -357,7 +357,7 @@ export default {
     this.$bus.on('busEvent-refreshCart', this.cartReview)
     window.document.addEventListener('ewano-payment-result', (event) => {
       const status = event.detail.status
-      console.warn('CartInvoice->$bus.on->status: ', status)
+      console.warn('CartInvoice->$bus.on->status: ',? status)
       if (!this.ewanoCallbackUrlRouteObject?.query) {
         return
       }

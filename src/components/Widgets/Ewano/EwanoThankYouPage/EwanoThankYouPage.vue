@@ -51,9 +51,9 @@ export default {
     }
   },
   mounted () {
-    console.warn('EwanoThankYouPage loaded')
-    console.warn('window.location.href: ', window.location.href)
-    console.warn('EwanoThankYouPage isEwanoUser: ', this.isEwanoUser)
+    // console.warn('EwanoThankYouPage loaded')
+    // console.warn('window.location.href: ', window.location.href)
+    // console.warn('EwanoThankYouPage isEwanoUser: ', this.isEwanoUser)
     if (!this.isEwanoUser) {
       return
     }
@@ -64,7 +64,7 @@ export default {
 
     if (typeof this.$route.query.ewano_payment_result_status !== 'undefined') {
       const ewanoPaymentResultStatus = parseInt(this.$route.query.ewano_payment_result_status) === 1
-      console.warn('EwanoThankYouPage ewanoPaymentResultStatus: ', ewanoPaymentResultStatus)
+      // console.warn('EwanoThankYouPage ewanoPaymentResultStatus: ', ewanoPaymentResultStatus)
       this.checkEwanoPaymentResult(ewanoPaymentResultStatus)
     }
   },
@@ -74,7 +74,7 @@ export default {
       this.$bus.emit('ThankYouPageInvoiceLoading', state)
     },
     checkEwanoPaymentResult (status) {
-      console.warn('EwanoThankYouPage -> checkEwanoPaymentResult -> status: ', status)
+      // console.warn('EwanoThankYouPage -> checkEwanoPaymentResult -> status: ', status)
       this.changeLoadingState(true)
       if (status) {
         this.pay()
