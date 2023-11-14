@@ -134,7 +134,7 @@ export default {
           animated: true,
           infinite: true,
           swipeable: true,
-          autoplay: 4000, // true - false - time intervals (in milliseconds)
+          autoplay: 5000, // true - false - time intervals (in milliseconds)
           transitionPrev: 'fade',
           transitionNext: 'fade',
           transitionDuration: 300
