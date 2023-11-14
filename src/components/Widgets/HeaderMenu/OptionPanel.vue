@@ -342,7 +342,7 @@ import TextWidgetOptionPanel from 'components/Widgets/TextWidget/OptionPanel.vue
 import ImageWidgetOptionPanel from 'components/Widgets/ImageWidget/OptionPanel.vue'
 import ActionButtonOptionPanel from 'components/Widgets/ActionButton/OptionPanel.vue'
 import TimerOptionPanel from 'components/Widgets/Timer/OptionPanel.vue'
-import ResponsiveBackGround from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/ResponsiveBackGround.vue'
+import ResponsiveBackGround from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/ResponsiveBackGround/ResponsiveBackGround.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
@@ -497,7 +497,59 @@ export default defineComponent({
           action: null,
           scrollTo: null,
           route: null,
-          eventName: null
+          eventName: null,
+          responsiveSpacing: {
+            xs: {
+              marginTop: null,
+              marginLeft: null,
+              marginRight: null,
+              marginBottom: null,
+              paddingTop: null,
+              paddingLeft: null,
+              paddingRight: null,
+              paddingBottom: null
+            },
+            sm: {
+              marginTop: null,
+              marginLeft: null,
+              marginRight: null,
+              marginBottom: null,
+              paddingTop: null,
+              paddingLeft: null,
+              paddingRight: null,
+              paddingBottom: null
+            },
+            md: {
+              marginTop: null,
+              marginLeft: null,
+              marginRight: null,
+              marginBottom: null,
+              paddingTop: null,
+              paddingLeft: null,
+              paddingRight: null,
+              paddingBottom: null
+            },
+            lg: {
+              marginTop: null,
+              marginLeft: null,
+              marginRight: null,
+              marginBottom: null,
+              paddingTop: null,
+              paddingLeft: null,
+              paddingRight: null,
+              paddingBottom: null
+            },
+            xl: {
+              marginTop: null,
+              marginLeft: null,
+              marginRight: null,
+              marginBottom: null,
+              paddingTop: null,
+              paddingLeft: null,
+              paddingRight: null,
+              paddingBottom: null
+            }
+          }
         }
       },
       defaultTimerWidget: {

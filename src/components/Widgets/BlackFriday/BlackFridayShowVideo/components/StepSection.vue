@@ -4,15 +4,15 @@
       <div v-for="(video, videoIndex) in localBlackFridayCampaignData.videos.list"
            :key="videoIndex"
            class="item"
-           :class="{ 'unlock': video.is_actice, 'lock': !video.is_actice, 'current': isCurrent(videoIndex) }">
+           :class="{ 'unlock': video.is_active, 'lock': !video.is_active, 'current': isCurrent(videoIndex) }">
         <q-btn @click="onSelectStep(videoIndex)">
-          <svg v-if="!video.is_actice"
+          <svg v-if="!video.is_active"
                xmlns="http://www.w3.org/2000/svg"
-               width="21"
-               height="20"
-               viewBox="0 0 21 20"
+               width="19"
+               height="18"
+               viewBox="0 0 19 18"
                fill="none">
-            <path d="M16.3929 6.25H13.8929V4.375C13.8929 3.38044 13.4979 2.42661 12.7946 1.72335C12.0913 1.02009 11.1375 0.625 10.1429 0.625C9.14838 0.625 8.19456 1.02009 7.49129 1.72335C6.78803 2.42661 6.39294 3.38044 6.39294 4.375V6.25H3.89294C3.56142 6.25 3.24348 6.3817 3.00906 6.61612C2.77464 6.85054 2.64294 7.16848 2.64294 7.5V16.25C2.64294 16.5815 2.77464 16.8995 3.00906 17.1339C3.24348 17.3683 3.56142 17.5 3.89294 17.5H16.3929C16.7245 17.5 17.0424 17.3683 17.2768 17.1339C17.5112 16.8995 17.6429 16.5815 17.6429 16.25V7.5C17.6429 7.16848 17.5112 6.85054 17.2768 6.61612C17.0424 6.3817 16.7245 6.25 16.3929 6.25ZM10.1429 12.8125C9.95752 12.8125 9.77627 12.7575 9.6221 12.6545C9.46793 12.5515 9.34776 12.4051 9.27681 12.2338C9.20585 12.0625 9.18728 11.874 9.22346 11.6921C9.25963 11.5102 9.34892 11.3432 9.48003 11.2121C9.61114 11.081 9.77819 10.9917 9.96005 10.9555C10.1419 10.9193 10.3304 10.9379 10.5017 11.0089C10.673 11.0798 10.8194 11.2 10.9224 11.3542C11.0255 11.5083 11.0804 11.6896 11.0804 11.875C11.0804 12.1236 10.9817 12.3621 10.8059 12.5379C10.63 12.7137 10.3916 12.8125 10.1429 12.8125ZM12.6429 6.25H7.64294V4.375C7.64294 3.71196 7.90634 3.07607 8.37518 2.60723C8.84402 2.13839 9.4799 1.875 10.1429 1.875C10.806 1.875 11.4419 2.13839 11.9107 2.60723C12.3796 3.07607 12.6429 3.71196 12.6429 4.375V6.25Z"
+            <path d="M14.9106 5.625H12.6606V3.9375C12.6606 3.04239 12.3051 2.18395 11.6721 1.55101C11.0392 0.918079 10.1808 0.5625 9.28564 0.5625C8.39054 0.5625 7.53209 0.918079 6.89916 1.55101C6.26622 2.18395 5.91064 3.04239 5.91064 3.9375V5.625H3.66064C3.36228 5.625 3.07613 5.74353 2.86515 5.9545C2.65417 6.16548 2.53564 6.45163 2.53564 6.75V14.625C2.53564 14.9234 2.65417 15.2095 2.86515 15.4205C3.07613 15.6315 3.36228 15.75 3.66064 15.75H14.9106C15.209 15.75 15.4952 15.6315 15.7061 15.4205C15.9171 15.2095 16.0356 14.9234 16.0356 14.625V6.75C16.0356 6.45163 15.9171 6.16548 15.7061 5.9545C15.4952 5.74353 15.209 5.625 14.9106 5.625ZM9.28564 11.5312C9.11877 11.5312 8.95564 11.4818 8.81688 11.3891C8.67813 11.2963 8.56998 11.1646 8.50612 11.0104C8.44226 10.8562 8.42555 10.6866 8.45811 10.5229C8.49066 10.3592 8.57102 10.2089 8.68902 10.0909C8.80702 9.97288 8.95737 9.89252 9.12104 9.85996C9.28471 9.82741 9.45436 9.84412 9.60853 9.90798C9.76271 9.97184 9.89448 10.08 9.9872 10.2187C10.0799 10.3575 10.1294 10.5206 10.1294 10.6875C10.1294 10.9113 10.0405 11.1259 9.88227 11.2841C9.72403 11.4424 9.50942 11.5312 9.28564 11.5312ZM11.5356 5.625H7.03564V3.9375C7.03564 3.34076 7.2727 2.76847 7.69465 2.34651C8.11661 1.92455 8.68891 1.6875 9.28564 1.6875C9.88238 1.6875 10.4547 1.92455 10.8766 2.34651C11.2986 2.76847 11.5356 3.34076 11.5356 3.9375V5.625Z"
                   fill="#D0CCF4" />
           </svg>
           <svg v-else-if="!isCurrent(videoIndex)"
@@ -41,9 +41,8 @@
             {{ videoIndex }}
             از ۷
           </div>
-          <div class="curren-info-caption">
-            {{ video.coupon_display_title }}
-          </div>
+          <div class="curren-info-caption"
+               v-html="video.description" />
         </div>
       </div>
     </div>
@@ -102,7 +101,7 @@ export default defineComponent({
     getLastActiveIndex () {
       let activeIndex = 0
       this.localBlackFridayCampaignData.videos.list.forEach((video, videoIndex) => {
-        if (video.is_actice && activeIndex < videoIndex) {
+        if (video.is_active && activeIndex < videoIndex) {
           activeIndex = videoIndex
         }
       })
@@ -111,7 +110,6 @@ export default defineComponent({
     }
   }
 })
-
 </script>
 
 <style scoped lang="scss">
@@ -127,12 +125,34 @@ export default defineComponent({
     width: 1130px;
     padding-top: 50px;
     padding-bottom: 78px;
+
+    &::-webkit-scrollbar{
+      width: 10px ;
+      height: 10px;
+      border-radius: 6px ;
+      background-color: #D14835;
+    }
+
+    &::-webkit-scrollbar-track{
+      border-radius: 6px ;
+      background-color: #F5F5F5 ;
+    }
+
+    &::-webkit-scrollbar-thumb{
+      border-radius: 6px ;
+      background-color: #D14835;
+    }
+
     @media screen and (max-width: 1439px) {
       width: 964px;
+      padding-right: 82px;
+      padding-left: 82px;
     }
     @media screen and (max-width: 1023px) {
       width: 540px;
       padding-top: 48px;
+      padding-right: 0;
+      padding-left: 0;
     }
     @media screen and (max-width: 599px) {
       width: 100%;
@@ -140,7 +160,7 @@ export default defineComponent({
       overflow-x: auto;
       flex-wrap: nowrap;
       justify-content: flex-start;
-      padding-bottom: 86px;
+      padding-bottom: 102px;
       padding-top: 40px;
     }
     .item {
@@ -179,8 +199,17 @@ export default defineComponent({
           padding: 15px;
         }
         border-radius: 100px;
-        background: #5E57AC;
         box-shadow: 0 0 32px 0 rgba(51, 51, 51, 0.09);
+      }
+      &.lock {
+        .q-btn {
+          background: #2F2A5B;
+        }
+      }
+      &.unlock:not(.current) {
+        .q-btn {
+          background: #5E57AC;
+        }
       }
       &.current {
         position: relative;
