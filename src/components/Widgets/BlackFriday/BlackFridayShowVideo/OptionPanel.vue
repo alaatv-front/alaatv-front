@@ -4,13 +4,13 @@
                      :show-box-shadows-tab="true"
                      :show-responsive-show="true">
     <template #main-tab>
-      <div class="option-panel-container q-py-md">
-        <div class="row q-col-gutter-sm">
-          <div class="input-container col-md-10">
-            <q-input v-model="localOptions.scrollTo"
-                     label="scrollTo" />
-          </div>
-        </div>
+      <div>
+        <q-input v-model="localOptions.scrollToProducts"
+                 label="scrollTo Products" />
+      </div>
+      <div>
+        <q-input v-model="localOptions.scrollToParticipateSection"
+                 label="scrollTo Participate Section" />
       </div>
     </template>
   </option-panel-tabs>
