@@ -87,8 +87,10 @@ module.exports = configure(function (ctx) {
       sourcemap: true,
       gzip: true,
       analyze: false,
+      // publicPath will redirect site
       // publicPath: (process.env.ASSET_SERVE === 'remote') ? (process.env.NODES_SERVER_URL_SSL || '/') : '/',
       // publicPath: '/',
+      // publicPath: 'https://stage-minio.alaatv.com/assets/alaatv/assets/',
       env: process.env,
       extendViteConf(viteConf, { isServer, isClient }) {
         // console.log('viteConf.build', viteConf.build)
@@ -114,9 +116,19 @@ module.exports = configure(function (ctx) {
       vitePlugins: [
         // // Put the Sentry vite plugin after all other plugins
         sentryVitePlugin({
+          telemetry: false,
+          include: ['./dist'],
+          ignore: ['node_modules', 'quasar.config.js'],
           org: process.env.SENTRY_ORG,
           project: process.env.SENTRY_PROJECT,
-          authToken: process.env.SENTRY_AUTH_TOKEN
+          authToken: process.env.SENTRY_AUTH_TOKEN,
+          // configFile: 'entry.properties',
+          // stripPrefix: ['dist/js'],
+          urlSuffix: '.map',
+          validate: true,
+          rewrite: true,
+          attachCommits: true,
+          includeSourceMaps: true
         })
       ]
     },

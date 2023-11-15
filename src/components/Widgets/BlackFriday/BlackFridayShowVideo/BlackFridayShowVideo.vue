@@ -14,13 +14,15 @@
                      @prev="onPrev"
                      @next="onNext" />
       <step-section :black-friday-campaign-data="blackFridayCampaignData"
+                    :selected-step-index="selectedVideoIndex"
                     class="step-section"
                     @onSelectStep="onSelectStep" />
       <q-dialog v-model="dialog">
         <inside-dialog :state="videoDialogState"
                        :coupon-title="watchedVideoCoupon.discount_in_letters"
                        :coupon-code="watchedVideoCoupon.code"
-                       :scroll-to-element-class-name="localOptions.scrollTo" />
+                       :scroll-to-products-element-class-name="localOptions.scrollToProducts"
+                       :scroll-to-participate-section-element-class-name="localOptions.scrollToParticipateSection" />
       </q-dialog>
     </template>
   </div>
@@ -50,7 +52,8 @@ export default defineComponent({
       videoDialogState: null,
       blackFridayCampaignData: new BlackFridayCampaignData(),
       defaultOptions: {
-        scrollTo: null
+        scrollToProducts: null,
+        scrollToParticipateSection: null
       }
     }
   },
@@ -156,6 +159,7 @@ export default defineComponent({
         watchable_type: 'content'
       })
         .then(() => {
+          this.blackFridayCampaignData.videos.list[this.selectedVideoIndex].has_played = true
         })
         .catch(() => {
         })
@@ -170,9 +174,9 @@ export default defineComponent({
       }
       this.beforeChangeSelectedVideo()
       const prevIndex = this.getPrevIndex()
-      if (!this.isVideoActive(prevIndex)) {
-        return
-      }
+      // if (!this.isVideoActive(prevIndex)) {
+      //   return
+      // }
       this.setVideoSelected(prevIndex)
     },
     onNext () {
@@ -182,9 +186,9 @@ export default defineComponent({
       }
       this.beforeChangeSelectedVideo()
       const nextIndex = this.getNextIndex()
-      if (!this.isVideoActive(nextIndex)) {
-        return
-      }
+      // if (!this.isVideoActive(nextIndex)) {
+      //   return
+      // }
       this.setVideoSelected(nextIndex)
     },
     isVideoActive (videoIndex) {
@@ -195,7 +199,9 @@ export default defineComponent({
       return !!this.blackFridayCampaignData.videos.list[videoIndex].is_active
     },
     beforeChangeSelectedVideo () {
-      if (this.currentVideoWatched) {
+      const hasPlayedFirstVideo = this.blackFridayCampaignData.videos.list.length > 0 ? this.blackFridayCampaignData.videos.list[0].has_played : false
+
+      if (this.currentVideoWatched || (this.selectedVideoIndex === 0 && !hasPlayedFirstVideo)) {
         const videoDialogState = this.getVideoDialogState()
         this.showVideoDialog(videoDialogState)
       }

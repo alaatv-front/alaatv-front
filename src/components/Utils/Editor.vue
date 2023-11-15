@@ -74,7 +74,7 @@ export default {
             icon: $q.iconSet.editor.font,
             list: 'no-icons',
             // options: ['p', 'h3', 'h4', 'h5', 'h6', 'code']
-            options: ['Doran', 'IRANSans', 'IRANSansDN', 'IRANSansX', 'iranyekan', 'Plasma', 'Panchang']
+            options: ['Doran', 'IRANSans', 'IRANSansDN', 'IRANSansX', 'iranyekan', 'Plasma', 'Panchang', 'Modam']
           },
           {
             icon: $q.iconSet.editor.fontSize,
@@ -103,7 +103,8 @@ export default {
         IRANSansX: 'IRANSansXFaNum',
         iranyekan: 'iranyekan',
         Plasma: 'Plasma-Lozenge-Dots',
-        Panchang: 'Panchang'
+        Panchang: 'Panchang',
+        Modam: 'Modam'
         // options: ['Doran', 'IRANSans', 'IRANSansDN', 'IRANSansX', 'iranyekan', 'Plasma']
       }
     }
