@@ -280,56 +280,17 @@ export default defineComponent({
         width: 100%;
         height: 100%;
         z-index: 2;
-        display: flex;
+        display: none;
+        flex-flow: column;
         justify-content: center;
         align-items: center;
+        border-radius: 20px;
         &.state-unlock {
-          display: none;
-          svg {
-            cursor: pointer;
-            @media screen and (max-width: 1439px) {
-              width: 45.222px;
-              height: 45.222px;
-            }
-            @media screen and (max-width: 1023px) {
-              width: 51.737px;
-              height: 51.737px;
-            }
-            @media screen and (max-width: 599px) {
-              width: 30.666px;
-              height: 30.666px;
-            }
-          }
         }
         &.state-lock {
-          display: none;
-          flex-flow: column;
-          border-radius: 20px;
-          @media screen and (max-width: 1439px) {
-            border-radius: 16px;
-          }
-          @media screen and (max-width: 1023px) {
-            border-radius: 16.168px;
-          }
-          @media screen and (max-width: 599px) {
-            border-radius: 9.583px;
-          }
           background: rgba(20, 19, 24, 0.40);
           svg {
-            cursor: pointer;
             margin-bottom: 8px;
-            @media screen and (max-width: 1439px) {
-              width: 45.222px;
-              height: 45.222px;
-            }
-            @media screen and (max-width: 1023px) {
-              width: 51.737px;
-              height: 51.737px;
-            }
-            @media screen and (max-width: 599px) {
-              width: 30.666px;
-              height: 30.666px;
-            }
           }
           .lock-message {
             color: #D0CCF4;
@@ -341,6 +302,30 @@ export default defineComponent({
             line-height: normal;
             letter-spacing: -0.6px;
           }
+        }
+        svg {
+          cursor: pointer;
+          @media screen and (max-width: 1439px) {
+            width: 45.222px;
+            height: 45.222px;
+          }
+          @media screen and (max-width: 1023px) {
+            width: 51.737px;
+            height: 51.737px;
+          }
+          @media screen and (max-width: 599px) {
+            width: 30.666px;
+            height: 30.666px;
+          }
+        }
+        @media screen and (max-width: 1439px) {
+          border-radius: 16px;
+        }
+        @media screen and (max-width: 1023px) {
+          border-radius: 16.168px;
+        }
+        @media screen and (max-width: 599px) {
+          border-radius: 9.583px;
         }
       }
       :deep(.vPlayer) {
