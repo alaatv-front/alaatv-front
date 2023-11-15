@@ -187,6 +187,7 @@
                   </div>
                   <div class="col-3">
                     <q-input v-model="localOptions.drawer.width"
+                             type="number"
                              label="width(px)" />
                   </div>
                   <div class="col-3">
