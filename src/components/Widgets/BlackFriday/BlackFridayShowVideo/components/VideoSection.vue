@@ -56,7 +56,7 @@
                       :source="localVideoSource"
                       :poster="localVideo.thumbnail"
                       :disable-progress-control="false"
-                      :disable-playback-rate-menu-button="true"
+                      :disable-playback-rate-menu-button="false"
                       @timeUpdated="onTimeUpdated"
                       @pause="onPause"
                       @ended="onEnded"
@@ -237,7 +237,6 @@ export default defineComponent({
     .video-box {
       position: relative;
       width: 668px;
-      height: 375px;
       border-radius: 20px;
       background: #19172E;
       box-shadow: 0 0 32px 0 rgba(51, 51, 51, 0.09);
@@ -247,22 +246,18 @@ export default defineComponent({
       align-items: center;
       @media screen and (max-width: 1439px) {
         width: 472px;
-        height: 264px;
         border-radius: 16px;
       }
       @media screen and (max-width: 1023px) {
         border-radius: 16.2px;
         width: 540px;
-        height: 300px;
       }
       @media screen and (max-width: 599px) {
         border-radius: 9.58px;
         width: 320px;
-        height: 179px;
       }
       @media screen and (max-width: 360px) {
         max-width: 100%;
-        height: 179px;
       }
       &.unlock {
         .state-layer {

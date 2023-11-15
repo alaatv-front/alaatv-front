@@ -136,7 +136,6 @@ export default {
   created() {
     this.loadImage()
     this.loadVideo()
-    console.log('banner', this.banner)
   },
   methods: {
     loadImage() {
