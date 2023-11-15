@@ -259,7 +259,9 @@ export default defineComponent({
         })
     },
     onAction () {
-      this.scrollToElement(this.scrollToElementClassName)
+      setTimeout(() => {
+        this.scrollToElement(this.scrollToElementClassName)
+      }, 100)
     },
     scrollToElement(className) {
       const el = document.getElementsByClassName(className)[0]
