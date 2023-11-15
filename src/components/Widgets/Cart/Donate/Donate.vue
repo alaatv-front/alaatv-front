@@ -8,6 +8,7 @@
            style="font-size: 14px">
         <div class="q-mr-sm">5000 تومان به آلاء کمک</div>
         <q-btn-toggle v-model="donate"
+                      class="donate-toggle-btn"
                       toggle-color="primary"
                       :options="[
                         {label: 'میکنم', value: 'doHelp'},
@@ -122,11 +123,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/Theme/colors.scss';
 .donate {
   border-radius: 10px;
   box-shadow: 0 6px 5px rgba(0, 0, 0, 0.03);
   padding: 16px 30px;
   color: #575962;
+}
+
+.donate-toggle-btn{
+  &.q-btn-group{
+    :deep(.q-btn) {
+      .q-btn__content{
+        color:$grey-9 !important;
+      }
+    }
+  }
+
 }
 
 .donate-help:hover {
