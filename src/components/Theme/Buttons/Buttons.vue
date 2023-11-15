@@ -902,6 +902,7 @@
               <q-btn icon="ph:copyright"
                      outline
                      round
+                     color="grey"
                      class="size-xs" />
             </div>
             <div class="col-md-2">
@@ -948,6 +949,7 @@
               <q-btn icon="ph:copyright"
                      outline
                      round
+                     color="grey"
                      class="size-sm" />
             </div>
             <div class="col-md-2">
@@ -993,7 +995,8 @@
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
                      outline
-                     round />
+                     round
+                     color="grey" />
             </div>
             <div class="col-md-2">
               <q-btn icon="ph:copyright"
@@ -1039,6 +1042,7 @@
               <q-btn icon="ph:copyright"
                      outline
                      round
+                     color="grey"
                      class="size-lg" />
             </div>
             <div class="col-md-2">
@@ -1085,6 +1089,7 @@
               <q-btn icon="ph:copyright"
                      outline
                      round
+                     color="grey"
                      class="size-xl" />
             </div>
             <div class="col-md-2">
