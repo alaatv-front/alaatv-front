@@ -56,7 +56,7 @@
                       :source="localVideoSource"
                       :poster="localVideo.thumbnail"
                       :disable-progress-control="false"
-                      :disable-playback-rate-menu-button="true"
+                      :disable-playback-rate-menu-button="false"
                       @timeUpdated="onTimeUpdated"
                       @pause="onPause"
                       @ended="onEnded"
