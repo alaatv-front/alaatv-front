@@ -326,10 +326,10 @@ export default {
 .slider-widget {
   width: 100%;
   background-color: transparent;
+  display: block;
+
   &:deep(.q-carousel__slide) {
     padding: 0;
-    display: block;
-    background: transparent;
 
     .slider-parent{
       display: block;
