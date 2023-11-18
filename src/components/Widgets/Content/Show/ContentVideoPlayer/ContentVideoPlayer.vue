@@ -179,7 +179,7 @@ export default {
       }
     }
 
-    @media screen and(max-width: 400px) {
+    @media screen and (max-width: 400px) {
       &:deep(.q-pagination__content) {
         display: block !important;
       }

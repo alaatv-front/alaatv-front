@@ -58,7 +58,8 @@
                 <q-separator class="invoice-separator" />
               </q-card-section>
 
-              <q-card-section class="invoice-coupon-section invoice-cart-section">
+              <q-card-section v-if="!isEwanoUser"
+                              class="invoice-coupon-section invoice-cart-section">
                 <div v-if="localOptions.hasDiscountPercent && !localOptions.dense"
                      class="enter-coupon-code">
                   <div class="title">{{localOptions.discountPercent}}</div>

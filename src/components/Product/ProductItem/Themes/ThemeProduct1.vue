@@ -375,7 +375,7 @@ export default defineComponent({
         padding-top: 3px;
       }
     }
-    @media screen and(max-width: 600px) {
+    @media screen and (max-width: 600px) {
     }
   }
 

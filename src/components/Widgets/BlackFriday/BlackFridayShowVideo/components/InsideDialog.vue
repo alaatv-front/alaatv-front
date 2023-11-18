@@ -50,7 +50,7 @@
                class="action-btn"
                @click="onAction">
           <template v-if="state === 'watch-video-0'">
-            متوجه شدم
+            شانس امروزت رو امتحان کن
           </template>
           <template v-else-if="state.includes('watch-video-')">
             استفاده از کد تخفیف
@@ -105,7 +105,11 @@ export default defineComponent({
       type: String,
       default: ''
     },
-    scrollToElementClassName: {
+    scrollToProductsElementClassName: {
+      type: String,
+      default: ''
+    },
+    scrollToParticipateSectionElementClassName: {
       type: String,
       default: ''
     }
@@ -177,11 +181,11 @@ export default defineComponent({
           'فردا همینجا میبینمت ...'
       }
 
+      const captionMessage = this.getCaptionMessage()
       if (this.state.includes('watch-video-')) {
-        return 'جایزه امروز آلا، کد تخفیف' + this.couponTitle + ' تومانه و تا ۱۰ آذر معتبره!'
-        // +
-        // '<br/>' +
-        // '(برای حداقل خرید n هزار تومان)'
+        return 'جایزه امروز آلا، کد تخفیف' + this.couponTitle + ' تومانه و تا ۱۰ آذر معتبره!' +
+        '<br/>' +
+        '(' + captionMessage + ')'
       }
 
       if (this.state === 'participate-success-coupon') {
@@ -260,7 +264,11 @@ export default defineComponent({
     },
     onAction () {
       setTimeout(() => {
-        this.scrollToElement(this.scrollToElementClassName)
+        if (this.state === 'watch-video-0') {
+          this.scrollToElement(this.scrollToParticipateSectionElementClassName)
+        } else if (this.state.includes('watch-video-')) {
+          this.scrollToElement(this.scrollToProductsElementClassName)
+        }
       }, 100)
     },
     scrollToElement(className) {
@@ -272,6 +280,29 @@ export default defineComponent({
         top: offsetPosition,
         behavior: 'smooth'
       })
+    },
+    getCaptionMessage () {
+      if (this.state === 'watch-video-1') {
+        return 'ویژه دوره های حداقل 250 هزار تومانی'
+      }
+      if (this.state === 'watch-video-2') {
+        return 'ویژه دوره های حداقل 400 هزار تومانی'
+      }
+      if (this.state === 'watch-video-3') {
+        return 'ویژه دوره های حداقل 500 هزار تومانی'
+      }
+      if (this.state === 'watch-video-4') {
+        return 'ویژه دوره های حداقل 500 هزار تومانی'
+      }
+      if (this.state === 'watch-video-5') {
+        return 'ویژه دوره های حداقل 700 هزار تومانی'
+      }
+      if (this.state === 'watch-video-6') {
+        return 'ویژه دوره های راه ابریشم و پک کامل چتر نجات'
+      }
+      if (this.state === 'watch-video-7') {
+        return 'ویژه دوره های راه ابریشم'
+      }
     }
   }
 })

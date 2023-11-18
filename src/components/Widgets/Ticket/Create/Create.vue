@@ -14,27 +14,34 @@
         <q-dialog v-model="showDialog"
                   no-backdrop-dismiss>
           <div>
-            <q-card class="q-pa-md">
-              <div class="row justify-end">
+            <q-card>
+              <q-card-section class="flex justify-between items-center">
+                <div>
+                  لیست بخش ها
+                </div>
                 <q-btn v-close-popup
+                       color="grey"
                        flat
+                       round
                        icon="close"
                        text
                        @click="goBackToList" />
-              </div>
-              <div class="row justify-center">
-                <q-btn v-for="department in departmentList.list"
+              </q-card-section>
+              <q-card-section>
+                <div class="row q-col-gutter-md">
+                  <div v-for="department in departmentList.list"
                        :key="department.id"
-                       v-close-popup
-                       unelevated
-                       class="departmentActionBtn col-3 q-ma-md"
-                       icon="isax:search-status .path4:before"
-                       @click="selectDepartment(department)">
-                  <span class="full-width q-pt-sm">
-                    {{department.title}}
-                  </span>
-                </q-btn>
-              </div>
+                       class="col-6">
+                    <q-btn v-close-popup
+                           color="grey"
+                           outline
+                           icon="ph:office-chair"
+                           class="full-width"
+                           :label="department.title"
+                           @click="selectDepartment(department)" />
+                  </div>
+                </div>
+              </q-card-section>
             </q-card>
           </div>
         </q-dialog>
@@ -196,21 +203,6 @@ export default {
 <style scoped lang="scss">
 .page-content{
   margin: 30px;
-
-  :deep(.departmentActionBtn) {
-    border-radius: 8px;
-    width: 100px;
-    height: 100px;
-    padding: 0;
-    &:hover {
-      background-color: #FFCA28;
-      color: white;
-    }
-    .q-focus-helper {
-      display: none;
-    }
-  }
-
 }
 
 :deep(.form-builder-separator-col) {
@@ -220,9 +212,5 @@ export default {
 
 :deep(.q-btn-group) {
   box-shadow: none;
-
-  .q-btn-item:last-child {
-  }
 }
-
 </style>

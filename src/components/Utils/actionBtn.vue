@@ -27,7 +27,7 @@ export default {
   //padding-top: 33px;
   display: flex;
   justify-content: flex-end;
-  @media screen and(max-width:599px ) {
+  @media screen and (max-width:599px ) {
   padding-top: 0;
   }
   .reload-icon{

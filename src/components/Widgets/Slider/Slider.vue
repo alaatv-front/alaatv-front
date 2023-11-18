@@ -1,5 +1,6 @@
 <template>
-  <q-carousel v-model="slide"
+  <q-carousel ref="SliderCarousel"
+              v-model="slide"
               :arrows="localOptions.controlNavigation.arrows"
               :prev-icon="localOptions.controlNavigation.prevIcon"
               :next-icon="localOptions.controlNavigation.nextIcon"
@@ -24,12 +25,12 @@
     <q-carousel-slide v-for="(slide, index) in options.list"
                       :key="index"
                       :ref="'slider' + index"
-                      :name="index">
+                      :name="index"
+                      @click="takeAction(slide)">
       <component :is="parentComponent"
                  :to="slide.link"
                  :href="slide.link"
-                 class="slider-parent"
-                 @click="takeAction(slide)">
+                 class="slider-parent">
         <template v-if="hasPhoto(slide) && !hasVideo(slide)">
           <lazy-img v-if="slide.photo.src !== ''"
                     :height="slide.photo.height"
@@ -87,6 +88,7 @@ import { Banner, BannerList } from 'src/models/Banner.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import lazyImg from 'components/lazyImg.vue'
 import { AEE } from 'assets/js/AEE/AnalyticsEnhancedEcommerce'
+import { openURL } from 'quasar'
 
 export default {
   name: 'Slider',
@@ -291,6 +293,11 @@ export default {
       if (slide.useAEEEvent) {
         this.pushClickedEvent(slide)
       }
+      if (this.parentComponent === 'a') {
+        openURL(slide.link)
+      } else if (this.parentComponent === 'router-link') {
+        this.$router.push(slide.link)
+      }
     },
     hasVideo (slide) {
       const hasSimpleVideo = !!slide.video?.src
@@ -319,18 +326,20 @@ export default {
 .slider-widget {
   width: 100%;
   background-color: transparent;
+  display: block;
+
   &:deep(.q-carousel__slide) {
     padding: 0;
-    display: block;
-    background: transparent;
 
     .slider-parent{
-      cursor: pointer;
       display: block;
       background: transparent;
+      pointer-events: none !important;
+      cursor: pointer;
     }
     .slider-image {
       width: 100%;
+      pointer-events: none !important;
     }
   }
   &:deep(.q-carousel__control) {

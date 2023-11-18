@@ -149,13 +149,13 @@ color: #3e5480;
       justify-self: center;
     }
   }
-  @media screen and(max-width: 1023px) {
+  @media screen and (max-width: 1023px) {
     padding: 0 21px;
   }
-  @media screen and(max-width: 990px) {
+  @media screen and (max-width: 990px) {
     padding: 0 15px;
   }
-  @media screen and(max-width: 575px) {
+  @media screen and (max-width: 575px) {
     padding: 0 10px;
   }
   .expanded-navigation{
