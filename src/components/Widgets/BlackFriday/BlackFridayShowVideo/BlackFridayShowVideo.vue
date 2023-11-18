@@ -107,6 +107,7 @@ export default defineComponent({
       this.setVideoSelected(videoIndex)
     },
     async onWatched () {
+      this.$bus.emit('balaa-ta-dey-on-watched-video')
       if (this.selectedVideoIndex === 0) {
         return
       }
@@ -199,9 +200,10 @@ export default defineComponent({
       return !!this.blackFridayCampaignData.videos.list[videoIndex].is_active
     },
     beforeChangeSelectedVideo () {
-      const hasPlayedFirstVideo = this.blackFridayCampaignData.videos.list.length > 0 ? this.blackFridayCampaignData.videos.list[0].has_played : false
-
-      if (this.currentVideoWatched || (this.selectedVideoIndex === 0 && !hasPlayedFirstVideo)) {
+      // const hasPlayedFirstVideo = this.blackFridayCampaignData.videos.list.length > 0 ? this.blackFridayCampaignData.videos.list[0].has_played : false
+      //
+      // if (this.currentVideoWatched || (this.selectedVideoIndex === 0 && !hasPlayedFirstVideo)) {
+      if (this.currentVideoWatched || this.selectedVideoIndex === 0) {
         const videoDialogState = this.getVideoDialogState()
         this.showVideoDialog(videoDialogState)
       }
