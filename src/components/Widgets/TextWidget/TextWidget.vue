@@ -221,7 +221,7 @@ $responsiveSpacing: (
       border-top: v-bind('localOptions.themes.theme1.borderSize') solid v-bind('localOptions.themes.theme1.borderColor');
     }
   }
-  @media screen and(max-width: 599px) {
+  @media screen and (max-width: 599px) {
     //display: flex;
     //width: 100%;
   }

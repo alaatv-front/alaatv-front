@@ -252,7 +252,7 @@ $responsiveSpacing: (
       }
     }
   }
-  @media screen and(max-width: 599px) {
+  @media screen and (max-width: 599px) {
     //display: flex;
     //width: 100%;
   }
