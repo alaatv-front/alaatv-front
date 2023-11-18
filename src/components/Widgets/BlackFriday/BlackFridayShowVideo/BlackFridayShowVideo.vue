@@ -107,6 +107,7 @@ export default defineComponent({
       this.setVideoSelected(videoIndex)
     },
     async onWatched () {
+      this.$bus.emit('balaa-ta-dey-on-watched-video')
       if (this.selectedVideoIndex === 0) {
         return
       }
