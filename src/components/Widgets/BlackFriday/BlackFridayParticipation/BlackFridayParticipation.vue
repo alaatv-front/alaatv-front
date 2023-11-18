@@ -79,6 +79,9 @@ export default defineComponent({
       this.loadAuthData()
       this.getBlackFridayCampaignData()
     })
+    this.$bus.on('balaa-ta-dey-on-watched-video', () => {
+      this.getBlackFridayCampaignData()
+    })
   },
   methods: {
     showLoginDialog () {
