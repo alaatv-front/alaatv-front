@@ -24,13 +24,16 @@
     </div>
     <q-linear-progress v-if="loading"
                        indeterminate />
-    <div class="col-12 calendar">
+    <div class="col-9 calendar">
       <full-calendar ref="fullCalendar"
                      :study-event="studyEvent"
                      :events="studyPlanList"
                      :filtered-lesson="filteredLesson"
                      @edit-plan="editPlan"
                      @remove-plan="openRemovePlanWarning" />
+    </div>
+    <div class="col-3">
+      <triple-title-set-content-selection v-model:selectedContentList="selectedContentList" />
     </div>
     <q-dialog v-model="newPlanDialog">
       <q-card class="new-theme">
@@ -310,6 +313,7 @@ import SessionInfo from 'src/components/Widgets/User/TripleTitleSetPanel/TripleT
 import ContentsComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/Contents.vue'
 import TextComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/TextComponent.vue'
 import LazyImg from 'components/lazyImg.vue'
+import TripleTitleSetContentSelection from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetContentSelection/TripleTitleSetContentSelection.vue'
 
 const ContentsComponentComp = shallowRef(ContentsComponent)
 const TextComponentComp = shallowRef(TextComponent)
@@ -320,7 +324,8 @@ export default {
     LazyImg,
     FullCalendar,
     EntityCreate,
-    EntityEdit
+    EntityEdit,
+    TripleTitleSetContentSelection
   },
   data () {
     return {
@@ -334,6 +339,7 @@ export default {
       isAdmin: false,
       needToUpdatePlan: false,
       studyPlanList: new StudyPlanList(),
+      selectedContentList: [],
       planSettings: false,
       acceptPlan: false,
       warning: false,
