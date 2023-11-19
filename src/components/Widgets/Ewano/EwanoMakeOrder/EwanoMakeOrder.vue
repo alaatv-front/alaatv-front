@@ -1,12 +1,12 @@
 <script>
 export default {
   name: 'RaychatWidget',
-  data() {
+  data () {
     return {
 
     }
   },
-  mounted() {
+  mounted () {
     this.$bus.on('busEvent-refreshCart', this.cartReview)
   },
   methods: {

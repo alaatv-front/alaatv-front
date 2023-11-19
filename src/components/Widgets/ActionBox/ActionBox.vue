@@ -25,7 +25,7 @@ export default {
   name: 'ActionBox',
   components: { ActionButton },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       defaultOptions: {
         src: '',

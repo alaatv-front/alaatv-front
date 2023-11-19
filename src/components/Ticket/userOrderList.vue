@@ -244,7 +244,7 @@ export default {
   props: {
     userOrdersList: {
       type: Array,
-      default() {
+      default () {
         return []
       }
     },
@@ -262,7 +262,7 @@ export default {
     }
   },
   watch: {
-    userOrdersList(val) {
+    userOrdersList (val) {
     }
   },
   methods: {

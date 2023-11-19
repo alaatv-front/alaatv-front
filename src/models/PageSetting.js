@@ -26,7 +26,7 @@ class PageSetting extends Model {
 }
 
 class PageSettingList extends Collection {
-  model() {
+  model () {
     return PageSetting
   }
 }

@@ -65,7 +65,7 @@ export default {
     }
   },
   emits: ['selectedUpdated', 'toggleDialog'],
-  data() {
+  data () {
     return {
       // inputs: [
       //   { type: 'hidden', name: 'search', responseKey: 'search', col: 'col-12 col-lg-12 col-sm-6' }
@@ -105,15 +105,15 @@ export default {
     }
   },
   watch: {
-    selected(value) {
+    selected (value) {
       this.$emit('selectedUpdated', value)
     }
   },
   methods: {
-    toggleDialog() {
+    toggleDialog () {
       this.$emit('toggleDialog')
     },
-    setContent(e) {
+    setContent (e) {
       this.selected = e
       this.toggleDialog()
     }

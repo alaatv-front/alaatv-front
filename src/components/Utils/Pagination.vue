@@ -58,7 +58,7 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
       disableValue: false,
       pageToGoTo: ''
@@ -70,7 +70,7 @@ export default {
     }
   },
   methods: {
-    updatePage(val) {
+    updatePage (val) {
       this.$emit('updateCurrentPage', val)
     },
     goToPage () {

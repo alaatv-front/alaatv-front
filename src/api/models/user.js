@@ -10,7 +10,7 @@ import { EventekhbReshte } from 'src/models/EventekhbReshte.js'
 import { FieldSelectionForm } from 'src/models/FieldSelectionForm.js'
 
 export default class UserAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('user', apiV2, '/user', User)
     this.APIAdresses = {
       create: '/admin/user',
@@ -109,7 +109,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  nationalCard(data) {
+  nationalCard (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -125,7 +125,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getNationalCardPhoto(cache = { TTL: 1000 }) {
+  getNationalCardPhoto (cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -141,7 +141,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  storeBankAccounts(data = {}) {
+  storeBankAccounts (data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -161,7 +161,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  updateProfile(userId, data = {}) {
+  updateProfile (userId, data = {}) {
     return this.sendRequest({
       apiMethod: 'put',
       api: this.api,
@@ -176,7 +176,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getBankAccounts() {
+  getBankAccounts () {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -191,7 +191,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  mobileResend(data = {}) {
+  mobileResend (data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -210,7 +210,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  mobileVerify(data) {
+  mobileVerify (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -229,7 +229,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  ordersById(data = {}) {
+  ordersById (data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -247,7 +247,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getOrders(data = {}) {
+  getOrders (data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -263,7 +263,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  hasPurchased(products = [], cache = { TTL: 100 }) {
+  hasPurchased (products = [], cache = { TTL: 100 }) {
     // products -> arrays of number
     return this.sendRequest({
       apiMethod: 'get',
@@ -286,7 +286,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  orderStatus(data = {}) {
+  orderStatus (data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -302,7 +302,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  formData(data = {}) {
+  formData (data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -324,7 +324,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  showUser(data = {}) {
+  showUser (data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -340,7 +340,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  eventResult(data = {}) {
+  eventResult (data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -356,7 +356,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getEventResult(eventId, cache = 1000) {
+  getEventResult (eventId, cache = 1000) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -372,7 +372,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getEntekhabReshteByUserId(userId, cache = 1000) {
+  getEntekhabReshteByUserId (userId, cache = 1000) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -388,7 +388,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  isPermittedToPurchase(productId, cache = 1000) {
+  isPermittedToPurchase (productId, cache = 1000) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -404,7 +404,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getEntekhabReshte(cache = 1000) {
+  getEntekhabReshte (cache = 1000) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -420,7 +420,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  createEventResult(data = {}, cache = 1000) {
+  createEventResult (data = {}, cache = 1000) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -441,7 +441,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  adminIndex(data = {}) {
+  adminIndex (data = {}) {
     const routeWithParams = function (defaultRoute, payload) {
       if (typeof payload.rollId === 'object') {
         const hasRoll = []
@@ -478,7 +478,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getPurchasedProducts(data = {}, cache = { TTL: 1000 }) {
+  getPurchasedProducts (data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -509,7 +509,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getCurrent(data = {}, cache = { TTL: 1000 }) {
+  getCurrent (data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -525,7 +525,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getUserRoleAndPermission(data = {}, cache = { TTL: 1000 }) {
+  getUserRoleAndPermission (data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -542,7 +542,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getFavored(data = {}, cache) {
+  getFavored (data = {}, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -573,7 +573,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  resendGuest(data) {
+  resendGuest (data) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -590,7 +590,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  verifyMoshavereh(data) {
+  verifyMoshavereh (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -607,7 +607,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  newsletter(data) {
+  newsletter (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -634,7 +634,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  saveExam(data) {
+  saveExam (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -651,7 +651,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  sendFavorableList(data) {
+  sendFavorableList (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -668,7 +668,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  sendWatchedContents(data) {
+  sendWatchedContents (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,

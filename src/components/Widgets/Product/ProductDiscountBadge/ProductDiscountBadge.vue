@@ -34,7 +34,7 @@ export default defineComponent({
   name: 'ProductDiscountBadge',
   components: { LazyImg },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       defaultOptions: {
         price: new Price()

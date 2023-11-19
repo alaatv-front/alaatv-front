@@ -209,7 +209,7 @@ export default {
   props: {
     data: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     },
@@ -222,7 +222,7 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
       optionDialog: false,
       showMenu: false,
@@ -265,7 +265,7 @@ export default {
       this.optionDialog = true
       // this.$emit('open-dialog', { index: this.index, childrenIndex })
     },
-    isSelectedItem(index) {
+    isSelectedItem (index) {
       return this.data.children.findIndex(item => item.selected) === index
     },
     onMouseover () {
@@ -279,7 +279,7 @@ export default {
         this.showMenu = false
       }, 50)
     },
-    showData(colIndex) {
+    showData (colIndex) {
       this.data.children.forEach((item, subIndex) => {
         item.selected = colIndex === subIndex
       })

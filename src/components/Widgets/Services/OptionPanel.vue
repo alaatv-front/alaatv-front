@@ -86,7 +86,7 @@ export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs },
   mixins: [PageBuilderOptionPanel],
-  data() {
+  data () {
     return {
       actionsOptions: ['scrollToId', 'scrollToClass', 'link'],
       localDraggable: null,
@@ -98,7 +98,7 @@ export default defineComponent({
     }
   },
   methods: {
-    addService() {
+    addService () {
       this.localOptions.services.push({
         title: '',
         subTitle: '',
@@ -109,21 +109,21 @@ export default defineComponent({
         scrollToClass: ''
       })
     },
-    removeService(serviceIndex) {
+    removeService (serviceIndex) {
       this.localOptions.services.splice(serviceIndex, 1)
     },
-    onDragStart(event, service, serviceIndex) {
+    onDragStart (event, service, serviceIndex) {
       event.dataTransfer.dropEffect = 'move'
       event.dataTransfer.setData('value', JSON.stringify({ service, serviceIndex }))
       this.localDraggable = event
       // console.log('onDragStart', event.dataTransfer.getData('value'))
     },
-    onDragLeave() {
+    onDragLeave () {
     },
-    onDragOver(event) {
+    onDragOver (event) {
       event.preventDefault()
     },
-    onDrop(event, newIndex, parent) {
+    onDrop (event, newIndex, parent) {
       const valueStringfied = event.dataTransfer.getData('value')
       const value = valueStringfied ? JSON.parse(valueStringfied) : null
       const service = value.service
@@ -138,14 +138,14 @@ export default defineComponent({
       this.localDraggable = null
       event.stopPropagation()
     },
-    addToIndex(list, newItem, index) {
+    addToIndex (list, newItem, index) {
       if (list.length > index) {
         list.splice(index, 0, newItem)
       } else {
         list.push(newItem)
       }
     },
-    updatePosition(list, oldIndex, newIndex) {
+    updatePosition (list, oldIndex, newIndex) {
       list.splice(newIndex, 0, list.splice(oldIndex, 1)[0])
     }
   }

@@ -82,7 +82,7 @@ export default defineComponent({
     ResponsiveBackGround
   },
   mixins: [PageBuilderOptionPanel],
-  data() {
+  data () {
     return {
       themeOptions: ['theme1', 'theme2'],
       size: 'xs',

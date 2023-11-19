@@ -48,7 +48,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       donate: 'dontHelp',
       helpAlaa: false,
@@ -97,21 +97,21 @@ export default {
     }
   },
   methods: {
-    doAction() {
+    doAction () {
       if (this.donate === 'doHelp') {
         this.addDonateToCart()
       } else {
         this.removeDonateFromCart()
       }
     },
-    removeDonateFromCart() {
+    removeDonateFromCart () {
       this.$store.dispatch('Cart/removeItemFromCart', new Product({ id: this.donateProductId }))
         .then(() => {
           this.$emit('cartReview')
         })
         .catch(() => {})
     },
-    addDonateToCart() {
+    addDonateToCart () {
       this.$store.dispatch('Cart/addToCart', { product: new Product({ id: this.donateProductId }) })
         .then(() => {
           this.$emit('cartReview')

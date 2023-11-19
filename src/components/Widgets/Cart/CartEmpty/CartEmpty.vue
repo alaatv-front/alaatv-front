@@ -35,7 +35,7 @@ export default {
     this.$bus.on('busEvent-refreshCart', this.cartReview)
   },
   methods: {
-    cartReview() {
+    cartReview () {
       this.cart.loading = true
       this.$store.dispatch('Cart/reviewCart')
         .then((response) => {

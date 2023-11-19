@@ -64,7 +64,7 @@ export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs },
   mixins: [mixinOptionPanel],
-  data() {
+  data () {
     return {
       filterItem: '',
       defaultOptions: {
@@ -73,10 +73,10 @@ export default defineComponent({
     }
   },
   methods: {
-    deleteItem(index) {
+    deleteItem (index) {
       this.defaultOptions.filterBoxCategory.splice(index, 1)
     },
-    addItem() {
+    addItem () {
       this.defaultOptions.filterBoxCategory.push({
         name: this.filterItem,
         selected: false,

@@ -93,7 +93,7 @@ export default {
     ProductItem
   },
   mixins: [mixinTripleTitleSet],
-  data() {
+  data () {
     return {
       api: '',
       grid: true,
@@ -148,27 +148,27 @@ export default {
     }
   },
   computed: {
-    setTopicList() {
+    setTopicList () {
       return this.$store.getters['TripleTitleSet/setTopicList']
     },
-    selectedTopicInput() {
+    selectedTopicInput () {
       return this.inputs.find(x => x.name === 'formBuilderCol').value[0].value
     },
-    selectedTopic() {
+    selectedTopic () {
       return this.$store.getters['TripleTitleSet/selectedTopic']
     },
-    selectedProduct() {
+    selectedProduct () {
       return this.$store.getters['TripleTitleSet/selectedProduct']
     }
   },
   watch: {
-    selected(value) {
+    selected (value) {
       this.$emit('selectedUpdated', value)
     },
-    selectedTopicInput() {
+    selectedTopicInput () {
       this.$refs.pamphletIndex.search()
     },
-    setTopicList(value) {
+    setTopicList (value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     }
   },
@@ -176,31 +176,31 @@ export default {
     this.api = APIGateway.product.APIAdresses.getContents(this.$route.params.productId)
   },
   methods: {
-    afterAuthenticate() {
+    afterAuthenticate () {
       this.loadData(this.$route.params.productId)
       this.updateSelectedTopic('...')
     },
     updateSelectedTopic (content) {
       this.$store.commit('TripleTitleSet/updateSelectedTopic', content)
     },
-    toggleDialog() {
+    toggleDialog () {
       this.$emit('toggleDialog')
     },
-    setContent(e) {
+    setContent (e) {
       this.selected = e
       this.toggleDialog()
     },
-    downloadPamphlet(content) {
+    downloadPamphlet (content) {
       if (content.can_see === 0) {
         this.toggleProductItemDialog()
       } else {
         openURL(content.file.pamphlet[0].link)
       }
     },
-    toggleProductItemDialog() {
+    toggleProductItemDialog () {
       this.productItemDialog = !this.productItemDialog
     },
-    onInputClick(e) {
+    onInputClick (e) {
       if (e.input.name === 'toggle') {
         document.getElementsByClassName('entity-filter-box')[0].classList.toggle('opened')
       }
@@ -211,7 +211,7 @@ export default {
         this.$refs.pamphletIndex.search()
       }
     },
-    loadData(productId) {
+    loadData (productId) {
       this.$store.dispatch('TripleTitleSet/getSet', productId)
       this.$store.dispatch('TripleTitleSet/getSelectedProduct', productId)
     }

@@ -62,12 +62,12 @@ export default defineComponent({
     }
   },
   computed: {
-    video() {
+    video () {
       return this.plan.contents?.list?.find(x => x.type.id === 4) || new Content()
     }
   },
   methods: {
-    isNow(date, start, end) {
+    isNow (date, start, end) {
       const now = new Date()
       const startDate = this.toDateWithOutTimeZone(date, start)
       const endDate = this.toDateWithOutTimeZone(date, end)
@@ -84,7 +84,7 @@ export default defineComponent({
         return false
       }
     },
-    getTime(time) {
+    getTime (time) {
       const date = new Date(time)
       let min = date.getMinutes()
       if (min === 0) {
@@ -92,7 +92,7 @@ export default defineComponent({
       }
       return date.getHours() + ':' + min
     },
-    toDateWithOutTimeZone(date, time) {
+    toDateWithOutTimeZone (date, time) {
       const tempTime = time.split(':')
       const dt = new Date(date)
       dt.setHours(tempTime[0])

@@ -54,7 +54,7 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
       note: null,
       saveMode: false,
@@ -63,10 +63,10 @@ export default {
     }
   },
   computed: {
-    canEdit() {
+    canEdit () {
       return this.saveMode || this.value.length === 0
     },
-    setPlaceHolder() {
+    setPlaceHolder () {
       if (this.doesntHaveContent) {
         return 'یادداشت در این مرحله فعال نمیاشد'
       } else {
@@ -75,24 +75,24 @@ export default {
     }
   },
   watch: {
-    value(newValue) {
+    value (newValue) {
       this.note = newValue
       this.checkEditMode(newValue)
     }
   },
   methods: {
-    edit() {
+    edit () {
       this.saveMode = true
     },
-    cancel() {
+    cancel () {
       this.note = this.value
       this.saveMode = false
     },
-    saveComment() {
+    saveComment () {
       this.saveMode = false
       this.$emit('updateComment', this.note)
     },
-    checkEditMode(data) {
+    checkEditMode (data) {
       if (this.canCheck && data.length > 0) {
         this.saveMode = false
         this.canCheck = false

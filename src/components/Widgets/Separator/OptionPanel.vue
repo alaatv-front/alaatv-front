@@ -80,7 +80,7 @@ export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs, ImageUploadDialog },
   mixins: [mixinOptionPanel],
-  data() {
+  data () {
     return {
       size: 'xl',
       responsiveOptions: ['xl', 'lg', 'md', 'sm', 'xs'],
@@ -113,7 +113,7 @@ export default defineComponent({
     }
   },
   methods: {
-    toggleUploadDialog() {
+    toggleUploadDialog () {
       this.dialog = !this.dialog
     },
     onUpdateValue (urlList) {

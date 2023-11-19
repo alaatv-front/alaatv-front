@@ -91,25 +91,25 @@ export default {
       default: () => new Plan()
     }
   },
-  data() {
+  data () {
     return {}
   },
   computed: {
-    filterByTypeVideo() {
+    filterByTypeVideo () {
       return this.filterBy(4)
     },
-    filterByTypeVoice() {
+    filterByTypeVoice () {
       return this.filterBy(1)
     }
   },
   methods: {
-    contentClicked(content) {
+    contentClicked (content) {
       this.$emit('contentClicked', {
         date: this.selectedPlan.date,
         content
       })
     },
-    filterBy(id) {
+    filterBy (id) {
       return this.selectedPlan.contents.list.filter((content) => (content.type.id !== null) && (parseInt(content.type.id) === parseInt(id)))
     }
   }

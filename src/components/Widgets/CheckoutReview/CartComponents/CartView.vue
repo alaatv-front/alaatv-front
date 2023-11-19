@@ -185,7 +185,7 @@ export default {
       type: Function
     }
   },
-  data() {
+  data () {
     return {
       dialogState: false,
       test: null,
@@ -196,7 +196,7 @@ export default {
   },
 
   computed: {
-    cart() {
+    cart () {
       return this.$store.getters['Cart/cart']
     },
 
@@ -204,11 +204,11 @@ export default {
       return this.getOrderedList(this.cart.items.list)
     },
 
-    windowSize() {
+    windowSize () {
       return this.$store.getters['AppLayout/windowSize']
     },
 
-    descLinkLabel() {
+    descLinkLabel () {
       if (this.windowSize.x > 1439) {
         return 'رفتن به صفحه محصول'
       } else {
@@ -217,12 +217,12 @@ export default {
     }
   },
 
-  created() {
+  created () {
     this.loading = true
   },
 
   methods: {
-    cartReview() {
+    cartReview () {
       this.$store.commit('loading/loading', true)
       this.$store.dispatch('Cart/reviewCart')
         .then(() => {
@@ -249,7 +249,7 @@ export default {
       return customItems
     },
 
-    removeItem(order) {
+    removeItem (order) {
       this.$store.dispatch('loading/overlayLoading', true)
       this.$store.dispatch('Cart/removeItemFromCart', order)
         .then(() => {

@@ -273,7 +273,7 @@ export default defineComponent({
     }
   },
   emits: ['updateProduct', 'updateProductLoading', 'toggleDialog'],
-  data() {
+  data () {
     return {
       installmentAccept: true,
       productPrice: new Price(),
@@ -284,13 +284,13 @@ export default defineComponent({
     }
   },
   computed: {
-    dependentComplimentary() {
+    dependentComplimentary () {
       return this.productComplimentary.filter(product => product.is_dependent === 1)
     },
-    independentComplimentary() {
+    independentComplimentary () {
       return this.productComplimentary.filter(product => product.is_dependent === 0)
     },
-    finalPrice() {
+    finalPrice () {
       let finalPrice = 0
       for (let index = 0; index < this.dependentSelected.length; index++) {
         if (this.dependentSelected[index]) {
@@ -311,7 +311,7 @@ export default defineComponent({
 
       return finalPrice
     },
-    selectedProducts() {
+    selectedProducts () {
       const selected = []
       for (let index = 0; index < this.dependentSelected.length; index++) {
         if (this.dependentSelected[index]) {
@@ -325,7 +325,7 @@ export default defineComponent({
       }
       return selected
     },
-    basePrice() {
+    basePrice () {
       let basePrice = 0
       for (let index = 0; index < this.dependentSelected.length; index++) {
         if (this.dependentSelected[index]) {
@@ -342,7 +342,7 @@ export default defineComponent({
 
       return basePrice
     },
-    totalPrice() {
+    totalPrice () {
       const total = {
         base: this.basePrice,
         final: this.finalPrice
@@ -381,7 +381,7 @@ export default defineComponent({
     }
   },
   watch: {
-    productComplimentary() {
+    productComplimentary () {
       for (let index = 0; index < this.independentComplimentary.length; index++) {
         this.independentSelected[index] = false
       }
@@ -389,27 +389,27 @@ export default defineComponent({
         this.dependentSelected[index] = false
       }
     },
-    examList(newExamList) {
+    examList (newExamList) {
       if (newExamList.length > 0) {
         this.selectedExam = newExamList[0].id
       }
     }
   },
-  created() {
+  created () {
     moment.loadPersian()
   },
-  mounted() {
+  mounted () {
     this.loadProductInfo()
   },
   methods: {
-    loadProductInfo() {
+    loadProductInfo () {
       this.productPrice = this.product.price
       this.installment = this.product.instalments
       if (window) {
         this.updateEECEventDetail()
       }
     },
-    updateEECEventDetail() {
+    updateEECEventDetail () {
       if (this.product && this.product.eec.getData) {
         AEE.productDetailViews('product.show', this.product.eec.getData(), {
           TTl: 1000,
@@ -417,10 +417,10 @@ export default defineComponent({
         })
       }
     },
-    getPrice(type) {
+    getPrice (type) {
       return this.product.price[type]
     },
-    getProductPrice(price, type) {
+    getProductPrice (price, type) {
       const productPrice = new Price(price)
       if (productPrice.toman) {
         return productPrice.toman(type, null)
@@ -428,11 +428,11 @@ export default defineComponent({
         return 0
       }
     },
-    getInstallmentOrder(index) {
+    getInstallmentOrder (index) {
       const persianOrdinals = ['اول', 'دوم', 'سوم', 'چهارم', 'پنجم', 'ششم', 'هفتم', 'هشتم', 'نهم', 'دهم']
       return persianOrdinals[index]
     },
-    getPersianDate(date) {
+    getPersianDate (date) {
       const getDate = function (date) {
         return moment(date, 'YYYY/M/D HH:mm:ss').locale('fa').format('jDD jMMMM jYYYY')
       }
@@ -440,7 +440,7 @@ export default defineComponent({
       const localDate = getDate(Date.now())
       return targetDate === localDate ? 'هم اکنون' : targetDate
     },
-    addToCart() {
+    addToCart () {
       if (this.paymentMethod === 'cash') {
         this.addProductToCart({ product: this.product })
           .then(() => {
@@ -463,7 +463,7 @@ export default defineComponent({
         this.getGatewayUrl(inInstalment)
       }
     },
-    getGatewayUrl(inInstalment) {
+    getGatewayUrl (inInstalment) {
       APIGateway.cart.getPaymentRedirectEncryptedLink({
         device: 'web',
         inInstalment: inInstalment ? 1 : 0
@@ -523,13 +523,13 @@ export default defineComponent({
           })
       })
     },
-    toggleSelectedExam(examId) {
+    toggleSelectedExam (examId) {
       this.selectedExam = examId
     },
-    toggleDialog() {
+    toggleDialog () {
       this.$emit('toggleDialog')
     },
-    toggleProductToCard(productIndex, dependency) {
+    toggleProductToCard (productIndex, dependency) {
       if (this.paymentMethod === 'cash') {
         return
       }

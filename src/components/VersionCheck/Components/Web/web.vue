@@ -7,18 +7,18 @@ export default {
   props: {
     latestVersion: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
   },
-  data() {
+  data () {
     return {
       visible: false
     }
   },
   methods: {
-    checkWebVersion(apiWebVersion) {
+    checkWebVersion (apiWebVersion) {
       // do logics for checking versions
     }
   }

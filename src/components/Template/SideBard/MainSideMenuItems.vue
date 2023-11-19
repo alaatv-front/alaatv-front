@@ -47,7 +47,7 @@ export default {
     simpleMenu
   },
   mixins: [mixinPrefetchServerData],
-  data() {
+  data () {
     return {
       mounted: false,
       user: new User(),
@@ -57,10 +57,10 @@ export default {
   },
   computed: {
     menuItems: {
-      get() {
+      get () {
         return this.$store.getters['PageBuilder/menuItems']
       },
-      set(newInfo) {
+      set (newInfo) {
         return this.$store.commit('PageBuilder/updateMenuItems', newInfo)
       }
     },
@@ -88,7 +88,7 @@ export default {
     },
     prefetchServerDataPromiseCatch () {
     },
-    getPageConfigRequest() {
+    getPageConfigRequest () {
       const key = '(menuItems)headerLayout:mainLayout'
       return APIGateway.pageSetting.getMenuItems(key)
     },

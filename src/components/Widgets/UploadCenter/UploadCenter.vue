@@ -155,7 +155,7 @@ export default {
     UploadDialog,
     EntityIndex
   },
-  data() {
+  data () {
     return {
       tabList: [
         {
@@ -284,7 +284,7 @@ export default {
       const inputIndex = this.inputs[formBuilderInputIndex].value.findIndex(input => input.name === 'createdAtSince')
       this.inputs[formBuilderInputIndex].value[inputIndex].value = this.getCurrentDate()
     },
-    onTabChanged(val) {
+    onTabChanged (val) {
       this.setSelectedMode(val)
     },
     setSelectedMode (val) {
@@ -306,7 +306,7 @@ export default {
       this.$refs.entityIndex.setInputAttributeByName('createdAtSince', 'readonly', false)
       this.$refs.entityIndex.setInputAttributeByName('enable', 'readonly', false)
     },
-    getCurrentDate() {
+    getCurrentDate () {
       return moment(new Date()).format('YYYY-MM-DD')
     },
     setCreatedAtSinceMode () {
@@ -327,7 +327,7 @@ export default {
     initFilterBoxDisplay () {
       this.toggleFilterBox()
     },
-    toggleUploadProgressDialog(value) {
+    toggleUploadProgressDialog (value) {
       if (value) {
         this.progressDialogContentId = value
       } else {
@@ -335,10 +335,10 @@ export default {
       }
       this.progressDialog = !this.progressDialog
     },
-    toggleUploadDialog(value) {
+    toggleUploadDialog (value) {
       this.uploadDialog = !this.uploadDialog
     },
-    onEntityButtonsClicked(inputObj) {
+    onEntityButtonsClicked (inputObj) {
       const input = inputObj.input
       const event = inputObj.event
       if (event === 'reload') {
@@ -366,7 +366,7 @@ export default {
       }
       this.$refs.entityIndex.search()
     },
-    undoTagIgnoreValue() {
+    undoTagIgnoreValue () {
       this.inputs.forEach(item => {
         if (item.type === 'formBuilder') {
           item.value.forEach(input => {

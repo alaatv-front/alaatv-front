@@ -62,7 +62,7 @@ export default {
     CartInvoice
   },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       morphGroupModel: 'btn',
       defaultOptions: {
@@ -116,7 +116,7 @@ export default {
     nextMorph () {
       this.morphGroupModel = nextMorphStep[this.morphGroupModel]
     },
-    cartReview() {
+    cartReview () {
       this.cart.loading = true
       this.$store.dispatch('Cart/reviewCart')
         .then((response) => {

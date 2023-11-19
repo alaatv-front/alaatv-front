@@ -285,11 +285,11 @@ export default {
       return this.getOrderedList(this.cart.items.list)
     },
 
-    windowSize() {
+    windowSize () {
       return this.$store.getters['AppLayout/windowSize']
     },
 
-    descLinkLabel() {
+    descLinkLabel () {
       if (this.windowSize.x > 1439) {
         return 'رفتن به صفحه محصول'
       } else {
@@ -310,10 +310,10 @@ export default {
 
       return order.order_product.list[0].product[key]
     },
-    hasDiscount(order) {
+    hasDiscount (order) {
       return order.price.discountInPercent() > 0
     },
-    cartReview() {
+    cartReview () {
       this.cart.loading = true
       this.$store.dispatch('Cart/reviewCart')
         .then((response) => {
@@ -354,7 +354,7 @@ export default {
 
       return customItems
     },
-    removeItem() {
+    removeItem () {
       this.changeDialogState(false)
       this.$store.dispatch('Cart/removeItemFromCart', this.clickedOrderProductToRemove)
         .then(() => {

@@ -24,7 +24,7 @@ import { mixinPrefetchServerData, mixinWidget } from 'src/mixin/Mixins.js'
 export default {
   name: 'ImageWidget',
   mixins: [mixinPrefetchServerData, mixinWidget],
-  data() {
+  data () {
     return {
       imageRef: 'img' + Date.now(),
       windowWidth: 0,
@@ -173,7 +173,7 @@ export default {
         borderRadiusCssString
       }
     },
-    parentComponent() {
+    parentComponent () {
       if (this.localOptions.action.route) {
         if (this.isExternal(this.localOptions.action.route)) {
           return 'a'
@@ -184,14 +184,14 @@ export default {
       return 'div'
     }
   },
-  mounted() {
+  mounted () {
     this.windowWidth = window.innerWidth
     window.addEventListener('resize', this.onResize)
     this.$nextTick(() => {
       this.setAEEEvent()
     })
   },
-  beforeUnmount() {
+  beforeUnmount () {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
@@ -212,7 +212,7 @@ export default {
         observer.observe(obs)
       })
     },
-    handleIntersection(entries, observer) {
+    handleIntersection (entries, observer) {
       entries.forEach(entry => {
         if (entry.intersectionRatio > 0) {
           this.ImageIsViewed()
@@ -220,7 +220,7 @@ export default {
         }
       })
     },
-    getAEEKey() {
+    getAEEKey () {
       let AEEKey
       Object.values(this.localOptions.AEEEventBody).forEach(item => {
         AEEKey += item
@@ -245,7 +245,7 @@ export default {
       }
       this.setProductIntersectionObserver()
     },
-    onResize() {
+    onResize () {
       this.windowWidth = window.innerWidth
     },
     getImageSource (options) {
@@ -302,13 +302,13 @@ export default {
         return ''
       }
     },
-    checkDomain(url) {
+    checkDomain (url) {
       if (url.indexOf('//') === 0) {
         url = window.location.protocol + url
       }
       return url.toLowerCase().replace(/([a-z])?:\/\//, '$1').split('/')[0]
     },
-    isExternal(url) {
+    isExternal (url) {
       if (typeof window === 'undefined') {
         return true
       }
@@ -316,7 +316,7 @@ export default {
       // return ((url.indexOf('http://') > -1 || url.indexOf('https://') > -1) && this.checkDomain(window.location.href) !== this.checkDomain(url))
       return (url.indexOf('http://') > -1 || url.indexOf('https://') > -1)
     },
-    takeAction(action) {
+    takeAction (action) {
       if (!this.localOptions.hasAction) {
         return
       }

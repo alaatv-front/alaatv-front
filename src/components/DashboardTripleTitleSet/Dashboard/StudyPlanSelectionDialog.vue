@@ -113,7 +113,7 @@ export default defineComponent({
     }
   },
   emits: ['toggleDialog'],
-  data() {
+  data () {
     return {
       inputsOptions: {
         grades: [],
@@ -128,25 +128,25 @@ export default defineComponent({
       studyPlanSelected: false
     }
   },
-  created() {
+  created () {
     this.getOptions()
   },
   methods: {
-    getOptions() {
+    getOptions () {
       this.$apiGateway.abrisham.getOptions()
         .then(options => {
           this.inputsOptions = options
         })
         .catch(() => {})
     },
-    submitStudyPlan() {
+    submitStudyPlan () {
       this.$apiGateway.abrisham.submitStudyPlan(this.formData)
         .then(() => {
           this.studyPlanSelected = true
         })
         .catch(() => {})
     },
-    toggleDialog(rout = false) {
+    toggleDialog (rout = false) {
       this.$emit('toggleDialog')
       if (rout) {
         this.$router.go(-1)

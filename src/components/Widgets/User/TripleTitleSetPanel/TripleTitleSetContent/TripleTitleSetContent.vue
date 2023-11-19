@@ -113,29 +113,29 @@ export default {
     hideNextBtn () {
       return this.currentSetIndex === (this.setList.length - 1)
     },
-    selectedTopic() {
+    selectedTopic () {
       const topic = this.$store.getters['TripleTitleSet/selectedTopic']
       if (!topic) {
         this.storeSelectedTopic()
       }
       return topic
     },
-    doesntHaveContent() {
+    doesntHaveContent () {
       return !(this.watchingContent?.id > 0)
     },
-    contentVideoListLoading() {
+    contentVideoListLoading () {
       return !this.selectedContent?.id || this.contentLoading
     },
-    selectedContent() {
+    selectedContent () {
       return this.$store.getters['TripleTitleSet/selectedContent']
     },
-    selectedSet() {
+    selectedSet () {
       return this.$store.getters['TripleTitleSet/selectedSet']
     },
-    selectedTopicList() {
+    selectedTopicList () {
       return this.$store.getters['TripleTitleSet/setTopicList']
     },
-    setList() {
+    setList () {
       const setList = this.$store.getters['TripleTitleSet/setList']
       if (setList.length === 0) {
         return [this.selectedSet]
@@ -144,20 +144,20 @@ export default {
         return set.short_title.includes(this.selectedTopic)
       })
     },
-    watchingContentComment() {
+    watchingContentComment () {
       if (!this.watchingContent?.comments) {
         return ''
       }
       return this.watchingContent.comments[0]?.comment || ''
     },
-    currentSetIndex() {
+    currentSetIndex () {
       return this.setList.findIndex(set => set.id === this.selectedSet.id)
     },
     watchingContent: {
       get () {
         return this.selectedContent || new Content()
       },
-      set(newValue, oldValue) {
+      set (newValue, oldValue) {
         newValue.has_watched = oldValue.has_watched ? true : newValue.has_watched
         this.$store.commit('TripleTitleSet/setSelectedContent', newValue)
       }
@@ -169,7 +169,7 @@ export default {
     }
   },
   methods: {
-    afterAuthenticate() {
+    afterAuthenticate () {
       if (this.$route.params.productId) {
         this.getProductSets(this.$route.params.productId)
         this.getProduct()
@@ -217,13 +217,13 @@ export default {
           this.ContentVideoListKey++
         })
     },
-    getProductSets(productId) {
+    getProductSets (productId) {
       this.$store.dispatch('TripleTitleSet/getSet', productId)
     },
-    getProduct() {
+    getProduct () {
       this.$store.dispatch('TripleTitleSet/getSelectedProduct', this.$route.params.productId)
     },
-    goToNextSet() {
+    goToNextSet () {
       const nextSet = this.setList[this.currentSetIndex + 1]
       this.videoListLoading = true
       this.getSelectedSet(nextSet.id)
@@ -237,7 +237,7 @@ export default {
           this.ContentVideoListKey++
         })
     },
-    goToPrevSet() {
+    goToPrevSet () {
       const prevSet = this.setList[this.currentSetIndex - 1]
       this.videoListLoading = true
       this.getSelectedSet(prevSet.id)
@@ -251,7 +251,7 @@ export default {
           this.ContentVideoListKey++
         })
     },
-    setSelectedContent(content) {
+    setSelectedContent (content) {
       this.$store.commit('TripleTitleSet/setSelectedContent', content)
       if (!content.id) {
         return
@@ -286,7 +286,7 @@ export default {
         })
       }
     },
-    updateSelectedSet(set) {
+    updateSelectedSet (set) {
       this.$store.commit('TripleTitleSet/setSelectedSet', set)
       if (!set.id) {
         return
@@ -303,7 +303,7 @@ export default {
         }
       })
     },
-    updateSelectedTopic(topic) {
+    updateSelectedTopic (topic) {
       this.$store.dispatch('TripleTitleSet/setSelectedTopic', topic)
     },
     getSelectedSet (setId) {

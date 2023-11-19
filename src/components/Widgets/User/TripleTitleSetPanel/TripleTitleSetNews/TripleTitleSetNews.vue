@@ -139,7 +139,7 @@ export default {
   name: 'TripleTitleSetNews',
   components: { NewsBanner, NewsItem },
   mixins: [mixinTripleTitleSet],
-  data() {
+  data () {
     return {
       pinNews: new LiveDescriptionList(),
       pinNewsNextPage: 1,
@@ -190,15 +190,15 @@ export default {
     }
   },
   computed: {
-    emptyNews() {
+    emptyNews () {
       return this.unpinNews.list.length === 0 && this.pinNews.list.length === 0
     }
   },
   methods: {
-    async seenNews(newsId) {
+    async seenNews (newsId) {
       await this.$apiGateway.liveDescription.getNewsHasBeenSeen(newsId)
     },
-    async getNewPinLiveDescription(index, done) {
+    async getNewPinLiveDescription (index, done) {
       this.pinNews.loading = true
       try {
         if (this.pinNewsLastPage !== null && parseInt(this.pinNewsLastPage) < parseInt(this.pinNewsNextPage)) {
@@ -215,7 +215,7 @@ export default {
         this.pinNews.loading = false
       }
     },
-    async getNewUnpinLiveDescription(index, done, stop) {
+    async getNewUnpinLiveDescription (index, done, stop) {
       this.unpinNews.loading = true
       try {
         if (this.unpinNewsLastPage !== null && parseInt(this.unpinNewsLastPage) < parseInt(this.unpinNewsNextPage)) {
@@ -240,10 +240,10 @@ export default {
         this.unpinNews.loading = false
       }
     },
-    clicked() {
+    clicked () {
       this.doFilter = !this.doFilter
     },
-    generateParams() {
+    generateParams () {
       const params = []
       if (
         this.filtersData.lesson &&
@@ -280,7 +280,7 @@ export default {
 
       return params.map(item => item.key + '=' + item.value).join('&')
     },
-    selectedItem() {
+    selectedItem () {
       this.unpinNewsNextPage = 1
       this.unpinNews = new LiveDescriptionList()
       this.getNewUnpinLiveDescription()

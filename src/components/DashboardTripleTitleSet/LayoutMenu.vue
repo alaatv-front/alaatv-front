@@ -87,12 +87,12 @@ export default {
     showHamburger () {
       return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.md
     },
-    layoutLeftDrawerVisible() {
+    layoutLeftDrawerVisible () {
       return this.$store.getters['AppLayout/layoutLeftDrawerVisible']
     }
   },
   methods: {
-    toggleLeftDrawer() {
+    toggleLeftDrawer () {
       this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', !this.layoutLeftDrawerVisible)
     },
     itemSelected (topic) {

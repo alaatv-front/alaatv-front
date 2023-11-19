@@ -24,7 +24,7 @@ export default {
   components: {
     BaseMap
   },
-  data() {
+  data () {
     return {
       zoom: 4,
       center: null,
@@ -40,21 +40,21 @@ export default {
   },
   watch: {
     visibleItems: {
-      handler(newValue) {
+      handler (newValue) {
 
       },
       deep: true
     }
   },
-  created() {
+  created () {
     this.$store.commit('AppLayout/updateLayoutFooterVisible', false)
     this.fetchMapItems()
   },
-  beforeUnmount() {
+  beforeUnmount () {
     this.$store.commit('AppLayout/updateLayoutFooterVisible', true)
   },
   methods: {
-    fetchMapItems() {
+    fetchMapItems () {
       this.mapLoading = true
       this.mapItems = new MapItemList(MapItemsResponse.data)
       this.mapLoading = false
@@ -68,14 +68,14 @@ export default {
       //   .catch(function () {
       //   })
     },
-    updateItem(data) {
+    updateItem (data) {
       this.visibleMapItems.list[data.index] = new MapItem(data.data)
     },
-    zoomUpdated(zoom) {
+    zoomUpdated (zoom) {
       this.zoom = zoom
       this.updateVisibleMapItems()
     },
-    centerUpdated(center) {
+    centerUpdated (center) {
       this.center = center
       // this.lastCenterChangeTime = Date.now()
       // if (Date.now() - this.lastZoomTime > 500) {
@@ -85,11 +85,11 @@ export default {
       // }
       // this.currentCenter = center
     },
-    boundsUpdated(bounds) {
+    boundsUpdated (bounds) {
       this.bounds = bounds
       this.updateVisibleMapItems()
     },
-    updateVisibleMapItems() {
+    updateVisibleMapItems () {
       this.$nextTick(() => {
         this.visibleMapItems.list = this.mapItems.list.filter((item) => {
           return (item.canShowMapItem(this.bounds, this.zoom) &&

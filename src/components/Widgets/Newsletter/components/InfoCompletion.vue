@@ -78,7 +78,7 @@ export default {
     }
   },
   emits: ['toggleDialog'],
-  data() {
+  data () {
     return {
       loading: false,
       otpInput: null,
@@ -168,15 +168,15 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.loadConfig()
   },
   methods: {
-    loadConfig() {
+    loadConfig () {
       this.userInputs = this.options
       // this.getTags()
     },
-    getTags() {
+    getTags () {
       this.$apiGateway.forrest.getTags(['major', 'grade']).then(res => {
         this.stringOptions = []
         res.map((tree) => tree.children).forEach(category => {
@@ -187,7 +187,7 @@ export default {
       }).catch(() => {
       })
     },
-    updateUser() {
+    updateUser () {
       this.form.mobile = this.userInfo.mobile
       this.form.code = this.userInfo.code
       this.setLoading(true)
@@ -212,7 +212,7 @@ export default {
           this.setLoading(false)
         })
     },
-    setLoading(loading) {
+    setLoading (loading) {
       this.loading = loading
     },
     redirectToUrl (url) {
@@ -221,7 +221,7 @@ export default {
       }
       window.location.href = url
     },
-    showMessage(message, type = 'negative') {
+    showMessage (message, type = 'negative') {
       this.$q.notify({
         message,
         color: type,

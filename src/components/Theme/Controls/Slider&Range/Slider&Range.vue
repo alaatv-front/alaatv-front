@@ -46,7 +46,7 @@
 import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'ToggleTheme',
-  data() {
+  data () {
     return {
       value1: {
         min: 250,

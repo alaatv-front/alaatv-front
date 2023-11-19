@@ -215,7 +215,7 @@ export default {
 
   emits: ['favorite', 'toggle-video-status', 'bookmarkTimestamp', 'toggleFavorite'],
 
-  data() {
+  data () {
     return {
       contentFavored: false,
       bookmarkLoading: false,
@@ -293,10 +293,10 @@ export default {
           this.bookmarkLoading = false
         })
     },
-    setVideoDuration(data) {
+    setVideoDuration (data) {
       this.videoDuration = data
     },
-    share(name) {
+    share (name) {
       const url = shareSocial.getShareLink(
         {
           link: this.content.url.web,
@@ -305,10 +305,10 @@ export default {
       open(url)
     },
 
-    show() {
+    show () {
     },
 
-    clickSeenButton() {
+    clickSeenButton () {
       this.$emit('toggle-video-status')
       this.markedRatios.forEach(markedRatio => {
         if (markedRatio.hasSeen) {
@@ -317,11 +317,11 @@ export default {
       })
     },
 
-    toggleFavorite(val) {
+    toggleFavorite (val) {
       this.$emit('toggleFavorite', val)
     },
 
-    getShareLink(content, socialMedia) {
+    getShareLink (content, socialMedia) {
       if (socialMedia === 'telegram') {
         return 'https://telegram.me/share/url?url=' + content.url.web + '&text=' + content.title
       } else if (socialMedia === 'whatsapp') {
@@ -339,7 +339,7 @@ export default {
       }
     },
 
-    openUrl(content, socialMedia) {
+    openUrl (content, socialMedia) {
       const url = this.getShareLink(content, socialMedia)
       open(url)
     },
@@ -373,11 +373,11 @@ export default {
       this.timePoints = customTimePoints
     },
 
-    changeVideoStatusToSeen(timeData) {
+    changeVideoStatusToSeen (timeData) {
       this.saveProgress(timeData.watchedPercentage, timeData)
     },
 
-    saveProgress(progressPercent, timeData) {
+    saveProgress (progressPercent, timeData) {
       let reachedProgressPercent = 0
       this.markedRatios.forEach(markedRatio => {
         if (!markedRatio.hasSeen && markedRatio.ratio < progressPercent) {
@@ -401,7 +401,7 @@ export default {
       // }
     },
 
-    bookmarkPostIsFavored(timeStampData) {
+    bookmarkPostIsFavored (timeStampData) {
       this.$emit('bookmarkTimestamp', timeStampData)
     }
   }

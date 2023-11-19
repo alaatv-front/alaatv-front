@@ -64,18 +64,18 @@ import BtnUserProfileMenu from 'src/components/BtnUserProfileMenu.vue'
 export default {
   name: 'UserGiftCardPanel',
   components: { BtnUserProfileMenu },
-  data() {
+  data () {
     return {
       smsHelpDialog: false
     }
   },
   computed: {
-    isMyCardsPage() {
+    isMyCardsPage () {
       return this.$route.name === 'UserPanel.Asset.GiftCard.MyGiftCards'
     }
   },
   methods: {
-    toggleDialog() {
+    toggleDialog () {
       this.smsHelpDialog = !this.smsHelpDialog
     }
   }

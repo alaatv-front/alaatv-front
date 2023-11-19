@@ -120,7 +120,7 @@ export default {
     }
   },
   emits: ['seeked', 'play', 'pause', 'ended', 'adStarted', 'adEnded', 'update:sideBar', 'timeUpdated'],
-  data() {
+  data () {
     return {
       needReInitVideo: false,
       isInVastMode: false,
@@ -187,16 +187,16 @@ export default {
     }
   },
   computed: {
-    calcTheHeight() {
+    calcTheHeight () {
       return '100%'
     },
-    calcTheWidth() {
+    calcTheWidth () {
       return '100%'
     },
-    currentTime() {
+    currentTime () {
       return this.currentTimed
     },
-    videoLength() {
+    videoLength () {
       return this.player ? this.player.duration() : 0
     }
   },
@@ -216,10 +216,10 @@ export default {
       },
       immediate: true
     },
-    currentTime(time) {
+    currentTime (time) {
       this.player.currentTime(time)
     },
-    overPlayer(newValue) {
+    overPlayer (newValue) {
       this.localOverPlayer = newValue
     },
     useOverPlayer (newValue) {
@@ -232,12 +232,12 @@ export default {
       })
     }
   },
-  created() {
+  created () {
     this.width = this.overPlayerWidth
     this.setPoster()
     this.setSources()
   },
-  mounted() {
+  mounted () {
     if (this.needReInitVideo) {
       this.$nextTick(() => {
         this.reInitVideo()
@@ -249,7 +249,7 @@ export default {
       })
     }
   },
-  beforeUnmount() {
+  beforeUnmount () {
     if (this.player) {
       this.player.dispose()
     }
@@ -501,22 +501,22 @@ export default {
         return (Math.abs(deltaX) >= Math.abs(deltaY)) ? 'horizontal' : 'vertical'
       }
 
-      this.player.on('touchstart', function(e) {
+      this.player.on('touchstart', function (e) {
         touchMoved = false
         const touch = e.touches[0] || e.changedTouches[0]
         startX = touch.pageX
         startY = touch.pageY
       })
-      this.player.on('touchmove', function(e) {
+      this.player.on('touchmove', function (e) {
         touchMoved = true
       })
-      this.player.on('touchend', function(e) {
+      this.player.on('touchend', function (e) {
         const touch = e.touches[0] || e.changedTouches[0]
         endX = touch.pageX
         endY = touch.pageY
       })
 
-      this.player.on('touchend', function(e) { // tap - touchend
+      this.player.on('touchend', function (e) { // tap - touchend
         const userWasActive = this.player().userWasActive
         const isStarted = this.player().hasClass('vjs-has-started')
         const isPlaying = this.player().hasClass('vjs-playing')
@@ -584,8 +584,8 @@ export default {
         }
       }
 
-      this.player = videojs(this.$refs.videoPlayer, this.options, function() {
-        this.on('fullscreenchange', async function() {
+      this.player = videojs(this.$refs.videoPlayer, this.options, function () {
+        this.on('fullscreenchange', async function () {
           const isNativeApp = Capacitor.isNativePlatform()
           if (!isNativeApp || Capacitor.getPlatform() !== 'android' || window === undefined) {
             return
@@ -710,19 +710,19 @@ export default {
       this.localOverPlayer = !this.localOverPlayer
       // this.$emit('update:sideBar', this.localOverPlayer)
     },
-    activate(time) {
+    activate (time) {
       this.player.currentTime(time)
       this.player.play()
       const requiredElement = document.querySelector('.video-js')
       requiredElement.focus()
     },
-    setSources(sources) {
+    setSources (sources) {
       this.options.sources = sources || (this.isPlayerSourceList() ? this.source.list : this.source)
     },
-    setPoster(poster) {
+    setPoster (poster) {
       this.options.poster = poster || this.poster
     },
-    reInitVideo(withVast) {
+    reInitVideo (withVast) {
       if (this.player?.reset) {
         this.player.reset()
       }
@@ -737,7 +737,7 @@ export default {
     isPlayerSourceList () {
       return (this.source && this.source.list && Array.isArray(this.source.list))
     },
-    calcWatchedPercentage(currentTime, duration) {
+    calcWatchedPercentage (currentTime, duration) {
       const watchedPercentage = ((currentTime / duration) * 100)
       const videoPlayerTimeData = {
         currentTime,
@@ -746,10 +746,10 @@ export default {
       }
       this.$emit('calcTimeData', videoPlayerTimeData)
     },
-    videoStatus(val) {
+    videoStatus (val) {
       this.videoIsPlaying = val
     },
-    toggleFullScreen() {
+    toggleFullScreen () {
       if (document.exitFullscreen) {
         document.exitFullscreen()
       } else if (document.webkitExitFullscreen) { /* Safari */

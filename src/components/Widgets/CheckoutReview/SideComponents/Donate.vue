@@ -34,7 +34,7 @@
 <script>
 export default {
   name: 'Donate',
-  data() {
+  data () {
     return {
       helpAlaa: false,
       donateCost: [{ cost: 5000, isActive: false }, { cost: 10000, isActive: false }, {
@@ -45,7 +45,7 @@ export default {
     }
   },
   methods: {
-    activeDonateCost(idx) {
+    activeDonateCost (idx) {
       if (!this.helpAlaa) {
         this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-sad.png'
       }

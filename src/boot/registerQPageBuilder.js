@@ -6,7 +6,7 @@ import PageBuilderComponents from '../components/Widgets/PageBuilderComponents.j
 import PageBuilderOptionPanels from '../components/Widgets/PageBuilderOptionPanels.js'
 import PageBuilderImageUploader from '../components/PageBuilderImageUploader.vue'
 const widgets = []
-function extractWidgets(json) {
+function extractWidgets (json) {
   json.children.forEach(element => {
     if (element.type === 'widget') {
       widgets.push(element)

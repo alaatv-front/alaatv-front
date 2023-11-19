@@ -35,7 +35,7 @@ export default {
     }
   },
   emits: ['gotoNextStep', 'updateUser'],
-  data() {
+  data () {
     return {
       loading: false,
       rules: {
@@ -45,16 +45,16 @@ export default {
     }
   },
   methods: {
-    getCodeForLogin() {
+    getCodeForLogin () {
       const loginData = {
         mobile: this.mobile
       }
       this.sendCodeRequest(loginData)
     },
-    setLoading(loading) {
+    setLoading (loading) {
       this.loading = loading
     },
-    sendCodeRequest(userInfo) {
+    sendCodeRequest (userInfo) {
       this.setLoading(true)
       this.$apiGateway.user.resendGuest(userInfo)
         .then(userData => {
@@ -70,7 +70,7 @@ export default {
           this.setLoading(false)
         })
     },
-    showMessage(message, type = 'negative') {
+    showMessage (message, type = 'negative') {
       this.$q.notify({
         message,
         color: type,

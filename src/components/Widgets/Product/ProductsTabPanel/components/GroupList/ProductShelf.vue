@@ -61,7 +61,7 @@ export default {
         behavior: 'smooth'
       })
     },
-    isProduct(item) {
+    isProduct (item) {
       return item.type === 'product'
     }
   }

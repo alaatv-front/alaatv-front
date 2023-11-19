@@ -63,14 +63,14 @@ export default defineComponent({
       default: 0
     }
   },
-  data() {
+  data () {
     return {
       selectedOnes: [],
       selected: false
     }
   },
   computed: {
-    productPrice() {
+    productPrice () {
       return new Price(this.product.price)
     }
   },

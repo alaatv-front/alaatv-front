@@ -98,7 +98,7 @@
 <script>
 export default {
   name: 'ExampleDialog',
-  data() {
+  data () {
     return {
       dialog: false,
       bottomSheet: false

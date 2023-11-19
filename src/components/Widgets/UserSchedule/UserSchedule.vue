@@ -104,7 +104,7 @@ export default {
 
   mixins: [mixinAbrisham],
 
-  data() {
+  data () {
     return {
       majors: new MajorList(),
       currentMajorId: null,
@@ -145,12 +145,12 @@ export default {
   },
 
   watch: {
-    currentMajorId() {
+    currentMajorId () {
       this.changeMajor()
     }
   },
 
-  created() {
+  created () {
     this.loadInitialData()
   },
 

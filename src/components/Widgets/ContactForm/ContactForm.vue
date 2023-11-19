@@ -40,7 +40,7 @@ export default defineComponent({
     ActionButton
   },
   mixins: [inputMixin, mixinWidget],
-  data() {
+  data () {
     return {
       defaultOptions: {
         titleOption: {},
@@ -78,7 +78,7 @@ export default defineComponent({
     }
   },
   computed: {
-    iconSize() {
+    iconSize () {
       return this.$q.screen.lt.xl ? this.localOptions.iconSize.xs : this.$q.screen.lt.sm ? this.localOptions.iconSize.sm : this.$q.screen.lt.md ? this.localOptions.iconSize.md : this.$q.screen.lt.lg ? this.localOptions.iconSize.lg : this.localOptions.iconSize.xl
     },
     shadows () {
@@ -111,7 +111,7 @@ export default defineComponent({
     }
   },
   methods: {
-    CallAction() {
+    CallAction () {
       this.actionLoading = true
       const values = this.$refs.formBuilder.getValues()
       const form = {}

@@ -3,7 +3,7 @@ import { PageSeo } from 'src/models/PageSeo.js'
 import APIRepository from '../classes/APIRepository.js'
 
 export default class ContentAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('content', apiV2)
     this.APIAdresses = {
       base: (type, id) => '/seo' + '?type=' + type + '&id=' + id
@@ -13,7 +13,7 @@ export default class ContentAPI extends APIRepository {
     }
   }
 
-  show(data, cache = { TTL: 1000 }) {
+  show (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

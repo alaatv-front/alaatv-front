@@ -157,7 +157,7 @@ export default {
     this.sortFilterBasedOnSelected()
   },
   methods: {
-    syncSelectedTags(selectedTags) {
+    syncSelectedTags (selectedTags) {
       this.contentSearchData = JSON.parse(JSON.stringify(this.contentFilterData))
       this.mergeContentSearchDataActiveKeyWithSelectedFields()
       this.syncSelectedTagViaContentSearchData(selectedTags)

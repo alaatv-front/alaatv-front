@@ -21,12 +21,12 @@ export default {
     activePage: null
   }),
   computed: {
-    user() {
+    user () {
       return this.$store.getters['Auth/user']
     }
   },
   methods: {
-    logOut() {
+    logOut () {
       this.$store.dispatch('Auth/logOut')
     }
   }

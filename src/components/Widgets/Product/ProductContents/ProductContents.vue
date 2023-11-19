@@ -142,7 +142,7 @@ export default {
     mixinPrefetchServerData,
     mixinWidget
   ],
-  data() {
+  data () {
     return {
       set: new Set(),
       sets: new SetList(),
@@ -191,19 +191,19 @@ export default {
   },
   watch: {
     options: {
-      handler() {
+      handler () {
         this.setProduct()
       },
       deep: true
     },
-    setTitle(newVal) {
+    setTitle (newVal) {
       if (!newVal) {
         return
       }
       const set = this.sets.list.filter(set => set.title || set.short_title === newVal)
       this.getSet(set[0].id)
     },
-    setOptions(newVal) {
+    setOptions (newVal) {
       this.filteredOptions = newVal
     }
   },
@@ -258,7 +258,7 @@ export default {
     prefetchServerDataPromiseCatch () {
       this.product.loading = false
     },
-    getSetsOfProduct() {
+    getSetsOfProduct () {
       if (this.localOptions.product?.id || !this.productId) {
         return new Promise((resolve) => {
           resolve(new Product())
@@ -267,7 +267,7 @@ export default {
       this.product.loading = true
       return this.$apiGateway.product.getSets(this.productId)
     },
-    getSet(id) {
+    getSet (id) {
       this.set.loading = true
       this.$apiGateway.set.show(id)
         .then(set => {
@@ -297,7 +297,7 @@ export default {
           this.set.loading = false
         })
     },
-    downloadPamphlet(pamphlet) {
+    downloadPamphlet (pamphlet) {
       this.$apiGateway.content.show(pamphlet.id)
         .then(content => {
           if (content.file && content.file.pamphlet && content.file.pamphlet[0]) {

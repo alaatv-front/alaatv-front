@@ -23,7 +23,7 @@ import { APIGateway } from 'src/api/APIGateway'
 export default {
   name: 'RankRecord',
   components: { EntityCreate },
-  data() {
+  data () {
     return {
       actionInput: [
         {
@@ -114,7 +114,7 @@ export default {
       api: APIGateway.user.APIAdresses.eventResult
     }
   },
-  mounted() {
+  mounted () {
     this.$store.commit('loading/loading', true)
     APIGateway.user.createEventResult()
       .then((eventResult) => {
@@ -129,7 +129,7 @@ export default {
       })
   },
   methods: {
-    getRankRecord() {
+    getRankRecord () {
       APIGateway.user.eventResult()
         .then(eventResult => {
           const firstEventResult = eventResult[0]
@@ -143,10 +143,10 @@ export default {
         })
         .catch()
     },
-    afterSendData() {
+    afterSendData () {
       this.$store.commit('loading/loading', false)
     },
-    beforeSendData(formData) {
+    beforeSendData (formData) {
       const isPublished = formData.get('enableReportPublish')
       if (isPublished) {
         formData.set('enableReportPublish', 1)
@@ -154,13 +154,13 @@ export default {
         formData.set('enableReportPublish', 0)
       }
     },
-    onActionSuccess() {
+    onActionSuccess () {
       this.$store.commit('loading/loading', false)
     },
-    onActionError() {
+    onActionError () {
       this.$store.commit('loading/loading', false)
     },
-    submitAction() {
+    submitAction () {
       this.$store.commit('loading/loading', true)
 
       this.$refs.EntityCreate.createEntity()

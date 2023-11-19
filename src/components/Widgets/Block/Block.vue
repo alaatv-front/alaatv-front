@@ -162,7 +162,7 @@ export default {
     }
   },
   computed: {
-    isThereData() {
+    isThereData () {
       return !!(
         this.localOptions.block.banners.list.length ||
         this.localOptions.block.products.list.length ||
@@ -170,25 +170,25 @@ export default {
         this.localOptions.block.sets.list.length
       )
     },
-    productItemMinWidth() {
+    productItemMinWidth () {
       if (this.isGridView) {
         return this.localOptions.productMinWidth.inGridView
       }
       return this.localOptions.productMinWidth.inScrollView
     },
-    setItemMinWidth() {
+    setItemMinWidth () {
       if (this.isGridView) {
         return this.localOptions.setMinWidth.inGridView
       }
       return this.localOptions.setMinWidth.inScrollView
     },
-    contentItemMinWidth() {
+    contentItemMinWidth () {
       if (this.isGridView) {
         return this.localOptions.contentMinWidth.inGridView
       }
       return this.localOptions.contentMinWidth.inScrollView
     },
-    bannerSlides() {
+    bannerSlides () {
       this.localOptions.block.banners.list.forEach(element => {
         element.photo = {
           src: element.photo
@@ -216,7 +216,7 @@ export default {
         this.getBlocksByRequest()
       }
     },
-    getBlocksByRequest() {
+    getBlocksByRequest () {
       this.localOptions.block.loading = true
       this.getApiRequest()
         .then((products) => {
@@ -230,13 +230,13 @@ export default {
           this.localOptions.block.loading = false
         })
     },
-    getBlocks(blocks) {
+    getBlocks (blocks) {
       if (!blocks || !blocks.list || blocks.list.length === 0) {
         return
       }
       return blocks.list.slice(this.localOptions.from, this.localOptions.to)
     },
-    getApiRequest() {
+    getApiRequest () {
       if (this.localOptions.apiName === 'home') {
         return this.$apiGateway.pages.home()
       }

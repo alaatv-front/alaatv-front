@@ -114,7 +114,7 @@ export default {
       default: null
     }
   },
-  data() {
+  data () {
     return {
       bookmarkLoading: false,
       defaultOptions: {
@@ -199,7 +199,7 @@ export default {
       }
       return (new ContentList(contents)).list.filter(content => content.isPamphlet()).length
     },
-    loadSet() {
+    loadSet () {
       return new Promise((resolve, reject) => {
         if (this.data && typeof this.data === 'object') {
           resolve({
@@ -242,7 +242,7 @@ export default {
 
       return splitedContents
     },
-    getSet(setId) {
+    getSet (setId) {
       return new Promise((resolve, reject) => {
         APIGateway.set.show(setId)
           .then((set) => {

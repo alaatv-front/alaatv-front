@@ -121,7 +121,7 @@ export default {
   props: {
     data: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
@@ -134,7 +134,7 @@ export default {
     }
   },
   computed: {
-    userIsCustomer() {
+    userIsCustomer () {
       return (this.data.user.role === 'کاربر')
     }
 
@@ -142,7 +142,7 @@ export default {
   watch: {
   },
   methods: {
-    getAdminName() {
+    getAdminName () {
       const name = this.data.user.first_name || '-'
       const lastName = this.data.user.last_name || ''
       return name + ' ' + lastName

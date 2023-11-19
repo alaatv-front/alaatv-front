@@ -261,13 +261,13 @@ export default defineComponent({
     bookmarkValue: false
   }),
   computed: {
-    imageWidth() {
+    imageWidth () {
       if (this.$q.screen.lt.md) {
         return '100%'
       }
       return this.localOptions.theme === 'ThemeProduct1' ? '282px' : '100%'
     },
-    imageHeight() {
+    imageHeight () {
       if (this.$q.screen.lt.md) {
         return '100%'
       }
@@ -276,7 +276,7 @@ export default defineComponent({
     cart () {
       return this.$store.getters['Cart/cart']
     },
-    getRoutingObject() {
+    getRoutingObject () {
       if (this.defaultOptions.routeToProduct) {
         return {
           name: 'Public.Product.Show',
@@ -286,13 +286,13 @@ export default defineComponent({
       return {}
     },
     product: {
-      get() {
+      get () {
         if (!this.localOptions.product) {
           return new Product()
         }
         return new Product(this.localOptions.product)
       },
-      set(value) {
+      set (value) {
         this.localOptions.product = value
       }
     },
@@ -332,14 +332,14 @@ export default defineComponent({
     }
   },
   watch: {
-    bookmarkValue(newVal) {
+    bookmarkValue (newVal) {
       if (newVal) {
         this.bookmarkUpdated()
       }
       this.localOptions.product.is_favored = newVal
     }
   },
-  mounted() {
+  mounted () {
     this.productMounted = true
   },
   methods: {
@@ -354,7 +354,7 @@ export default defineComponent({
         observer.observe(obs)
       })
     },
-    handleIntersection(entries, observer) {
+    handleIntersection (entries, observer) {
       entries.forEach(entry => {
         if (entry.intersectionRatio > 0) {
           this.productIsViewed()
@@ -378,13 +378,13 @@ export default defineComponent({
         this.showProduct()
       }
     },
-    getTeacherOfProduct() {
+    getTeacherOfProduct () {
       if (this.product.attributes.info.teacher) {
         return this.product.attributes.info.teacher[0]
       }
       return null
     },
-    addToCart() {
+    addToCart () {
       if (this.product.hasChildren()) {
         this.$router.push({ name: 'Public.Product.Show', params: { id: this.product.id } })
         return
@@ -394,7 +394,7 @@ export default defineComponent({
           this.$bus.emit('busEvent-refreshCart')
         })
     },
-    getProductItemPromise() {
+    getProductItemPromise () {
       if (this.options.product) {
         this.product = new Product(this.options.product)
         return new Promise((resolve) => {
@@ -464,10 +464,10 @@ export default defineComponent({
     bookmarkClicked (value) {
       this.$emit('onBookmarkClicked', value)
     },
-    toggleBottomSheet() {
+    toggleBottomSheet () {
       this.bottomSheetDialog = !this.bottomSheetDialog
     },
-    showProduct() {
+    showProduct () {
       if (this.localOptions.productViewType === 'bottomSheet') {
         this.toggleBottomSheet()
       } else if (this.localOptions.productViewType === 'productPage') {

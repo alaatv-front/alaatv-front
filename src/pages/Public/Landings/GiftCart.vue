@@ -10,7 +10,7 @@ import { mixinPageOptions } from 'src/mixin/Mixins.js'
 export default {
   name: 'GiftCart',
   mixins: [mixinPageOptions],
-  data() {
+  data () {
     return {
       pageConfig: {},
       sections: [{

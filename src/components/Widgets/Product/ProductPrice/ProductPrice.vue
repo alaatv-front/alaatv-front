@@ -93,7 +93,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       product: new Product(),
       productPrice: new Price(),
@@ -154,16 +154,16 @@ export default {
     prefetchServerDataPromiseCatch () {
       this.product.loading = false
     },
-    updateEECEventDetail() {
+    updateEECEventDetail () {
       AEE.productDetailViews('product.show', this.product.eec.getData(), {
         TTl: 1000,
         key: this.product.id
       })
     },
-    getProduct() {
+    getProduct () {
       return APIGateway.product.show(this.productId)
     },
-    addToCart() {
+    addToCart () {
       if (this.product.hasChildren() && this.selectedIds.length === 0) {
         this.$q.notify({
           type: 'negative',

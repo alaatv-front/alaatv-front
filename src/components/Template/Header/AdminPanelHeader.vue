@@ -64,7 +64,7 @@ import { mapMutations } from 'vuex'
 export default {
   name: 'AdminPanelHeader',
   components: { LazyImg },
-  data() {
+  data () {
     return {
       searchInput: '',
       user: new User(),
@@ -128,7 +128,7 @@ export default {
 
       return user.id
     },
-    layoutLeftDrawerVisible() {
+    layoutLeftDrawerVisible () {
       return this.$store.getters['AppLayout/layoutLeftDrawerVisible']
     },
     showMenuItem () {
@@ -153,7 +153,7 @@ export default {
     this.checkAuth()
   },
   methods: {
-    checkAuth() {
+    checkAuth () {
       this.$bus.on('onLoggedIn', () => {
         this.loadAuthData()
       })
@@ -168,22 +168,22 @@ export default {
       'updateBreadcrumbLoading',
       'updateLayoutLeftDrawerVisible'
     ]),
-    logOut() {
+    logOut () {
       return this.$store.dispatch('Auth/logOut')
     },
-    toggleLeftDrawer() {
+    toggleLeftDrawer () {
       this.updateLayoutLeftDrawerVisible(!this.layoutLeftDrawerVisible)
     },
-    hasRoute(route) {
+    hasRoute (route) {
       if (!route) {
         return
       }
       return !!(route.name || route.path)
     },
-    goToLogin() {
+    goToLogin () {
       this.$router.push({ name: 'login' })
     },
-    routeTo(name) {
+    routeTo (name) {
       this.$router.push({ name })
     }
   }

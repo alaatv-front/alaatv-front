@@ -31,12 +31,12 @@ export default {
   props: {
     options: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
   },
-  data() {
+  data () {
     return {
       loading: false,
       content: new Content()
@@ -59,7 +59,7 @@ export default {
     prefetchServerDataPromiseCatch () {
       this.content.loading = false
     },
-    loadContent() {
+    loadContent () {
       this.prefetchServerDataPromise()
         .then((content) => {
           this.prefetchServerDataPromiseThen(content)
@@ -69,7 +69,7 @@ export default {
         })
     },
 
-    getContentByRequest() {
+    getContentByRequest () {
       this.content.loading = true
       const contentId = this.getContentId()
       return APIGateway.content.show(contentId)
@@ -86,7 +86,7 @@ export default {
       }
       return null
     },
-    download(video) {
+    download (video) {
       openURL(video.link)
     }
   }

@@ -60,7 +60,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       optionsDialog: false,
       selectedItem: null

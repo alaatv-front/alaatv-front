@@ -269,7 +269,7 @@ export default {
     this.loadDefaultSeoData()
   },
   methods: {
-    truncateString(string, length) {
+    truncateString (string, length) {
       if (!string) {
         return ''
       }

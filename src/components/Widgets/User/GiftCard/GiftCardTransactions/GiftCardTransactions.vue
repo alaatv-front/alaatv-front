@@ -410,44 +410,44 @@ export default {
         base: this.minAmountUntilSettlement - this.sales_man.wallet_balance
       })
     },
-    awaitingSattlement() {
+    awaitingSattlement () {
       return new Price({
         base: this.sales_man.income_being_settle
       })
     },
-    walletBalance() {
+    walletBalance () {
       // return this.$store.getters.appProps.walletBalance
       return 1
     },
-    totalCommission() {
+    totalCommission () {
       // return this.$store.getters.appProps.totalCommission
       return 1
     },
-    settlementGuide() {
+    settlementGuide () {
       // return this.$store.getters.appProps.settlementGuide
       return 1
     },
-    minAmountUntilSettlement() {
+    minAmountUntilSettlement () {
       // return this.$store.getters.appProps.minAmountUntilSettlement
       return 1000000
     },
-    incomeBeingSettle() {
+    incomeBeingSettle () {
       // return this.$store.getters.appProps.incomeBeingSettle
       return 1
     }
   },
-  mounted() {
+  mounted () {
     this.loadAllData()
   },
   methods: {
-    loadAllData() {
+    loadAllData () {
       this.getSalesMan()
       this.setPercentage()
       this.getZeroCardDataFromApi()
       this.getTransactionDataFromApi()
       this.getWithdrawHistory()
     },
-    getSalesMan() {
+    getSalesMan () {
       this.salesManLoading = true
       APIGateway.referralCode.getSalesManData()
         .then((response) => {
@@ -458,7 +458,7 @@ export default {
           this.salesManLoading = false
         })
     },
-    openSettlementGuideDialog() {
+    openSettlementGuideDialog () {
       this.settlementGuideDialog = true
     },
     setPercentage () {
@@ -468,7 +468,7 @@ export default {
       }
       this.percentage = (1 - (this.minAmountUntilSettlement - this.walletBalance) / this.minAmountUntilSettlement) * 100
     },
-    clearWallet() {
+    clearWallet () {
       APIGateway.referralCode.getWithdrawWallet()
         .then((response) => {
           location.reload()
@@ -479,7 +479,7 @@ export default {
           this.showErrorMessages(messages)
         })
     },
-    getWithdrawStatus(value) {
+    getWithdrawStatus (value) {
       if (value === 'pending') {
         return 'در صف انتظار'
       }
@@ -493,7 +493,7 @@ export default {
         return 'پرداخت شده'
       }
     },
-    getWithdrawHistory(page = 1) {
+    getWithdrawHistory (page = 1) {
       this.clearingHistoryTableRowLoading = true
       APIGateway.referralCode.getWithdrawHistory({ /* per_page: this.historyPerPage,  */page })
         .then(({ clearingHistoryTableRow, paginate }) => {
@@ -505,7 +505,7 @@ export default {
           this.clearingHistoryTableRowLoading = false
         })
     },
-    getTransactionDataFromApi(page = 1) {
+    getTransactionDataFromApi (page = 1) {
       this.transactionsTableRowLoading = true
       APIGateway.referralCode.getOrderProducts({ per_page: this.transactionPerPage, page })
         .then(({ transactionsTableRow, paginate }) => {
@@ -517,7 +517,7 @@ export default {
           this.transactionsTableRowLoading = false
         })
     },
-    getZeroCardDataFromApi(page = 1) {
+    getZeroCardDataFromApi (page = 1) {
       this.zeroCardTableRowLoading = true
       APIGateway.referralCode.noneProfitableOrderproducts({ per_page: this.zeroCardPerPage, page })
         .then(({ zeroCardTableRow, paginate }) => {

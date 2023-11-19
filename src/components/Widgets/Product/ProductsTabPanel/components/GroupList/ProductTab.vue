@@ -65,7 +65,7 @@ export default {
       default: () => {}
     }
   },
-  data() {
+  data () {
     return {
       tabModel: '',
       defaultOptions: {
@@ -93,11 +93,11 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.tabModel = 'productTab_0'
   },
   methods: {
-    changeTab(tabName) {
+    changeTab (tabName) {
       this.tabModel = tabName
       const el = this.$refs.productTab
       const headerOffset = 150
@@ -108,7 +108,7 @@ export default {
         behavior: 'smooth'
       })
     },
-    isProduct(item) {
+    isProduct (item) {
       return item.type === 'ProductList'
     }
   }

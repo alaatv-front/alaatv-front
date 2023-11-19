@@ -43,7 +43,7 @@ export default {
     ContentItem
   },
   mixins: [mixinTripleTitleSet],
-  data() {
+  data () {
     return {
       bookmarkClicked: false,
       isFilterBoxHidden: false,
@@ -103,29 +103,29 @@ export default {
     }
   },
   computed: {
-    setTopicList() {
+    setTopicList () {
       return this.$store.getters['TripleTitleSet/setTopicList']
     },
     selectedTopic () {
       return this.$store.getters['TripleTitleSet/selectedTopic']
     },
-    selectedTopicList() {
+    selectedTopicList () {
       return this.$store.getters['TripleTitleSet/setTopicList']
     },
-    selectedTopicInput() {
+    selectedTopicInput () {
       return this.inputs.find(x => x.name === 'formBuilderCol').value[0].value
     }
   },
   watch: {
-    selectedTopicList(value) {
+    selectedTopicList (value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     },
-    selected(value) {
+    selected (value) {
       this.$emit('selectedUpdated', value)
     }
   },
   methods: {
-    afterAuthenticate() {
+    afterAuthenticate () {
       const productId = this.$route.params.productId
       if (productId) {
         this.getProductSets(productId)
@@ -136,10 +136,10 @@ export default {
     updateSelectedTopic (content) {
       this.$store.commit('TripleTitleSet/updateSelectedTopic', content)
     },
-    toggleDialog() {
+    toggleDialog () {
       this.$emit('toggleDialog')
     },
-    onInputClick(e) {
+    onInputClick (e) {
       if (e.input.name === 'toggle') {
         document.getElementsByClassName('entity-filter-box')[0].classList.toggle('opened')
       }
@@ -156,13 +156,13 @@ export default {
       }
       this.$refs.entityIndex.search()
     },
-    getProductSets(productId) {
+    getProductSets (productId) {
       this.$store.dispatch('TripleTitleSet/getSet', productId)
     },
-    getProduct(productId) {
+    getProduct (productId) {
       this.$store.dispatch('TripleTitleSet/getSelectedProduct', productId)
     },
-    goToContent(event, content) {
+    goToContent (event, content) {
       if (event.target.localName === 'i' || event.target.localName === 'button') {
         return
       }

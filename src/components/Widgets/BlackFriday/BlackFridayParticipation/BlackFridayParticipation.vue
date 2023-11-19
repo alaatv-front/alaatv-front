@@ -49,7 +49,7 @@ export default defineComponent({
     InsideDialog
   },
   mixins: [mixinAuth],
-  data() {
+  data () {
     return {
       dialog: false,
       blackFridayCampaignData: new BlackFridayCampaignData(),
@@ -73,7 +73,7 @@ export default defineComponent({
       return this.getLastActiveIndex()
     }
   },
-  mounted() {
+  mounted () {
     this.getBlackFridayCampaignData()
     this.$bus.on('onLoggedIn', () => {
       this.loadAuthData()
@@ -88,7 +88,7 @@ export default defineComponent({
       this.$store.commit('Auth/updateRedirectTo', { name: this.$route.name, params: this.$route.params, query: this.$route.query })
       this.$store.commit('AppLayout/updateLoginDialog', true)
     },
-    participateInLottery() {
+    participateInLottery () {
       if (!this.isUserLogin) {
         this.showLoginDialog()
         return

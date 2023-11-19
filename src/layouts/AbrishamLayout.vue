@@ -93,7 +93,7 @@ export default {
       return this.$route.name.includes('UserPanel.Asset.AbrishamPro.')
     }
   },
-  created() {
+  created () {
     this.activePage = this.getPageFromRouteName()
   },
   mounted () {
@@ -111,7 +111,7 @@ export default {
 
       return this.menuItem[0]
     },
-    setActivePage(currentPage) {
+    setActivePage (currentPage) {
       this.activePage = currentPage
     }
   }

@@ -110,7 +110,7 @@ export default {
   props: {
     options: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     },
@@ -124,31 +124,31 @@ export default {
     },
     loading: {
       type: Boolean,
-      default() {
+      default () {
         return false
       }
     },
     videoListLoading: {
       type: Boolean,
-      default() {
+      default () {
         return false
       }
     },
     hideNextBtn: {
       type: Boolean,
-      default() {
+      default () {
         return false
       }
     },
     hidePrevBtn: {
       type: Boolean,
-      default() {
+      default () {
         return false
       }
     }
   },
   emits: ['contentSelected', 'nextSetClicked', 'previousSetClicked'],
-  data() {
+  data () {
     return {
       dialog: false,
       clickedItem: new Content(),
@@ -171,9 +171,9 @@ export default {
       this.scrollToElement()
     }
   },
-  created() {},
+  created () {},
   methods: {
-    itemSelected(item) {
+    itemSelected (item) {
       this.clickedItem = item
       if (item.isPamphlet()) {
         window.open(item.file?.pamphlet[0]?.link, '_blank')
@@ -181,10 +181,10 @@ export default {
       }
       this.$emit('contentSelected', item)
     },
-    nextSetClicked() {
+    nextSetClicked () {
       this.$emit('nextSetClicked')
     },
-    previousSetClicked() {
+    previousSetClicked () {
       this.$emit('previousSetClicked')
     },
     getContentId () {
@@ -199,10 +199,10 @@ export default {
       }
       return null
     },
-    isCurrent(contentId) {
+    isCurrent (contentId) {
       return this.content.id === contentId
     },
-    scrollToElement() {
+    scrollToElement () {
       const index = this.set.contents.list.findIndex(content => content.id === this.content.id)
       this.$nextTick(() => {
         if (!this.$refs.items || !this.$refs.items[index]) {

@@ -7,7 +7,7 @@ import { TicketPriorityList } from 'src/models/TicketPriority.js'
 import { TicketDepartmentList } from 'src/models/TicketDepartment.js'
 
 export default class TicketAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('ticket', apiV2, '/ticket')
     this.APIAdresses = {
       base: '/ticket',
@@ -41,7 +41,7 @@ export default class TicketAPI extends APIRepository {
     this.restUrl = (id) => this.url + '/' + id
   }
 
-  index(data, cache = { TTL: 1000 }) {
+  index (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -87,7 +87,7 @@ export default class TicketAPI extends APIRepository {
     })
   }
 
-  batchExtend(data) {
+  batchExtend (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -102,7 +102,7 @@ export default class TicketAPI extends APIRepository {
     })
   }
 
-  sendTicketRate(ticketId, data) {
+  sendTicketRate (ticketId, data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -117,7 +117,7 @@ export default class TicketAPI extends APIRepository {
     })
   }
 
-  sendReport(ticketId, data) {
+  sendReport (ticketId, data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -132,7 +132,7 @@ export default class TicketAPI extends APIRepository {
     })
   }
 
-  creatTicket(data) {
+  creatTicket (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -147,7 +147,7 @@ export default class TicketAPI extends APIRepository {
     })
   }
 
-  updateTicket(ticketId, data) {
+  updateTicket (ticketId, data) {
     return this.sendRequest({
       apiMethod: 'put',
       api: this.api,
@@ -164,7 +164,7 @@ export default class TicketAPI extends APIRepository {
     })
   }
 
-  getUserData(data) {
+  getUserData (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -179,7 +179,7 @@ export default class TicketAPI extends APIRepository {
     })
   }
 
-  sendTicketMessage(data) {
+  sendTicketMessage (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -194,7 +194,7 @@ export default class TicketAPI extends APIRepository {
     })
   }
 
-  sendTicketStatusNotice(ticketId, data) {
+  sendTicketStatusNotice (ticketId, data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -209,7 +209,7 @@ export default class TicketAPI extends APIRepository {
     })
   }
 
-  editTicketAssignedSupporters(id, data) {
+  editTicketAssignedSupporters (id, data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -224,7 +224,7 @@ export default class TicketAPI extends APIRepository {
     })
   }
 
-  getNeededDataToCreateTicket(cache = { TTL: 1000 }) {
+  getNeededDataToCreateTicket (cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

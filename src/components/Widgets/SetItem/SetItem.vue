@@ -118,7 +118,7 @@ export default {
     }
   },
   watch: {
-    bookmarkValue(newVal) {
+    bookmarkValue (newVal) {
       if (newVal) {
         this.bookmarkUpdated()
       }

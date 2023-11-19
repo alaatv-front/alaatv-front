@@ -66,7 +66,7 @@ export default {
     Pagination
   },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       settings: {
         itemsToShow: 3,
@@ -165,15 +165,15 @@ export default {
     }
   },
   computed: {
-    leftNavigationSize() {
+    leftNavigationSize () {
       return this.localOptions.navigation.goToLeft.size[this.$q.screen.name]
     },
-    rightNavigationSize() {
+    rightNavigationSize () {
       return this.localOptions.navigation.goToRight.size[this.$q.screen.name]
     }
   },
   methods: {
-    getOptions(item) {
+    getOptions (item) {
       const comment = {
         comment: item
       }

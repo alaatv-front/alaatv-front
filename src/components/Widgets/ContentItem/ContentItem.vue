@@ -98,7 +98,7 @@ export default {
     }
   }),
   computed: {
-    getRoutingObject() {
+    getRoutingObject () {
       if (this.defaultOptions.routeToContent) {
         return {
           name: 'Public.Content.Show',

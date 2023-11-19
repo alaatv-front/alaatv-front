@@ -186,7 +186,7 @@ export default {
     contentsIsEmpty () {
       return this.contents.list.length === 0
     },
-    watchingContentComment() {
+    watchingContentComment () {
       return this.watchingContent.comments[0]?.comment || ''
     },
     currentSet () {
@@ -200,10 +200,10 @@ export default {
     this.initPage()
   },
   methods: {
-    loadUserLastState() {
+    loadUserLastState () {
       this.setCurrentSet(this.userLastState.setId, this.userLastState.contentId)
     },
-    async showUserLastState() {
+    async showUserLastState () {
       try {
         const userLastState = await this.$apiGateway.product.getUserLastState(this.selectedLessonId)
         const setId = userLastState.set.id
@@ -289,7 +289,7 @@ export default {
       return selectedLessonGroup.id
     },
 
-    async getLessonGroups() {
+    async getLessonGroups () {
       this.lessonGroupsLoading = true
       this.progressLoading = true
       try {
@@ -408,7 +408,7 @@ export default {
       this.setWatchingContent(content)
     },
 
-    getContent(contentId) {
+    getContent (contentId) {
       if (contentId) {
         return this.contents.list.find(content => content.id === contentId)
       }

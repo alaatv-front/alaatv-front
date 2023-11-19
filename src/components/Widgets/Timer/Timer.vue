@@ -46,7 +46,7 @@ export default defineComponent({
     TimerBaseBlackFriday
   },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       defaultOptions: {
         time: '1402-06-01 00:00',
@@ -183,16 +183,16 @@ export default defineComponent({
     }
   },
   computed: {
-    topComponentClass() {
+    topComponentClass () {
       return this.getDisplayClasses(this.localOptions.hasTop)
     },
-    leftComponentClass() {
+    leftComponentClass () {
       return this.getDisplayClasses(this.localOptions.hasLeft)
     },
-    rightComponentClass() {
+    rightComponentClass () {
       return this.getDisplayClasses(this.localOptions.hasRight)
     },
-    bottomComponentClass() {
+    bottomComponentClass () {
       return this.getDisplayClasses(this.localOptions.hasBottom)
     },
     shadows () {
@@ -223,7 +223,7 @@ export default defineComponent({
         borderRadiusCssString
       }
     },
-    parentComponent() {
+    parentComponent () {
       if (this.localOptions.action.route) {
         if (this.isExternal(this.localOptions.action.route)) {
           return 'a'
@@ -234,11 +234,11 @@ export default defineComponent({
       return 'div'
     }
   },
-  beforeMount() {
+  beforeMount () {
     moment.loadPersian()
   },
   methods: {
-    getDisplayClasses(responsiveObject) {
+    getDisplayClasses (responsiveObject) {
       let className = ''
       for (const [key, value] of Object.entries(responsiveObject)) {
         if (value) {

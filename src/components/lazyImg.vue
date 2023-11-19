@@ -144,7 +144,7 @@ export default {
       this.updateLazyImageSrc()
     }
   },
-  mounted() {
+  mounted () {
     this.updateLazyImageSrc()
     this.observeImageIntersection()
     window.addEventListener('resize', this.onresize)

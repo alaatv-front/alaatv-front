@@ -158,7 +158,7 @@ export default defineComponent({
     EditorOptions
   },
   mixins: [mixinOptionPanel],
-  data() {
+  data () {
     return {
       actionOptions: ['scroll', 'link', 'event'],
       positionOptions: ['top-right', 'top-left', 'bottom-right', 'bottom-left'],

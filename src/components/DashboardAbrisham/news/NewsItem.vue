@@ -80,13 +80,13 @@ export default {
       default: new LiveDescription()
     }
   },
-  data() {
+  data () {
     return {
       showMore: false
     }
   },
   methods: {
-    showMoreClicked() {
+    showMoreClicked () {
       this.showMore = true
       this.$emit('seenNews', this.newItem.id)
     }

@@ -97,7 +97,7 @@ export default {
     }
   },
   emits: ['update:value'],
-  data() {
+  data () {
     return {
       openPlanIndexes: [],
       selectedMajor: new Major(),
@@ -109,7 +109,7 @@ export default {
   },
   watch: {
     value: {
-      handler(newValue) {
+      handler (newValue) {
         if (!newValue) {
           return
         }
@@ -118,7 +118,7 @@ export default {
       }
     },
     currentDate: {
-      handler(newValue) {
+      handler (newValue) {
         if (!newValue) {
           return
         }
@@ -126,18 +126,18 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.initData()
   },
-  updated() {
+  updated () {
   },
   methods: {
-    initData() {
+    initData () {
       this.setSelectedMajor()
       this.loadStudyEvents()
     },
 
-    async loadTodayPlan() {
+    async loadTodayPlan () {
       const todayPlan = this.studyPlanList.list.find(plan => plan.is_current)
       if (!todayPlan) {
         return
@@ -145,13 +145,13 @@ export default {
       await this.openPlanExpansion(todayPlan.studyPlan_id)
     },
 
-    async showStudyPlans(studyPlanIndex) {
+    async showStudyPlans (studyPlanIndex) {
       const studyPlan = this.studyPlanList.list[studyPlanIndex]
       const studyPlanId = studyPlan.studyPlan_id
       this.loadPlans(studyPlanId)
     },
 
-    async openPlanExpansion(studyPlanId) {
+    async openPlanExpansion (studyPlanId) {
       const target = this.getPlan(studyPlanId)
       const studyPlanIndex = target.index
       if (studyPlanIndex === -1) {
@@ -163,7 +163,7 @@ export default {
       this.openPlanIndexes.push(studyPlanIndex)
     },
 
-    async loadStudyEvents() {
+    async loadStudyEvents () {
       this.studyPlanList.loading = true
       const studyPlanNumber = 5
       try {
@@ -177,7 +177,7 @@ export default {
       }
     },
 
-    async loadCurrentDatePlan(studyPlanDate) {
+    async loadCurrentDatePlan (studyPlanDate) {
       const date = this.convertDateFormat(studyPlanDate)
       const target = this.getPlan(date, 'date')
 
@@ -191,7 +191,7 @@ export default {
       this.scrollTo(target.index)
     },
 
-    async loadPlans(planId) {
+    async loadPlans (planId) {
       this.studyPlanList.loading = true
       if (!planId) return
       try {
@@ -226,15 +226,15 @@ export default {
     //   return axios.get('/api/v2/studyEvent/' + studyPlanNumber + '/studyPlans')
     // },
 
-    getMajor(id) {
+    getMajor (id) {
       return this.majors.list.find(major => major.id === id)
     },
 
-    getFirstMajor() {
+    getFirstMajor () {
       return this.majors.list[0]
     },
 
-    getTodayDate() {
+    getTodayDate () {
       let todayDate = new Date()
       const date = String(todayDate.getDate()).padStart(2, '0')
       const month = String(todayDate.getMonth() + 1).padStart(2, '0') // January is 0!
@@ -243,7 +243,7 @@ export default {
       return todayDate
     },
 
-    getPlan(planKey, key) {
+    getPlan (planKey, key) {
       let planIndex = -1
       let target
       if (!key) {
@@ -268,7 +268,7 @@ export default {
     //   return axios.get('/api/v2/studyPlan/' + params.planId + '/plans')
     // },
 
-    setSelectedMajor() {
+    setSelectedMajor () {
       const majorId = this.value
       let major = this.getFirstMajor()
       if (majorId) {
@@ -278,7 +278,7 @@ export default {
       this.selectedMajor = major
     },
 
-    setPlan(planId, planData) {
+    setPlan (planId, planData) {
       const studyPlan = this.getPlan(planId).studyPlan
       if (!studyPlan) {
         return
@@ -286,7 +286,7 @@ export default {
       studyPlan.plans = new PlanList(planData)
     },
 
-    restPageData() {
+    restPageData () {
       this.resetAllPlans()
       this.closeAllPlans()
       if (this.currentDate) {
@@ -294,50 +294,50 @@ export default {
       }
     },
 
-    resetAllPlans() {
+    resetAllPlans () {
       this.studyPlanList.list.forEach(studyPlan => {
         studyPlan.plans = new PlanList()
       })
     },
 
-    changeSelectedMajor() {
+    changeSelectedMajor () {
       this.$emit('update:value', this.selectedMajor.id)
     },
 
-    closeAllPlans() {
+    closeAllPlans () {
       this.openPlanIndexes = []
     },
 
-    planClicked(studyPlan, index) {
+    planClicked (studyPlan, index) {
       const studyPlanId = studyPlan.studyPlan_id
       const isPlanOpen = this.isPlanOpen(index)
       isPlanOpen ? this.closePlan(studyPlanId) : this.loadPlans(studyPlanId)
     },
 
-    isPlanOpen(studyPlanIndex) {
+    isPlanOpen (studyPlanIndex) {
       return this.openPlanIndexes.includes(studyPlanIndex)
     },
 
-    closePlan(planId) {
+    closePlan (planId) {
       // this.openingPlanId = this.openingPlanId.filter(id => id !== planId )
     },
 
-    convertDateFormat(date) {
+    convertDateFormat (date) {
       if (date.includes('/')) {
         return date.split('/').join('-')
       }
       return date
     },
 
-    closePlan2(planId) {
+    closePlan2 (planId) {
       this.studyPlanList.list[planId].plans = new PlanList()
     },
 
-    contentClicked(content) {
+    contentClicked (content) {
       this.$emit('contentClicked', content)
     },
 
-    scrollTo(id) {
+    scrollTo (id) {
       if (this.$refs[id] && this.$refs[id][0]) {
         this.$refs[id][0].$el.scrollIntoView()
       }

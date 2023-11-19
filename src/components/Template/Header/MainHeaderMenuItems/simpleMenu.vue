@@ -175,7 +175,7 @@ export default {
   props: {
     data: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     },
@@ -188,7 +188,7 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
       selectedMenuItem: null,
       optionDialog: false,
@@ -228,10 +228,10 @@ export default {
         })
       }, 50)
     },
-    isItemSelected(item) {
+    isItemSelected (item) {
       return item.selected
     },
-    showData(colIndex) {
+    showData (colIndex) {
       this.data.children.forEach((item, subIndex) => {
         item.selected = colIndex === subIndex
       })

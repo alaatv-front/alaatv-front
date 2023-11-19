@@ -12,7 +12,7 @@ import { APIGateway } from 'src/api/APIGateway'
 export default {
   name: 'Test-component-1widget',
   mixins: [mixinWidget],
-  setup() {
+  setup () {
     const cart = APIGateway.cart
     const thisUser = APIGateway.user
     const product = APIGateway.product
@@ -31,7 +31,7 @@ export default {
     }
   },
   computed: {
-    api4g4g4() {
+    api4g4g4 () {
       return this.$apiGateway
     }
   }

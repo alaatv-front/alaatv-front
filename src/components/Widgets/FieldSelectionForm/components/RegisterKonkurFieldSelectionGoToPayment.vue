@@ -168,7 +168,7 @@ export default {
           this.couponLoading = false
         })
     },
-    detachCoupon() {
+    detachCoupon () {
       APIGateway.coupon.deleteCoupon({ order_id: this.orderId })
         .then(() => {
           this.orderPrice = null

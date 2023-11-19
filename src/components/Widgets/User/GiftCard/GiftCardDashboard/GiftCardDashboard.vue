@@ -171,7 +171,7 @@ export default {
   name: 'GiftCardDashboard',
   // components: { ShareNetwork },
   mixins: [GiftCardMixin],
-  data() {
+  data () {
     return {
       sales_man: {
         wallet_type: 'main_account',
@@ -227,15 +227,15 @@ export default {
     }
   },
   computed: {
-    countOfTotalGiftCards() {
+    countOfTotalGiftCards () {
       // return this.$store.getters.appProps.countOfTotalGiftCards
       return 1
     },
-    countOfUsedGiftCards() {
+    countOfUsedGiftCards () {
       // return this.$store.getters.appProps.countOfUsedGiftCards
       return 1
     },
-    countOfRemainGiftCards() {
+    countOfRemainGiftCards () {
       // return this.$store.getters.appProps.countOfRemainGiftCards
       return 1
     }
@@ -244,7 +244,7 @@ export default {
     this.loadAllData()
   },
   methods: {
-    copyCodeNumberToClipboard(code) {
+    copyCodeNumberToClipboard (code) {
       this.copyToClipboard(code)
         .then(() => {
           this.$q.notify({
@@ -259,7 +259,7 @@ export default {
           })
         })
     },
-    getShareLink(cartItem, socialMedia) {
+    getShareLink (cartItem, socialMedia) {
       if (socialMedia === 'telegram') {
         return 'https://telegram.me/share/url?url=' + cartItem.url
       } else if (socialMedia === 'whatsapp') {
@@ -276,7 +276,7 @@ export default {
         return 'https://www.facebook.com/sharer/sharer.php?u=' + cartItem.url
       }
     },
-    loadAllData() {
+    loadAllData () {
       this.getGiftCardsData()
       // APIGateway.referralCode.batchStore({
       //   data: {
@@ -290,7 +290,7 @@ export default {
       //   }
       // })
     },
-    getGiftCardsData(page = 1) {
+    getGiftCardsData (page = 1) {
       this.loading = true
       this.referralCodeList = []
       APIGateway.referralCode.index({ data: { page } })
@@ -334,7 +334,7 @@ export default {
       }
       return Promise.reject('The Clipboard API is not available.')
     },
-    updateTableData(cardId) {
+    updateTableData (cardId) {
       this.referralCodeList.forEach(item => {
         if (item.id === cardId) {
           item.share = 1

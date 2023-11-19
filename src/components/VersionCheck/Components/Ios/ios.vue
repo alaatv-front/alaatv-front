@@ -7,18 +7,18 @@ export default {
   props: {
     latestVersion: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
   },
-  data() {
+  data () {
     return {
       visible: false
     }
   },
   methods: {
-    checkIosVersion(apiIosVersion) {
+    checkIosVersion (apiIosVersion) {
       // do logics for checking ios version
     }
   }

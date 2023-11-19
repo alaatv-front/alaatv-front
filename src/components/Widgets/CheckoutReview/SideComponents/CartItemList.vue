@@ -45,10 +45,10 @@ export default {
       default: new Cart()
     }
   },
-  data() {
+  data () {
     return {}
   },
-  mounted() {
+  mounted () {
     // setTimeout(() => {
     //   console.log(this.items)
     // }, 1000)

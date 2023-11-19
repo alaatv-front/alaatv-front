@@ -88,14 +88,14 @@ export default {
     }
   },
   emits: ['editFile', 'toggleDialog', 'updateValue'],
-  data() {
+  data () {
     return {
       noItem: true,
       urlList: []
     }
   },
   methods: {
-    editFile(file) {
+    editFile (file) {
       this.$emit('editFile', file)
     },
     factoryFn (files) {
@@ -143,10 +143,10 @@ export default {
         }
       })
     },
-    onRejected() {
+    onRejected () {
       this.$refs.uploader.reset()
     },
-    onUploaded() {
+    onUploaded () {
       this.$emit('updateValue', this.urlList)
     }
   }

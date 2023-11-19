@@ -98,22 +98,22 @@ export default {
       default: ''
     }
   },
-  mounted() {
+  mounted () {
     this.setScrollPosition()
   },
   methods: {
-    setScrollPosition() {
+    setScrollPosition () {
       if (this.selected) {
         this.$refs.contentItem.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' })
       }
     },
-    getClockTime() {
+    getClockTime () {
       return {
         start: this.formatClock(this.content.start),
         end: this.formatClock(this.content.end)
       }
     },
-    formatClock(clock) {
+    formatClock (clock) {
       if (!clock) {
         return clock
       }
@@ -122,7 +122,7 @@ export default {
       timeArray.splice(2, 1)
       return timeArray.join(':')
     },
-    changeSelectedItem() {
+    changeSelectedItem () {
       if (this.type === 'pamphlet' && !this.content.file) {
         window.open(this.content.url.web, '_blank').focus()
       } else {

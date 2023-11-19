@@ -50,7 +50,7 @@ export default {
     }
   },
   emits: ['toggleDialog'],
-  data() {
+  data () {
     return {
       teacherList: [],
       entityIdKey: 'id',
@@ -126,16 +126,16 @@ export default {
       ]
     }
   },
-  created() {
+  created () {
     this.getTeachers()
   },
   methods: {
-    getTeachers() {
+    getTeachers () {
       this.$apiGateway.user.adminIndex({ data: { rollId: this.$enums.Rolls.TEACHER } }).then(res => {
         this.inputs.find(x => x.name === 'author_id').options = res.list
       })
     },
-    saveSet() {
+    saveSet () {
       this.$refs.setForm.createEntity().then(res => {
         this.$emit('toggleDialog')
       }).catch(() => {

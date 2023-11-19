@@ -220,7 +220,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       // cartItem: new CartItem(),
       loading: false,
@@ -281,27 +281,27 @@ export default {
   },
   watch: {
     rawItem: {
-      handler(newValue, oldValue) {
+      handler (newValue, oldValue) {
         this.updateCartItem()
       },
       deep: true
     }
   },
-  created() {
+  created () {
     // setTimeout(() => {
     //   console.log(this.rawItem)
     // }, 1000)
     // this.updateCartItem()
     this.fillInfoDetails()
   },
-  mounted() {
+  mounted () {
     // this.updateCartItem()
     this.fillInfoDetails()
     // this.calcTotalPrice()
     // this.calcDiscount()
   },
   methods: {
-    fillInfoDetails() {
+    fillInfoDetails () {
       if (this.hasGrand) {
         if (!this.rawItem.order_product.list[0].product.attributes) {
           return
@@ -328,7 +328,7 @@ export default {
         })
       }
     },
-    getDescriptionString(descArray) {
+    getDescriptionString (descArray) {
       let fullString = ''
       descArray.forEach((string, index) => {
         if (!descArray[index + 1]) {
@@ -339,7 +339,7 @@ export default {
       })
       return fullString
     },
-    deleteItem() {
+    deleteItem () {
       if (this.localCartItem.order_product) {
         const idx = this.items.findIndex(item => item.grand.id === this.localCartItem.product.id)
         this.items.splice(idx, 1)
@@ -348,9 +348,9 @@ export default {
       }
       // this.items.findIndex(item=>item.)
     },
-    toggleMenu() {
+    toggleMenu () {
     },
-    calcDiscount() {
+    calcDiscount () {
       if (this.hasGrand) {
         let discount = 0
         this.localCartItem.order_product.forEach(e => {
@@ -361,7 +361,7 @@ export default {
         this.discount = (this.localCartItem.price.discount / this.localCartItem.price.base) * 100
       }
     },
-    calcTotalPrice() {
+    calcTotalPrice () {
       if (this.hasGrand) {
         this.localCartItem.order_product.forEach(e => {
           this.totalPrice += e.price.final
@@ -369,7 +369,7 @@ export default {
         this.localCartItem.price.final = this.totalPrice
       }
     },
-    updateCartItem() {
+    updateCartItem () {
       if (this.hasGrand) {
         this.localCartItem.grand = this.rawItem.grand
         this.localCartItem.order_product = this.rawItem.order_product

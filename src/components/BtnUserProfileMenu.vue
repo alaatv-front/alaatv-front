@@ -66,7 +66,7 @@ export default {
   name: 'MainHeaderTemplate',
   components: { UserDashboardItems, LazyImg },
   mixins: [mixinAuth],
-  data() {
+  data () {
     return {
       user: new User(),
       isUserLogin: false
@@ -77,7 +77,7 @@ export default {
     this.checkAuth()
   },
   methods: {
-    checkAuth() {
+    checkAuth () {
       this.$bus.on('onLoggedIn', () => {
         this.loadAuthData()
       })

@@ -135,7 +135,7 @@ export default {
     }
   },
   computed: {
-    isUserLogin() {
+    isUserLogin () {
       return this.$store.getters['Auth/isUserLogin']
     }
   },

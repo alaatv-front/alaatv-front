@@ -85,7 +85,7 @@ export default {
   emits: [
     'update:value'
   ],
-  data() {
+  data () {
     return {
       selectedId: null
     }
@@ -93,7 +93,7 @@ export default {
 
   watch: {
     value: {
-      handler(newValue) {
+      handler (newValue) {
         if (newValue) {
           this.changeSelectedChip(newValue)
         }
@@ -103,18 +103,18 @@ export default {
   },
 
   methods: {
-    chipBackground(item) {
+    chipBackground (item) {
       return this.isItemSelected(item) ? (item.color ? item.color : '#ff8f00') : 'transparent'
     },
     isItemSelected (item) {
       return parseInt(item.id) === parseInt(this.selectedId)
     },
 
-    getItemById(itemId) {
+    getItemById (itemId) {
       return this.items.find(item => parseInt(item.id) === parseInt(itemId))
     },
 
-    changeSelectedChip(selectedId) {
+    changeSelectedChip (selectedId) {
       const selectedItem = this.getItemById(selectedId)
 
       if (!selectedItem) {

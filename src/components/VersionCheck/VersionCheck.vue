@@ -16,13 +16,13 @@ import AndroidVersionCheck from 'src/components/VersionCheck/Components/Android/
 export default {
   name: 'VersionCheck',
   components: { WebVersionCheck, IosVersionCheck, AndroidVersionCheck },
-  data() {
+  data () {
     return {
       globalVersion: null
     }
   },
   computed: {
-    platformTypeComponent() {
+    platformTypeComponent () {
       const isNativeApp = Capacitor.isNativePlatform()
       if (isNativeApp) {
         if (Capacitor.getPlatform() === 'android') {
@@ -34,7 +34,7 @@ export default {
       return 'web-version-check'
     }
   },
-  mounted() {
+  mounted () {
     if (this.platformTypeComponent === 'web-version-check') {
       return
     }
@@ -45,7 +45,7 @@ export default {
       .catch(() => {})
   },
   methods: {
-    getVersion() {
+    getVersion () {
       return new Promise(function (resolve, reject) {
         APIGateway.version.getLastVersion()
           .then((version) => {

@@ -70,7 +70,7 @@ export default defineComponent({
   },
   mixins: [mixinWidget],
   emits: ['updateProduct', 'updateProductLoading'],
-  data() {
+  data () {
     return {
       playerKey: Date.now(),
       defaultOptions: {
@@ -95,10 +95,10 @@ export default defineComponent({
     }
   },
   methods: {
-    onUpdateProduct(event) {
+    onUpdateProduct (event) {
       this.$emit('updateProduct', event)
     },
-    onUpdateProductLoading(event) {
+    onUpdateProductLoading (event) {
       this.$emit('updateProductLoading', event)
     }
   }

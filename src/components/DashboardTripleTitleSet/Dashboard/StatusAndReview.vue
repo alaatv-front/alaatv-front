@@ -39,7 +39,7 @@ export default defineComponent({
     },
     studyPlanInfo: {
       type: Object,
-      default() {
+      default () {
         return {
           id: null,
           title: '',

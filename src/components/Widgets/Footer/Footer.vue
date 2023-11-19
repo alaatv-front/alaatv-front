@@ -306,7 +306,7 @@ export default {
     type: [String, Boolean, null],
     default: () => 'main'
   },
-  data() {
+  data () {
     return {
       activeClassForMobileFooter: false,
       mobileFooterItems: [
@@ -454,22 +454,22 @@ export default {
         .catch(() => {
         })
     },
-    scrollToTop() {
+    scrollToTop () {
       document.body.scrollIntoView({ behavior: 'smooth', block: 'start' })
     },
-    logout() {
+    logout () {
       this.$store.dispatch('Auth/logOut')
     },
-    toggleLogoutDialog() {
+    toggleLogoutDialog () {
       this.logoutDialog = !this.logoutDialog
     },
-    onFooterItemClick(event, item) {
+    onFooterItemClick (event, item) {
       if (item.title === 'logout') {
         event.preventDefault()
         this.toggleLogoutDialog()
       }
     },
-    onMobileMainFooterItemClick(item) {
+    onMobileMainFooterItemClick (item) {
       if (item.route) {
         this.$router.push(item.route)
         return

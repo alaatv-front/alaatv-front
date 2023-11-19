@@ -145,7 +145,7 @@ export default {
     OrderDetailsDialog,
     EntityIndex
   },
-  data() {
+  data () {
     return {
       loading: true,
       isFirstReq: true,
@@ -248,44 +248,44 @@ export default {
     }
   },
   computed: {
-    user() {
+    user () {
       if (this.$store.getters['Auth/user']) {
         return this.$store.getters['Auth/user']
       }
       return new User()
     },
-    paymentStatus() {
+    paymentStatus () {
       return this.getInput('filterInputs', 'paymentStatuses').value
     },
-    since() {
+    since () {
       return this.getInput('filterInputs', 'since').value
     },
-    till() {
+    till () {
       return this.getInput('filterInputs', 'till').value
     },
-    getEntityApi() {
+    getEntityApi () {
       return APIGateway.user.APIAdresses.ordersById(this.user.id)
     },
     windowSize () {
       return this.$store.getters['AppLayout/windowSize']
     },
-    getCurrentOrderCompletedAt() {
+    getCurrentOrderCompletedAt () {
       return (CompletedAt) => {
         return moment(CompletedAt, 'YYYY-M-D').format('jYYYY/jMM/jDD')
       }
     }
   },
   watch: {
-    till(value) {
+    till (value) {
       this.updateInputsValue('till', value)
     },
-    since(value) {
+    since (value) {
       this.updateInputsValue('since', value)
     },
     paymentStatus (value) {
       this.updateInputsValue('paymentStatuses', value)
     },
-    searchInput(value) {
+    searchInput (value) {
       this.updateInputsValue('search', value)
     }
   },
@@ -293,7 +293,7 @@ export default {
     this.getPaymentStatus()
   },
   methods: {
-    onPageChange(response) {
+    onPageChange (response) {
       if (!this.isFirstReq) {
         return
       }
@@ -304,7 +304,7 @@ export default {
       data.event === 'reload' ? this.reloadFilterData() : this.filterFormBuilderData()
     },
 
-    reloadFilterData() {
+    reloadFilterData () {
       if (this.$refs.filterSlot) {
         this.$refs.filterSlot.clearFormBuilderInputValues()
       }
@@ -317,20 +317,20 @@ export default {
       })
     },
 
-    filterFormBuilderData() {
+    filterFormBuilderData () {
       if (!this.$refs.orderList) {
         return
       }
       this.$refs.orderList.search()
     },
-    updateInputsValue(name, newValue) {
+    updateInputsValue (name, newValue) {
       const input = this.getInput('inputs', name)
       input.value = newValue
     },
-    getInput(src, name) {
+    getInput (src, name) {
       return this[src].find(item => item.name === name)
     },
-    async getPaymentStatus() {
+    async getPaymentStatus () {
       try {
         const paymentStatus = await APIGateway.order.getPaymentStatus(this.user.id)
         this.getInput('filterInputs', 'paymentStatuses').options = paymentStatus
@@ -339,30 +339,30 @@ export default {
         this.loading = false
       }
     },
-    filterTable() {
+    filterTable () {
       // if (!this.$refs.filterSlot) {
       //   return
       // }
       // const inputsData = this.$refs.filterSlot.getValues()
     },
-    resetData() {
+    resetData () {
       if (!this.$refs.orderList) {
         return
       }
 
       this.$refs.orderList.clearData()
     },
-    showDetailsDialog(rowData) {
+    showDetailsDialog (rowData) {
       this.currentOrder = new Order(rowData)
       this.detailsDialog = true
     },
-    toggleDetailsCard(rowData) {
+    toggleDetailsCard (rowData) {
       if (!this.detailsCardToggle[rowData.id]) {
         this.currentOrder = new Order(rowData)
       }
       this.detailsCardToggle[rowData.id] = !this.detailsCardToggle[rowData.id]
     },
-    setHasUserOrderedValue(rowData) {
+    setHasUserOrderedValue (rowData) {
       if (this.firstRowPassed) {
         return
       }
@@ -371,7 +371,7 @@ export default {
       }
       this.firstRowPassed = false
     },
-    getRemoveMessage(row) {
+    getRemoveMessage (row) {
       const title = row.title
       return 'آیا از حذف ' + title + ' اطمینان دارید؟'
     },

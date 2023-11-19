@@ -62,20 +62,20 @@ export default {
   },
   computed: {
     menuItems: {
-      get() {
+      get () {
         return this.$store.getters['PageBuilder/menuItems']
       },
-      set(newInfo) {
+      set (newInfo) {
         return this.$store.commit('PageBuilder/updateMenuItems', newInfo)
       }
     }
   },
-  mounted() {
+  mounted () {
     window.addEventListener('resize', this.handleResize)
     this.handleResize()
     this.loadAuthData()
   },
-  beforeUnmount() {
+  beforeUnmount () {
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
@@ -87,7 +87,7 @@ export default {
     },
     prefetchServerDataPromiseCatch () {
     },
-    getPageConfigRequest() {
+    getPageConfigRequest () {
       const key = '(menuItems)headerLayout:mainLayout'
       return APIGateway.pageSetting.getMenuItems(key)
     },
@@ -96,7 +96,7 @@ export default {
       this.isAdmin = this.$store.getters['Auth/isAdmin']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
     },
-    handleResize() {
+    handleResize () {
       const windowWidth = window.innerWidth
       this.menuItems.forEach(item => {
         if (item.mobileMode) {

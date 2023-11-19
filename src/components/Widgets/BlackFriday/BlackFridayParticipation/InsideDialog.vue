@@ -253,7 +253,7 @@ export default defineComponent({
     onAction () {
       this.scrollToElement(this.scrollToElementClassName)
     },
-    scrollToElement(className) {
+    scrollToElement (className) {
       const el = document.getElementsByClassName(className)[0]
       const headerOffset = 0
       const elementPosition = el.getBoundingClientRect().top

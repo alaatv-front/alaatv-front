@@ -95,7 +95,7 @@ export default {
 
       this.submitVoucher()
     },
-    submitVoucher() {
+    submitVoucher () {
       if (!this.isUserLogin) {
         this.$store.commit('Auth/updateRedirectTo', { name: this.$route.name, params: this.$route.params, query: this.$route.query })
         this.$store.commit('AppLayout/updateLoginDialog', true)

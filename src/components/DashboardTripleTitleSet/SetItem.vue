@@ -112,12 +112,12 @@ export default {
     }
   },
   computed: {
-    progress() {
+    progress () {
       return (this.setItem?.contents_progress) / 100
     }
   },
   methods: {
-    gotoAdvisorContent(set) {
+    gotoAdvisorContent (set) {
       this.$router.push({ name: 'UserPanel.Asset.TripleTitleSet.Adviser.Content', params: { setId: set.id, contentId: set.last_content_user_watched?.id } })
     }
   }

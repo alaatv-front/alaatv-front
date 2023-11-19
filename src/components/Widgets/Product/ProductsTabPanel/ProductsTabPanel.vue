@@ -21,7 +21,7 @@ export default {
   },
   mixins: [mixinPrefetchServerData, mixinWidget],
   emits: ['update:options'],
-  data() {
+  data () {
     return {
       loading: false,
       clonedData: [],
@@ -86,7 +86,7 @@ export default {
   },
   computed: {
     localOptions: {
-      get() {
+      get () {
         // const clonedOptions = JSON.parse(JSON.stringify(Object.assign(this.defaultOptions, this.options)))
         // const clonedDataAdapter = function (group) {
         //   const groupLength = group.length
@@ -181,7 +181,7 @@ export default {
     getClonedData () {
       return JSON.parse(JSON.stringify(this.localOptions.data))
     },
-    extractProducts(group) {
+    extractProducts (group) {
       const productIds = []
       for (let index = 0; index < group.length; index++) {
         const groupItem = group[index]
@@ -195,7 +195,7 @@ export default {
       }
       return productIds
     },
-    replaceProducts(optionList, productList) {
+    replaceProducts (optionList, productList) {
       for (let groupIndex = 0; groupIndex < optionList.length; groupIndex++) {
         const group = optionList[groupIndex]
         if (group.type === 'GroupList') {
@@ -210,13 +210,13 @@ export default {
         }
       }
     },
-    fixGroupData(data) {
+    fixGroupData (data) {
       for (let ProductIndex = 0; ProductIndex < data.length; ProductIndex++) {
         const productItem = data[ProductIndex]
         data[ProductIndex] = typeof productItem === 'number' ? productItem : productItem.id
       }
     },
-    getProductsPromise() {
+    getProductsPromise () {
       const data = {
         productIds: this.productFlatList,
         params: {

@@ -89,7 +89,7 @@ export default {
     }
   },
   emits: ['seeked', 'timeUpdated'],
-  data() {
+  data () {
     return {
       canInitVAST: false,
       playerKey: Date.now(),
@@ -117,7 +117,7 @@ export default {
       deep: true
     }
   },
-  beforeUnmount() {
+  beforeUnmount () {
     if (this.player) {
       this.player.dispose()
     }
@@ -181,23 +181,23 @@ export default {
       }
       this.$refs.videoPlayer.changeCurrentTime(timepoint.time)
     },
-    activate(time) {
+    activate (time) {
       this.player.currentTime(time)
       this.player.play()
       const requiredElement = document.querySelector('.video-js')
       requiredElement.focus()
     },
-    setSources() {
+    setSources () {
       this.options.sources = this.source
     },
-    setPoster() {
+    setPoster () {
       this.options.poster = this.poster
     },
-    reInitVideo() {
+    reInitVideo () {
       this.player.src(this.source)
       this.player.poster(this.poster)
     },
-    toggleFavorite(id) {
+    toggleFavorite (id) {
       const that = this
       let count = -1
       // let currentTimepointIndex = null
@@ -237,7 +237,7 @@ export default {
     //         })
     //         .catch(err => console.error(err));
     // },
-    calcWatchedPercentage(currentTime, duration) {
+    calcWatchedPercentage (currentTime, duration) {
       const watchedPercentage = ((currentTime / duration) * 100)
       const videoPlayerTimeData = {
         currentTime,
@@ -246,7 +246,7 @@ export default {
       }
       this.$emit('calcTimeData', videoPlayerTimeData)
     },
-    videoStatus(val) {
+    videoStatus (val) {
       this.videoIsPlaying = val
     }
   }

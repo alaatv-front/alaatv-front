@@ -26,13 +26,13 @@ export default {
       default: () => []
     }
   },
-  data() {
+  data () {
     return {
       selectedProductsIds: []
     }
   },
   computed: {
-    productChildrenList() {
+    productChildrenList () {
       const childList = []
       for (let productIndex = 0; productIndex < this.product.children.length; productIndex++) {
         childList.push(new Product(this.product.children[productIndex]))

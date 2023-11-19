@@ -109,7 +109,7 @@ export default {
     }
   },
   watch: {
-    productType(type, oldtype) {
+    productType (type, oldtype) {
       if (oldtype.id === null) {
         return
       }
@@ -117,10 +117,10 @@ export default {
     }
   },
   methods: {
-    afterAuthenticate() {
+    afterAuthenticate () {
       this.loadData()
     },
-    loadData() {
+    loadData () {
       this.advisorLoading = true
       this.productLoading = true
       this.$apiGateway.events.formBuilder({
@@ -135,7 +135,7 @@ export default {
         this.productLoading = false
       })
     },
-    getProducts(type) {
+    getProducts (type) {
       this.productLoading = true
       this.$apiGateway.events.getEventsProducts({
         data: { major_id: type },
@@ -147,7 +147,7 @@ export default {
         this.productLoading = false
       })
     },
-    getAdvisor() {
+    getAdvisor () {
       this.advisorLoading = true
       this.$apiGateway.events.getEventsAdvisor({
         eventId: this.event.id

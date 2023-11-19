@@ -61,7 +61,7 @@ import { mixinWidget } from 'src/mixin/Mixins.js'
 export default {
   name: 'ExpansionPanel',
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       defaultOptions: {
         expansionList: [],
@@ -145,7 +145,7 @@ export default {
     }
   },
   computed: {
-    computedMargin() {
+    computedMargin () {
       return this.localOptions.dense ? '5px' : this.localOptions.marginBottom
     },
     shadows () {
@@ -178,7 +178,7 @@ export default {
     }
   },
   methods: {
-    toggleExpand(ItemIndex) {
+    toggleExpand (ItemIndex) {
       if (this.localOptions.toggle) {
         this.localOptions.expansionList.filter((item, index) => index !== ItemIndex).map(item => {
           item.expanded = false
@@ -186,13 +186,13 @@ export default {
         })
       }
     },
-    closeExpand(ItemIndex) {
+    closeExpand (ItemIndex) {
       this.localOptions.expansionList.filter((item, index) => index === ItemIndex).map(item => {
         item.expanded = false
         return item
       })
     },
-    openExpand(ItemIndex) {
+    openExpand (ItemIndex) {
       this.localOptions.expansionList
         .filter((item, index) => index === ItemIndex).map(item => {
           item.expanded = true
@@ -200,7 +200,7 @@ export default {
         })
       this.toggleExpand(ItemIndex)
     },
-    headerClick(event) {
+    headerClick (event) {
       event.stopPropagation()
     }
   }

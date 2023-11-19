@@ -55,21 +55,21 @@ export default {
       }, 50)
     }
   },
-  created() {
+  created () {
     this.initImgData()
   },
   methods: {
-    isImgActive(url, id) {
+    isImgActive (url, id) {
       return url === this.getImg(id, 'on')
     },
-    changeImgStatusToOff() {
+    changeImgStatusToOff () {
       this.imgData.forEach(item => {
         if (this.isImgActive(item.url, item.id)) {
           item.url = this.getImg(item.id, 'off')
         }
       })
     },
-    ActiveAndCheckImages(rateId) {
+    ActiveAndCheckImages (rateId) {
       this.imgData.forEach(item => {
         if (rateId === item.id) {
           this.changeImgStatusToOff()
@@ -94,7 +94,7 @@ export default {
     isSelected (selectedId, id) {
       return selectedId !== id
     },
-    initImgData() {
+    initImgData () {
       this.imgData = [
         {
           id: 3,

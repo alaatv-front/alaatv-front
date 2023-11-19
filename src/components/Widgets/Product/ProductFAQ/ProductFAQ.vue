@@ -25,7 +25,7 @@ import { mixinWidget } from 'src/mixin/Mixins.js'
 export default defineComponent({
   name: 'ProductFAQ',
   mixins: [mixinWidget],
-  date() {
+  date () {
     return {
       defaultOptions: {
         faqList: []

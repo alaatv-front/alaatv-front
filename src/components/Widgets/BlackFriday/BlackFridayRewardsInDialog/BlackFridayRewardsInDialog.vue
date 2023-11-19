@@ -33,7 +33,7 @@ export default defineComponent({
     }
   },
   watch: {
-    dialog() {
+    dialog () {
       this.getBlackFridayCampaignData()
     }
   },

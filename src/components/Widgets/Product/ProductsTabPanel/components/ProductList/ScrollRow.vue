@@ -46,7 +46,7 @@ export default {
       default: () => {}
     }
   },
-  data() {
+  data () {
     return {
       defaultOptions: {
         colNumber: 'col',
@@ -92,7 +92,7 @@ export default {
     }
   },
   computed: {
-    colClassName() {
+    colClassName () {
       const colNumber = this.localOptions.colNumber ? this.localOptions.colNumber : ''
 
       return colNumber

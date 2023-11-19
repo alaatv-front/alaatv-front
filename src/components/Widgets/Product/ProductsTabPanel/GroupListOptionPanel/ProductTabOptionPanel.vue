@@ -108,7 +108,7 @@ export default {
     }
   },
   // mixins: [PageBuilderOptionPanel],
-  data() {
+  data () {
     return {
       layoutOptions: ['ProductTab', 'ProductShelf'],
       eventName: '',
@@ -141,22 +141,22 @@ export default {
   },
   computed: {
     localOptions: {
-      get() {
+      get () {
         return this.options
       },
-      set(newValue) {
+      set (newValue) {
         this.$emit('update:options', newValue)
       }
     }
   },
   methods: {
-    addEvent(eventName) {
+    addEvent (eventName) {
       if (!this.localOptions.options.events) {
         this.localOptions.options.events = []
       }
       this.localOptions.options.events.push(eventName)
     },
-    removeTabPanel(itemIndex) {
+    removeTabPanel (itemIndex) {
       this.localOptions.data.splice(itemIndex, 1)
     }
   }

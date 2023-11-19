@@ -49,7 +49,7 @@ export default defineComponent({
   components: {
     HalfCircularProgress
   },
-  data() {
+  data () {
     return {
       value1: 0.7,
       value2: 74

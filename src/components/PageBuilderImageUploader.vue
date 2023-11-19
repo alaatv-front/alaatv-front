@@ -40,7 +40,7 @@ export default defineComponent({
       default: null
     }
   },
-  data() {
+  data () {
     return {
       dialog: false,
       multiple: false
@@ -56,11 +56,11 @@ export default defineComponent({
       }
     }
   },
-  mounted() {
+  mounted () {
     this.background = this.value
   },
   methods: {
-    toggleUploadDialog() {
+    toggleUploadDialog () {
       this.dialog = !this.dialog
     },
     onUpdateValue (urlList) {

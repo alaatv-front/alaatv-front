@@ -63,7 +63,7 @@ export default {
     }
   },
   emits: ['gotoPrevStep', 'gotoNextStep', 'updateUser'],
-  data() {
+  data () {
     return {
       loading: false,
       otpInput: null,
@@ -109,7 +109,7 @@ export default {
           .catch(() => {})
       }
     },
-    verifyCode() {
+    verifyCode () {
       const verifyData = {
         mobile: this.userInfo.mobile,
         code: this.otpValue ? this.otpValue : this.userInfo.code
@@ -123,10 +123,10 @@ export default {
           this.setLoading(false)
         })
     },
-    setLoading(loading) {
+    setLoading (loading) {
       this.loading = loading
     },
-    showMessage(message, type = 'negative') {
+    showMessage (message, type = 'negative') {
       this.$q.notify({
         message,
         color: type,
@@ -134,19 +134,19 @@ export default {
         multiLine: true
       })
     },
-    handleOnComplete(value) {
+    handleOnComplete (value) {
       this.otpValue = value
     },
-    handleOnChange(value) {
+    handleOnChange (value) {
 
     },
-    clearInput() {
+    clearInput () {
       this.otpInput.value?.clearInput()
     },
-    changeNumber() {
+    changeNumber () {
       this.$emit('gotoPrevStep')
     },
-    resend() {
+    resend () {
       this.date = Date.now() + 120000
       const loginData = {
         mobile: this.userInfo.mobile
@@ -154,7 +154,7 @@ export default {
       this.resendRequest(loginData)
       this.canReset = false
     },
-    resendRequest(userInfo) {
+    resendRequest (userInfo) {
       this.setLoading(true)
       this.$apiGateway.user.resendGuest(userInfo)
         .then(userData => {
@@ -169,7 +169,7 @@ export default {
           this.setLoading(false)
         })
     },
-    onTimerEnd() {
+    onTimerEnd () {
       this.canReset = true
     }
   }

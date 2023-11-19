@@ -68,7 +68,7 @@ export default {
     }
   },
   methods: {
-    onClick($event) {
+    onClick ($event) {
       if (!this.localData.externalLink) {
         return
       }

@@ -93,7 +93,7 @@ export default {
     }
   },
   emits: ['ActionButton'],
-  data() {
+  data () {
     return {
       drawer: false,
       defaultOptions: {
@@ -216,13 +216,13 @@ export default {
     }
   },
   computed: {
-    drawerWidth() {
+    drawerWidth () {
       return Number(this.localOptions.drawer.width)
     },
-    hideInAuth() {
+    hideInAuth () {
       return this.localOptions.hideInAuth ? this.isUserLogin : false
     },
-    displayAuth() {
+    displayAuth () {
       if (!this.localOptions.displayAuth) {
         return true
       }
@@ -249,22 +249,22 @@ export default {
   },
   watch: {
     options: {
-      handler() {
+      handler () {
         this.loadConfig()
       }
     }
   },
-  mounted() {
+  mounted () {
     this.loadConfig()
     this.checkAuth()
   },
   methods: {
-    checkAuth() {
+    checkAuth () {
       this.$bus.on('onLoggedIn', () => {
         this.loadAuthData()
       })
     },
-    loadConfig() {
+    loadConfig () {
       if (this.localOptions.imageSource) {
         this.localOptions.flat = true
         this.localOptions.className = this.localOptions.className + ' img-btn'
@@ -273,7 +273,7 @@ export default {
         this.localOptions.className = this.localOptions.className + ' fixed-btn' + ` ${this.localOptions.fixedPosition}`
       }
     },
-    scrollToElement(className) {
+    scrollToElement (className) {
       const el = document.getElementsByClassName(className)[0]
       const headerOffset = 0
       const elementPosition = el.getBoundingClientRect().top
@@ -283,14 +283,14 @@ export default {
         behavior: 'smooth'
       })
     },
-    redirectRoute(url) {
+    redirectRoute (url) {
       if ((url.indexOf('http://') > -1 || url.indexOf('https://') > -1)) {
         window.open(url, '_blank')
       } else {
         this.$router.push(url)
       }
     },
-    takeAction() {
+    takeAction () {
       if (!this.localOptions.hasAction) {
         this.$emit('ActionButton')
       } else if (this.callBack) {

@@ -2,7 +2,7 @@ import { apiV2 } from 'src/boot/axios.js'
 import APIRepository from '../classes/APIRepository.js'
 
 export default class FileUploadAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('file-upload', apiV2)
     this.serviceId = 1
     this.APIAdresses = {
@@ -13,7 +13,7 @@ export default class FileUploadAPI extends APIRepository {
     }
   }
 
-  upload(data) {
+  upload (data) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

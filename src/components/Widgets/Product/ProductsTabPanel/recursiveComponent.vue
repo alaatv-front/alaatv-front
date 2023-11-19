@@ -34,10 +34,10 @@ export default {
   },
   computed: {
     localOptions: {
-      get() {
+      get () {
         return this.options
       },
-      set(newValue) {
+      set (newValue) {
         this.$emit('update:options', newValue)
       }
     }

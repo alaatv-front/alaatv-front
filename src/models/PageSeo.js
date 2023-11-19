@@ -38,7 +38,7 @@ class PageSeo extends Model {
 }
 
 class PageSeoList extends Collection {
-  model() {
+  model () {
     return PageSeo
   }
 }

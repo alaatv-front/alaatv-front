@@ -29,7 +29,7 @@ export default {
     LazyImg
   },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       defaultOptions: {
         text: '',

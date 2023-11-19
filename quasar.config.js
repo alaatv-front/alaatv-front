@@ -92,7 +92,7 @@ module.exports = configure(function (ctx) {
       // publicPath: '/',
       // publicPath: 'https://stage-minio.alaatv.com/assets/alaatv/assets/',
       env: process.env,
-      extendViteConf(viteConf, { isServer, isClient }) {
+      extendViteConf (viteConf, { isServer, isClient }) {
         // console.log('viteConf.build', viteConf.build)
         viteConf.build.sourcemap = true
         // Set the base URL based on the environment
@@ -100,10 +100,10 @@ module.exports = configure(function (ctx) {
           viteConf.base = process.env.NODES_SERVER_URL_SSL || '/'
         }
       },
-      beforeDev({ quasarConf }) {
+      beforeDev ({ quasarConf }) {
         generateWidgetList('./src/components/Widgets')
       },
-      beforeBuild({ quasarConf }) {
+      beforeBuild ({ quasarConf }) {
         generateWidgetList('./src/components/Widgets')
       },
 
@@ -282,7 +282,7 @@ module.exports = configure(function (ctx) {
       swFilename: 'sw.js',
       manifestFilename: 'manifest.json',
       useCredentialsForManifestTag: false,
-      extendGenerateSWOptions(cfg) {
+      extendGenerateSWOptions (cfg) {
         cfg.skipWaiting = false
         cfg.clientsClaim = false
       }

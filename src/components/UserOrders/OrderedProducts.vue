@@ -149,12 +149,12 @@ export default {
     // },
     orderedItem: {
       type: OrderItem,
-      default() {
+      default () {
         return new OrderItem()
       }
     }
   },
-  data() {
+  data () {
     return {
       dialogState: false,
       expanded: true,
@@ -162,10 +162,10 @@ export default {
     }
   },
   computed: {
-    cartItems() {
+    cartItems () {
       return this.$store.getters['Cart/cart'].cartItems.list
     },
-    windowSize() {
+    windowSize () {
       return this.$store.getters['AppLayout/windowSize']
     },
     discountInPercent () {
@@ -187,7 +187,7 @@ export default {
     //   }
     // }
   },
-  created() {
+  created () {
     this.loading = true
   },
 

@@ -80,12 +80,12 @@ export default defineComponent({
       default: 0
     }
   },
-  data() {
+  data () {
     return {
     }
   },
   computed: {
-    percent() {
+    percent () {
       return Math.floor((this.watched * 100) / (this.watched + this.remained)) || 0
     }
   }

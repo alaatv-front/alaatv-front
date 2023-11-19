@@ -57,7 +57,7 @@ export default defineComponent({
       default: 0
     }
   },
-  data() {
+  data () {
     return {
       reviewList: [],
       linkLoading: false,
@@ -65,15 +65,15 @@ export default defineComponent({
     }
   },
   watch: {
-    studyPlanId() {
+    studyPlanId () {
       this.getReviews()
     }
   },
-  mounted() {
+  mounted () {
     this.getReviews()
   },
   methods: {
-    getReviews() {
+    getReviews () {
       this.reviewLoading = true
       this.$apiGateway.abrisham.getReports()
         .then(reportList => {
@@ -84,7 +84,7 @@ export default defineComponent({
           this.reviewLoading = false
         })
     },
-    markAsRead(item) {
+    markAsRead (item) {
       this.linkLoading = true
       this.$apiGateway.studyPlan.markAsRead(item.id)
         .then(() => {

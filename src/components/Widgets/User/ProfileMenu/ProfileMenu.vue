@@ -226,7 +226,7 @@ export default {
   name: 'ProfileMenu',
   components: { LazyImg },
   mixins: [mixinWidget, mixinAuthData],
-  data() {
+  data () {
     return {
       api: APIGateway.user.APIAdresses.base,
       user: new User(),
@@ -236,7 +236,7 @@ export default {
     }
   },
   computed: {
-    fullName() {
+    fullName () {
       if (!this.user || !this.user.full_name) {
         return 'وارد نشده'
       }
@@ -261,19 +261,19 @@ export default {
     isRouteSelected (itemName) {
       return (this.$route.name === itemName)
     },
-    updatePhoto() {
+    updatePhoto () {
       this.$refs.file.pickFiles()
     },
-    updateFile() {
+    updateFile () {
       this.controls = true
       this.previewImg = URL.createObjectURL(this.file)
     },
-    discardUpdate() {
+    discardUpdate () {
       this.controls = false
       this.file = null
       this.previewImg = this.user.photo
     },
-    confirmUpdate() {
+    confirmUpdate () {
       const fd = new FormData()
       fd.append('photo', this.file)
       fd.append('updateType', 'photo')
@@ -284,7 +284,7 @@ export default {
         })
         .catch(() => {})
     },
-    logout() {
+    logout () {
       this.$store.dispatch('Auth/logOut')
     }
   }

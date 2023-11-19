@@ -46,7 +46,7 @@ export default defineComponent({
       default: new Product()
     }
   },
-  data() {
+  data () {
     return {
       selectedOnes: [],
       selected: false

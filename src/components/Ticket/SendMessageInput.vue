@@ -279,28 +279,28 @@ export default {
     }
   }),
   computed: {
-    canShowSendBtn() {
+    canShowSendBtn () {
       return (this.newMessage.text.length > 0 || this.showVoicePlayer)
     },
-    canShowSelectFile() {
+    canShowSelectFile () {
       return (this.newMessage.text.length === 0)
     },
-    canShowTextarea() {
+    canShowTextarea () {
       return (this.newMessage.text.length > 0) || (this.canShowMic && this.canShowSelectPic)
     },
-    canShowMic() {
+    canShowMic () {
       return (this.newMessage.text.length === 0 && !this.userPicSelected && !this.recordedVoice)
     },
-    canShowSelectPic() {
+    canShowSelectPic () {
       return (this.newMessage.text.length === 0 && this.mediaRecorder === null)
     },
-    canShowPlayerForRecordedVoice() {
+    canShowPlayerForRecordedVoice () {
       return (this.newMessage.text.length === 0 && !this.userPicSelected && this.mediaRecorder !== null && this.mediaRecorder.state === 'inactive')
     },
-    canShowImageTools() {
+    canShowImageTools () {
       return !this.userPicClipped && this.userPicSelected
     },
-    userAssignees() {
+    userAssignees () {
       return new UserList([
         {
           inputData: {
@@ -392,7 +392,7 @@ export default {
   },
   watch: {
     imgURL: {
-      handler(newValue) {
+      handler (newValue) {
         if (newValue) {
           this.showModalStatus = true
           this.userPicClipped = false
@@ -401,19 +401,19 @@ export default {
       }
     },
     resultURL: {
-      handler(val) {
+      handler (val) {
         this.userPicClipped = true
         if (val) this.userPicSelected = true
       }
     },
     sendLoading: {
-      handler(newVal) {
+      handler (newVal) {
         this.Loading = newVal
       }
     }
   },
   methods: {
-    async onOpenOrderList() {
+    async onOpenOrderList () {
       this.orderDrawer = true
       this.orderLoading = true
 
@@ -425,28 +425,28 @@ export default {
         this.orderLoading = false
       }
     },
-    callGetOrderApi() {
+    callGetOrderApi () {
       const userId = this.$store.getters['Auth/user'].id
       return this.$apiGateway.user.ordersById(userId)
     },
-    loadFile(event) {
+    loadFile (event) {
       const { files } = event.target
       if (files && files[0]) {
         this.fileInput = files
         this.emitData(false)
       }
     },
-    deleteFile(event) {
+    deleteFile (event) {
       event.stopPropagation()
       this.fileInput = null
     },
 
-    sendData(isPrivate) {
+    sendData (isPrivate) {
       this.emitData(isPrivate)
       // this.showModalStatus = false
     },
 
-    recordVoice(status) {
+    recordVoice (status) {
       this.recordCurrentStatus = status
       if (this.recordCurrentStatus) {
         this.recordStart()
@@ -455,7 +455,7 @@ export default {
       this.recordStop()
     },
 
-    recordStart() {
+    recordStart () {
       if (!navigator.mediaDevices) {
         this.$q.notify({
           message: 'مرورگر شما ضبط صدا را پشتیبانی نمی کند.'
@@ -506,7 +506,7 @@ export default {
         .then(onSuccess, onError)
     },
 
-    recordStop() {
+    recordStop () {
       if (this.mediaRecorder) {
         this.mediaRecorder.stop()
       }
@@ -515,11 +515,11 @@ export default {
       this.audioPlayerLastPlayedTime = 0
     },
 
-    getFile() {
+    getFile () {
       this.$refs.myFileInput.click()
     },
 
-    loadImage(event) {
+    loadImage (event) {
       const { files } = event.target
       if (files && files[0]) {
         if (this.imgURL) {
@@ -536,16 +536,16 @@ export default {
       }
     },
 
-    change({ canvas }) {
+    change ({ canvas }) {
       this.resultURL = canvas.toDataURL('image/jpeg', 0.3)
     },
 
-    rotate() {
+    rotate () {
       // this.$refs.cropper.rotate(this.rotateAngle - this.oldRotateAngle)
       this.oldRotateAngle = this.rotateAngle
     },
 
-    clearMessage() {
+    clearMessage () {
       this.newMessage.text = ''
       this.imgURL = null
       this.imgBlob = null
@@ -560,7 +560,7 @@ export default {
       this.recordedVoiceBlob = null
     },
 
-    emitData(isPrivate) {
+    emitData (isPrivate) {
       this.$emit('creatTicket', {
         isPrivate,
         ...(this.resultURL && { resultURL: this.imgBlob }),

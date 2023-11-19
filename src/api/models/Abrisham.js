@@ -14,7 +14,7 @@ const APIAdresses = {
   findStudyPlan: '/abrisham/findStudyPlan'
 }
 export default class AbrishamAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('abrisham', apiV2, '', '', APIAdresses)
 
     this.CacheList = {
@@ -27,7 +27,7 @@ export default class AbrishamAPI extends APIRepository {
     this.restUrl = (id) => this.url + '/' + id
   }
 
-  whereIsKarvan(data) {
+  whereIsKarvan (data) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -42,7 +42,7 @@ export default class AbrishamAPI extends APIRepository {
     })
   }
 
-  getLessons(isPro) {
+  getLessons (isPro) {
     const data = {}
     if (isPro) {
       data.isPro = 1
@@ -61,7 +61,7 @@ export default class AbrishamAPI extends APIRepository {
     })
   }
 
-  getCounter(cache = { TTL: 1000 }) {
+  getCounter (cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -81,7 +81,7 @@ export default class AbrishamAPI extends APIRepository {
     })
   }
 
-  getReports(cache = { TTL: 1000 }) {
+  getReports (cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -97,7 +97,7 @@ export default class AbrishamAPI extends APIRepository {
     })
   }
 
-  getOptions(cache = { TTL: 1000 }) {
+  getOptions (cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -117,7 +117,7 @@ export default class AbrishamAPI extends APIRepository {
     })
   }
 
-  submitStudyPlan(data) {
+  submitStudyPlan (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -132,7 +132,7 @@ export default class AbrishamAPI extends APIRepository {
     })
   }
 
-  findMyStudyPlan(data = {}, cache) {
+  findMyStudyPlan (data = {}, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

@@ -74,7 +74,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       menuTypeOptions: [
         {

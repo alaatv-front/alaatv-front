@@ -87,7 +87,7 @@ export default defineComponent({
       default: null
     }
   },
-  data() {
+  data () {
     return {
       user: new User(),
       loading: false,
@@ -104,11 +104,11 @@ export default defineComponent({
     }
   },
   watch: {
-    studyPlanId() {
+    studyPlanId () {
       this.getCounterData()
     }
   },
-  mounted() {
+  mounted () {
     this.loadData()
   },
   methods: {
@@ -116,7 +116,7 @@ export default defineComponent({
       this.user = this.$store.getters['Auth/user']
       this.getCounterData()
     },
-    getCounterData() {
+    getCounterData () {
       this.loading = true
       this.$apiGateway.abrisham.getCounter()
         .then(counterData => {
@@ -128,7 +128,7 @@ export default defineComponent({
           this.loading = false
         })
     },
-    getPersianDate(serverDate) {
+    getPersianDate (serverDate) {
       const date = new Date(serverDate)
       const year = {
         year: 'numeric',

@@ -35,12 +35,12 @@ export default {
   props: {
     value: {
       type: String,
-      default() {
+      default () {
         return null
       }
     }
   },
-  data() {
+  data () {
     const $q = this.$q
     return {
       foreColor: '#000000',
@@ -114,21 +114,21 @@ export default {
       return editorOptions
     },
     editorValue: {
-      get() {
+      get () {
         return this.value
       },
-      set(newValue) {
+      set (newValue) {
         this.$emit('update:value', newValue)
       }
     }
   },
   methods: {
-    onPaste(evt) {
+    onPaste (evt) {
       const str = evt.clipboardData.getData('text')
       const replace = str.replace(/(<([^>]+)>)/ig, '')
       this.editorValue = replace
     },
-    color(cmd, name) {
+    color (cmd, name) {
       const edit = this.$refs.editor
       this.$refs.colorPicker.hide()
       edit.caret.restore()

@@ -108,16 +108,16 @@ export default {
     ProductItem
   },
   mixins: [mixinTripleTitleSet],
-  data() {
+  data () {
     return {
       productItemDialog: false
     }
   },
   computed: {
-    selectedTopic() {
+    selectedTopic () {
       return this.$store.getters['TripleTitleSet/selectedTopic']
     },
-    setList() {
+    setList () {
       return this.$store.getters['TripleTitleSet/setList']
         .filter(set => (new RegExp('\\-\\s*' + this.selectedTopic + '\\s*\\-')).test(set.short_title))
         .map(set => {
@@ -125,28 +125,28 @@ export default {
           return set
         })
     },
-    setTopicList() {
+    setTopicList () {
       return this.$store.getters['TripleTitleSet/setTopicList']
     },
-    setLoading() {
+    setLoading () {
       return this.$store.getters['TripleTitleSet/setLoading']
     },
-    setListLoading() {
+    setListLoading () {
       return this.$store.getters['TripleTitleSet/setListLoading']
     },
-    selectedProduct() {
+    selectedProduct () {
       return this.$store.getters['TripleTitleSet/selectedProduct']
     }
   },
   watch: {
-    setTopicList(newVal, oldVal) {
+    setTopicList (newVal, oldVal) {
       if (!this.selectedTopic) {
         this.$store.dispatch('TripleTitleSet/setSelectedTopic', this.setTopicList[0])
       }
     }
   },
   methods: {
-    afterAuthenticate() {
+    afterAuthenticate () {
       this.getProductSets(this.$route.params.productId)
       this.getProduct()
     },
@@ -160,17 +160,17 @@ export default {
 
       return minutes + ' دقیقه'
     },
-    download(content) {
+    download (content) {
       if (content.can_see === 0) {
         this.toggleProductItemDialog()
       } else if (content.isPamphlet() && content.file !== null && content.file.pamphlet.length > 0) {
         openURL(content.file.pamphlet[0].link)
       }
     },
-    toggleProductItemDialog() {
+    toggleProductItemDialog () {
       this.productItemDialog = !this.productItemDialog
     },
-    setSelectedData(event, content, set) {
+    setSelectedData (event, content, set) {
       if (content.isPamphlet()) {
         event.stopPropagation()
       } else {
@@ -178,13 +178,13 @@ export default {
         this.$store.commit('TripleTitleSet/setSelectedSet', set)
       }
     },
-    getProductSets(productId) {
+    getProductSets (productId) {
       this.$store.dispatch('TripleTitleSet/getSet', productId)
     },
-    getSet(setId) {
+    getSet (setId) {
       this.$store.dispatch('TripleTitleSet/updateSet', setId)
     },
-    getProduct() {
+    getProduct () {
       this.$store.dispatch('TripleTitleSet/getSelectedProduct', this.$route.params.productId)
     }
   }

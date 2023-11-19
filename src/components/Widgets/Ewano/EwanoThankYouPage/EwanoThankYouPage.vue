@@ -33,7 +33,7 @@ import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 export default {
   name: 'EwanoThankYouPage',
   mixins: [mixinAuthData, mixinEwano],
-  data() {
+  data () {
     return {
       loading: false,
       hasPaid: false

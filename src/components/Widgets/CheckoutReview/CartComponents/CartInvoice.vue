@@ -206,13 +206,13 @@ export default {
   props: {
     data: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
   },
 
-  data() {
+  data () {
     return {
       couponValue: null,
       userEnteredLoginInfo: {
@@ -234,27 +234,27 @@ export default {
   },
 
   computed: {
-    cart() {
+    cart () {
       return this.$store.getters['Cart/cart']
     },
 
-    totalFinalPrice() {
+    totalFinalPrice () {
       return this.getPriceFormat('final') ? this.getPriceFormat('final') : 0
     },
 
-    totalBasePrice() {
+    totalBasePrice () {
       return this.getPriceFormat('base')
     },
 
-    totalDiscount() {
+    totalDiscount () {
       return this.getPriceFormat('discount')
     },
 
-    discountInPercent() {
+    discountInPercent () {
       return this.cart.price?.discountInPercent()
     },
 
-    isUserLogin() {
+    isUserLogin () {
       return this.$store.getters['Auth/isUserLogin']
     },
 
@@ -263,20 +263,20 @@ export default {
     }
   },
 
-  created() {},
+  created () {},
 
   methods: {
-    handleDiscountLogic() {
+    handleDiscountLogic () {
       this.discountCoupon.removeCod ? this.removeDiscountCode() : this.sendDiscountCode()
     },
-    updateDiscountValue(target) {
+    updateDiscountValue (target) {
       // Object.assign(target, this.discountCoupon);
       for (const property in target) {
         this.discountCoupon[property] = target[property]
       }
     },
 
-    async sendDiscountCode() {
+    async sendDiscountCode () {
       this.updateDiscountValue({
         resultMessage: '',
         loading: true,
@@ -336,14 +336,14 @@ export default {
       }
     },
 
-    updatePrice(price) {
+    updatePrice (price) {
       this.cartFinal = price.final
       this.cartBase = price.base
       this.cartDiscount = price.discount
       this.updateCart()
     },
 
-    applyCoupon(data) {
+    applyCoupon (data) {
       this.updateDiscountValue({
         resultMessage: ` کپن ${data.coupon.couponName} با ${this.currencyFormat(Number(data.coupon.totalDiscount))} تومان  تخفیف برای سفارش شما ثبت شد .`,
         messageColor: 'green',
@@ -353,11 +353,11 @@ export default {
       this.updatePrice(data.price)
     },
 
-    submitCode(code) {
+    submitCode (code) {
       return this.$axios.post(Addresses.cart.discount.submit, { params: { code } })
     },
 
-    async removeDiscountCode() {
+    async removeDiscountCode () {
       this.discountCoupon.resultMessage = ''
       this.discountCoupon.status = ''
       this.discountCoupon.loading = true
@@ -371,11 +371,11 @@ export default {
       }
     },
 
-    removeCode() {
+    removeCode () {
       return this.$axios.get(Addresses.cart.discount.remove)
     },
 
-    cartReview() {
+    cartReview () {
       this.$store.commit('loading/loading', true)
       this.$store.dispatch('Cart/reviewCart')
         .then(() => {
@@ -383,7 +383,7 @@ export default {
         })
     },
 
-    payment() {
+    payment () {
       if (!this.selectedBank) {
         return
       }
@@ -398,7 +398,7 @@ export default {
         })
     },
 
-    login() {
+    login () {
       this.$store.dispatch('Auth/login', this.userEnteredLoginInfo)
         .then(() => {
           if (this.isUserLogin) {
@@ -407,11 +407,11 @@ export default {
         })
     },
 
-    getPriceFormat(priceKey) {
+    getPriceFormat (priceKey) {
       return this.cart.price.toman(priceKey, null)
     },
 
-    clickOnGateway() {
+    clickOnGateway () {
       this.selectedBank = !this.selectedBank
     }
   }

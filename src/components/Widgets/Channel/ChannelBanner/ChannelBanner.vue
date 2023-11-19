@@ -17,16 +17,16 @@ export default {
   name: 'ChannelBanner',
   components: { LazyImg },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       channel: new Channel()
     }
   },
-  mounted() {
+  mounted () {
     this.setChannel()
   },
   methods: {
-    setChannel() {
+    setChannel () {
       const id = this.$route.params.id
       APIGateway.channel.getChannel({ id })
         .then(channel => {

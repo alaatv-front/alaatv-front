@@ -96,7 +96,7 @@ export default {
   emits: [
     'update:dialogValue'
   ],
-  data() {
+  data () {
     return {}
   },
   computed: {
@@ -108,12 +108,12 @@ export default {
         this.$emit('update:dialogValue', value)
       }
     },
-    getCurrentOrderCompletedAt() {
+    getCurrentOrderCompletedAt () {
       return (CompletedAt) => {
         return moment(CompletedAt, 'YYYY-M-D').format('jYYYY/jMM/jDD')
       }
     },
-    discountInPercent() {
+    discountInPercent () {
       return (discount, base) => {
         return Math.round(discount * 100 / base)
       }

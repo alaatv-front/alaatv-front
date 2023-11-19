@@ -60,7 +60,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       contents: new ContentList(),
       toggler: false,
@@ -82,7 +82,7 @@ export default {
       }
       return this.product.id
     },
-    pamphlets() {
+    pamphlets () {
       if (this.product.sample_photos) {
         return this.product.sample_photos
       } else {
@@ -103,7 +103,7 @@ export default {
     prefetchServerDataPromiseCatch () {
       this.product.loading = false
     },
-    getProduct() {
+    getProduct () {
       if (this.options.product) {
         return new Promise(resolve => {
           resolve(new Product(this.options.product))
@@ -116,7 +116,7 @@ export default {
       this.product.loading = true
       return this.$apiGateway.product.show(this.productId)
     },
-    getSampleContents() {
+    getSampleContents () {
       if (this.options.contents) {
         this.contents = this.options.contents
       } else {

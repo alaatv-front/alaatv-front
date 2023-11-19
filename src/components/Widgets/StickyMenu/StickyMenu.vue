@@ -49,7 +49,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       menuLink: [],
       logoImage: '',
@@ -60,22 +60,22 @@ export default {
     }
   },
   computed: {
-    scrollOffset() {
+    scrollOffset () {
       return window.scrollY
     },
-    toScrollTarget() {
+    toScrollTarget () {
       return this.getOffset(this.scrollTarget)
     }
   },
   watch: {
     options: {
-      handler() {
+      handler () {
         this.loadConfig()
       }
     },
-    toScrollTarget(val) {
+    toScrollTarget (val) {
     },
-    scrollOffset(value) {
+    scrollOffset (value) {
       if (value < this.toScrollTarget) {
         document.getElementById('stickyMenu').style.display = 'none'
       } else {
@@ -83,11 +83,11 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.loadConfig()
   },
   methods: {
-    loadConfig() {
+    loadConfig () {
       this.menuLink = this.options.menuLink
       this.logoImage = this.options.logoImage
       this.logoSlogan = this.options.logoSlogan
@@ -95,17 +95,17 @@ export default {
       this.actionButtonLabel = this.options.actionButtonLabel
       this.scrollTarget = this.options.scrollTarget
     },
-    routeTo(name) {
+    routeTo (name) {
       this.$router.push({ name })
     },
-    takeAction(item) {
+    takeAction (item) {
       if (item.type === 'link') {
         openURL(item.route)
       } else {
         this.scrollToElement(item.className)
       }
     },
-    scrollToElement(className) {
+    scrollToElement (className) {
       const el = document.getElementsByClassName(className)[0]
       const headerOffset = 0
       const elementPosition = el.getBoundingClientRect().top
@@ -115,14 +115,14 @@ export default {
         behavior: 'smooth'
       })
     },
-    getOffset(className) {
+    getOffset (className) {
       if (className) {
         const el = document.getElementsByClassName(className)[0]
         const elementPosition = el.getBoundingClientRect().top
         return elementPosition
       }
     },
-    setDisplay() {
+    setDisplay () {
       document.getElementById('stickyMenu').style.display = 'flex'
     }
   }

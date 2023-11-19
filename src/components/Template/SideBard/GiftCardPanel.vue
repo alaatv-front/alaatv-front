@@ -143,12 +143,12 @@
 import { useQuasar } from 'quasar'
 export default {
   name: 'GiftCardPanel',
-  data() {
+  data () {
     return {
       q: useQuasar()
     }
   },
-  beforeMount() {
+  beforeMount () {
     if (this.q.screen.width > 1024) {
       this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
     }

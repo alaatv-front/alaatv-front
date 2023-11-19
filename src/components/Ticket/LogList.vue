@@ -52,14 +52,14 @@ export default {
     }
   },
   computed: {},
-  created() {
+  created () {
     this.initStatusData()
   },
   methods: {
     getMainColor (obj) {
       return this.departmentStatus.find(item => obj.action === item.title)?.color
     },
-    initStatusData() {
+    initStatusData () {
       this.departmentStatus = [
         {
           title: 'تغییر دپارتمان تیکت',

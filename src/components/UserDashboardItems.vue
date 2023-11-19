@@ -61,7 +61,7 @@ import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 export default {
   name: 'UserDashboardItems',
   mixins: [mixinEwano],
-  data() {
+  data () {
     return {
       isAdmin: false,
       user: new User(),

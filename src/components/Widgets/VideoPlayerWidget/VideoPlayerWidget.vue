@@ -18,7 +18,7 @@ export default {
   name: 'VideoPlayerWidget',
   components: { VideoPlayer },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       defaultOptions: {
         src: '',

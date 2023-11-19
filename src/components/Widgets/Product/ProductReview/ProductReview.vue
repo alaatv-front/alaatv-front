@@ -44,7 +44,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       isFavored: false,
       product: new Product()
@@ -83,7 +83,7 @@ export default {
     }
   },
   methods: {
-    prefetchServerDataPromise() {
+    prefetchServerDataPromise () {
       this.product.loading = true
       return this.getProduct()
     },
@@ -98,13 +98,13 @@ export default {
     prefetchServerDataPromiseCatch () {
       this.product.loading = false
     },
-    updateEECEventDetail() {
+    updateEECEventDetail () {
       AEE.productDetailViews('product.show', this.product.eec.getData(), {
         TTl: 1000,
         key: this.product.id
       })
     },
-    getProduct() {
+    getProduct () {
       this.product.loading = true
       return APIGateway.product.show(this.productId)
     }

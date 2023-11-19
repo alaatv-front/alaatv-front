@@ -188,7 +188,7 @@ export default {
     }
   },
 
-  mounted() {},
+  mounted () {},
 
   methods: {
     createRoot (nodeData) {
@@ -299,7 +299,7 @@ export default {
       this.editDialog = state
     },
 
-    nodeExpanded(nodeIds) {
+    nodeExpanded (nodeIds) {
       this.$emit('expanded', nodeIds)
     }
   }

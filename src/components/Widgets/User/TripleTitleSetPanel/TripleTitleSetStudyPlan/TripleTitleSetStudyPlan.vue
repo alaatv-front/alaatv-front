@@ -322,7 +322,7 @@ export default {
     EntityCreate,
     EntityEdit
   },
-  data() {
+  data () {
     return {
       loading: false,
       api: APIGateway.studyPlan.APIAdresses.plan,
@@ -559,21 +559,21 @@ export default {
     }
   },
   watch: {
-    planSettings(newVal) {
+    planSettings (newVal) {
       if (newVal) {
         this.isPlanChanged = false
       }
     }
   },
   methods: {
-    afterAuthenticate() {
+    afterAuthenticate () {
       const user = this.$store.getters['Auth/user']
       this.grade = user.grade
       this.major = user.major
       this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
       this.getFilterLesson()
     },
-    updatePlan() {
+    updatePlan () {
       this.loading = true
       const data = {
         major_id: this.$refs.entityEdit.getInputsByName('major_id').value,
@@ -607,16 +607,16 @@ export default {
           this.loading = false
         })
     },
-    editPlan(event) {
+    editPlan (event) {
       this.selectedPlanId = event.id
       this.editApi = APIGateway.studyPlan.APIAdresses.editPlan(this.selectedPlanId)
       this.editPlanDialog = true
     },
-    openRemovePlanWarning(event) {
+    openRemovePlanWarning (event) {
       this.removePlanWarning = true
       this.selectedPlanId = event.id
     },
-    removePlan() {
+    removePlan () {
       this.loading = true
       APIGateway.studyPlan.removePlan(this.selectedPlanId)
         .then(() => {
@@ -628,7 +628,7 @@ export default {
           this.loading = false
         })
     },
-    acceptNewPlan() {
+    acceptNewPlan () {
       this.loading = true
       const data = {
         major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id')?.value,
@@ -666,7 +666,7 @@ export default {
           this.loading = false
         })
     },
-    filterByLesson() {
+    filterByLesson () {
       this.loading = true
       this.$apiGateway.studyPlan.storeSetting({ setting: { abrisham2_calender_default_lesson: this.lesson.id } })
         .then(() => {
@@ -677,7 +677,7 @@ export default {
           this.loading = false
         })
     },
-    getFilterLesson() {
+    getFilterLesson () {
       return new Promise((resolve, reject) => {
         APIGateway.studyPlan.getSetting()
           .then(setting => {
@@ -691,10 +691,10 @@ export default {
           })
       })
     },
-    setFlagTrue() {
+    setFlagTrue () {
       this.isPlanChanged = true
     },
-    getMyStudyPlan() {
+    getMyStudyPlan () {
       this.loading = true
       APIGateway.studyPlan.getMyStudyPlan()
         .then(studyPlan => {
@@ -708,7 +708,7 @@ export default {
           this.loading = false
         })
     },
-    getChangePlanOptions() {
+    getChangePlanOptions () {
       this.loading = true
       APIGateway.studyPlan.getChangePlanOptions()
         .then(options => {
@@ -756,10 +756,10 @@ export default {
         }
       })
     },
-    changeStudyPlan() {
+    changeStudyPlan () {
       this.planSettings = !this.planSettings
     },
-    acceptSettings() {
+    acceptSettings () {
       this.planSettings = false
       if (this.isPlanChanged) {
         this.warning = true
@@ -767,7 +767,7 @@ export default {
         this.filterByLesson()
       }
     },
-    updateMyStudyPlan(data) {
+    updateMyStudyPlan (data) {
       this.loading = true
       this.warning = false
       APIGateway.studyPlan.updateMyStudyPlan({

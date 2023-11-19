@@ -90,7 +90,7 @@ export default {
   },
 
   watch: {
-    isExpanded() {
+    isExpanded () {
       this.transformValue = this.changeDrawerTransition(this.expansionValue)
     },
 
@@ -125,7 +125,7 @@ export default {
       body.style.overflow = enable ? 'hidden' : null
     },
 
-    changeDrawerTransition(value) {
+    changeDrawerTransition (value) {
       if (this.side === 'right') {
         return '-' + value
       }

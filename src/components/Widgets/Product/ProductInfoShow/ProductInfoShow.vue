@@ -97,7 +97,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       bookmarkLoading: false,
       product: new Product(),
@@ -160,7 +160,7 @@ export default {
       }
       return this.product.id
     },
-    pageUrl() {
+    pageUrl () {
       return window.location.href
     }
   },
@@ -171,7 +171,7 @@ export default {
     //   },
     //   deep: true
     // },
-    'options.teacher'(newVal) {
+    'options.teacher' (newVal) {
       if (!newVal) {
         this.information.splice(0, 1)
       } else {
@@ -183,7 +183,7 @@ export default {
         })
       }
     },
-    'options.major'(newVal) {
+    'options.major' (newVal) {
       if (!newVal) {
         this.information.splice(2, 1)
       } else {
@@ -195,7 +195,7 @@ export default {
         })
       }
     },
-    'options.production_year'(newVal) {
+    'options.production_year' (newVal) {
       if (!newVal) {
         this.information.splice(1, 1)
       } else {
@@ -207,7 +207,7 @@ export default {
         })
       }
     },
-    'options.shipping_method'(newVal) {
+    'options.shipping_method' (newVal) {
       if (!newVal) {
         this.information.splice(3, 1)
       } else {
@@ -262,11 +262,11 @@ export default {
       this.product.loading = false
     },
 
-    getProduct() {
+    getProduct () {
       return APIGateway.product.show(this.productId)
     },
 
-    setInformation() {
+    setInformation () {
       if (!this.product.attributes) {
         return
       }
@@ -280,10 +280,10 @@ export default {
         }
       })
     },
-    shareGiftCard({ name, url }) {
+    shareGiftCard ({ name, url }) {
       window.open(url, '_blank')
     },
-    updateEECEventDetail() {
+    updateEECEventDetail () {
       AEE.productDetailViews('product.show', this.product.eec.getData(), {
         TTl: 1000,
         key: this.product.id

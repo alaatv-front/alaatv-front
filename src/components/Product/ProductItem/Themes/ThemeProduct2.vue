@@ -160,18 +160,18 @@ export default defineComponent({
   },
   emits: ['addToCart', 'customActionClicked', 'productClicked', 'handleProductBookmark'],
   methods: {
-    addToCart() {
+    addToCart () {
       this.$emit('addToCart')
     },
-    customActionClicked() {
+    customActionClicked () {
       this.$emit('customActionClicked')
     },
-    productClicked(e) {
+    productClicked (e) {
       e.preventDefault()
       e.stopPropagation()
       this.$emit('productClicked')
     },
-    handleProductBookmark() {
+    handleProductBookmark () {
       this.$emit('handleProductBookmark')
     }
   }

@@ -76,7 +76,7 @@ export default {
   components: { FormBuilder, EntityCrudFormBuilder },
   props: {
     selectedValues: {
-      default() {
+      default () {
         return []
       },
       type: Array
@@ -86,7 +86,7 @@ export default {
     'selectedValues',
     'contentUpdated'
   ],
-  data() {
+  data () {
     return {
       moreSelectorValue: 'بیشتر',
       moreSelectorOptions: [
@@ -358,19 +358,19 @@ export default {
     }
   },
   computed: {
-    isInEditMode() {
+    isInEditMode () {
       return this.editSelectorValue && this.editSelectorValue !== 'ویرایش'
     }
   },
   watch: {
-    editSelectorValue(inputObj) {
+    editSelectorValue (inputObj) {
       if (!this.isInEditMode) {
         return
       }
       this.chooseFormBuilderInputs(inputObj.value)
     },
     allEditModeInputs: {
-      handler(newValue) {
+      handler (newValue) {
         this.setChosenInputForm(newValue)
       },
       deep: true
@@ -464,7 +464,7 @@ export default {
         .catch(() => {})
       this.moreSelectorValue = 'بیشتر'
     },
-    attachToSet() {
+    attachToSet () {
       const setId = this.setInput[0].selected.id
       this.$apiGateway.set.attachContents(setId, {
         contents: this.getSelectedValuesIds()
@@ -480,7 +480,7 @@ export default {
         })
         .catch(() => {})
     },
-    getSelectedValuesIds() {
+    getSelectedValuesIds () {
       return this.selectedValues.map(item => item.id)
     },
     executeMoreSelectorAction (selectedAction) {
@@ -488,7 +488,7 @@ export default {
         this.deleteSelectedContents()
       }
     },
-    emptyEditSelectorValue() {
+    emptyEditSelectorValue () {
       this.editSelectorValue = 'ویرایش'
       this.$refs.formBuilder.clearFormBuilderInputValues()
     },

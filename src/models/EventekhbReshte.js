@@ -4,7 +4,7 @@ import { User } from './User'
 import { Major } from 'src/models/Major'
 
 class EventekhbReshte extends Model {
-  constructor(data) {
+  constructor (data) {
     super(data, [
       { key: 'id' },
       { key: 'event' },

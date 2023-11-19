@@ -89,7 +89,7 @@ export default defineComponent({
   },
   mixins: [mixinWidget, mixinAuth],
   emits: ['updateProduct', 'updateProductLoading'],
-  data() {
+  data () {
     return {
       defaultOptions: {
         product: new Product()
@@ -105,7 +105,7 @@ export default defineComponent({
     productId () {
       return this.localOptions.product.id
     },
-    productPrice() {
+    productPrice () {
       if (this.localOptions.product) {
         return new Price(this.localOptions.product.price)
       }
@@ -119,18 +119,18 @@ export default defineComponent({
     }
   },
   watch: {
-    productId() {
+    productId () {
       this.getProductComplimentary()
       this.getProductExams()
     }
   },
-  mounted() {
+  mounted () {
     this.$bus.on('onLoggedIn', () => {
       this.onLoginAction()
     })
   },
   methods: {
-    addToCart(hasInstalmentOption = false, goToCheckoutReview = true) {
+    addToCart (hasInstalmentOption = false, goToCheckoutReview = true) {
       this.$store.dispatch('Cart/addToCart', { product: this.localOptions.product, has_instalment_option: hasInstalmentOption })
         .then(() => {
           if (goToCheckoutReview) {
@@ -138,7 +138,7 @@ export default defineComponent({
           }
         })
     },
-    paymentAction(paymentMethod) {
+    paymentAction (paymentMethod) {
       this.paymentMethod = paymentMethod
 
       if (paymentMethod === 'installment') {
@@ -158,7 +158,7 @@ export default defineComponent({
       this.addToCart(true, false)
       this.toggleDialog()
     },
-    checkLoginForInstallment() {
+    checkLoginForInstallment () {
       if (this.isUserLogin) {
         this.paymentActionForInstallment()
         return
@@ -168,22 +168,22 @@ export default defineComponent({
       this.onLoginAction = this.paymentActionForInstallment
       this.$store.commit('AppLayout/updateLoginDialog', true)
     },
-    checkLogin() {
+    checkLogin () {
       this.$store.commit('Auth/updateRedirectTo', this.$route.name)
       this.onLoginAction = this.paymentActionForInstallment
       this.$store.commit('AppLayout/updateLoginDialog', true)
     },
-    toggleDialog() {
+    toggleDialog () {
       this.dialog = !this.dialog
     },
-    getProductComplimentary() {
+    getProductComplimentary () {
       APIGateway.product.getProductComplimentary(this.localOptions.product.id)
         .then(productList => {
           this.productComplimentary = productList.list
         })
         .catch(() => {})
     },
-    getProductExams() {
+    getProductExams () {
       APIGateway.product.getProductExamList(this.localOptions.product.id)
         .then(examList => {
           this.examList = examList
@@ -192,10 +192,10 @@ export default defineComponent({
           this.examList = examList
         })
     },
-    onUpdateProduct(event) {
+    onUpdateProduct (event) {
       this.$emit('updateProduct', event)
     },
-    onUpdateProductLoading(event) {
+    onUpdateProductLoading (event) {
       this.$emit('updateProductLoading', event)
     }
   }

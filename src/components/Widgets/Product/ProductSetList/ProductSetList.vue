@@ -203,7 +203,7 @@ export default {
   },
   mixins: [mixinWidget],
   emits: ['updateSetList'],
-  data() {
+  data () {
     return {
       defaultOptions: {
         product: new Product(),
@@ -254,7 +254,7 @@ export default {
       return sections
     }
   },
-  mounted() {
+  mounted () {
     if (typeof this.localOptions.setList === 'undefined' || this.localOptions.setList === null) {
       this.getProductSets()
     }
@@ -270,22 +270,22 @@ export default {
 
       return minutes + ' دقیقه'
     },
-    download(content) {
+    download (content) {
       if (content.can_see === 0) {
         this.toggleProductItemDialog()
       } else if (content.isPamphlet() && content.file !== null && content.file.pamphlet.length > 0) {
         openURL(content.file.pamphlet[0].link)
       }
     },
-    toggleProductItemDialog() {
+    toggleProductItemDialog () {
       this.productItemDialog = !this.productItemDialog
     },
-    setSelectedData(event, content, set) {
+    setSelectedData (event, content, set) {
       if (content.isPamphlet()) {
         event.stopPropagation()
       }
     },
-    getProductSets() {
+    getProductSets () {
       this.loading = true
       this.$apiGateway.product.getSets(this.productId)
         .then((setList) => {
@@ -311,7 +311,7 @@ export default {
           this.loading = false
         })
     },
-    getSet(setId) {
+    getSet (setId) {
       this.loading = true
       this.$apiGateway.set.getContents(setId)
         .then(contentList => {

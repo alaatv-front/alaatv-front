@@ -18,7 +18,7 @@ export default {
   name: 'Profile',
   components: { FormBuilder },
   mixins: [mixinWidget, inputMixin],
-  data() {
+  data () {
     return {
       cards: [
         {

@@ -68,7 +68,7 @@ export default {
       // this.localUser = this.$store.getters['Auth/user']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
     },
-    handleErr(err) {
+    handleErr (err) {
       this.loadingList = false
       const messages = []
       for (const key in err.data.errors) {
@@ -90,7 +90,7 @@ export default {
         })
       }
     },
-    login() {
+    login () {
       // this.loadingList = true
       this.$store.dispatch('Auth/login', {
         mobile: this.username,

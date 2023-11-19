@@ -26,7 +26,7 @@ import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 export default {
   name: 'Separator',
   mixins: [mixinPrefetchServerData, mixinWidget],
-  data() {
+  data () {
     return {
       windowWidth: 0,
       defaultOptions: {
@@ -56,15 +56,15 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.windowWidth = window.innerWidth
     window.addEventListener('resize', this.onResize)
   },
-  beforeUnmount() {
+  beforeUnmount () {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
-    onResize() {
+    onResize () {
       this.windowWidth = window.innerWidth
     },
     getSeparatorWidth () {

@@ -45,7 +45,7 @@ export default {
     imageWidget
   },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       loading: true,
       defaultOptions: {
@@ -320,10 +320,10 @@ export default {
     }
   },
   computed: {
-    isHorizontal() {
+    isHorizontal () {
       return typeof this.localOptions.horizontal === 'boolean' ? this.localOptions.horizontal : this.localOptions.horizontal[this.$q.screen.name]
     },
-    isHorizontalTitle() {
+    isHorizontalTitle () {
       return this.localOptions.horizontalTitle[this.$q.screen.name]
     },
     shadows () {
@@ -354,7 +354,7 @@ export default {
         borderRadiusCssString
       }
     },
-    parentComponent() {
+    parentComponent () {
       if (this.localOptions.action.route) {
         if (this.isExternal(this.localOptions.action.route)) {
           return 'a'
@@ -365,7 +365,7 @@ export default {
       return 'div'
     }
   },
-  mounted() {
+  mounted () {
     this.loading = false
   }
 }

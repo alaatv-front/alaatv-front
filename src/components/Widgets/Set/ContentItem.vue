@@ -118,7 +118,7 @@ export default {
 
       window.open(this.content.file.pamphlet[0].link, '_blank')
     },
-    getContentBookmarkBaseRoute(id) {
+    getContentBookmarkBaseRoute (id) {
       return APIGateway.content.show(id)
     },
     getContentDurationTitle (duration) {
@@ -127,7 +127,7 @@ export default {
       }
       return Math.floor(duration / 60) + ' دقیقه'
     },
-    doesHaveDuration(duration) {
+    doesHaveDuration (duration) {
       return !!duration
     },
     getShamsiDate (date) {

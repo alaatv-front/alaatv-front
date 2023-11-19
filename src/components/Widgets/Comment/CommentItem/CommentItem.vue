@@ -40,7 +40,7 @@ export default defineComponent({
   props: {
     comment: {
       type: Object,
-      default() {
+      default () {
         return {
           order: null,
           message: null,
@@ -53,7 +53,7 @@ export default defineComponent({
       }
     }
   },
-  data() {
+  data () {
     return {
       loading: false
     }
@@ -87,7 +87,7 @@ export default defineComponent({
         borderRadiusCssString
       }
     },
-    parentComponent() {
+    parentComponent () {
       if (this.localOptions.action.route) {
         if (this.isExternal(this.localOptions.action.route)) {
           return 'a'

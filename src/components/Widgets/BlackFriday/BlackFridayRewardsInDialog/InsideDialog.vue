@@ -75,7 +75,7 @@ export default defineComponent({
       isMount: false
     }
   },
-  mounted() {
+  mounted () {
     this.isMount = true
   },
   methods: {
@@ -94,10 +94,10 @@ export default defineComponent({
           })
         })
     },
-    gotoTicket() {
+    gotoTicket () {
       this.$router.push({ name: 'UserPanel.Ticket.Create', params: { d: this.departmentId } })
     },
-    toggleDialog() {
+    toggleDialog () {
       this.$emit('toggleDialog')
     }
   }

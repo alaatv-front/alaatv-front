@@ -56,7 +56,7 @@ import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 export default {
   name: 'ThankYouPage',
   mixins: [mixinAuthData, mixinEwano],
-  data() {
+  data () {
     return {
       loading: false,
       hasPaid: false

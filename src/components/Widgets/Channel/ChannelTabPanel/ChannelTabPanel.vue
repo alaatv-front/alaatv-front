@@ -48,17 +48,17 @@ export default {
   name: 'ChannelTabPanel',
   components: { BlockList },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       channel: new Channel(),
       tab: 'normal_blocks'
     }
   },
-  mounted() {
+  mounted () {
     this.setChannel()
   },
   methods: {
-    setChannel() {
+    setChannel () {
       const id = this.$route.params.id
       APIGateway.channel.getChannel({ id })
         .then(channel => {

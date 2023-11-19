@@ -29,13 +29,13 @@ export default {
       default: new OrderProduct()
     }
   },
-  data() {
+  data () {
     return {
       loading: false
     }
   },
   methods: {
-    deleteItem() {
+    deleteItem () {
     }
   }
 

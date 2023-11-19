@@ -71,7 +71,7 @@ export default {
     BtnUserProfileMenu,
     MainHeaderMenuItems
   },
-  data() {
+  data () {
     return {
       mounted: false,
       conferenceMenu: false,
@@ -103,7 +103,7 @@ export default {
 
       return user.id
     },
-    layoutLeftDrawerVisible() {
+    layoutLeftDrawerVisible () {
       return this.$store.getters['AppLayout/layoutLeftDrawerVisible']
     }
   },
@@ -119,7 +119,7 @@ export default {
     this.checkAuth()
   },
   methods: {
-    checkAuth() {
+    checkAuth () {
       this.$bus.on('onLoggedIn', () => {
         this.loadAuthData()
       })
@@ -129,7 +129,7 @@ export default {
         this.$store.dispatch('Cart/reviewCart')
       })
     },
-    filterByStatement() {
+    filterByStatement () {
       const param = {
         q: this.searchInput
       }
@@ -146,22 +146,22 @@ export default {
       'updateBreadcrumbLoading',
       'updateLayoutLeftDrawerVisible'
     ]),
-    logOut() {
+    logOut () {
       return this.$store.dispatch('Auth/logOut')
     },
-    toggleLeftDrawer() {
+    toggleLeftDrawer () {
       this.updateLayoutLeftDrawerVisible(!this.layoutLeftDrawerVisible)
     },
-    hasRoute(route) {
+    hasRoute (route) {
       if (!route) {
         return
       }
       return !!(route.name || route.path)
     },
-    goToLogin() {
+    goToLogin () {
       this.$router.push({ name: 'login' })
     },
-    routeTo(name) {
+    routeTo (name) {
       this.$router.push({ name })
     }
   }

@@ -32,7 +32,7 @@ export default {
   mixins: [
     mixinAuthData
   ],
-  data() {
+  data () {
     return {}
   }
 

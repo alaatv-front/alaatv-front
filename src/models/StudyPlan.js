@@ -6,7 +6,7 @@ import { Content } from './Content'
 const PersianDate = null
 
 class StudyPlan extends Model {
-  constructor(data) {
+  constructor (data) {
     super(data, [
       { key: 'id' },
       { key: 'studyPlan_id' },
@@ -26,7 +26,7 @@ class StudyPlan extends Model {
     ])
   }
 
-  convertDate() {
+  convertDate () {
     const dayOfWeek = new PersianDate(new Date(this.date)).format('dddd')
     const dateOfMonth = new PersianDate(new Date(this.date)).format('D MMMM')
 
@@ -35,7 +35,7 @@ class StudyPlan extends Model {
 }
 
 class StudyPlanList extends Collection {
-  model() {
+  model () {
     return StudyPlan
   }
 }

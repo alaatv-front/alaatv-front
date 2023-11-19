@@ -48,7 +48,7 @@ export default {
     }
   },
   computed: {
-    placeholderSetter() {
+    placeholderSetter () {
       if (this.value === null) {
         return this.placeholder
       }
@@ -77,11 +77,11 @@ export default {
       this.model = this.value
     }
   },
-  mounted() {
+  mounted () {
     this.getTags()
   },
   methods: {
-    getTags() {
+    getTags () {
       this.$apiGateway.forrest.getTags(['teacher', 'major', 'grade', 'system']).then(res => {
         this.stringOptions = []
         res.map((tree) => tree.children).forEach(category => {

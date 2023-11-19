@@ -78,7 +78,7 @@ export default {
 
     value: {
       type: Content,
-      default() {
+      default () {
         return new Content()
       }
     },
@@ -110,14 +110,14 @@ export default {
     }
   },
 
-  data() {
+  data () {
     return {
       selectedItem: new Content()
     }
   },
 
   computed: {
-    filteredList() {
+    filteredList () {
       return this.contents.list.filter(item => {
         return item.content_type.name === this.type
       })
@@ -130,18 +130,18 @@ export default {
     }
   },
 
-  created() {
+  created () {
     this.selectedItem = this.value
   },
 
   methods: {
-    btnClicked() {
+    btnClicked () {
       this.$emit('whereAmI')
     },
-    clickOnHeaderButton() {
+    clickOnHeaderButton () {
       this.$emit('clicked')
     },
-    changeSelectedId(content) {
+    changeSelectedId (content) {
       this.$emit('input', content)
     }
   }

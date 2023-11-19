@@ -15,26 +15,26 @@ const mixinTicket = {
     ticketPriorityOption: []
   }),
   computed: {
-    isInAdminPage() {
+    isInAdminPage () {
       return !!this.$route.name.includes('Admin')
     }
   },
-  mounted() {
+  mounted () {
     this.setUpTicket()
   },
   methods: {
-    async setUpTicket() {
+    async setUpTicket () {
       await this.initTicket()
       await this.setPageData()
       await this.afterGetAllPageData()
     },
-    async initTicket() {
+    async initTicket () {
       // here goes the custom methods developer chooses to run before mixin
     },
-    async afterGetAllPageData() {
+    async afterGetAllPageData () {
       // here goes the custom methods developer chooses to run after get all page data
     },
-    async setPageData() {
+    async setPageData () {
       // this.setRoleAndPermissions()
       this.loading = true
       this.getTicketData()
@@ -60,20 +60,20 @@ const mixinTicket = {
       // }
     },
 
-    async setStatuses() {
+    async setStatuses () {
       this.ticketStatuses = this.getStatuses()
     },
 
-    async setDepartments() {
+    async setDepartments () {
       const list = await this.getDepartments()
       this.departmentList = new TicketDepartmentList(list)
     },
 
-    async setPriorityOption() {
+    async setPriorityOption () {
       this.ticketPriorityOption = this.getPriorityOption()
     },
 
-    getStatuses() {
+    getStatuses () {
       return [
         {
           title: 'پاسخ داده نشده',
@@ -94,7 +94,7 @@ const mixinTicket = {
       ]
     },
 
-    getPriorityOption() {
+    getPriorityOption () {
       return [{
         label: 'کم',
         value: '1'
@@ -113,11 +113,11 @@ const mixinTicket = {
       }]
     },
 
-    getTicketData() {
+    getTicketData () {
       return APIGateway.ticket.getNeededDataToCreateTicket()
     },
 
-    getDepartments() {
+    getDepartments () {
       return [
         {
           id: 20,
@@ -498,7 +498,7 @@ const mixinTicket = {
       ].filter(item => item.display === 1)
     },
 
-    sendTicket(data, isMsg) {
+    sendTicket (data, isMsg) {
       if (!isMsg && !this.hasRequiredField()) {
         return
       }
@@ -506,11 +506,11 @@ const mixinTicket = {
       isMsg ? this.sendTicketMsg(formData) : this.sendCreateTicketReq(formData)
     },
 
-    sendTicketMessage(data) {
+    sendTicketMessage (data) {
       this.sendTicket(data, true)
     },
 
-    async sendCreateTicketReq(formData) {
+    async sendCreateTicketReq (formData) {
       this.loading = true
       try {
         const response = await APIGateway.ticket.creatTicket(formData)
@@ -529,7 +529,7 @@ const mixinTicket = {
       }
     },
 
-    async sendTicketMsg(formData) {
+    async sendTicketMsg (formData) {
       this.loading = true
       try {
         const response = await APIGateway.ticket.sendTicketMessage(formData)
@@ -544,7 +544,7 @@ const mixinTicket = {
       }
     },
 
-    async updateTicketData(ticketId, payload) {
+    async updateTicketData (ticketId, payload) {
       try {
         this.loading = true
         await this.callUpdateTicketApi(ticketId, payload)
@@ -558,7 +558,7 @@ const mixinTicket = {
       }
     },
 
-    async changeUser() {
+    async changeUser () {
       const id = this.getInputsValue('id')
       const payloadData = {
         department_id: this.getInputsValue('department'),
@@ -571,7 +571,7 @@ const mixinTicket = {
       await this.updateTicketData(id, payloadData)
     },
 
-    callUpdateTicketApi(ticketId, payloadData) {
+    callUpdateTicketApi (ticketId, payloadData) {
       const id = ticketId || this.getInputsValue('id')
       if (!payloadData) {
         payloadData = {
@@ -586,7 +586,7 @@ const mixinTicket = {
       return this.$apiGateway.ticket.updateTicket(ticketId, payloadData)
     },
 
-    async getUserInfo() {
+    async getUserInfo () {
       const payload = {
         mobile: this.phoneNumber,
         nationalCode: this.nationalCode
@@ -601,7 +601,7 @@ const mixinTicket = {
       }
     },
 
-    setTicketFormData(data, isMsg) {
+    setTicketFormData (data, isMsg) {
       const formData = new FormData()
 
       if (data.resultURL) {
@@ -640,7 +640,7 @@ const mixinTicket = {
       return formData
     },
 
-    hasRequiredField() {
+    hasRequiredField () {
       const errorMessages = []
       if (!this.getInputsValue('title')) {
         errorMessages.push('پر کردن فیلد عنوان ضروری میباشد')
@@ -653,7 +653,7 @@ const mixinTicket = {
       return !errorMessages.length > 0
     },
 
-    getInputsValue(inputName, source) {
+    getInputsValue (inputName, source) {
       const input = this.getInput(inputName, source)
       if (!input) {
         return false
@@ -661,12 +661,12 @@ const mixinTicket = {
       return input.value
     },
 
-    getInput(inputName, source) {
+    getInput (inputName, source) {
       const srcFilter = source || this.inputs
       return srcFilter.find(input => input.name === inputName)
     },
 
-    createBlob(dataURL) {
+    createBlob (dataURL) {
       const BASE64_MARKER = ';base64,'
       if (dataURL.indexOf(BASE64_MARKER) === -1) {
         const parts = dataURL.split(',')
@@ -688,7 +688,7 @@ const mixinTicket = {
       return new Blob([uInt8Array], { type: contentType })
     },
 
-    showMessagesInNotify(messages, type) {
+    showMessagesInNotify (messages, type) {
       messages.forEach((message) => {
         this.$q.notify({
           type: type || 'negative',

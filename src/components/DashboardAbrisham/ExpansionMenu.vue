@@ -49,7 +49,7 @@
 
 export default {
   name: 'ExpansionMenu',
-  data() {
+  data () {
     return {
       menuItems: [
         {
@@ -125,11 +125,11 @@ export default {
     }
 
   },
-  created() {
+  created () {
     this.setHeader(this.$route.name)
   },
   methods: {
-    changeSelectedItem(selected) {
+    changeSelectedItem (selected) {
       this.menuItems.map(i => {
         if (i.id === selected.id) {
           i.selected = true
@@ -140,7 +140,7 @@ export default {
       })
       this.$router.push({ name: selected.routeName })
     },
-    setHeader(route) {
+    setHeader (route) {
       this.menuItems.map(i => {
         if (i.routeName === route) {
           i.selected = true

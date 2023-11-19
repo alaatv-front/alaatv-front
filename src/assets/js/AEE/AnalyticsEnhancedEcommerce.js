@@ -1,7 +1,7 @@
 import GTMEvents from 'src/assets/js/AEE/GoogleAnalyticsEnhancedEcommerce.js'
 
 class AEEClass {
-  constructor(options = {
+  constructor (options = {
     debugMode: false
   }) {
     this.GTMEvents = new GTMEvents(options)
@@ -28,7 +28,7 @@ class AEEClass {
     }
   }
 
-  productDetailViews(actionFieldList, product, cache = {
+  productDetailViews (actionFieldList, product, cache = {
     TTl: 1000,
     key: '0'
   }) {
@@ -49,7 +49,7 @@ class AEEClass {
     })
   }
 
-  productAddToCart(actionFieldList, products, cache = {
+  productAddToCart (actionFieldList, products, cache = {
     TTl: 1000,
     key: '0'
   }) {
@@ -68,7 +68,7 @@ class AEEClass {
     })
   }
 
-  productRemoveFromCart(actionFieldList, product, cache = {
+  productRemoveFromCart (actionFieldList, product, cache = {
     TTl: 1000,
     key: '0'
   }) {
@@ -87,7 +87,7 @@ class AEEClass {
     })
   }
 
-  checkout(step, option, products, cache = {
+  checkout (step, option, products, cache = {
     TTl: 1000,
     key: '0'
   }) {
@@ -106,7 +106,7 @@ class AEEClass {
     })
   }
 
-  checkoutOption(step, option, cache = {
+  checkoutOption (step, option, cache = {
     TTl: 1000,
     key: '0'
   }) {
@@ -125,7 +125,7 @@ class AEEClass {
     })
   }
 
-  purchase(actionField, products, cache = {
+  purchase (actionField, products, cache = {
     TTl: 1000,
     key: '0'
   }) {
@@ -144,7 +144,7 @@ class AEEClass {
     })
   }
 
-  impressionView(impressions, cache = {
+  impressionView (impressions, cache = {
     TTl: 1000,
     key: '100'
   }) {
@@ -163,7 +163,7 @@ class AEEClass {
     })
   }
 
-  impressionClick(impressions, cache = {
+  impressionClick (impressions, cache = {
     TTl: 1000,
     key: '100'
   }) {
@@ -182,7 +182,7 @@ class AEEClass {
     })
   }
 
-  promotionView(promotions, cache = {
+  promotionView (promotions, cache = {
     TTl: 1000,
     key: '0'
   }) {
@@ -201,7 +201,7 @@ class AEEClass {
     })
   }
 
-  promotionClick(promotions, cache = {
+  promotionClick (promotions, cache = {
     TTl: 1000,
     key: '0'
   }) {

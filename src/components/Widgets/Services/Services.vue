@@ -53,25 +53,25 @@ export default {
   computed: {
   },
   methods: {
-    redirectComponent(service) {
+    redirectComponent (service) {
       if (this.isExternal(service.link)) {
         return 'a'
       } else {
         return 'router-link'
       }
     },
-    onDragStart(event, service, serviceIndex) {
+    onDragStart (event, service, serviceIndex) {
       event.dataTransfer.dropEffect = 'move'
       event.dataTransfer.setData('value', JSON.stringify({ service, serviceIndex }))
       this.localDraggable = event
     },
-    onDragLeave() {
+    onDragLeave () {
 
     },
-    onDragOver(event) {
+    onDragOver (event) {
       event.preventDefault()
     },
-    onDrop(event, newIndex, parent) {
+    onDrop (event, newIndex, parent) {
       const valueStringfied = event.dataTransfer.getData('value')
       const value = valueStringfied ? JSON.parse(valueStringfied) : null
       const widget = value.widget
@@ -87,17 +87,17 @@ export default {
       // emit('onDrag', 'Drop')
       event.stopPropagation()
     },
-    addToIndex(list, newItem, index) {
+    addToIndex (list, newItem, index) {
       if (list.length > index) {
         list.splice(index, 0, newItem)
       } else {
         list.push(newItem)
       }
     },
-    updatePosition(list, oldIndex, newIndex) {
+    updatePosition (list, oldIndex, newIndex) {
       list.splice(newIndex, 0, list.splice(oldIndex, 1)[0])
     },
-    scrollToElement(service) {
+    scrollToElement (service) {
       let el = null
       if (service.action === 'scrollToId') {
         el = document.getElementById(service.scrollToId)
@@ -112,7 +112,7 @@ export default {
         behavior: 'smooth'
       })
     },
-    isExternal(url) {
+    isExternal (url) {
       if (typeof window === 'undefined') {
         return true
       }

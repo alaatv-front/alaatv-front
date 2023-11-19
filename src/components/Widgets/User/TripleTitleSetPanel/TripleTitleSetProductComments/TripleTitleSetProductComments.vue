@@ -67,7 +67,7 @@ export default {
     EntityIndex
   },
   mixins: [mixinTripleTitleSet],
-  data() {
+  data () {
     return {
       selected: [],
       selectionMode: 'single',
@@ -120,34 +120,34 @@ export default {
     }
   },
   computed: {
-    selectedTopic() {
+    selectedTopic () {
       return this.$store.getters['TripleTitleSet/setTopicList']
     }
   },
   watch: {
-    selected(value) {
+    selected (value) {
       this.$emit('selectedUpdated', value)
     },
-    selectedTopic(value) {
+    selectedTopic (value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     }
   },
   methods: {
-    afterAuthenticate() {
+    afterAuthenticate () {
       this.loadData(this.$route.params.productId)
       this.updateSelectedTopic('...')
     },
     updateSelectedTopic (content) {
       this.$store.commit('TripleTitleSet/updateSelectedTopic', content)
     },
-    toggleDialog() {
+    toggleDialog () {
       this.$emit('toggleDialog')
     },
-    setContent(e) {
+    setContent (e) {
       this.selected = e
       this.toggleDialog()
     },
-    onInputClick(e) {
+    onInputClick (e) {
       if (e.input.name === 'toggle') {
         document.getElementsByClassName('entity-filter-box')[0].classList.toggle('opened')
       }
@@ -158,11 +158,11 @@ export default {
         this.$refs.commentsIndex.search()
       }
     },
-    loadData(productId) {
+    loadData (productId) {
       this.$store.dispatch('TripleTitleSet/getSet', productId)
       this.$store.dispatch('TripleTitleSet/getSelectedProduct', productId)
     },
-    gotoComment(commentId) {
+    gotoComment (commentId) {
       this.$router.push({ name: 'UserPanel.Asset.TripleTitleSet.ProductSingleComment', params: { productId: this.$route.params.productId, commentId } })
     },
     getShamsiDate (date) {

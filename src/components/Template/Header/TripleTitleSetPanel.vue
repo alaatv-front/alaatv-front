@@ -39,7 +39,7 @@ export default {
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
     },
-    logOut() {
+    logOut () {
       this.$store.dispatch('Auth/logOut')
     }
   }

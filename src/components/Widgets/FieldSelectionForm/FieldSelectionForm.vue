@@ -90,7 +90,7 @@ export default {
     RegisterKonkurFieldSelectionTankYouPage
   },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       step: null,
       loading: false,
@@ -110,7 +110,7 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.loading = true
     this.showProperForm()
       .then(() => {

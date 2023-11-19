@@ -72,7 +72,7 @@ export default {
   name: 'TripleTitleSetConsulting',
   components: { ContentListComponent, commentBox, videoBox, consultingMessage },
   mixins: [mixinAbrisham, mixinTripleTitleSet],
-  data() {
+  data () {
     return {
       testList: [],
       news: new LiveDescriptionList(),
@@ -87,19 +87,19 @@ export default {
     }
   },
   computed: {
-    filteredContents() {
+    filteredContents () {
       return new ContentList(this.contents.list)
     },
-    watchingContentComment() {
+    watchingContentComment () {
       return this.watchingContent?.comments[0]?.comment || ''
     }
   },
-  async created() {
+  async created () {
     await this.getLoadContents()
     await this.nextPage()
   },
   methods: {
-    scrollMoved(data) {
+    scrollMoved (data) {
       if (data.direction === 'decrease') return
       const lastElementIndex = data.ref.items.length - 1
       const currentElementIndex = data.index
@@ -107,11 +107,11 @@ export default {
         this.nextPage()
       }
     },
-    generateParams() {
+    generateParams () {
       // const param = 'tags[]=مشاوره&order_by[]=created_at&order_type[]=desc&liveDescriptionPage=' + this.newsNextPage;
       return 'liveDescriptionPage=' + this.newsNextPage
     },
-    async nextPage() {
+    async nextPage () {
       if (this.newsLastPage !== null && parseInt(this.newsLastPage) < parseInt(this.newsNextPage)) {
         return
       }
@@ -135,7 +135,7 @@ export default {
         this.news.loading = false
       }
     },
-    async getLoadContents(setId) {
+    async getLoadContents (setId) {
       this.contents = await this.$apiGateway.content.getConsultingContentList(setId)
       this.setCurrentContent()
       this.contentListLoading = false
@@ -146,16 +146,16 @@ export default {
     //
     //   return await this.$axios.get(window.APIAddresses.consultingContents)
     // },
-    setCurrentContent() {
+    setCurrentContent () {
       const currentContent = this.contents.list.find(item => item.type === 8)
       if (!currentContent) return
       this.changeCurrentContent(currentContent.id)
     },
-    changeCurrentContent(id) {
+    changeCurrentContent (id) {
       this.currentContent = this.contents.list.find(content => content.id === id)
       this.loadComment(id)
     },
-    loadComment(id) {
+    loadComment (id) {
       this.currentContent = this.contents.list.find(content => content.id === id)
       if (this.currentContent.comments[0]) {
         this.comment = this.currentContent.comments[0].comment

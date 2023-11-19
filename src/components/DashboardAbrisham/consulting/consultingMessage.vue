@@ -30,13 +30,13 @@ export default {
       default: new LiveDescription()
     }
   },
-  data() {
+  data () {
     return {
       oneDayPast: false
     }
   },
   methods: {
-    escapeHtml(unsafe) {
+    escapeHtml (unsafe) {
       return unsafe
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')

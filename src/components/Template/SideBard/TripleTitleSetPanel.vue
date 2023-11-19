@@ -224,10 +224,10 @@ export default {
     ...mapMutations('TripleTitleSet', [
       'updateSelectedTopic'
     ]),
-    toggleLogoutDialog() {
+    toggleLogoutDialog () {
       this.logoutDialog = !this.logoutDialog
     },
-    logOut() {
+    logOut () {
       this.toggleLogoutDialog()
       const redirectAfterLogout = this.domainSameWithAppDomain
       this.$store.dispatch('Auth/logOut', { redirectTo: redirectAfterLogout })

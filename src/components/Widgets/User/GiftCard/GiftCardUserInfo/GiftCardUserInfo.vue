@@ -585,7 +585,7 @@ export default {
           this.uploadNationalCardPicLoading = false
         })
     },
-    moveToNextInput(value, maxLength, nextInputId, previousInput) {
+    moveToNextInput (value, maxLength, nextInputId, previousInput) {
       if (value.toString().length === maxLength && nextInputId) {
         this.$refs[nextInputId].focus()
       } else if (value.toString().length === 0 && previousInput) {
@@ -596,14 +596,14 @@ export default {
       this.getNationalCardPhoto()
       this.localUser = this.$store.getters['Auth/user']
     },
-    downloadPdf() {
+    downloadPdf () {
       window.open(this.contractPdfLink, '_blank')
     },
     loadData () {
       this.loadShabaNumber()
       this.getSalesMan()
     },
-    getSalesMan() {
+    getSalesMan () {
       APIGateway.referralCode.getSalesManData()
         .then((response) => {
           this.has_signed_contract = response.has_signed_contract
@@ -772,7 +772,7 @@ export default {
         target.code
       ]
     },
-    getBankFromCard(code) {
+    getBankFromCard (code) {
       const map = [
       //     {
       //   nickname: 'central-bank',
@@ -1032,7 +1032,7 @@ export default {
         target.code
       ]
     },
-    validateCard(cardNumber) {
+    validateCard (cardNumber) {
       return verifyCardNumber(cardNumber)
     }
   }

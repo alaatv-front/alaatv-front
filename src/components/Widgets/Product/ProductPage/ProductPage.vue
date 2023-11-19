@@ -148,7 +148,7 @@ export default defineComponent({
     ProductIntroBox
   },
   mixins: [mixinWidget, mixinPrefetchServerData],
-  data() {
+  data () {
     return {
       defaultOptions: {
         productId: null,
@@ -222,13 +222,13 @@ export default defineComponent({
           this.bookmarkLoading = false
         })
     },
-    shareGiftCard({ name, url }) {
+    shareGiftCard ({ name, url }) {
       window.open(url, '_blank')
     },
-    toggleExpanded() {
+    toggleExpanded () {
       this.expanded = !this.expanded
     },
-    calculateDescriptionHight() {
+    calculateDescriptionHight () {
       let totalHeight = 0
       if (this.$refs && this.$refs.shortDescription && this.$refs.shortDescription.children) {
         for (let index = 0; index < this.$refs.shortDescription.children.length; index++) {
@@ -243,10 +243,10 @@ export default defineComponent({
         this.showMore = false
       }
     },
-    onUpdateProduct(product) {
+    onUpdateProduct (product) {
       this.product = product
     },
-    updateProductLoading(loading) {
+    updateProductLoading (loading) {
       this.product.loading = loading
     },
     loadSticky () {

@@ -22,7 +22,7 @@ class BlackFridayCampaignData extends Model {
 }
 
 class BlackFridayCampaignDataList extends Collection {
-  model() {
+  model () {
     return BlackFridayCampaignData
   }
 }

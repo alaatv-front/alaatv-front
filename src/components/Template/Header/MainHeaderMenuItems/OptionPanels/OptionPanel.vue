@@ -67,7 +67,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       menuTypeOptions: [
         {
@@ -96,7 +96,7 @@ export default {
     }
   },
   methods: {
-    removeItemFromMenuList() {
+    removeItemFromMenuList () {
       this.localMenuItem.deleted = true
       this.$emit('update:menuItem', this.localMenuItem)
     }

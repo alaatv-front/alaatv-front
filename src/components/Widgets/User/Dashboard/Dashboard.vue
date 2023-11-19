@@ -35,7 +35,7 @@ export default {
   name: 'Dashboard',
   components: { LazyImg, UserDashboardItems },
   mixins: [mixinWidget, inputMixin],
-  data() {
+  data () {
     return {
       isAdmin: false,
       user: new User(),

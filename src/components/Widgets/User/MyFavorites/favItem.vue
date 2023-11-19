@@ -69,12 +69,12 @@ export default {
       default: new Block()
     }
   },
-  data() {
+  data () {
     return {
       block: new Block()
     }
   },
-  mounted() {
+  mounted () {
     this.block = new Block(this.options)
   },
   methods: {}

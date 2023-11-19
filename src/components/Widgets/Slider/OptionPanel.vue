@@ -207,7 +207,7 @@ export default defineComponent({
     lazyImg
   },
   mixins: [PageBuilderOptionPanel],
-  data() {
+  data () {
     return {
       windowWidth: 0,
       expandBanner: false,
@@ -326,23 +326,23 @@ export default defineComponent({
   },
   watch: {
     selectedSlide: {
-      handler() {
+      handler () {
         this.updateBanner()
       }
     }
   },
-  created() {
+  created () {
     this.initTable()
     window.addEventListener('resize', this.onResize)
   },
-  beforeUnmount() {
+  beforeUnmount () {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
-    onResize() {
+    onResize () {
       this.windowWidth = window.innerWidth
     },
-    addBanner() {
+    addBanner () {
       const rowNumber = this.localOptions.list.length + 1
       this.localOptions.list.push({
         title: '',
@@ -393,7 +393,7 @@ export default defineComponent({
         photo: ''
       })
     },
-    responsiveFeatures(features) {
+    responsiveFeatures (features) {
       if (this.windowWidth >= 1920) {
         return features.xl.src !== '' ? features.xl : features.lg.src !== '' ? features.lg : features.sm.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs
       } else if (this.windowWidth <= 1919 && this.windowWidth > 1440) {
@@ -406,16 +406,16 @@ export default defineComponent({
         return features.xs.src !== '' ? features.xs : features.sm.src !== '' ? features.sm : features.md.src !== '' ? features.md : features.lg.src !== '' ? features.lg : features.xl
       }
     },
-    removeBanner(name) {
+    removeBanner (name) {
       const index = this.rows.findIndex(row => row.name === name)
       this.localOptions.list.splice(index, 1)
       this.rows.splice(index, 1)
     },
-    removeSizeFeatures(size) {
+    removeSizeFeatures (size) {
       this.localOptions.list[this.selectedBannerIndex].features[size].src = ''
       this.updateResponsiveRows()
     },
-    initTable() {
+    initTable () {
       for (let i = 0; i < this.localOptions.list.length; i++) {
         this.rows.push({
           name: i + 1,
@@ -433,7 +433,7 @@ export default defineComponent({
     hasThumbnail () {
       return this.isVideo() && this.isPhoto()
     },
-    updateTable() {
+    updateTable () {
       for (let i = 0; i < this.localOptions.list.length; i++) {
         this.rows[i] = {
           name: i + 1,
@@ -442,17 +442,17 @@ export default defineComponent({
         }
       }
     },
-    updateBanner() {
+    updateBanner () {
       this.localOptions.list[this.selectedBannerIndex] = this.selectedSlide
       this.updateTable()
     },
-    showFullBanner(index) {
+    showFullBanner (index) {
       this.expandBanner = true
       this.selectedSlide = new Banner(this.localOptions.list[index - 1])
       this.selectedBannerIndex = index - 1
       this.updateResponsiveRows()
     },
-    showFullResponsiveBanner(name) {
+    showFullResponsiveBanner (name) {
       this.expandResponsiveBanner = true
       this.selectedSlide.features[name].src = this.localOptions.list[this.selectedBannerIndex].features[name].src
       this.selectedSlide.features[name].videoSrc = this.localOptions.list[this.selectedBannerIndex].features[name].videoSrc
@@ -460,7 +460,7 @@ export default defineComponent({
       this.selectedSlide.features[name].videoHeight = this.localOptions.list[this.selectedBannerIndex].features[name].videoHeight
       this.selectedResponsiveSize = name
     },
-    updateResponsiveRows() {
+    updateResponsiveRows () {
       this.responsiveRows.forEach(row => {
         Object.keys(this.localOptions.list[this.selectedBannerIndex].features).forEach(key => {
           if (key === row.name) {

@@ -100,7 +100,7 @@ export default defineComponent({
     Pagination
   },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       loaded: false,
       defaultOptions: {
@@ -180,14 +180,14 @@ export default defineComponent({
     }
   },
   computed: {
-    leftNavigationSize() {
+    leftNavigationSize () {
       return this.localOptions.navigation.goToLeft.size[this.$q.screen.name]
     },
-    rightNavigationSize() {
+    rightNavigationSize () {
       return this.localOptions.navigation.goToRight.size[this.$q.screen.name]
     }
   },
-  mounted() {
+  mounted () {
     this.loaded = true
   }
 })

@@ -60,41 +60,41 @@ moment.loadPersian()
 export default {
   name: 'TripleTitleSetProductCommentSingle',
   mixins: [mixinTripleTitleSet],
-  data() {
+  data () {
     return {
       comment: new Comment(),
       edit: false
     }
   },
   methods: {
-    afterAuthenticate() {
+    afterAuthenticate () {
       this.getComment()
       this.loadData(this.$route.params.productId)
     },
-    getComment() {
+    getComment () {
       this.$apiGateway.comment.get({ data: { id: this.$route.params.commentId } }).then(res => {
         this.comment = res
       }).catch(() => {})
     },
-    toggleEdit() {
+    toggleEdit () {
       this.edit = !this.edit
     },
-    editComment() {
+    editComment () {
       this.$apiGateway.comment.put({ data: this.comment }).then((res) => {
         this.comment = res
         this.toggleEdit()
       }).catch(() => {})
     },
-    deleteComment() {
+    deleteComment () {
       this.$apiGateway.comment.delete({ data: { id: this.$route.params.commentId } }).then(() => {
         this.$router.push({ name: 'UserPanel.Asset.TripleTitleSet.ProductComments', params: { productId: this.$route.params.productId } })
       }).catch(() => {})
     },
-    loadData(productId) {
+    loadData (productId) {
       this.$store.dispatch('TripleTitleSet/getSet', productId)
       this.$store.dispatch('TripleTitleSet/getSelectedProduct', productId)
     },
-    copyComment() {
+    copyComment () {
       copyToClipboard(this.comment.comment)
         .then(() => {
           this.$q.notify({

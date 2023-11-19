@@ -26,17 +26,17 @@ import { ReferralCode } from 'src/models/ReferralCode.js'
 
 export default defineComponent({
   name: 'GiftCardDownload',
-  data() {
+  data () {
     return {
       referralCode: new ReferralCode(),
       loading: false
     }
   },
-  mounted() {
+  mounted () {
     this.getGiftCard()
   },
   methods: {
-    getGiftCard() {
+    getGiftCard () {
       this.loading = true
       this.$apiGateway.referralCode.getReferralCode({
         'referral-code': this.$route.params.referralCode
@@ -49,7 +49,7 @@ export default defineComponent({
           this.loading = false
         })
     },
-    PrintDiv() {
+    PrintDiv () {
       const element = document.getElementById('giftCard')
       html2canvas(element, {
         allowTaint: true,
@@ -60,7 +60,7 @@ export default defineComponent({
         })
         .catch(() => {})
     },
-    downloadURI(uri, name) {
+    downloadURI (uri, name) {
       const link = document.createElement('a')
       link.download = name
       link.href = uri

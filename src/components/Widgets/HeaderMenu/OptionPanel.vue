@@ -358,12 +358,12 @@ export default defineComponent({
   props: {
     options: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
   },
-  data() {
+  data () {
     return {
       optionPanel: false,
       selectedOptionPanel: '',
@@ -732,22 +732,22 @@ export default defineComponent({
     }
   },
   methods: {
-    deleteWidget(sectionName, index) {
+    deleteWidget (sectionName, index) {
       this.localOptions[this.size][sectionName].splice(index, 1)
     },
-    addTextWidget(sectionName) {
+    addTextWidget (sectionName) {
       this.localOptions[this.size][sectionName].push(this.defaultTextWidget)
     },
-    addImageWidget(sectionName) {
+    addImageWidget (sectionName) {
       this.localOptions[this.size][sectionName].push(this.defaultImageWidget)
     },
-    addActionButtonWidget(sectionName) {
+    addActionButtonWidget (sectionName) {
       this.localOptions[this.size][sectionName].push(this.defaultActionButtonWidget)
     },
-    addTimerWidget(sectionName) {
+    addTimerWidget (sectionName) {
       this.localOptions[this.size][sectionName].push(this.defaultTimerWidget)
     },
-    openOptionPanelDialog(widget, widgetIndex, sectionName) {
+    openOptionPanelDialog (widget, widgetIndex, sectionName) {
       this.selectedOptionPanel = widget.name.concat('OptionPanel')
       this.selectedWidgetIndex = widgetIndex
       this.selectedSectionName = sectionName

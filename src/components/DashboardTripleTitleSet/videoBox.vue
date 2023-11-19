@@ -202,7 +202,7 @@ export default {
 
   emits: ['favorite', 'toggle-video-status', 'bookmarkTimestamp', 'toggleFavorite', 'videoIsWatched'],
 
-  data() {
+  data () {
     return {
       bookmarkLoading: false,
       sheet: false,
@@ -245,14 +245,14 @@ export default {
     }
   },
   computed: {
-    selectedProduct() {
+    selectedProduct () {
       return this.$store.getters['TripleTitleSet/selectedProduct']
     },
     contentFavored: {
-      get() {
+      get () {
         return this.content.is_favored
       },
-      set(value) {
+      set (value) {
         this.toggleFavorite(value)
       }
     }
@@ -307,10 +307,10 @@ export default {
       }
       this.downloadVideo = !this.downloadVideo
     },
-    setVideoDuration(data) {
+    setVideoDuration (data) {
       this.videoDuration = data
     },
-    share(name) {
+    share (name) {
       const url = shareSocial.getShareLink(
         {
           link: this.content.url.web,
@@ -319,10 +319,10 @@ export default {
       open(url)
     },
 
-    show() {
+    show () {
     },
 
-    clickSeenButton() {
+    clickSeenButton () {
       this.$emit('toggle-video-status')
       this.markedRatios.forEach(markedRatio => {
         if (markedRatio.hasSeen) {
@@ -331,11 +331,11 @@ export default {
       })
     },
 
-    toggleFavorite(val) {
+    toggleFavorite (val) {
       this.$emit('toggleFavorite', val)
     },
 
-    getShareLink(content, socialMedia) {
+    getShareLink (content, socialMedia) {
       if (socialMedia === 'telegram') {
         return 'https://telegram.me/share/url?url=' + content.url.web + '&text=' + content.title
       } else if (socialMedia === 'whatsapp') {
@@ -353,7 +353,7 @@ export default {
       }
     },
 
-    openUrl(content, socialMedia) {
+    openUrl (content, socialMedia) {
       const url = this.getShareLink(content, socialMedia)
       open(url)
     },
@@ -387,11 +387,11 @@ export default {
       this.timePoints = customTimePoints
     },
 
-    changeVideoStatusToSeen(timeData) {
+    changeVideoStatusToSeen (timeData) {
       this.saveProgress(timeData.watchedPercentage, timeData)
     },
 
-    saveProgress(progressPercent) {
+    saveProgress (progressPercent) {
       let reachedProgressPercent = 0
       this.markedRatios.forEach(markedRatio => {
         if (!markedRatio.hasSeen && markedRatio.ratio < progressPercent) {
@@ -415,7 +415,7 @@ export default {
       // }
     },
 
-    bookmarkPostIsFavored(timeStampData) {
+    bookmarkPostIsFavored (timeStampData) {
       this.$emit('bookmarkTimestamp', timeStampData)
     }
   }

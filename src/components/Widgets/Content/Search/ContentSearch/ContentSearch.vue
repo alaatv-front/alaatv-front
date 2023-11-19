@@ -176,7 +176,7 @@ export default {
     StickyBothSides,
     SideBarContent
   },
-  provide() {
+  provide () {
     return {
       scrollInfo: computed(() => this.scrollInfo)
     }
@@ -596,7 +596,7 @@ export default {
       data.paginate = { links: response.links, meta: response.meta }
     },
 
-    onScroll(info) {
+    onScroll (info) {
       this.scrollInfo = info
     }
   }

@@ -121,7 +121,7 @@ export default {
   props: {
     center: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     },
@@ -131,7 +131,7 @@ export default {
     },
     bufferMarker: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     },
@@ -150,7 +150,7 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       canShowMarker: false,
       toolBoxSelectedMarker: null,
@@ -506,7 +506,7 @@ export default {
     }
   },
   computed: {
-    activeMapItem() {
+    activeMapItem () {
       if (this.selectedMarker.editMode) {
         return this.selectedMarker
       } else if (this.bufferMarker.editMode) {
@@ -517,104 +517,104 @@ export default {
         return false
       }
     },
-    canShowGeneralData() {
+    canShowGeneralData () {
       return this.activeMapItem.editMode && this.activeMapItem.type.name === this.toolTab
     },
-    polyAction() {
+    polyAction () {
       return this.polylineInputs.find(item => item.name === 'action').value
     },
-    polyZoomRate() {
+    polyZoomRate () {
       return this.polylineInputs.find(item => item.name === 'ZoomRate').value
     },
-    polyLineType() {
+    polyLineType () {
       return this.polylineInputs.find(item => item.name === 'LineType').value
     },
-    polyLineThickness() {
+    polyLineThickness () {
       return this.polylineInputs.find(item => item.name === 'LineThickness').value
     },
-    polyLineStart() {
+    polyLineStart () {
       return this.polylineInputs.find(item => item.name === 'LineStart').value
     },
-    polyColor() {
+    polyColor () {
       return this.polylineInputs.find(item => item.name === 'color').value
     },
-    polylineMoveType() {
+    polylineMoveType () {
       return this.polylineInputs.find(item => item.name === 'lineMoveType').value
     },
-    polyTags() {
+    polyTags () {
       const formBuilderCol = this.getPolylineInputsValue('formBuilderCol')
       return formBuilderCol.find(item => item.name === 'tags').value
     },
-    polyEnable() {
+    polyEnable () {
       const formBuilderCol = this.getPolylineInputsValue('formBuilderCol2')
       return formBuilderCol.find(item => item.name === 'enable').value
     },
-    polyEntity() {
+    polyEntity () {
       const formBuilderCol = this.getPolylineInputsValue('formBuilderCol2')
       return formBuilderCol.find(item => item.name === 'entity').value
     },
-    headlineText() {
+    headlineText () {
       return this.getMarkerInputsValue('headlineText')
     },
-    ZoomRate() {
+    ZoomRate () {
       return this.getMarkerInputsValue('ZoomRate')
     },
-    iconImage() {
+    iconImage () {
       return this.getMarkerInputsValue('iconImage')
     },
-    TextColor() {
+    TextColor () {
       return this.getMarkerInputsValue('TextColor')
     },
-    StrokeColor() {
+    StrokeColor () {
       return this.getMarkerInputsValue('StrokeColor')
     },
-    IconSize() {
+    IconSize () {
       return this.getMarkerInputsValue('IconSize')
     },
-    TextSize() {
+    TextSize () {
       return this.getMarkerInputsValue('TextSize')
     },
-    StrokeSize() {
+    StrokeSize () {
       return this.getMarkerInputsValue('StrokeSize')
     },
-    iconAnchorX() {
+    iconAnchorX () {
       return this.getMarkerInputsValue('iconAnchorX')
     },
-    iconAnchorY() {
+    iconAnchorY () {
       return this.getMarkerInputsValue('iconAnchorY')
     },
-    action() {
+    action () {
       return this.getMarkerInputsValue('action')
     },
-    tags() {
+    tags () {
       const formBuilderCol = this.getMarkerInputsValue('formBuilderCol')
       return formBuilderCol.find(item => item.name === 'tags').value
     },
-    enable() {
+    enable () {
       const formBuilderCol = this.getMarkerInputsValue('formBuilderCol2')
       return formBuilderCol.find(item => item.name === 'enable').value
     },
-    entity() {
+    entity () {
       const formBuilderCol = this.getMarkerInputsValue('formBuilderCol2')
       return formBuilderCol.find(item => item.name === 'entity').value
     }
   },
   watch: {
     headlineText: {
-      handler(newVal) {
+      handler (newVal) {
         this.toolBoxBufferMarker.data.headline.text = newVal
         this.updateItem()
       }
     },
     ZoomRate: {
-      handler(zoom) {
+      handler (zoom) {
         this.toolBoxBufferMarker.max_zoom = zoom.max
         this.toolBoxBufferMarker.min_zoom = zoom.min
         this.updateItem()
       }
     },
     iconImage: {
-      handler(fileList) {
+      handler (fileList) {
         if (fileList === null) {
           this.toolBoxBufferMarker.data.icon.options.iconUrl = null
         } else if (typeof fileList === 'object') {
@@ -626,140 +626,140 @@ export default {
       }
     },
     TextColor: {
-      handler(color) {
+      handler (color) {
         this.toolBoxBufferMarker.data.headline.fillColor = color
         this.updateItem()
       }
     },
     StrokeColor: {
-      handler(color) {
+      handler (color) {
         this.toolBoxBufferMarker.data.headline.strokeColor = color
         this.updateItem()
       }
     },
     IconSize: {
-      handler(size) {
+      handler (size) {
         this.toolBoxBufferMarker.data.icon.options.iconSize[0] = size
         this.toolBoxBufferMarker.data.icon.options.iconSize[1] = size
         this.updateItem()
       }
     },
     TextSize: {
-      handler(size) {
+      handler (size) {
         this.toolBoxBufferMarker.data.headline.fontSize = size
         this.updateItem()
       }
     },
     StrokeSize: {
-      handler(size) {
+      handler (size) {
         this.toolBoxBufferMarker.data.headline.strokeWidth = size
         this.updateItem()
       }
     },
     iconAnchorX: {
-      handler(anchor) {
+      handler (anchor) {
         this.toolBoxBufferMarker.data.icon.options.iconAnchor[0] = anchor
         this.updateItem()
       }
     },
     iconAnchorY: {
-      handler(anchor) {
+      handler (anchor) {
         this.toolBoxBufferMarker.data.icon.options.iconAnchor[1] = anchor
         this.updateItem()
       }
     },
     action: {
-      handler(data) {
+      handler (data) {
         this.toolBoxBufferMarker.action = data
         this.updateItem()
       }
     },
     tags: {
-      handler(tags) {
+      handler (tags) {
         this.toolBoxBufferMarker.tags = tags
         this.updateItem()
       }
     },
     enable: {
-      handler(newValue) {
+      handler (newValue) {
         this.toolBoxBufferMarker.enable = newValue
         this.updateItem()
       }
     },
     entity: {
-      handler(EntityData) {
+      handler (EntityData) {
         this.toolBoxBufferMarker.entity = EntityData
       }
     },
     polyAction: {
-      handler(data) {
+      handler (data) {
         this.bufferPolyline.action = data
         this.updateItem()
       }
     },
     polyZoomRate: {
-      handler(zoom) {
+      handler (zoom) {
         this.bufferPolyline.min_zoom = zoom.min
         this.bufferPolyline.max_zoom = zoom.min
         this.updateItem()
       }
     },
     polyLineType: {
-      handler(data) {
+      handler (data) {
         this.bufferPolyline.data.line.dashArray = data
         this.updateItem()
       }
     },
     polyLineThickness: {
-      handler(weight) {
+      handler (weight) {
         this.bufferPolyline.data.line.weight = weight
         this.updateItem()
       }
     },
     polyLineStart: {
-      handler(data) {
+      handler (data) {
         this.bufferPolyline.data.line.dashOffset = data
         this.updateItem()
       }
     },
     polyColor: {
-      handler(color) {
+      handler (color) {
         this.bufferPolyline.data.line.color = color
         this.updateItem()
       }
     },
     polylineMoveType: {
-      handler(dir) {
+      handler (dir) {
         this.bufferPolyline.data.line.options.flowing.dir = dir
         this.updateItem()
       }
     },
     polyTags: {
-      handler(tags) {
+      handler (tags) {
         this.bufferPolyline.tags = tags
         this.updateItem()
       }
     },
     polyEnable: {
-      handler(enable) {
+      handler (enable) {
         this.bufferPolyline.enable = enable
         this.updateItem()
       }
     },
     polyEntity: {
-      handler(entity) {
+      handler (entity) {
         this.bufferPolyline.entity = entity
         this.updateItem()
       }
     }
   },
-  created() {
+  created () {
     this.bufferPolyline = this.polyline
   },
   methods: {
-    iconFilesChange(fileList) {
+    iconFilesChange (fileList) {
     },
-    setInput(data) {
+    setInput (data) {
       this.toolBoxBufferMarker = this.bufferMarker.editMode ? this.bufferMarker : this.selectedMarker
       this.markerInputs[0].value[0].value = data.tags
       this.markerInputs[8].value = data.data.headline.text
@@ -794,7 +794,7 @@ export default {
       this.markerInputs[15].value = data.data.icon.options.iconAnchor[0]
       this.markerInputs[17].value = data.data.icon.options.iconAnchor[1]
     },
-    getActiveMapItem() {
+    getActiveMapItem () {
       if (this.selectedMarker.editMode || this.bufferMarker.editMode) {
         return this.toolBoxBufferMarker
       } else if (this.bufferPolyline.editMode) {
@@ -803,41 +803,41 @@ export default {
         return false
       }
     },
-    updateItem() {
+    updateItem () {
       const activeMapItem = this.getActiveMapItem()
       if (!activeMapItem) {
         return
       }
       this.$emit(activeMapItem.type.name + '_change', activeMapItem)
     },
-    getMarkerInputsValue(inputName) {
+    getMarkerInputsValue (inputName) {
       return this.markerInputs.find(input => input.name === inputName).value
     },
-    getPolylineInputsValue(inputName) {
+    getPolylineInputsValue (inputName) {
       return this.polylineInputs.find(input => input.name === inputName).value
     },
-    addMarker() {
+    addMarker () {
       this.$emit('add_marker', this.defaultMarker)
     },
-    addPolyLine() {
+    addPolyLine () {
       this.bufferPolyline.editMode = true
       this.$emit('add-polyline', this.bufferPolyline)
     },
-    saveMarker() {
+    saveMarker () {
       this.$emit('save_marker', this.bufferMarker)
       // this.clearData();
     },
 
-    getInputValue(type, inputName) {
+    getInputValue (type, inputName) {
       return this[type].find(input => input.name === inputName).value
     },
-    getPolylineValue(inputName) {
+    getPolylineValue (inputName) {
       return this.polylineInputs.find(input => input.name === inputName).value
     },
-    tabChanged(tabName) {
+    tabChanged (tabName) {
       this.$emit('tab_changed', tabName)
     },
-    showMapInfo() {
+    showMapInfo () {
       this.$emit('show-map-info')
     }
   }

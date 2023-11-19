@@ -3,7 +3,7 @@ import { Conductor } from 'src/models/Conductor.js'
 import APIRepository from '../classes/APIRepository.js'
 
 export default class ConductorAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('conductor', apiV2, '/conductor', new Conductor())
     this.APIAdresses = {
       base: '/conductor',
@@ -15,7 +15,7 @@ export default class ConductorAPI extends APIRepository {
     }
   }
 
-  get(id, cache = { TTL: 1000 }) {
+  get (id, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

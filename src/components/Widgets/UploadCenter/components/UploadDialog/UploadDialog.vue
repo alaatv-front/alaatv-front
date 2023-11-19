@@ -80,13 +80,13 @@ export default {
     }
   },
   emits: ['editContent'],
-  data() {
+  data () {
     return {
       noItem: true
     }
   },
   methods: {
-    editContent(contentId) {
+    editContent (contentId) {
       this.$emit('editContent', contentId)
     },
     factoryFn (files) {
@@ -110,7 +110,7 @@ export default {
         }
       })
     },
-    onRejected() {
+    onRejected () {
       this.$refs.uploader.reset()
     }
   }

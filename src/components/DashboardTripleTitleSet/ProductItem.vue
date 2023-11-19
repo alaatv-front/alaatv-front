@@ -114,15 +114,15 @@ export default {
     }
   },
   computed: {
-    progress() {
+    progress () {
       return (this.product?.contents_progress) / 100
     }
   },
   methods: {
-    gotoProductPage(product) {
+    gotoProductPage (product) {
       this.$router.push({ name: 'UserPanel.Asset.TripleTitleSet.ProductPage', params: { productId: product.id } })
     },
-    gotoLastContent(product) {
+    gotoLastContent (product) {
       this.$router.push({ name: 'UserPanel.Asset.TripleTitleSet.Content', params: { productId: product.id, setId: product.last_content_user_watched.set.id, contentId: product.last_content_user_watched?.id } })
     }
   }

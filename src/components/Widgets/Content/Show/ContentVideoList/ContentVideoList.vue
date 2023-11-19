@@ -112,12 +112,12 @@ export default {
   props: {
     options: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
   },
-  data() {
+  data () {
     return {
       defaultOptions: {
         listHeight: ''
@@ -135,10 +135,10 @@ export default {
     }
   },
   watch: {
-    options() {
+    options () {
       this.loadContent()
     },
-    'options.id': function() {
+    'options.id': function () {
       this.loadContent()
     }
   },
@@ -158,7 +158,7 @@ export default {
     prefetchServerDataPromiseCatch () {
       this.content.loading = false
     },
-    loadContent() {
+    loadContent () {
       // this.prefetchServerDataPromise()
       //   .then((content) => {
       //     this.prefetchServerDataPromiseThen(content)
@@ -168,10 +168,10 @@ export default {
       //   })
     },
 
-    hasPamphlet() {
+    hasPamphlet () {
       return this.content.file.pamphlet && this.content.file.pamphlet[0]
     },
-    showTime(duration) {
+    showTime (duration) {
       return Time.msToTime(duration * 1000)
     },
     getContentId () {
@@ -186,13 +186,13 @@ export default {
       }
       return null
     },
-    getContentByRequest() {
+    getContentByRequest () {
       this.content.loading = true
       const contentId = this.getContentId()
       return APIGateway.content.show(contentId)
     },
 
-    getSetByRequest() {
+    getSetByRequest () {
       this.set.loading = true
       APIGateway.set.show(this.content.set.id)
         .then((set) => {
@@ -205,11 +205,11 @@ export default {
           this.set.loading = false
         })
     },
-    isCurrent(content) {
+    isCurrent (content) {
       const id = content.id.toString()
       return this.$route.params.id === id
     },
-    scrollToElement() {
+    scrollToElement () {
       const index = this.set.contents.list.findIndex(content => content.id === this.content.id)
       this.$nextTick(() => {
         if (!this.$refs.items || !this.$refs.items[index]) {

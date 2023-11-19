@@ -299,23 +299,23 @@ export default {
     cartLoading () {
       return this.cart.loading
     },
-    totalFinalPrice() {
+    totalFinalPrice () {
       return this.getPriceFormat('final') ? this.getPriceFormat('final') : 0
     },
 
-    totalBasePrice() {
+    totalBasePrice () {
       return this.getPriceFormat('base')
     },
 
-    totalDiscount() {
+    totalDiscount () {
       return this.getPriceFormat('discount')
     },
 
-    discountInPercent() {
+    discountInPercent () {
       return this.cart.price?.discountInPercent()
     },
 
-    amountUsingWallet() {
+    amountUsingWallet () {
       return this.cart.pay_by_wallet
       // return this.cart.pay_by_wallet.toLocaleString()
     }
@@ -340,7 +340,7 @@ export default {
       }
     },
     localOptions: {
-      handler(newVal) {
+      handler (newVal) {
         this.$emit('update:options', newVal)
       },
       deep: true
@@ -429,7 +429,7 @@ export default {
     //   const str = this.giftCardValue.toString()
     //   str.replace('AT', '')
     // },
-    submitReferralCode() {
+    submitReferralCode () {
       this.referralCodeLoading = true
       APIGateway.referralCode.submitReferralCodeOnOrder({ data: { referral_code: this.giftCardValue } })
         .then(() => {
@@ -441,7 +441,7 @@ export default {
           this.referralCodeLoading = false
         })
     },
-    setCoupon() {
+    setCoupon () {
       this.couponLoading = true
       APIGateway.coupon.base({ code: this.couponValue })
         .then(() => {
@@ -458,7 +458,7 @@ export default {
           this.couponLoading = false
         })
     },
-    cancelCoupon() {
+    cancelCoupon () {
       APIGateway.coupon.deleteCoupon()
         .then(response => {
           this.isCouponSet = false
@@ -472,7 +472,7 @@ export default {
         })
         .catch()
     },
-    cancelReferral() {
+    cancelReferral () {
       APIGateway.referralCode.DeleteReferralCodeFromOrder({
         order_id: this.cart.getOrderId()
       })
@@ -488,10 +488,10 @@ export default {
         })
         .catch()
     },
-    onScroll(info) {
+    onScroll (info) {
       this.scrollInfo = info
     },
-    cartReview() {
+    cartReview () {
       this.cart.loading = true
       this.$store.dispatch('Cart/reviewCart')
         .then((response) => {
@@ -560,7 +560,7 @@ export default {
         })
     },
 
-    login() {
+    login () {
       this.$store.dispatch('Auth/login', this.userEnteredLoginInfo)
         .then(() => {
           if (this.isUserLogin) {
@@ -569,11 +569,11 @@ export default {
         })
     },
 
-    getPriceFormat(priceKey) {
+    getPriceFormat (priceKey) {
       return this.cart.price.toman(priceKey, null)
     },
 
-    clickOnGateway() {
+    clickOnGateway () {
       // this.selectedBank = !this.selectedBank
     }
   }

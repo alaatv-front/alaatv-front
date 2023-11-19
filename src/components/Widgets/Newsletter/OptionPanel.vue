@@ -56,7 +56,7 @@ export default {
   name: 'OptionPanel',
   components: { OptionPanelTabs },
   mixins: [PageBuilderOptionPanel],
-  data() {
+  data () {
     return {
       defaultOptions: {
         eventName: 'newsletter',

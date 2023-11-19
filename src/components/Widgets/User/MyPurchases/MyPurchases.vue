@@ -172,7 +172,7 @@ export default {
       // await this.setFilterBoxCategories()
       this.filterProduct()
     },
-    async setFilterBoxCategories() {
+    async setFilterBoxCategories () {
       this.loading = true
       const categories = await this.$apiGateway.product.getCategories()
       this.defaultOptions.filterBoxCategory = categories.list
@@ -219,7 +219,7 @@ export default {
       this.sortProducts()
     },
 
-    setFirstContentsShow() {
+    setFirstContentsShow () {
       if ((this.products.list.length === 0 && this.products.list[0]) || !this.products.list[0]?.sets) {
         return
       }
@@ -248,7 +248,7 @@ export default {
           this.selectedSet.loading = false
         })
     },
-    handleShowModal() {
+    handleShowModal () {
       this.showContentDialog = this.$store.getters['AppLayout/windowSize'].x < 1024
     },
     setSelectedSet (data) {

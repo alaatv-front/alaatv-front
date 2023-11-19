@@ -41,7 +41,7 @@ export default {
   props: {
     studyPlan: {
       type: StudyPlan,
-      default() {
+      default () {
         return new StudyPlan({
           studyPlan_id: 175,
           id: 144,
@@ -54,7 +54,7 @@ export default {
       }
     },
     selectedMajor: {
-      default() {
+      default () {
         return new Major({
           id: 1,
           name: 'ریاضی'
@@ -67,13 +67,13 @@ export default {
       default: () => false
     },
     openedPanel: {
-      default() {
+      default () {
         return false
       },
       type: Boolean
     }
   },
-  data() {
+  data () {
     return {
       planList: new PlanList(),
       selectedPlan: new Plan(),
@@ -83,7 +83,7 @@ export default {
     }
   },
   computed: {
-    setHeaderWidthForMediaTags() {
+    setHeaderWidthForMediaTags () {
       return 200
       // if (this.$store.getters.windowSize.x < 1920) {
       //   return 140
@@ -95,10 +95,10 @@ export default {
     }
   },
   methods: {
-    contentClicked(content) {
+    contentClicked (content) {
       this.$emit('contentClicked', content)
     },
-    loadSelectedPlan(plan) {
+    loadSelectedPlan (plan) {
       if (this.selectedPlan.id !== plan.id) {
         this.selectedPlan = plan
         this.showDetail = true

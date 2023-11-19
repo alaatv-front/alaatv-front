@@ -38,7 +38,7 @@ export default {
   emits: [
     'update:toggleValue'
   ],
-  data() {
+  data () {
     return {}
   },
   computed: {
@@ -50,12 +50,12 @@ export default {
         this.$emit('update:toggleValue', value)
       }
     },
-    getCurrentOrderCompletedAt() {
+    getCurrentOrderCompletedAt () {
       return (CompletedAt) => {
         return moment(CompletedAt, 'YYYY-M-D').format('jYYYY/jMM/jDD')
       }
     },
-    discountInPercent() {
+    discountInPercent () {
       return (discount, base) => {
         return Math.round(discount * 100 / base)
       }

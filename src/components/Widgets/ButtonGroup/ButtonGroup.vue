@@ -19,7 +19,7 @@ export default defineComponent({
     ActionButton
   },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       defaultOptions: {
         buttonList: [],

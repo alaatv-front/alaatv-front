@@ -4,7 +4,7 @@ import { StudyPlan, StudyPlanList } from 'src/models/StudyPlan'
 import { WebsiteSetting } from 'src/models/WebsiteSetting'
 
 export default class StudyPlanAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('studyPlan', apiV2, '/plan', new StudyPlan())
     this.APIAdresses = {
       plan: '/plan',
@@ -29,7 +29,7 @@ export default class StudyPlanAPI extends APIRepository {
     }
   }
 
-  getStudyEvents(id, cache = { TTL: 1000 }) {
+  getStudyEvents (id, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -44,7 +44,7 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getPlans(id, cache = { TTL: 1000 }) {
+  getPlans (id, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -60,7 +60,7 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getChangePlanOptions(cache = { TTL: 1000 }) {
+  getChangePlanOptions (cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -81,7 +81,7 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getMyStudyPlan(cache = { TTL: 1000 }) {
+  getMyStudyPlan (cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -103,7 +103,7 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  updateMyStudyPlan(data = {}) {
+  updateMyStudyPlan (data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -122,7 +122,7 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getStudyPlanData(data = {}, cache = { TTL: 1000 }) {
+  getStudyPlanData (data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -143,7 +143,7 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  storeSetting(data = {}) {
+  storeSetting (data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -160,7 +160,7 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getSetting(cache = { TTL: 1000 }) {
+  getSetting (cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -176,7 +176,7 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  markAsRead(reportId, cache = { TTL: 1000 }) {
+  markAsRead (reportId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -192,7 +192,7 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  removePlan(planId) {
+  removePlan (planId) {
     return this.sendRequest({
       apiMethod: 'delete',
       api: this.api,

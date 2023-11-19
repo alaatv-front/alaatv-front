@@ -165,7 +165,7 @@ export default defineComponent({
   },
   emits: ['addToCart', 'customActionClicked', 'productClicked', 'handleProductBookmark'],
   computed: {
-    mobileMode() {
+    mobileMode () {
       if (typeof window !== 'undefined') {
         return window.innerWidth <= 350
       }
@@ -173,18 +173,18 @@ export default defineComponent({
     }
   },
   methods: {
-    addToCart() {
+    addToCart () {
       this.$emit('addToCart')
     },
-    customActionClicked() {
+    customActionClicked () {
       this.$emit('customActionClicked')
     },
-    productClicked(e) {
+    productClicked (e) {
       e.preventDefault()
       e.stopPropagation()
       this.$emit('productClicked')
     },
-    handleProductBookmark() {
+    handleProductBookmark () {
       this.$emit('handleProductBookmark')
     }
   }

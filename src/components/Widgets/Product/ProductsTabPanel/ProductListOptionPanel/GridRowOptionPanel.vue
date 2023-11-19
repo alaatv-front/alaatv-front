@@ -150,7 +150,7 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       sizes: ['xs', 'sm', 'md', 'lg', 'xl'],
       sizeValue: {
@@ -225,10 +225,10 @@ export default {
   },
   computed: {
     localOptions: {
-      get() {
+      get () {
         return this.options
       },
-      set(newValue) {
+      set (newValue) {
         this.$emit('update:options', newValue)
       }
     }
@@ -242,36 +242,36 @@ export default {
   //   }
   // },
   methods: {
-    calcColNumberClass() {
+    calcColNumberClass () {
       this.localOptions.options.colNumber = Object.keys(this.sizeValue).map(key => this.getCol(key, this.sizeValue[key])).join(' ')
     },
-    getCol(size, number) {
+    getCol (size, number) {
       if (!number) {
         return ''
       }
       return 'col-' + size + '-' + number
     },
-    openProduct(id) {
+    openProduct (id) {
       if (!id) {
         return
       }
       this.dialogProductId = id
       this.productDialog = true
     },
-    removeProduct(productIndex) {
+    removeProduct (productIndex) {
       if (!this.localOptions.data[productIndex]) {
         return
       }
       this.localOptions.data.splice(productIndex, 1)
     },
-    addProduct(id) {
+    addProduct (id) {
       const productId = Number(id)
       // const newProduct = new Product({ id: productId })
       this.localOptions.data.push(productId)
 
       this.cancelProduct()
     },
-    cancelProduct() {
+    cancelProduct () {
       this.productDialog = false
       this.currentTabIndex = ''
       this.specialProductId = ''

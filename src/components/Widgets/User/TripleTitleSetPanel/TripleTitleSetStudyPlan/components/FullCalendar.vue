@@ -293,7 +293,7 @@ export default defineComponent({
       default: 'calendar_month'
     }
   },
-  setup(props, { emit }) {
+  setup (props, { emit }) {
     // const emit = defineEmits(['editPlan', 'removePlan'])
     const month = ref([
       [
@@ -742,32 +742,32 @@ export default defineComponent({
       }
     }
   },
-  mounted() {
+  mounted () {
     this.loadCalendar(Time.now(), true)
   },
   methods: {
-    getBackgroundColor(color) {
+    getBackgroundColor (color) {
       return colors.lighten(color, 60)
     },
-    calculateTop(event) {
+    calculateTop (event) {
       return ((parseInt(event.start.substring(0, 2)) + (parseInt(event.start.substring(3, 5)) / 60)) - this.baseHour) * this.baseHight + this.baseHight + 48 + 'px'
     },
-    calculateHeight(event) {
+    calculateHeight (event) {
       return (parseInt(event.end.substring(0, 2)) + parseInt(event.end.substring(3, 5)) / 60 - parseInt(event.start.substring(0, 2)) - parseInt(event.start.substring(3, 5)) / 60) * this.baseHight - 8 + 'px'
     },
-    calculateTimeHeight() {
+    calculateTimeHeight () {
       const hour = new Date().getHours()
       const minutes = new Date().getMinutes()
       return (hour + minutes / 60 - this.baseHour) * this.baseHight + this.baseHight + 48 + 'px'
     },
-    calculateEventDate() {
+    calculateEventDate () {
       // const date = new Date(this.selectedEvent.date)
     },
-    openEvent(event) {
+    openEvent (event) {
       this.eventDialog = true
       this.selectedEvent = event
     },
-    getStudyPlanData(eventId, date) {
+    getStudyPlanData (eventId, date) {
       if (date) {
         this.loadCalendar(moment(date).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
       }
@@ -800,23 +800,23 @@ export default defineComponent({
           this.loading = false
         })
     },
-    goToSelectedDate(date) {
+    goToSelectedDate (date) {
       this.loadCalendar(moment(date).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
       this.getStudyPlanData()
     },
-    goToNextWeek() {
+    goToNextWeek () {
       // const today = new Date(this.chartWeek[0].date)
       const nextWeek = new Date(new Date(this.chartWeek[0].date).getTime() + 7 * 24 * 60 * 60 * 1000)
       this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
       this.getStudyPlanData()
     },
-    goToLastWeek() {
+    goToLastWeek () {
       // const today = new Date(this.calendarDate._i)
       const nextWeek = new Date(new Date(this.chartWeek[0].date).getTime() - 7 * 24 * 60 * 60 * 1000)
       this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
       this.getStudyPlanData()
     },
-    setCalendarMonth(selectedMonth) {
+    setCalendarMonth (selectedMonth) {
       const month = this.monthList.indexOf(selectedMonth)
       const shamsi = `${this.calendarYear}-${month + 1}-01`
       moment.loadPersian()

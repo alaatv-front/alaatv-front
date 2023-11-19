@@ -123,7 +123,7 @@ export default {
     }
   },
   computed: {
-    isUserLogin() {
+    isUserLogin () {
       return this.$store.getters['Auth/isUserLogin']
     },
     showHamburger () {
@@ -208,7 +208,7 @@ export default {
     ...mapMutations('TripleTitleSet', [
       'updateSelectedTopic'
     ]),
-    toggleLeftDrawer() {
+    toggleLeftDrawer () {
       this.updateLayoutLeftDrawerVisible(!this.layoutLeftDrawerVisible)
     },
     setSelectedTopic (TopicName) {},

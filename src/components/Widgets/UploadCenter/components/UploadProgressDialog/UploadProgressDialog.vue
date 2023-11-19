@@ -92,7 +92,7 @@ export default {
     }
   },
   emits: ['toggleDialog'],
-  data() {
+  data () {
     return {
       step: 1,
       content: new Content(),
@@ -100,14 +100,14 @@ export default {
     }
   },
   watch: {
-    contentId(value) {
+    contentId (value) {
       if (value) {
         this.getContent(value)
       }
     }
   },
   methods: {
-    updateContentInfo(event) {
+    updateContentInfo (event) {
       this.content.loading = true
       this.$apiGateway.content.showAdmin(event.id).then(content => {
         const eventContent = content
@@ -118,7 +118,7 @@ export default {
         this.content.loading = false
       })
     },
-    getContent(contentId) {
+    getContent (contentId) {
       this.content.loading = true
       this.$apiGateway.content.showAdmin(contentId).then(content => {
         this.content = content
@@ -128,10 +128,10 @@ export default {
         this.content.loading = false
       })
     },
-    updatePublishForm(formData) {
+    updatePublishForm (formData) {
       this.publishForm = formData
     },
-    async gotoNextStep() {
+    async gotoNextStep () {
       if (this.step === 1) {
         this.content.loading = true
         this.$refs.uploadProperties.$refs.entityEditForm.editEntity()
@@ -153,10 +153,10 @@ export default {
           })
       }
     },
-    publish() {
+    publish () {
       this.$apiGateway.content.update(this.publishForm)
     },
-    toggleDialog() {
+    toggleDialog () {
       this.$emit('toggleDialog')
       this.step = 1
     }
