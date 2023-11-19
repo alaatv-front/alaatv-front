@@ -8,7 +8,7 @@ import { mixinWidget } from 'src/mixin/Mixins.js'
 export default {
   name: 'RaychatWidget',
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       defaultOptions: {
         RAYCHAT_TOKEN: null
@@ -25,7 +25,7 @@ export default {
       this.loadScript()
     }
   },
-  mounted() {
+  mounted () {
     this.loadScript()
   },
   methods: {

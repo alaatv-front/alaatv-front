@@ -75,7 +75,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       Pagination: {
         rowsPerPage: 100
@@ -93,7 +93,7 @@ export default {
     }
   },
   computed: {
-    computedColumns() {
+    computedColumns () {
       const headerLength = this.localOptions.header.length
       const columns = []
       for (let index = 0; index < headerLength; index++) {
@@ -111,7 +111,7 @@ export default {
     }
   },
   methods: {
-    takeAction(props, col) {
+    takeAction (props, col) {
       if (props.row[col.name].actionType === 'scroll') {
         this.scrollToElement(props.row[col.name].value.className)
       } else if (props.row[col.name].actionType === 'link') {
@@ -120,7 +120,7 @@ export default {
         this.$bus.emit(props.row[col.name].value.eventName)
       }
     },
-    scrollToElement(className) {
+    scrollToElement (className) {
       const el = document.getElementsByClassName(className)[0]
       const headerOffset = 0
       const elementPosition = el.getBoundingClientRect().top
@@ -130,7 +130,7 @@ export default {
         behavior: 'smooth'
       })
     },
-    getColName(colIndex) {
+    getColName (colIndex) {
       return `col${colIndex}`
     }
   }
@@ -144,6 +144,7 @@ export default {
   &:deep(.q-table__control){
     width: 100%;
   }
+
   &:deep(.q-table__title){
     width: 100%;
     text-align: center;
@@ -161,6 +162,7 @@ export default {
     font-size: 14px;
     font-weight: 500;
   }
+
   .comparison-tr {
     background: #fff;
 

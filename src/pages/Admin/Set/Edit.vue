@@ -8,7 +8,7 @@
 
 export default {
   name: 'EditSet',
-  data() {
+  data () {
     return {
       pageConfig: {},
       sections: [

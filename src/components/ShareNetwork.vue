@@ -114,7 +114,7 @@ export default {
         url: this.getShareLink(item.name)
       })
     },
-    getShareLink(socialMedia) {
+    getShareLink (socialMedia) {
       if (socialMedia === 'telegram') {
         return 'https://telegram.me/share/url?url=' + this.url
       } else if (socialMedia === 'whatsapp') {
@@ -134,7 +134,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

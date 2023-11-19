@@ -62,7 +62,7 @@ export default {
   name: 'OptionPanel',
   components: { OptionPanelTabs },
   mixins: [PageBuilderOptionPanel],
-  data() {
+  data () {
     return {
       defaultOptions: {
         eventId: 13,
@@ -78,7 +78,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

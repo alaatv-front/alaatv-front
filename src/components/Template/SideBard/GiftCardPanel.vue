@@ -143,12 +143,12 @@
 import { useQuasar } from 'quasar'
 export default {
   name: 'GiftCardPanel',
-  data() {
+  data () {
     return {
       q: useQuasar()
     }
   },
-  beforeMount() {
+  beforeMount () {
     if (this.q.screen.width > 1024) {
       this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
     }
@@ -164,6 +164,7 @@ export default {
   right: 10px;
   width: 100%;
   height: 100%;
+
   .box {
     position: relative;
     width: 96px;
@@ -172,17 +173,20 @@ export default {
     max-height: 860px;
     min-height: 860px;
     background: #FF9000;
-    box-shadow: 2px 6px 6px rgba(193, 114, 12, 0.2);
+    box-shadow: 2px 6px 6px rgb(193 114 12 / 20%);
     border-radius: 20px;
+
     .logo {
       width: 100%;
       padding-top: 36px;
       text-align: center;
     }
+
     .menu-section {
       position: absolute;
       width: 100%;
       height: calc( 100% - 83px );
+
       //display: flex;
       //flex-flow: column;
       //justify-content: center;
@@ -190,14 +194,17 @@ export default {
       .menu-items {
         color: white;
         width: 100%;
+
         :deep(.q-tabs__content) {
           display: flex !important;
           flex-flow: column;
           justify-content: center;
           align-items: center;
+
           .q-tab {
             min-height: 64px;
             max-height: 64px;
+
             .q-tab__indicator {
               width: 9px;
               height: 30px;
@@ -211,7 +218,8 @@ export default {
       }
     }
   }
-  @media screen and (max-width: 1024px) {
+
+  @media screen and (width <= 1024px) {
     //display: none;
   }
 }

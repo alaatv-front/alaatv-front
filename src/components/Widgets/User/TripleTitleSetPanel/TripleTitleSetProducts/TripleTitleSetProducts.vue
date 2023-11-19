@@ -109,7 +109,7 @@ export default {
     }
   },
   watch: {
-    productType(type, oldtype) {
+    productType (type, oldtype) {
       if (oldtype.id === null) {
         return
       }
@@ -117,10 +117,10 @@ export default {
     }
   },
   methods: {
-    afterAuthenticate() {
+    afterAuthenticate () {
       this.loadData()
     },
-    loadData() {
+    loadData () {
       this.advisorLoading = true
       this.productLoading = true
       this.$apiGateway.events.formBuilder({
@@ -135,7 +135,7 @@ export default {
         this.productLoading = false
       })
     },
-    getProducts(type) {
+    getProducts (type) {
       this.productLoading = true
       this.$apiGateway.events.getEventsProducts({
         data: { major_id: type },
@@ -147,7 +147,7 @@ export default {
         this.productLoading = false
       })
     },
-    getAdvisor() {
+    getAdvisor () {
       this.advisorLoading = true
       this.$apiGateway.events.getEventsAdvisor({
         eventId: this.event.id
@@ -164,18 +164,17 @@ export default {
 
 <style lang="scss" scoped>
 .chatre-nejat-panel {
-
   .banner-row {
     padding: 40px 70px 100px;
     background: #EAEAEA;
 
-    @media only screen and (max-width: 1024px) {
+    @media only screen and (width <= 1024px) {
       padding: 10px 15px;
     }
 
     .chatre-nejat-slogan {
-      @media only screen and (max-width: 600px) {
-        padding: 0px 0px 0PX 30PX;
+      @media only screen and (width <= 600px) {
+        padding: 0 0 0 30PX;
       }
     }
 
@@ -185,7 +184,7 @@ export default {
       font-size: 20px;
       line-height: 28px;
       letter-spacing: -0.03em;
-      color: #333333;
+      color: #333;
     }
 
     .chatre-nejat-description {
@@ -195,7 +194,7 @@ export default {
       line-height: 22px;
       text-align: justify;
       letter-spacing: -0.03em;
-      color: #333333;
+      color: #333;
       margin-top: 16px;
       padding-right: 50px;
     }
@@ -215,7 +214,7 @@ export default {
         font-size: 20px;
         line-height: 28px;
         letter-spacing: -0.03em;
-        color: #333333;
+        color: #333;
       }
 
       .product-type-input {
@@ -223,6 +222,7 @@ export default {
         margin: 0 20px;
       }
     }
+
     .skeleton-col {
       padding: 5px 10px;
     }

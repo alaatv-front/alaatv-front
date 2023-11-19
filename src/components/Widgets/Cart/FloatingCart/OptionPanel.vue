@@ -44,7 +44,7 @@ export default defineComponent({
     CartEmptyOptionPanel
   },
   mixins: [mixinOptionPanel],
-  data() {
+  data () {
     return {
       defaultOptions: {
         cartEmptyOption: {

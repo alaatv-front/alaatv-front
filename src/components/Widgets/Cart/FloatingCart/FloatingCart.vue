@@ -62,7 +62,7 @@ export default {
     CartInvoice
   },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       morphGroupModel: 'btn',
       defaultOptions: {
@@ -116,7 +116,7 @@ export default {
     nextMorph () {
       this.morphGroupModel = nextMorphStep[this.morphGroupModel]
     },
-    cartReview() {
+    cartReview () {
       this.cart.loading = true
       this.$store.dispatch('Cart/reviewCart')
         .then((response) => {
@@ -163,7 +163,7 @@ export default {
     width: 500px;
     border-bottom-left-radius: 2em;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (width <= 600px) {
       width: 330px;
       height: 650px;
     }
@@ -171,10 +171,12 @@ export default {
     .cart-container {
       margin-bottom: 0;
     }
+
     &:deep(.cart-image) {
       height: 140px;
-      margin-top: 0px;
+      margin-top: 0;
     }
+
     &:deep(.cart-invoice .cart-invoice-container .invoice-container) {
       margin: 0;
     }

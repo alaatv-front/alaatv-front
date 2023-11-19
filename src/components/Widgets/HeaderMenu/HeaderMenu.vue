@@ -82,7 +82,7 @@ export default {
     Timer
   },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       scrollEventIsAdded: false,
       windowWidth: 0,
@@ -175,7 +175,7 @@ export default {
     }
   },
   computed: {
-    size() {
+    size () {
       if (this.windowWidth >= 1920) {
         return this.isConfigExist('xl') ? 'xl' : this.isConfigExist('lg') ? 'lg' : this.isConfigExist('md') ? 'md' : this.isConfigExist('sm') ? 'sm' : 'xs'
       } else if (this.windowWidth <= 1919 && this.windowWidth >= 1440) {
@@ -203,7 +203,7 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     if (typeof window !== 'undefined') {
       if (this.localOptions.sticky) {
         this.scrollEventIsAdded = true
@@ -213,20 +213,20 @@ export default {
       window.addEventListener('resize', this.onResize)
     }
   },
-  beforeUnmount() {
+  beforeUnmount () {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
-    isConfigExist(size) {
+    isConfigExist (size) {
       return this.localOptions[size].rightSectionWidgets.length > 0 || this.localOptions[size].centerSectionWidgets.length > 0 || this.localOptions[size].leftSectionWidgets.length > 0
     },
-    onResize() {
+    onResize () {
       this.windowWidth = window.innerWidth
     },
-    toggleLeftDrawer() {
+    toggleLeftDrawer () {
       this.drawer = !this.drawer
     },
-    addScrollEventListener() {
+    addScrollEventListener () {
       window.addEventListener('scroll', () => {
         if (!this.isInViewport() && !document.getElementsByClassName('header-menu')[0].classList.value.includes('fix-position')) {
           document.getElementsByClassName('header-menu')[0].classList.add('fix-position')
@@ -235,7 +235,7 @@ export default {
         }
       })
     },
-    isInViewport() {
+    isInViewport () {
       const el = document.getElementsByClassName(this.localOptions.stickyClass)[0]
       if (!el) {
         return false
@@ -243,10 +243,10 @@ export default {
       const rect = el.getBoundingClientRect()
       return rect.top <= rect.height && rect.bottom >= 0
     },
-    routeTo(name) {
+    routeTo (name) {
       this.$router.push({ name })
     },
-    takeAction(item) {
+    takeAction (item) {
       if (item.type === 'link') {
         openURL(item.route)
       } else if (item.type === 'scroll') {
@@ -259,7 +259,7 @@ export default {
         this.$bus.emit(item.eventName, item.eventArgs)
       }
     },
-    scrollToElement(className) {
+    scrollToElement (className) {
       const el = document.getElementsByClassName(className)[0]
       const headerOffset = 0
       const elementPosition = el.getBoundingClientRect().top
@@ -274,7 +274,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "quasar-ui-q-page-builder/src/components/Component.scss";
+@import "quasar-ui-q-page-builder/src/components/Component";
+
 $backgrounds: (
   xs: (
     size: v-bind('defaultOptions.backgrounds.xs.size'),
@@ -320,6 +321,7 @@ $backgrounds: (
 
 .header-menu {
   @include media-query-backgrounds($backgrounds, $sizes);
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -329,17 +331,21 @@ $backgrounds: (
     display: flex;
     height: 72px;
     align-items: center;
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       height: 64px;
     }
+
     .logo-pic-img {
       height: 40px;
       width: 40px;
-      @media screen and (max-width: 1023px) {
+
+      @media screen and (width <= 1023px) {
         height: 48px;
         width: 48px;
       }
     }
+
     .logo-text {
       padding: 0 10px;
       font-weight: 400;
@@ -374,6 +380,7 @@ $backgrounds: (
     font-weight: 400;
     font-size: 16px;
     line-height: 28px;
+
     &:deep(.q-btn .q-focus-helper) {
       display: none;
     }

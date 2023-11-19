@@ -1,6 +1,5 @@
-@import "mixin";
-@import 'src/css/Theme/spacing.scss';
-@import "src/css/Theme/Controls/input.scss";
+@import "src/css/Theme/spacing";
+@import "src/css/Theme/Controls/input";
 
 .form-builder-dateTime {
   .dateTime-input {
@@ -10,15 +9,18 @@
           .q-field__prepend {
             .q-icon {
               @include q-field__prepend_and_append_icon_style;
-              &:before {
+
+              &::before {
                 content: "\e9e3";
               }
             }
           }
+
           .q-field__append {
             .q-icon {
               @include q-field__prepend_and_append_icon_style;
-              &:before {
+
+              &::before {
                 content: "\ea42";
               }
             }

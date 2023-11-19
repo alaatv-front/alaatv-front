@@ -90,7 +90,7 @@ export default {
     RegisterKonkurFieldSelectionTankYouPage
   },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       step: null,
       loading: false,
@@ -110,7 +110,7 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.loading = true
     this.showProperForm()
       .then(() => {
@@ -245,6 +245,7 @@ export default {
 .FieldSelectionForm{
   :deep(.q-tab-panels) {
     background: transparent;
+
     .title-text {
       color: #424242;
       font-size: 18px;
@@ -253,6 +254,7 @@ export default {
       line-height: normal;
       letter-spacing: -0.36px;
     }
+
     .Subtitle1-text {
       color: #424242;
       font-size: 16px;
@@ -261,6 +263,7 @@ export default {
       line-height: normal;
       letter-spacing: -0.32px;
     }
+
     .content-text {
       color: #424242;
       font-size: 14px;
@@ -269,6 +272,7 @@ export default {
       line-height: normal;
       letter-spacing: -0.28px;
     }
+
     .content-big-text {
       color: #424242;
       font-size: 16px;
@@ -277,6 +281,7 @@ export default {
       line-height: normal;
       letter-spacing: -0.32px;
     }
+
     .caption-text {
       color: #9E9E9E;
       font-size: 12px;
@@ -285,6 +290,7 @@ export default {
       line-height: normal;
       letter-spacing: -0.24px;
     }
+
     .state-photo {
       width: 200px;
       height: 200px;
@@ -292,6 +298,7 @@ export default {
       margin-right: auto;
       margin-bottom: 64px;
     }
+
     .q-field {
       .q-field__inner {
         .q-field__control {
@@ -306,12 +313,15 @@ export default {
 
     .q-field {
       border-radius: 8px;
+
       .q-field__inner {
         .q-field__control {
           padding: 0;
-          &:before {
+
+          &::before {
             border: 1.5px solid #E0E0E0;
           }
+
           .q-field__control-container {
             .q-field__native {
               padding: 9px 16px 10px;
@@ -321,19 +331,23 @@ export default {
         }
       }
     }
+
     .q-btn:not(.accept-btn) {
       color: #424242 !important;
     }
+
     .q-radio {
       .q-radio__inner--truthy {
         color: #4DB6AC !important;
       }
     }
+
     .q-checkbox {
       .q-checkbox__inner {
         .q-checkbox__bg {
           color: #4DB6AC !important;
         }
+
         &.q-checkbox__inner--truthy {
           .q-checkbox__bg {
             background: #4DB6AC !important;
@@ -342,28 +356,34 @@ export default {
         }
       }
     }
+
     .q-banner {
       border-radius: 6px;
       border-width: 1px;
       border-style: solid;
       color: #424242;
+
       .q-banner__avatar {
         margin: 8px 4px;
       }
+
       &.bg-success {
         border-color: #9DDEC7;
         background: #E6F7F1;
+
         .q-icon {
           color: #09AC73;
         }
       }
     }
+
     .q-option-group {
       .q-checkbox {
         margin-bottom: 8px;
       }
     }
   }
+
   :deep(.entity-crud-formBuilder) {
     .form-builder-separator-col {
       .form-builder-separator {
@@ -378,7 +398,8 @@ export default {
         display: flex;
         margin-top: 24px;
         margin-bottom: 8px;
-        &:after {
+
+        &::after {
           content: ' ';
           position: relative;
           border-bottom: solid 0.5px #BDBDBD;
@@ -386,6 +407,7 @@ export default {
           bottom: 10px;
           width: 100%;
         }
+
         b {
           width: max-content;
           white-space: nowrap;
@@ -393,6 +415,7 @@ export default {
         }
       }
     }
+
     .outsideLabel {
       color: #424242;
       font-size: 16px;

@@ -5,7 +5,7 @@ const APIAdresses = {
   studyPlan: '/studyPlan'
 }
 export default class PlanAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('plan', apiV2, '/plan', '', APIAdresses)
     this.CacheList = {
       studyPlan: this.name + this.APIAdresses.studyPlan

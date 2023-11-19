@@ -26,18 +26,18 @@ import { APIGateway } from 'src/api/APIGateway.js'
 
 export default {
   name: 'ProductSetList',
-  data() {
+  data () {
     return {
       loading: false,
       setList: new SetList(),
       localDraggable: null
     }
   },
-  mounted() {
+  mounted () {
     this.getProductSets()
   },
   methods: {
-    updateSetOrdersWithRequest() {
+    updateSetOrdersWithRequest () {
       this.loading = true
       const payload = []
       this.setList.list.forEach((set, index) => {
@@ -56,7 +56,7 @@ export default {
           this.loading = false
         })
     },
-    getProductSets() {
+    getProductSets () {
       this.loading = true
       APIGateway.product.getAdminSets(this.$route.params.productId)
         .then(setList => {
@@ -67,12 +67,12 @@ export default {
           this.loading = false
         })
     },
-    onDragStart(event, set, setIndex) {
+    onDragStart (event, set, setIndex) {
       event.dataTransfer.dropEffect = 'move'
       event.dataTransfer.setData('value', JSON.stringify({ set, setIndex }))
       this.localDraggable = event
     },
-    onDragOver(event) {
+    onDragOver (event) {
       event.preventDefault()
       if (event.clientY < 100) {
         window.scroll({
@@ -85,7 +85,7 @@ export default {
         })
       }
     },
-    onDrop(event, newIndex, parent) {
+    onDrop (event, newIndex, parent) {
       const valueStringfied = event.dataTransfer.getData('value')
       const value = valueStringfied ? JSON.parse(valueStringfied) : null
       const set = value.set
@@ -99,11 +99,11 @@ export default {
       this.localDraggable = null
       event.stopPropagation()
     },
-    updatePosition(list, oldIndex, newIndex) {
+    updatePosition (list, oldIndex, newIndex) {
       list.splice(newIndex, 0, list.splice(oldIndex, 1)[0])
       this.updateSetOrdersWithRequest()
     },
-    addToIndex(list, newItem, index) {
+    addToIndex (list, newItem, index) {
       if (list.length > index) {
         list.splice(index, 0, newItem)
       } else {

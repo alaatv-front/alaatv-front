@@ -1,7 +1,7 @@
 import { Collection, Model } from 'js-abstract-model'
 
 class WithdrawHistory extends Model {
-  constructor(data) {
+  constructor (data) {
     super(data, [
       { key: 'amount' },
       { key: 'bank-tracking-code' },

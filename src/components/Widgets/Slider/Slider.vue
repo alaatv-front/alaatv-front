@@ -147,7 +147,7 @@ export default {
     }
   },
   computed: {
-    parentComponent() {
+    parentComponent () {
       if (this.selectedSlide.link) {
         if (this.isExternal(this.selectedSlide.link)) {
           return 'a'
@@ -159,7 +159,7 @@ export default {
     }
   },
   watch: {
-    slide(newVal) {
+    slide (newVal) {
       this.selectedSlide = new Banner(this.localOptions.list[newVal])
       this.$nextTick(() => {
         this.setAEEEvent(newVal)
@@ -174,11 +174,11 @@ export default {
     window.addEventListener('resize', this.onResize)
     this.windowWidth = window.innerWidth
   },
-  beforeUnmount() {
+  beforeUnmount () {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
-    isExternal(url) {
+    isExternal (url) {
       if (typeof window === 'undefined') {
         return true
       }
@@ -190,7 +190,7 @@ export default {
       const observer = new IntersectionObserver(this.handleIntersection)
       observer.observe(element)
     },
-    handleIntersection(entries, observer) {
+    handleIntersection (entries, observer) {
       entries.forEach(entry => {
         if (entry.intersectionRatio > 0) {
           this.slideViewed()
@@ -198,7 +198,7 @@ export default {
         }
       })
     },
-    getAEEKey() {
+    getAEEKey () {
       let AEEKey
       Object.values(this.selectedSlide.AEEEventBody).forEach(item => {
         AEEKey += item
@@ -223,7 +223,7 @@ export default {
       }
       this.setSliderIntersectionObserver(sliderIndex)
     },
-    onResize() {
+    onResize () {
       if (typeof window === 'undefined') {
         return
       }
@@ -289,7 +289,7 @@ export default {
 
       return getFeatureSizeOfGTSize(features, key, this.$q.screen.name)
     },
-    takeAction(slide) {
+    takeAction (slide) {
       if (slide.useAEEEvent) {
         this.pushClickedEvent(slide)
       }
@@ -320,16 +320,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'src/css/Theme/spacing.scss';
-@import 'src/css/Theme/Controls/button.scss';
+@import 'src/css/Theme/spacing';
+@import 'src/css/Theme/Controls/button';
 
 .slider-widget {
   width: 100%;
   background-color: transparent;
+  display: block;
+
   &:deep(.q-carousel__slide) {
     padding: 0;
-    display: block;
-    background: transparent;
 
     .slider-parent{
       display: block;
@@ -337,30 +337,36 @@ export default {
       pointer-events: none !important;
       cursor: pointer;
     }
+
     .slider-image {
       width: 100%;
       pointer-events: none !important;
     }
   }
+
   &:deep(.q-carousel__control) {
     .q-btn{
       @include btn-handle-square-padding('xs')
     }
   }
+
   //.image {
   //  width: 100%;
   //}
-  @media screen and (max-width: 600px){
+  @media screen and (width <= 600px){
     &:deep(.q-carousel__navigation){
       bottom: 3px;
+
       .q-btn {
         margin: 0;
         padding: 0;
       }
     }
+
     &:deep(.q-carousel__next-arrow) {
       right: 0;
     }
+
     &:deep(.q-carousel__prev-arrow) {
       left: 0;
     }

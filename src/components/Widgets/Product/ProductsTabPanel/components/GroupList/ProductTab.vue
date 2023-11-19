@@ -65,7 +65,7 @@ export default {
       default: () => {}
     }
   },
-  data() {
+  data () {
     return {
       tabModel: '',
       defaultOptions: {
@@ -93,11 +93,11 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.tabModel = 'productTab_0'
   },
   methods: {
-    changeTab(tabName) {
+    changeTab (tabName) {
       this.tabModel = tabName
       const el = this.$refs.productTab
       const headerOffset = 150
@@ -108,7 +108,7 @@ export default {
         behavior: 'smooth'
       })
     },
-    isProduct(item) {
+    isProduct (item) {
       return item.type === 'ProductList'
     }
   }
@@ -121,6 +121,7 @@ export default {
   overflow-x: auto;
   justify-content: center;
   align-items: center;
+
   .product-tabs {
     display: flex;
     height: 62px;
@@ -143,10 +144,12 @@ export default {
         }
       }
     }
+
     .product-tab {
       border-radius: 10px;
       width: 160px;
-      @media screen and (max-width: 600px){
+
+      @media screen and (width <= 600px){
         width: 100px;
       }
 
@@ -155,18 +158,21 @@ export default {
       }
 
       &:deep(.q-tab__label) {
-        @media screen and (max-width: 600px){
+        @media screen and (width <= 600px){
           font-size: 16px;
         }
+
         font-size: 18px;
         line-height: 31px;
         text-align: center;
         font-weight: 700;
       }
     }
+
     .separator {
       height: 16px;
       align-self: center;
+
       //margin: 0 30px;
       color: $grey4;
     }
@@ -174,16 +180,16 @@ export default {
 }
 
 .tab-panels-wrapper {
-
   .product-tab-panels {
     background: transparent;
+
     .product-tab-panel {
       .product-panel-content {
         justify-content: space-between;
         padding: 40px 0;
         width: 100%;
 
-        @media screen and (max-width: 600px){
+        @media screen and (width <= 600px){
           padding: 0;
         }
       }

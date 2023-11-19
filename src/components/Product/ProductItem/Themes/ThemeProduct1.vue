@@ -165,7 +165,7 @@ export default defineComponent({
   },
   emits: ['addToCart', 'customActionClicked', 'productClicked', 'handleProductBookmark'],
   computed: {
-    mobileMode() {
+    mobileMode () {
       if (typeof window !== 'undefined') {
         return window.innerWidth <= 350
       }
@@ -173,18 +173,18 @@ export default defineComponent({
     }
   },
   methods: {
-    addToCart() {
+    addToCart () {
       this.$emit('addToCart')
     },
-    customActionClicked() {
+    customActionClicked () {
       this.$emit('customActionClicked')
     },
-    productClicked(e) {
+    productClicked (e) {
       e.preventDefault()
       e.stopPropagation()
       this.$emit('productClicked')
     },
-    handleProductBookmark() {
+    handleProductBookmark () {
       this.$emit('handleProductBookmark')
     }
   }
@@ -194,7 +194,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .theme1-container {
   flex-wrap: wrap;
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 20px;
   padding-top: 20px;
   margin-top: 55px;
@@ -204,7 +204,7 @@ export default defineComponent({
     margin: -40px 20px 0;
 
     .product-discount-badge {
-      margin: -30px 10px 0px 0px;
+      margin: -30px 10px 0 0;
       rotate: -16deg;
       transition: all ease-in-out .4s;
     }
@@ -214,12 +214,13 @@ export default defineComponent({
       width: 100%;
       height: 100%;
       border-radius: 12px;
-      border: 0px solid #FFF;
+      border: 0 solid #FFF;
+
       .img {
         border-radius: inherit;
         width: inherit;
 
-        @media screen and (max-width: 600px){
+        @media screen and (width <= 600px){
           width: 100%;
         }
       }
@@ -232,7 +233,7 @@ export default defineComponent({
 
   .product-content-box {
     position: relative;
-    padding: 10px 20px 20px 20px;
+    padding: 10px 20px 20px;
 
     .title-box {
       min-height: 42px;
@@ -316,7 +317,7 @@ export default defineComponent({
         font-weight: 500;
         font-size: 12px;
         line-height: 21px;
-        color: #666666;
+        color: #666;
         cursor: pointer;
 
         a {
@@ -375,7 +376,8 @@ export default defineComponent({
         padding-top: 3px;
       }
     }
-    @media screen and(max-width: 600px) {
+
+    @media screen and (width <= 600px) {
     }
   }
 
@@ -383,6 +385,7 @@ export default defineComponent({
     position: absolute;
     right: 0;
     top: -2px;
+
     .product-item-bookmark {
       margin: -10px;
     }
@@ -430,17 +433,18 @@ export default defineComponent({
 
     .btn-text {
       margin-right: 4px;
-      @media screen and (max-width: 350px){
+
+      @media screen and (width <= 350px){
         display: none;
       }
     }
 
-    @media screen and (max-width: 600px){
+    @media screen and (width <= 600px){
       //margin: 20px;
     }
   }
 
-  @media screen and (max-width: 992px) {
+  @media screen and (width <= 992px) {
     .img-box {
       .img {
       }
@@ -448,7 +452,6 @@ export default defineComponent({
 
     .product-content-box {
       .main-title {
-
         a {
         }
 
@@ -506,7 +509,7 @@ export default defineComponent({
     }
   }
 
-  @media screen and (max-width: 700px) {
+  @media screen and (width <= 700px) {
     .product-content-box {
       .action-box {
         //flex-flow: column;
@@ -516,7 +519,7 @@ export default defineComponent({
     }
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (width <= 600px) {
     display: flex;
     border-radius: 18px;
     margin-bottom: 16px;
@@ -528,7 +531,7 @@ export default defineComponent({
         border-radius: 10px;
       }
 
-      @media screen and (max-width: 600px){
+      @media screen and (width <= 600px){
         width: 100%;
       }
     }
@@ -583,11 +586,13 @@ export default defineComponent({
             display: none;
           }
         }
+
         .action-btn {
           .add-to-cart-btn {
             width: 100%;
           }
         }
+
         .btn-green{
           margin-left: 20px;
         }
@@ -611,6 +616,7 @@ export default defineComponent({
 
       .discount {
         height: 20px;
+
         /* margin-left: 3px; */
       }
     }

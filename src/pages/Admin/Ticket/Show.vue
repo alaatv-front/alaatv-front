@@ -6,7 +6,7 @@
 <script>
 export default {
   name: 'ShowTicket',
-  data() {
+  data () {
     return {
       pageConfig: {},
       sections: [

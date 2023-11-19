@@ -73,7 +73,7 @@ export default {
     errorMessage: ''
   }),
   methods: {
-    handleErr(err) {
+    handleErr (err) {
       this.loadingList = false
       const messages = []
       for (const key in err.data.errors) {
@@ -95,7 +95,7 @@ export default {
         })
       }
     },
-    login() {
+    login () {
       // this.loadingList = true
       this.$store.dispatch('Auth/login', {
         mobile: this.username,
@@ -150,13 +150,13 @@ export default {
 
 <!--</style>-->
 <style lang="scss" scoped>
-P {
+p {
   margin-bottom: 0;
   color: #575962 !important;
 }
 
 .login {
-  box-shadow: 0 6px 5px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 6px 5px rgb(0 0 0 / 3%);
   border-radius: 10px;
   padding: 30px 16px;
 }
@@ -165,7 +165,7 @@ P {
   border-radius: 8px;
 }
 
-/*.login-container {
+/* .login-container {
   .form-box {
     padding: 34px 30px 0 30px;
 
@@ -442,5 +442,5 @@ P {
       }
     }
   }
-}*/
+} */
 </style>

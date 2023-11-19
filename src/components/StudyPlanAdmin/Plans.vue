@@ -65,7 +65,7 @@ export default {
 
 <style scoped lang="scss">
 .plans {
-  background: rgba(150, 144, 228, 0.18);
+  background: rgb(150 144 228 / 18%);
   position: relative;
   height: 35px;
   margin: 5px 0;

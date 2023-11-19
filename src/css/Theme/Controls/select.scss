@@ -1,31 +1,34 @@
-@import 'src/css/Theme/spacing.scss';
-@import 'src/css/Theme/Controls/input.scss';
+@import "src/css/Theme/spacing";
+@import "src/css/Theme/Controls/input";
 
 .q-select {
   @include q-field-mixin;
-  &.q-field--disabled {
-    .q-field__inner {
-      .q-field__control {
-        .q-field__append {
-          .q-icon {
-            &.q-select__dropdown-icon {
-              &:before {
-                background: $field-disabled-background;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+
   .q-field__inner {
     .q-field__control {
       .q-field__append {
         .q-icon {
           &.q-select__dropdown-icon {
             @include q-field__prepend_and_append_icon_style;
-            &:before {
+
+            &::before {
               content: "\e9fe";
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.q-field--disabled {
+    .q-field__inner {
+      .q-field__control {
+        .q-field__append {
+          .q-icon {
+            &.q-select__dropdown-icon {
+              &::before {
+                background: $field-disabled-background;
+              }
             }
           }
         }

@@ -1,7 +1,7 @@
 import { Model, Collection } from 'js-abstract-model'
 
 class Comment extends Model {
-  constructor(data) {
+  constructor (data) {
     super(data, [
       { key: 'id' },
       { key: 'commentable_id' },
@@ -29,7 +29,7 @@ class Comment extends Model {
 }
 
 class CommentList extends Collection {
-  model() {
+  model () {
     return Comment
   }
 }

@@ -80,12 +80,12 @@ export default defineComponent({
       default: 0
     }
   },
-  data() {
+  data () {
     return {
     }
   },
   computed: {
-    percent() {
+    percent () {
       return Math.floor((this.watched * 100) / (this.watched + this.remained)) || 0
     }
   }
@@ -98,6 +98,7 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   .statics-info {
     display: flex;
     flex-direction: column;

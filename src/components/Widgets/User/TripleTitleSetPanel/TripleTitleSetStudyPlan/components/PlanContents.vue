@@ -76,9 +76,9 @@ export default {
   height: 158px;
   border-radius: 12px;
   background: #F5F7FA;
-  padding: 16px 20px 20px 20px;
+  padding: 16px 20px 20px;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (width <= 600px) {
     width: 230px;
     height: 196px;
   }
@@ -92,9 +92,10 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 3px 6px 4px 6px;
+      padding: 3px 6px 4px;
       border-radius: 8px;
       background: #ECEFF1;
+
       &.now {
         background: #FFD54F;
       }
@@ -108,7 +109,7 @@ export default {
     align-items: flex-start;
     margin-bottom: 20px;
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
       margin-bottom: 20px;
     }
 
@@ -122,7 +123,7 @@ export default {
       letter-spacing: -0.32px;
       margin-bottom: 10px;
 
-      @media only screen and (max-width: 600px) {
+      @media only screen and (width <= 600px) {
         margin: 16px 0 8px;
       }
     }
@@ -147,7 +148,7 @@ export default {
     align-items: center;
     margin-top: 16px;
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
       margin-top: 16px;
     }
 
@@ -165,14 +166,15 @@ export default {
     }
 
     .footer-action {
-
       &:deep(.q-btn) {
         border-radius: 50%;
       }
+
       .future{
         color: #616161;
         background: #ECEFF1;
       }
+
       .watched {
         color: #26A69A;
       }

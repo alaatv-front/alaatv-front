@@ -241,14 +241,14 @@ export default {
   props: {
     options: {
       type: Object,
-      default() {
+      default () {
         return {
           indexRouteName: ''
         }
       }
     }
   },
-  data() {
+  data () {
     return {
       logList: [],
       isEntityReady: false,
@@ -582,7 +582,7 @@ export default {
     isInAdminPage () {
       return !!this.$route.name.includes('Admin')
     },
-    editAssignInput() {
+    editAssignInput () {
       return this.inputs.find(item => item.name === 'editOperator')
     },
     ticketListRoute () {
@@ -593,14 +593,14 @@ export default {
     }
   },
   watch: {
-    departmentList(newVal) {
+    departmentList (newVal) {
       this.getInput('department').options = newVal.list
     },
-    ticketStatuses(newVal) {
+    ticketStatuses (newVal) {
       this.getInput('status').options = newVal
     }
   },
-  created() {
+  created () {
     this.api += '/' + this.$route.params.id
   },
   methods: {
@@ -621,7 +621,7 @@ export default {
       }
       this.inputs = this.userInputs
     },
-    async editAssignedSupporters() {
+    async editAssignedSupporters () {
       const usersId = []
       this.editAssignInput.selected.forEach(item => {
         usersId.push(item.id)
@@ -635,14 +635,14 @@ export default {
       }
     },
 
-    filterDataForUserRole() {
+    filterDataForUserRole () {
       this.inputs = this.inputs.filter(input => !input.isInAdminPage)
     },
 
     getLogsInputValue () {
       return this.getInputsValue('logs')
     },
-    openShopLogList() {
+    openShopLogList () {
       this.orderDrawer = this.orderDrawer === false
       this.orderLoading = true
       this.$apiGateway.user.ordersById({
@@ -659,7 +659,7 @@ export default {
           this.orderLoading = false
         })
     },
-    checkLoadInputData() {
+    checkLoadInputData () {
       this.logList = this.getLogsInputValue()
       this.userMessageArray = this.getInputsValue('messages')
       // for test
@@ -997,10 +997,10 @@ export default {
       }
       this.filterDataForUserRole()
     },
-    openCloseLogDrawer() {
+    openCloseLogDrawer () {
       this.logDrawer = this.logDrawer === false
     },
-    async sendTicketStatusNotice(ticketId) {
+    async sendTicketStatusNotice (ticketId) {
       const res = await this.$apiGateway.ticket.sendTicketStatusNotice(ticketId)
       this.$q.notify({
         message: res.data.message,
@@ -1013,7 +1013,7 @@ export default {
 
 <style scoped>
 .tab-panels {
-  background: rgb(250, 250, 250);
+  background: rgb(250 250 250);
 }
 
 .close-btn {

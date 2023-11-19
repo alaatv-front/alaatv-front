@@ -29,7 +29,7 @@ export default {
       return minutes + ':' + seconds
     }
   },
-  mounted() {
+  mounted () {
     this.startTimer()
   },
   methods: {

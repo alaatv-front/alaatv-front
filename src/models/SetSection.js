@@ -1,7 +1,7 @@
 import { Model, Collection } from 'js-abstract-model'
 
 class SetSection extends Model {
-  constructor(data) {
+  constructor (data) {
     super(data, [
       { key: 'id' },
       { key: 'name' },
@@ -16,7 +16,7 @@ class SetSection extends Model {
 }
 
 class SetSectionList extends Collection {
-  model() {
+  model () {
     return SetSection
   }
 }

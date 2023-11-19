@@ -2,7 +2,7 @@ import { Cookies } from 'quasar'
 import { Cart } from 'src/models/Cart'
 
 export default class CookieCart {
-  static setCartInCookie(cart) {
+  static setCartInCookie (cart) {
     if (typeof window === 'undefined') {
       return
     }
@@ -13,11 +13,11 @@ export default class CookieCart {
     })
   }
 
-  static getCookieCart() {
+  static getCookieCart () {
     return Cookies.get('cartItems')
   }
 
-  static addToCartInCookie(cart) {
+  static addToCartInCookie (cart) {
     const cookieCart = cart.cartItems.list.map(item => {
       return {
         product_id: item.product.id,
@@ -50,11 +50,11 @@ export default class CookieCart {
     return existCookieCart
   }
 
-  static isCartItemsSetInCookies() {
+  static isCartItemsSetInCookies () {
     return Cookies.has('cartItems')
   }
 
-  static removeCartItemFromCookieCart(productId) {
+  static removeCartItemFromCookieCart (productId) {
     const existCookieCart = this.getCookieCart()
     let newCookieCart = []
 
@@ -65,12 +65,12 @@ export default class CookieCart {
     this.setCartInCookie(newCookieCart)
   }
 
-  static deleteCartItemListFromCookie() {
+  static deleteCartItemListFromCookie () {
     this.deleteCartFromCookies()
     this.addToCartInCookie(new Cart())
   }
 
-  static deleteCartFromCookies() {
+  static deleteCartFromCookies () {
     Cookies.remove('cartItems')
   }
 }

@@ -63,7 +63,7 @@ export default {
 <style lang="scss" scoped>
 .ProductSelection {
   box-shadow: 2px -4px 10px rgb(255 255 255 / 60%), -2px 4px 10px rgb(54 90 145 / 5%);
-  background: #FFFFFF;
+  background: #FFF;
   border-radius: 15px;
 }
 </style>

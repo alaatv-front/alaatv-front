@@ -10,7 +10,7 @@ import { mixinWidget } from 'src/mixin/Mixins.js'
 export default {
   name: 'IframeWidget',
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       defaultOptions: {
         code: ''

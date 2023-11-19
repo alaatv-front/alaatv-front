@@ -45,7 +45,7 @@ export default {
     imageWidget
   },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       loading: true,
       defaultOptions: {
@@ -320,10 +320,10 @@ export default {
     }
   },
   computed: {
-    isHorizontal() {
+    isHorizontal () {
       return typeof this.localOptions.horizontal === 'boolean' ? this.localOptions.horizontal : this.localOptions.horizontal[this.$q.screen.name]
     },
-    isHorizontalTitle() {
+    isHorizontalTitle () {
       return this.localOptions.horizontalTitle[this.$q.screen.name]
     },
     shadows () {
@@ -354,7 +354,7 @@ export default {
         borderRadiusCssString
       }
     },
-    parentComponent() {
+    parentComponent () {
       if (this.localOptions.action.route) {
         if (this.isExternal(this.localOptions.action.route)) {
           return 'a'
@@ -365,14 +365,15 @@ export default {
       return 'div'
     }
   },
-  mounted() {
+  mounted () {
     this.loading = false
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import "quasar-ui-q-page-builder/src/components/Component.scss";
+@import "quasar-ui-q-page-builder/src/components/Component";
+
 $border: v-bind('localOptions.borderStyle.borderCssString');
 $borderRadius: v-bind('localOptions.borderStyle.borderRadiusCssString');
 $shadows: v-bind('shadows');
@@ -387,7 +388,6 @@ $scaleY: v-bind('localOptions.cssHoverEffects.transform.scaleY');
 $translateX: v-bind('localOptions.cssHoverEffects.transform.translateX');
 $translateY: v-bind('localOptions.cssHoverEffects.transform.translateY');
 $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
-
 $backgrounds: (
     xs: (
         size: v-bind('defaultOptions.backgrounds.xs.size'),
@@ -432,76 +432,72 @@ $backgrounds: (
 );
 $responsiveSpacing: (
     xs: (
-        marginTop: v-bind('defaultOptions.responsiveSpacing.xs.marginTop'),
-        marginLeft: v-bind('defaultOptions.responsiveSpacing.xs.marginLeft'),
-        marginRight: v-bind('defaultOptions.responsiveSpacing.xs.marginRight'),
-        marginBottom: v-bind('defaultOptions.responsiveSpacing.xs.marginBottom'),
-        paddingTop: v-bind('defaultOptions.responsiveSpacing.xs.paddingTop'),
-        paddingLeft: v-bind('defaultOptions.responsiveSpacing.xs.paddingLeft'),
-        paddingRight: v-bind('defaultOptions.responsiveSpacing.xs.paddingRight'),
-        paddingBottom: v-bind('defaultOptions.responsiveSpacing.xs.paddingBottom'),
+        margintop: v-bind('defaultOptions.responsiveSpacing.xs.marginTop'),
+        marginleft: v-bind('defaultOptions.responsiveSpacing.xs.marginLeft'),
+        marginright: v-bind('defaultOptions.responsiveSpacing.xs.marginRight'),
+        marginbottom: v-bind('defaultOptions.responsiveSpacing.xs.marginBottom'),
+        paddingtop: v-bind('defaultOptions.responsiveSpacing.xs.paddingTop'),
+        paddingleft: v-bind('defaultOptions.responsiveSpacing.xs.paddingLeft'),
+        paddingright: v-bind('defaultOptions.responsiveSpacing.xs.paddingRight'),
+        paddingbottom: v-bind('defaultOptions.responsiveSpacing.xs.paddingBottom'),
     ),
     sm: (
-        marginTop: v-bind('defaultOptions.responsiveSpacing.sm.marginTop'),
-        marginLeft: v-bind('defaultOptions.responsiveSpacing.sm.marginLeft'),
-        marginRight: v-bind('defaultOptions.responsiveSpacing.sm.marginRight'),
-        marginBottom: v-bind('defaultOptions.responsiveSpacing.sm.marginBottom'),
-        paddingTop: v-bind('defaultOptions.responsiveSpacing.sm.paddingTop'),
-        paddingLeft: v-bind('defaultOptions.responsiveSpacing.sm.paddingLeft'),
-        paddingRight: v-bind('defaultOptions.responsiveSpacing.sm.paddingRight'),
-        paddingBottom: v-bind('defaultOptions.responsiveSpacing.sm.paddingBottom'),
+        margintop: v-bind('defaultOptions.responsiveSpacing.sm.marginTop'),
+        marginleft: v-bind('defaultOptions.responsiveSpacing.sm.marginLeft'),
+        marginright: v-bind('defaultOptions.responsiveSpacing.sm.marginRight'),
+        marginbottom: v-bind('defaultOptions.responsiveSpacing.sm.marginBottom'),
+        paddingtop: v-bind('defaultOptions.responsiveSpacing.sm.paddingTop'),
+        paddingleft: v-bind('defaultOptions.responsiveSpacing.sm.paddingLeft'),
+        paddingright: v-bind('defaultOptions.responsiveSpacing.sm.paddingRight'),
+        paddingbottom: v-bind('defaultOptions.responsiveSpacing.sm.paddingBottom'),
     ),
     md: (
-        marginTop: v-bind('defaultOptions.responsiveSpacing.md.marginTop'),
-        marginLeft: v-bind('defaultOptions.responsiveSpacing.md.marginLeft'),
-        marginRight: v-bind('defaultOptions.responsiveSpacing.md.marginRight'),
-        marginBottom: v-bind('defaultOptions.responsiveSpacing.md.marginBottom'),
-        paddingTop: v-bind('defaultOptions.responsiveSpacing.md.paddingTop'),
-        paddingLeft: v-bind('defaultOptions.responsiveSpacing.md.paddingLeft'),
-        paddingRight: v-bind('defaultOptions.responsiveSpacing.md.paddingRight'),
-        paddingBottom: v-bind('defaultOptions.responsiveSpacing.md.paddingBottom'),
+        margintop: v-bind('defaultOptions.responsiveSpacing.md.marginTop'),
+        marginleft: v-bind('defaultOptions.responsiveSpacing.md.marginLeft'),
+        marginright: v-bind('defaultOptions.responsiveSpacing.md.marginRight'),
+        marginbottom: v-bind('defaultOptions.responsiveSpacing.md.marginBottom'),
+        paddingtop: v-bind('defaultOptions.responsiveSpacing.md.paddingTop'),
+        paddingleft: v-bind('defaultOptions.responsiveSpacing.md.paddingLeft'),
+        paddingright: v-bind('defaultOptions.responsiveSpacing.md.paddingRight'),
+        paddingbottom: v-bind('defaultOptions.responsiveSpacing.md.paddingBottom'),
     ),
     lg: (
-        marginTop: v-bind('defaultOptions.responsiveSpacing.lg.marginTop'),
-        marginLeft: v-bind('defaultOptions.responsiveSpacing.lg.marginLeft'),
-        marginRight: v-bind('defaultOptions.responsiveSpacing.lg.marginRight'),
-        marginBottom: v-bind('defaultOptions.responsiveSpacing.lg.marginBottom'),
-        paddingTop: v-bind('defaultOptions.responsiveSpacing.lg.paddingTop'),
-        paddingLeft: v-bind('defaultOptions.responsiveSpacing.lg.paddingLeft'),
-        paddingRight: v-bind('defaultOptions.responsiveSpacing.lg.paddingRight'),
-        paddingBottom: v-bind('defaultOptions.responsiveSpacing.lg.paddingBottom'),
+        margintop: v-bind('defaultOptions.responsiveSpacing.lg.marginTop'),
+        marginleft: v-bind('defaultOptions.responsiveSpacing.lg.marginLeft'),
+        marginright: v-bind('defaultOptions.responsiveSpacing.lg.marginRight'),
+        marginbottom: v-bind('defaultOptions.responsiveSpacing.lg.marginBottom'),
+        paddingtop: v-bind('defaultOptions.responsiveSpacing.lg.paddingTop'),
+        paddingleft: v-bind('defaultOptions.responsiveSpacing.lg.paddingLeft'),
+        paddingright: v-bind('defaultOptions.responsiveSpacing.lg.paddingRight'),
+        paddingbottom: v-bind('defaultOptions.responsiveSpacing.lg.paddingBottom'),
     ),
     xl: (
-        marginTop: v-bind('defaultOptions.responsiveSpacing.xl.marginTop'),
-        marginLeft: v-bind('defaultOptions.responsiveSpacing.xl.marginLeft'),
-        marginRight: v-bind('defaultOptions.responsiveSpacing.xl.marginRight'),
-        marginBottom: v-bind('defaultOptions.responsiveSpacing.xl.marginBottom'),
-        paddingTop: v-bind('defaultOptions.responsiveSpacing.xl.paddingTop'),
-        paddingLeft: v-bind('defaultOptions.responsiveSpacing.xl.paddingLeft'),
-        paddingRight: v-bind('defaultOptions.responsiveSpacing.xl.paddingRight'),
-        paddingBottom: v-bind('defaultOptions.responsiveSpacing.xl.paddingBottom'),
+        margintop: v-bind('defaultOptions.responsiveSpacing.xl.marginTop'),
+        marginleft: v-bind('defaultOptions.responsiveSpacing.xl.marginLeft'),
+        marginright: v-bind('defaultOptions.responsiveSpacing.xl.marginRight'),
+        marginbottom: v-bind('defaultOptions.responsiveSpacing.xl.marginBottom'),
+        paddingtop: v-bind('defaultOptions.responsiveSpacing.xl.paddingTop'),
+        paddingleft: v-bind('defaultOptions.responsiveSpacing.xl.paddingLeft'),
+        paddingright: v-bind('defaultOptions.responsiveSpacing.xl.paddingRight'),
+        paddingbottom: v-bind('defaultOptions.responsiveSpacing.xl.paddingBottom'),
     )
 );
+
 .feature-card {
   @include media-query-backgrounds($backgrounds, $sizes);
   @include media-query-spacings($responsiveSpacing, $sizes);
+
   box-shadow: $shadows;
-  -webkit-border-radius: $borderRadius;
-  -moz-border-radius: $borderRadius;
+  border-radius: $borderRadius;
   border: $border;
 
   &:hover {
-
     &.hover-image {
       .image{
         transform: rotate(calc(#{$rotate} * 1deg)) translate(calc(#{$translateX} * 1px), calc(#{$translateY} * 1px)) scale($scaleX, $scaleY) skew(calc(#{$skewX} * 1deg), calc(#{$skewY} * 1deg));
         transition: all calc(#{$transitionTime} * 1s);
         box-shadow: $hoverShadows;
-        -webkit-box-shadow: $hoverShadows;
-        -moz-box-shadow: $hoverShadows;
         border-radius: $hoverBorderRadius;
-        -webkit-border-radius: $hoverBorderRadius;
-        -moz-border-radius: $hoverBorderRadius;
         border: $hoverBorder;
       }
     }
@@ -518,8 +514,8 @@ $responsiveSpacing: (
       transition: all calc(#{$transitionTime} * 1s);
     }
   }
-  .feature-horizontal-section {
 
+  .feature-horizontal-section {
     .feature-title {
       line-height: v-bind('localOptions.titleOptions.xl.lineHeight');
       color: v-bind('localOptions.titleOptions.color');
@@ -528,28 +524,28 @@ $responsiveSpacing: (
       font-family: v-bind('localOptions.titleOptions.fontFamily');
       font-style: v-bind('localOptions.titleOptions.xl.fontStyle');
 
-      @media screen and (max-width: 1920px) {
+      @media screen and (width <= 1920px) {
         font-size: v-bind('localOptions.titleOptions.lg.fontSize');
         font-weight: v-bind('localOptions.titleOptions.lg.fontWeight');
         font-style: v-bind('localOptions.titleOptions.lg.fontStyle');
         line-height: v-bind('localOptions.titleOptions.lg.lineHeight');
       }
 
-      @media screen and (max-width: 1440px) {
+      @media screen and (width <= 1440px) {
         font-size: v-bind('localOptions.titleOptions.md.fontSize');
         font-weight: v-bind('localOptions.titleOptions.md.fontWeight');
         font-style: v-bind('localOptions.titleOptions.md.fontStyle');
         line-height: v-bind('localOptions.titleOptions.md.lineHeight');
       }
 
-      @media screen and (max-width: 1024px) {
+      @media screen and (width <= 1024px) {
         font-size: v-bind('localOptions.titleOptions.sm.fontSize');
         font-weight: v-bind('localOptions.titleOptions.sm.fontWeight');
         font-style: v-bind('localOptions.titleOptions.sm.fontStyle');
         line-height: v-bind('localOptions.titleOptions.sm.lineHeight');
       }
 
-      @media screen and (max-width: 600px) {
+      @media screen and (width <= 600px) {
         font-size: v-bind('localOptions.titleOptions.xs.fontSize');
         font-weight: v-bind('localOptions.titleOptions.xs.fontWeight');
         font-style: v-bind('localOptions.titleOptions.xs.fontStyle');
@@ -566,28 +562,28 @@ $responsiveSpacing: (
       font-family: v-bind('localOptions.descriptionOptions.fontFamily');
       font-style: v-bind('localOptions.descriptionOptions.xl.fontStyle');
 
-      @media screen and (max-width: 1920px) {
+      @media screen and (width <= 1920px) {
         font-size: v-bind('localOptions.descriptionOptions.lg.fontSize');
         font-weight: v-bind('localOptions.descriptionOptions.lg.fontWeight');
         font-style: v-bind('localOptions.descriptionOptions.lg.fontStyle');
         line-height: v-bind('localOptions.descriptionOptions.lg.lineHeight');
       }
 
-      @media screen and (max-width: 1440px) {
+      @media screen and (width <= 1440px) {
         font-size: v-bind('localOptions.descriptionOptions.md.fontSize');
         font-weight: v-bind('localOptions.descriptionOptions.md.fontWeight');
         font-style: v-bind('localOptions.descriptionOptions.md.fontStyle');
         line-height: v-bind('localOptions.descriptionOptions.md.lineHeight');
       }
 
-      @media screen and (max-width: 1024px) {
+      @media screen and (width <= 1024px) {
         font-size: v-bind('localOptions.descriptionOptions.sm.fontSize');
         font-weight: v-bind('localOptions.descriptionOptions.sm.fontWeight');
         font-style: v-bind('localOptions.descriptionOptions.sm.fontStyle');
         line-height: v-bind('localOptions.descriptionOptions.sm.lineHeight');
       }
 
-      @media screen and (max-width: 600px) {
+      @media screen and (width <= 600px) {
         font-size: v-bind('localOptions.descriptionOptions.xs.fontSize');
         font-weight: v-bind('localOptions.descriptionOptions.xs.fontWeight');
         font-style: v-bind('localOptions.descriptionOptions.xs.fontStyle');
@@ -608,28 +604,28 @@ $responsiveSpacing: (
       font-family: v-bind('localOptions.titleOptions.fontFamily');
       font-style: v-bind('localOptions.titleOptions.xl.fontStyle');
 
-      @media screen and (max-width: 1920px) {
+      @media screen and (width <= 1920px) {
         font-size: v-bind('localOptions.titleOptions.lg.fontSize');
         font-weight: v-bind('localOptions.titleOptions.lg.fontWeight');
         font-style: v-bind('localOptions.titleOptions.lg.fontStyle');
         line-height: v-bind('localOptions.titleOptions.lg.lineHeight');
       }
 
-      @media screen and (max-width: 1440px) {
+      @media screen and (width <= 1440px) {
         font-size: v-bind('localOptions.titleOptions.md.fontSize');
         font-weight: v-bind('localOptions.titleOptions.md.fontWeight');
         font-style: v-bind('localOptions.titleOptions.md.fontStyle');
         line-height: v-bind('localOptions.titleOptions.md.lineHeight');
       }
 
-      @media screen and (max-width: 1024px) {
+      @media screen and (width <= 1024px) {
         font-size: v-bind('localOptions.titleOptions.sm.fontSize');
         font-weight: v-bind('localOptions.titleOptions.sm.fontWeight');
         font-style: v-bind('localOptions.titleOptions.sm.fontStyle');
         line-height: v-bind('localOptions.titleOptions.sm.lineHeight');
       }
 
-      @media screen and (max-width: 600px) {
+      @media screen and (width <= 600px) {
         font-size: v-bind('localOptions.titleOptions.xs.fontSize');
         font-weight: v-bind('localOptions.titleOptions.xs.fontWeight');
         font-style: v-bind('localOptions.titleOptions.xs.fontStyle');
@@ -646,28 +642,28 @@ $responsiveSpacing: (
       font-family: v-bind('localOptions.descriptionOptions.fontFamily');
       font-style: v-bind('localOptions.descriptionOptions.xl.fontStyle');
 
-      @media screen and (max-width: 1920px) {
+      @media screen and (width <= 1920px) {
         font-size: v-bind('localOptions.descriptionOptions.lg.fontSize');
         font-weight: v-bind('localOptions.descriptionOptions.lg.fontWeight');
         font-style: v-bind('localOptions.descriptionOptions.lg.fontStyle');
         line-height: v-bind('localOptions.descriptionOptions.lg.lineHeight');
       }
 
-      @media screen and (max-width: 1440px) {
+      @media screen and (width <= 1440px) {
         font-size: v-bind('localOptions.descriptionOptions.md.fontSize');
         font-weight: v-bind('localOptions.descriptionOptions.md.fontWeight');
         font-style: v-bind('localOptions.descriptionOptions.md.fontStyle');
         line-height: v-bind('localOptions.descriptionOptions.md.lineHeight');
       }
 
-      @media screen and (max-width: 1024px) {
+      @media screen and (width <= 1024px) {
         font-size: v-bind('localOptions.descriptionOptions.sm.fontSize');
         font-weight: v-bind('localOptions.descriptionOptions.sm.fontWeight');
         font-style: v-bind('localOptions.descriptionOptions.sm.fontStyle');
         line-height: v-bind('localOptions.descriptionOptions.sm.lineHeight');
       }
 
-      @media screen and (max-width: 600px) {
+      @media screen and (width <= 600px) {
         font-size: v-bind('localOptions.descriptionOptions.xs.fontSize');
         font-weight: v-bind('localOptions.descriptionOptions.xs.fontWeight');
         font-style: v-bind('localOptions.descriptionOptions.xs.fontStyle');

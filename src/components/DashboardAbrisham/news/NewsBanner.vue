@@ -33,40 +33,48 @@ export default {
         a{
             text-decoration:none;
         }
+
         .banner-image {
             height: 240px;
             width: 100%;
             border-radius: 30px;
             margin-bottom:14px;
-            @media screen and (max-width: 1904px){
+
+            @media screen and (width <= 1904px){
                 height: 170px;
                 margin-bottom:10px;
             }
-            @media screen and (max-width: 1264px){
+
+            @media screen and (width <= 1264px){
                 width:427px ;
                 height: 195px;
                 margin-bottom:0;
                 margin-left:15px;
                 border-radius:20px;
                 transition: 0.3s ease all;
+
                 &:hover{
                     transform: scale(1.05);
                 }
             }
-            @media screen and (max-width: 960px){
+
+            @media screen and (width <= 960px){
                 width:325px ;
                 height: 140px;
             }
-            @media screen and (max-width: 768px){
+
+            @media screen and (width <= 768px){
                 width:460px ;
                 height: 198px;
             }
-            @media screen and (max-width: 600px){
+
+            @media screen and (width <= 600px){
                 width:280px ;
                 height: 120px;
                 border-radius:15px;
             }
-            @media screen and (max-width: 350px){
+
+            @media screen and (width <= 350px){
                 width:240px ;
                 height: 103px;
             }

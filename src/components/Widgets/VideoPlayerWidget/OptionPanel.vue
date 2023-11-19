@@ -66,7 +66,7 @@ export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs, ImageUploadInput },
   mixins: [PageBuilderOptionPanel],
-  data() {
+  data () {
     return {
       dialog: false,
       defaultOptions: {

@@ -266,222 +266,289 @@ export default {
     .primary-1{
       background: $primary-1;
     }
+
     .primary-2{
       background: $primary-2;
     }
+
     .primary-3{
       background: $primary-3;
     }
+
     .primary-4{
       background: $primary-4;
     }
+
     .primary-5{
       background: $primary-5;
     }
+
     .primary-6{
       background: $primary-6;
     }
+
     .primary-7{
       background: $primary-7;
     }
+
     .primary-8{
       background: $primary-8;
     }
+
     .primary-9{
       background: $primary-9;
     }
+
     .primary-10{
       background: $primary-10;
     }
   }
+
   .secondary{
     .secondary-1{
       background: $secondary-1;
     }
+
     .secondary-2{
       background: $secondary-2;
     }
+
     .secondary-3{
       background: $secondary-3;
     }
+
     .secondary-4{
       background: $secondary-4;
     }
+
     .secondary-5{
       background: $secondary-5;
     }
+
     .secondary-6{
       background: $secondary-6;
     }
+
     .secondary-7{
       background: $secondary-7;
     }
+
     .secondary-8{
       background: $secondary-8;
     }
+
     .secondary-9{
       background: $secondary-9;
     }
+
     .secondary-10{
       background: $secondary-10;
     }
   }
+
   .accent{
     .accent-1{
       background: $accent-1;
     }
+
     .accent-2{
       background: $accent-2;
     }
+
     .accent-3{
       background: $accent-3;
     }
+
     .accent-4{
       background: $accent-4;
     }
+
     .accent-5{
       background: $accent-5;
     }
+
     .accent-6{
       background: $accent-6;
     }
+
     .accent-7{
       background: $accent-7;
     }
+
     .accent-8{
       background: $accent-8;
     }
+
     .accent-9{
       background: $accent-9;
     }
+
     .accent-10{
       background: $accent-10;
     }
   }
+
   .positive{
     .positive-1{
       background: $positive-1;
     }
+
     .positive-3{
       background: $positive-3;
     }
+
     .positive-5{
       background: $positive-5;
     }
+
     .positive-7{
       background: $positive-7;
     }
   }
+
   .warning{
     .warning-1{
       background: $warning-1;
     }
+
     .warning-3{
       background: $warning-3;
     }
+
     .warning-5{
       background: $warning-5;
     }
+
     .warning-7{
       background: $warning-7;
     }
   }
+
   .info{
     .info-1{
       background: $info-1;
     }
+
     .info-3{
       background: $info-3;
     }
+
     .info-5{
       background: $info-5;
     }
+
     .info-7{
       background: $info-7;
     }
   }
+
   .negative{
     .negative-1{
       background: $negative-1;
     }
+
     .negative-3{
       background: $negative-3;
     }
+
     .negative-5{
       background: $negative-5;
     }
+
     .negative-7{
       background: $negative-7;
     }
   }
+
   .grey{
     .grey-1{
       background: $grey-1;
     }
+
     .grey-2{
       background: $grey-2;
     }
+
     .grey-3{
       background: $grey-3;
     }
+
     .grey-4{
       background: $grey-4;
     }
+
     .grey-5{
       background: $grey-5;
     }
+
     .grey-6{
       background: $grey-6;
     }
+
     .grey-7{
       background: $grey-7;
     }
+
     .grey-8{
       background: $grey-8;
     }
+
     .grey-9{
       background: $grey-9;
     }
+
     .grey-10{
       background: $grey-10;
     }
   }
+
   .blue-grey{
     .blue-grey-1{
       background: $blue-grey-1;
     }
+
     .blue-grey-2{
       background: $blue-grey-2;
     }
+
     .blue-grey-3{
       background: $blue-grey-3;
     }
+
     .blue-grey-4{
       background: $blue-grey-4;
     }
+
     .blue-grey-5{
       background: $blue-grey-5;
     }
+
     .blue-grey-6{
       background: $blue-grey-6;
     }
+
     .blue-grey-7{
       background: $blue-grey-7;
     }
+
     .blue-grey-8{
       background: $blue-grey-8;
     }
+
     .blue-grey-9{
       background: $blue-grey-9;
     }
+
     .blue-grey-10{
       background: $blue-grey-10;
     }
   }
+
   .other{
     .other-1{
       background: $other1;
     }
+
     .other-2{
       background: $other2;
     }

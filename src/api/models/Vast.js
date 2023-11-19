@@ -3,7 +3,7 @@ import axios from 'axios'
 import APIRepository from '../classes/APIRepository'
 
 export default class VastAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('vast', axios)
     this.APIAdresses = {
       base: 'https://nodes.alaatv.com/upload/vast/xml/vast_20220316102600100059.xml'
@@ -13,7 +13,7 @@ export default class VastAPI extends APIRepository {
     }
   }
 
-  getXml(cache = { TTL: 1000 }) {
+  getXml (cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: axios,

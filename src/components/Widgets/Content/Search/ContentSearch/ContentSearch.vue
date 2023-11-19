@@ -176,7 +176,7 @@ export default {
     StickyBothSides,
     SideBarContent
   },
-  provide() {
+  provide () {
     return {
       scrollInfo: computed(() => this.scrollInfo)
     }
@@ -596,7 +596,7 @@ export default {
       data.paginate = { links: response.links, meta: response.meta }
     },
 
-    onScroll(info) {
+    onScroll (info) {
       this.scrollInfo = info
     }
   }
@@ -606,32 +606,39 @@ export default {
 <style lang="scss" scoped>
 .content-search-vue{
   .content-list{
-    @media screen and  (max-width: 599px){
+    @media screen and  (width <= 599px){
       max-width: 100%;
     }
   }
+
   padding-top: 30px;
+
   .tags-title{
     font-size: 18px;
     font-weight: 500;
-    @media only screen and (max-width: 1024px){
+
+    @media only screen and (width <= 1024px){
       font-size: 16px;
     }
   }
+
   .modal-container{
     border-radius: 15px;
   }
+
   .tag-container{
     max-width: 90%;
     display: flex;
     flex-wrap: nowrap;
     overflow: scroll;
   }
+
   .mobile-mode{
     .advance-search-btn-text{
       font-size: 16px;
       font-weight: 500;
     }
+
     .modal-content{
       .advance-search-modal-title{
         font-size: 18px;
@@ -639,9 +646,11 @@ export default {
       }
     }
   }
+
   .set-container{
     padding-bottom: 10px;
-    @media only screen and (max-width: 599px){
+
+    @media only screen and (width <= 599px){
       //width: calc(100vw - 30px);
     }
   }

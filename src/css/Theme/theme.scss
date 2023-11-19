@@ -1,36 +1,41 @@
-@import 'src/css/fonts.scss';
-@import 'src/css/Theme/sizes.scss';
-@import 'src/css/Theme/colors.scss';
-@import 'src/css/Theme/table.scss';
-@import 'src/css/Theme/dialog.scss';
-@import 'src/css/Theme/tabs.scss';
-@import 'src/css/Theme/bottomSheet.scss';
-@import 'src/css/Theme/Controls/Scroll';
-@import 'src/css/Theme/Widgets/widgets.scss';
-@import 'src/css/Theme/Controls/controles.scss';
-@import 'src/css/Theme/Typography/typography.scss';
-@import 'src/css/Theme/FormBuilder/formBuilder.scss';
-@import 'src/css/Theme/tooltip.scss';
-@import "src/css/Theme/notification.scss";
-@import "src/css/Theme/Badge.scss";
-@import "src/css/Theme/Components/Components.scss";
+@import "src/css/fonts";
+@import "src/css/Theme/sizes";
+@import "src/css/Theme/colors";
+@import "src/css/Theme/table";
+@import "src/css/Theme/dialog";
+@import "src/css/Theme/tabs";
+@import "src/css/Theme/bottomSheet";
+@import "src/css/Theme/Controls/Scroll";
+@import "src/css/Theme/Widgets/widgets";
+@import "src/css/Theme/Controls/controles";
+@import "src/css/Theme/Typography/typography";
+@import "src/css/Theme/FormBuilder/formBuilder";
+@import "src/css/Theme/tooltip";
+@import "src/css/Theme/notification";
+@import "src/css/Theme/Badge";
+@import "src/css/Theme/Components/Components";
 
-//* {
 body {
-  font-family: IRANSansXFaNum, 'Arial', '-apple-system', 'Helvetica Neue', Helvetica, sans-serif;
+  font-family:
+    IRANSansXFaNum,
+    Arial,
+    -apple-system,
+    "Helvetica Neue",
+    Helvetica,
+    sans-serif;
 }
 
 body.body--light {
-  background: #F6F7FB;
+  background: #f6f7fb;
 }
 
 .default-notify-class {
   font-size: 18px;
   text-align: center;
-  padding: 10px 16PX;
+  padding: 10px 16px;
 }
 
-@media screen and (max-width:600px){
+@media screen and (width <= 600px) {
   .main-layout {
     &.hasFooter {
       .q-page-container {

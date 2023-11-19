@@ -9,13 +9,9 @@
 export default {
   name: 'AddLink',
   methods: {
-    addLink() {
+    addLink () {
 
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

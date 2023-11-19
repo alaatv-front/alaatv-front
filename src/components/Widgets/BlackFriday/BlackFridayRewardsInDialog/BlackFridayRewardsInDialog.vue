@@ -33,7 +33,7 @@ export default defineComponent({
     }
   },
   watch: {
-    dialog() {
+    dialog () {
       this.getBlackFridayCampaignData()
     }
   },
@@ -60,7 +60,3 @@ export default defineComponent({
 })
 
 </script>
-
-<style scoped lang="scss">
-
-</style>

@@ -6,7 +6,7 @@ import { ContentTimePointList } from './ContentTimePoint.js'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 
 class Content extends Model {
-  constructor(data) {
+  constructor (data) {
     super(data, [
       {
         key: 'url_key',
@@ -117,11 +117,11 @@ class Content extends Model {
     // }
   }
 
-  getHlsSource() {
+  getHlsSource () {
     return this.hls
   }
 
-  getOrginalMp4Source() {
+  getOrginalMp4Source () {
     if (!this.stream?.video || this.stream.video.length === 0) {
       return null
     }
@@ -135,7 +135,7 @@ class Content extends Model {
     return target
   }
 
-  getWebmSource() {
+  getWebmSource () {
     if (!this.stream?.video || this.stream.video.length === 0) {
       return null
     }
@@ -149,7 +149,7 @@ class Content extends Model {
     return target
   }
 
-  getOldVideoSource() {
+  getOldVideoSource () {
     if (!this.file?.video || this.file.video.length === 0) {
       return null
     }
@@ -186,7 +186,7 @@ class Content extends Model {
     return !!(this.getVideoSource())
   }
 
-  getVideoSource() {
+  getVideoSource () {
     const hlsSource = this.getHlsSource()
     const oldVideoSource = this.getOldVideoSource()
     const webmSource = this.getWebmSource()
@@ -205,15 +205,15 @@ class Content extends Model {
     }
   }
 
-  set() {
+  set () {
     return new SetList(this.inputData.set)
   }
 
-  createFavorUrl(baseUrl, favored) {
+  createFavorUrl (baseUrl, favored) {
     return baseUrl + '/c/' + this.id + '/' + ((favored) ? 'favored' : 'unfavored')
   }
 
-  setFavor(url) {
+  setFavor (url) {
     if (typeof url === 'undefined') {
       url = this.favor_url
     }
@@ -223,7 +223,7 @@ class Content extends Model {
     return this.crud.create(url)
   }
 
-  setUnfavor(url) {
+  setUnfavor (url) {
     if (typeof url === 'undefined') {
       url = this.unfavor_url
     }
@@ -233,25 +233,25 @@ class Content extends Model {
     return this.crud.create(url)
   }
 
-  isPamphlet() {
+  isPamphlet () {
     return this.type === 1
   }
 
-  isVideo() {
+  isVideo () {
     return this.type === 8
   }
 }
 
 class ContentList extends Collection {
-  model() {
+  model () {
     return Content
   }
 
-  getType(type) {
+  getType (type) {
     return this.list.filter(item => parseInt(item.type) === parseInt(type))
   }
 
-  sortByOrder(sort) {
+  sortByOrder (sort) {
     this.list.sort(function (a, b) {
       if (isNaN(a.order) || a.order === null || isNaN(b.order) || b.order === null) {
         return 1
@@ -266,21 +266,21 @@ class ContentList extends Collection {
     })
   }
 
-  videos(sort) {
+  videos (sort) {
     if (typeof sort !== 'undefined') {
       this.sortByOrder(sort)
     }
     return this.getType(8)
   }
 
-  pamphlets(sort) {
+  pamphlets (sort) {
     if (typeof sort !== 'undefined') {
       // this.sortByOrder(sort);
     }
     return this.getType(1)
   }
 
-  getSections() {
+  getSections () {
     return this.list.filter((value, index, self) => self.findIndex((element) => element.section.id === value.section.id) === index).map((item) => item.section)
   }
 }

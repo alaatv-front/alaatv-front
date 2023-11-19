@@ -66,7 +66,7 @@ export default {
     Pagination
   },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       settings: {
         itemsToShow: 3,
@@ -165,15 +165,15 @@ export default {
     }
   },
   computed: {
-    leftNavigationSize() {
+    leftNavigationSize () {
       return this.localOptions.navigation.goToLeft.size[this.$q.screen.name]
     },
-    rightNavigationSize() {
+    rightNavigationSize () {
       return this.localOptions.navigation.goToRight.size[this.$q.screen.name]
     }
   },
   methods: {
-    getOptions(item) {
+    getOptions (item) {
       const comment = {
         comment: item
       }
@@ -192,7 +192,7 @@ export default {
   top: 40%;
   z-index: 2;
 
-  @media screen and (max-width: 600px){
+  @media screen and (width <= 600px){
     right: 0;
   }
 
@@ -201,6 +201,7 @@ export default {
     color: v-bind('localOptions.navigation.goToLeft.textColor');
   }
 }
+
 .arrow-right {
   align-self: center;
   position: absolute;
@@ -208,7 +209,7 @@ export default {
   top: 40%;
   z-index: 2;
 
-  @media screen and (max-width: 600px){
+  @media screen and (width <= 600px){
     left: 0;
   }
 
@@ -245,6 +246,7 @@ export default {
   background: v-bind('localOptions.navigation.goToRight.color');
   color: v-bind('localOptions.navigation.goToRight.textColor');
 }
+
 .carousel__next {
   left: auto;
   right: 0;

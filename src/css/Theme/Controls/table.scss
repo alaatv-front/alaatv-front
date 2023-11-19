@@ -2,31 +2,37 @@
   overflow-x: auto !important;
   border-radius: 16px;
   padding-bottom: 0 !important;
-  box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
+  box-shadow: 3px 3px 6px rgb(52 54 55 / 4%);
+
   .q-table__container {
     .q-table__middle {
       .q-table {
         thead {
           tr {
             height: 72px;
+
             th {
-              border-bottom: 1px solid #DEDEDE;
+              border-bottom: 1px solid #dedede;
             }
           }
         }
+
         tbody {
           tr {
             height: 60px;
-            &:nth-child(2n+1) {
-              background: rgba(246, 248, 250, 0.4);
+
+            &:nth-child(2n + 1) {
+              background: rgb(246 248 250 / 40%);
             }
+
+            td {
+              border-bottom: 1px solid #dedede;
+            }
+
             &:last-child {
               td {
                 border-bottom: none;
               }
-            }
-            td {
-              border-bottom: 1px solid #DEDEDE;
             }
           }
         }

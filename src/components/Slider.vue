@@ -105,7 +105,6 @@ export default {
   justify-content: center ;
   padding: 0 ;
   margin: 0 ;
-
   animation: color-cycle 1s infinite alternate linear;
 }
 
@@ -113,21 +112,19 @@ export default {
   0% {
     --slider-fill-color  : #31D3C6 ;
   }
+
   100% {
     --slider-fill-color : #00A2BB ;
   }
 }
 
 #slider {
-  -webkit-appearance: none;
   appearance: none;
-
   height: 1rem ;
   width: 100% ;
   margin : 0 ;
   padding: 0 ;
-
-  background-color: #00000000 ;
+  background-color: #0000 ;
   outline: none ;
   z-index: 99 ;
 }
@@ -157,7 +154,6 @@ export default {
 }
 
 #slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
   appearance: none;
   width : 1rem ;
   height: 1rem ;
@@ -176,16 +172,13 @@ export default {
   min-width: 3ch ;
   border-radius: 4px ;
   pointer-events: none ;
-
   padding: 0.5rem ;
   display: flex ;
   align-items: center ;
   justify-content: center ;
-
   color: #FFF ;
   background-color: var(--slider-fill-color);
   opacity: 0 ;
-
   transition: left 300ms ease-out , opacity 300ms 300ms ease-out , background-color 300ms ease-out ;
 }
 
@@ -215,18 +208,21 @@ export default {
   right: 15px;
   top: 0;
 }
+
 .slider-labels li {
   position: absolute;
   width: 30px;
   top: 15px;
   text-align: center;
 }
+
 .slider-ui {
   position: relative;
   width: 100%;
   height: 8px;
   margin: 70px 0;
 }
+
 .slider-ui input {
   position: absolute;
   z-index: 10;
@@ -236,17 +232,16 @@ export default {
   cursor: pointer;
   opacity: 0;
 }
+
 .slider-ui .bar {
   position: absolute;
   z-index: 1;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  inset: 0;
   background-color: #000;
   border-radius: 50px;
-  box-shadow: 0 5px 0 rgba(0,0,0,.1);
+  box-shadow: 0 5px 0 rgb(0 0 0 / 10%);
 }
+
 .slider-ui .min,
 .slider-ui .max {
   position: absolute;
@@ -258,20 +253,21 @@ export default {
   color: #fff;
   display: none;
 }
+
 .slider-ui .min {
   left: 2%;
 }
+
 .slider-ui .max {
   right: 2%;
 }
+
 .slider-ui .track {
   position: absolute;
   z-index: 3;
-  left: 15px;
-  right: 15px;
-  top: 0;
-  bottom: 0;
+  inset: 0 15px;
 }
+
 .slider-ui .value {
   position: absolute;
   left: 50%;
@@ -291,27 +287,34 @@ export default {
   transform: translateX(-50%);
   transition: top .3s ease-in-out, color .3s ease-in-out;
 }
+
 .slider-ui .value.up {
   top: -50px;
   color: #000;
   width: 50px;
   height: 50px;
 }
+
 .slider-ui.color1 .bar {
   background-color: #00b894;
 }
+
 .slider-ui.color1 .value {
   border-color: #00b894;
 }
+
 .slider-ui.color2 .bar {
   background-color: #00cec9;
 }
+
 .slider-ui.color2 .value {
   border-color: #00cec9;
 }
+
 .slider-ui.color3 .bar {
   background-color: #0984e3;
 }
+
 .slider-ui.color3 .value {
   border-color: #0984e3;
 }

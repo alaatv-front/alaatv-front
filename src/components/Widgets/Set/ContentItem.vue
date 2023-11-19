@@ -118,7 +118,7 @@ export default {
 
       window.open(this.content.file.pamphlet[0].link, '_blank')
     },
-    getContentBookmarkBaseRoute(id) {
+    getContentBookmarkBaseRoute (id) {
       return APIGateway.content.show(id)
     },
     getContentDurationTitle (duration) {
@@ -127,7 +127,7 @@ export default {
       }
       return Math.floor(duration / 60) + ' دقیقه'
     },
-    doesHaveDuration(duration) {
+    doesHaveDuration (duration) {
       return !!duration
     },
     getShamsiDate (date) {
@@ -146,24 +146,29 @@ export default {
   align-items: center;
   justify-content: space-between;
   transition: background-color 0.3s;
+
   &:hover {
     background-color: #f3f3f3;
   }
+
   .content-item-top-border {
     position: absolute;
     top: 0;
     left: 40px;
     right: 40px;
   }
+
   &:not(:first-child) {
     .content-item-top-border {
       border-top: solid 1px #e5e5e5;
     }
   }
+
   .content-item-title {
     display: flex;
     justify-content: flex-start;
     width: calc( 100% - 170px );
+
     .content-item-link {
       display: flex;
       flex-wrap: nowrap;
@@ -171,28 +176,35 @@ export default {
       justify-content: flex-start;
       align-items: center;
     }
+
     .bookmark-btn {
       margin: 0;
       padding: 0;
     }
+
     .content-item-title-icon {
       margin-right: 11px;
       font-size: 16px;
     }
   }
+
   .content-item-meta {
     width: 170px;
     display: flex;
     justify-content: flex-end;
+
     .content-item-meta-updated-at {
       //margin-right: 40px;
       width: 100px;
       padding-right: 10px;
     }
+
     .content-item-meta-time {
       width: 60px;
+
       //padding-right: 10px;
     }
+
     .btn-download-pdf {
       width: 46px;
       height: 24px;
@@ -204,12 +216,15 @@ export default {
       line-height: 12px;
     }
   }
-  @media screen and (max-width: 600px) {
+
+  @media screen and (width <= 600px) {
     flex-wrap: wrap;
+
     .content-item-title {
       width: 100%;
       height: 65px;
     }
+
     .content-item-meta {
       width: 100%;
       height: 30px;

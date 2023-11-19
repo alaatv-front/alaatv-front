@@ -162,7 +162,7 @@ export default {
     }
   },
   computed: {
-    isThereData() {
+    isThereData () {
       return !!(
         this.localOptions.block.banners.list.length ||
         this.localOptions.block.products.list.length ||
@@ -170,25 +170,25 @@ export default {
         this.localOptions.block.sets.list.length
       )
     },
-    productItemMinWidth() {
+    productItemMinWidth () {
       if (this.isGridView) {
         return this.localOptions.productMinWidth.inGridView
       }
       return this.localOptions.productMinWidth.inScrollView
     },
-    setItemMinWidth() {
+    setItemMinWidth () {
       if (this.isGridView) {
         return this.localOptions.setMinWidth.inGridView
       }
       return this.localOptions.setMinWidth.inScrollView
     },
-    contentItemMinWidth() {
+    contentItemMinWidth () {
       if (this.isGridView) {
         return this.localOptions.contentMinWidth.inGridView
       }
       return this.localOptions.contentMinWidth.inScrollView
     },
-    bannerSlides() {
+    bannerSlides () {
       this.localOptions.block.banners.list.forEach(element => {
         element.photo = {
           src: element.photo
@@ -216,7 +216,7 @@ export default {
         this.getBlocksByRequest()
       }
     },
-    getBlocksByRequest() {
+    getBlocksByRequest () {
       this.localOptions.block.loading = true
       this.getApiRequest()
         .then((products) => {
@@ -230,13 +230,13 @@ export default {
           this.localOptions.block.loading = false
         })
     },
-    getBlocks(blocks) {
+    getBlocks (blocks) {
       if (!blocks || !blocks.list || blocks.list.length === 0) {
         return
       }
       return blocks.list.slice(this.localOptions.from, this.localOptions.to)
     },
-    getApiRequest() {
+    getApiRequest () {
       if (this.localOptions.apiName === 'home') {
         return this.$apiGateway.pages.home()
       }
@@ -256,6 +256,7 @@ export default {
 .block-section {
   margin-bottom: 8px;
   width: 100%;
+
   .block-header {
     border-radius: 10px;
     justify-content: space-between;
@@ -268,16 +269,18 @@ export default {
       font-weight: 600;
       font-size: 20px;
       line-height: 31px;
-      color: #333333;
-      padding: 0 0 4px 0;
+      color: #333;
+      padding: 0 0 4px;
       border-bottom: 1px solid white;
       transition: 0.3s ease;
       max-width: 80%;
+
       &:hover {
-        padding: 0 0 6px 0;
-        border-color: #333333;
+        padding: 0 0 6px;
+        border-color: #333;
       }
-      @media screen and (max-width: 600px){
+
+      @media screen and (width <= 600px){
         font-size: 16px;
       }
     }
@@ -292,13 +295,14 @@ export default {
       overflow-x: auto;
       flex-wrap: nowrap;
       padding-bottom: 10px;
+
       /* this padding is needed due to move animation of card
       to avoid overflow behavior:
       https://stackoverflow.com/questions/6421966/css-overflow-x-visible-and-overflow-y-hidden-causing-scrollbar-issue
       */
       //padding-top: 10px;
       //padding-bottom: 10px;
-      @media screen and (max-width: 600px){
+      @media screen and (width <= 600px){
         //height: 500px;
       }
     }
@@ -322,6 +326,7 @@ export default {
         align-items: center;
         justify-content: center;
         min-width: 200px;
+
         .show-more-title {
           color: blue;
           text-decoration: none;
@@ -332,6 +337,7 @@ export default {
           padding: 4px;
           border: 1px solid blue;
           transition: 0.3s ease;
+
           &:hover {
             background-color: blue;
             color: #f1f1f1;
@@ -339,6 +345,7 @@ export default {
         }
       }
     }
+
   //}
 }
 </style>

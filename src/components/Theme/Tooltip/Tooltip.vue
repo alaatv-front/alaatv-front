@@ -44,14 +44,10 @@
 <script>
 export default {
   name: 'ToolTip',
-  data() {
+  data () {
     return {
       tooltip: true
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

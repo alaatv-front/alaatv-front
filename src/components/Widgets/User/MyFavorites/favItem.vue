@@ -69,12 +69,12 @@ export default {
       default: new Block()
     }
   },
-  data() {
+  data () {
     return {
       block: new Block()
     }
   },
-  mounted() {
+  mounted () {
     this.block = new Block(this.options)
   },
   methods: {}
@@ -85,17 +85,20 @@ export default {
 .block-container{
   display: flex;
   margin-bottom: 5px;
+
   .scroll-view {
     display: flex;
     width: 100%;
     overflow-y: scroll;
+
     /* this padding is needed due to move animation of card
     to avoid overflow behavior:
     https://stackoverflow.com/questions/6421966/css-overflow-x-visible-and-overflow-y-hidden-causing-scrollbar-issue
     */
     padding-top: 10px;
     padding-bottom: 10px;
-    @media screen and (max-width: 600px){
+
+    @media screen and (width <= 600px){
       height: 500px;
     }
   }

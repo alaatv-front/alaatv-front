@@ -62,12 +62,12 @@ export default defineComponent({
     }
   },
   computed: {
-    video() {
+    video () {
       return this.plan.contents?.list?.find(x => x.type.id === 4) || new Content()
     }
   },
   methods: {
-    isNow(date, start, end) {
+    isNow (date, start, end) {
       const now = new Date()
       const startDate = this.toDateWithOutTimeZone(date, start)
       const endDate = this.toDateWithOutTimeZone(date, end)
@@ -84,7 +84,7 @@ export default defineComponent({
         return false
       }
     },
-    getTime(time) {
+    getTime (time) {
       const date = new Date(time)
       let min = date.getMinutes()
       if (min === 0) {
@@ -92,7 +92,7 @@ export default defineComponent({
       }
       return date.getHours() + ':' + min
     },
-    toDateWithOutTimeZone(date, time) {
+    toDateWithOutTimeZone (date, time) {
       const tempTime = time.split(':')
       const dt = new Date(date)
       dt.setHours(tempTime[0])
@@ -112,7 +112,7 @@ export default defineComponent({
   background: #FFF;
   padding: 16px 28px 20px 20px;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (width <= 600px) {
     width: 230px;
     height: 196px;
   }
@@ -126,9 +126,10 @@ export default defineComponent({
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 3px 6px 4px 6px;
+      padding: 3px 6px 4px;
       border-radius: 8px;
       background: #ECEFF1;
+
       &.now {
         background: #FFD54F;
       }
@@ -142,7 +143,7 @@ export default defineComponent({
     align-items: flex-start;
     margin-bottom: 25px;
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
       margin-bottom: 20px;
     }
 
@@ -156,7 +157,7 @@ export default defineComponent({
       letter-spacing: -0.32px;
       margin: 15px 0;
 
-      @media only screen and (max-width: 600px) {
+      @media only screen and (width <= 600px) {
         margin: 16px 0 8px;
       }
     }
@@ -181,7 +182,7 @@ export default defineComponent({
     align-items: center;
     margin-top: 18px;
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
       margin-top: 16px;
     }
 
@@ -199,14 +200,15 @@ export default defineComponent({
     }
 
     .footer-action {
-
       &:deep(.q-btn) {
         border-radius: 50%;
       }
+
       .future{
         color: #616161;
         background: #ECEFF1;
       }
+
       .watched {
         color: #26A69A;
       }

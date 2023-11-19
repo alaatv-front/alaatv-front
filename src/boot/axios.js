@@ -27,11 +27,11 @@ const AjaxResponseMessages = (function () {
     17: 'ثبت درس تکراری در یک دفترچه امکان پذیر نیست.'
   }
 
-  function isCustomMessage(statusCode) {
+  function isCustomMessage (statusCode) {
     return !!(messageMap[statusCode.toString()])
   }
 
-  function getMessage(statusCode) {
+  function getMessage (statusCode) {
     return messageMap[statusCode]
   }
 
@@ -44,14 +44,14 @@ const AjaxResponseMessages = (function () {
 const AxiosHooks = (function () {
   let $notify = null
 
-  function setNotifyInstance($q) {
+  function setNotifyInstance ($q) {
     if (!$q.notify) {
       return
     }
     $notify = $q.notify
   }
 
-  function handleErrors(error, router, store) {
+  function handleErrors (error, router, store) {
     let messages = []
     if (!error || !error.response) {
       return
@@ -89,7 +89,7 @@ const AxiosHooks = (function () {
     return Promise.reject(error)
   }
 
-  function deAuthorizeUser(router, store) {
+  function deAuthorizeUser (router, store) {
     store.dispatch('Auth/logOut', { redirectTo: false, clearRedirectTo: false })
     const loginRouteName = 'login'
     const currentRoute = (router?.currentRoute?._value) ? router.currentRoute._value : (router?.history?.current) ? router.history.current : null
@@ -101,7 +101,7 @@ const AxiosHooks = (function () {
     // store.commit('AppLayout/updateLoginDialog', true)
   }
 
-  function toastMessages(messages) {
+  function toastMessages (messages) {
     messages.forEach((item) => {
       if ($notify) {
         $notify({
@@ -123,7 +123,7 @@ const AxiosHooks = (function () {
     })
   }
 
-  function getMessagesFromArrayWithRecursion(array) {
+  function getMessagesFromArrayWithRecursion (array) {
     if (array) {
       if (Array.isArray(array)) {
         return array.flat(Math.min())

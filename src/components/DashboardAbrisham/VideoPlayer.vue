@@ -117,7 +117,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       drawer: false,
       favLoading: false,
@@ -173,10 +173,10 @@ export default {
     }
   },
   computed: {
-    calcTheHeight() {
+    calcTheHeight () {
       return '100%'
     },
-    calcTheWidth() {
+    calcTheWidth () {
       return '100%'
     }
   },
@@ -185,14 +185,14 @@ export default {
       this.reInitVideo()
     }
   },
-  created() {
+  created () {
     this.setSources()
     this.setPoster()
   },
-  mounted() {
+  mounted () {
     // const that = this
     this.player = videojs(
-      this.$refs.videoPlayer, this.options, function onPlayerReady() {
+      this.$refs.videoPlayer, this.options, function onPlayerReady () {
         // this.on('timeupdate', function () {
         //   if (that.keepCalculating) {
         //     that.calcWatchedPercentage(this.currentTime(), this.duration())
@@ -257,29 +257,29 @@ export default {
     //     console.log('player.isFullscreen()' , that.player.isFullscreen());
     // })
   },
-  beforeUnmount() {
+  beforeUnmount () {
     if (this.player) {
       this.player.dispose()
     }
   },
   methods: {
-    activate(time) {
+    activate (time) {
       this.player.currentTime(time)
       this.player.play()
       const requiredElement = document.querySelector('.video-js')
       requiredElement.focus()
     },
-    setSources() {
+    setSources () {
       this.options.sources = this.source
     },
-    setPoster() {
+    setPoster () {
       this.options.poster = this.poster
     },
-    reInitVideo() {
+    reInitVideo () {
       this.player.src(this.source)
       this.player.poster(this.poster)
     },
-    toggleFavorite(id, event) {
+    toggleFavorite (id, event) {
       const that = this
       let count = -1
       // let currentTimepointIndex = null
@@ -319,7 +319,7 @@ export default {
     //         })
     //         .catch(err => console.error(err));
     // },
-    calcWatchedPercentage(currentTime, duration) {
+    calcWatchedPercentage (currentTime, duration) {
       const watchedPercentage = ((currentTime / duration) * 100)
       const videoPlayerTimeData = {
         currentTime,
@@ -328,7 +328,7 @@ export default {
       }
       this.$emit('calcTimeData', videoPlayerTimeData)
     },
-    videoStatus(val) {
+    videoStatus (val) {
       this.videoIsPlaying = val
     }
   }

@@ -100,7 +100,7 @@ export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs, ResponsiveBackGround },
   mixins: [mixinOptionPanel],
-  data() {
+  data () {
     return {
       themeOptions: [{ title: 'بدون دکمه ثبت نام', value: 'ThemeDefault' }, { title: 'با دکمه ثبت نام', value: 'ThemeProduct1' }, { title: 'قدیمی', value: 'ThemeProduct2' }],
       mobileThemeOptions: [{ title: 'عمودی', value: 'vertical' }, { title: 'افقی', value: 'horizontal' }],
@@ -256,7 +256,7 @@ export default defineComponent({
   },
   watch: {
     localOptions: {
-      handler(newVal) {
+      handler (newVal) {
         this.$emit('update:options', newVal)
       },
       deep: true

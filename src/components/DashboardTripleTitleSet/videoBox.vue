@@ -202,7 +202,7 @@ export default {
 
   emits: ['favorite', 'toggle-video-status', 'bookmarkTimestamp', 'toggleFavorite', 'videoIsWatched'],
 
-  data() {
+  data () {
     return {
       bookmarkLoading: false,
       sheet: false,
@@ -245,14 +245,14 @@ export default {
     }
   },
   computed: {
-    selectedProduct() {
+    selectedProduct () {
       return this.$store.getters['TripleTitleSet/selectedProduct']
     },
     contentFavored: {
-      get() {
+      get () {
         return this.content.is_favored
       },
-      set(value) {
+      set (value) {
         this.toggleFavorite(value)
       }
     }
@@ -307,10 +307,10 @@ export default {
       }
       this.downloadVideo = !this.downloadVideo
     },
-    setVideoDuration(data) {
+    setVideoDuration (data) {
       this.videoDuration = data
     },
-    share(name) {
+    share (name) {
       const url = shareSocial.getShareLink(
         {
           link: this.content.url.web,
@@ -319,10 +319,10 @@ export default {
       open(url)
     },
 
-    show() {
+    show () {
     },
 
-    clickSeenButton() {
+    clickSeenButton () {
       this.$emit('toggle-video-status')
       this.markedRatios.forEach(markedRatio => {
         if (markedRatio.hasSeen) {
@@ -331,11 +331,11 @@ export default {
       })
     },
 
-    toggleFavorite(val) {
+    toggleFavorite (val) {
       this.$emit('toggleFavorite', val)
     },
 
-    getShareLink(content, socialMedia) {
+    getShareLink (content, socialMedia) {
       if (socialMedia === 'telegram') {
         return 'https://telegram.me/share/url?url=' + content.url.web + '&text=' + content.title
       } else if (socialMedia === 'whatsapp') {
@@ -353,7 +353,7 @@ export default {
       }
     },
 
-    openUrl(content, socialMedia) {
+    openUrl (content, socialMedia) {
       const url = this.getShareLink(content, socialMedia)
       open(url)
     },
@@ -387,11 +387,11 @@ export default {
       this.timePoints = customTimePoints
     },
 
-    changeVideoStatusToSeen(timeData) {
+    changeVideoStatusToSeen (timeData) {
       this.saveProgress(timeData.watchedPercentage, timeData)
     },
 
-    saveProgress(progressPercent) {
+    saveProgress (progressPercent) {
       let reachedProgressPercent = 0
       this.markedRatios.forEach(markedRatio => {
         if (!markedRatio.hasSeen && markedRatio.ratio < progressPercent) {
@@ -415,7 +415,7 @@ export default {
       // }
     },
 
-    bookmarkPostIsFavored(timeStampData) {
+    bookmarkPostIsFavored (timeStampData) {
       this.$emit('bookmarkTimestamp', timeStampData)
     }
   }
@@ -436,24 +436,28 @@ export default {
   border: solid 2px;
   color: #3e5480;
   border-color: #eff3ff;
+
   .quality{
     background: #eff3ff;
     padding: 11px 19px 9px 20px;
     border-radius: 10px;
     height: 48px;
   }
+
   .download-btn{
     width: 48px;
     height: 48px;
     font-size: 22px;
     border-radius: 10px;
-    box-shadow: 0 5px 10px 0 rgba(76, 175, 80, 0.2);
+    box-shadow: 0 5px 10px 0 rgb(76 175 80 / 20%);
     background-color: #f8fff8;
   }
 }
+
 .download-box{
   border-radius: 40px;
   padding: 15px;
+
   .download-title{
     color: #3e5480;
     font-size: 20px;
@@ -464,25 +468,30 @@ export default {
 }
 
 .video-box {
-
   .video-wrapper{
     border-radius: 30px;
-    @media screen and (max-width: 1920px) {
+
+    @media screen and (width <= 1920px) {
       border-radius: 20px;
     }
-    @media screen and (max-width: 990px) {
+
+    @media screen and (width <= 990px) {
       border-radius: 15px;
     }
+
     .img{
       border-radius: 30px;
-      @media screen and (max-width: 1920px) {
+
+      @media screen and (width <= 1920px) {
         border-radius: 20px;
       }
-      @media screen and (max-width: 990px) {
+
+      @media screen and (width <= 990px) {
         border-radius: 15px;
       }
     }
   }
+
   .video-paragraph {
     margin-bottom: 0;
   }
@@ -502,10 +511,11 @@ export default {
       }
     }
 
-    @media screen and (max-width: 1200px) {
+    @media screen and (width <= 1200px) {
       margin-bottom: 16px;
     }
-    @media screen and (max-width: 576px) {
+
+    @media screen and (width <= 576px) {
       margin-bottom: 10px;
     }
   }
@@ -513,22 +523,26 @@ export default {
   .video-description {
     align-items: flex-start;
     margin-bottom: 10px;
-    @media screen and (max-width: 1200px) {
+
+    @media screen and (width <= 1200px) {
       margin-bottom: 20px !important;
     }
-    @media screen and (max-width: 350px) {
+
+    @media screen and (width <= 350px) {
       margin-bottom: 16px;
     }
-    @media screen and (max-width: 350px) {
+
+    @media screen and (width <= 350px) {
       margin-bottom: 10px;
     }
 
     .description {
-      @media screen and (max-width: 576px) {
+      @media screen and (width <= 576px) {
         display: flex !important;
         flex-direction: column !important;
       }
-      @media only screen and (min-width: 359px) and (max-width: 403px) {
+
+      @media only screen and (width >= 359px) and (width <= 403px) {
         flex-direction: column !important;
       }
 
@@ -537,30 +551,33 @@ export default {
         font-size: 20px;
         line-height: 40px;
         max-width: 450px;
-        @media screen and (max-width: 350px) {
+
+        @media screen and (width <= 350px) {
           font-size: 16px !important;
           text-align: right;
         }
 
         .title-item {
           font-size: 20px;
-          @media screen and (max-width: 960px) {
+
+          @media screen and (width <= 960px) {
             font-size: 16px;
             font-weight: bold;
           }
 
-          &:after {
+          &::after {
             content: ")";
             color: #ff8f00;
             padding: 0 6px;
-            @media screen and (max-width: 768px) {
+
+            @media screen and (width <= 768px) {
               padding:0 5px;
               font-size: 16px;
             }
           }
 
           &:last-child {
-            &:after {
+            &::after {
               display: none;
             }
           }
@@ -568,7 +585,8 @@ export default {
 
         .title-text {
           font-weight: bold;
-          @media screen and (max-width: 768px) {
+
+          @media screen and (width <= 768px) {
             font-size: 16px;
           }
         }
@@ -578,20 +596,24 @@ export default {
         font-size: 16px;
         font-weight: 500;
         color: #9fa5c0;
-        @media screen and (max-width: 768px) {
+
+        @media screen and (width <= 768px) {
           font-size: 14px !important;
           margin-bottom: 16px;
         }
-        @media screen and (max-width: 350px) {
+
+        @media screen and (width <= 350px) {
           margin-bottom: 10px;
         }
 
         .part {
           margin-left: 40px;
-          @media screen and (max-width: 768px) {
+
+          @media screen and (width <= 768px) {
             margin-left: 10px;
           }
-          @media screen and (max-width: 350px) {
+
+          @media screen and (width <= 350px) {
             margin-left: 30px;
           }
 
@@ -610,27 +632,32 @@ export default {
         flex-direction: row;
         align-items: center;
         justify-content: flex-end;
-        @media screen and (max-width: 1200px) {
+
+        @media screen and (width <= 1200px) {
           flex-direction: column !important;
         }
-        @media screen and (max-width: 959px) {
+
+        @media screen and (width <= 959px) {
           flex-direction: row !important;
           align-items: center !important;
         }
-        @media screen and (max-width: 768px) {
+
+        @media screen and (width <= 768px) {
           flex-direction: column !important;
         }
-        @media screen and (max-width: 576px) {
+
+        @media screen and (width <= 576px) {
           display: flex;
           flex-direction: row !important;
           justify-content: space-between !important;
         }
 
         .seen-btn {
-          @media screen and (max-width: 1200px) {
+          @media screen and (width <= 1200px) {
             //margin-bottom: 15px;
           }
-          @media screen and (max-width: 960px) {
+
+          @media screen and (width <= 960px) {
             height: 40px !important;
             margin-bottom: 0;
             box-sizing: border-box;
@@ -639,7 +666,8 @@ export default {
           .video-btn-text {
             font-size: 16px;
             font-weight: 500;
-            @media screen and (max-width: 768px) {
+
+            @media screen and (width <= 768px) {
               font-size: 14px !important;
             }
           }
@@ -647,14 +675,15 @@ export default {
         }
 
         .seen-video-btn {
-          background-color: #ffffff;
+          background-color: #fff;
           color: #ff8f00;
           width: 120px;
           height: 48px;
           border-radius: 10px;
           border: solid 2px #ff8f00;
           box-shadow: none;
-          @media screen and (max-width: 768px) {
+
+          @media screen and (width <= 768px) {
             width: 110px !important;
             height: 36px !important;
             border: solid 1px #ff8f00 !important;
@@ -663,7 +692,8 @@ export default {
           .video-btn-text {
             font-size: 16px;
             font-weight: 500;
-            @media screen and (max-width: 768px) {
+
+            @media screen and (width <= 768px) {
               font-size: 14px !important;
             }
           }
@@ -677,15 +707,17 @@ export default {
 
         .video-btn {
           background-color: #ff8f00;
-          color: #ffffff;
+          color: #fff;
           width: 120px;
           height: 48px;
           border-radius: 10px;
-          box-shadow: 0 5px 10px 0 rgba(62, 84, 128, 0.2);
-          @media screen and (max-width: 576px) {
+          box-shadow: 0 5px 10px 0 rgb(62 84 128 / 20%);
+
+          @media screen and (width <= 576px) {
             height: 40px;
           }
-          @media screen and (max-width: 768px) {
+
+          @media screen and (width <= 768px) {
             width: 110px !important;
             height: 36px !important;
           }
@@ -694,18 +726,22 @@ export default {
         .video-box-icon {
           margin-left: 20px;
           padding-top: 10px;
-          @media screen and (max-width: 1200px) {
+
+          @media screen and (width <= 1200px) {
             margin-left: 0;
             padding-top: 0;
           }
-          @media screen and (max-width: 960px) {
+
+          @media screen and (width <= 960px) {
             margin-left: 20px;
             padding-top: 0;
           }
-          @media screen and (max-width: 768px) {
+
+          @media screen and (width <= 768px) {
             margin-left: 0;
           }
-          @media screen and (max-width: 576px) {
+
+          @media screen and (width <= 576px) {
             margin-left: 10px;
             padding-top: 0;
             padding-bottom: 0;
@@ -713,21 +749,26 @@ export default {
 
           .icon-btn {
             margin-left: 41px;
+
             &:deep(.q-btn__content){
               margin: 0;
               color: #3e5480;
               font-size: 24px !important;
-              @media screen and (max-width: 600px) {
+
+              @media screen and (width <= 600px) {
                 font-size: 18px !important;
               }
             }
-            @media screen and (max-width: 768px) {
+
+            @media screen and (width <= 768px) {
               font-size: 20px !important;
             }
-            @media screen and (max-width: 576px) {
+
+            @media screen and (width <= 576px) {
               margin-left: 20px;
             }
-            @media screen and (max-width: 350px) {
+
+            @media screen and (width <= 350px) {
               font-size: 18px !important;
             }
           }
@@ -736,13 +777,16 @@ export default {
             &:not(.v-btn--round) {
               &.v-size--default {
                 padding: 0;
-                @media screen and (max-width: 1920px) {
+
+                @media screen and (width <= 1920px) {
                   min-width: 57px !important;
                 }
-                @media screen and (max-width: 960px) {
+
+                @media screen and (width <= 960px) {
                   min-width: 54px !important;
                 }
-                @media screen and (max-width: 768px) {
+
+                @media screen and (width <= 768px) {
                   min-width: 50px !important;
                 }
               }
@@ -772,7 +816,8 @@ export default {
       &:not(.v-sheet--outlined) {
         border-radius: 30px;
         overflow: hidden;
-        @media only screen and (max-width: 960px) {
+
+        @media only screen and (width <= 960px) {
           border-radius: 15px;
           overflow: hidden;
         }
@@ -788,20 +833,22 @@ export default {
   .download-btn {
     display: flex;
     flex-direction: column !important;
-    justify-content: center;
-    align-content: center;
+    place-content: center center;
 
     .download-header {
       text-align: center;
       margin: 35px 0;
       font-weight: 500;
-      @media screen and (max-width: 1264px) {
+
+      @media screen and (width <= 1264px) {
         margin: 30px 0;
       }
-      @media screen and (max-width: 960px) {
+
+      @media screen and (width <= 960px) {
         margin: 27px 0;
       }
-      @media screen and (max-width: 600px) {
+
+      @media screen and (width <= 600px) {
         margin: 22px 0;
       }
 
@@ -810,7 +857,8 @@ export default {
         font-size: 20px;
         font-weight: 500;
         margin-bottom: 0 !important;
-        @media screen and (max-width: 600px) {
+
+        @media screen and (width <= 600px) {
           font-size: 16px;
         }
       }
@@ -819,7 +867,8 @@ export default {
     .download-list {
       display: flex;
       flex-direction: row !important;
-      @media screen and (max-width: 960px) {
+
+      @media screen and (width <= 960px) {
         flex-direction: column !important;
       }
 
@@ -831,30 +880,35 @@ export default {
         margin-left: 30px;
         margin-bottom: 42px;
         padding: 24px;
-        @media screen and (max-width: 1904px) {
+
+        @media screen and (width <= 1904px) {
           width: 380px;
           height: 80px;
           margin-left: 16px;
           padding: 16px;
         }
-        @media screen and (max-width: 1264px) {
+
+        @media screen and (width <= 1264px) {
           width: 260px;
           height: 126px;
 
         }
-        @media screen and (max-width: 960px) {
+
+        @media screen and (width <= 960px) {
           width: 488px;
           height: 96px;
           margin-left: 0;
           margin-bottom: 16px;
           padding: 24px;
         }
-        @media screen and (max-width: 600px) {
+
+        @media screen and (width <= 600px) {
           width: 318px;
           height: 70px;
           padding: 16px;
         }
-        @media screen and (max-width: 350px) {
+
+        @media screen and (width <= 350px) {
           width: 288px;
           height: 70px;
         }
@@ -866,21 +920,25 @@ export default {
           font-size: 18px !important;
           font-weight: 500;
           justify-content: space-between;
-          @media only screen and (min-width: 961px) and (max-width: 1264px) {
+
+          @media only screen and (width >= 961px) and (width <= 1264px) {
             flex-direction: column;
             text-align: center;
           }
-          @media screen and (max-width: 600px) {
+
+          @media screen and (width <= 600px) {
             font-size: 14px !important;
           }
 
           .download-caption {
             padding-top: 12px;
-            @media only screen and (min-width: 961px) and (max-width: 1264px) {
+
+            @media only screen and (width >= 961px) and (width <= 1264px) {
               margin-bottom: 18px;
               padding-top: 0;
             }
-            @media screen and (max-width: 600px) {
+
+            @media screen and (width <= 600px) {
               padding-top: 8px;
             }
           }
@@ -892,20 +950,25 @@ export default {
             .size {
               margin-left: 49px;
               padding-top: 13px;
-              @media screen and (max-width: 1904px) {
+
+              @media screen and (width <= 1904px) {
                 margin-left: 24px;
               }
-              @media screen and (max-width: 1264px) {
+
+              @media screen and (width <= 1264px) {
                 margin-left: 20px;
               }
-              @media screen and (max-width: 960px) {
+
+              @media screen and (width <= 960px) {
                 margin-left: 49px;
               }
-              @media screen and (max-width: 600px) {
+
+              @media screen and (width <= 600px) {
                 margin-left: 21px;
                 padding-top: 8px;
               }
-              @media screen and (max-width: 350px) {
+
+              @media screen and (width <= 350px) {
                 margin-left: 11px;
               }
             }
@@ -918,16 +981,20 @@ export default {
               font-size: 18px !important;
               font-weight: 500;
               height: 48px;
-              @media screen and (max-width: 1904px) {
+
+              @media screen and (width <= 1904px) {
                 margin-left: 16px;
               }
-              @media screen and (max-width: 1264px) {
+
+              @media screen and (width <= 1264px) {
                 margin-left: 20px;
               }
-              @media screen and (max-width: 960px) {
+
+              @media screen and (width <= 960px) {
                 margin-left: 24px;
               }
-              @media screen and (max-width: 600px) {
+
+              @media screen and (width <= 600px) {
                 height: 36px !important;
                 margin-left: 16px;
                 font-size: 14px !important;
@@ -940,9 +1007,10 @@ export default {
               padding-top: 14px;
               width: 48px;
               height: 48px;
-              box-shadow: 0 5px 10px 0 rgba(76, 175, 80, 0.2);
+              box-shadow: 0 5px 10px 0 rgb(76 175 80 / 20%);
               border-radius: 10px;
-              @media screen and (max-width: 600px) {
+
+              @media screen and (width <= 600px) {
                 width: 36px;
                 height: 36px;
                 padding-top: 12px;
@@ -955,7 +1023,8 @@ export default {
               .icon {
                 color: #4caf50;
                 font-size: 21px;
-                @media screen and (max-width: 600px) {
+
+                @media screen and (width <= 600px) {
                   font-size: 19px;
                 }
               }
@@ -974,13 +1043,16 @@ export default {
       .share-parent {
         margin: 35px;
         text-align: center;
-        @media screen and (max-width: 1264px) {
+
+        @media screen and (width <= 1264px) {
           margin: 30px;
         }
-        @media screen and (max-width: 960px) {
+
+        @media screen and (width <= 960px) {
           margin: 27px;
         }
-        @media screen and (max-width: 600px) {
+
+        @media screen and (width <= 600px) {
           margin: 22px;
         }
       }

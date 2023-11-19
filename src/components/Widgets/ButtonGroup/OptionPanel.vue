@@ -64,7 +64,7 @@ export default defineComponent({
   props: {
     options: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
@@ -103,14 +103,14 @@ export default defineComponent({
   },
   watch: {
     localOptions: {
-      handler(newVal) {
+      handler (newVal) {
         this.$emit('update:options', newVal)
       },
       deep: true
     }
   },
   methods: {
-    addButton() {
+    addButton () {
       const btn = {
         options: {
           color: null,
@@ -193,7 +193,7 @@ export default defineComponent({
       this.localOptions.buttonList.push(btn)
       this.newButton = ''
     },
-    deleteBtn(index) {
+    deleteBtn (index) {
       this.localOptions.buttonList.splice(index, 1)
     }
   }

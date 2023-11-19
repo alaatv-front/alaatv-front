@@ -1,7 +1,7 @@
 import { Collection, Model } from 'js-abstract-model'
 
 class Transction extends Model {
-  constructor(data) {
+  constructor (data) {
     super(data, [
       { key: 'code' },
       { key: 'commisson' },

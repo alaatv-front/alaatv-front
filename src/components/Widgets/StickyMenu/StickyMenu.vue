@@ -49,7 +49,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       menuLink: [],
       logoImage: '',
@@ -60,22 +60,22 @@ export default {
     }
   },
   computed: {
-    scrollOffset() {
+    scrollOffset () {
       return window.scrollY
     },
-    toScrollTarget() {
+    toScrollTarget () {
       return this.getOffset(this.scrollTarget)
     }
   },
   watch: {
     options: {
-      handler() {
+      handler () {
         this.loadConfig()
       }
     },
-    toScrollTarget(val) {
+    toScrollTarget (val) {
     },
-    scrollOffset(value) {
+    scrollOffset (value) {
       if (value < this.toScrollTarget) {
         document.getElementById('stickyMenu').style.display = 'none'
       } else {
@@ -83,11 +83,11 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.loadConfig()
   },
   methods: {
-    loadConfig() {
+    loadConfig () {
       this.menuLink = this.options.menuLink
       this.logoImage = this.options.logoImage
       this.logoSlogan = this.options.logoSlogan
@@ -95,17 +95,17 @@ export default {
       this.actionButtonLabel = this.options.actionButtonLabel
       this.scrollTarget = this.options.scrollTarget
     },
-    routeTo(name) {
+    routeTo (name) {
       this.$router.push({ name })
     },
-    takeAction(item) {
+    takeAction (item) {
       if (item.type === 'link') {
         openURL(item.route)
       } else {
         this.scrollToElement(item.className)
       }
     },
-    scrollToElement(className) {
+    scrollToElement (className) {
       const el = document.getElementsByClassName(className)[0]
       const headerOffset = 0
       const elementPosition = el.getBoundingClientRect().top
@@ -115,14 +115,14 @@ export default {
         behavior: 'smooth'
       })
     },
-    getOffset(className) {
+    getOffset (className) {
       if (className) {
         const el = document.getElementsByClassName(className)[0]
         const elementPosition = el.getBoundingClientRect().top
         return elementPosition
       }
     },
-    setDisplay() {
+    setDisplay () {
       document.getElementById('stickyMenu').style.display = 'flex'
     }
   }
@@ -145,19 +145,22 @@ export default {
     display: flex;
     height: 72px;
     align-items: center;
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       height: 64px;
     }
+
     .logo-pic-img {
       height: 40px;
       width: 40px;
-      @media screen and (max-width: 1023px) {
+
+      @media screen and (width <= 1023px) {
         height: 48px;
         width: 48px;
       }
     }
+
     .logo-text {
-      padding: 0 10px;
       color: #fff;
       padding: 0 10px;
       font-weight: 400;
@@ -169,9 +172,11 @@ export default {
   .routes {
     display: flex;
     align-items: center;
-    @media only screen and (max-width: 1024px) {
+
+    @media only screen and (width <= 1024px) {
       display: none;
     }
+
     .routes-list {
       display: flex;
 
@@ -195,6 +200,7 @@ export default {
     font-weight: 400;
     font-size: 16px;
     line-height: 28px;
+
     &:deep(.q-btn .q-focus-helper) {
       display: none;
     }
