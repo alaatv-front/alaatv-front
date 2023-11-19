@@ -76,7 +76,7 @@ export default {
   components: { FormBuilder, EntityCrudFormBuilder },
   props: {
     selectedValues: {
-      default() {
+      default () {
         return []
       },
       type: Array
@@ -86,7 +86,7 @@ export default {
     'selectedValues',
     'contentUpdated'
   ],
-  data() {
+  data () {
     return {
       moreSelectorValue: 'بیشتر',
       moreSelectorOptions: [
@@ -358,19 +358,19 @@ export default {
     }
   },
   computed: {
-    isInEditMode() {
+    isInEditMode () {
       return this.editSelectorValue && this.editSelectorValue !== 'ویرایش'
     }
   },
   watch: {
-    editSelectorValue(inputObj) {
+    editSelectorValue (inputObj) {
       if (!this.isInEditMode) {
         return
       }
       this.chooseFormBuilderInputs(inputObj.value)
     },
     allEditModeInputs: {
-      handler(newValue) {
+      handler (newValue) {
         this.setChosenInputForm(newValue)
       },
       deep: true
@@ -464,7 +464,7 @@ export default {
         .catch(() => {})
       this.moreSelectorValue = 'بیشتر'
     },
-    attachToSet() {
+    attachToSet () {
       const setId = this.setInput[0].selected.id
       this.$apiGateway.set.attachContents(setId, {
         contents: this.getSelectedValuesIds()
@@ -480,7 +480,7 @@ export default {
         })
         .catch(() => {})
     },
-    getSelectedValuesIds() {
+    getSelectedValuesIds () {
       return this.selectedValues.map(item => item.id)
     },
     executeMoreSelectorAction (selectedAction) {
@@ -488,7 +488,7 @@ export default {
         this.deleteSelectedContents()
       }
     },
-    emptyEditSelectorValue() {
+    emptyEditSelectorValue () {
       this.editSelectorValue = 'ویرایش'
       this.$refs.formBuilder.clearFormBuilderInputValues()
     },
@@ -521,22 +521,27 @@ export default {
 <style scoped lang="scss">
 .entity-edit-header {
   padding-top: 20px;
+
   .upper-card {
     color: #F4F5F6;
     display: grid;
     grid-template-columns: 170px auto;
+
     :deep(.q-field) {
       .q-field__append {
         color: #F4F5F6;
       }
+
       .q-field__native {
         color: #F4F5F6;
       }
     }
+
     .header-item {
       margin-left: 10px;
       margin-right: 10px;
     }
+
     .line {
       //padding-bottom: 20px;
       //padding-right: 0;
@@ -545,10 +550,12 @@ export default {
       border: 1px solid #ffe9cc;
     }
     .base-part {}
+
     .edit-mode {
      .selector {
         width: 120px;
      }
+
       .lower-card{
         //color: #65677F;
       }

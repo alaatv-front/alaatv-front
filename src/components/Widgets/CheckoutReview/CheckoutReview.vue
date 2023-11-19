@@ -33,7 +33,7 @@ import { APIGateway } from 'src/api/APIGateway'
 export default {
   name: 'CheckoutReview',
   components: { StickyBothSides, Login, Donate, CartItemList, CheckoutReviewCart },
-  provide() {
+  provide () {
     return {
       scrollInfo: computed(() => this.scrollInfo)
     }
@@ -44,7 +44,7 @@ export default {
       default: new Cart()
     }
   },
-  data() {
+  data () {
     return {
       items: new Cart(),
       top: 0,
@@ -52,15 +52,15 @@ export default {
       scrollInfo: {}
     }
   },
-  mounted() {
+  mounted () {
     this.checkoutReview()
     // this.calcGapTopAndBottom()
   },
   methods: {
-    onScroll(info) {
+    onScroll (info) {
       this.scrollInfo = info
     },
-    checkoutReview() {
+    checkoutReview () {
       this.$store.dispatch('loading/overlayLoading', true)
       APIGateway.cart.reviewCart()
         .then((cart) => {
@@ -71,7 +71,7 @@ export default {
           this.$store.dispatch('loading/overlayLoading', false)
         })
     },
-    calcGapTopAndBottom() {
+    calcGapTopAndBottom () {
       this.top = this.$refs.sticky.style.getBoundingClientRect().top
       this.bottom = this.$refs.sticky.style.getBoundingClientRect().bottom
     }

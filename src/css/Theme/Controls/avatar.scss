@@ -3,15 +3,19 @@
     &.avatar-xl {
       font-size: 56px;
     }
+
     &.avatar-lg {
       font-size: 48px;
     }
+
     &.avatar-md {
       font-size: 40px;
     }
+
     &.avatar-sm {
       font-size: 32px;
     }
+
     &.avatar-xs {
       font-size: 24px;
     }
@@ -22,20 +26,24 @@
     justify-content: center;
     align-items: center;
     direction: rtl;
-    .q-avatar {
 
+    .q-avatar {
       &.avatar-xl {
         margin-right: -20px;
       }
+
       &.avatar-lg {
         margin-right: -16px;
       }
+
       &.avatar-md {
         margin-right: -16px;
       }
+
       &.avatar-sm {
         margin-right: -12px;
       }
+
       &.avatar-xs {
         margin-right: -12px;
       }
@@ -44,7 +52,7 @@
         background-color: $secondary;
       }
 
-      &:nth-child(2n+1) {
+      &:nth-child(2n + 1) {
         background-color: $primary;
       }
     }

@@ -2,7 +2,7 @@ import { apiV2 } from 'src/boot/axios.js'
 import APIRepository from '../classes/APIRepository.js'
 
 export default class SectionAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('section', apiV2)
     this.APIAdresses = {
       section: {

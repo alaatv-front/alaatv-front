@@ -50,7 +50,7 @@ export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs, recursiveComponent },
   mixins: [PageBuilderOptionPanel],
-  data() {
+  data () {
     return {
       defaultOptions: {
         data: [],
@@ -131,7 +131,7 @@ export default defineComponent({
       return clonedOptions.data
     },
     localOptions: {
-      get() {
+      get () {
         // const clonedOptions = JSON.parse(JSON.stringify(Object.assign(this.defaultOptions, this.options)))
         // return Object.assign(this.defaultOptions, this.options)
 
@@ -196,11 +196,11 @@ export default defineComponent({
       dataAdapter(newLocalOptions.data)
       this.$emit('update:options', newLocalOptions)
     },
-    removeTabPanel(index) {
+    removeTabPanel (index) {
       this.localOptions.data.splice(index, 1)
       this.setNewLocalOptions()
     },
-    addTabPanel() {
+    addTabPanel () {
       this.localOptions.data.push({
         options: { layout: 'ProductTab' },
         type: 'GroupList',
@@ -213,9 +213,10 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 :deep(.q-card.custom-card) {
-  :not([class^=col]) {
+  :not([class^="col"]) {
     box-shadow: none;
   }
+
   .custom-card {
     //width: 150px;
   }

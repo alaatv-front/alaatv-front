@@ -8,7 +8,7 @@
 
 export default {
   name: 'ShowSet',
-  data() {
+  data () {
     return {
       pageConfig: {},
       sections: [

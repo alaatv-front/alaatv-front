@@ -8,7 +8,7 @@
 
 export default {
   name: 'CreateGiftCard',
-  data() {
+  data () {
     return {
       pageConfig: {},
       sections: [

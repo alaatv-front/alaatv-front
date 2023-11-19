@@ -23,7 +23,7 @@ export default {
       default: null
     }
   },
-  data() {
+  data () {
     return {
       entityOptions: [
         {
@@ -73,7 +73,3 @@ export default {
 
 }
 </script>
-
-<style scoped>
-
-</style>

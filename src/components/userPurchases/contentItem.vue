@@ -120,8 +120,9 @@ p {
   position: relative;
   border-radius: 15px;
   display: flex;
-  box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(112, 108, 162, 0.05) !important;
-  @media screen and (max-width: 1024px) {
+  box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%) !important;
+
+  @media screen and (width <= 1024px) {
     flex-direction: column;
   }
 
@@ -131,14 +132,16 @@ p {
     position: relative;
     z-index: 5;
     height: 100%;
-    @media screen and (max-width: 1024px) {
+
+    @media screen and (width <= 1024px) {
     }
 
     img {
       width: 100%;
       height: 100%;
       border-radius: 15px 0 0 15px;
-      @media screen and (max-width: 1024px) {
+
+      @media screen and (width <= 1024px) {
         border-radius: 15px 15px 0 0 !important;
         width: 100% !important;
 
@@ -205,7 +208,8 @@ p {
           line-height: 31px;
           letter-spacing: -0.03em;
           color: #3D3F46;
-          @media screen and (max-width: 500px) {
+
+          @media screen and (width <= 500px) {
             font-size: 12px !important;
           }
         }

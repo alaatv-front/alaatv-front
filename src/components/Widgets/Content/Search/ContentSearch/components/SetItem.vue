@@ -43,20 +43,24 @@ export default {
     font-size: 18px;
     font-weight: 500;
     border-radius: 15px;
-    @media screen and (max-width: 1904px) {
+
+    @media screen and (width <= 1904px) {
       width: 278px;
       height: 248px;
     }
-    @media screen and (max-width: 1264px) {
+
+    @media screen and (width <= 1264px) {
       font-size: 16px;
       width: 285px;
       height: 240px;
     }
-    @media screen and (max-width: 960px) {
+
+    @media screen and (width <= 960px) {
       width: 218px;
       height: 210px;
     }
-    @media screen and (max-width: 600px) {
+
+    @media screen and (width <= 600px) {
       width: 238px;
       height: 205px;
       font-size: 14px;
@@ -99,9 +103,11 @@ export default {
 
     .content-description {
       padding: 16px;
-      @media screen and (max-width: 500px) {
+
+      @media screen and (width <= 500px) {
         padding: 10px;
       }
+
       p {
         font-size: 16px;
         font-weight: 300;
@@ -113,7 +119,8 @@ export default {
         -webkit-box-orient: vertical;
         overflow: hidden;
         margin-bottom: 0;
-        @media screen and (max-width: 600px) {
+
+        @media screen and (width <= 600px) {
           font-size: 12px;
         }
 

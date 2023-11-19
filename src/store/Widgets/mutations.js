@@ -1,8 +1,8 @@
-export function clear(state) {
+export function clear (state) {
   state.data = null
 }
 
-export function updateData(state, newData) {
+export function updateData (state, newData) {
   const widgetName = newData.name
   const widgetData = newData.data
   if (!widgetName) {
@@ -26,7 +26,7 @@ export function updateDataByUid (state, newData) {
   state.data[widgetName][widgetIndex].serverSideRendered = serverSideRendered
 }
 
-export function addWidgetData(state, newData) {
+export function addWidgetData (state, newData) {
   const uid = newData.uid
   const widgetName = newData.name
   const widgetData = newData.data

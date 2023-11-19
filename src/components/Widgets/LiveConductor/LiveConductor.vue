@@ -16,7 +16,7 @@ import { Conductor } from 'src/models/Conductor.js'
 export default {
   name: 'LiveConductor',
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       // user: new User(),
       // isUserLogin: false,
@@ -48,7 +48,7 @@ export default {
       this.getLiveLink()
     }
   },
-  mounted() {
+  mounted () {
     this.loadConductor()
   },
   methods: {
@@ -59,7 +59,7 @@ export default {
         this.$bus.on(this.localOptions.eventName, this.getLiveLink)
       }
     },
-    getLiveLink() {
+    getLiveLink () {
       if (!this.isUserLogin) {
         this.$store.commit('AppLayout/updateLoginDialog', true)
         return

@@ -33,14 +33,14 @@ export default {
 
   watch: {
     endDate: {
-      handler: function() {
+      handler: function () {
         this.destroy()
         this.setUpTimer()
       },
       deep: true
     },
     isEnded: {
-      handler: function() {
+      handler: function () {
         this.$emit('end')
       }
     }
@@ -69,7 +69,7 @@ export default {
       }
     },
 
-    setUpTimer() {
+    setUpTimer () {
       this.tick()
       this.timer = setInterval(this.tick.bind(this), 1000)
     },
@@ -78,7 +78,7 @@ export default {
       clearInterval(this.timer)
     },
 
-    refreshTimer() {}
+    refreshTimer () {}
   }
 }
 </script>

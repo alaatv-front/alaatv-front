@@ -1,5 +1,5 @@
 export default class GTMBase {
-  constructor(options = {
+  constructor (options = {
     debugMode: false
   }) {
     if (typeof window === 'undefined') {

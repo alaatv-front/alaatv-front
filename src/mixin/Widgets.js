@@ -2,13 +2,13 @@ const mixinWidget = {
   props: {
     data: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     },
     options: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     },
@@ -35,7 +35,7 @@ const mixinWidget = {
   },
   computed: {
     localOptions: {
-      get() {
+      get () {
         return Object.assign(this.defaultOptions, this.options)
       }
     }
@@ -58,7 +58,7 @@ const mixinWidget = {
   //   }
   },
   methods: {
-    takeAction() {
+    takeAction () {
       if (!this.localOptions.action.hasAction) {
         return null
       } else if (this.localOptions.action.actionName && this.localOptions.action.actionName === 'scroll') {
@@ -69,7 +69,7 @@ const mixinWidget = {
         this.$bus.emit(this.localOptions.action.eventName, this.localOptions.action.eventArgs)
       }
     },
-    scrollToElement(className) {
+    scrollToElement (className) {
       const el = document.getElementsByClassName(className)[0]
       const headerOffset = 0
       const elementPosition = el.getBoundingClientRect().top
@@ -79,7 +79,7 @@ const mixinWidget = {
         behavior: 'smooth'
       })
     },
-    redirectRoute(url) {
+    redirectRoute (url) {
       if ((url.indexOf('http://') > -1 || url.indexOf('https://') > -1)) {
         window.open(url, '_blank')
       } else {

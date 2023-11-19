@@ -142,7 +142,7 @@ export default {
     mixinPrefetchServerData,
     mixinWidget
   ],
-  data() {
+  data () {
     return {
       set: new Set(),
       sets: new SetList(),
@@ -191,19 +191,19 @@ export default {
   },
   watch: {
     options: {
-      handler() {
+      handler () {
         this.setProduct()
       },
       deep: true
     },
-    setTitle(newVal) {
+    setTitle (newVal) {
       if (!newVal) {
         return
       }
       const set = this.sets.list.filter(set => set.title || set.short_title === newVal)
       this.getSet(set[0].id)
     },
-    setOptions(newVal) {
+    setOptions (newVal) {
       this.filteredOptions = newVal
     }
   },
@@ -258,7 +258,7 @@ export default {
     prefetchServerDataPromiseCatch () {
       this.product.loading = false
     },
-    getSetsOfProduct() {
+    getSetsOfProduct () {
       if (this.localOptions.product?.id || !this.productId) {
         return new Promise((resolve) => {
           resolve(new Product())
@@ -267,7 +267,7 @@ export default {
       this.product.loading = true
       return this.$apiGateway.product.getSets(this.productId)
     },
-    getSet(id) {
+    getSet (id) {
       this.set.loading = true
       this.$apiGateway.set.show(id)
         .then(set => {
@@ -297,7 +297,7 @@ export default {
           this.set.loading = false
         })
     },
-    downloadPamphlet(pamphlet) {
+    downloadPamphlet (pamphlet) {
       this.$apiGateway.content.show(pamphlet.id)
         .then(content => {
           if (content.file && content.file.pamphlet && content.file.pamphlet[0]) {
@@ -329,114 +329,142 @@ export default {
       justify-content: space-between;
       align-items: center;
       box-shadow: none;
-      @media screen and (max-width: 1024px) {
+
+      @media screen and (width <= 1024px) {
         justify-content: center;
       }
+
       .title {
         margin-left: 8px;
-        @media screen and (max-width: 1024px) {
+
+        @media screen and (width <= 1024px) {
           margin-left: 0;
         }
       }
     }
+
     .select-set{
       width: 50%;
-      @media screen and (max-width: 1024px) {
+
+      @media screen and (width <= 1024px) {
         width: 100%;
         margin-bottom: 20px;
       }
     }
+
     .tab-panels {
       padding-top: 0;
       max-height: calc(100vh - 315px);
       overflow-y: auto;
     }
-    @media screen and (max-width: 599px) {
+
+    @media screen and (width <= 599px) {
       :deep(.q-tab-panel) {
         padding: 0;
       }
     }
+
     .block {
       :deep(.block-container) {
         .grid_view {
           margin-left: -5px;
         }
+
         .scroll-view {
           margin-left: 0;
         }
       }
     }
+
     .contents-block {
       display: flex;
       overflow: auto;
-      padding: 10px 0 0 0;
-      background: #ffffff;
+      padding: 10px 0 0;
+      background: #fff;
       margin-right: 20px;
       margin-left: 20px;
       border-radius: 20px;
+
       .pamphlet-title {
         height: 40px;
         max-width: 110px;
       }
+
       .pdf-icon {
         width: 50px;
         height: 50px;
         cursor: pointer;
       }
+
       .block {
         margin-bottom: 0;
+
         :deep(.block-header) {
           justify-content: normal;
         }
+
         :deep(.block-item-box){
           display: none;
         }
+
         :deep(.q-tab-panel){
           padding-top: 0;
         }
+
         :deep(.block-header) {
           padding-top: 0;
           padding-bottom: 0;
         }
+
         :deep(.content-item-box) {
           width: auto;
         }
       }
     }
+
     .pamphlet-list {
       display: flex;
       overflow: auto;
-      padding: 10px 0 0 0;
-      background: #ffffff;
+      padding: 10px 0 0;
+      background: #fff;
       margin-right: 20px;
       margin-left: 20px;
       border-radius: 20px;
+
       .pamphlet {
         min-width: 110px;
       }
+
       .pamphlet-title {
         height: 40px;
       }
+
       .pdf-icon {
         width: 50px;
         height: 50px;
         cursor: pointer;
       }
+
       .block {
         margin-bottom: 0;
+
         :deep(.block-header) {
           justify-content: normal;
         }
+
         :deep(.block-item-box){
           display: none;
         }
+
         :deep(.q-tab-panel){
           padding-top: 0;
         }
+
         :deep(.block-header) {
           padding-top: 0;
           padding-bottom: 0;
         }
+
         :deep(.content-item-box) {
           width: auto;
         }

@@ -8,7 +8,7 @@
 
 export default {
   name: 'IndexForrest',
-  data() {
+  data () {
     return {
       pageConfig: {},
       sections: [

@@ -52,14 +52,14 @@ export default {
     }
   },
   computed: {},
-  created() {
+  created () {
     this.initStatusData()
   },
   methods: {
     getMainColor (obj) {
       return this.departmentStatus.find(item => obj.action === item.title)?.color
     },
-    initStatusData() {
+    initStatusData () {
       this.departmentStatus = [
         {
           title: 'تغییر دپارتمان تیکت',
@@ -92,12 +92,14 @@ export default {
       width: 120px;
       font-size: 16px;
     }
+
     .log-info {
       padding-left: 20px;
       margin: 10px 0;
       align-items: center;
       display: grid;
     }
+
     .log-time{
       color: #6a6a6a;
     }

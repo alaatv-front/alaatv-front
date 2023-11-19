@@ -39,7 +39,7 @@ export default defineComponent({
     },
     studyPlanInfo: {
       type: Object,
-      default() {
+      default () {
         return {
           id: null,
           title: '',
@@ -57,7 +57,7 @@ export default defineComponent({
 .info-col {
   background: #FFF;
   border-radius: 12px;
-  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.06), 0px 1px 3px 0px rgba(16, 24, 40, 0.08);
+  box-shadow: 0 1px 2px 0 rgb(16 24 40 / 6%), 0 1px 3px 0 rgb(16 24 40 / 8%);
   padding: 30px 20px 50px 30px;
   min-height: 400px;
 }

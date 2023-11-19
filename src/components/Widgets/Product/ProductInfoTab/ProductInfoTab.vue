@@ -77,7 +77,7 @@ export default defineComponent({
     ProductSetList
   },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       defaultOptions: {
         product: new Product()
@@ -90,31 +90,31 @@ export default defineComponent({
     }
   },
   computed: {
-    productId() {
+    productId () {
       return this.localOptions.product.id ? this.localOptions.product.id : this.localOptions.paramKey ? this.$route.params[this.options.paramKey] : this.$route.params.id
     },
-    setListLength() {
+    setListLength () {
       return this.setList.length
     },
-    contentListLength() {
+    contentListLength () {
       return this.contents.list.length
     },
-    giftListLength() {
+    giftListLength () {
       return this.gifts.list.length
     },
-    faqListLength() {
+    faqListLength () {
       return this.faqList.length
     }
   },
   watch: {
-    productId() {
+    productId () {
       this.getProductSets()
       this.getProductGifts()
       this.getSampleContents()
       this.getProductFaq()
     }
   },
-  mounted() {
+  mounted () {
     if (this.productId) {
       this.getProductSets()
       this.getProductGifts()
@@ -123,14 +123,14 @@ export default defineComponent({
     }
   },
   methods: {
-    getProductGifts() {
+    getProductGifts () {
       this.$apiGateway.product.gifts(this.productId)
         .then(productList => {
           this.gifts = productList
         })
         .catch(() => {})
     },
-    getSampleContents() {
+    getSampleContents () {
       return this.$apiGateway.product.sampleContent(this.productId)
         .then(contentList => {
           this.contents = contentList
@@ -139,7 +139,7 @@ export default defineComponent({
 
         })
     },
-    getProductFaq() {
+    getProductFaq () {
       return this.$apiGateway.product.getProductFaq(this.productId)
         .then(faqList => {
           this.faqList = faqList
@@ -148,7 +148,7 @@ export default defineComponent({
 
         })
     },
-    getProductSets() {
+    getProductSets () {
       this.loading = true
       this.$apiGateway.product.getSets(this.productId)
         .then((setList) => {
@@ -173,7 +173,7 @@ export default defineComponent({
           this.loading = false
         })
     },
-    onUpdateSetList(setList) {
+    onUpdateSetList (setList) {
       this.setList = setList
     }
   }
@@ -185,9 +185,10 @@ export default defineComponent({
 .product-tab-panel {
   padding: 30px;
 
-  @media screen and (max-width: 1023px) {
+  @media screen and (width <= 1023px) {
     padding: 20px;
   }
+
   .product-description-title {
     color:#424242;
     font-size: 16px;

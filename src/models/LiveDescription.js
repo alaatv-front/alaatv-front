@@ -1,7 +1,7 @@
 import { Model, Collection } from 'js-abstract-model'
 
 class LiveDescription extends Model {
-  constructor(data) {
+  constructor (data) {
     super(data, [
       {
         key: 'baseRoute',
@@ -20,7 +20,7 @@ class LiveDescription extends Model {
 }
 
 class LiveDescriptionList extends Collection {
-  model() {
+  model () {
     return LiveDescription
   }
 }

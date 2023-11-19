@@ -5,7 +5,7 @@ import { TransactionList } from 'src/models/Transction.js'
 import { WithdrawHistoryList } from 'src/models/WithdrawHistory.js'
 
 export default class ReferralCodeAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('gift-card', apiV2)
     this.APIAdresses = {
       base: '/referral-code',
@@ -33,7 +33,7 @@ export default class ReferralCodeAPI extends APIRepository {
   // rest
   // has get
 
-  index(data, cache = { TTL: 1000 }) {
+  index (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -70,7 +70,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  getOrderProducts(data, cache = { TTL: 1000 }) {
+  getOrderProducts (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -90,7 +90,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  noneProfitableOrderproducts(data, cache = { TTL: 1000 }) {
+  noneProfitableOrderproducts (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -110,7 +110,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  batchStore(data) {
+  batchStore (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -133,7 +133,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  submitReferralCodeOnOrder(data) {
+  submitReferralCodeOnOrder (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -151,7 +151,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  DeleteReferralCodeFromOrder(data) {
+  DeleteReferralCodeFromOrder (data) {
     return this.sendRequest({
       apiMethod: 'delete',
       api: this.api,
@@ -168,7 +168,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  setShared(data) {
+  setShared (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -186,7 +186,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  getSalesManData(cache = { TTL: 1000 }) {
+  getSalesManData (cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -214,7 +214,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  getWithdrawWallet() {
+  getWithdrawWallet () {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -229,7 +229,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  getWithdrawHistory(data = {}, cache = { TTL: 1000 }) {
+  getWithdrawHistory (data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -251,7 +251,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  getReferralCode(data = {}, cache = { TTL: 1000 }) {
+  getReferralCode (data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -267,7 +267,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  submitContract() {
+  submitContract () {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,

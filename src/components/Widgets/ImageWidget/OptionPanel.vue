@@ -115,7 +115,7 @@ export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs, ImageUploadInput },
   mixins: [mixinOptionPanel],
-  data() {
+  data () {
     return {
       size: 'xs',
       sizeOptions: ['xs', 'sm', 'md', 'lg', 'xl'],
@@ -243,7 +243,7 @@ export default defineComponent({
   },
   watch: {
     localOptions: {
-      handler(newVal) {
+      handler (newVal) {
         this.$emit('update:options', newVal)
       },
       deep: true

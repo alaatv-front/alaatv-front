@@ -22,7 +22,7 @@ import { Notify } from 'quasar'
 export default {
   name: 'Toast',
   methods: {
-    showInfoToast() {
+    showInfoToast () {
       Notify.create({
         type: 'info',
         color: 'info',
@@ -35,7 +35,7 @@ export default {
         ]
       })
     },
-    showErrorToast() {
+    showErrorToast () {
       Notify.create({
         type: 'error',
         color: 'negative',
@@ -48,7 +48,7 @@ export default {
         ]
       })
     },
-    showSuccessToast() {
+    showSuccessToast () {
       Notify.create({
         type: 'success',
         color: 'positive',
@@ -64,7 +64,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

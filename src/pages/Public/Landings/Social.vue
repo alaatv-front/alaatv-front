@@ -10,7 +10,7 @@ import { mixinPageOptions } from 'src/mixin/Mixins.js'
 export default {
   name: 'Social',
   mixins: [mixinPageOptions],
-  data() {
+  data () {
     return {
       pageConfig: {},
       sections: [{

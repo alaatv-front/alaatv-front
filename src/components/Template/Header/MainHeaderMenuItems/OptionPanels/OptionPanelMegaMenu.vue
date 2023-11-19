@@ -60,7 +60,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       optionsDialog: false,
       selectedItem: null
@@ -101,7 +101,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-
-</style>

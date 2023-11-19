@@ -1,33 +1,33 @@
-export function title(state) {
+export function title (state) {
   return state.title
 }
-export function description(state) {
+export function description (state) {
   return state.description
 }
-export function robots(state) {
+export function robots (state) {
   return state.robots
 }
-export function ogTitle(state) {
+export function ogTitle (state) {
   return state.ogTitle
 }
-export function ogUrl(state) {
+export function ogUrl (state) {
   return state.ogUrl
 }
-export function ogDescription(state) {
+export function ogDescription (state) {
   return state.ogDescription
 }
-export function ogImage(state) {
+export function ogImage (state) {
   return state.ogImage
 }
 
-export function pageTitleSection1(state) {
+export function pageTitleSection1 (state) {
   return state.pageTitleSection1
 }
 
-export function pageTitleSection2(state) {
+export function pageTitleSection2 (state) {
   return state.pageTitleSection2
 }
 
-export function pageDescription(state) {
+export function pageDescription (state) {
   return state.pageDescription
 }

@@ -149,12 +149,12 @@ export default {
     // },
     orderedItem: {
       type: OrderItem,
-      default() {
+      default () {
         return new OrderItem()
       }
     }
   },
-  data() {
+  data () {
     return {
       dialogState: false,
       expanded: true,
@@ -162,10 +162,10 @@ export default {
     }
   },
   computed: {
-    cartItems() {
+    cartItems () {
       return this.$store.getters['Cart/cart'].cartItems.list
     },
-    windowSize() {
+    windowSize () {
       return this.$store.getters['AppLayout/windowSize']
     },
     discountInPercent () {
@@ -187,7 +187,7 @@ export default {
     //   }
     // }
   },
-  created() {
+  created () {
     this.loading = true
   },
 
@@ -198,34 +198,38 @@ export default {
 
 <style scoped lang="scss">
 .cart-view-widget {
-  background: #FFFFFF;
+  background: #FFF;
   border: 3px solid #E4E8EF;
   border-radius: 16px;
   margin-bottom: 10px;
-  @media screen and (max-width: 599px) {
-    margin-top: 0px;
+
+  @media screen and (width <= 599px) {
+    margin-top: 0;
     background: #F2F5F9 !important;
     border: none;
     border-radius: 10px;
   }
+
   &:deep(.q-btn .q-btn__content) {
     margin: 0;
   }
+
   .cart-items {
     .cart-card {
-      background: #ffffff;
+      background: #fff;
       box-shadow: none;
       border-radius: 16px;
       padding: 16px;
-      @media screen and (max-width: 1439px) {
+
+      @media screen and (width <= 1439px) {
         border-radius: 12px;
       }
 
-      @media screen and (max-width: 1023px) {
+      @media screen and (width <= 1023px) {
         border-radius: 12px;
       }
 
-      @media screen and (max-width: 599px) {
+      @media screen and (width <= 599px) {
         background: #F2F5F9 !important;
         padding: 12px;
       }
@@ -233,19 +237,23 @@ export default {
       .card-section {
         padding: 0;
         display: flex;
-        @media screen and (max-width: 450px) {
+
+        @media screen and (width <= 450px) {
           //flex-direction: column;
         }
+
         .order-image-section {
           padding: 0;
           margin-right: 24px;
 
-          @media screen and (max-width: 1439px) {
+          @media screen and (width <= 1439px) {
             margin-right: 16px;
           }
-          @media screen and (max-width: 599px){
+
+          @media screen and (width <= 599px){
             margin-right: 8px;
           }
+
           .order-image {
             height: 96px;
             width: 96px;
@@ -256,7 +264,7 @@ export default {
             //  height: 110px;
             //}
 
-            @media screen and (max-width: 599px) {
+            @media screen and (width <= 599px) {
               width: 72px;
               height: 72px;
               margin-top: 0;
@@ -270,13 +278,14 @@ export default {
           display: grid;
           padding-top: 12px;
           padding-bottom: 12px;
+
           .order-item-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             height: 24px;
 
-            @media screen and (max-width: 1023px) {
+            @media screen and (width <= 1023px) {
             }
 
             //@media screen and (max-width: 599px) {
@@ -292,7 +301,8 @@ export default {
               letter-spacing: -0.03em;
               color: #434765;
               width: 100%;
-              @media screen and (max-width: 599px) {
+
+              @media screen and (width <= 599px) {
                 //padding-right: 36px;
                 font-size: 14px;
                 line-height: 22px;
@@ -318,7 +328,7 @@ export default {
           .product-information {
             margin-bottom: 3px;
 
-            @media screen and (max-width: 1439px) {
+            @media screen and (width <= 1439px) {
               margin-bottom: 0;
             }
 
@@ -331,11 +341,11 @@ export default {
               align-items: center;
               margin-bottom: 8px;
 
-              @media screen and (max-width: 1439px) {
+              @media screen and (width <= 1439px) {
                 margin-bottom: 9px;
               }
 
-              @media screen and (max-width: 1023px) {
+              @media screen and (width <= 1023px) {
                 margin-bottom: 7px;
               }
 
@@ -358,14 +368,17 @@ export default {
               }
             }
           }
+
           .price-container {
             display: flex;
             align-items: center;
             height: 25px;
             margin-top: 20px;
-            @media screen and (max-width: 599px) {
+
+            @media screen and (width <= 599px) {
               margin-top: 15px;
             }
+
             .discount-part {
               display: flex;
               align-items: center;
@@ -376,16 +389,17 @@ export default {
 
               .discount-percent {
                 text-align: center;
+
                 //padding: 3px 0;
                 background: #e86562;
                 font-size: 12px;
                 width: 30px;
                 height: 20px;
-                border-radius: 6px 6px 0 6px;
+                border-radius: 6px 6px 0;
                 margin-right: 6px;
                 color: white;
 
-                @media screen and (max-width: 1439px) {
+                @media screen and (width <= 1439px) {
                   margin-right: 4px;
 
                 }
@@ -400,11 +414,11 @@ export default {
                 color: #E86562;
                 margin-right: 19px;
 
-                @media screen and (max-width: 1023px) {
+                @media screen and (width <= 1023px) {
                   margin-right: 8px;
                 }
 
-                @media screen and (max-width: 599px) {
+                @media screen and (width <= 599px) {
                   font-size: 12px;
                   line-height: 19px;
                 }
@@ -423,10 +437,11 @@ export default {
                 color: #434765;
                 margin-right: 4px;
 
-                @media screen and (max-width: 1439px) {
+                @media screen and (width <= 1439px) {
                   margin-right: 2px;
                 }
-                @media screen and (max-width: 599px) {
+
+                @media screen and (width <= 599px) {
                   font-size: 16px;
                   line-height: 25px;
                 }
@@ -454,14 +469,15 @@ export default {
           display: flex;
           justify-content: space-between;
           width: 100%;
+
           //margin-top: -32px;
           //margin-left: 164px;
 
-          @media screen and (max-width: 1439px) {
+          @media screen and (width <= 1439px) {
             //margin-left: 160px;
           }
 
-          @media screen and (max-width: 1023px) {
+          @media screen and (width <= 1023px) {
             flex-direction: column;
             align-items: flex-end;
             margin-left: 0;
@@ -483,13 +499,15 @@ export default {
             justify-content: right;
 
             &.expansion-closed {
-              @media screen and (max-width: 1023px) {
+              @media screen and (width <= 1023px) {
                 margin-top: -42px !important;
               }
-              @media screen and (max-width: 599px) {
-                margin-top: 0px !important;
+
+              @media screen and (width <= 599px) {
+                margin-top: 0 !important;
               }
             }
+
             .link {
               font-weight: 600;
               font-size: 12px;
@@ -499,17 +517,16 @@ export default {
               cursor: pointer;
               text-decoration: none;
 
-              @media screen and (max-width: 1439px) {
+              @media screen and (width <= 1439px) {
                 margin-right: 12px;
               }
 
-              @media screen and (max-width: 1023px) {
+              @media screen and (width <= 1023px) {
                 margin-right: 24px;
               }
             }
 
             .details-expansion {
-
               .details-button {
                 font-style: normal;
                 font-weight: 400;
@@ -530,14 +547,15 @@ export default {
               }
 
               .details-expansion-card {
-                @media screen and (max-width: 599px) {
+                @media screen and (width <= 599px) {
                   background: #f2f5f9;
                 }
+
                 .details-expansion-card-section {
                   padding: 0;
-                  margin: 20px 0 20px 0;
+                  margin: 20px 0;
 
-                  @media screen and (max-width: 599px) {
+                  @media screen and (width <= 599px) {
                     background: #f2f5f9 ;
                     margin-top: 0;
                     margin-bottom: 16px;
@@ -553,7 +571,7 @@ export default {
                     grid-template-columns: auto auto;
                     align-items: center;
 
-                    @media screen and (max-width: 599px) {
+                    @media screen and (width <= 599px) {
                       height: auto;
                       grid-template-columns:1fr;
                       background: #fff;
@@ -581,6 +599,7 @@ export default {
                         font-size: 12px;
                         line-height: 19px;
                         color: #6D708B;
+
                         //@media screen and (max-width: 599px) {
                           //margin-right: 10px;
                         //}
@@ -605,7 +624,8 @@ export default {
                   justify-content: flex-end;
                   align-items: center;
                   padding: 0;
-                  @media screen and (max-width: 599px){
+
+                  @media screen and (width <= 599px){
                     background: #f2f5f9;
                   }
 
@@ -657,12 +677,13 @@ export default {
 .delete-dialog {
   .delete-dialog-card {
     width: 348px;
-    background: #FFFFFF;
+    background: #FFF;
     border-radius: 10px;
 
     .close-button-section {
-      padding: 12px 12px 0 12px;
+      padding: 12px 12px 0;
       text-align: right;
+
       .close-dialog-button {
         font-size: 24px;
         color: #6D708B;
@@ -671,7 +692,7 @@ export default {
     }
 
     .delete-dialog-card-section {
-      padding: 0 24px 24px 24px;
+      padding: 0 24px 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -705,11 +726,11 @@ export default {
         font-size: 14px;
         line-height: 22px;
         letter-spacing: -0.03em;
-        color: #FFFFFF;
+        color: #FFF;
         width: 144px;
         height: 40px;
         background: #8075DC;
-        box-shadow: 0 4px 12px rgba(62, 61, 67, 0.15);
+        box-shadow: 0 4px 12px rgb(62 61 67 / 15%);
         border-radius: 8px;
         cursor: pointer;
 

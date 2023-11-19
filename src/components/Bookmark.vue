@@ -90,10 +90,12 @@ export default {
 .bookmark-btn {
   &.favored-state {
   }
+
   &.unfavored-state {
 
   }
 }
+
 .hide{
   display: none;
 }

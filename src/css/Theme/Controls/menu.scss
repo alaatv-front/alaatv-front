@@ -1,24 +1,31 @@
-@import 'src/css/Theme/colors.scss';
-@import 'src/css/Theme/spacing.scss';
-@import 'src/css/Theme/Typography/typography.scss';
+@import "src/css/Theme/colors";
+@import "src/css/Theme/spacing";
+@import "src/css/Theme/Typography/typography";
 
 .q-menu {
   padding: $space-2;
   border-radius: 12px;
   background: $grey-1;
-  box-shadow: 0 2px 4px -2px rgba(16, 24, 40, 0.06), 0px 4px 8px -2px rgba(16, 24, 40, 0.10);
+  box-shadow:
+    0 2px 4px -2px rgb(16 24 40 / 6%),
+    0 4px 8px -2px rgb(16 24 40 / 10%);
+
   &[aria-multiselectable="false"],
   &[aria-multiselectable="true"] {
     transform: translateY(8px);
   }
+
   .q-virtual-scroll__content {
     .q-item {
       padding: $space-2 $space-3;
       border-radius: 8px;
       color: $grey-9;
+
       @include body2;
+
       &[aria-selected="true"] {
         background: $primary-1;
+
         &.q-manual-focusable--focused {
           .q-focus-helper {
             background: $primary-2;

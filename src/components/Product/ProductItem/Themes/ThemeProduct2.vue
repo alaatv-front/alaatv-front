@@ -160,18 +160,18 @@ export default defineComponent({
   },
   emits: ['addToCart', 'customActionClicked', 'productClicked', 'handleProductBookmark'],
   methods: {
-    addToCart() {
+    addToCart () {
       this.$emit('addToCart')
     },
-    customActionClicked() {
+    customActionClicked () {
       this.$emit('customActionClicked')
     },
-    productClicked(e) {
+    productClicked (e) {
       e.preventDefault()
       e.stopPropagation()
       this.$emit('productClicked')
     },
-    handleProductBookmark() {
+    handleProductBookmark () {
       this.$emit('handleProductBookmark')
     }
   }
@@ -180,10 +180,12 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .theme-default-container {
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 20px;
+
   .img-box {
     position: relative;
+
     .product-discount-badge {
       display: none;
     }
@@ -192,6 +194,7 @@ export default defineComponent({
       display: block;
       box-shadow: none;
       width: 100%;
+
       //height: 270px;
       border-radius: 20px 20px 0 0;
 
@@ -199,7 +202,7 @@ export default defineComponent({
         border-radius: inherit;
         width: inherit;
 
-        @media screen and (max-width: 600px){
+        @media screen and (width <= 600px){
           border-radius: 20px;
           width: 100%;
         }
@@ -209,7 +212,7 @@ export default defineComponent({
 
   .product-content-box {
     position: relative;
-    padding: 10px 16px 16px 16px;
+    padding: 10px 16px 16px;
 
     .title-box {
       min-height: 42px;
@@ -223,6 +226,7 @@ export default defineComponent({
       justify-content: space-between;
       align-items: center;
       margin-top: 21px;
+
       .add-cart-info {
         display: flex;
         justify-content: center;
@@ -258,13 +262,13 @@ export default defineComponent({
 
         .main-price {
           text-decoration: line-through;
+
           /* margin-left: 12px; */
           font-style: normal;
           font-weight: 400;
           font-size: 12px;
           line-height: 19px;
           color: #656f7b;
-
           opacity: 0.4;
         }
 
@@ -292,7 +296,7 @@ export default defineComponent({
         font-weight: 500;
         font-size: 12px;
         line-height: 21px;
-        color: #666666;
+        color: #666;
         cursor: pointer;
 
         a {
@@ -348,7 +352,7 @@ export default defineComponent({
       }
     }
 
-    @media screen and(max-width: 600px) {
+    @media screen and (width <= 600px) {
     }
   }
 
@@ -356,6 +360,7 @@ export default defineComponent({
     position: absolute;
     right: 0;
     top: -2px;
+
     .product-item-bookmark {
       margin: -10px;
     }
@@ -402,12 +407,12 @@ export default defineComponent({
     background: #4caf50;
     color: white;
 
-    @media screen and (max-width: 600px){
+    @media screen and (width <= 600px){
       margin: 20px;
     }
   }
 
-  @media screen and (max-width: 992px) {
+  @media screen and (width <= 992px) {
     .img-box {
       .img {
       }
@@ -415,7 +420,6 @@ export default defineComponent({
 
     .product-content-box {
       .main-title {
-
         a {
         }
 
@@ -473,7 +477,7 @@ export default defineComponent({
     }
   }
 
-  @media screen and (max-width: 700px) {
+  @media screen and (width <= 700px) {
     .product-content-box {
       .action-box {
         flex-flow: column;
@@ -483,7 +487,7 @@ export default defineComponent({
     }
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (width <= 600px) {
     //display: flex;
     //align-items: start;
     border-radius: 18px;
@@ -500,7 +504,7 @@ export default defineComponent({
         }
       }
 
-      @media screen and (max-width: 600px){
+      @media screen and (width <= 600px){
         width: 100%;
       }
     }
@@ -556,6 +560,7 @@ export default defineComponent({
             display: none;
           }
         }
+
         .add-to-cart-btn{
           margin: 0 10px 0 0;
         }
@@ -579,6 +584,7 @@ export default defineComponent({
 
       .discount {
         height: 20px;
+
         /* margin-left: 3px; */
       }
     }

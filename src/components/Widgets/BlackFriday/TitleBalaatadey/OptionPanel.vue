@@ -28,7 +28,7 @@ export default defineComponent({
     ImageWidgetOptionPanel
   },
   mixins: [PageBuilderOptionPanel],
-  data() {
+  data () {
     return {
       defaultOptions: {
         titleOptions: {

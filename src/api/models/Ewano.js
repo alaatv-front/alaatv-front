@@ -2,7 +2,7 @@ import { apiV2 } from 'src/boot/axios.js'
 import APIRepository from '../classes/APIRepository.js'
 
 export default class AuthAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('ewano', apiV2)
     this.APIAdresses = {
       base: '/ewano',

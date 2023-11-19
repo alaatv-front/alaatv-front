@@ -46,7 +46,7 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
       defaultOptions: {
         colNumber: 'col',
@@ -92,7 +92,7 @@ export default {
     }
   },
   computed: {
-    colClassName() {
+    colClassName () {
       const colNumber = this.options.colNumber ? this.options.colNumber : ''
 
       return colNumber
@@ -110,7 +110,7 @@ export default {
     padding: 10px 0 40px;
     width: 100%;
 
-    @media screen and (max-width: 600px){
+    @media screen and (width <= 600px){
       padding: 0;
     }
 

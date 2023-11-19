@@ -112,12 +112,12 @@ export default {
     }
   },
   computed: {
-    progress() {
+    progress () {
       return (this.setItem?.contents_progress) / 100
     }
   },
   methods: {
-    gotoAdvisorContent(set) {
+    gotoAdvisorContent (set) {
       this.$router.push({ name: 'UserPanel.Asset.TripleTitleSet.Adviser.Content', params: { setId: set.id, contentId: set.last_content_user_watched?.id } })
     }
   }
@@ -136,13 +136,13 @@ export default {
   align-items: center;
   justify-content: flex-start;
 
-  @media only screen and (max-width: 1024px) {
+  @media only screen and (width <= 1024px) {
     padding: 10px 5px 10px 15px;
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (width <= 600px) {
     min-height: 217px;
-    padding: 10px 5px 10px 0px;
+    padding: 10px 5px 10px 0;
     align-items: flex-start;
   }
 
@@ -156,7 +156,7 @@ export default {
     justify-content: space-between;
     background: transparent;
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
       display: block;
     }
 
@@ -164,7 +164,7 @@ export default {
       width: calc( 100% - 80px );
       display: flex;
 
-      @media only screen and (max-width: 600px) {
+      @media only screen and (width <= 600px) {
         width: 100%;
         padding: 0;
       }
@@ -179,7 +179,7 @@ export default {
       min-width: 80px;
       cursor: pointer;
 
-      @media only screen and (max-width: 600px) {
+      @media only screen and (width <= 600px) {
         margin: 0 0 0 17px;
       }
     }
@@ -188,7 +188,7 @@ export default {
       width: 40%;
       min-width: 40%;
 
-      @media only screen and (max-width: 600px) {
+      @media only screen and (width <= 600px) {
         width: calc(100% - 80px);
         max-width: calc(100% - 80px);
       }
@@ -199,10 +199,10 @@ export default {
         font-size: 20px;
         line-height: 28px;
         letter-spacing: -0.03em;
-        color: #333333;
+        color: #333;
         cursor: pointer;
 
-        @media only screen and (max-width: 600px) {
+        @media only screen and (width <= 600px) {
           font-size: 16px;
           line-height: 20px;
         }
@@ -214,10 +214,10 @@ export default {
         font-size: 12px;
         line-height: 19px;
         letter-spacing: -0.02em;
-        color: #333333;
+        color: #333;
         margin-bottom: 5px;
 
-        @media only screen and (max-width: 600px) {
+        @media only screen and (width <= 600px) {
           font-size: 12px;
           line-height: 16px;
           margin-bottom: 5px;
@@ -232,7 +232,7 @@ export default {
         letter-spacing: -0.02em;
         color: #6C6C6C;
 
-        @media only screen and (max-width: 600px) {
+        @media only screen and (width <= 600px) {
           font-size: 10px;
           line-height: 12px;
         }
@@ -269,12 +269,15 @@ export default {
       display: flex;
       width: 60%;
       padding: 0;
-      @media only screen and (max-width: 600px) {
+
+      @media only screen and (width <= 600px) {
         width: 100%;
       }
+
       .last-content-separator {
         margin: 8px;
       }
+
       .last-content {
         padding-left: 24px;
         width: calc( 100% - 17px );
@@ -288,36 +291,39 @@ export default {
           font-size: 14px;
           line-height: 22px;
           letter-spacing: -0.03em;
-          color: #666666;
+          color: #666;
 
-          @media only screen and (max-width: 600px) {
+          @media only screen and (width <= 600px) {
             font-size: 12px;
             line-height: 16px;
           }
         }
+
         .last-content-title {
           font-style: normal;
           font-weight: 400;
           font-size: 18px;
           line-height: 28px;
           letter-spacing: -0.03em;
-          color: #333333;
+          color: #333;
           margin-bottom: 10px;
           max-width: 65%;
 
-          @media only screen and (max-width: 600px) {
+          @media only screen and (width <= 600px) {
             font-size: 14px;
             line-height: 20px;
             margin-bottom: 5px;
           }
 
         }
+
         .last-content-footer {
           display: flex;
           justify-content: space-between;
           align-items: center;
 
           $last-content-link: 100px;
+
           .last-content-section {
             font-style: normal;
             font-weight: 400;

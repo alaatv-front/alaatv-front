@@ -365,7 +365,7 @@ import OtpInput from 'components/OtpInput/OtpInput.vue'
 export default {
   name: 'TextInput',
   components: { OtpInput },
-  data() {
+  data () {
     return {
       input1: 'متن وارد شده',
       input4: ''
@@ -373,7 +373,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

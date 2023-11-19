@@ -158,7 +158,7 @@
 <script>
 export default {
   name: 'Dropdown',
-  data() {
+  data () {
     return {
       options: [
         'انتخاب 1',
@@ -173,7 +173,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

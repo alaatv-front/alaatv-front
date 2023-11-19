@@ -3,14 +3,14 @@ const mixinPageBuilder = {
     pageBuilderEditable () {
       return this.$store.getters['PageBuilder/pageBuilderEditable']
     },
-    initialSections() {
+    initialSections () {
       return this.$store.getters['PageBuilder/initialSections']
     },
     currenSections: {
-      get() {
+      get () {
         return this.$store.getters['PageBuilder/currentSections']
       },
-      set(newInfo) {
+      set (newInfo) {
         return this.$store.commit('PageBuilder/updateCurrentSections', newInfo)
       }
     }

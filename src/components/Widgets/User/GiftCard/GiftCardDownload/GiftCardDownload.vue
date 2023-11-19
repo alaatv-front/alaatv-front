@@ -26,17 +26,17 @@ import { ReferralCode } from 'src/models/ReferralCode.js'
 
 export default defineComponent({
   name: 'GiftCardDownload',
-  data() {
+  data () {
     return {
       referralCode: new ReferralCode(),
       loading: false
     }
   },
-  mounted() {
+  mounted () {
     this.getGiftCard()
   },
   methods: {
-    getGiftCard() {
+    getGiftCard () {
       this.loading = true
       this.$apiGateway.referralCode.getReferralCode({
         'referral-code': this.$route.params.referralCode
@@ -49,7 +49,7 @@ export default defineComponent({
           this.loading = false
         })
     },
-    PrintDiv() {
+    PrintDiv () {
       const element = document.getElementById('giftCard')
       html2canvas(element, {
         allowTaint: true,
@@ -60,7 +60,7 @@ export default defineComponent({
         })
         .catch(() => {})
     },
-    downloadURI(uri, name) {
+    downloadURI (uri, name) {
       const link = document.createElement('a')
       link.download = name
       link.href = uri
@@ -87,7 +87,7 @@ export default defineComponent({
   height: 50px;
   border-radius: 15px;
   background: #F89003;
-  color: #ffffff;
+  color: #fff;
   border: none;
 }
 
@@ -101,13 +101,15 @@ export default defineComponent({
     font-size: 22.4118px;
     line-height: 38px;
     letter-spacing: -0.035em;
-    color: #FFFFFF;
+    color: #FFF;
     position: absolute;
     top:44%;
     right: 63px;
+
     .code {
       direction: rtl;
     }
+
     .pre-code{
       margin-right: 18.41px;
     }

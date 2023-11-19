@@ -3,7 +3,7 @@ import { apiV2 } from 'src/boot/axios'
 import { Channel } from 'src/models/Channel'
 
 export default class ChannelAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('channel', apiV2, '/ch', new Channel())
     this.APIAdresses = {
       base: (channelId) => '/ch/' + channelId
@@ -13,7 +13,7 @@ export default class ChannelAPI extends APIRepository {
     }
   }
 
-  getChannel(data = {}, cache = { TTL: 1000 }) {
+  getChannel (data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

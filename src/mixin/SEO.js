@@ -2,7 +2,7 @@ import { createMetaMixin } from 'quasar'
 import SeoMeta from 'src/assets/js/SeoMeta.js'
 
 const mixinSEO = {
-  data() {
+  data () {
     return {
       title: 'آموزش مجازی آلاء',
       description: 'کلاس های درس آلاء برای کنکور، دهم، یازدهم و دوازدهم و خدمات تکمیلی از قبیل همایش‌های طلایی و اردو طلایی؛ در دروس مختلف زیست شیمی فیزیک ریاضی عربی ادبیات و.',

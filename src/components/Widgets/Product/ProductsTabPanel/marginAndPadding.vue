@@ -70,31 +70,37 @@ export default {
   border: 50px solid #fcd17f;
   border-right-color: #ffd998;
   border-left-color: #ffd998;
+
   .margin-input {
     position: absolute;
+
     &.input-marginTop {
       top: -45px;
       left: 0;
       width: 100%;
     }
+
     &.input-marginLeft {
       top: 105px;
       left: -150px;
       transform: rotate(-90deg);
       width: 100%;
     }
+
     &.input-marginRight {
       top: 105px;
       left: 150px;
       transform: rotate(90deg);
       width: 100%;
     }
+
     &.input-marginBottom {
       bottom: -45px;
       left: 0;
       width: 100%;
     }
   }
+
   .padding-square {
     position: relative;
     width: 250px;
@@ -102,25 +108,30 @@ export default {
     border: 50px solid #c3ffad;
     border-right-color: #b2fd96;
     border-left-color: #b2fd96;
+
     .padding-input {
       position: absolute;
+
       &.input-paddingTop {
         top: -45px;
         left: 0;
         width: 100%;
       }
+
       &.input-paddingLeft {
         top: 55px;
         left: -100px;
         transform: rotate(-90deg);
         width: 100%;
       }
+
       &.input-paddingRight {
         top: 55px;
         left: 100px;
         transform: rotate(90deg);
         width: 100%;
       }
+
       &.input-paddingBottom {
         bottom: -45px;
         left: 0;

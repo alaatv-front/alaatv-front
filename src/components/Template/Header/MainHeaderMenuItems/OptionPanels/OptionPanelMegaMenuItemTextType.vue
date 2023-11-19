@@ -74,7 +74,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       menuTypeOptions: [
         {
@@ -117,7 +117,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-
-</style>

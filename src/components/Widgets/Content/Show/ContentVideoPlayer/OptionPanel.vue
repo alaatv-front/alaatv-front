@@ -30,12 +30,12 @@ export default defineComponent({
   props: {
     options: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
   },
-  data() {
+  data () {
     return {
       paginate: [true, false],
       defaultOptions: {
@@ -49,7 +49,7 @@ export default defineComponent({
   },
   watch: {
     localOptions: {
-      handler(newVal) {
+      handler (newVal) {
         this.$emit('update:options', newVal)
       },
       deep: true

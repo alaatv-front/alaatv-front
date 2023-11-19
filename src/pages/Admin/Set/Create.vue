@@ -8,7 +8,7 @@
 
 export default {
   name: 'CreateSet',
-  data() {
+  data () {
     return {
       pageConfig: {},
       sections: [

@@ -96,20 +96,23 @@ export default {
 .ProductItem {
   border-radius: 10px;
   background: #FFF;
-  box-shadow: -2px 2px 3px 0 rgba(16, 24, 40, 0.06);
+  box-shadow: -2px 2px 3px 0 rgb(16 24 40 / 6%);
   flex-wrap: wrap;
   padding-right: 16px;
   padding-left: 16px;
   padding-bottom: 21px;
+
   .more-info {
     max-width: 100%;
     min-width: 100%;
     margin: 0;
+
     .items {
       &.has-many {
         .item {
           position: relative;
-          &:after {
+
+          &::after {
             position: absolute;
             content: ' ';
             right: 47px;
@@ -117,51 +120,61 @@ export default {
             bottom: -12px;
             border: dashed 1px #BDBDBD;
           }
+
           &:last-child {
-            &:after {
+            &::after {
               display: none;
             }
           }
         }
       }
+
       .item {
         display: flex;
         flex-flow: row;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 16px;
+
         &:last-child {
           margin-bottom: 0;
         }
+
         &.disable {
           .price-and-detail {
             .price {
               .value {
                 color: #9E9E9E;
               }
+
               .unit {
                 color: #9E9E9E;
               }
             }
+
             .detail {
               color: #9E9E9E;
             }
           }
+
           .caption {
             color: #9E9E9E;
           }
         }
+
         .price-and-detail {
           display: flex;
           flex-flow: row;
           justify-content: flex-end;
           align-items: center;
+
           .price {
             display: flex;
             flex-flow: row;
             justify-content: flex-end;
             align-items: center;
             width: 100px;
+
             .value {
               font-size: 18px;
               font-style: normal;
@@ -170,6 +183,7 @@ export default {
               letter-spacing: -0.36px;
               color: #424242;
             }
+
             .unit {
               margin-left: 4px;
               font-size: 10px;
@@ -180,6 +194,7 @@ export default {
               color: #616161;
             }
           }
+
           .detail {
             font-size: 10px;
             font-style: normal;
@@ -190,6 +205,7 @@ export default {
             color: #424242;
           }
         }
+
         .caption {
           padding: 4px;
           border-radius: 6px;
@@ -200,6 +216,7 @@ export default {
           line-height: normal;
           letter-spacing: -0.24px;
           color: #616161;
+
           &.empty {
             background: transparent;
           }

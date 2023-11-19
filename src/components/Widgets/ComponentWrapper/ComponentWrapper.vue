@@ -32,7 +32,7 @@ export default defineComponent({
     ImageWidget
   },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       defaultOptions: {
         type: '',
@@ -45,17 +45,17 @@ export default defineComponent({
     }
   },
   computed: {
-    flaxDirection() {
+    flaxDirection () {
       if (this.localOptions.direction === 'top' || this.localOptions.direction === 'bottom') {
         return 'row'
       } else {
         return 'column'
       }
     },
-    justifyContent() {
+    justifyContent () {
       return this.localOptions.align
     },
-    alignItems() {
+    alignItems () {
       return 'center'
     }
   }
@@ -66,6 +66,7 @@ export default defineComponent({
 $flaxDirection: v-bind('flaxDirection');
 $justifyContent: v-bind('justifyContent');
 $alignItems: v-bind('alignItems');
+
 .component-wrapper {
   display: flex;
   flex-direction: $flaxDirection;

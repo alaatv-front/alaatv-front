@@ -1,7 +1,7 @@
 import { User } from 'src/models/User.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 
-export default async function incompleteProfile(
+export default async function incompleteProfile (
   /* { to, from, next, store } */ { next, store, to }
 ) {
   // defining incompleteness of the personal information due to issue #52 is inside here

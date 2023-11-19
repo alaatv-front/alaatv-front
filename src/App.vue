@@ -18,7 +18,7 @@ export default defineComponent({
       return this.$store.getters['Auth/accessToken']
     }
   },
-  mounted() {
+  mounted () {
     // console.warn('App mounted -> window.location.href: ', window.location.href)
   },
   // created () {

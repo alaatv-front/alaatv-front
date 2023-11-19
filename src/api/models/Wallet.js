@@ -2,7 +2,7 @@ import { apiV2 } from 'src/boot/axios.js'
 import APIRepository from '../classes/APIRepository.js'
 
 export default class GiftCardAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('gift-card', apiV2)
     this.APIAdresses = {
       withdraw: '/wallet/withdraw', // POST

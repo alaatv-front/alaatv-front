@@ -4,7 +4,7 @@ import { APIGateway } from 'src/api/APIGateway.js'
 import CookieCart from 'src/assets/js/CookieCart.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
-export function addToCart(context, newProductData) {
+export function addToCart (context, newProductData) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
   return new Promise((resolve, reject) => {
     const payload = {
@@ -79,7 +79,7 @@ export function addToCart(context, newProductData) {
   })
 }
 
-export function reviewCart(context) {
+export function reviewCart (context) {
   const currentCart = this.getters['Cart/cart']
   const cartItems = []
   const isUserLogin = !!this.getters['Auth/isUserLogin']
@@ -146,7 +146,7 @@ export function reviewCart(context) {
   })
 }
 
-export function paymentCheckout(context, paymentMethod) {
+export function paymentCheckout (context, paymentMethod) {
   return new Promise((resolve, reject) => {
     APIGateway.cart.getPaymentRedirectEncryptedLink({ device: 'web', paymentMethod })
       .then(encryptedPaymentRedirectLink => {
@@ -158,7 +158,7 @@ export function paymentCheckout(context, paymentMethod) {
   })
 }
 
-export function removeItemFromCart(context, product) {
+export function removeItemFromCart (context, product) {
   const setCartLoading = (loadingState) => {
     const cart = context.getters.cart
     cart.loading = loadingState
@@ -222,7 +222,7 @@ export function removeItemFromCart(context, product) {
   })
 }
 
-export function deleteList(context) {
+export function deleteList (context) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
   const cart = context.getters.cart
 

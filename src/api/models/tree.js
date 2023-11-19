@@ -11,25 +11,25 @@ const APIAdresses = {
     return treeAddress
   },
   getGradesList: '/forrest/tree?type=test',
-  getNodeById(nodeId) {
+  getNodeById (nodeId) {
     return '/forrest/tree/' + nodeId
   },
-  getNodeByType(nodeType) {
+  getNodeByType (nodeType) {
     return '/forrest/tree?type=' + nodeType
   },
-  getNodeByTitle(nodeType) {
+  getNodeByTitle (nodeType) {
     return '/forrest/tree?title=' + nodeType
   },
-  editNode(id) {
+  editNode (id) {
     return '/forrest/tree/' + id
   },
-  getLessonList(lessonId) {
+  getLessonList (lessonId) {
     return '/forrest/tree/' + lessonId
   }
 }
 
 export default class TreeAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('tree', apiV2, '', '', APIAdresses)
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
@@ -42,7 +42,7 @@ export default class TreeAPI extends APIRepository {
     }
   }
 
-  base(data = {}) {
+  base (data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -58,7 +58,7 @@ export default class TreeAPI extends APIRepository {
     })
   }
 
-  createNode(data = {}) {
+  createNode (data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -75,19 +75,19 @@ export default class TreeAPI extends APIRepository {
     })
   }
 
-  getNodeById(data) {
+  getNodeById (data) {
     return this.getNodeBy('Id', data)
   }
 
-  getNodeByType(data) {
+  getNodeByType (data) {
     return this.getNodeBy('Type', data)
   }
 
-  getNodeByTitle(data) {
+  getNodeByTitle (data) {
     return this.getNodeBy('Title', data)
   }
 
-  editNode(nodeId, data) {
+  editNode (nodeId, data) {
     return this.sendRequest({
       apiMethod: 'put',
       api: this.api,
@@ -104,7 +104,7 @@ export default class TreeAPI extends APIRepository {
     })
   }
 
-  getGradesList(data = {}) {
+  getGradesList (data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -120,7 +120,7 @@ export default class TreeAPI extends APIRepository {
     })
   }
 
-  getLessonList(data = {}) {
+  getLessonList (data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

@@ -8,7 +8,7 @@
 
 export default {
   name: 'CreateForrest',
-  data() {
+  data () {
     return {
       pageConfig: {},
       sections: [

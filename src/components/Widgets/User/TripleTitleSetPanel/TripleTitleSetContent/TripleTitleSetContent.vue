@@ -113,29 +113,29 @@ export default {
     hideNextBtn () {
       return this.currentSetIndex === (this.setList.length - 1)
     },
-    selectedTopic() {
+    selectedTopic () {
       const topic = this.$store.getters['TripleTitleSet/selectedTopic']
       if (!topic) {
         this.storeSelectedTopic()
       }
       return topic
     },
-    doesntHaveContent() {
+    doesntHaveContent () {
       return !(this.watchingContent?.id > 0)
     },
-    contentVideoListLoading() {
+    contentVideoListLoading () {
       return !this.selectedContent?.id || this.contentLoading
     },
-    selectedContent() {
+    selectedContent () {
       return this.$store.getters['TripleTitleSet/selectedContent']
     },
-    selectedSet() {
+    selectedSet () {
       return this.$store.getters['TripleTitleSet/selectedSet']
     },
-    selectedTopicList() {
+    selectedTopicList () {
       return this.$store.getters['TripleTitleSet/setTopicList']
     },
-    setList() {
+    setList () {
       const setList = this.$store.getters['TripleTitleSet/setList']
       if (setList.length === 0) {
         return [this.selectedSet]
@@ -144,20 +144,20 @@ export default {
         return set.short_title.includes(this.selectedTopic)
       })
     },
-    watchingContentComment() {
+    watchingContentComment () {
       if (!this.watchingContent?.comments) {
         return ''
       }
       return this.watchingContent.comments[0]?.comment || ''
     },
-    currentSetIndex() {
+    currentSetIndex () {
       return this.setList.findIndex(set => set.id === this.selectedSet.id)
     },
     watchingContent: {
       get () {
         return this.selectedContent || new Content()
       },
-      set(newValue, oldValue) {
+      set (newValue, oldValue) {
         newValue.has_watched = oldValue.has_watched ? true : newValue.has_watched
         this.$store.commit('TripleTitleSet/setSelectedContent', newValue)
       }
@@ -169,7 +169,7 @@ export default {
     }
   },
   methods: {
-    afterAuthenticate() {
+    afterAuthenticate () {
       if (this.$route.params.productId) {
         this.getProductSets(this.$route.params.productId)
         this.getProduct()
@@ -217,13 +217,13 @@ export default {
           this.ContentVideoListKey++
         })
     },
-    getProductSets(productId) {
+    getProductSets (productId) {
       this.$store.dispatch('TripleTitleSet/getSet', productId)
     },
-    getProduct() {
+    getProduct () {
       this.$store.dispatch('TripleTitleSet/getSelectedProduct', this.$route.params.productId)
     },
-    goToNextSet() {
+    goToNextSet () {
       const nextSet = this.setList[this.currentSetIndex + 1]
       this.videoListLoading = true
       this.getSelectedSet(nextSet.id)
@@ -237,7 +237,7 @@ export default {
           this.ContentVideoListKey++
         })
     },
-    goToPrevSet() {
+    goToPrevSet () {
       const prevSet = this.setList[this.currentSetIndex - 1]
       this.videoListLoading = true
       this.getSelectedSet(prevSet.id)
@@ -251,7 +251,7 @@ export default {
           this.ContentVideoListKey++
         })
     },
-    setSelectedContent(content) {
+    setSelectedContent (content) {
       this.$store.commit('TripleTitleSet/setSelectedContent', content)
       if (!content.id) {
         return
@@ -286,7 +286,7 @@ export default {
         })
       }
     },
-    updateSelectedSet(set) {
+    updateSelectedSet (set) {
       this.$store.commit('TripleTitleSet/setSelectedSet', set)
       if (!set.id) {
         return
@@ -303,7 +303,7 @@ export default {
         }
       })
     },
-    updateSelectedTopic(topic) {
+    updateSelectedTopic (topic) {
       this.$store.dispatch('TripleTitleSet/setSelectedTopic', topic)
     },
     getSelectedSet (setId) {
@@ -356,31 +356,34 @@ export default {
 <style lang="scss" scoped>
 .ChatreNejatContent-page {
   margin: 0 60px 100px;
-  @media screen and (max-width: 1904px) {
+
+  @media screen and (width <= 1904px) {
     margin: 0 10px;
   }
-  @media screen and (max-width: 1023px) {
+
+  @media screen and (width <= 1023px) {
     //margin: 0 20px;
   }
-  @media screen and (max-width: 400px) {
+
+  @media screen and (width <= 400px) {
     margin: 0;
   }
 
   .back-btn {
     text-align: end;
     cursor: pointer;
+
     .alaa-logo {
       width: 50px;
     }
+
     .logo-image {
       text-align: left;
-      .q-img__container {
-      }
     }
   }
 
   .breadcrumbs {
-    @media screen and (max-width: 1024px) {
+    @media screen and (width <= 1024px) {
       justify-self: self-start;
       padding-left: 10px;
     }
@@ -394,17 +397,20 @@ export default {
       line-height: 1.7;
       letter-spacing: normal;
       margin-bottom:15px ;
-      @media screen and (max-width: 1920px){
+
+      @media screen and (width <= 1920px){
         margin-top: 19px;
       }
-      @media screen and (max-width: 990px){
+
+      @media screen and (width <= 990px){
         margin-top: 26px;
         font-size: 16px;
         width: 100%;
         text-align: center;
 
       }
-      @media screen and (max-width: 576px){
+
+      @media screen and (width <= 576px){
         margin-top: 15px;
 
       }
@@ -414,7 +420,8 @@ export default {
   .header {
     display: flex;
     flex-direction: row;
-    @media screen and (max-width: 1904px) {
+
+    @media screen and (width <= 1904px) {
       flex-direction: column !important;
     }
 
@@ -425,16 +432,20 @@ export default {
       padding-right: 20px;
       padding-top: 0 !important;
       padding-bottom: 0 !important;
-      @media screen and (max-width: 1904px) {
+
+      @media screen and (width <= 1904px) {
         padding-bottom: 15px !important;
       }
-      @media screen and (max-width: 1023px) {
+
+      @media screen and (width <= 1023px) {
         padding-bottom: 10px !important;
       }
-      @media screen and (max-width: 768px) {
+
+      @media screen and (width <= 768px) {
         padding-bottom: 20px !important;
       }
-      @media screen and (max-width: 600px) {
+
+      @media screen and (width <= 600px) {
         padding-bottom: 15px !important;
         font-size: 16px;
       }
@@ -447,30 +458,37 @@ export default {
     font-weight: 500;
     color: #3e5480;
     margin-bottom: 21px;
-    @media screen and (max-width: 1920px) {
+
+    @media screen and (width <= 1920px) {
       margin-bottom: 15px;
     }
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       display: block;
     }
-    @media screen and (max-width: 576px) {
+
+    @media screen and (width <= 576px) {
       font-size: 14px;
     }
 
     &.current-content-title-mobile {
       display: none;
-      @media screen and (max-width: 1023px) {
+
+      @media screen and (width <= 1023px) {
         display: block;
         margin-top: 15px;
         margin-bottom: 5px;
       }
-      @media screen and (max-width: 768px) {
+
+      @media screen and (width <= 768px) {
         margin-top: 5px;
       }
-      @media screen and (max-width: 576px) {
+
+      @media screen and (width <= 576px) {
         margin-bottom: 2px;
       }
-      @media screen and (max-width: 350px) {
+
+      @media screen and (width <= 350px) {
         margin-bottom: 0;
       }
     }
@@ -480,27 +498,31 @@ export default {
     padding-top: 0 !important;
     overflow: auto;
     overflow-x: hidden;
+
     .select-wrapper{
       &:deep(.q-field__control){
         background: #eff3ff;
       }
+
       &:deep(.q-field__native){
         color: #3e5480;
         font-size: 14px;
         font-weight: 500;
       }
+
       &:deep(.q-icon){
         color: #3e5480;
         font-size: 24px;
       }
+
       &:deep(.q-field__control::after){
         height: 0;
       }
+
       &:deep(.q-field__control::before){
         background: transparent;
       }
-      .popup-content-class{
-      }
+
       &:deep(.q-field--filled .q-field__control::before){
         border-bottom: none;
       }
@@ -512,7 +534,8 @@ export default {
 
     .mobile-view {
       display: none;
-      @media screen and (max-width: 1023px) {
+
+      @media screen and (width <= 1023px) {
         display: block;
       }
     }
@@ -523,24 +546,29 @@ export default {
     font-weight: 500;
     color: #3e5480;
     margin-bottom: 21px;
-    @media screen and (max-width: 1920px) {
+
+    @media screen and (width <= 1920px) {
       margin-bottom: 15px;
     }
-    @media screen and (max-width: 768px) {
+
+    @media screen and (width <= 768px) {
       margin-bottom: 20px;
     }
-    @media screen and (max-width: 576px) {
+
+    @media screen and (width <= 576px) {
       font-size: 16px;
       margin-bottom: 10px;
     }
-    @media screen and (max-width: 350px) {
+
+    @media screen and (width <= 350px) {
       margin-bottom: 5px;
     }
   }
 
   .desktop-view {
     display: block;
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       display: none;
     }
   }

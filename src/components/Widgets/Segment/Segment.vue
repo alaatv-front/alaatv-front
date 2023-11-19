@@ -102,6 +102,7 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   overflow: scroll;
+
   //position: absolute;
   top: 0;
 }

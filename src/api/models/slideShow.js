@@ -2,7 +2,7 @@ import { apiV2 } from 'src/boot/axios.js'
 import APIRepository from '../classes/APIRepository.js'
 
 export default class SlideShowAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('slideShow', apiV2)
     this.APIAdresses = {
       slideShowManagement: {

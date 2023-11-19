@@ -172,7 +172,7 @@ export default {
       // await this.setFilterBoxCategories()
       this.filterProduct()
     },
-    async setFilterBoxCategories() {
+    async setFilterBoxCategories () {
       this.loading = true
       const categories = await this.$apiGateway.product.getCategories()
       this.defaultOptions.filterBoxCategory = categories.list
@@ -219,7 +219,7 @@ export default {
       this.sortProducts()
     },
 
-    setFirstContentsShow() {
+    setFirstContentsShow () {
       if ((this.products.list.length === 0 && this.products.list[0]) || !this.products.list[0]?.sets) {
         return
       }
@@ -248,7 +248,7 @@ export default {
           this.selectedSet.loading = false
         })
     },
-    handleShowModal() {
+    handleShowModal () {
       this.showContentDialog = this.$store.getters['AppLayout/windowSize'].x < 1024
     },
     setSelectedSet (data) {
@@ -271,13 +271,16 @@ export default {
   .header {
     border-radius: 14px;
   }
+
   .product-contents {
     width: 1024px;
     max-width: 1024px;
-    :deep(.q-card.custom-card:not([class^=col])) {
+
+    :deep(.q-card.custom-card:not([class^="col"])) {
       box-shadow: none;
     }
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       min-width: 320px;
       padding: 20px;
     }
@@ -286,9 +289,11 @@ export default {
   .costume-background-color{
     background: #F6F8FA !important;
   }
+
   .filter-box-container{
     overflow-x: auto;
   }
+
   .noContentMessage{
     font-size: 18px;
     font-weight: 500;
@@ -297,10 +302,13 @@ export default {
   }
 
   .abrishamAssetBanner {
-    /*background: #fec107;*/
-    /*padding: 10px;*/
-    /*text-align: center;*/
-    /*color: white;*/
+    /* background: #fec107; */
+
+    /* padding: 10px; */
+
+    /* text-align: center; */
+
+    /* color: white; */
   }
 
   .abrishamAssetBanner img {

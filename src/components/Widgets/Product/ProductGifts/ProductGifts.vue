@@ -79,7 +79,7 @@ export default {
     prefetchServerDataPromiseCatch () {
       this.products.loading = false
     },
-    getPriductCifts() {
+    getPriductCifts () {
       if (this.options.products) {
         this.products = new ProductList(this.options.products)
         return new Promise((resolve) => {

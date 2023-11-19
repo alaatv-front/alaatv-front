@@ -22,7 +22,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       defaultOptions: {
         titleOptions: {

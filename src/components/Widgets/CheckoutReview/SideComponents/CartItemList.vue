@@ -45,10 +45,10 @@ export default {
       default: new Cart()
     }
   },
-  data() {
+  data () {
     return {}
   },
-  mounted() {
+  mounted () {
     // setTimeout(() => {
     //   console.log(this.items)
     // }, 1000)
@@ -59,9 +59,9 @@ export default {
 <style lang="scss"></style>
 <style lang="scss" scoped>
 .cart-item-list {
-  /*width: 1230px;*/
-  background: #FFFFFF;
-  box-shadow: 0 6px 5px rgba(0, 0, 0, 0.03);
+  /* width: 1230px; */
+  background: #FFF;
+  box-shadow: 0 6px 5px rgb(0 0 0 / 3%);
   border-radius: 10px;
   font-family: IRANSans, sans-serif;
   font-style: normal;

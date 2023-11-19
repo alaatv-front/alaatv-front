@@ -331,7 +331,7 @@ export default defineComponent({
     ActionButtonOptionPanel
   },
   mixins: [mixinOptionPanel],
-  data() {
+  data () {
     return {
       defaultOptions: {
         borderStyle: {},
@@ -498,19 +498,19 @@ export default defineComponent({
     }
   },
   computed: {
-    inputFormType() {
+    inputFormType () {
       return this.inputForm.type
     }
   },
   watch: {
-    inputFormType(newVal) {
+    inputFormType (newVal) {
       if (newVal === 'select') {
         this.inputForm = { ...this.inputForm, ...this.selectInputOptions }
       }
     }
   },
   methods: {
-    addOption(index) {
+    addOption (index) {
       if (!index) {
         this.selectOptions.push(this.optionFormObject)
       } else {
@@ -521,24 +521,24 @@ export default defineComponent({
         label: ''
       }
     },
-    deleteOption(optionIndex, inputIndex) {
+    deleteOption (optionIndex, inputIndex) {
       if (!inputIndex) {
         this.selectOptions.splice(optionIndex, 1)
       } else {
         this.localOptions.inputs[inputIndex].options.splice(optionIndex, 1)
       }
     },
-    addField() {
+    addField () {
       if (this.inputFormType === 'select') {
         this.inputForm.options = this.selectOptions
       }
       this.localOptions.inputs.push(this.inputForm)
       this.inputForm = { type: '', name: '', outlined: false, label: '', placeholder: '', col: '' }
     },
-    deleteField(index) {
+    deleteField (index) {
       this.localOptions.inputs.splice(index, 1)
     },
-    duplicate(index) {
+    duplicate (index) {
       const item = JSON.parse(JSON.stringify(this.localOptions.inputs[index]))
       this.localOptions.inputs.splice(index, 0, item)
     }

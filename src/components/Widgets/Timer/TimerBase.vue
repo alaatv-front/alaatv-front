@@ -65,13 +65,13 @@ export default defineComponent({
     },
     timerStyle: {
       type: Object,
-      default() {
+      default () {
         return defaultTimerStyle
       }
     },
     counters: {
       type: Object,
-      default() {
+      default () {
         return {
           seconds: true,
           minutes: true,
@@ -81,7 +81,7 @@ export default defineComponent({
       }
     }
   },
-  data() {
+  data () {
     return {
       eventTime: 0,
       seconds: 0,
@@ -93,44 +93,44 @@ export default defineComponent({
     }
   },
   computed: {
-    computedTimerStyle() {
+    computedTimerStyle () {
       return Object.assign(defaultTimerStyle, this.timerStyle)
     },
-    secondsBackground() {
+    secondsBackground () {
       return this.computedTimerStyle.secondsBackground || this.computedTimerStyle.timerBackground || 'transparent'
     },
-    counterBorderRadius() {
+    counterBorderRadius () {
       return this.computedTimerStyle.counterBorderRadius + 'px' || '10px'
     },
-    computedSeconds() {
+    computedSeconds () {
       return this.loading || !this.time ? '00' : this.seconds
     },
-    computedMinutes() {
+    computedMinutes () {
       return this.loading || !this.time ? '00' : this.minutes
     },
-    computedHour() {
+    computedHour () {
       return this.loading || !this.time ? '00' : this.hour
     },
-    computedDay() {
+    computedDay () {
       return this.loading || !this.time ? '00' : this.day
     }
 
   },
   watch: {
-    time() {
+    time () {
       this.getEventInfo()
       this.updateTimer()
     }
   },
-  mounted() {
+  mounted () {
     this.getEventInfo()
     this.updateTimer()
   },
-  unmounted() {
+  unmounted () {
     clearInterval(this.interval)
   },
   methods: {
-    updateTimer() {
+    updateTimer () {
       this.interval = setInterval(() => {
         this.eventTime--
         this.day = Math.floor(this.eventTime / 86400)
@@ -144,7 +144,7 @@ export default defineComponent({
         this.seconds = this.seconds < 10 ? '0' + this.seconds : this.seconds
       }, 1000)
     },
-    getEventInfo() {
+    getEventInfo () {
       clearInterval(this.interval)
       this.loading = true
       moment.loadPersian()
@@ -163,7 +163,7 @@ export default defineComponent({
       this.seconds = seconds < 10 ? '0' + seconds : seconds
       this.loading = false
     },
-    getDifference(date1, date2) {
+    getDifference (date1, date2) {
       const diffInMs = Math.abs(date2 - date1)
       return diffInMs / 1000
     }
@@ -185,29 +185,30 @@ $counterMargin: v-bind('computedTimerStyle.counterMargin');
 $counterPadding: v-bind('computedTimerStyle.counterPadding');
 $fontFamily: v-bind('computedTimerStyle.fontFamily');
 $counterBorderRadius: v-bind('counterBorderRadius');
+
 .event-counter-wrapper {
   display: flex;
   align-items: center;
   font-family: $fontFamily;
 
-  @media screen and (max-width: 1023px) and (min-width: 350px) {
+  @media screen and (width <= 1023px) and (width >= 350px) {
     width: 100%;
     justify-content: center;
   }
 
   &.theme1 {
-
     .event-counter-item {
-
       .event-counter-item-title {
-        @media screen and (max-width: 600px) {
+        @media screen and (width <= 600px) {
           display: none;
         }
       }
+
       &:not(:last-child) {
         flex-direction: row;
+
         &::after{
-          @media screen and (max-width: 600px) {
+          @media screen and (width <= 600px) {
             content: ':';
             font-size: $timerSize;
             color: $timerColor;
@@ -225,9 +226,7 @@ $counterBorderRadius: v-bind('counterBorderRadius');
     align-items: center;
 
     .event-counter-item-number {
-      display: flex;
       justify-content: center;
-      align-items: center;
       background: $timerBackground;
       border-radius: $counterBorderRadius;
       margin: $counterMargin;

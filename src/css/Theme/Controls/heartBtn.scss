@@ -4,27 +4,33 @@
     padding: 0;
     min-width: 15px;
     min-height: 15px;
+
     &.q-btn--fab-mini {
       .q-icon {
         font-size: 15px;
       }
     }
-    &.q-btn--active{
+
+    &.q-btn--active {
       background-color: transparent !important;
     }
+
     .q-focus-helper {
       background-color: transparent !important;
-
     }
-    &.empty-heart{
+
+    &.empty-heart {
       .q-icon {
-        color: #65677F;
+        color: #65677f;
       }
     }
-    &.fill-heart{
-      color: #E86562;
+
+    &.fill-heart {
+      color: #e86562;
     }
   }
 }
-// <q-btn fab-mini class="heart-btn empty-heart" icon="isax:heart" flat/>
-// <q-btn fab-mini class="heart-btn fill-heart" icon="isax:heart5" flat/>
+
+/* <q-btn fab-mini class="heart-btn empty-heart" icon="isax:heart" flat/> */
+
+/* <q-btn fab-mini class="heart-btn fill-heart" icon="isax:heart5" flat/> */
