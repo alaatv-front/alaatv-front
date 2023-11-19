@@ -85,7 +85,7 @@ export default {
     },
     pay () {
       this.changeLoadingState(true)
-      APIGateway.ewano.pay()
+      APIGateway.ewano.pay({ order_id: this.alaaOrderId })
         .then((status) => {
           this.hasPaid = status
           this.changeLoadingState(false)
