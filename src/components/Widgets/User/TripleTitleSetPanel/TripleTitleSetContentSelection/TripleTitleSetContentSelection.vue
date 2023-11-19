@@ -21,6 +21,7 @@
       <div class="col-12 inout-col">
         <q-select v-model="topic"
                   :options="setTopicList"
+                  :loading="setLoading"
                   :readOnly="setTopicList.length === 0"
                   label="سرفصل" />
       </div>
@@ -35,6 +36,7 @@
       <div class="col-12 inout-col">
         <q-select v-model="computedSelectedContentList"
                   :options="contents.list"
+                  :loading="contentLoading"
                   label="محتوا"
                   option-label="short_title"
                   option-value="id"
@@ -90,6 +92,11 @@
                             align="right">
               <q-btn v-close-popup
                      flat
+                     label="حذف همه"
+                     color="negative"
+                     @click="deleteAllContents" />
+              <q-btn v-close-popup
+                     flat
                      label="بستن"
                      color="secondary"
                      @click="toggleDialog" />
@@ -105,7 +112,6 @@
 import { defineComponent } from 'vue'
 import { Set } from 'src/models/Set.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import { SetSectionList } from 'src/models/SetSection.js'
 import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import { ContentList } from 'src/models/Content.js'
 import { Product, ProductList } from 'src/models/Product'
@@ -121,7 +127,7 @@ export default defineComponent({
     }
   },
   emits: ['selectedContentList'],
-  data() {
+  data () {
     return {
       productType: {
         id: null,
@@ -133,16 +139,17 @@ export default defineComponent({
       contents: new ContentList(),
       topic: null,
       set: new Set(),
-      sections: new SetSectionList(),
       product: new Product(),
       products: new ProductList(),
       contentDialog: false,
       productTypeLoading: false,
-      productLoading: false
+      productLoading: false,
+      setLoading: false,
+      contentLoading: false
     }
   },
   computed: {
-    setList() {
+    setList () {
       const setList = this.$store.getters['TripleTitleSet/setList']
       return setList.filter(set => {
         return set.short_title.includes(this.topic)
@@ -156,15 +163,15 @@ export default defineComponent({
         this.$emit('update:selectedContentList', value)
       }
     },
-    selectedSet() {
+    selectedSet () {
       return this.$store.getters['TripleTitleSet/selectedSet']
     },
-    setTopicList() {
+    setTopicList () {
       return this.$store.getters['TripleTitleSet/setTopicList']
     }
   },
   watch: {
-    productType(selectedMajor) {
+    productType (selectedMajor) {
       this.product = new Product()
       this.productList = new ProductList()
       this.$store.dispatch('TripleTitleSet/updateSelectedTopic', null)
@@ -172,7 +179,7 @@ export default defineComponent({
         this.getProducts(selectedMajor.id)
       }
     },
-    product(selectedProduct) {
+    product (selectedProduct) {
       this.topic = null
       this.$store.commit('TripleTitleSet/updateSetList', [])
       this.$store.commit('TripleTitleSet/updateTopicList', [])
@@ -180,34 +187,37 @@ export default defineComponent({
         this.$store.dispatch('TripleTitleSet/getSet', selectedProduct.id)
       }
     },
-    topic() {
+    topic () {
       this.set = new Set()
     },
-    set(selectedSet) {
+    set (selectedSet) {
       this.contents = new ContentList()
       if (selectedSet.id) {
         this.getSelectedSetContents(selectedSet.id)
       }
     },
-    selectedContentList(newValue) {
+    selectedContentList (newValue) {
       this.$emit('update:selectedContentList', newValue)
     }
   },
-  mounted() {
+  mounted () {
     this.getProductType()
   },
   methods: {
-    toggleDialog() {
+    toggleDialog () {
       this.contentDialog = !this.contentDialog
     },
-    gotoContent(contentID) {
+    gotoContent (contentID) {
       const contentRoute = this.$router.resolve({ name: 'Public.Content.Show', params: { id: contentID } })
       openURL(contentRoute.href)
     },
-    deleteContent(index) {
+    deleteAllContents () {
+      this.computedSelectedContentList = []
+    },
+    deleteContent (index) {
       this.computedSelectedContentList.splice(index, 1)
     },
-    getProductType() {
+    getProductType () {
       this.productTypeLoading = true
       APIGateway.events.formBuilder({
         params: ['majors']
@@ -219,7 +229,7 @@ export default defineComponent({
         this.productTypeLoading = false
       })
     },
-    getProducts(type) {
+    getProducts (type) {
       this.productLoading = true
       APIGateway.events.getEventsProducts({
         data: { major_id: type },
@@ -231,15 +241,26 @@ export default defineComponent({
         this.productLoading = false
       })
     },
-    getSet(setId) {
+    getSet (setId) {
+      this.setLoading = true
       this.$store.dispatch('TripleTitleSet/updateSet', setId)
+        .then(() => {
+          this.setLoading = false
+        })
+        .catch(() => {
+          this.setLoading = false
+        })
     },
     getSelectedSetContents (setId) {
-      return APIGateway.set.getContents(setId)
+      this.contentLoading = true
+      APIGateway.set.getContents(setId)
         .then(contentList => {
           this.contents = contentList
+          this.contentLoading = false
         })
-        .catch(() => {})
+        .catch(() => {
+          this.contentLoading = false
+        })
     }
   }
 })
