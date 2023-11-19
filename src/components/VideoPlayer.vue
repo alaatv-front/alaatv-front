@@ -838,7 +838,7 @@ export default {
         font-size: 0.8rem;
       }
     }
-    @media screen and(max-width: 600px) {
+    @media screen and (max-width: 600px) {
       height: 35px;
       $screen-max-600-width: 100px;
       &.VastTimerBtn {
@@ -933,7 +933,7 @@ export default {
       background: $primary;
       border-color: $primary;
 
-      @media screen and(max-width: 600px) {
+      @media screen and (max-width: 600px) {
         margin-top: -60px;
       }
       .vjs-icon-placeholder:before {

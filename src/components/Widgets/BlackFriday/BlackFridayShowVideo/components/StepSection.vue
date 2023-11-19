@@ -42,7 +42,7 @@
             از ۷
           </div>
           <div class="curren-info-caption"
-               v-html="video.description" />
+               v-html="video.coupon_display_title" />
         </div>
       </div>
     </div>

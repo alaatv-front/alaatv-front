@@ -618,7 +618,7 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
         padding-top: 3px;
       }
     }
-    @media screen and(max-width: 1023px) {
+    @media screen and (max-width: 1023px) {
     }
   }
 

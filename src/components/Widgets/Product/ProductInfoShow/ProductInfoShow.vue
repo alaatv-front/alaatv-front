@@ -331,7 +331,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    @media screen and(max-width: 599px) {
+    @media screen and (max-width: 599px) {
       padding: 0;
     }
 

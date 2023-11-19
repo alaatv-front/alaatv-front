@@ -125,10 +125,10 @@ export default {
     border-radius:20px ;
     .study-plan-card{
       padding:0 40px 32px 40px;
-      @media screen and(max-width: 990px ) {
+      @media screen and (max-width: 990px ) {
         padding:0 30px 32px 30px;
       }
-      @media screen and(max-width: 767px ) {
+      @media screen and (max-width: 767px ) {
         padding:0 10px 21px 10px;
       }
     }

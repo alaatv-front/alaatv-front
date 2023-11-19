@@ -1,5 +1,6 @@
 <template>
-  <div class="donate bg-white">
+  <div class="donate bg-white"
+       :class="{'hidden': isEwanoUser}">
     <p>کمک مالی به آلاء</p>
     <q-separator />
     <div class="row q-my-md text-center reverse-wrap">
@@ -33,10 +34,12 @@
 <script>
 import { Product } from 'src/models/Product.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 
 export default {
   name: 'Donate',
   components: { LazyImg },
+  mixins: [mixinEwano],
   props: {
     options: {
       type: Object,

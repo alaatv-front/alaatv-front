@@ -5,8 +5,7 @@
             class="text-grey"
             active-color="primary"
             indicator-color="primary"
-            align="justify"
-            narrow-indicator>
+            align="justify">
       <q-tab name="photo"
              label="photo" />
       <q-tab name="video"
@@ -73,8 +72,8 @@
             <video autoplay
                    loop
                    muted
-                   class="full-width">
-              <source :src="banner.video?.src || banner.features[size].videoSrc">
+                   class="full-width shadow-15">
+              <source :src="getVideoSrc()">
               Your browser does not support the video tag.
             </video>
           </div>
@@ -151,9 +150,9 @@ export default {
         this.video.width = this.banner.features[this.size].videoWidth
         this.video.height = this.banner.features[this.size].videoHeight
       } else {
-        this.video.src = this.banner.video.src
-        this.video.width = this.banner.video.width
-        this.video.height = this.banner.video.height
+        this.video.src = this.banner.video?.src
+        this.video.width = this.banner.video?.width
+        this.video.height = this.banner.video?.height
       }
     },
     updateImage (src) {
@@ -181,6 +180,15 @@ export default {
         width: this.video.width,
         height: this.video.height
       })
+    },
+    getVideoSrc () {
+      if (this.banner.video?.src) {
+        return this.banner.video.src
+      }
+
+      if (this.size && this.banner.features[this.size] && this.banner.features[this.size].videoSrc) {
+        return this.banner.features[this.size].videoSrc
+      }
     }
   }
 }
