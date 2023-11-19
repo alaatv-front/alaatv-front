@@ -235,10 +235,12 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding: 12px 20px;
+
     .title {
       .q-icon {
         color: #09AC73;
       }
+
       .title-string {
         color: #424242;
         font-size: 16px;
@@ -249,23 +251,28 @@ export default {
       }
     }
   }
+
   .body-section {
     padding: 24px 20px 20px;
+
     .shahr-selector {
       display: flex;
       flex-flow: row;
       justify-content: flex-start;
       align-items: center;
       margin-bottom: 32px;
+
       .ostan-column,
       .shahr-column {
         padding-right: 16px;
         width: calc( 50% - 25px );
       }
+
       .btn-column {
         width: 50px;
       }
     }
+
     .field {
       .title {
         color: #424242;
@@ -277,10 +284,12 @@ export default {
         margin-bottom: 8px;
         height: 27px;
       }
+
       .q-select {
 
       }
     }
+
     .selected-preview {
       .header-title {
         color: #757575;
@@ -291,6 +300,7 @@ export default {
         letter-spacing: -0.28px;
         margin-bottom: 16px;
       }
+
       .selected-items {
         .selected-item {
           border-radius: 6px;
@@ -302,20 +312,25 @@ export default {
           justify-content: flex-start;
           align-items: center;
           margin-bottom: 8px;
+
           :deep(.q-btn) {
             width: 16px;
             height: 16px;
+
             .q-icon {
               font-size: 16px;
               color: #9E9E9E;
             }
           }
+
           .selected-item-reorder-action {
             width: 38px;
+
             .q-btn:first-child {
               margin-right: 6px;
             }
           }
+
           .selected-item-order {
             text-align: center;
             width: 56px;
@@ -326,6 +341,7 @@ export default {
             line-height: normal;
             letter-spacing: -0.28px;
           }
+
           .selected-item-title {
             width: calc( 100% - 110px );
             color: #424242;
@@ -335,21 +351,25 @@ export default {
             line-height: normal;
             letter-spacing: -0.28px;
           }
+
           .selected-item-delete-action {
             width: 16px;
           }
         }
       }
     }
+
     .action-section {
       display: flex;
       flex-flow: row;
       justify-content: flex-end;
+
       .q-btn.accept-btn {
         width: 96px;
         background: #09AC73 !important;
         color: white;
       }
+
       .cancel-btn {
         margin-right: 6px;
         width: 96px;
@@ -359,7 +379,8 @@ export default {
         font-weight: 500;
         line-height: normal;
         letter-spacing: -0.28px;
-        &:before {
+
+        &::before {
           border: 1px solid #E0E0E0;
         }
       }
@@ -374,6 +395,7 @@ export default {
     line-height: normal;
     letter-spacing: -0.36px;
   }
+
   .content-text {
     color: #424242;
     font-size: 14px;
@@ -382,6 +404,7 @@ export default {
     line-height: normal;
     letter-spacing: -0.28px;
   }
+
   .caption-text {
     color: #9E9E9E;
     font-size: 12px;
@@ -390,6 +413,7 @@ export default {
     line-height: normal;
     letter-spacing: -0.24px;
   }
+
   .state-photo {
     width: 200px;
     height: 200px;
@@ -397,6 +421,7 @@ export default {
     margin-right: auto;
     margin-bottom: 64px;
   }
+
   :deep(.q-field) {
     .q-field__inner {
       .q-field__control {
@@ -411,12 +436,15 @@ export default {
 
   :deep(.q-field) {
     border-radius: 8px;
+
     .q-field__inner {
       .q-field__control {
         padding: 0;
-        &:before {
+
+        &::before {
           border: 1.5px solid #E0E0E0;
         }
+
         .q-field__control-container {
           .q-field__native {
             padding: 9px 16px 10px;
@@ -426,19 +454,23 @@ export default {
       }
     }
   }
+
   .q-btn:not(.accept-btn) {
     color: #424242 !important;
   }
+
   .q-radio {
     .q-radio__inner--truthy {
       color: #4DB6AC !important;
     }
   }
+
   .q-checkbox {
     .q-checkbox__inner {
       .q-checkbox__bg {
         color: #4DB6AC !important;
       }
+
       &.q-checkbox__inner--truthy {
         .q-checkbox__bg {
           background: #4DB6AC !important;
@@ -447,17 +479,21 @@ export default {
       }
     }
   }
+
   .q-banner {
     border-radius: 6px;
     border-width: 1px;
     border-style: solid;
     color: #424242;
+
     .q-banner__avatar {
       margin: 8px 4px;
     }
+
     &.bg-success {
       border-color: #9DDEC7;
       background: #E6F7F1;
+
       .q-icon {
         color: #09AC73;
       }

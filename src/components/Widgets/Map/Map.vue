@@ -106,7 +106,7 @@ export default {
 
 <style scoped>
 .MapWidget {
-  /*height: 70vh;*/
+  /* height: 70vh; */
   width: 100%;
 }
 </style>

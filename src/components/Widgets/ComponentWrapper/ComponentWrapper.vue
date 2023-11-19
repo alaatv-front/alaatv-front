@@ -66,6 +66,7 @@ export default defineComponent({
 $flaxDirection: v-bind('flaxDirection');
 $justifyContent: v-bind('justifyContent');
 $alignItems: v-bind('alignItems');
+
 .component-wrapper {
   display: flex;
   flex-direction: $flaxDirection;

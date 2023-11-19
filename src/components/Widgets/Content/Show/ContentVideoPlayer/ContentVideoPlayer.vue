@@ -161,16 +161,18 @@ export default {
 <style scoped lang="scss">
 .video-player{
   border-radius: 10px;
-  box-shadow: 0 6px 5px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 6px 5px rgb(0 0 0 / 3%);
   overflow: hidden;
 
   .paginate {
     flex-wrap: wrap;
+
     :deep(.q-pagination) {
       .q-btn {
         width: 30px;
         height: 30px;
       }
+
       .q-pagination__content {
         .q-pagination__middle {
           display: inline-flex;
@@ -179,7 +181,7 @@ export default {
       }
     }
 
-    @media screen and (max-width: 400px) {
+    @media screen and (width <= 400px) {
       &:deep(.q-pagination__content) {
         display: block !important;
       }

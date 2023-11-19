@@ -157,6 +157,7 @@ export default {
   flex-flow: row;
   flex-wrap: nowrap;
   overflow: auto;
+
   .tabs-list-container {
     display: flex;
     justify-content: center;

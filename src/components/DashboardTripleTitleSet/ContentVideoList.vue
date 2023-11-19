@@ -225,19 +225,24 @@ export default {
     margin: 0 !important;
     font-size: 20px;
   }
+
   .download-section {
   }
+
   .video-list {
     .header {
       box-shadow: none;
     }
+
     .main-title{
       font-size: 18px;
       color: #575962;
     }
+
     .set-title{
       color: #afb2c1
     }
+
     .last-item-dialog {
       .last-item-dialog-card {
         width: 350px;
@@ -245,21 +250,26 @@ export default {
       }
 
     }
+
     .scroll{
       height: 40vh !important;
       overflow-x: hidden;
+
       .other-contents{
         overflow-x: hidden;
         cursor: pointer;
+
         .content-show{
           align-items: center;
           display: grid;
           grid-template-columns: 24px auto;
         }
+
         .content{
           border-radius: 10px;
           margin-left: 30px;
           margin-right: 42px;
+
           .video-title{
             font-size: 18px;
             color: #575962;
@@ -270,18 +280,22 @@ export default {
           }
 
         }
+
         .current {
           background: #ffd196 12%;
         }
       }
+
       .item-list-last {
         color: #3e5480;
         cursor: pointer;
       }
-      @media (min-width: 1023px) {
+
+      @media (width >= 1023px) {
         height: 80%;
       }
-      @media (max-width: 1023px) {
+
+      @media (width <= 1023px) {
         height: 300px !important;
       }
     }

@@ -447,10 +447,12 @@ export default {
 <style lang="scss" scoped>
 .schedule-page {
   margin: 0 60px;
-  @media screen and (max-width: 1904px) {
+
+  @media screen and (width <= 1904px) {
     margin: 0 10px;
   }
-  @media screen and (max-width: 960px) {
+
+  @media screen and (width <= 960px) {
     margin: 0;
   }
 
@@ -461,16 +463,20 @@ export default {
     padding-right: 20px;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
-    @media screen and (max-width: 1904px) {
+
+    @media screen and (width <= 1904px) {
       padding-bottom: 15px !important;
     }
-    @media screen and (max-width: 960px) {
+
+    @media screen and (width <= 960px) {
       padding-bottom: 10px !important;
     }
-    @media screen and (max-width: 768px) {
+
+    @media screen and (width <= 768px) {
       padding-bottom: 20px !important;
     }
-    @media screen and (max-width: 600px) {
+
+    @media screen and (width <= 600px) {
       padding-bottom: 15px !important;
       font-size: 16px;
     }
@@ -481,31 +487,37 @@ export default {
     font-weight: 500;
     color: #3e5480;
     margin-bottom: 21px;
-    @media screen and (max-width: 1920px) {
+
+    @media screen and (width <= 1920px) {
       margin-bottom: 15px;
     }
-    @media screen and (max-width: 768px) {
+
+    @media screen and (width <= 768px) {
       margin-bottom: 20px;
     }
-    @media screen and (max-width: 576px) {
+
+    @media screen and (width <= 576px) {
       font-size: 16px;
       margin-bottom: 10px;
     }
-    @media screen and (max-width: 350px) {
+
+    @media screen and (width <= 350px) {
       margin-bottom: 5px;
     }
   }
 
   .desktop-view {
     display: block;
-    @media screen and (max-width: 959px) {
+
+    @media screen and (width <= 959px) {
       display: none;
     }
   }
 
   .mobile-view {
     display: none;
-    @media screen and (max-width: 959px) {
+
+    @media screen and (width <= 959px) {
       display: block;
     }
   }

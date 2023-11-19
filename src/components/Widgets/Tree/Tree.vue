@@ -349,7 +349,7 @@ export default {
         }
 
         &.q-tree__arrow--rotate {
-          &:before {
+          &::before {
             content: "\eb21";
           }
         }
@@ -358,11 +358,8 @@ export default {
   }
 }
 
-.q-tree__node:after {
-  right: auto;
-  left: -13px;
-  top: 0;
-  bottom: -31px;
+.q-tree__node::after {
+  inset: 0 auto -31px -13px;
   border-left: 2px solid #d5d6da;
 }
 

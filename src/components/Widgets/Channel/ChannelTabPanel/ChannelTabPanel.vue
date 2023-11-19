@@ -78,6 +78,7 @@ export default {
       font-weight: 400;
     }
   }
+
   .panels {
     border-radius: 20px;
   }

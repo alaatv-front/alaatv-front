@@ -190,7 +190,7 @@ export default {
   .resend-btn{
       height: 20px;
       min-width: 64px;
-      padding: 0px;
+      padding: 0;
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
@@ -198,6 +198,7 @@ export default {
       letter-spacing: -0.03em;
   }
 }
+
 .dialog-card {
     background: transparent;
     box-shadow: none !important;
@@ -227,16 +228,19 @@ export default {
         letter-spacing: -0.03em;
         color: #383838;
 
-        @media screen and (max-width: 1439px) {
+        @media screen and (width <= 1439px) {
             margin-top: 16px;
         }
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
             margin-top: 16px;
         }
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
             margin-top: 16px;
         }
     }
+
     .dialog-action {
         display: flex;
         flex-direction: column;
@@ -248,27 +252,32 @@ export default {
             margin-bottom: 24px;
             box-shadow: none;
 
-            @media screen and (max-width: 1439px) {
+            @media screen and (width <= 1439px) {
                 width: 280px;
             }
-            @media screen and (max-width: 1023px) {
+
+            @media screen and (width <= 1023px) {
                 width: 280px;
             }
-            @media screen and (max-width: 599px) {
+
+            @media screen and (width <= 599px) {
                 width: 240px;
             }
         }
 
-        @media screen and (max-width: 1439px) {
+        @media screen and (width <= 1439px) {
             margin-top: 60px;
         }
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
             margin-top: 60px;
         }
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
             margin-top: 49px;
         }
     }
+
  .landing-text-input {
     height: 40px;
     background: #F7E5C6;
@@ -292,19 +301,22 @@ export default {
   margin: 0 10px;
   font-size: 20px;
   border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 1px solid rgb(0 0 0 / 30%);
   text-align: center;
 }
+
 /* Background colour of an input field with value */
 .landing-otp-input.is-complete {
   background-color: #e4e4e4;
 }
+
 .landing-otp-input::-webkit-inner-spin-button,
 .landing-otp-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
+  appearance: none;
   margin: 0;
 }
-@media screen and (max-width: 599px) {
+
+@media screen and (width <= 599px) {
   .landing-otp-input {
     width: 30px !important;
     height: 30px !important;

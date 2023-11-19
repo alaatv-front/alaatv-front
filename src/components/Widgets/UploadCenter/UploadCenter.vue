@@ -411,14 +411,16 @@ export default {
       display: flex;
       justify-content: space-between;
     }
+
     .tabs {
       :deep(.q-tabs__content){
-        border-bottom: 1px solid #444444;
+        border-bottom: 1px solid #444;
       }
     }
   }
+
   .body {
-    background-color: #ffffff;
+    background-color: #fff;
     padding: 20px;
 
   }

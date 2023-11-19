@@ -195,7 +195,7 @@ export default {
   .contents-block {
     display: flex;
     overflow: auto;
-    padding: 10px 0 0 0;
+    padding: 10px 0 0;
 
     .pamphlet-image {
       min-width: 157px;
@@ -204,7 +204,7 @@ export default {
       color: #fdeded;
       box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(54 90 145 / 5%);
       border-radius: 16px;
-      margin: 10px 8px 19px 8px;
+      margin: 10px 8px 19px;
       cursor: pointer;
 
       &:deep(.q-img__image) {

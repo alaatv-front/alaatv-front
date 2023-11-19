@@ -162,44 +162,56 @@ export default {
   height: 100%;
   overflow: hidden;
   margin-bottom: 50px;
-  @media screen and (max-width: 1023px){
+
+  @media screen and (width <= 1023px){
     height: 540px;
   }
-  @media screen and (max-width: 1200px) {
+
+  @media screen and (width <= 1200px) {
     border-radius: 20px;
   }
-  @media screen and (max-width: 768px) {
+
+  @media screen and (width <= 768px) {
     border-radius: 15px;
   }
+
   &.no-data{
     height: 170px;
     font-size: 18px
   }
+
   .top-of-list{
     padding: 0 26px;
-    @media screen and (max-width: 1920px){
+
+    @media screen and (width <= 1920px){
       padding: 0 10px;
     }
-    @media screen and (max-width: 1023px){
+
+    @media screen and (width <= 1023px){
       padding: 0 26px;
     }
-    @media screen and (max-width: 767px){
+
+    @media screen and (width <= 767px){
       padding: 0 10px;
     }
-    @media screen and (max-width: 575px){
+
+    @media screen and (width <= 575px){
       padding: 0 7px;
     }
   }
 
   .slot-header-box {
     margin-bottom: 20px;
-    @media screen and (max-width: 1920px) {
+
+    @media screen and (width <= 1920px) {
       margin-bottom: 15px;
     }
-    @media screen and (max-width: 990px) {
+
+    @media screen and (width <= 990px) {
       margin-bottom: 20px;
     }
-    @media screen and (max-width: 600px) {
+
+    @media screen and (width <= 600px) {
       margin-bottom: 15px;
     }
 
@@ -207,10 +219,12 @@ export default {
       color: #3e5480;
       font-size: 20px;
       font-weight: 500;
-      @media screen and (max-width: 768px) {
+
+      @media screen and (width <= 768px) {
         font-size: 16px;
       }
-      @media screen and (max-width: 350px) {
+
+      @media screen and (width <= 350px) {
         padding: 0 15px 0 0;
       }
     }
@@ -221,7 +235,8 @@ export default {
       justify-self: end;
       color: #9fa5c0;
       cursor: pointer;
-      @media screen and (max-width: 768px) {
+
+      @media screen and (width <= 768px) {
         font-size: 12px;
       }
     }
@@ -238,7 +253,8 @@ export default {
       overflow: auto;
       height: 100%;
       width: 100%;
-      @media screen and (max-width: 960px) {
+
+      @media screen and (width <= 960px) {
         position: relative !important;
       }
     }
@@ -268,13 +284,13 @@ export default {
 
 }
 
-@media screen and (max-width: 1920px) {
+@media screen and (width <= 1920px) {
   .v-select-box {
     margin: 0 10px;
   }
 }
 
-@media screen and (max-width: 350px) {
+@media screen and (width <= 350px) {
   .v-select-box {
     margin: 0 6px;
   }

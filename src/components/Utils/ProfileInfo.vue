@@ -51,30 +51,36 @@ export default {
     border-radius: 20px;
     padding: 16px;
     margin-bottom: 16px;
+
     .profile-detail {
       display: grid;
       grid-template-columns: 70px auto;
       align-items: center;
+
       .profile-photo-box {
         //background: #FFB74D;
 
         width: 60px;
         height: 60px;
-        border: 3px solid #FFFFFF;
+        border: 3px solid #FFF;
         border-radius: 16px;
         position: relative;
+
         .profile-photo-img {
           .q-img {
             border-radius: 16px;
             height: 100%;
           }
+
           width: 60px;
           height: 60px;
           border-radius: 16px;
+
           :deep(.user-photo) {
             max-width: 100%;
             width: 100%;
             height: 100%;
+
             img {
               border: 2px solid #FFB74D;
               border-radius: 16px;
@@ -83,16 +89,19 @@ export default {
               height: 100% !important;
             }
           }
+
           //.user-photo {
           //
           //}
         }
+
         .profile-photo-badge {
           position: absolute;
           bottom: -15px;
           left: -7px;
         }
       }
+
       .profile-detail-info {
         .info-name {
           font-weight: 600;

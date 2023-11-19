@@ -398,7 +398,7 @@ export default {
 }
 
 .cart-item {
-  padding: 20px 20px;
+  padding: 20px;
 
   .title-above {
     font-weight: 500;
@@ -408,10 +408,13 @@ export default {
   }
 
   .item-info-box {
-    /*.info-photo {*/
-    /*    width: 140px;*/
-    /*    height: 140px;*/
-    /*}*/
+    /* .info-photo { */
+
+    /*    width: 140px; */
+
+    /*    height: 140px; */
+
+    /* } */
 
     .info-details {
       .title {
@@ -444,7 +447,7 @@ export default {
   .item-detail-box {
     .time-receive {
       width: 170px;
-      background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 144, 0, 0.2) 100%);
+      background: linear-gradient(to right, rgb(255 255 255 / 0%) 0%, rgb(255 144 0 / 20%) 100%);
       border-radius: 6px;
       margin-top: 5px;
     }
@@ -461,7 +464,7 @@ export default {
     }
 
     .discount-percent {
-      border-radius: 8px 8px 8px 0px;
+      border-radius: 8px 8px 8px 0;
       background: #EF5350;
     }
 
@@ -482,28 +485,31 @@ export default {
   padding: 0 !important;
 }
 
-@media (max-width: 1439px) {
+@media (width <= 1439px) {
   .clear-space {
     display: none;
   }
 }
 
-@media (min-width: 600px) {
+@media (width >= 600px) {
   .title-above {
     display: none;
   }
 }
 
-@media (max-width: 600px) {
+@media (width <= 600px) {
   .title {
     display: none;
   }
+
   .cart-item {
-    padding: 16px 16px;
+    padding: 16px;
   }
+
   .time-receive {
     margin-bottom: 20px;
   }
+
   .product-detail, .price-detail {
     width: 100%;
   }

@@ -79,12 +79,13 @@ export default {
     font-weight: 700;
     padding: 15px;
   }
+
   .product-content {
     justify-content: space-between;
     padding: 10px 0 40px;
     width: 100%;
 
-    @media screen and (max-width: 600px){
+    @media screen and (width <= 600px){
       padding: 0;
     }
   }

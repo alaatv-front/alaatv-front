@@ -146,26 +146,33 @@ export default {
   display: grid;
   height: calc(100vh - 200px);
   grid-template-rows: 1fr 2fr;
+
   .q-list {
     padding: 0;
+
     &.side-menu-list {
       .search-input {
         margin-bottom: 30px;
       }
-      margin: 0 24px 109px 24px;
+
+      margin: 0 24px 109px;
+
       :deep(.menu-item) {
         .list-child-item {
           max-width: 260px;
         }
       }
+
       .menu-item-btn {
         :deep(.q-btn__content) {
           width: 100%;
           display: grid;
           grid-template-columns: auto auto auto;
+
           //width: 100%;
           padding: 5px 10px;
           justify-content: normal;
+
           .label {
             font-weight: 400;
             font-size: 20px ;
@@ -173,23 +180,28 @@ export default {
           }
         }
       }
-      @media screen and (max-width: 1919px) {
-        margin: 0 24px 34px 24px;
+
+      @media screen and (width <= 1919px) {
+        margin: 0 24px 34px;
       }
-      @media screen and (max-width: 1439px) {
-        margin: 0 21px 26px 21px;
+
+      @media screen and (width <= 1439px) {
+        margin: 0 21px 26px;
       }
-      @media screen and (max-width: 599px) {
-        margin: 0 18px 8px 18px;
+
+      @media screen and (width <= 599px) {
+        margin: 0 18px 8px;
       }
 
       .top-separator {
-        margin: 0 40px 32px 40px;
-        @media screen and (max-width: 1919px) {
-          margin: 0 30px 25px 30px;
+        margin: 0 40px 32px;
+
+        @media screen and (width <= 1919px) {
+          margin: 0 30px 25px;
         }
-        @media screen and (max-width: 1439px) {
-          margin: 0 45px 22px 45px;
+
+        @media screen and (width <= 1439px) {
+          margin: 0 45px 22px;
         }
       }
 
@@ -199,28 +211,35 @@ export default {
       }
     }
   }
+
   .log-out {
     align-self: end;
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
     height: 40px !important;
+
     //width: 232px;
     border-radius: 14px;
     display: flex;
     align-items: center;
     padding: 0 14px 0 10px;
     margin: 0 0 36px 27px;
-    @media screen and (max-width: 1439px) {
-      margin: 0 31px 33px 31px;
+
+    @media screen and (width <= 1439px) {
+      margin: 0 31px 33px;
     }
-    @media screen and (max-width: 599px) {
-      margin: 0 30px 30px 30px;
+
+    @media screen and (width <= 599px) {
+      margin: 0 30px 30px;
+
       //padding: 0 0 0 10px;
     }
+
     &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgb(255 255 255 / 10%);
     }
+
     .q-avatar {
       height: 22px;
       width: 22px;

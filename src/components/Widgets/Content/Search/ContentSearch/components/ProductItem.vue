@@ -187,13 +187,13 @@
                               data-original="#FF3051"
                               class=""
                               data-old_color="#ff3051"
-                              style="fill:#000000" />
+                              style="fill:#000" />
                         <path d="m13 39h14 10 16l8-6h-48z"
                               fill="#e52b49"
                               data-original="#E52B49"
                               class=""
                               data-old_color="#e52b49"
-                              style="fill:#000000" />
+                              style="fill:#000" />
                         <path d="m61.6 32.2-8-6a1 1 0 0 0 -.6-.2h-15v-4h13a1 1 0 0 0 1-1v-12a1 1 0 0 0 -1-1h-13v-5a1 1 0 0 0 -1-1h-10a1 1 0 0 0 -1 1v5h-13a1 1 0 0 0 -.515.143l-10 6a1 1 0 0 0 0 1.714l10 6a1 1 0 0 0 .515.143h13v4h-13a1 1 0 0 0 -1 1v12a1 1 0 0 0 1 1h13v21a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-21h15a1 1 0 0 0 .6-.2l8-6a1 1 0 0 0 0-1.6zm-33.6-28.2h8v4h-8zm-23.056 11 8.333-5h36.723v10h-36.723zm23.056 7h8v4h-8zm8 38h-8v-20h8zm16.667-22h-38.667v-10h38.667l6.666 5z"
                               data-original="#000000"
                               class="" />
@@ -415,12 +415,14 @@ export default {
   position: relative;
   background: white;
   border-radius: 15px;
+
   .pic {
     width: 200px;
     height: 100%;
     border-radius: 15px !important;
     z-index: 3;
-    @media screen and (max-width: 599px) {
+
+    @media screen and (width <= 599px) {
       width: 100%;
       border-radius: 15px 15px 0 0 !important;
     }
@@ -429,11 +431,13 @@ export default {
       width: 100%;
       height: 100%;
       display: block;
+
       :deep(.img) {
         width: 100%;
         height: 100%;
         border-radius: 15px 0 0 15px;
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
           border-radius: 15px 15px 0 0 !important;
         }
       }
@@ -444,6 +448,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+
     .product-title {
       a {
         font-weight: 700;
@@ -461,7 +466,7 @@ export default {
         top: 25px;
         z-index: 10;
         background-color: #f4516c;
-        color: #ffffff;
+        color: #fff;
         padding: 2px 5px;
         border-radius: 5px;
 
@@ -491,7 +496,8 @@ export default {
           }
 
         }
-        @media screen and (max-width: 599px){
+
+        @media screen and (width <= 599px){
           position: relative;
           width: 100px;
           top: 5px;
@@ -506,7 +512,7 @@ export default {
         border-radius: 5px;
         padding: 0 5px;
         background-color: #f4516c;
-        color: #ffffff;
+        color: #fff;
 
         .final-price-box {
           display: flex;
@@ -539,17 +545,10 @@ export default {
     }
   }
 
-  @media screen and (max-width: 599px) {
+  @media screen and (width <= 599px) {
     width: 100% !important;
     flex-direction: column;
     max-height: none;
-  }
-
-  &:hover .content-hover {
-    background-color: #ff8e0017;
-    border-radius: 15px;
-    width: 100% !important;
-    cursor: pointer;
   }
 
   .content-hover {
@@ -562,17 +561,26 @@ export default {
     transition: all 0.7s;
     cursor: pointer;
   }
+
+  &:hover .content-hover {
+    background-color: #ff8e0017;
+    border-radius: 15px;
+    width: 100% !important;
+    cursor: pointer;
+  }
 }
 
-@-webkit-keyframes flow {
+@keyframes flow {
   0% {
     left: 0;
     opacity: 0;
   }
+
   50% {
     left: 20px;
     opacity: 0.3;
   }
+
   100% {
     left: 100px;
     opacity: 0;
@@ -584,10 +592,12 @@ export default {
     left: 0;
     opacity: 0;
   }
+
   50% {
     left: 20px;
     opacity: 0.3;
   }
+
   100% {
     left: 100px;
     opacity: 0;
@@ -595,29 +605,27 @@ export default {
 }
 
 .glow {
-  background: rgb(255, 255, 255);
   width: 40px;
   height: 100%;
   z-index: 999;
   position: absolute;
-  -webkit-animation: flow 1.5s linear infinite;
-  -moz-animation: flow 1.5s linear infinite;
-  -webkit-transform: skew(-65deg);
-  -moz-transform: skew(-65deg);
-  -o-transform: skew(-65deg);
-  background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1%, rgba(255, 255, 255, 1) 100%);
+  animation: flow 1.5s linear infinite;
+  transform: skew(-65deg);
+
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(1%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(255, 255, 255, 1)));
+
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1%, rgba(255, 255, 255, 1) 100%);
+
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1%, rgba(255, 255, 255, 1) 100%);
+
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1%, rgba(255, 255, 255, 1) 100%);
+
   /* IE10+ */
-  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1%, rgba(255, 255, 255, 1) 100%);
+  background: linear-gradient(to right, rgb(255 255 255 / 0%) 0%, rgb(255 255 255 / 0%) 1%, rgb(255 255 255 / 100%) 100%);
+
   /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=1);
+
   /* IE6-9 */
   border-left: 1px solid #fff;
   top: 0;
@@ -643,12 +651,11 @@ export default {
   text-align: center;
   line-height: 20px;
   transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
   width: 100px;
   display: block;
   background: #ac0001;
   background: linear-gradient(#ff0001 0%, #ac0001 100%);
-  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+  box-shadow: 0 3px 10px -5px rgb(0 0 0 / 100%);
   position: absolute;
   top: 19px;
   right: -21px;
@@ -686,11 +693,11 @@ export default {
   padding-left: 5px;
   font-size: 14px;
 
-  &:after {
+  &::after {
     content: ' - ';
   }
 
-  &:last-child:after {
+  &:last-child::after {
     content: ' ';
   }
 }
@@ -707,9 +714,6 @@ export default {
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin-bottom: 25px;
-  @media screen and (max-width: 599px) {
-
-  }
 }
 
 .productAttributes {
@@ -722,7 +726,8 @@ export default {
   width: 33%;
   padding-left: 10px;
   align-items: flex-start;
-  @media screen and (max-width: 599px) {
+
+  @media screen and (width <= 599px) {
     align-items: center;
   }
 }
@@ -735,16 +740,17 @@ export default {
   padding-right: 5px;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (width <= 700px) {
   .productAttributes .productAttributes-item {
     width: 50%;
   }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (width <= 400px) {
   .productAttributes .productAttributes-item .productAttributes-item-icon svg {
     width: 15px;
   }
+
   .productAttributes .productAttributes-item {
     margin-bottom: 5px;
   }

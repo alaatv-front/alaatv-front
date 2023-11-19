@@ -94,6 +94,7 @@ export default {
   .active-item {
     color: #FFC107;
   }
+
   .tab-title {
     font-style: normal;
     font-weight: 400;
@@ -101,6 +102,7 @@ export default {
     line-height: 25px;
     white-space: nowrap;
     position: relative;
+
     .edit-btn {
       position: absolute;
       right: -20px;

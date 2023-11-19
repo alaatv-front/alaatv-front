@@ -1045,6 +1045,7 @@ export default {
     text-decoration: none;
     color: inherit;
   }
+
   .page-title,
   .profile-title {
     font-style: normal;
@@ -1053,49 +1054,60 @@ export default {
     line-height: 31px;
     letter-spacing: -0.03em;
     color: #8798B1;
-    @media  screen and (max-width: 1904px) {
+
+    @media  screen and (width <= 1904px) {
       font-size: 18px;
       line-height: 28px;
     }
-    @media  screen and (max-width: 599px) {
+
+    @media  screen and (width <= 599px) {
       font-size: 16px;
       line-height: 25px;
     }
   }
+
   .page-title{
     margin-bottom: 30px;
-    @media  screen and (max-width: 1904px) {
+
+    @media  screen and (width <= 1904px) {
       margin-bottom: 20px;
 
     }
-    @media  screen and (max-width: 599px) {
+
+    @media  screen and (width <= 599px) {
       margin-bottom: 8px;
     }
   }
+
   .profile-title{
     margin-bottom: 16px;
   }
+
   .profile-section {
-    .profile-title {
-    }
     .profile-box {
-      background: #FFFFFF;
-      box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
+      background: #FFF;
+      box-shadow: 3px 3px 6px rgb(52 54 55 / 4%);
       border-radius: 16px;
-      padding: 24px 15px 30px 15px;
-      @media  screen and (max-width: 599px) {
-        padding: 20px 15px 30px 15px;
+      padding: 24px 15px 30px;
+
+      @media  screen and (width <= 599px) {
+        padding: 20px 15px 30px;
       }
-      @media  screen and (max-width: 599px) {
-        padding: 16px 20px 20px 20px;
+
+      @media  screen and (width <= 599px) {
+        padding: 16px 20px 20px;
       }
+
       .profile-txt-inputs {
         width: 100%;
+
         .input-item {
           margin: 0 15px;
-          @media screen and (max-width: 1904px){
+
+          @media screen and (width <= 1904px){
             margin: 0 12px;
           }
+
           .title {
             font-style: normal;
             font-weight: 400;
@@ -1103,30 +1115,36 @@ export default {
             line-height: 25px;
             color: #8798B1;
           }
+
           .input {
             margin-top: 8px;
           }
-          @media screen and (max-width: 1904px){
+
+          @media screen and (width <= 1904px){
             margin-bottom: 16px;
           }
-          @media screen and (max-width: 599px){
-            margin: 0 0 12px 0;
+
+          @media screen and (width <= 599px){
+            margin: 0 0 12px;
           }
         }
       }
+
       .profile-nationl-code-section {
         margin-top: 40px;
         padding: 0 15px;
-        @media  screen and (max-width: 1904px) {
-          padding: 0;
-          margin-top: 8px;
-        }
-        @media  screen and (max-width: 599px) {
-          padding: 0;
-          margin-top: 8px;
-        }
-        .description {
 
+        @media  screen and (width <= 1904px) {
+          padding: 0;
+          margin-top: 8px;
+        }
+
+        @media  screen and (width <= 599px) {
+          padding: 0;
+          margin-top: 8px;
+        }
+
+        .description {
           .title {
             font-style: normal;
             font-weight: 400;
@@ -1135,6 +1153,7 @@ export default {
             color: #8798B1;
             margin-bottom: 35px;
           }
+
           .text,
           .note {
             font-style: normal;
@@ -1145,12 +1164,14 @@ export default {
             margin-bottom: 35px;
 
           }
+
           .text{
-            @media  screen and (max-width: 1904px) {
+            @media  screen and (width <= 1904px) {
               padding:  0;
               margin-top: 16px;
             }
-            @media  screen and (max-width: 599px) {
+
+            @media  screen and (width <= 599px) {
               padding: 0;
               margin-top: 12px;
             }
@@ -1161,29 +1182,33 @@ export default {
             flex-flow: row;
             justify-content: flex-start;
             align-items: center;
+
             svg{
               margin-left: 2px;
             }
 
-            @media  screen and (max-width: 1904px) {
+            @media  screen and (width <= 1904px) {
               padding:  0;
               margin-top: 8px;
               margin-bottom: 20px;
             }
-            @media  screen and (max-width: 599px) {
 
+            @media  screen and (width <= 599px) {
               margin-bottom: 22px;
             }
+
             svg {
               margin-left: 2px;
             }
           }
         }
+
         .file-input-box {
           position: relative;
-          background: #FFFFFF;
+          background: #FFF;
           border: 2px dashed rgb(255 144 0 / 40%);
           border-radius: 10px;
+
           &.dragover {
             border-width: 5px;
           }
@@ -1191,52 +1216,63 @@ export default {
           .file-input {
             display: none;
           }
+
           .file-input-content {
             display: flex;
             height: inherit;
             flex-flow: row;
             align-items: center;
             justify-content: center;
-            @media screen and (max-width: 1904px) {
+
+            @media screen and (width <= 1904px) {
               flex-flow: column;
             }
+
             .sample-pic {
               height: 48px;
               display: flex;
               align-items: center;
               justify-content: center;
               margin: 0;
-              @media screen and (min-width: 600px) {
+
+              @media screen and (width >= 600px) {
                 margin-bottom: 18px;
               }
+
               svg{
                 width: 48px;
                 height: 48px;
-                @media screen and (max-width: 1904px) {
+
+                @media screen and (width <= 1904px) {
                   width: 30px;
                   height: 30px;
                 }
               }
             }
+
             .hint {
               display: flex;
               flex-flow: row;
               align-items: center;
               justify-content: center;
               margin-bottom: 44px;
-              @media screen and (max-width: 1904px) {
+
+              @media screen and (width <= 1904px) {
                 margin: 0;
               }
+
               .section-1 {
                 font-style: normal;
                 font-weight: 400;
                 font-size: 16px;
                 line-height: 25px;
                 color: #8798B1;
-                @media screen and (max-width: 1023px) {
+
+                @media screen and (width <= 1023px) {
                   display: none;
                 }
               }
+
               .section-2 {
                 font-style: normal;
                 font-weight: 700;
@@ -1245,40 +1281,49 @@ export default {
                 text-align: center;
                 color: #697D9A;
                 margin: 0 16px;
-                @media screen and (max-width: 1023px) {
+
+                @media screen and (width <= 1023px) {
                   display: none;
                 }
               }
+
               .section-3 {
                 font-style: normal;
                 font-weight: 700;
                 font-size: 16px;
                 line-height: 25px;
                 color: #FF9000;
+
                 label {
                   cursor: pointer;
                   margin-bottom: 0;
-                  @media screen and (max-width: 1904px){
+
+                  @media screen and (width <= 1904px){
                     margin-right: 12px;
                   }
                 }
               }
             }
+
             .selected-pic {
               margin-top: 50px;
               margin-bottom: 44px;
               max-width: 100%;
+
               .remove-btn {
                 z-index: 100;
                 bottom: 40px;
                 right: 20px;
               }
+
               .q-img {
                 position: inherit;
+
                 &:deep(.q-img__image) {
                   object-fit: contain !important;
                 }
               }
+
               .btn-upload {
                 display: flex;
                 flex-flow: row;
@@ -1291,16 +1336,20 @@ export default {
         }
       }
     }
+
     .financial-info-section {
       margin-top: 30px;
-      @media screen and (max-width: 1904px) {
+
+      @media screen and (width <= 1904px) {
         margin-top: 40px;
 
       }
-      @media screen and (max-width: 599px) {
+
+      @media screen and (width <= 599px) {
         margin-top: 20px;
 
       }
+
       .title {
         font-style: normal;
         font-weight: 600;
@@ -1309,10 +1358,12 @@ export default {
         letter-spacing: -0.03em;
         color: #8798B1;
         margin-bottom: 16px;
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
           margin-bottom: 0;
         }
       }
+
       .description {
         margin-top: 71px;
         font-style: normal;
@@ -1322,35 +1373,43 @@ export default {
         text-align: right;
         color: #697D9A;
         padding-left: 30px;
-        @media screen and (max-width: 1904px) {
+
+        @media screen and (width <= 1904px) {
           margin-top:0;
           margin-bottom: 20px;
           padding-left: 0;
         }
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
           font-size: 14px;
           line-height: 22px;
         }
+
         div{
           margin-bottom: 8px;
         }
       }
+
       .shaba-number-col {
         .shaba-number-box {
-          background: #FFFFFF;
-          box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
+          background: #FFF;
+          box-shadow: 3px 3px 6px rgb(52 54 55 / 4%);
           border-radius: 16px;
-          padding: 24px 30px 30px 30px;
-          @media screen and (max-width: 1904px) {
-            padding: 20px 30px 30px 30px;
+          padding: 24px 30px 30px;
+
+          @media screen and (width <= 1904px) {
+            padding: 20px 30px 30px;
           }
-          @media screen and (max-width: 599px){
+
+          @media screen and (width <= 599px){
             padding: 19px;
           }
+
           .title {
             margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
+
             .text {
               font-style: normal;
               font-weight: 400;
@@ -1358,19 +1417,21 @@ export default {
               line-height: 25px;
               color: #8798B1;
             }
-            .target-bank-logo {
-            }
           }
+
           .shaba-number-input {
             position: relative;
+
             .shaba-number-checked {
               align-self: center;
             }
+
             .prefix-text {
               align-self: center;
               font-size: 20px;
             }
           }
+
           .shaba-number-hint {
             font-style: normal;
             font-weight: 400;
@@ -1378,22 +1439,26 @@ export default {
             line-height: 19px;
             color: #8798B1;
             margin-top: 8px;
-            @media screen and (max-width: 599px) {
+
+            @media screen and (width <= 599px) {
               display: grid;
               grid-template-columns: 1fr;
+
               .example{
                 justify-self: flex-end;
                 margin-bottom: 10px;
               }
             }
           }
+
           .shaba-number-action-btn-row {
             display: flex;
             flex-flow: row;
             justify-content: flex-end;
             margin-top: 16px;
+
             .shaba-number-action-btn {
-              box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
+              box-shadow: 3px 3px 6px rgb(52 54 55 / 4%);
               border-radius: 8px;
               font-weight: 400;
               font-size: 16px;
@@ -1403,15 +1468,18 @@ export default {
               width: 114px;
               height: 48px;
               cursor: pointer;
-              @media screen and (max-width: 599px) {
+
+              @media screen and (width <= 599px) {
                 padding: 5px 42px;
                 height: 36px;
               }
             }
           }
+
           .card-number-input {
             position: relative;
             margin-top: 16px;
+
             .label {
               font-style: normal;
               font-weight: 400;
@@ -1423,15 +1491,19 @@ export default {
         }
       }
     }
+
     .contract-section {
       margin-top: 30px;
-      @media screen and (min-width: 600px) {
+
+      @media screen and (width >= 600px) {
         margin-top: 40px;
         margin-bottom: 16px;
       }
-      @media screen and (max-width: 599px) {
+
+      @media screen and (width <= 599px) {
         margin-top: 20px;
       }
+
       .title {
         font-style: normal;
         font-weight: 600;
@@ -1440,19 +1512,23 @@ export default {
         letter-spacing: -0.03em;
         color: #8798B1;
       }
+
       .contract-box {
         position: relative;
         margin-top: 16px;
-        background: #FFFFFF;
-        box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
+        background: #FFF;
+        box-shadow: 3px 3px 6px rgb(52 54 55 / 4%);
         border-radius: 16px;
-        padding: 24px 30px 30px 30px;
-        @media screen and (max-width: 599px) {
+        padding: 24px 30px 30px;
+
+        @media screen and (width <= 599px) {
           padding: 20px 30px;
         }
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
           padding: 20px;
         }
+
         .description {
           font-style: normal;
           font-weight: 400;
@@ -1461,13 +1537,16 @@ export default {
           letter-spacing: -0.03em;
           color: #697D9A;
           margin-bottom: 30px;
-          @media screen and (min-width: 600px) {
+
+          @media screen and (width >= 600px) {
             margin-bottom: 40px;
           }
-          @media screen and (max-width: 599px) {
+
+          @media screen and (width <= 599px) {
             margin-bottom: 24px;
           }
         }
+
         .image-col,
         .pdf-col {
           .title {
@@ -1480,19 +1559,21 @@ export default {
             margin-bottom: 16px;
           }
         }
+
         .pdf-col {
           padding-left: 15px;
-          @media screen and (max-width: 1904px){
+
+          @media screen and (width <= 1904px){
             padding-left: 0;
             margin-bottom: 30px;
 
           }
-          @media screen and (max-width: 599px){
+
+          @media screen and (width <= 599px){
             margin-bottom: 20px;
 
           }
-          .title {
-          }
+
           .content {
             .pdf-donwnload-box {
               height: 80px;
@@ -1504,16 +1585,20 @@ export default {
               justify-content: space-between;
               align-items: center;
               position: relative;
-              @media screen and (max-width: 1904px){
+
+              @media screen and (width <= 1904px){
                 padding: 18px 20px;
               }
-              @media screen and (max-width: 599px){
+
+              @media screen and (width <= 599px){
                 padding: 13px 20px;
               }
+
               .download-icon {
                 cursor: pointer;
                 margin-right: 20px;
               }
+
               .file-title-icon {
                 display: flex;
                 flex-flow: row;
@@ -1524,12 +1609,14 @@ export default {
                   cursor: pointer;
                   width: 78px;
                   height: 43px;
-                  @media screen and (max-width: 599px) {
+
+                  @media screen and (width <= 599px) {
                     width: 41px;
                     height: 23px;
                     position: absolute;
                     top: -19px;
                     right: 20px;
+
                     .bs{
                       height: 3px;
                       background: #eff4fb;
@@ -1538,6 +1625,7 @@ export default {
                     }
                   }
                 }
+
                 .file-title {
                   cursor: pointer;
                   margin-right: 30px;
@@ -1547,7 +1635,8 @@ export default {
                   line-height: 25px;
                   letter-spacing: -0.03em;
                   color: #697D9A;
-                  @media screen and (max-width: 599px) {
+
+                  @media screen and (width <= 599px) {
                     font-size: 14px;
                     line-height: 22px;
                     margin-right: 0;
@@ -1557,18 +1646,20 @@ export default {
             }
           }
         }
+
         .image-col {
           padding-right: 15px;
-          @media screen and (max-width: 1904px) {
+
+          @media screen and (width <= 1904px) {
             padding-right: 0;
           }
-          .title {
-          }
+
           .content {
             display: flex;
             flex-flow: row;
             flex-wrap: wrap;
             min-height: 200px;
+
             .content-pic-item {
               width: 30%;
               padding-left: 30px;
@@ -1577,13 +1668,15 @@ export default {
             }
           }
         }
+
         .send-accept-contract {
           text-align: left;
+
           .send-accept-contract-btn {
             width: 114px;
             height: 48px;
             background: #FF9000;
-            box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
+            box-shadow: 3px 3px 6px rgb(52 54 55 / 4%);
             border-radius: 8px;
             font-style: normal;
             font-weight: 400;
@@ -1591,14 +1684,16 @@ export default {
             line-height: 25px;
             text-align: center;
             letter-spacing: -0.03em;
-            color: #FFFFFF;
+            color: #FFF;
           }
         }
+
         .chk-accept-contract {
           position: absolute;
           bottom: 100px;
           display: flex;
           align-items: center;
+
           .chk-text{
             font-style: normal;
             font-weight: 400;
@@ -1608,7 +1703,8 @@ export default {
             color: #697D9A;
             margin-top: 16px;
           }
-          @media screen and (max-width: 599px) {
+
+          @media screen and (width <= 599px) {
             bottom: 82px;
           }
         }
@@ -1623,6 +1719,7 @@ export default {
   .shaba-number-checked {
     .v-badge__wrapper {
       z-index: 10;
+
       .v-badge__badge.success {
         inset: auto calc(100% - 17px) calc(100% - 17px) auto !important;
       }

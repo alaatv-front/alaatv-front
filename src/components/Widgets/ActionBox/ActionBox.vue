@@ -101,26 +101,31 @@ export default {
 <style scoped lang="scss">
 .action-box-container {
   padding: 15px 16px;
+
   .action-btn {
     text-align: right;
-    @media screen and (max-width: 599px) {
+
+    @media screen and (width <= 599px) {
       margin-top: 26px;
       margin-bottom: 4px;
       text-align: center !important;
     }
   }
+
   .contents-container {
     .contents {
-      @media screen and (max-width: 599px) {
+      @media screen and (width <= 599px) {
         place-content: center;
       }
     }
-    @media screen and (max-width: 599px) {
+
+    @media screen and (width <= 599px) {
       margin-top: 26px;
       margin-bottom: 4px;
       text-align: center !important;
     }
   }
+
   .text {
     line-height: v-bind('localOptions.textOptions.xl.lineHeight');
     color: v-bind('localOptions.textOptions.color');
@@ -129,28 +134,28 @@ export default {
     font-family: v-bind('localOptions.textOptions.fontFamily');
     font-style: v-bind('localOptions.textOptions.xl.fontStyle');
 
-    @media screen and (max-width: 1920px) {
+    @media screen and (width <= 1920px) {
       font-size: v-bind('localOptions.textOptions.lg.fontSize');
       font-weight: v-bind('localOptions.textOptions.lg.fontWeight');
       font-style: v-bind('localOptions.textOptions.lg.fontStyle');
       line-height: v-bind('localOptions.textOptions.lg.lineHeight');
     }
 
-    @media screen and (max-width: 1440px) {
+    @media screen and (width <= 1440px) {
       font-size: v-bind('localOptions.textOptions.md.fontSize');
       font-weight: v-bind('localOptions.textOptions.md.fontWeight');
       font-style: v-bind('localOptions.textOptions.md.fontStyle');
       line-height: v-bind('localOptions.textOptions.md.lineHeight');
     }
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (width <= 1024px) {
       font-size: v-bind('localOptions.textOptions.sm.fontSize');
       font-weight: v-bind('localOptions.textOptions.sm.fontWeight');
       font-style: v-bind('localOptions.textOptions.sm.fontStyle');
       line-height: v-bind('localOptions.textOptions.sm.lineHeight');
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (width <= 600px) {
       font-size: v-bind('localOptions.textOptions.xs.fontSize');
       font-weight: v-bind('localOptions.textOptions.xs.fontWeight');
       font-style: v-bind('localOptions.textOptions.xs.fontStyle');

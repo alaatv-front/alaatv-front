@@ -138,7 +138,7 @@ export default defineComponent({
 .daily-plan-wrapper {
   height: 280px;
   width: 100%;
-  margin: 30px 0px 10px;
+  margin: 30px 0 10px;
 
   .daily-plan-header {
     display: flex;
@@ -189,7 +189,7 @@ export default defineComponent({
       &:not(:first-child) {
         margin-left: 30px;
 
-        @media only screen and (max-width: 600px) {
+        @media only screen and (width <= 600px) {
           margin-left: 15px;
         }
       }

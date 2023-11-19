@@ -144,6 +144,7 @@ export default {
   &:deep(.q-table__control){
     width: 100%;
   }
+
   &:deep(.q-table__title){
     width: 100%;
     text-align: center;
@@ -161,6 +162,7 @@ export default {
     font-size: 14px;
     font-weight: 500;
   }
+
   .comparison-tr {
     background: #fff;
 

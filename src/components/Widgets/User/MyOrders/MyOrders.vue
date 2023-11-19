@@ -391,6 +391,7 @@ export default {
 <style scoped lang="scss">
 .my-orders-list{
   margin-bottom: 200px;
+
   :deep(.entity-index) {
     .q-expansion-item {
       .q-expansion-item__container {
@@ -398,6 +399,7 @@ export default {
           &:deep(.q-item-type){
             display: none;
           }
+
           .filter-items{
             font-weight: 400!important;
             font-size: 16px;
@@ -406,11 +408,12 @@ export default {
             color: #434765;
             margin-bottom: 30px;
             position: relative;
-            @media screen and (max-width: 1439px){
+
+            @media screen and (width <= 1439px){
               margin-bottom: 24px;
             }
 
-            @media screen and (max-width: 599px){
+            @media screen and (width <= 599px){
               margin-bottom: 20px;
             }
 
@@ -418,73 +421,89 @@ export default {
               .outsideLabel{
                 //padding-bottom: 8px;
               }
-              @media screen and (max-width: 1439px) {
+
+              @media screen and (width <= 1439px) {
                 order: 3;
               }
-              @media screen and (max-width: 599px) {
+
+              @media screen and (width <= 599px) {
                 padding-left: 16px;
                 padding-right: 0;
               }
             }
+
             &:deep(.till){
               padding-top: 40px;
-              @media screen and (max-width: 599px) {
+
+              @media screen and (width <= 599px) {
                 padding: 1px;
               }
             }
+
             &:deep(.since){
               .outsideLabel{
                 padding-bottom: 8px;
               }
+
               &:deep(.q-icon){
                 &::before{
                   content: '';
                 }
               }
-              @media screen and (max-width: 599px) {
+
+              @media screen and (width <= 599px) {
                 padding: 1px 1px 8px;
               }
-              @media screen and (max-width: 1439px) {
+
+              @media screen and (width <= 1439px) {
 
               }
             }
+
             &:deep(.formBuilder-actionBtn-ActionBtn){
-              @media screen and (max-width: 1439px){
+              @media screen and (width <= 1439px){
                 text-align: right;
                 order:3
               }
             }
+
             .action-btn{
-              @media screen and (max-width: 1439px) {
+              @media screen and (width <= 1439px) {
                 position: absolute;
                 bottom: 0;
                 margin-top:10px;
               }
-              @media screen and (max-width: 599px){
+
+              @media screen and (width <= 599px){
                 position: relative;
               }
             }
+
             .select-input{
 
             }
+
             .filter-inputs{
-              @media screen and (max-width: 1439px) {
+              @media screen and (width <= 1439px) {
                 order: 1;
               }
             }
+
             .filter-btn{
               font-weight: 600;
               font-size: 14px;
               line-height: 22px;
               letter-spacing: -0.03em;
-              color: #FFFFFF;
+              color: #FFF;
             }
+
             .reload-icon{
               color: #6D708B;
               margin-right: 16px;
             }
           }
         }
+
         .q-item {
           display: none;
         }
@@ -492,12 +511,15 @@ export default {
     }
   }
 }
+
 .gray-bg{
   background: #E4E8EF;
 }
+
 .search-box{
   margin-bottom: 20px;
-  @media  screen and (max-width: 599px){
+
+  @media  screen and (width <= 599px){
     margin-bottom: 20px;
   }
 }
@@ -512,18 +534,21 @@ export default {
     color: #434765;
     padding-bottom: 40px;
   }
+
   :deep(.q-table__bottom){
     display: none;
   }
+
   .quasar-crud-index-table{
     :deep(.q-table){
-
       tr{
         border: none;
       }
+
       th{
         border: none;
       }
+
       td{
         border: none;
       }
@@ -547,9 +572,10 @@ export default {
     padding: 0 !important;
 
     .q-table__container {
-      box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(112, 108, 162, 0.05);
+      box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%);
       border-radius: 16px;
-      @media screen and (max-width: 599px) {
+
+      @media screen and (width <= 599px) {
         //padding-bottom: 20px;
       }
 
@@ -568,7 +594,8 @@ export default {
             line-height: 25px;
             color: #6D708B;
             padding: 23px 40px;
-            @media screen and (max-width: 1439px){
+
+            @media screen and (width <= 1439px){
               padding: 20px 30px;
             }
           }
@@ -587,13 +614,15 @@ export default {
             font-size: 14px;
             line-height: 22px;
             color: #434765;
+
             td{
               padding: 10px 40px;
               font-weight: 400;
               font-size: 14px;
               line-height: 22px;
               letter-spacing: -0.03em;
-              @media screen and (max-width: 1439px){
+
+              @media screen and (width <= 1439px){
                 padding: 2px 30px;
               }
             }
@@ -606,6 +635,7 @@ export default {
 
         //}
       }
+
       .q-table__grid-content {
         flex-direction: column;
       }
@@ -615,7 +645,7 @@ export default {
       display: none !important;
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (width <= 600px) {
       .q-table__card {
         box-shadow: none;
         border-bottom: 1px solid #E4E8EF;
@@ -624,6 +654,7 @@ export default {
 
       .q-table__grid-item {
         padding: 0;
+
         .q-table__grid-item-row {
           display: flex;
           justify-content: space-between;
@@ -633,8 +664,8 @@ export default {
   }
 
   .details-dialog {
-    background: #FFFFFF;
-    box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(112, 108, 162, 0.05) #{"/* rtl:ignore */"};
+    background: #FFF;
+    box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%) #{"/* rtl:ignore */"};
     border-radius: 16px;
   }
 
@@ -642,10 +673,12 @@ export default {
     box-shadow: none;
     border-radius: 0;
     border-bottom: 1px solid #E4E8EF;
+
     &:last-child{
       border-radius: 16px;
       border-bottom: none;
     }
+
     &:first-child{
       border-top-left-radius: 16px;
       border-top-right-radius: 16px;
@@ -657,9 +690,11 @@ export default {
       font-size: 14px;
       line-height: 22px;
       letter-spacing: -0.03em;
-      @media screen and (max-width: 599px){
+
+      @media screen and (width <= 599px){
         padding: 15px 18px;
       }
+
       .item{
         color: var(--Text-2);
         display: flex;
@@ -669,36 +704,44 @@ export default {
         font-weight: 400;
         font-size: 16px;
         line-height: 25px;
-        @media screen and (max-width: 599px){
+
+        @media screen and (width <= 599px){
           margin-bottom: 10px;
           font-size: 14px;
           line-height: 22px;
         }
+
         .value{
           color: var(--Text-1);
         }
+
         .order {
           .order-id {
             padding-left: 8px;
             color: var(--Text-1);
           }
         }
+
         .details-btn {
           color:#8075DC ;
           cursor: pointer;
+
           :deep(.q-icon ){
             font-size: 14px;
             font-weight: 600;
             margin-left: 6px;
           }
+
           &.dialog{
-            @media screen and (max-width: 599px) {
+            @media screen and (width <= 599px) {
               display: none;
             }
           }
+
           &.toggle{
             display: none;
-            @media screen and (max-width: 599px) {
+
+            @media screen and (width <= 599px) {
               display: block;
             }
           }
@@ -707,6 +750,7 @@ export default {
     }
   }
 }
+
 .empty-order-list {
   font-style: normal;
   font-weight: 700;
@@ -719,34 +763,40 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100vh;
+
   //.q-img
   .list-text {
-    @media screen and (max-width: 1439px) {
+    @media screen and (width <= 1439px) {
       font-size: 22px;
       line-height: 34px;
       text-align: center;
       color: #6D708B;
     }
   }
+
   .image {
     width: 290px;
     height: 290px;
     margin-bottom: 60px;
-    @media screen and (max-width: 1439px) {
+
+    @media screen and (width <= 1439px) {
       width: 230px;
       height: 230px;
       margin-bottom: 48px;
     }
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       width: 290px;
       height: 290px;
     }
-    @media screen and (max-width: 599px) {
+
+    @media screen and (width <= 599px) {
       width: 200px;
       height: 200px;
       margin-bottom: 40px;
     }
   }
+
   .back-to-shop-btn {
     text-align: center;
     margin-top: 16px;

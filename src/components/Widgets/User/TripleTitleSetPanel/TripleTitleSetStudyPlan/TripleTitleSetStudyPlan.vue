@@ -793,40 +793,48 @@ export default {
 .calendar {
   margin-top: 25px;
 }
+
 .action-btns {
   .newPlan-btn {
     margin-left: 24px;
   }
 }
+
 .plan-setting {
   width: 488px;
 }
+
 .new-theme-btn {
   .btn {
     width: 104px;
   }
 }
+
 .accept-plan-card {
   width: 500px;
+
   .lazy-image-wrapper {
     place-content: center;
+
     .lazy-image {
       width: 140px;
       height: 140px;
     }
   }
 }
+
 .day-view-current-time-indicator {
   position: absolute;
   height: 10px;
   width: 10px;
   margin-top: -4px;
-  background-color: rgba(0, 0, 255, .5);
+  background-color: rgb(0 0 255 / 50%);
   border-radius: 50%;
 }
+
 .day-view-current-time-line {
   position: absolute;
-  border-top: rgba(0, 0, 255, .5) 2px solid;
+  border-top: rgb(0 0 255 / 50%) 2px solid;
   width: 100%
 }
 

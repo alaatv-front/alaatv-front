@@ -53,34 +53,41 @@ export default {
   line-height: normal;
   letter-spacing: normal;
   color: #9fa5c0;
+
   .profile-photo{
     margin-right:15px;
+
     .img{
       width: 36px;
       height: 36px;
     }
 
   }
+
   .name{
     font-size: 16px;
     font-weight: 500;
     color: #3e5480;
     margin-bottom: 3px;
   }
+
   .phone-number{
     font-size: 14px;
   }
+
   .separator{
     width: 90%;
   }
 }
+
 .chatre-nejat-header{
   height: 64px;
   background: #fff;
   position: relative;
   display: grid;
   grid-template-columns: auto 1fr auto;
-  @media screen and (max-width: 1023px) {
+
+  @media screen and (width <= 1023px) {
 
   }
 
@@ -90,7 +97,8 @@ export default {
     align-self: center;
     margin-left: 25px;
     visibility: hidden;
-    @media screen and (max-width: 990px) {
+
+    @media screen and (width <= 990px) {
       visibility: visible;
     }
   }
@@ -102,21 +110,25 @@ export default {
   .header-box {
     .header-logo-img {
       width: 142px;
-      @media screen and (max-width: 990px) {
+
+      @media screen and (width <= 990px) {
         width: 126px;
       }
-      @media screen and (max-width: 768px) {
+
+      @media screen and (width <= 768px) {
         width: 86px;
       }
     }
   }
+
   .profile-box {
     height: 100%;
     padding-right: 18px;
   }
+
   .expanded-panel{
     margin: 0 30px;
-    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 5px 0 rgb(0 0 0 / 10%);
   }
 }
 

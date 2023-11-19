@@ -552,17 +552,19 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/Typography/typography.scss";
+@import "src/css/Theme/Typography/typography";
+
 .payment-card {
   border-radius: 12px;
   background:#FFF;
-  box-shadow: 0px 2px 4px -2px rgba(16, 24, 40, 0.06), 0px 4px 8px -2px rgba(16, 24, 40, 0.10);
+  box-shadow: 0 2px 4px -2px rgb(16 24 40 / 6%), 0 4px 8px -2px rgb(16 24 40 / 10%);
   width: 800px;
   max-width: 100%;
+
   //height: 649px;
   position: relative;
 
-  @media screen and (max-width: 599px){
+  @media screen and (width <= 599px){
     //height: 666px;
   }
 
@@ -601,14 +603,15 @@ export default defineComponent({
     //height: 450px;
     overflow-y: auto;
 
-    @media screen and (max-width: 599px){
+    @media screen and (width <= 599px){
       height: 420px;
     }
 
     .products-col {
       padding-left:30px;
+
       &.hidden-responsive {
-        @media screen and (max-width: 599px){
+        @media screen and (width <= 599px){
           //display: none;
         }
       }
@@ -621,6 +624,7 @@ export default defineComponent({
 
   .installment-roules-and-conditions {
         height: 100%;
+
         .installment-roules-and-conditions-title {
           color: #333;
           font-size: 16px;
@@ -630,6 +634,7 @@ export default defineComponent({
           letter-spacing: -0.48px;
           margin-bottom: 16px;
         }
+
         .installment-roules-and-conditions-body {
           display: flex;
           flex-flow: column;
@@ -643,10 +648,11 @@ export default defineComponent({
             line-height: 22.4px;
             letter-spacing: -0.42px;
           }
+
           .installment-roules-and-conditions-accept {
             margin-top: 110px;
 
-            @media screen and (max-width: 1023px){
+            @media screen and (width <= 1023px){
               margin-top: 33px;
             }
           }
@@ -663,6 +669,7 @@ export default defineComponent({
 
     &.hidden-responsive {
       display: none;
+
         // @media screen and (max-width: 600px){
         // }
       }
@@ -674,6 +681,7 @@ export default defineComponent({
         max-height: 180px;
         overflow-y: auto;
       }
+
       .complimentary-wrapper {
         display: flex;
         justify-content: space-between;
@@ -682,6 +690,7 @@ export default defineComponent({
         .complimentary-title {
           width: 250px;
         }
+
         .complimentary-price {
 
         }
@@ -692,15 +701,17 @@ export default defineComponent({
   .product-exams {
     overflow-x: auto;
     width: 100%;
+
     .exam-list-wrapper {
       display: flex;
       overflow-x: auto;
       width: 100%;
+
       .exam-item {
         display: flex;
         min-width: 89px;
         height: 44px;
-        padding: 9px 15px 10px 15px;
+        padding: 9px 15px 10px;
         margin: 8px 7px;
         justify-content: center;
         align-items: center;
@@ -708,12 +719,14 @@ export default defineComponent({
         border: 1.5px solid #E0E0E0;
         background:#FFF;
         cursor: pointer;
+
         &.selected {
           background:#E0E0E0;
         }
       }
     }
   }
+
   .products-label {
     padding: 16px 15px;
 
@@ -725,12 +738,15 @@ export default defineComponent({
 
   .installment {
     width: 100%;
+
     //height: 349px;
     border-radius: 8px;
     background: #ECEFF1;
+
     //overflow-y: auto;
     padding: 20px;
-    @media screen and (max-width: 599px){
+
+    @media screen and (width <= 599px){
       padding: 16px 12px 12px;
       margin-bottom: 10px;
     }
@@ -748,6 +764,7 @@ export default defineComponent({
         line-height: normal;
         letter-spacing: -0.36px;
       }
+
       .installment-date-label {
         text-align: center;
         font-size: 12px;
@@ -757,6 +774,7 @@ export default defineComponent({
         letter-spacing: -0.36px;
         color: #616161;
       }
+
       .installment-amount-label {
         text-align: center;
         font-size: 12px;
@@ -794,6 +812,7 @@ export default defineComponent({
           letter-spacing: -0.42px;
         }
       }
+
       .installment-date {
         color:#616161;
         text-align: center;
@@ -812,6 +831,7 @@ export default defineComponent({
           letter-spacing: -0.42px;
         }
       }
+
       .installment-amount {
         color:#616161;
         font-size: 12px;
@@ -837,14 +857,17 @@ export default defineComponent({
       margin: 12px 0 0;
       border-top: dashed 1px #AEAEAE;
 
-      @media screen and (max-width: 1023px){
+      @media screen and (width <= 1023px){
         padding: 12px 20px 0;
       }
-      @media screen and (max-width: 599px){
+
+      @media screen and (width <= 599px){
         padding: 12px 0 0;
       }
+
       .installment-footer-label {
         @include caption1;
+
         color: $grey-8;
       }
 
@@ -853,8 +876,10 @@ export default defineComponent({
         justify-content: center;
         align-items: center;
         flex-direction: row;
+
         .footer-discount-label {
           @include caption1;
+
           color: $grey-8;
           margin-left: $spacing-base;
         }
@@ -862,13 +887,16 @@ export default defineComponent({
 
       .installment-footer-amount {
         @include caption1;
+
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: row;
         color: $grey-8;
+
         .footer-amount-label {
           @include caption2;
+
           color: $grey-8;
           margin-left: $spacing-base;
         }
@@ -882,7 +910,7 @@ export default defineComponent({
     //width: 100%;
     padding: 0 30px 30px;
 
-    @media screen and (max-width: 599px){
+    @media screen and (width <= 599px){
       padding: 0 30px 16px;
     }
 
@@ -901,10 +929,11 @@ export default defineComponent({
           margin-right: 8px;
         }
 
-        @media screen and (max-width: 599px){
+        @media screen and (width <= 599px){
           display: flex;
         }
       }
+
     .price-info {
       display: flex;
       justify-content: space-between;
@@ -927,10 +956,11 @@ export default defineComponent({
           margin-right: 8px;
         }
 
-        @media screen and (max-width: 599px){
+        @media screen and (width <= 599px){
           display: none;
         }
       }
+
       .price-calculation {
         display: flex;
         justify-content: center;
@@ -949,6 +979,7 @@ export default defineComponent({
           letter-spacing: -0.8px;
         }
       }
+
       .price-final {
         display: flex;
         justify-content: center;
@@ -978,6 +1009,7 @@ export default defineComponent({
         color: #424242 !important;
         opacity: 0.3 !important;;
         background: #FFCA28 !important;
+
         .q-btn__content {
           color: #424242 !important;
         }
@@ -990,9 +1022,10 @@ export default defineComponent({
       justify-content: center;
       align-items: center;
 
-      @media screen and (max-width: 1440px){
+      @media screen and (width <= 1440px){
         justify-content: flex-start;
       }
+
       .simple-text {
         color: #424242;
         font-size: 18px;
@@ -1004,19 +1037,23 @@ export default defineComponent({
         &.before {
           margin-right: 12px;
         }
+
         &.after {
           margin-left: 12px;
         }
       }
+
       .price {
         color: #FF8518;
         font-style: normal;
         line-height: normal;
+
         &.price-value {
           font-size: 24px;
           font-weight: 700;
           letter-spacing: -0.72px;
         }
+
         &.price-label {
           font-size: 14px;
           font-weight: 600;

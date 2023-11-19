@@ -1,7 +1,9 @@
 .new-theme {
-  .q-table__card .q-table__top, .q-table__card .q-table__bottom {
+  .q-table__card .q-table__top,
+  .q-table__card .q-table__bottom {
     display: none;
   }
+
   .q-table__card {
     color: $grey-9;
     background: $grey-2;
@@ -13,7 +15,51 @@
     line-height: 24px;
     letter-spacing: -0.02em;
   }
+
   .q-table {
+    /*  we can't style tr for hover normally,
+      so this is Quasar's alternative way ( background with opacity)
+      and therefore our alternative way
+    */
+    tbody {
+      tr {
+        td {
+          &::before {
+            background: rgb(238 230 203 / 30%);
+          }
+
+          &::after {
+            background: transparent;
+          }
+
+          &:last-child {
+            ::after {
+              border-bottom-left-radius: 8px;
+              border-top-left-radius: 8px;
+              border-top-right-radius: 0;
+            }
+          }
+        }
+
+        &:first-child {
+          td::after {
+            border-bottom-left-radius: 8px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 0;
+          }
+        }
+
+        .selected:first-child {
+          td::after {
+            border-bottom-left-radius: 8px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 0;
+          }
+        }
+      }
+    }
+
+    /*
     .q-tr {
       .q-td {
         background: $grey-1;
@@ -31,13 +77,13 @@
       }
 
       :first-child {
-        &.q-td {
+        td::after {
           border-bottom-left-radius: 8px;
           border-top-left-radius: 8px;
           border-top-right-radius: 0;
         }
 
-        td:after {
+        &.q-td {
           border-bottom-left-radius: 8px;
           border-top-left-radius: 8px;
           border-top-right-radius: 0;
@@ -51,49 +97,10 @@
         }
       }
     }
-    //  we can't style tr for hover normally,
-    //  so this is Quasar's alternative way ( background with opacity)
-    //  and therefore our alternative way
-    tbody {
-      tr {
-        td {
-          &:before {
-            //background: $primary1;
-            background: rgba(238, 230, 203, 0.3);
-          }
+     */
 
-          &:after {
-            background: transparent;
-          }
-
-          &:last-child {
-            :after {
-              border-bottom-left-radius: 8px;
-              border-top-left-radius: 8px;
-              border-top-right-radius: 0;
-            }
-          }
-        }
-
-        &:first-child {
-          td:after {
-            border-bottom-left-radius: 8px;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 0;
-          }
-        }
-
-        .selected:first-child {
-          td::after {
-            border-bottom-left-radius: 8px;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 0;
-          }
-        }
-      }
-    }
-
-    .q-checkbox__inner--truthy, .q-checkbox__inner--indet {
+    .q-checkbox__inner--truthy,
+    .q-checkbox__inner--indet {
       color: $secondary-4;
     }
   }

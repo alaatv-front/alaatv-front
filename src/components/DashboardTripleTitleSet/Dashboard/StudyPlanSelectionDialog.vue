@@ -162,12 +162,13 @@ export default defineComponent({
   padding: 24px;
   border-radius: 12px;
   background:#FFF;
-  box-shadow: 0px 2px 4px -2px rgba(16, 24, 40, 0.06), 0px 4px 8px -2px rgba(16, 24, 40, 0.10);
+  box-shadow: 0 2px 4px -2px rgb(16 24 40 / 6%), 0 4px 8px -2px rgb(16 24 40 / 10%);
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (width <= 600px) {
     width: 100%;
     padding: 10px;
   }
+
   .form-header {
     display: flex;
     justify-content: space-between;
@@ -189,6 +190,7 @@ export default defineComponent({
 
   .form-section {
     padding: 20px 0;
+
     .form-inputs-wrapper {
       display: flex;
       flex-direction: column;

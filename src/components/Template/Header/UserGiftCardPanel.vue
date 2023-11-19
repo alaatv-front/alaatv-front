@@ -89,6 +89,7 @@ export default {
   display: flex;
   flex-flow: row;
   justify-content: space-between;
+
   .title {
     font-weight: 700;
     font-size: 24px;
@@ -98,6 +99,7 @@ export default {
     margin-top: 24px;
     margin-left: 30px;
   }
+
   .dropdown-menu {
     display: flex;
     justify-content: center;
@@ -116,7 +118,7 @@ export default {
       border-radius: 20px;
       cursor: pointer;
 
-      @media screen and (max-width: 600px){
+      @media screen and (width <= 600px){
         width: 36px;
         height: 32px;
         border-radius: 50%;
@@ -125,29 +127,31 @@ export default {
       .sms-help-text {
         color: #697D9A;
 
-        @media screen and (max-width: 600px){
+        @media screen and (width <= 600px){
           display:none;
         }
       }
+
       .sms-help-icon {
         display:none;
         color: #697D9A;
 
-        @media screen and (max-width: 600px){
+        @media screen and (width <= 600px){
           display:block;
         }
       }
     }
   }
 }
+
 .sms-help-dialog {
   width: 360px;
   height: 284px;
   border-radius: 12px;
   background: #FFF;
-  box-shadow: 0px 2px 4px -2px rgba(16, 24, 40, 0.06), 0px 4px 8px -2px rgba(16, 24, 40, 0.10);
+  box-shadow: 0 2px 4px -2px rgb(16 24 40 / 6%), 0 4px 8px -2px rgb(16 24 40 / 10%);
 
-  @media screen and (max-width: 600px){
+  @media screen and (width <= 600px){
     width: 320px;
     height: 303px;
   }
@@ -166,6 +170,7 @@ export default {
       line-height: normal;
       letter-spacing: -0.48px;
     }
+
     &__closeBtn {
       color:#697D9A;
       padding: 0;
@@ -210,6 +215,7 @@ export default {
   &_action {
     padding: 0 20px 20px;
     position: absolute;
+
     .action-btn {
       width: 96px;
       height: 32px;

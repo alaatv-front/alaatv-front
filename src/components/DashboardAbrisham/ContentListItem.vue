@@ -138,53 +138,63 @@ export default {
 .content-list-item {
   &:hover {
     cursor: pointer;
-    background-color: rgba(242, 245, 255, 0.31);
+    background-color: rgb(242 245 255 / 31%);
   }
 
   .contentListItem-main-box {
     display: grid;
     grid-template-columns:96px auto;
     align-items: center;
-    border-bottom: solid 1px rgba(159, 165, 192, 0.58);
+    border-bottom: solid 1px rgb(159 165 192 / 58%);
     margin: 0 26px;
-    @media screen and (max-width: 1920px){
+
+    @media screen and (width <= 1920px){
       margin: 0 10px;
     }
-    @media screen and (max-width: 1023px){
+
+    @media screen and (width <= 1023px){
       margin: 0 26px;
     }
-    @media screen and (max-width: 767px){
+
+    @media screen and (width <= 767px){
       margin: 0 10px;
     }
-    @media screen and (max-width: 575px){
+
+    @media screen and (width <= 575px){
       margin: 0 7px;
     }
-    @media screen and (max-width: 1920px) {
+
+    @media screen and (width <= 1920px) {
       padding-top: 15px;
       grid-template-columns:71px auto;
     }
-    @media screen and (max-width: 990px) {
+
+    @media screen and (width <= 990px) {
       padding-top: 10px;
       grid-template-columns:96px auto;
     }
-    @media screen and (max-width: 768px) {
+
+    @media screen and (width <= 768px) {
       padding-top: 10px;
       grid-template-columns:71px auto;
     }
-    @media screen and (max-width: 576px) {
+
+    @media screen and (width <= 576px) {
       padding-top: 10px;
     }
 
     .right-content {
       margin-bottom: 21px;
-      @media screen and (max-width: 576px) {
+
+      @media screen and (width <= 576px) {
         margin-bottom: 15px;
       }
 
       .lesson_name {
         font-size: 12px;
         line-height: 20px;
-        @media screen and (max-width: 768px) {
+
+        @media screen and (width <= 768px) {
           font-size: 11px;
           line-height: 22px;
         }
@@ -196,19 +206,23 @@ export default {
         .content-list-image {
           width: 96px;
           border-radius: 10px !important;
-          @media screen and (max-width: 1920px) {
+
+          @media screen and (width <= 1920px) {
             width: 71px;
             border-radius: 5px !important;
           }
-          @media screen and (max-width: 959px) {
+
+          @media screen and (width <= 959px) {
             width: 96px;
             border-radius: 10px !important;
           }
-          @media screen and (max-width: 768px) {
+
+          @media screen and (width <= 768px) {
             width: 70px;
             border-radius: 5px !important;
           }
-          @media screen and (max-width: 320px) {
+
+          @media screen and (width <= 320px) {
             width: 60px;
           }
 
@@ -219,15 +233,17 @@ export default {
           width: 96px;
           opacity: 0.5;
           border-radius: 10px;
-          background-color: #000000;
+          background-color: #000;
           position: absolute;
           top: 0;
-          @media screen and (max-width: 1920px) {
+
+          @media screen and (width <= 1920px) {
             height: 100%;
             width: 100%;
             border-radius: 5px;
           }
-          @media screen and (max-width: 320px) {
+
+          @media screen and (width <= 320px) {
             height: 33px;
             width: 60px;
           }
@@ -242,10 +258,12 @@ export default {
 
     .left-content {
       margin-left: 15px;
-      @media screen and (max-width: 1920px) {
+
+      @media screen and (width <= 1920px) {
 
       }
-      @media screen and (max-width: 576px) {
+
+      @media screen and (width <= 576px) {
 
       }
 
@@ -265,24 +283,30 @@ export default {
             font-size: 14px;
             color: #9fa5c0;
             max-width: 338px;
-            @media screen and (max-width: 1920px) {
+
+            @media screen and (width <= 1920px) {
               font-size: 14px;
               color: #9fa5c0;
               max-width: 202px;
             }
-            @media screen and (max-width: 1400px) {
+
+            @media screen and (width <= 1400px) {
               max-width: 200px;
             }
-            @media screen and (max-width: 1200px) {
+
+            @media screen and (width <= 1200px) {
               max-width: 150px;
             }
-            @media screen and (max-width: 1023px) {
+
+            @media screen and (width <= 1023px) {
               max-width: 338px;
             }
-            @media screen and (max-width: 599px) {
+
+            @media screen and (width <= 599px) {
               max-width: 200px;
             }
-            @media screen and (max-width: 350px) {
+
+            @media screen and (width <= 350px) {
               font-size: 12px;
             }
 
@@ -294,22 +318,27 @@ export default {
             color: #3e5480;
             margin-bottom: 0;
             max-width: 336px;
-            @media screen and (max-width: 1920px) {
+
+            @media screen and (width <= 1920px) {
               font-size: 18px;
               font-weight: 500;
               color: #3e5480;
               margin-bottom: 0;
             }
-            @media screen and (max-width: 1550px) {
+
+            @media screen and (width <= 1550px) {
               max-width: 235px;
             }
-            @media screen and (max-width: 1200px) {
+
+            @media screen and (width <= 1200px) {
               max-width: 150px;
             }
-            @media screen and (max-width: 1023px) {
+
+            @media screen and (width <= 1023px) {
               max-width: 100%;
             }
-            @media screen and (max-width: 768px) {
+
+            @media screen and (width <= 768px) {
               font-size: 14px;
               max-width: 200px;
             }
@@ -317,29 +346,36 @@ export default {
 
           &.title-box-pamphlet {
             max-width: 180px;
+
             .contentListItem-title {
-              @media screen and (max-width: 1200px) {
+              @media screen and (width <= 1200px) {
                 max-width: 130px;
               }
-              @media screen and (max-width: 1023px) {
+
+              @media screen and (width <= 1023px) {
                 max-width: 338px;
               }
             }
+
             .contentListItem-description {
-              @media screen and (max-width: 1200px) {
+              @media screen and (width <= 1200px) {
                 max-width: 130px;
               }
-              @media screen and (max-width: 1023px) {
+
+              @media screen and (width <= 1023px) {
                 max-width: 338px;
               }
             }
-            @media screen and (max-width: 1200px) {
+
+            @media screen and (width <= 1200px) {
               max-width: 150px;
             }
-            @media screen and (max-width: 1023px){
+
+            @media screen and (width <= 1023px){
               max-width: 338px;
             }
-            @media screen and (max-width: 599px) {
+
+            @media screen and (width <= 599px) {
               max-width: 166px;
             }
           }
@@ -350,10 +386,12 @@ export default {
           font-weight: 500;
           font-size: 20px;
           margin-right: 5px;
-          @media screen and (max-width: 959px) {
+
+          @media screen and (width <= 959px) {
             font-size: 24px;
           }
-          @media screen and (max-width: 768px) {
+
+          @media screen and (width <= 768px) {
             font-size: 15px;
           }
         }

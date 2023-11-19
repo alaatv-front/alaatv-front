@@ -113,20 +113,25 @@ export default {
       justify-content: flex-start;
       align-items: center;
       margin-bottom: 8px;
+
       :deep(.q-btn) {
         width: 16px;
         height: 16px;
+
         .q-icon {
           font-size: 16px;
           color: #9E9E9E;
         }
       }
+
       .selected-item-reorder-action {
         width: 38px;
+
         .q-btn:first-child {
           margin-right: 6px;
         }
       }
+
       .selected-item-order {
         text-align: center;
         width: 56px;
@@ -137,6 +142,7 @@ export default {
         line-height: normal;
         letter-spacing: -0.28px;
       }
+
       .selected-item-title {
         width: calc( 100% - 110px );
         color: #424242;
@@ -146,6 +152,7 @@ export default {
         line-height: normal;
         letter-spacing: -0.28px;
       }
+
       .selected-item-delete-action {
         width: 16px;
       }

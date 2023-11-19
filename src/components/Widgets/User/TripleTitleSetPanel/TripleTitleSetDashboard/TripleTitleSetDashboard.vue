@@ -78,7 +78,7 @@ export default defineComponent({
 .triple-title-set-dashboard-container {
   padding: 40px 70px 0;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (width <= 600px) {
     padding: 30px 20px;
   }
 }

@@ -193,36 +193,45 @@ export default {
   .state-photo {
     margin-top: 88px;
   }
+
   .coupon-action-row {
     .coupon-input-title {
 
     }
+
     .coupon-input-field {
 
     }
+
     .coupon-price-info {
       .coupon-price-row {
         display: flex;
         flex-flow: row;
         justify-content: space-between;
+
         .coupon-price-column {
           &.coupon-price-title {
 
           }
+
           &.coupon-price-value {
             .price-number {}
+
             .price-unit {
               margin-left: 8px;
             }
           }
         }
       }
+
       .coupon-price-base {
         color: #424242;
         margin-bottom: 8px;
       }
+
       .coupon-price-discount {
         color: #EF5350;
+
         .coupon-price-row {
           .coupon-price-column {
             &.coupon-price-value {
@@ -232,13 +241,16 @@ export default {
             }
           }
         }
+
         margin-bottom: 8px;
       }
+
       .coupon-price-final {
         color: #424242;
       }
     }
   }
+
   .action-row {
     margin-top: 48px;
   }

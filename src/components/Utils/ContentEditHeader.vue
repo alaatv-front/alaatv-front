@@ -521,22 +521,27 @@ export default {
 <style scoped lang="scss">
 .entity-edit-header {
   padding-top: 20px;
+
   .upper-card {
     color: #F4F5F6;
     display: grid;
     grid-template-columns: 170px auto;
+
     :deep(.q-field) {
       .q-field__append {
         color: #F4F5F6;
       }
+
       .q-field__native {
         color: #F4F5F6;
       }
     }
+
     .header-item {
       margin-left: 10px;
       margin-right: 10px;
     }
+
     .line {
       //padding-bottom: 20px;
       //padding-right: 0;
@@ -545,10 +550,12 @@ export default {
       border: 1px solid #ffe9cc;
     }
     .base-part {}
+
     .edit-mode {
      .selector {
         width: 120px;
      }
+
       .lower-card{
         //color: #65677F;
       }

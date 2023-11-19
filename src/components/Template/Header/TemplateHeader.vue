@@ -36,27 +36,33 @@ export default {
   padding-top: 30px;
   background: #f4f6f9;
   justify-content: center;
-  @media screen and (max-width: 1439px) {
+
+  @media screen and (width <= 1439px) {
     max-width: 100%;
   }
-  @media screen and (max-width: 1439px) {
+
+  @media screen and (width <= 1439px) {
     padding-left: 32px;
     padding-right: 32px;
   }
-  @media screen and (max-width: 1148px) {
+
+  @media screen and (width <= 1148px) {
     padding-left: 20px;
     padding-right: 20px;
   }
-  @media screen and (max-width: 1023px) {
+
+  @media screen and (width <= 1023px) {
     padding-left: 30px;
     padding-right: 30px;
   }
-  @media screen and (max-width: 599px) {
+
+  @media screen and (width <= 599px) {
     padding-left: 20px;
     padding-right: 20px;
   }
+
   .user-side-bar {
-    @media screen and (max-width: 1023px) {
+    @media screen and (width <= 1023px) {
       display: none;
     }
   }

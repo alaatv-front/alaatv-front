@@ -56,14 +56,17 @@ export default {
   border-radius: 10px;
    padding: 5px;
   display: flex;
+
   .CustomSelect-Item{
     padding: 8px 10px;
     transition: all 0.5s;
+
     &:hover{
        background: #c6c6c8;
        color: white;
       border-radius: 8px;
   }
+
     &.selected{
       background: #23232c;
       color: white;
@@ -71,6 +74,7 @@ export default {
     }
   }
 }
+
     //
     //.CustomSelect {
     //    border: solid 1px #a9a9a9;

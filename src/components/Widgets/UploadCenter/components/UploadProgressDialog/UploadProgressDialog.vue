@@ -169,14 +169,14 @@ export default {
   width: 1280px;
   height: 780px;
   max-width: 100%;
-  background: #FFFFFF;
+  background: #FFF;
 
   .upload-dialog-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 40px;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgb(255 255 255 / 40%);
     border-bottom: 1px solid #D8D8D8;
 
     .upload-dialog-header-title {

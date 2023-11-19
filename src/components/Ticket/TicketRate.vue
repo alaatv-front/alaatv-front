@@ -123,10 +123,12 @@ export default {
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+
   .rate-img {
     width: 70px;
     height: 70px;
   }
+
   .rate-title {
     display: flex;
     align-items: center;

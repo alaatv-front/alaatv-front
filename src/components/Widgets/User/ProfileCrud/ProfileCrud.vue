@@ -664,7 +664,7 @@ export default {
   font-size: 18px;
   line-height: 28px;
   letter-spacing: -0.03em;
-  color: #333333;
+  color: #333;
   margin-top: 20px;
 }
 

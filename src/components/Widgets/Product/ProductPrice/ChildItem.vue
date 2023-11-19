@@ -153,19 +153,23 @@ export default defineComponent({
 <style scoped lang="scss">
 .ProductPriceChildItem {
   box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 4px 4px 10px rgb(54 90 145 / 5%);
-  background: #FFFFFF;
+  background: #FFF;
   border-radius: 15px;
+
   .ProductPriceChildItem-with-child {
     :deep(.q-expansion-item) {
       .q-expansion-item__container {
         .q-item {
           border-radius: 15px;
+
           //.q-focus-helper {
           //  background: white;
           //}
         }
+
         .q-expansion-item__content {
           padding-left: 20px;
+
           .q-card {
             border-radius: 15px;
           }
@@ -173,11 +177,14 @@ export default defineComponent({
       }
     }
   }
+
   .ProductPriceChildItem-without-child {
     border-radius: 15px;
+
     &:hover {
       background: #e8e8e8;
     }
+
     .q-item {
       height: 44px;
     }

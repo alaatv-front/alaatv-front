@@ -146,7 +146,7 @@ export default {
       justify-content: space-between;
       align-items: center;
 
-      @media screen and (max-width: 1024px) {
+      @media screen and (width <= 1024px) {
         flex-direction: column;
         justify-content: center;
         align-items: flex-end;

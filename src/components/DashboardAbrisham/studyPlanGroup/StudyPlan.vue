@@ -115,24 +115,31 @@ export default {
 .test{
   margin-bottom: 15px;
   border-radius: 20px;
+
   :deep(.q-item){
     height: 60px;
-    @media screen and (max-width: 1200px){
+
+    @media screen and (width <= 1200px){
       height: 50px;
     }
   }
+
   .content{
     border-radius:20px ;
+
     .study-plan-card{
-      padding:0 40px 32px 40px;
-      @media screen and (max-width: 990px ) {
-        padding:0 30px 32px 30px;
+      padding:0 40px 32px;
+
+      @media screen and (width <= 990px ) {
+        padding:0 30px 32px;
       }
-      @media screen and (max-width: 767px ) {
-        padding:0 10px 21px 10px;
+
+      @media screen and (width <= 767px ) {
+        padding:0 10px 21px;
       }
     }
   }
+
   .header-text-style{
     font-size: 18px;
     font-weight: normal;
@@ -140,20 +147,24 @@ export default {
     color: #3e5480;
     display: flex;
     align-items: center;
-    @media only screen and (max-width: 768px) {
+
+    @media only screen and (width <= 768px) {
       font-size: 14px;
     }
   }
 }
+
 .study-plan-boxes{
     color:  #3e5480;
     margin-bottom: 1px;
     border-radius: 0 0 10px 10px;
     width: 99.6%;
     padding-top: 20px;
-    @media only screen and (max-width: 768px){
-        padding-top: 0px;
+
+    @media only screen and (width <= 768px){
+        padding-top: 0;
     }
+
     .study-plan-card{
         background-color: #e1f0ff;
         color: #3e5480;
@@ -161,11 +172,14 @@ export default {
         margin-right: 0;
     }
 }
+
 .v-card{
     padding-top: 0 !important;
+
     .v-card__text{
         padding: 4px 0 !important;
-        @media  screen and (max-width: 768px){
+
+        @media  screen and (width <= 768px){
             padding: 0 !important;
         }
 
@@ -182,19 +196,22 @@ export default {
     text-align: center;
     background-color: #eff3ff;
     color:  #3e5480;
-    border-color: #FFFFFF;
+    border-color: #FFF;
     padding-top: 7px;
     padding-bottom: 5px;
     border-radius: 10px;
 }
-.v-expansion-panels:not(.v-expansion-panels--accordion):not(.v-expansion-panels--tile) > .v-expansion-panel--active {
+
+.v-expansion-panels:not(.v-expansion-panels--accordion, .v-expansion-panels--tile) > .v-expansion-panel--active {
     border-radius: 20px !important;
 }
-.v-expansion-panels:not(.v-expansion-panels--accordion):not(.v-expansion-panels--tile) > .v-expansion-panel--active {
+
+.v-expansion-panels:not(.v-expansion-panels--accordion, .v-expansion-panels--tile) > .v-expansion-panel--active {
     box-shadow: 0 3px 10px 0 rgb(0 0 0 / 10%);
 }
+
 .study-plan-card .theme--light.v-card > .v-card__text, .theme--light.v-card > .v-card__subtitle {
-    color: rgba(0, 0, 0, 0.6);
+    color: rgb(0 0 0 / 60%);
     background-color: #e1f0ff;
 }
 

@@ -44,7 +44,8 @@ export default {
 
 <style lang="scss" scoped>
 .cart-item-grand-mode {
-  background: #FFFFFF;
+  background: #FFF;
+
   //opacity: 0.3;
   border: 2px solid #ededed;
   border-radius: 10px;

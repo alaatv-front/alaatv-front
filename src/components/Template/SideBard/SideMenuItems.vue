@@ -112,6 +112,7 @@ export default {
   :deep(.badge) {
     animation: badge 1s infinite;
   }
+
   :deep(.q-expansion-item) {
     .q-expansion-item__container {
       .q-expansion-item__content {
@@ -119,28 +120,30 @@ export default {
       }
     }
   }
+
   :deep(.q-item) {
     &.q-router-link--active {
       color: inherit;
     }
+
     &.q-item--active,
     &.q-router-link--exact-active {
       color: $primary;
     }
   }
 }
+
 @keyframes badge {
   0% {
-    -moz-box-shadow:0 0 0 0 rgba(55, 55, 55, 0.68);
-    box-shadow:0 0 0 0 rgba(55, 55, 55, 0.68);
+    box-shadow:0 0 0 0 rgb(55 55 55 / 68%);
   }
+
   70% {
-    -moz-box-shadow:0 0 0 10px rgba(0,0,0,0);
-    box-shadow:0 0 0 10px rgba(0,0,0,0);
+    box-shadow:0 0 0 10px rgb(0 0 0 / 0%);
   }
+
   100% {
-    -moz-box-shadow:0 0 0 0 rgba(0,0,0,0);
-    box-shadow:0 0 0 0 rgba(0,0,0,0);
+    box-shadow:0 0 0 0 rgb(0 0 0 / 0%);
   }
 }
 </style>

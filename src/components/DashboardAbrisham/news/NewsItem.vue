@@ -97,15 +97,17 @@ export default {
 <style lang="scss" scoped>
 .news-item {
   border-radius: 20px !important;
-  box-shadow: 0 3px 10px 0 rgba(44, 91, 185, 0.15) !important;
+  box-shadow: 0 3px 10px 0 rgb(44 91 185 / 15%) !important;
   width: 100%;
   padding: 16px 16px 16px 25px;
-  @media screen and (max-width: 768px) {
+
+  @media screen and (width <= 768px) {
     padding: 10px 10px 10px 16px;
     border-radius: 15px !important;
-    box-shadow: 0 2px 5px 0 rgba(44, 91, 185, 0.15) !important;
+    box-shadow: 0 2px 5px 0 rgb(44 91 185 / 15%) !important;
   }
-  @media screen and (max-width: 576px) {
+
+  @media screen and (width <= 576px) {
     padding: 10px !important;
     position: relative;
     margin-bottom: 15px;
@@ -116,11 +118,13 @@ export default {
       border-radius: 10px;
       width: 108px;
       height: 108px;
-      @media screen and (max-width: 768px) {
+
+      @media screen and (width <= 768px) {
         width: 80px;
         height: 80px;
       }
-      @media screen and (max-width: 576px) {
+
+      @media screen and (width <= 576px) {
         width: 70px;
         height: 70px;
       }
@@ -140,13 +144,15 @@ export default {
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     width: 100%;
-    @media screen and (max-width: 768px) {
+
+    @media screen and (width <= 768px) {
       height: 22px;
       line-height: 22px;
       font-size: 14px;
       margin-bottom: 5px;
     }
-    @media screen and (max-width: 576px) {
+
+    @media screen and (width <= 576px) {
       height: 49px;
       line-height: 24px;
       -webkit-line-clamp: 2;
@@ -158,25 +164,31 @@ export default {
     display: grid;
     grid-template-columns: 1fr;
     align-content: space-between;
+
     .date-box {
       width: 100%;
       justify-content: flex-end;
-      @media screen and (max-width: 768px) {
+
+      @media screen and (width <= 768px) {
         min-width: 100px;
       }
-      @media screen and (max-width: 576px) {
+
+      @media screen and (width <= 576px) {
         min-width: 0;
       }
+
       .pin-color{
         color: #9fa5c0;
         font-size: 18px;
         margin-right: 5px;
-        @media screen and (max-width: 576px) {
+
+        @media screen and (width <= 576px) {
           display: none;
         }
       }
 
     }
+
     .btn-style {
       border-radius: 15px;
       letter-spacing: 0;
@@ -184,10 +196,12 @@ export default {
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      @media screen and (max-width: 768px) {
+
+      @media screen and (width <= 768px) {
         height: 18px;
       }
-      @media screen and (max-width: 576px) {
+
+      @media screen and (width <= 576px) {
         width: 95px;
         max-height: 19px;
       }
@@ -201,11 +215,13 @@ export default {
         font-size: 14px;
         align-items: center;
         font-weight: 600;
-        @media screen and (max-width: 768px) {
+
+        @media screen and (width <= 768px) {
           font-size: 12px;
           align-items: center;
         }
-        @media screen and (max-width: 576px) {
+
+        @media screen and (width <= 576px) {
           font-size: 8px;
         }
       }
@@ -215,16 +231,19 @@ export default {
         color: #3e5480;
         font-size: 14px;
         letter-spacing: 0;
-        @media screen and (max-width: 768px) {
+
+        @media screen and (width <= 768px) {
           font-size: 12px;
         }
-        @media screen and (max-width: 575px) {
+
+        @media screen and (width <= 575px) {
           font-size: 10px;
           margin-right: 5px;
         }
       }
     }
-    @media screen and (max-width: 575px) {
+
+    @media screen and (width <= 575px) {
       display: flex;
       align-items: center;
       width: 100%;
@@ -235,7 +254,8 @@ export default {
     font-size: 12px;
     color: #9fa5c0;
     margin-right: 10px;
-    @media screen and (max-width: 576px) {
+
+    @media screen and (width <= 576px) {
       font-size: 10px;
     }
   }
@@ -248,34 +268,42 @@ export default {
 
   .title-des-seen-tag {
     margin: 5px  0  0 16px;
-    @media screen and (max-width: 768px) {
+
+    @media screen and (width <= 768px) {
       margin: 1px 0 0 16px;
     }
-    @media screen and (max-width: 576px) {
+
+    @media screen and (width <= 576px) {
       margin: 1px 0 0 10px;
     }
+
     .seen-tag{
-      @media screen and (max-width: 576px) {
+      @media screen and (width <= 576px) {
         position: absolute;
         bottom: 10px;
         left: 10px;
       }
+
       .text {
         color: #9fa5c0;
-        @media screen and (max-width: 768px) {
+
+        @media screen and (width <= 768px) {
           font-size: 10px;
           align-items: center;
         }
       }
+
       .icon {
         font-size: 14px;
         margin-left: 5px;
         color: #9fa5c0;
         height: 15px;
-        @media screen and (max-width: 768px) {
+
+        @media screen and (width <= 768px) {
           font-size: 12px;
         }
       }
+
       .tag {
         margin-right: 23px;
         padding: 3px 23px;
@@ -283,11 +311,13 @@ export default {
         color: #3e5480;
         background-color: #eff3ff;
         border-radius: 13px;
-        @media screen and (max-width: 768px) {
+
+        @media screen and (width <= 768px) {
           padding: 0 14px;
           margin-right: 10px;
         }
-        @media screen and (max-width: 576px) {
+
+        @media screen and (width <= 576px) {
           padding: 0 18px;
         }
       }
@@ -303,15 +333,18 @@ export default {
       color: #9fa5c0;
       transition: all ease-in-out 0.5s;
       max-width: 750px;
-      @media screen and (max-width: 1200px) {
+
+      @media screen and (width <= 1200px) {
         max-width: 600px;
       }
-      @media screen and (max-width: 768px) {
+
+      @media screen and (width <= 768px) {
         max-width: 250px;
         margin-bottom: 5px;
         font-size: 12px;
       }
-      @media screen and (max-width: 576px) {
+
+      @media screen and (width <= 576px) {
         max-width: 200px;
         margin-bottom: 0;
         font-size: 12px;
@@ -321,7 +354,7 @@ export default {
   }
 
   .down-part {
-    @media screen and (max-width: 576px) {
+    @media screen and (width <= 576px) {
       position: absolute;
       width: 100%;
       right: 10px;
@@ -332,11 +365,13 @@ export default {
       display: none;
       font-size: 10px;
       color: #9fa5c0;
-      @media screen and (max-width: 576px) {
+
+      @media screen and (width <= 576px) {
         display: flex;
         align-items: center;
       }
-      @media screen and (max-width: 350px) {
+
+      @media screen and (width <= 350px) {
 
       }
     }

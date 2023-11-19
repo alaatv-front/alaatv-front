@@ -175,17 +175,18 @@ export default {
 
 <style lang="scss" scoped>
 .set-item-container {
-
   &:hover {
     .set-item-box {
-      box-shadow: -5px -6px 10px rgba(255, 255, 255, 0.6),
-      5px 5px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: -5px -6px 10px rgb(255 255 255 / 60%),
+      5px 5px 20px rgb(0 0 0 / 10%);
       top: -10px;
+
       .img-box .img-videos {
         opacity: 0.6;
       }
     }
   }
+
   .set-item-box {
     display: flex;
     flex-direction: column;
@@ -193,9 +194,9 @@ export default {
     margin-bottom: 10px;
     position: relative;
     border-radius: 20px;
-    box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6),
-    2px 4px 10px rgba(46, 56, 112, 0.05);
-    background-color: #ffffff;
+    box-shadow: -2px -4px 10px rgb(255 255 255 / 60%),
+    2px 4px 10px rgb(46 56 112 / 5%);
+    background-color: #fff;
     top: 0;
     transition: all ease 0.5s;
 
@@ -204,8 +205,9 @@ export default {
         width: 100%;
         border-radius: 20px 20px 0 0;
       }
+
       .img-videos {
-        background: #000000;
+        background: #000;
         color: white;
         opacity: 0;
         position: absolute;
@@ -220,6 +222,7 @@ export default {
         justify-content: space-between;
         transition: all ease 0.5s;
         z-index: 2;
+
         .pop-up {
           .title {
             max-width: 80px;
@@ -234,7 +237,7 @@ export default {
     .set-content-box {
       position: relative;
       min-height: 75px;
-      padding: 10px 26px 16px 26px;
+      padding: 10px 26px 16px;
 
       .main-title {
         font-style: normal;
@@ -247,12 +250,13 @@ export default {
         a {
           margin-bottom: 0;
         }
+
         .title-text {
           font-weight: 500;
           font-size: 14px;
           line-height: 24px;
           letter-spacing: -0.03em;
-          color: #333333;
+          color: #333;
           display: -webkit-box;
           -webkit-line-clamp: 1;
           -webkit-box-orient: vertical;
@@ -303,13 +307,13 @@ export default {
 
           .main-price {
             text-decoration: line-through;
+
             /* margin-left: 12px; */
             font-style: normal;
             font-weight: 400;
             font-size: 12px;
             line-height: 19px;
             color: #656f7b;
-
             opacity: 0.4;
           }
 
@@ -332,7 +336,7 @@ export default {
           font-weight: 500;
           font-size: 12px;
           line-height: 21px;
-          color: #666666;
+          color: #666;
           cursor: pointer;
 
           a {
@@ -350,6 +354,7 @@ export default {
           color: white;
           font-size: 14px;
           letter-spacing: -0.03em;
+
           img {
             width: 15px;
             height: 15px;
@@ -414,6 +419,7 @@ export default {
     .teacher-image {
       height: 32px;
       width: 32px;
+
       img {
         height: 32px;
         width: 32px;
@@ -463,12 +469,13 @@ export default {
       position: absolute;
       right: 0;
       top: -2px;
+
       .set-item-bookmark {
         margin: -10px;
       }
     }
 
-    @media screen and (max-width: 992px) {
+    @media screen and (width <= 992px) {
       .img-box {
         .img {
         }
@@ -533,13 +540,14 @@ export default {
       }
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (width <= 600px) {
       display: flex;
       border-radius: 18px;
       margin-bottom: 16px;
 
       .img-box {
         width: 100%;
+
         img {
           border-radius: 10px;
         }
@@ -549,7 +557,7 @@ export default {
       }
 
       .set-content-box {
-        padding: 10px 25px 0 25px;
+        padding: 10px 25px 0;
         width: 100%;
 
         .main-title {
@@ -606,6 +614,7 @@ export default {
             width: 100px;
             height: 25px !important;
             border-radius: 8px;
+
             img {
               margin-left: 0;
             }
@@ -620,6 +629,7 @@ export default {
 
         .discount {
           height: 20px;
+
           /* margin-left: 3px; */
         }
       }

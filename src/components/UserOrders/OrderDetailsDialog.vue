@@ -146,7 +146,7 @@ export default {
 <style scoped lang="scss">
 .order-details-dialog {
   .order-details-card {
-    background: #FFFFFF;
+    background: #FFF;
     box-shadow: none !important;
     border-radius: 16px !important;
     font-style: normal;
@@ -157,30 +157,38 @@ export default {
     letter-spacing: -0.03em;
     color: #434765;
     width: 830px;
+
     //height: 640px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    @media screen and (max-width: 1439px) {
+    overflow: auto hidden;
+
+    @media screen and (width <= 1439px) {
       width: 664px;
     }
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       width: 540px;
+
       //height: 640px;
     }
-    @media screen and (max-width: 599px) {
+
+    @media screen and (width <= 599px) {
       width: 100%;
     }
+
     .dialog-header {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       align-items: center;
-      padding: 30px 20px 15px 20px;
-      @media screen and (max-width:1439px ){
-        padding: 20px 20px 15px 20px;
+      padding: 30px 20px 15px;
+
+      @media screen and (width <=1439px ){
+        padding: 20px 20px 15px;
       }
+
       .title {
         justify-self: center;
       }
+
       .close{
         justify-self: end;
       }
@@ -218,9 +226,11 @@ export default {
       color: #DA5F5C;
       padding: 0 8px;
     }
+
     .info-item{
       margin-bottom: 16px;
     }
+
     .default-info {
       color: #434765;
       padding: 0 8px;
@@ -238,21 +248,25 @@ export default {
       text-align: left;
       letter-spacing: -0.03em;
       color: #434765;
-      padding:0 30px 5px 30px;
-      @media screen and (max-width: 1439px){
+      padding:0 30px 5px;
+
+      @media screen and (width <= 1439px){
         padding:0  20px
       }
     }
   }
+
   .q-dialog__inner--minimized > div {
     max-width: 830px;
   }
-  @media screen and (max-width: 1439px) {
+
+  @media screen and (width <= 1439px) {
     .q-dialog__inner--minimized > div {
       max-width: 664px;
     }
   }
-  @media screen and (max-width: 1023px) {
+
+  @media screen and (width <= 1023px) {
     .q-dialog__inner--minimized > div {
       max-width: 540px;
     }

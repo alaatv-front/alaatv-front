@@ -1,4 +1,4 @@
-@import "src/css/Theme/Typography/typography.scss";
+@import "src/css/Theme/Typography/typography";
 
 .new-theme {
   .q-notifications {
@@ -8,53 +8,67 @@
         height: 40px;
         min-height: 40px;
         align-content: center;
-        &.bg-info {
-          background: $info-1 !important;
-          .q-notification__wrapper {
-            .q-notification__content {
-              .q-notification__message, .q-notification__icon {
-                color: $info-5;
-              }
-            }
-          }
-        }
-        &.bg-negative {
-          background: $negative-1 !important;
-          .q-notification__wrapper {
-            .q-notification__content {
-              .q-notification__message, .q-notification__icon{
-                color: $negative-5;
-              }
-            }
-          }
-        }
-        &.bg-positive {
-          background: $positive-1 !important;
-          .q-notification__wrapper {
-            .q-notification__content {
-              .q-notification__message, .q-notification__icon{
-                color: $positive-5;
-              }
-            }
-          }
-        }
+
         .q-notification__wrapper {
           .q-notification__content {
             text-align: left;
+
             .q-notification__message {
               @include body1;
             }
+
             .q-notification__icon {
               font-size: 13px;
               margin-right: 5px;
             }
           }
+
           .q-notification__actions {
             padding: 0;
             margin-right: -10px;
+
             .q-btn {
               .q-icon {
                 font-size: 14px;
+              }
+            }
+          }
+        }
+
+        &.bg-info {
+          background: $info-1 !important;
+
+          .q-notification__wrapper {
+            .q-notification__content {
+              .q-notification__message,
+              .q-notification__icon {
+                color: $info-5;
+              }
+            }
+          }
+        }
+
+        &.bg-negative {
+          background: $negative-1 !important;
+
+          .q-notification__wrapper {
+            .q-notification__content {
+              .q-notification__message,
+              .q-notification__icon {
+                color: $negative-5;
+              }
+            }
+          }
+        }
+
+        &.bg-positive {
+          background: $positive-1 !important;
+
+          .q-notification__wrapper {
+            .q-notification__content {
+              .q-notification__message,
+              .q-notification__icon {
+                color: $positive-5;
               }
             }
           }
@@ -63,4 +77,3 @@
     }
   }
 }
-

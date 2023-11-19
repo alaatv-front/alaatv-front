@@ -195,126 +195,158 @@ export default {
   background-color: #fff;
   height: 72px;
   width: 100%;
-  color: #333333;
-  @media screen and (max-width: 1023px) {
+  color: #333;
+
+  @media screen and (width <= 1023px) {
     height: 64px;
   }
-  @media screen and (max-width: 599px) {
+
+  @media screen and (width <= 599px) {
     background-color: #F4F6F9;
   }
+
   .app-bar {
     max-width: 1360px;
+
     //min-width: 1360px;
     margin: auto;
     height: 72px;
-    @media screen and (max-width: 1919px) {
+
+    @media screen and (width <= 1919px) {
       width: 100%;
+
       //padding-left: 40px;
       //padding-right: 40px;
     }
-    @media screen and (max-width: 1439px) {
+
+    @media screen and (width <= 1439px) {
       padding-left: 35px;
       padding-right: 35px;
     }
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       padding-left: 30px;
       padding-right: 30px;
       height: 64px;
     }
-    @media screen and (max-width: 599px) {
+
+    @media screen and (width <= 599px) {
       padding-left: 20px;
       padding-right: 20px;
     }
+
     .header-section {
       display: grid;
       grid-template-columns: 86px auto 156px;
       height: 100%;
-      @media screen and (max-width: 1023px) {
+
+      @media screen and (width <= 1023px) {
         grid-template-columns: auto auto;
       }
-      @media screen and (max-width: 599px) {
+
+      @media screen and (width <= 599px) {
         grid-template-columns: 1fr;
       }
+
       .logo-section {
         align-items: center;
         display: flex;
         justify-content: space-between;
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
           justify-self: start;
         }
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
           justify-self: center;
           justify-content: space-between;
           width: 100%;
         }
+
         .logo-pic {
           cursor: pointer;
           display: flex;
           height: 72px;
           align-items: center;
-          @media screen and (max-width: 1023px) {
+
+          @media screen and (width <= 1023px) {
             height: 64px;
           }
+
           :deep(.homepage) {
             .logo-pic-img {
               height: 40px;
               width: 40px;
-              @media screen and (max-width: 1023px) {
+
+              @media screen and (width <= 1023px) {
                 height: 48px;
                 width: 48px;
               }
             }
           }
+
           //img {
           //
           //}
         }
+
         .hamburger {
           //display: none;
-          @media screen and (max-width: 1023px) {
+          @media screen and (width <= 1023px) {
             //display: block;
             margin-right: 20px;
             margin-left: -8px;
           }
-          @media screen and (max-width: 599px) {
+
+          @media screen and (width <= 599px) {
             margin-left: 0;
           }
         }
+
         .drawer-btn {
           :deep(.q-btn) {
             flex-direction: row !important;
           }
         }
       }
+
       .tab-section {
         height: 72px;
         margin-left: 24px;
+
         .tabs-list {
           height: 72px;
+
           .tab-title {
             font-style: normal;
             font-weight: 400;
             font-size: 16px;
             line-height: 25px;
           }
+
           .tabs-list-container{
             display: grid;
           }
         }
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
           height: 64px;
           display: none;
         }
       }
+
       .active-item {
         color: #FFC107;
       }
+
       .user-action {
         .action-container {
           display: flex;
           height: 42px;
+
           .search-section {
             height: 40px;
+
             .search-input {
               width: 317px;
               height: 40px;
@@ -344,18 +376,22 @@ export default {
                 color: #6D708B;
                 height: 40px;
                 width: 40px;
+
                 :deep(.q-field__inner .q-field__control .q-field__append .q-icon) {
                   color: #6D708B;
                 }
+
                 :deep(.q-btn__content) {
                   margin: 0;
                 }
               }
             }
-            @media screen and (max-width: 780px) {
+
+            @media screen and (width <= 780px) {
               display: none;
             }
           }
+
           &:deep(.q-card__section) {
             padding: 0;
             margin-right: 18px;
@@ -372,45 +408,56 @@ export default {
 
             .q-field__inner {
               border-radius: 0;
+
               .q-field__control {
                 color: transparent;
                 min-height: 0;
                 padding: 0;
-                &:before {
+
+                &::before {
                   border-color: transparent;
                 }
-                &:hover:before {
+
+                &:hover::before {
                   border-color: transparent;
                 }
               }
             }
           }
         }
+
         .sign-up-btn {
           :deep(.q-btn .q-btn__content) {
             margin-left: 10px;
             margin-right: 10px;
           }
         }
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
           justify-self: end;
           height: 64px;
         }
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
           display: none;
         }
+
         display: flex;
+
         //justify-content: flex-end;
         align-items: center;
         height: 72px;
         justify-self: end;
+
         .btn-user-profile {
           margin-left: 18px;
           width: 48px;
           height: 48px;
           border-radius: 16px;
+
           :deep(.q-btn__content) {
             margin: 0;
+
             .user-photo {
               img {
                 border: 2px solid #FFB74D;
@@ -421,12 +468,15 @@ export default {
             }
           }
         }
+
         .action-btn {
           color: #333;
+
           .action-btn-title {
             padding-right: 7px;
           }
         }
+
         .fit-profile-img {
           width: 48px;
           height: 48px;
@@ -435,8 +485,9 @@ export default {
       }
     }
   }
+
   .sub-mit-box{
-    background: #FFFFFF;
+    background: #FFF;
     border-radius: 16px;
     display: flex;
     margin-bottom: 0;
@@ -444,9 +495,9 @@ export default {
 
     .btn-style{
       width: 96px;
-      //color: #6D708B;
-      color: #333333 !important;
 
+      //color: #6D708B;
+      color: #333 !important;
       font-style: normal;
       font-weight: 600;
       font-size: 14px;
@@ -455,6 +506,7 @@ export default {
       text-align: center;
       letter-spacing: -0.03em;
     }
+
     .sign-up {
       background: #FFC107;
     }
@@ -465,14 +517,17 @@ export default {
 <style lang="scss">
 .user-profile-dropdown {
   width: 280px;
+
   //height: 300px;
-  background: #FFFFFF;
+  background: #FFF;
   border: 1px solid #F2F5F9;
   border-radius: 0 16px 16px 16px #{"/* rtl:ignore */"};
+
   .header {
-    box-shadow: 0 6px 10px rgba(49, 46, 87, 0.04) #{"/* rtl:ignore */"};
+    box-shadow: 0 6px 10px rgb(49 46 87 / 4%) #{"/* rtl:ignore */"};
     border-radius: 0 15px 0 0 #{"/* rtl:ignore */"};
   }
+
   .profile-box {
     font-style: normal;
     font-weight: 400;
@@ -483,26 +538,31 @@ export default {
     border-radius: 20px;
     padding: 16px;
     margin-bottom: 16px;
+
     .profile-detail {
       display: grid;
       grid-template-columns: 70px auto;
       align-items: center;
+
       .profile-photo-box {
         //background: #FFB74D;
 
         width: 60px;
         height: 60px;
-        border: 3px solid #FFFFFF;
+        border: 3px solid #FFF;
         border-radius: 16px;
         position: relative;
+
         .profile-photo-img {
           .q-img {
             border-radius: 16px;
             height: 100%;
           }
+
           width: 60px;
           height: 60px;
           border-radius: 16px;
+
           .user-photo {
             img {
               border: 2px solid #FFB74D;
@@ -512,12 +572,14 @@ export default {
             }
           }
         }
+
         .profile-photo-badge {
           position: absolute;
           bottom: -15px;
           left: -7px;
         }
       }
+
       .profile-detail-info {
         .info-name {
           font-weight: 600;
@@ -529,6 +591,7 @@ export default {
       }
     }
   }
+
   .user-panel-base-menu {
     display: flex;
     flex-direction: column;
@@ -540,7 +603,7 @@ export default {
 
       &.side-menu-list {
         .top-separator {
-          margin: 0 40px 32px 40px;
+          margin: 0 40px 32px;
         }
 
         .q-item {
@@ -557,6 +620,7 @@ export default {
             cursor: pointer;
             padding: 0 14px 0 10px;
             border-radius: 14px;
+
             &.alone-item {
               height: 40px;
 
@@ -570,6 +634,7 @@ export default {
                 }
               }
             }
+
             &.alone-item-mode-drawer {
               &.active-route-side-mode {
                 .indicator {
@@ -618,7 +683,7 @@ export default {
 
           .q-expansion-item__content {
             .vertical-separator {
-              margin: 6px 9px 9px 9px;
+              margin: 6px 9px 9px;
             }
           }
 
@@ -660,8 +725,8 @@ export default {
         }
 
         .active-route-side-mode {
-
           background-color: #8075DC;
+
           .indicator {
             height: 6px;
             width: 6px;
@@ -669,8 +734,10 @@ export default {
             margin: auto;
           }
         }
+
         .item-mode-drawer {
           background: #F6F9FF;
+
           .indicator {
             height: 6px;
             width: 6px;
@@ -694,6 +761,7 @@ export default {
 
     &.list-side-mode {
       color: white;
+
       .q-list {
         a {
           color: white;
@@ -703,6 +771,7 @@ export default {
 
     &.list-drawer-mode {
       color: #6D708B;
+
       .q-list {
         a {
           color: #6D708B;
@@ -717,11 +786,13 @@ export default {
       cursor: pointer;
       height: 40px !important;
       padding: 0 6px;
+
       //width: 232px;
       border-radius: 14px;
       display: flex;
       align-items: center;
       margin-top: 15px;
+
       //@media screen and (max-width: 1439px) {
       //  margin: 0 31px 33px 31px;
       //}
@@ -731,7 +802,7 @@ export default {
       //}
 
       &:hover {
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgb(255 255 255 / 10%);
       }
 
       .q-avatar {
@@ -742,6 +813,7 @@ export default {
       }
     }
   }
+
   .body {
     padding-right: 16px;
     padding-left: 16px;

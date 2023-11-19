@@ -145,19 +145,22 @@ export default {
     display: flex;
     height: 72px;
     align-items: center;
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       height: 64px;
     }
+
     .logo-pic-img {
       height: 40px;
       width: 40px;
-      @media screen and (max-width: 1023px) {
+
+      @media screen and (width <= 1023px) {
         height: 48px;
         width: 48px;
       }
     }
+
     .logo-text {
-      padding: 0 10px;
       color: #fff;
       padding: 0 10px;
       font-weight: 400;
@@ -169,9 +172,11 @@ export default {
   .routes {
     display: flex;
     align-items: center;
-    @media only screen and (max-width: 1024px) {
+
+    @media only screen and (width <= 1024px) {
       display: none;
     }
+
     .routes-list {
       display: flex;
 
@@ -195,6 +200,7 @@ export default {
     font-weight: 400;
     font-size: 16px;
     line-height: 28px;
+
     &:deep(.q-btn .q-focus-helper) {
       display: none;
     }

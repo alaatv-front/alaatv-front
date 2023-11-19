@@ -98,6 +98,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .toggle-container {
   padding: 40px 0;
+
   .toggle-title {
     font-size: 28px;
   }

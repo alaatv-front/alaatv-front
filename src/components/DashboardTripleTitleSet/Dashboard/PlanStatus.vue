@@ -67,7 +67,7 @@ export default defineComponent({
       background: transparent;
     }
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
       font-weight: 400;
       font-size: 14px;
       letter-spacing: -0.28px;

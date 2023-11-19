@@ -87,7 +87,7 @@ export default defineComponent({
   height: 50px;
   border-radius: 15px;
   background: #F89003;
-  color: #ffffff;
+  color: #fff;
   border: none;
 }
 
@@ -101,13 +101,15 @@ export default defineComponent({
     font-size: 22.4118px;
     line-height: 38px;
     letter-spacing: -0.035em;
-    color: #FFFFFF;
+    color: #FFF;
     position: absolute;
     top:44%;
     right: 63px;
+
     .code {
       direction: rtl;
     }
+
     .pre-code{
       margin-right: 18.41px;
     }

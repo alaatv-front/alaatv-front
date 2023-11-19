@@ -61,6 +61,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .progress-container {
   padding: 40px 0;
+
   .progress-title {
     font-size: 28px;
   }

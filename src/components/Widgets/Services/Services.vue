@@ -130,23 +130,27 @@ export default {
 
   .services {
     justify-content: space-around;
+
     .service {
       display: flex;
       flex-direction: column;
       align-items: center;
-      color: #000000;
+      color: #000;
       text-align: center;
+
       &:hover, &:focus {
         .service-image {
           .q-img {
             transform: scale(.9);
           }
-          &:after {
+
+          &::after {
             transform: rotate(135deg);
           }
 
         }
       }
+
       .service-image {
         width: 92px;
         height: 92px;
@@ -158,11 +162,9 @@ export default {
         :deep(.service-image-img) {
           width: 100%;
           transition: transform .4s ease;
-          -webkit-transition: transform .4s ease;
-          -moz-transition: transform .4s ease;
         }
 
-        &:before {
+        &::before {
           content: '';
           position: absolute;
           top: 0;
@@ -173,7 +175,7 @@ export default {
           border-radius: 50%;
         }
 
-        &:after {
+        &::after {
           content: '';
           position: absolute;
           top: 0;
@@ -186,22 +188,23 @@ export default {
           border-left-color: transparent;
           transform: rotate(-45deg);
           transition: transform .4s ease;
-          -webkit-transition: transform .4s ease;
-          -moz-transition: transform .4s ease;
         }
 
-        @media screen and (max-width: 599px) {
+        @media screen and (width <= 599px) {
           width: 70px;
           height: 70px;
+
           .lazy-img {
             width: 40px;
             margin-top: 15px;
           }
         }
       }
+
       .service-title {
         font-weight: bold;
       }
+
       .service-subtitle {
         font-size: 12px;
         color: #65677F;

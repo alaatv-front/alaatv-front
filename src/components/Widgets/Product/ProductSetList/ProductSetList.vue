@@ -333,10 +333,12 @@ export default {
     .separator-div{
       margin-top: 24px;
       padding-bottom: 8px;
+
       .separator-title {
         background: white;
         padding-right: 8px;
       }
+
       .q-separator {
         margin-top: -10px;
       }
@@ -348,6 +350,7 @@ export default {
   width: 318px;
   height: 510px;
 }
+
 .product-page {
   max-width: 100%;
 
@@ -357,7 +360,7 @@ export default {
     color:#424242;
     margin: 8px 0;
 
-    @media screen and (max-width: 1023px){
+    @media screen and (width <= 1023px){
       margin: 6px 0;
     }
   }
@@ -374,7 +377,7 @@ export default {
     line-height: normal;
     letter-spacing: -0.36px;
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
       height: auto;
       max-height: 92px;
       padding: 16px;
@@ -396,13 +399,13 @@ export default {
     line-height: normal;
     letter-spacing: -0.36px;
   }
+
   .expanded-item-icon {
     color: #78909C;
   }
 
   &:deep(.q-expansion-item__toggle-icon) {
-
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
       position: absolute !important;
       top: 0 !important;
     }
@@ -417,7 +420,7 @@ export default {
   .side-section {
     width: 145px;
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
       max-width: 70px;
     }
   }
@@ -444,6 +447,7 @@ export default {
     font-weight: 600;
     line-height: normal;
   }
+
   .set-title {
     margin-left: 8px;
     color: #424242;
@@ -455,6 +459,7 @@ export default {
 
   .content-title {
     max-width: 80%;
+
     .content-title-text {
       max-width: 100%;
     }

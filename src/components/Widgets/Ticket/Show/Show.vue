@@ -1013,7 +1013,7 @@ export default {
 
 <style scoped>
 .tab-panels {
-  background: rgb(250, 250, 250);
+  background: rgb(250 250 250);
 }
 
 .close-btn {

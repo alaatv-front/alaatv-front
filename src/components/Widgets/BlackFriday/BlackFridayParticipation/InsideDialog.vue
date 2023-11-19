@@ -273,22 +273,28 @@ export default defineComponent({
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
   .top-image {
     width: 100%;
     display: flex;
     justify-content: center;
+
     :deep(.image) {
       width: 184px;
     }
   }
+
   .q-card {
     width: 495px;
     border-radius: 16px;
     background: #19172E;
+
     .header {
       padding: 20px 24px 0 32px;
       display: flex;
+
       $action-width: 24px;
+
       .title {
         color: #FFF;
         text-align: center;
@@ -300,8 +306,10 @@ export default defineComponent({
         letter-spacing: -0.48px;
         width: calc( 100% - #{$action-width} );
       }
+
       .action {
         width: $action-width;
+
         :deep(.q-btn) {
           .q-btn__content {
             color: #D0CCF4 !important;
@@ -309,8 +317,10 @@ export default defineComponent({
         }
       }
     }
+
     .body {
       padding: 32px;
+
       .message {
         color: #FFF;
         text-align: center;
@@ -322,10 +332,13 @@ export default defineComponent({
         letter-spacing: -0.54px;
         margin-bottom: 24px;
       }
+
       .coupon-box {
         display: flex;
+
         $code-section-width: 211px;
         $code-section-height: 48px;
+
         .title-section {
           display: flex;
           align-items: center;
@@ -339,6 +352,7 @@ export default defineComponent({
           line-height: normal;
           letter-spacing: -0.8px;
           width: calc( 100% - #{$code-section-width} );
+
           span {
             color: #F7AFA4;
             font-family: ModamFaNumWeb,serif;
@@ -349,6 +363,7 @@ export default defineComponent({
             letter-spacing: -0.8px;
           }
         }
+
         .code-section {
           width: $code-section-width;
           height: $code-section-height;
@@ -358,6 +373,7 @@ export default defineComponent({
           align-items: center;
           justify-content: space-between;
           padding: 12px 16px;
+
           .code {
             color: #FFF;
             font-family: ModamFaNumWeb,serif;
@@ -367,8 +383,10 @@ export default defineComponent({
             line-height: normal;
             letter-spacing: -0.36px;
           }
+
           :deep(.q-btn.q-btn--flat.btn-copy) {
             padding: 0 !important;
+
             .q-btn__content {
               color: #D0CCF4 !important;
               font-family: ModamFaNumWeb,serif;
@@ -377,6 +395,7 @@ export default defineComponent({
               font-weight: 400;
               line-height: normal;
               letter-spacing: -0.36px;
+
               .q-icon {
                 font-size: 24px;
               }
@@ -385,16 +404,19 @@ export default defineComponent({
         }
       }
     }
+
     .action-section {
       padding-right: 32px;
       padding-left: 32px;
       padding-bottom: 32px;
+
       :deep(.action-btn.q-btn) {
         width: 100%;
         height: 48px;
         padding: 12px !important;
         border-radius: 12px;
         background: #D14835;
+
         .q-btn__content {
           color: #FFF;
           text-align: center;
@@ -404,6 +426,7 @@ export default defineComponent({
           font-weight: 700;
           line-height: normal;
           letter-spacing: -0.48px;
+
           .q-icon {
             font-size: 20px;
             margin: 0 4px;

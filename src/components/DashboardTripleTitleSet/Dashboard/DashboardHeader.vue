@@ -159,7 +159,7 @@ export default defineComponent({
   justify-content: flex-start;
   align-items: center;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (width <= 600px) {
     justify-content: center;
   }
 
@@ -201,7 +201,7 @@ export default defineComponent({
   justify-content: flex-end;
   align-items: center;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (width <= 600px) {
     justify-content: center;
     margin-top: 26px;
   }
@@ -213,9 +213,9 @@ export default defineComponent({
     align-items: center;
     margin-right: 30px;
     border-radius: 12px;
-    box-shadow: 2px 2px 3px 0px rgba(16, 24, 40, 0.06);
+    box-shadow: 2px 2px 3px 0 rgb(16 24 40 / 6%);
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
       margin-right: 20px;
     }
 
@@ -248,6 +248,7 @@ export default defineComponent({
           right: 25px;
         }
       }
+
       .title-text {
         color: #FFF;
         text-align: center;
@@ -257,6 +258,7 @@ export default defineComponent({
         line-height: normal;
       }
     }
+
     .calendar-date {
       display: flex;
       justify-content: center;
@@ -282,7 +284,7 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     border-radius: 12px;
-    box-shadow: 2px 2px 3px 0px rgba(16, 24, 40, 0.06);
+    box-shadow: 2px 2px 3px 0 rgb(16 24 40 / 6%);
 
     .counter-title {
       display: flex;
@@ -300,6 +302,7 @@ export default defineComponent({
       font-weight: 400;
       line-height: normal;
     }
+
     .counter-number {
       display: flex;
       justify-content: center;

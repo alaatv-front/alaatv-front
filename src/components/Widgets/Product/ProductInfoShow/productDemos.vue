@@ -93,8 +93,8 @@ export default {
   .contents-block {
     display: flex;
     overflow: auto;
-    padding: 10px 0 0 0;
-    background: #ffffff;
+    padding: 10px 0 0;
+    background: #fff;
     margin-right: 20px;
     border-radius: 20px;
 

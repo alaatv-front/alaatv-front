@@ -439,10 +439,12 @@ export default {
 <style lang="scss" scoped>
 .userAbrishamProgress-page {
   margin: 0 60px 100px;
-  @media screen and (max-width: 1904px) {
+
+  @media screen and (width <= 1904px) {
     margin: 0 10px 40px;
   }
-  @media screen and (max-width: 1023px) {
+
+  @media screen and (width <= 1023px) {
     margin: 0 0 30px;
   }
 
@@ -454,17 +456,20 @@ export default {
       line-height: 1.7;
       letter-spacing: normal;
       margin-bottom:15px ;
-      @media screen and (max-width: 1920px){
+
+      @media screen and (width <= 1920px){
         margin-top: 19px;
       }
-      @media screen and (max-width: 990px){
+
+      @media screen and (width <= 990px){
         margin-top: 26px;
         font-size: 16px;
         width: 100%;
         text-align: center;
 
       }
-      @media screen and (max-width: 576px){
+
+      @media screen and (width <= 576px){
         margin-top: 15px;
 
       }
@@ -474,7 +479,8 @@ export default {
   .header {
     display: flex;
     flex-direction: row;
-    @media screen and (max-width: 1904px) {
+
+    @media screen and (width <= 1904px) {
       flex-direction: column !important;
     }
 
@@ -485,16 +491,20 @@ export default {
       padding-right: 20px;
       padding-top: 0 !important;
       padding-bottom: 0 !important;
-      @media screen and (max-width: 1904px) {
+
+      @media screen and (width <= 1904px) {
         padding-bottom: 15px !important;
       }
-      @media screen and (max-width: 1023px) {
+
+      @media screen and (width <= 1023px) {
         padding-bottom: 10px !important;
       }
-      @media screen and (max-width: 768px) {
+
+      @media screen and (width <= 768px) {
         padding-bottom: 20px !important;
       }
-      @media screen and (max-width: 600px) {
+
+      @media screen and (width <= 600px) {
         padding-bottom: 15px !important;
         font-size: 16px;
       }
@@ -507,30 +517,37 @@ export default {
     font-weight: 500;
     color: #3e5480;
     margin-bottom: 21px;
-    @media screen and (max-width: 1920px) {
+
+    @media screen and (width <= 1920px) {
       margin-bottom: 15px;
     }
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       display: block;
     }
-    @media screen and (max-width: 576px) {
+
+    @media screen and (width <= 576px) {
       font-size: 14px;
     }
 
     &.current-content-title-mobile {
       display: none;
-      @media screen and (max-width: 1023px) {
+
+      @media screen and (width <= 1023px) {
         display: block;
         margin-top: 15px;
         margin-bottom: 5px;
       }
-      @media screen and (max-width: 768px) {
+
+      @media screen and (width <= 768px) {
         margin-top: 5px;
       }
-      @media screen and (max-width: 576px) {
+
+      @media screen and (width <= 576px) {
         margin-bottom: 2px;
       }
-      @media screen and (max-width: 350px) {
+
+      @media screen and (width <= 350px) {
         margin-bottom: 0;
       }
     }
@@ -545,7 +562,8 @@ export default {
 
     .mobile-view {
       display: none;
-      @media screen and (max-width: 1023px) {
+
+      @media screen and (width <= 1023px) {
         display: block;
       }
     }
@@ -556,24 +574,29 @@ export default {
     font-weight: 500;
     color: #3e5480;
     margin-bottom: 21px;
-    @media screen and (max-width: 1920px) {
+
+    @media screen and (width <= 1920px) {
       margin-bottom: 15px;
     }
-    @media screen and (max-width: 768px) {
+
+    @media screen and (width <= 768px) {
       margin-bottom: 20px;
     }
-    @media screen and (max-width: 576px) {
+
+    @media screen and (width <= 576px) {
       font-size: 16px;
       margin-bottom: 10px;
     }
-    @media screen and (max-width: 350px) {
+
+    @media screen and (width <= 350px) {
       margin-bottom: 5px;
     }
   }
 
   .desktop-view {
     display: block;
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       display: none;
     }
   }

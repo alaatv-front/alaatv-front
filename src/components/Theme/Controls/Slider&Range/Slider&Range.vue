@@ -61,7 +61,7 @@ export default defineComponent({
 <style lang="scss" scoped>
   .slider-container {
     padding: 40px;
-    background: #ffffff;
+    background: #fff;
 
     .slider-title {
       font-size: 28px;

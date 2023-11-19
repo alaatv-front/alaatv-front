@@ -245,16 +245,20 @@ export default {
     .items {
       .item {
         position: relative;
+
         &:hover {
           font-weight: bold;
           background-color: orange;
+
           &:deep(.q-focus-helper) {
             background-color: transparent !important;
           }
         }
+
         &:deep(.q-focus-helper) {
           background-color: transparent !important;
         }
+
         .arrow {
           position: absolute;
           top: 18px;
@@ -264,16 +268,17 @@ export default {
           display: inline-block;
           padding: 3px;
           transform: rotate(-45deg);
-          -webkit-transform: rotate(-45deg);
         }
+
         .edit-btn {
           position: absolute;
-          left: 0px;
+          left: 0;
           top: -10px;
         }
       }
     }
   }
+
   .dropdown2 {
     .childItem:hover {
       font-weight: bold;

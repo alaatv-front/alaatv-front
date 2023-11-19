@@ -57,12 +57,13 @@ export default {
 
 <style scoped lang="scss">
 .Dashboard {
-  background: #FFFFFF;
+  background: #FFF;
   border: 1px solid #F2F5F9;
   border-radius: 0 16px 16px 16px #{"/* rtl:ignore */"};
   display: flex;
   flex-direction: column;
   color: #6D708B;
+
   .profile-box {
     font-style: normal;
     font-weight: 400;
@@ -73,26 +74,31 @@ export default {
     border-radius: 20px;
     padding: 16px;
     margin-bottom: 16px;
+
     .profile-detail {
       display: grid;
       grid-template-columns: 70px auto;
       align-items: center;
+
       .profile-photo-box {
         //background: #FFB74D;
 
         width: 60px;
         height: 60px;
-        border: 3px solid #FFFFFF;
+        border: 3px solid #FFF;
         border-radius: 16px;
         position: relative;
+
         .profile-photo-img {
           .q-avatar {
             width: 100%;
             height: 100%;
           }
+
           width: 60px;
           height: 60px;
           border-radius: 16px;
+
           .user-photo {
             img {
               border: 2px solid #FFB74D;
@@ -102,12 +108,14 @@ export default {
             }
           }
         }
+
         .profile-photo-badge {
           position: absolute;
           bottom: -15px;
           left: -7px;
         }
       }
+
       .profile-detail-info {
         .info-name {
           font-weight: 600;

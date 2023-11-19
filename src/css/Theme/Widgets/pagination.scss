@@ -1,51 +1,56 @@
 .q-pagination {
   .q-btn--flat {
-    background: #FFFFFF;
+    background: #fff;
     border-radius: 8px;
+
     &:first-child {
       box-shadow: none !important;
       background: none;
     }
+
     &:last-child {
       box-shadow: none !important;
       background: none;
     }
   }
 
-  .justify-center {
-    button {
-      background: #FFFFFF !important;
+  button {
+    &.q-btn--standard {
+      background: $primary !important;
+      color: #fff !important;
+      padding: 4px 8px;
+      box-shadow: none;
+      border-radius: 8px;
+    }
+
+    .q-btn--active::before {
+      box-shadow: none;
+    }
+
+    &:nth-child(2) {
+      background: #fff;
       border-radius: 12px;
     }
   }
 
-  button {
-    &.q-btn--standard {
-      background: $primary !important;
-      color: #FFFFFF !important;
-      padding: 4px 8px;
-      //box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(112, 108, 162, 0.05);
-      box-shadow: none;
-      border-radius: 8px;
-    }
-    .q-btn--active::before{
-      box-shadow: none;
-    }
-    &:nth-child(2){
-      background: #FFFFFF;
+  .justify-center {
+    button {
+      background: #fff !important;
       border-radius: 12px;
     }
   }
-// new design
-  .q-btn::before{
+
+  /* new design */
+  .q-btn::before {
     box-shadow: none;
   }
 
   .disabled {
-    background: #9690E4;
-    color: #FFFFFF !important;
+    background: #9690e4;
+    color: #fff !important;
     box-shadow: none;
     border-radius: 12px;
+
     &:first-child {
       box-shadow: none !important;
       background: none;
@@ -53,12 +58,11 @@
   }
 
   .q-btn {
-    color: #6D708B !important;
+    color: #6d708b !important;
     width: 40px;
     height: 40px;
     padding: 0 !important;
     margin-left: 4px;
     margin-right: 4px;
-
   }
 }

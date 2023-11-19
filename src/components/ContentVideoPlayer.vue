@@ -256,17 +256,20 @@ export default {
 <style scoped lang="scss">
 .vPlayer {
   width: 100%;
+
   .timepoint-list {
     direction: ltr;
     width: 100%;
     color: white;
     height: 100%;
     padding-bottom: 30px;
-    background: rgba(0,0,0,0.4);
+    background: rgb(0 0 0 / 40%);
+
     .timepoint-list-title {
       text-align: center;
-      background: rgba(0,0,0,0.7);
+      background: rgb(0 0 0 / 70%);
     }
+
     .timepoint-list-items {
       .text-section {
         display: flex;
@@ -277,17 +280,21 @@ export default {
         justify-content: space-between;
       }
     }
+
     :deep(.q-list) {
       height: calc(100% - 54px);
       overflow: auto;
+
       .bookmark-btn.q-btn {
         width: 26px;
         height: 26px;
         padding: 0;
         font-size: 10px;
         color: $primary !important;
+
         .q-btn__content {
           margin: 3px;
+
           svg {
             width: 20px;
             height: 20px;

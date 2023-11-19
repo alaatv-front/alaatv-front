@@ -845,9 +845,11 @@ export default {
 </script>
 
 <style>
-/*.iconAnchorYClass{*/
-/*  transform: rotate(90deg);*/
-/*}*/
+/* .iconAnchorYClass{ */
+
+/*  transform: rotate(90deg); */
+
+/* } */
 </style>
 
 <style scoped lang="scss">
@@ -887,7 +889,6 @@ export default {
   }
 
   .PolylineFormBuilderContainer {
-
     .addPolyLineBtn {
       width: 100%;
       background-color: orange;

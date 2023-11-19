@@ -14,7 +14,7 @@
   letter-spacing: -0.28px;
 }
 
-@mixin caption1{
+@mixin caption1 {
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -30,7 +30,7 @@
   letter-spacing: -0.2px;
 }
 
-@mixin subtitle1{
+@mixin subtitle1 {
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
@@ -38,7 +38,7 @@
   letter-spacing: -0.32px;
 }
 
-@mixin subtitle2{
+@mixin subtitle2 {
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -46,26 +46,30 @@
   letter-spacing: -0.28px;
 }
 
-$katexFontSize : 1.2rem;
-$katexLineHeight : 4rem;
-a{
+$katexFontSize: 1.2rem;
+$katexLineHeight: 4rem;
+
+a {
   text-decoration: none;
-  color: #1D1D1D;
+  color: #1d1d1d;
 }
-:root{
-  --katexFontSize: #{$katexFontSize};
-  --katexLineHeight: #{$katexLineHeight}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-style: normal;
+  line-height: normal;
 }
-  h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    font-style: normal;
-    line-height: normal;
-  }
-  h1 {
-    font-size: 48px;
-    font-weight: 800;
-    letter-spacing: -0.96px;
-  }
+
+h1 {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -0.96px;
+}
 
 h2 {
   font-size: 40px;
@@ -85,13 +89,13 @@ h4 {
   letter-spacing: -0.48px;
 }
 
-h5{
+h5 {
   font-size: 20px;
   font-weight: 600;
   letter-spacing: -0.4px;
 }
 
-h6{
+h6 {
   font-size: 18px;
   font-weight: 600;
   letter-spacing: -0.36px;
@@ -100,6 +104,7 @@ h6{
 .body1 {
   @include body1;
 }
+
 .body2 {
   @include body2;
 }
@@ -107,13 +112,15 @@ h6{
 .caption1 {
   @include caption1;
 }
-.caption2{
+
+.caption2 {
   @include caption2;
 }
 
-.subtitle1{
+.subtitle1 {
   @include subtitle1;
 }
-.subtitle2{
+
+.subtitle2 {
   @include subtitle2;
 }

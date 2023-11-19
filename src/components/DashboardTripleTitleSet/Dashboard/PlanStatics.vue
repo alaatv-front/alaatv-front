@@ -98,6 +98,7 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   .statics-info {
     display: flex;
     flex-direction: column;

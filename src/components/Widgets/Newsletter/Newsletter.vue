@@ -109,13 +109,14 @@ export default {
   width: 432px;
   height: 487px;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (width <= 600px) {
     width: 100%;
   }
 
   &:deep(.q-stepper__header) {
     display: none !important;
   }
+
   &:deep(.q-stepper__step-inner) {
     padding: 0 !important;
   }

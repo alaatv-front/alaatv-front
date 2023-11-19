@@ -105,6 +105,7 @@ export default {
 .separator {
   align-self: center;
 }
+
 .separator-image-wrapper {
   //width: 100%;
 

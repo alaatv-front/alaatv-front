@@ -590,7 +590,7 @@ export default {
 }
 
 .audio-wrapper {
-  margin: 0 0 2rem 0;
+  margin: 0 0 2rem;
 }
 
 .audio {
@@ -604,18 +604,20 @@ export default {
 </style>
 
 <style scoped lang="scss">
-@import 'src/css/Theme/spacing.scss';
+@import 'src/css/Theme/spacing';
 
 .imageModal {
   .imageModal-card {
     width: 320px;
   }
+
   .slider_box {
     display: flex;
     justify-content: center;
     margin: 10px;
     align-items: center;
-    @media screen and (max-width: 350px) {
+
+    @media screen and (width <= 350px) {
       flex-direction: column;
     }
 
@@ -648,7 +650,7 @@ export default {
         opacity: 0.8;
         outline: none !important;
         border-radius: 50px;
-        -webkit-transition: 0.2s;
+        transition: 0.2s;
         transition: opacity 0.2s;
 
         &:hover {
@@ -705,13 +707,14 @@ export default {
 .msg-input-box {
   padding: 30px;
   border-radius: 15px;
-  box-shadow: 2px -4px 10px rgba(255, 255, 255, 0.6), -2px 4px 10px rgba(46, 56, 112, 0.05);
+  box-shadow: 2px -4px 10px rgb(255 255 255 / 60%), -2px 4px 10px rgb(46 56 112 / 5%);
 }
 
 .SendMessageInput-container {
   display: grid;
   grid-template-columns: auto 1fr;
-  @media screen and (max-width: 450px) {
+
+  @media screen and (width <= 450px) {
     display: block;
   }
 }
@@ -720,8 +723,10 @@ export default {
   display: flex;
   min-height: 40px;
   margin-right: $space-4;
+
   .input-group-prepend {
     height: 100%;
+
     .btn {
       border-radius: 0;
     }

@@ -91,7 +91,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import 'src/css/Theme/spacing.scss';
+@import 'src/css/Theme/spacing';
 
 .BtnUserProfileMenu {
   //margin-left: 18px;
@@ -100,11 +100,14 @@ export default {
   padding: 0 !important;
   overflow: hidden;
   border-radius: 16px;
+
   :deep(.q-btn__content) {
     width: 100%;
     margin: 0;
+
     .user-photo {
       width: 100%;
+
       img {
         border: 2px solid #FFB74D;
         border-radius: 16px;
@@ -114,12 +117,13 @@ export default {
     }
   }
 }
+
 .sub-mit-box{
-  background: #FFFFFF;
+  background: #FFF;
   border-radius: 16px;
   display: flex;
-  margin-bottom: 0px;
-  padding: 0px;
+  margin-bottom: 0;
+  padding: 0;
 
   .btn-style{
     width: 96px;

@@ -152,29 +152,32 @@ export default defineComponent({
   justify-content: flex-start;
   align-items: flex-start;
 
-  @media screen and (max-width: 1919px) {
+  @media screen and (width <= 1919px) {
     background: url('https://nodes.alaatv.com/upload/alaaPages/2023-11/19201699707964.png');
     background-repeat: no-repeat;
   }
-  @media screen and (max-width: 1439px) {
+
+  @media screen and (width <= 1439px) {
     background: url('https://nodes.alaatv.com/upload/alaaPages/2023-11/10241699714534.png');
     background-repeat: no-repeat;
     height: 178.399px;
     padding: 37.5px 32px 0;
   }
-  @media screen and (max-width: 1023px) {
+
+  @media screen and (width <= 1023px) {
     background: url('https://nodes.alaatv.com/upload/alaaPages/2023-11/6001699714668.png');
     background-repeat: no-repeat;
     height: 490.399px;
-    padding: 40px 40px 0px 40px;
+    padding: 40px 40px 0;
     flex-direction: column;
     gap: 4px;
     flex: 1 0 0;
   }
-  @media screen and (max-width: 599px) {
+
+  @media screen and (width <= 599px) {
     background: url('https://nodes.alaatv.com/upload/alaaPages/2023-11/3601699714708.png');
     height: 459.39px;
-    padding: 32px 32px 0px 32px;
+    padding: 32px 32px 0;
     flex-direction: column;
     gap: 4px;
     flex: 1 0 0;
@@ -187,11 +190,11 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
 
-    @media screen and (max-width: 1439px) {
+    @media screen and (width <= 1439px) {
       max-width: 261px;
     }
 
-    @media screen and (max-width: 1023px) {
+    @media screen and (width <= 1023px) {
       max-width: 100%;
     }
 
@@ -204,7 +207,7 @@ export default defineComponent({
       .slogan-title {
         display: flex;
         align-items: center;
-        color: #ffffff;
+        color: #fff;
 
         &__icon {
           width: 20px;
@@ -212,6 +215,7 @@ export default defineComponent({
           margin-right: 4px;
           color: #F7AFA4;
         }
+
         &__text {
           font-family: ModamFaNumWeb;
           font-size: 24px;
@@ -220,7 +224,7 @@ export default defineComponent({
           line-height: normal;
           letter-spacing: -0.72px;
 
-          @media screen and (max-width: 1439px) {
+          @media screen and (width <= 1439px) {
             font-size: 16px;
             letter-spacing: -0.48px;
           }
@@ -230,7 +234,7 @@ export default defineComponent({
       .slogan-chance {
         display: flex;
         align-items: center;
-        color: #ffffff;
+        color: #fff;
         font-family: ModamFaNumWeb;
         font-size: 16px;
         font-style: normal;
@@ -238,7 +242,7 @@ export default defineComponent({
         line-height: normal;
         letter-spacing: -0.48px;
 
-        @media screen and (max-width: 1439px) {
+        @media screen and (width <= 1439px) {
           font-size: 14px;
           letter-spacing: -0.42px;
         }
@@ -248,8 +252,9 @@ export default defineComponent({
         }
       }
     }
+
     .slogan-body {
-      color: #ffffff;
+      color: #fff;
       font-family: ModamFaNumWeb;
       font-size: 18px;
       font-style: normal;
@@ -258,12 +263,12 @@ export default defineComponent({
       letter-spacing: -0.54px;
       margin-top: 16px;
 
-      @media screen and (max-width: 1439px) {
+      @media screen and (width <= 1439px) {
         font-size: 14px;
         letter-spacing: -0.42px;
       }
 
-      @media screen and (max-width: 1439px) {
+      @media screen and (width <= 1439px) {
         text-align: center;
         margin-bottom: 50.7px;
       }
@@ -273,30 +278,28 @@ export default defineComponent({
   .participation-action {
     margin: 21.8px auto 0 102.8px;
     display: inline-flex;
-    height: 97.2px;
     padding: 19.2px 14px 17.84px 19.2px;
     align-items: center;
     flex-shrink: 0;
     height: 97.2px;
     border-radius: 81px;
     background:#FFF;
-    box-shadow: 4.5px 4.5px 11.7px 0px rgba(198, 75, 58, 0.90), -4.5px -4.5px 9px 0px rgba(242, 91, 70, 0.90), 4.5px -4.5px 9px 0px rgba(198, 75, 58, 0.20), -4.5px 4.5px 9px 0px rgba(198, 75, 58, 0.20), -0.9px -0.9px 1.8px 0px rgba(198, 75, 58, 0.50) inset, 0.9px 0.9px 1.8px 0px rgba(242, 91, 70, 0.30) inset;
+    box-shadow: 4.5px 4.5px 11.7px 0 rgb(198 75 58 / 90%), -4.5px -4.5px 9px 0 rgb(242 91 70 / 90%), 4.5px -4.5px 9px 0 rgb(198 75 58 / 20%), -4.5px 4.5px 9px 0 rgb(198 75 58 / 20%), -0.9px -0.9px 1.8px 0 rgb(198 75 58 / 50%) inset, 0.9px 0.9px 1.8px 0 rgb(242 91 70 / 30%) inset;
     cursor: pointer;
-
     animation-name: ripple;
     animation-duration: 1.5s;
     animation-iteration-count: infinite;
 
-    @media screen and (max-width: 1439px) {
+    @media screen and (width <= 1439px) {
       margin: 19.44px auto 0 70.24px;
       height: 77.759px;
       width: 77.759px;
       padding: 15.376px 10.4px 13.256px 12.76px;
       border-radius: 64.8px;
-      box-shadow: 3.6px 3.6px 9.36px 0px rgba(198, 75, 58, 0.90), -3.6px -3.6px 7.2px 0px rgba(242, 91, 70, 0.90), 3.6px -3.6px 7.2px 0px rgba(198, 75, 58, 0.20), -3.6px 3.6px 7.2px 0px rgba(198, 75, 58, 0.20), -0.72px -0.72px 1.44px 0px rgba(198, 75, 58, 0.50) inset, 0.72px 0.72px 1.44px 0px rgba(242, 91, 70, 0.30) inset;
+      box-shadow: 3.6px 3.6px 9.36px 0 rgb(198 75 58 / 90%), -3.6px -3.6px 7.2px 0 rgb(242 91 70 / 90%), 3.6px -3.6px 7.2px 0 rgb(198 75 58 / 20%), -3.6px 3.6px 7.2px 0 rgb(198 75 58 / 20%), -0.72px -0.72px 1.44px 0 rgb(198 75 58 / 50%) inset, 0.72px 0.72px 1.44px 0 rgb(242 91 70 / 30%) inset;
     }
 
-    @media screen and (max-width: 1023px) {
+    @media screen and (width <= 1023px) {
       margin: 0 auto !important;
     }
 
@@ -310,7 +313,6 @@ export default defineComponent({
 
       &__text {
         margin: 0 auto;
-        text-align: center;
         color:#D14835;
         text-align: right;
         font-family: ModamFaNumWeb;
@@ -320,7 +322,7 @@ export default defineComponent({
         line-height: normal;
         letter-spacing: -0.72px;
 
-        @media screen and (max-width: 1439px) {
+        @media screen and (width <= 1439px) {
           font-size: 20px;
           letter-spacing: -0.6px;
         }

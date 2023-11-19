@@ -164,15 +164,16 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   border-radius: 20px;
-  box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6),
-  2px 4px 10px rgba(46, 56, 112, 0.05);
-  background-color: #ffffff;
+  box-shadow: -2px -4px 10px rgb(255 255 255 / 60%),
+  2px 4px 10px rgb(46 56 112 / 5%);
+  background-color: #fff;
   top: 0;
   overflow: hidden;
   transition: all ease 0.5s;
+
   &:hover {
-    box-shadow: -5px -6px 10px rgba(255, 255, 255, 0.6),
-    5px 5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: -5px -6px 10px rgb(255 255 255 / 60%),
+    5px 5px 20px rgb(0 0 0 / 10%);
 
     .img-box .img-videos {
       opacity: 0.6;
@@ -193,6 +194,7 @@ export default {
     position: absolute;
     right: 0;
     top: -2px;
+
     .content-item-bookmark {
       margin: -10px;
     }
@@ -218,7 +220,7 @@ export default {
     }
 
     .img-videos {
-      background: #000000;
+      background: #000;
       color: white;
       opacity: 0;
       position: absolute;
@@ -236,10 +238,11 @@ export default {
 
   .content-info-container {
     min-height: 110px;
-    padding: 10px 16px 16px 16px;
+    padding: 10px 16px 16px;
     position: relative;
     display: grid;
     grid-template-rows: 1fr;
+
     .main-title {
       font-style: normal;
       font-weight: 400;
@@ -253,11 +256,12 @@ export default {
       }
 
     }
+
     .title-text {
       font-size: 14px;
       line-height: 24px;
       letter-spacing: -0.03em;
-      color: #333333;
+      color: #333;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -308,13 +312,13 @@ export default {
 
         .main-price {
           text-decoration: line-through;
+
           /* margin-left: 12px; */
           font-style: normal;
           font-weight: 400;
           font-size: 12px;
           line-height: 19px;
           color: #656f7b;
-
           opacity: 0.4;
         }
 
@@ -337,7 +341,7 @@ export default {
         font-weight: 500;
         font-size: 12px;
         line-height: 21px;
-        color: #666666;
+        color: #666;
         cursor: pointer;
 
         a {
@@ -400,7 +404,7 @@ export default {
     justify-content: center;
     height: 60px;
     width: 60px;
-    background: #000000;
+    background: #000;
     opacity: 0.6;
     position: absolute;
     top: 50%;
@@ -416,7 +420,7 @@ export default {
     }
   }
 
-  @media screen and (max-width: 992px) {
+  @media screen and (width <= 992px) {
     .img-box {
       height: 100%;
     }

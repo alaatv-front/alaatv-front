@@ -224,30 +224,37 @@ export default {
   width: 318px;
   height: 510px;
 }
+
 .grid-btn {
-  @media only screen and (max-width: 600px) {
+  @media only screen and (width <= 600px) {
     display: none;
   }
 }
+
 .product-documents {
   &:deep(.entity-filter-box) {
     display: none;
+
     &.opened {
       display: flex;
     }
   }
+
   // this is a piece of shit and must be fixed
   &:deep(.q-table__top) {
     display: none !important;
   }
+
   &:deep(.q-field__control) {
     background-color: #fff !important;
   }
+
   &:deep(.grid-btn) {
-    @media only screen and (max-width: 1024px) {
+    @media only screen and (width <= 1024px) {
       display: none;
     }
   }
+
   .content-col{
     padding: 10px;
 

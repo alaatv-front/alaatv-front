@@ -174,20 +174,23 @@ export default {
 
 <style lang="scss" scoped>
 .product-comments{
-
   &:deep(.entity-filter-box) {
     display: none;
+
     &.opened {
       display: flex;
     }
   }
+
   // this is piece of shit and must fixed
   &:deep(.q-table__top) {
     display: none !important;
   }
+
   &:deep(.q-field__control) {
     background-color: #fff !important;
   }
+
   .content-col{
     padding: 10px;
 
@@ -205,7 +208,7 @@ export default {
         background: #E9E9E9;
       }
 
-      @media only screen and (max-width: 600px) {
+      @media only screen and (width <= 600px) {
         padding: 10PX;
       }
 
@@ -222,7 +225,7 @@ export default {
         font-size: 12px;
         line-height: 19px;
         letter-spacing: -0.02em;
-        color: #666666;
+        color: #666;
       }
 
       .comment-main {
@@ -241,7 +244,7 @@ export default {
         font-size: 12px;
         line-height: 19px;
         letter-spacing: -0.02em;
-        color: #666666;
+        color: #666;
         display: -webkit-box;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;

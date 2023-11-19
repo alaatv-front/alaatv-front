@@ -353,22 +353,25 @@ export default {
   .study-plan {
     background-color: #ffe2bc;
     color: #3e5480;
-
-    padding: 40px 60px 51px 60px;
+    padding: 40px 60px 51px;
     border-radius: 30px;
     position: relative;
-    @media screen and (max-width: 1919px) {
-      padding: 40px 45px 50px 45px;
+
+    @media screen and (width <= 1919px) {
+      padding: 40px 45px 50px;
     }
-    @media screen and (max-width: 1200px) {
+
+    @media screen and (width <= 1200px) {
       border-radius: 20px;
-      padding: 30px 35px 78px 35px;
+      padding: 30px 35px 78px;
     }
-    @media screen and (max-width: 767px) {
-      padding: 25px 23px 48px 23px;
+
+    @media screen and (width <= 767px) {
+      padding: 25px 23px 48px;
     }
-    @media screen and (max-width: 575px) {
-      padding: 25px 7px 18px 7px;
+
+    @media screen and (width <= 575px) {
+      padding: 25px 7px 18px;
     }
 
     .study-plan-header-title {
@@ -376,14 +379,18 @@ export default {
       font-weight: 500;
       text-align: center;
       margin-bottom: 56px;
-      @media screen and (max-width: 1919px) {
+
+      @media screen and (width <= 1919px) {
       }
-      @media screen and (max-width: 1200px) {
+
+      @media screen and (width <= 1200px) {
         margin-bottom: 20px;
       }
-      @media screen and (max-width: 767px) {
+
+      @media screen and (width <= 767px) {
       }
-      @media screen and (max-width: 575px) {
+
+      @media screen and (width <= 575px) {
         margin-bottom: 25px;
       }
     }
@@ -395,28 +402,33 @@ export default {
       align-items: center;
       position: absolute;
       top: 42px;
+
       //margin-top: -57px;
       margin-left: 15px !important;
-      @media only screen and (max-width: 1200px) {
+
+      @media only screen and (width <= 1200px) {
         //margin-top: -32px;
         position: static;
         margin-bottom: 30px;
       }
 
-      @media only screen and (max-width: 768px) {
+      @media only screen and (width <= 768px) {
         justify-content: center;
         margin-bottom: 25px;
       }
 
       :deep(.q-field ) {
         width: 195px;
-        @media only screen and (max-width: 1904px) {
+
+        @media only screen and (width <= 1904px) {
           width: 177px;
         }
-        @media only screen and (max-width: 1200px) {
+
+        @media only screen and (width <= 1200px) {
           width: 136px;
         }
-        @media only screen and (max-width: 990px) {
+
+        @media only screen and (width <= 990px) {
           width: 136px;
         }
       }
@@ -429,7 +441,8 @@ export default {
         &.v-text-field--enclosed {
           padding-top: 15px;
           margin-right: 15px !important;
-          @media only screen and (max-width: 1200px) {
+
+          @media only screen and (width <= 1200px) {
             padding-top: 35px;
           }
         }
@@ -438,7 +451,8 @@ export default {
       .major-card-text {
         margin-right: 4%;
         font-size: 16px;
-        @media only screen and (max-width: 768px) {
+
+        @media only screen and (width <= 768px) {
           margin-right: 10px;
         }
 
@@ -447,34 +461,41 @@ export default {
 
     .all-the-expansions {
       height: 540px;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      @media only screen and (max-width: 1200px) {
+      overflow: hidden scroll;
+
+      @media only screen and (width <= 1200px) {
         height: 527px;
       }
-      @media only screen and (max-width: 990px) {
+
+      @media only screen and (width <= 990px) {
         height: 547px;
       }
-      @media only screen and (max-width: 768px) {
+
+      @media only screen and (width <= 768px) {
         height: 466px;
       }
-      @media only screen and (max-width: 350px) {
+
+      @media only screen and (width <= 350px) {
         height: 446px;
       }
 
       .study-plan-expansion {
-        padding: 0 80px 0 80px;
-        @media only screen and (max-width: 1904px) {
-          padding: 0 60px 0 60px;
+        padding: 0 80px;
+
+        @media only screen and (width <= 1904px) {
+          padding: 0 60px;
         }
-        @media only screen and (max-width: 1200px) {
-          padding: 0 48px 0 48px;
+
+        @media only screen and (width <= 1200px) {
+          padding: 0 48px;
         }
-        @media only screen and (max-width: 768px) {
-          padding: 0 37px 0 37px;
+
+        @media only screen and (width <= 768px) {
+          padding: 0 37px;
         }
-        @media only screen and (max-width: 576px) {
-          padding: 0 20px 0 20px;
+
+        @media only screen and (width <= 576px) {
+          padding: 0 20px;
         }
 
         &.theme--light {
@@ -492,7 +513,8 @@ export default {
           line-height: normal;
           text-align: right;
           color: #3e5480;
-          @media only screen and (max-width: 768px) {
+
+          @media only screen and (width <= 768px) {
             font-size: 14px;
           }
 
@@ -521,13 +543,13 @@ export default {
   }
 }
 
-@media only screen and (max-width: 1200px) {
-  .q-card > :first-child:not(.v-btn):not(.v-chip):not(.v-avatar), .q-card > .q-card__progress + :not(.v-btn):not(.v-chip):not(.v-avatar) {
+@media only screen and (width <= 1200px) {
+  .q-card > :first-child:not(.v-btn, .v-chip, .v-avatar), .q-card > .q-card__progress + :not(.v-btn, .v-chip, .v-avatar) {
     border-radius: 20px;
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (width <= 768px) {
   .v-text-field.v-text-field--solo .v-input__control {
     min-height: 40px;
   }
@@ -547,20 +569,23 @@ export default {
     .v-expansion-panel-content__wrap {
       box-shadow: 0 0 0 0;
       padding: 0 20px 16px !important;
-      @media screen and (max-width: 990px) {
+
+      @media screen and (width <= 990px) {
         padding: 0 15px 16px !important;
       }
-      @media screen and (max-width: 768px) {
+
+      @media screen and (width <= 768px) {
         padding: 0 5px 10px !important;
       }
-      @media screen and (max-width: 576px) {
+
+      @media screen and (width <= 576px) {
         padding: 0 5px 9px !important;
       }
     }
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (width <= 768px) {
   .study-plan-group .v-text-field.v-text-field--solo .v-input__control {
     min-height: 40px;
   }

@@ -131,15 +131,18 @@ export default {
 <style lang="scss" scoped>
 .chip-dropdown{
   margin-top: 20px;
+
   .list-box {
-    @media screen and (max-width: 960px){
+    @media screen and (width <= 960px){
       justify-content: center !important;
     }
+
     &.chip-group-visibility {
-      @media screen and (max-width: 768px){
+      @media screen and (width <= 768px){
         display: none !important;
       }
     }
+
     .list-section {
       font-size: 16px;
       font-weight: bold;
@@ -147,18 +150,22 @@ export default {
       margin-left:21px;
       padding-top: 11px;
       padding-right: 6px;
-      @media screen and (max-width: 768px){
+
+      @media screen and (width <= 768px){
         font-size: 14px !important;
       }
-      @media screen and (max-width: 600px){
+
+      @media screen and (width <= 600px){
         display:none;
       }
     }
+
     .chip-part {
       &:deep(.q-chip){
         border-radius: 40px !important;
         padding:7px 20px;
       }
+
       .chip-box {
         font-size: 16px;
         font-weight: 500;
@@ -168,17 +175,20 @@ export default {
         :deep(.q-chip__content){
           padding: 0;
         }
-        @media screen and (max-width: 768px){
+
+        @media screen and (width <= 768px){
           height: 32px;
           font-size: 14px !important;
         }
       }
+
       .chip-text-color{
         color: #9fa5c0;
       }
     }
 
   }
+
   &:deep(.q-icon){
     color: #3e5480;
     font-size: 24px;

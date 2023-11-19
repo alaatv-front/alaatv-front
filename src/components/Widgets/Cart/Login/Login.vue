@@ -134,13 +134,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-P {
+p {
   margin-bottom: 0;
   color: #575962 !important;
 }
 
 .login {
-  box-shadow: 0 6px 5px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 6px 5px rgb(0 0 0 / 3%);
   border-radius: 10px;
   padding: 30px 16px;
 }
@@ -151,7 +151,8 @@ P {
 
 .user-not-logged-in {
   margin-left: 20px;
-  @media screen and (max-width: 1023px) {
+
+  @media screen and (width <= 1023px) {
     margin-left: 0;
   }
 }

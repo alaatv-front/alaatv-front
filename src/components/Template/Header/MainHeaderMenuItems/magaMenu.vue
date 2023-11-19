@@ -291,27 +291,34 @@ export default {
 <style scoped lang="scss">
 .category-items {
   width: 175px;
+
   .scroll {
     height: 100%;
+
     .item {
       position: relative;
+
       .edit-btn {
         position: absolute;
-        left: 0px;
+        left: 0;
         top: -10px;
       }
     }
   }
-  @media screen and (max-width: 1400px) {
+
+  @media screen and (width <= 1400px) {
     width: 200px;
+
     .scroll {
       height: 200px;
     }
   }
 }
+
 .sub-category-items {
   place-self: center;
 }
+
 .item {
   .badge{
     position: absolute;
@@ -320,28 +327,30 @@ export default {
     z-index: 100;
     animation: badge 1s infinite;
   }
+
   @keyframes badge {
     0% {
-      -moz-box-shadow:0 0 0 0 rgba(55, 55, 55, 0.68);
-      box-shadow:0 0 0 0 rgba(55, 55, 55, 0.68);
+      box-shadow:0 0 0 0 rgb(55 55 55 / 68%);
     }
+
     70% {
-      -moz-box-shadow:0 0 0 10px rgba(0,0,0,0);
-      box-shadow:0 0 0 10px rgba(0,0,0,0);
+      box-shadow:0 0 0 10px rgb(0 0 0 / 0%);
     }
+
     100% {
-      -moz-box-shadow:0 0 0 0 rgba(0,0,0,0);
-      box-shadow:0 0 0 0 rgba(0,0,0,0);
+      box-shadow:0 0 0 0 rgb(0 0 0 / 0%);
     }
   }
 }
+
 .arrow{
   margin-right: 14px;
   transition: border-left 1s;
   z-index: 2;
   font-weight: bold;
   background-color: orange;
-  &:after {
+
+  &::after {
     content:'';
     position: absolute;
     left: 145px;
@@ -353,10 +362,12 @@ export default {
     border-left: 25px solid orange;
     border-top: 24px solid transparent;
     border-bottom: 24px solid transparent;
-    @media screen and (max-width: 1400px){
+
+    @media screen and (width <= 1400px){
       left: 170px;
     }
   }
+
   &:deep(.q-focus-helper) {
     background-color: transparent !important;
   }
@@ -365,6 +376,7 @@ export default {
 .list-title{
   font-weight: bold;
 }
+
 .magaMenu-photo-container{
   position: absolute;
   right: 20px;
@@ -383,6 +395,7 @@ export default {
     z-index: 1;
     text-align: center;
   }
+
   .megaMenu-svg{
     width: 100px;
     height: 100px;
@@ -399,7 +412,7 @@ export default {
   border-radius: 10px;
   padding: 0;
 
-  @media screen and (max-width: 1439px){
+  @media screen and (width <= 1439px){
     max-width: 850px !important;
     width: 850px;
     left: 140px;

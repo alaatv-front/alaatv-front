@@ -113,16 +113,20 @@ export default {
     height: 140px !important;
     overflow: auto;
     border-right: 24px !important;
-    @media only screen and (max-width: 1904px) {
+
+    @media only screen and (width <= 1904px) {
       height: 120px !important;
     }
-    @media only screen and (max-width: 990px) {
+
+    @media only screen and (width <= 990px) {
       height: 100px !important;
     }
-    @media only screen and (max-width: 768px) {
+
+    @media only screen and (width <= 768px) {
       height: 120px !important;
     }
-    @media only screen and (max-width: 576px) {
+
+    @media only screen and (width <= 576px) {
       height: 80px !important;
     }
   }
@@ -152,19 +156,22 @@ export default {
     justify-content: flex-end;
     font-size: 16px;
     margin: 20px 0;
-    @media only screen and (max-width: 1023px) {
+
+    @media only screen and (width <= 1023px) {
       height: 40px !important;
-      margin: 15px 0 20px 0;
+      margin: 15px 0 20px;
     }
 
     .btn-size {
       border-radius: 10px !important;
       width: 120px;
       height: 48px !important;
-      @media only screen and (max-width: 1200px) {
+
+      @media only screen and (width <= 1200px) {
         height: 40px !important;
       }
-      @media only screen and (max-width: 576px) {
+
+      @media only screen and (width <= 576px) {
         height: 36px !important;
         width: 100px;
       }

@@ -87,22 +87,25 @@ export default {
   .q-btn--actionable {
     width: 35px;
     height: 35px;
-    background: #FFFFFF;
+    background: #FFF;
     border-radius: 12px;
     margin-right: 3px;
   }
+
    .question-item-button {
     width: 40px;
     height: 40px;
-    box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(112, 108, 162, 0.05);
+    box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%);
     border-radius: 13px;
     margin-right: 10px;
   }
+
   .search-box{
     display: flex;
     align-items: center;
     margin-left: 10px;
     margin-right: 10px;
+
     .search-input{
       width: 100px;
       height: 40px;

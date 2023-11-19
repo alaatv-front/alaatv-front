@@ -271,13 +271,16 @@ export default {
   .header {
     border-radius: 14px;
   }
+
   .product-contents {
     width: 1024px;
     max-width: 1024px;
-    :deep(.q-card.custom-card:not([class^=col])) {
+
+    :deep(.q-card.custom-card:not([class^="col"])) {
       box-shadow: none;
     }
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       min-width: 320px;
       padding: 20px;
     }
@@ -286,9 +289,11 @@ export default {
   .costume-background-color{
     background: #F6F8FA !important;
   }
+
   .filter-box-container{
     overflow-x: auto;
   }
+
   .noContentMessage{
     font-size: 18px;
     font-weight: 500;
@@ -297,10 +302,13 @@ export default {
   }
 
   .abrishamAssetBanner {
-    /*background: #fec107;*/
-    /*padding: 10px;*/
-    /*text-align: center;*/
-    /*color: white;*/
+    /* background: #fec107; */
+
+    /* padding: 10px; */
+
+    /* text-align: center; */
+
+    /* color: white; */
   }
 
   .abrishamAssetBanner img {

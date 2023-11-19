@@ -279,7 +279,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/spacing.scss";
+@import "src/css/Theme/spacing";
 
 .product-page-container {
   width: 100%;
@@ -301,15 +301,13 @@ export default defineComponent({
     height: auto;
     overflow: hidden;
 
-    @media screen and (max-width: 599px) {
+    @media screen and (width <= 599px) {
       min-height: 623px;
     }
+
     .background-image {
       position: absolute;
-      top: -50px;
-      left: -50px;
-      right: -50px;
-      bottom: -50px;
+      inset: -50px;
       width: calc( 100% + 100px);
       height: calc( 100% + 100px);
       filter: blur(10px);
@@ -320,7 +318,7 @@ export default defineComponent({
       .background-filter {
         width: 100%;
         height: 100%;
-        background: linear-gradient(270deg,  rgba(0, 0, 0, 0.15)0%, rgba(0, 0, 0, 0.60) 47.60%, rgba(0, 0, 0, 0.95) 100%), lightgray 0px 0px / 100% 100% no-repeat;
+        background: linear-gradient(270deg,  rgb(0 0 0 / 15%)0%, rgb(0 0 0 / 60%) 47.60%, rgb(0 0 0 / 95%) 100%), lightgray 0 0 / 100% 100% no-repeat;
         mix-blend-mode: multiply;
       }
     }
@@ -329,17 +327,17 @@ export default defineComponent({
       width: 1362px;
       max-width: 100%;
 
-      @media screen and (max-width: 1439px){
+      @media screen and (width <= 1439px){
         width: 964px;
       }
 
-      @media screen and (max-width: 1023px){
+      @media screen and (width <= 1023px){
         .space-col {
           display: none;
         }
       }
 
-      @media screen and (max-width: 599px){
+      @media screen and (width <= 599px){
         width: 100%;
       }
     }
@@ -351,13 +349,13 @@ export default defineComponent({
       height: auto;
       margin: 70px 0;
 
-      @media screen and (max-width: 1023px){
+      @media screen and (width <= 1023px){
         padding: 0 30px;
         min-height: 400px;
         margin: 10px 0;
       }
 
-      @media screen and (max-width: 599px){
+      @media screen and (width <= 599px){
         min-height: 623px;
         padding: 20px 20px 0;
       }
@@ -367,6 +365,7 @@ export default defineComponent({
         justify-content: space-between;
         align-items: center;
         margin-bottom: 16px;
+
         .product-title {
           color:#FFF;
           font-size: 22px;
@@ -375,7 +374,7 @@ export default defineComponent({
           line-height: normal;
           letter-spacing: -0.66px;
 
-          @media screen and (max-width: 1023px){
+          @media screen and (width <= 1023px){
             max-width: 100%;
             font-size: 20px;
             letter-spacing: -0.6px;
@@ -387,7 +386,7 @@ export default defineComponent({
           justify-content: center;
           align-items: center;
 
-          @media screen and (max-width: 599px){
+          @media screen and (width <= 599px){
             display: none;
           }
 
@@ -407,7 +406,8 @@ export default defineComponent({
         display: flex;
         justify-content: flex-end;
         align-items: flex-end;
-        @media screen and (max-width: 1023px){
+
+        @media screen and (width <= 1023px){
           flex-direction: column;
           align-items: center;
           width: auto;
@@ -423,6 +423,7 @@ export default defineComponent({
             letter-spacing: -0.48px;
             margin-top: 8px;
           }
+
           .expiration-text {
             color:#FFF;
             font-size: 16px;
@@ -434,7 +435,7 @@ export default defineComponent({
         }
 
         .info-footer-action {
-          @media screen and (max-width: 1023px){
+          @media screen and (width <= 1023px){
             width: 100%;
             display: flex;
             align-items: center;
@@ -442,10 +443,10 @@ export default defineComponent({
           }
 
           .footer-action-btn {
-            color: #FFFFFF;
+            color: #FFF;
             background: transparent;
 
-            @media screen and (max-width: 599px){
+            @media screen and (width <= 599px){
               padding: 0;
             }
           }
@@ -457,7 +458,7 @@ export default defineComponent({
       width: 1200px;
       max-width: 100%;
 
-      @media screen and (max-width: 599px){
+      @media screen and (width <= 599px){
         width: 100%;
       }
 
@@ -466,7 +467,7 @@ export default defineComponent({
         max-width: 100%;
         margin-top: 10px;
 
-        @media screen and (max-width: 599px){
+        @media screen and (width <= 599px){
           width: 100%;
         }
 
@@ -503,12 +504,12 @@ export default defineComponent({
                 }
               }
 
-              @media screen and (max-width: 599px){
+              @media screen and (width <= 599px){
                 display: flex;
               }
             }
 
-            @media screen and (max-width: 599px){
+            @media screen and (width <= 599px){
              display: flex;
              justify-content: space-between;
              align-items: center;
@@ -529,7 +530,7 @@ export default defineComponent({
             text-align: justify;
             margin-top: 8px;
 
-            @media screen and (max-width: 599px){
+            @media screen and (width <= 599px){
               height: 623px;
             }
 
@@ -538,7 +539,7 @@ export default defineComponent({
               min-height: 300px;
               transition: all .3s ease-in-out;
 
-              @media screen and (max-width: 599px){
+              @media screen and (width <= 599px){
                 min-height: 623px;
               }
             }
@@ -549,7 +550,7 @@ export default defineComponent({
 
     .product-pic {
       height: 550px;
-      background: linear-gradient(270deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.60) 52.60%, rgba(0, 0, 0, 0.15) 100%), lightgray 0px 0px / 100% 100% no-repeat;
+      background: linear-gradient(270deg, rgb(0 0 0 / 95%) 0%, rgb(0 0 0 / 60%) 52.60%, rgb(0 0 0 / 15%) 100%), lightgray 0 0 / 100% 100% no-repeat;
       filter: blur(10px);
     }
   }
@@ -560,18 +561,17 @@ export default defineComponent({
     position: relative;
     margin: 30px 0;
 
-    @media screen and (max-width: 1439px){
+    @media screen and (width <= 1439px){
         width: 964px;
       }
 
     .content-row {
-
-      @media screen and (max-width: 1023px) {
+      @media screen and (width <= 1023px) {
         flex-wrap: wrap-reverse;
         padding: 0 30px;
       }
 
-      @media screen and (max-width: 599px) {
+      @media screen and (width <= 599px) {
         padding: 0 20px;
       }
     }
@@ -579,7 +579,7 @@ export default defineComponent({
     .product-info-tab-wrapper {
       max-width: 100%;
 
-      @media screen and (max-width: 1023px) {
+      @media screen and (width <= 1023px) {
         width: 100%;
       }
 
@@ -587,10 +587,11 @@ export default defineComponent({
         border-radius: 20px;
       }
     }
+
     .intro-box-col {
       margin-top: -550px;
 
-      @media screen and (max-width: 1023px) {
+      @media screen and (width <= 1023px) {
         margin-top: 0;
       }
     }

@@ -250,35 +250,41 @@ export default {
 .RegisterKonkurFieldSelectionProducts {
   .q-list {
     margin-bottom: 71px;
+
     .q-item {
       border-radius: 10px;
       background: #FFF;
-      box-shadow: -2px 2px 3px 0 rgba(16, 24, 40, 0.06);
+      box-shadow: -2px 2px 3px 0 rgb(16 24 40 / 6%);
       flex-wrap: wrap;
       padding-right: 16px;
       padding-left: 16px;
       padding-bottom: 21px;
+
       .more-info {
         max-width: 100%;
         min-width: 100%;
         margin: 0;
+
         .items {
           .item {
             display: flex;
             flex-flow: row;
             justify-content: space-between;
             align-items: center;
+
             .price-and-detail {
               display: flex;
               flex-flow: row;
               justify-content: flex-end;
               align-items: center;
+
               .price {
                 display: flex;
                 flex-flow: row;
                 justify-content: flex-end;
                 align-items: center;
                 width: 100px;
+
                 .value {
                   font-size: 18px;
                   font-style: normal;
@@ -286,6 +292,7 @@ export default {
                   line-height: normal;
                   letter-spacing: -0.36px;
                 }
+
                 .unit {
                   margin-left: 4px;
                   font-size: 10px;
@@ -295,6 +302,7 @@ export default {
                   letter-spacing: -0.2px;
                 }
               }
+
               .detail {
                 font-size: 10px;
                 font-style: normal;
@@ -304,6 +312,7 @@ export default {
                 margin-right: 14px;
               }
             }
+
             .caption {
               padding: 4px;
               border-radius: 6px;

@@ -185,29 +185,30 @@ $counterMargin: v-bind('computedTimerStyle.counterMargin');
 $counterPadding: v-bind('computedTimerStyle.counterPadding');
 $fontFamily: v-bind('computedTimerStyle.fontFamily');
 $counterBorderRadius: v-bind('counterBorderRadius');
+
 .event-counter-wrapper {
   display: flex;
   align-items: center;
   font-family: $fontFamily;
 
-  @media screen and (max-width: 1023px) and (min-width: 350px) {
+  @media screen and (width <= 1023px) and (width >= 350px) {
     width: 100%;
     justify-content: center;
   }
 
   &.theme1 {
-
     .event-counter-item {
-
       .event-counter-item-title {
-        @media screen and (max-width: 600px) {
+        @media screen and (width <= 600px) {
           display: none;
         }
       }
+
       &:not(:last-child) {
         flex-direction: row;
+
         &::after{
-          @media screen and (max-width: 600px) {
+          @media screen and (width <= 600px) {
             content: ':';
             font-size: $timerSize;
             color: $timerColor;
@@ -225,9 +226,7 @@ $counterBorderRadius: v-bind('counterBorderRadius');
     align-items: center;
 
     .event-counter-item-number {
-      display: flex;
       justify-content: center;
-      align-items: center;
       background: $timerBackground;
       border-radius: $counterBorderRadius;
       margin: $counterMargin;

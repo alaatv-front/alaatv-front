@@ -230,16 +230,18 @@ export default defineComponent({
       align-items: center;
 
       &.riazi {
-        background: rgba($color: #75b9ea, $alpha: .5);
+        background: rgba($color: #75b9ea, $alpha: 50%);
       }
+
       &.tajrobi {
-        background: rgba($color: #63a869, $alpha: .5);
+        background: rgba($color: #63a869, $alpha: 50%);
       }
     }
   }
 
   .person-name-card-section {
     padding: 0;
+
     .student-name {
       font-size: 16px;
       font-weight: 500;
@@ -258,6 +260,7 @@ export default defineComponent({
   padding-top: 0;
   padding-right: 0;
   padding-left: 0;
+
   .student-info{
     display: flex;
     flex-direction: column;
@@ -303,7 +306,7 @@ export default defineComponent({
   top: 40%;
   z-index: 2;
 
-  @media screen and (max-width: 1440px){
+  @media screen and (width <= 1440px){
     right: 0;
   }
 
@@ -312,6 +315,7 @@ export default defineComponent({
     color: v-bind('localOptions.navigation.goToLeft.textColor');
   }
 }
+
 .arrow-right {
   align-self: center;
   position: absolute;
@@ -319,7 +323,7 @@ export default defineComponent({
   top: 40%;
   z-index: 2;
 
-  @media screen and (max-width: 1440px){
+  @media screen and (width <= 1440px){
     left: 0;
   }
 
@@ -360,6 +364,7 @@ export default defineComponent({
   background: v-bind('localOptions.navigation.goToRight.color');
   color: v-bind('localOptions.navigation.goToRight.textColor');
 }
+
 .carousel__next {
   left: auto;
   right: 0;

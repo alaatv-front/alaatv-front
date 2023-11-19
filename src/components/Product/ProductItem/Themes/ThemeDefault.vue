@@ -189,7 +189,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/Typography/typography.scss";
+@import "src/css/Theme/Typography/typography";
 
 $productFontFamily: v-bind('localOptions.typography.fontFamily');
 $titleColor: v-bind('localOptions.typography.titleColor');
@@ -203,7 +203,7 @@ $actionHoverColor: v-bind('localOptions.typography.actionHoverColor');
 $installmentColor: v-bind('localOptions.typography.installmentColor');
 $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBackground');
 
-@mixin instalment-label () {
+@mixin instalment-label() {
   display: flex;
   padding: 4px 6px;
   justify-content: center;
@@ -223,6 +223,7 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
 
 .theme2-container {
   height: inherit;
+
   // background-color: #ffffff;
   border-radius: 20px;
   padding-top: 20px;
@@ -235,32 +236,39 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
         display: none;
       }
     }
-    @media screen and (max-width: 600px) {
+
+    @media screen and (width <= 600px) {
       .img-box {
         .product-discount-badge {
-          margin: -30px 20px 0px 0px;
+          margin: -30px 20px 0 0;
         }
+
         a {
           .img {
             //width: 116px;
           }
         }
       }
+
       .product-content-box {
         padding: 9px 12px 12px;
+
         .price-box {
           display: flex;
           flex-wrap: wrap;
           place-content: center;
+
           .price-info {
             .final-price-box {
               .final-price {
                 @include subtitle2
               }
+
               .price-Toman {
                 @include caption2
               }
             }
+
             .main-price {
               font-size: 10px;
               font-weight: 400;
@@ -277,7 +285,8 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
         display: none;
       }
     }
-    @media screen and (max-width: 600px) {
+
+    @media screen and (width <= 600px) {
       display: flex;
       border-radius: 18px;
       padding-top: 0;
@@ -289,6 +298,7 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
         &.vertical-mode {
           display: none;
         }
+
         &.horizontal-mode {
           display: block;
           position: absolute;
@@ -299,6 +309,7 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
 
       .img-box {
         margin: 0 12px 0 -35px;
+
         //padding: 12px;
         //width: 100px;
 
@@ -307,7 +318,7 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
           width: 116px;
         }
 
-        @media screen and (max-width: 1023px){
+        @media screen and (width <= 1023px){
           width: 128px;
         }
       }
@@ -318,7 +329,9 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
 
         .main-title {
           margin-bottom: 0;
+
           @include subtitle2;
+
           color: $titleColor;
 
           a {
@@ -329,6 +342,7 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
             height: 44px;
             text-align: center;
             color: $titleColor;
+
             .title-text {
               -webkit-line-clamp: 2;
               color: $titleColor;
@@ -366,6 +380,7 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
               display: none;
             }
           }
+
           .btn-green{
             margin-left: 20px;
           }
@@ -389,6 +404,7 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
 
         .discount {
           height: 20px;
+
           /* margin-left: 3px; */
         }
       }
@@ -399,12 +415,14 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
     //position: relative;
     margin: -40px 20px 0;
     align-self: center;
+
     .product-discount-badge {
       display: block;
-      margin: -43px 32px 0px 0px;
+      margin: -43px 32px 0 0;
       rotate: -16deg;
       transition: all ease-in-out .4s;
-      @media screen and (max-width: 1023px){
+
+      @media screen and (width <= 1023px){
         //margin: -15px 10px 0px 0px;
       }
     }
@@ -421,7 +439,7 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
         width: 100%;
         border-radius: inherit;
 
-        @media screen and (max-width: 1023px){
+        @media screen and (width <= 1023px){
           //width: 116px;
         }
       }
@@ -434,7 +452,7 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
 
   .product-content-box {
     position: relative;
-    padding: 10px 20px 20px 20px;
+    padding: 10px 20px 20px;
 
     .title-box {
       min-height: 42px;
@@ -448,6 +466,7 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
       justify-content: space-between;
       align-items: center;
       margin-top: 0;
+
       .add-cart-info {
         display: flex;
         justify-content: center;
@@ -468,6 +487,7 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
           display: flex;
           justify-content: center;
           align-items: center;
+
           .final-price {
             font-size: 18px;
             font-style: normal;
@@ -501,7 +521,8 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
 
       .instalment-label {
         margin-left: 16px;
-        @include instalment-label();
+
+        @include instalment-label;
       }
     }
 
@@ -516,9 +537,11 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
       .action-separator {
         margin: 12px 0;
         background: $separatorColor;
-        @media screen and (max-width: 1023px){
+
+        @media screen and (width <= 1023px){
           margin: 4px 0;
         }
+
         width: 100%;
       }
 
@@ -526,7 +549,7 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
         font-weight: 500;
         font-size: 12px;
         line-height: 21px;
-        color: #666666;
+        color: #666;
         cursor: pointer;
         max-width: 100%;
 
@@ -535,8 +558,8 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
           display: flex;
           justify-content: center;
           align-items: center;
-          flex-direction: row;
-          flex-wrap: wrap;
+          flex-flow: row wrap;
+
           .simple-text {
             color: #757575;
             text-align: right;
@@ -546,6 +569,7 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
             line-height: normal;
             letter-spacing: -0.42px;
           }
+
           .price {
             color: $installmentColor;
             text-align: right;
@@ -555,19 +579,23 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
             line-height: normal;
             letter-spacing: -0.42px;
             margin: 0 6px;
+
             &.price-value {
               font-size: 20px;
               font-weight: 700;
               letter-spacing: -0.6px;
               margin-right: 3px;
             }
+
             &.price-label {
               margin-left: 0;
             }
           }
+
           .instalment-label {
             margin-left: 8px;
-            @include instalment-label();
+
+            @include instalment-label;
           }
         }
       }
@@ -618,7 +646,8 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
         padding-top: 3px;
       }
     }
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
     }
   }
 
@@ -626,6 +655,7 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
     position: absolute;
     right: 0;
     top: -2px;
+
     .product-item-bookmark {
       margin: -10px;
     }
@@ -684,12 +714,13 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
     .btn-text {
       margin-right: 8px;
     }
-    @media screen and (max-width: 1023px){
+
+    @media screen and (width <= 1023px){
       //margin: 20px;
     }
   }
 
-  @media screen and (max-width: 992px) {
+  @media screen and (width <= 992px) {
     .img-box {
       .img {
       }
@@ -697,7 +728,6 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
 
     .product-content-box {
       .main-title {
-
         a {
         }
 
@@ -739,16 +769,20 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
                   display: none;
                 }
               }
+
               .price {
                 font-size: 10px;
                 letter-spacing: -0.3px;
+
                 &.price-value {
                   font-size: 16px;
                   letter-spacing: -0.48px;
                 }
+
                 &.price-label {
                 }
               }
+
               .instalment-label {
               }
             }
@@ -777,7 +811,7 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
     }
   }
 
-  @media screen and (max-width: 700px) {
+  @media screen and (width <= 700px) {
     .product-content-box {
       .action-box {
         //flex-flow: column;

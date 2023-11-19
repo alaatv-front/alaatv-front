@@ -226,6 +226,7 @@ export default {
   .animation1 {
     display: block;
   }
+
   .animation2 {
     display: none;
   }

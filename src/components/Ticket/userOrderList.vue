@@ -313,55 +313,66 @@ export default {
 
 <style lang="scss" scoped>
 .action-btn {
-  background: #ffb822; color: #111111; font-size: 12px;
+  background: #ffb822; color: #111; font-size: 12px;
+
   &:deep(.q-btn__content) {
     margin: 4px 20px;
   }
 }
+
 .panel-color {
   color: #837dd1;
   background: #f1f5f5;
+
   .cart-item-info-section {
     display: flex;
     color: #837dd1;
+
     .cart-item-info {
       font-size: 12px;
     }
   }
 }
+
 .product {
   .title {
     font-size: 1.1em;
-    color: #111111;
+    color: #111;
     margin-bottom: 25px;
   }
+
   .category {
     font-size: .85em;
-    color: #111111;
+    color: #111;
     font-weight: 300;
     margin-bottom: 20px;
   }
+
   .base-price {
     color: #6f727d;
     font-size: .85em;
     margin-right: 10px;
   }
+
   .discount-final-price {
     display: flex;
     justify-content: flex-end;
     padding-right: 20px;
     margin-top: 15px;
+
     .price {
       color: #6f727d;
       font-size: 20px;
       font-weight: 600;
       margin-bottom: 30px;
     }
+
     .price-description {
       font-size: 12px;
       color: #6f727d;
     }
   }
+
   .action-btn {
     &:deep(.q-btn__content) {
       margin: 2px 15px;

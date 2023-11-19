@@ -173,72 +173,90 @@ export default {
   background-color: #fff;
   height: 72px;
   width: 100%;
-  color: #333333;
-  @media screen and (max-width: 1023px) {
+  color: #333;
+
+  @media screen and (width <= 1023px) {
     height: 64px;
   }
-  @media screen and (max-width: 599px) {
+
+  @media screen and (width <= 599px) {
     background-color: #F4F6F9;
   }
+
   .app-bar {
     max-width: 1360px;
+
     //min-width: 1360px;
     margin: auto;
     height: 72px;
-    @media screen and (max-width: 1919px) {
+
+    @media screen and (width <= 1919px) {
       width: 100%;
+
       //padding-left: 40px;
       //padding-right: 40px;
     }
-    @media screen and (max-width: 1439px) {
+
+    @media screen and (width <= 1439px) {
       padding-left: 35px;
       padding-right: 35px;
     }
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       padding-left: 30px;
       padding-right: 30px;
       height: 64px;
     }
-    @media screen and (max-width: 599px) {
+
+    @media screen and (width <= 599px) {
       padding-left: 20px;
       padding-right: 20px;
     }
+
     .header-section {
       display: grid;
       grid-template-columns: 86px auto 156px;
       height: 100%;
-      @media screen and (max-width: 1023px) {
+
+      @media screen and (width <= 1023px) {
         //grid-template-columns: auto auto;
         grid-template-columns: 1fr;
       }
-      @media screen and (max-width: 599px) {
+
+      @media screen and (width <= 599px) {
         //grid-template-columns: 1fr;
       }
+
       .logo-section {
         align-items: center;
         display: flex;
         position: relative;
         justify-content: space-between;
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
           //justify-self: start;
           justify-self: center;
           justify-content: center;
           width: 100%;
         }
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
           justify-self: center;
           justify-content: center;
           width: 100%;
         }
+
         .logo-pic {
           cursor: pointer;
           display: flex;
           height: 72px;
           align-items: center;
-          @media screen and (max-width: 1023px) {
+
+          @media screen and (width <= 1023px) {
             width: 200px;
             height: 64px;
           }
+
           .homepage {
             :deep(.logo-pic-img) {
               //height: 40px;
@@ -250,27 +268,33 @@ export default {
               align-items: center;
               height: auto;
               width: 48px;
-              @media screen and (max-width: 1023px) {
+
+              @media screen and (width <= 1023px) {
                 width: 100%;
+
                 img {
                   height: auto !important;
                 }
               }
             }
-            @media screen and (max-width: 1023px) {
+
+            @media screen and (width <= 1023px) {
               width: 100%;
             }
           }
-          @media screen and (max-width: 599px) {
+
+          @media screen and (width <= 599px) {
             width: 200px;
           }
+
           //img {
           //
           //}
         }
+
         .hamburger {
           //display: none;
-          @media screen and (max-width: 1023px) {
+          @media screen and (width <= 1023px) {
             //display: block;
             //margin-right: 20px;
             //margin-left: -8px;
@@ -278,17 +302,20 @@ export default {
             left: 20px;
             top: 10px;
           }
-          @media screen and (max-width: 599px) {
+
+          @media screen and (width <= 599px) {
             position: absolute;
             left: 20px;
             top: 10px;
           }
         }
+
         .drawer-btn {
           :deep(.q-btn) {
             flex-direction: row !important;
           }
         }
+
         .toolbar-button{
           position: absolute;
           left: 0 ;
@@ -296,60 +323,74 @@ export default {
           transform: translateY(-50%);
         }
       }
+
       .tab-section {
         height: 72px;
         margin-left: 24px;
         overflow: auto;
+
         .tabs-list {
           height: 72px;
           display: flex;
           flex-flow: row;
           flex-wrap: nowrap;
           overflow: auto;
+
           .tabs-list-container {
             display: flex;
             justify-content: center;
             align-items: center;
           }
         }
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
           height: 64px;
           display: none;
         }
       }
+
       .active-item {
         color: #FFC107;
       }
+
       .user-action {
         .action-container {
           display: flex;
+
           .q-btn{
             margin-right: 4px ;
           }
+
           .q-badge{
             position: absolute ;
             right : 10% ;
             top : 10% ;
           }
         }
+
         .sign-up-btn {
           :deep(.q-btn .q-btn__content) {
             margin-left: 10px;
             margin-right: 10px;
           }
         }
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
           justify-self: end;
           height: 64px;
         }
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
           //display: none;
         }
+
         display: flex;
+
         //justify-content: flex-end;
         align-items: center;
         height: 72px;
         justify-self: flex-end;
+
         .fit-profile-img {
           width: 48px;
           height: 48px;
@@ -364,15 +405,17 @@ export default {
 <style lang="scss">
 .user-profile-dropdown {
   width: 280px;
+
   //height: 300px;
-  background: #FFFFFF;
+  background: #FFF;
   border: 1px solid #F2F5F9;
   border-radius: 0 16px 16px 16px #{"/* rtl:ignore */"};
-  .header {
 
-    box-shadow: 0 6px 10px rgba(49, 46, 87, 0.04) #{"/* rtl:ignore */"};
+  .header {
+    box-shadow: 0 6px 10px rgb(49 46 87 / 4%) #{"/* rtl:ignore */"};
     border-radius: 0 15px 0 0 #{"/* rtl:ignore */"};
   }
+
   .profile-box {
     font-style: normal;
     font-weight: 400;
@@ -383,26 +426,31 @@ export default {
     border-radius: 20px;
     padding: 16px;
     margin-bottom: 16px;
+
     .profile-detail {
       display: grid;
       grid-template-columns: 70px auto;
       align-items: center;
+
       .profile-photo-box {
         //background: #FFB74D;
 
         width: 60px;
         height: 60px;
-        border: 3px solid #FFFFFF;
+        border: 3px solid #FFF;
         border-radius: 16px;
         position: relative;
+
         .profile-photo-img {
           .q-img {
             border-radius: 16px;
             height: 100%;
           }
+
           width: 60px;
           height: 60px;
           border-radius: 16px;
+
           .user-photo {
             img {
               border: 2px solid #FFB74D;
@@ -412,12 +460,14 @@ export default {
             }
           }
         }
+
         .profile-photo-badge {
           position: absolute;
           bottom: -15px;
           left: -7px;
         }
       }
+
       .profile-detail-info {
         .info-name {
           font-weight: 600;
@@ -429,6 +479,7 @@ export default {
       }
     }
   }
+
   .user-panel-base-menu {
     display: flex;
     flex-direction: column;
@@ -440,7 +491,7 @@ export default {
 
       &.side-menu-list {
         .top-separator {
-          margin: 0 40px 32px 40px;
+          margin: 0 40px 32px;
         }
 
         .q-item {
@@ -457,6 +508,7 @@ export default {
             cursor: pointer;
             padding: 0 14px 0 10px;
             border-radius: 14px;
+
             &.alone-item {
               height: 40px;
 
@@ -470,6 +522,7 @@ export default {
                 }
               }
             }
+
             &.alone-item-mode-drawer {
               &.active-route-side-mode {
                 .indicator {
@@ -518,7 +571,7 @@ export default {
 
           .q-expansion-item__content {
             .vertical-separator {
-              margin: 6px 9px 9px 9px;
+              margin: 6px 9px 9px;
             }
           }
 
@@ -560,8 +613,8 @@ export default {
         }
 
         .active-route-side-mode {
-
           background-color: #8075DC;
+
           .indicator {
             height: 6px;
             width: 6px;
@@ -569,8 +622,10 @@ export default {
             margin: auto;
           }
         }
+
         .item-mode-drawer {
           background: #F6F9FF;
+
           .indicator {
             height: 6px;
             width: 6px;
@@ -594,6 +649,7 @@ export default {
 
     &.list-side-mode {
       color: white;
+
       .q-list {
         a {
           color: white;
@@ -603,6 +659,7 @@ export default {
 
     &.list-drawer-mode {
       color: #6D708B;
+
       .q-list {
         a {
           color: #6D708B;
@@ -617,11 +674,13 @@ export default {
       cursor: pointer;
       height: 40px !important;
       padding: 0 6px;
+
       //width: 232px;
       border-radius: 14px;
       display: flex;
       align-items: center;
       margin-top: 15px;
+
       //@media screen and (max-width: 1439px) {
       //  margin: 0 31px 33px 31px;
       //}
@@ -631,7 +690,7 @@ export default {
       //}
 
       &:hover {
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgb(255 255 255 / 10%);
       }
 
       .q-avatar {
@@ -642,6 +701,7 @@ export default {
       }
     }
   }
+
   .body {
     padding-right: 16px;
     padding-left: 16px;

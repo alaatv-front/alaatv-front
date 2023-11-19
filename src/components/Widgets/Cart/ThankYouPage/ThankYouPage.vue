@@ -117,6 +117,7 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
   //margin-bottom: 100px;
 
   .cart-image {
@@ -146,10 +147,12 @@ export default {
     line-height: 28px;
     letter-spacing: -0.03em;
     color: #6D708B;
+
     .tracking-code-title {
       font-weight: 400;
       margin-right: 109px;
     }
+
     .tracking-code {
       font-weight: 600;
     }
@@ -166,21 +169,24 @@ export default {
     text-decoration: none;
   }
 }
+
 .cart-container {
 }
 
-@media screen and (max-width: 1439px) {
+@media screen and (width <= 1439px) {
   .cart-image {
     width: 194px;
     height: 194px;
     margin-top: 106px;
   }
+
   .cart-container {
     .title {
       font-size: 22px;
       line-height: 34px;
       margin-top: 53px;
     }
+
     .tracking-code-container {
       .tracking-code-title {
         margin-right: 83px;
@@ -192,33 +198,38 @@ export default {
     }
   }
 }
-@media screen and (max-width: 1023px) {
+
+@media screen and (width <= 1023px) {
   .cart-image {
     width: 245px;
     height: 245px;
     margin-top: 236px;
   }
+
   .title {
     margin-top: 58px;
   }
 
 }
 
-@media screen and (max-width: 599px) {
+@media screen and (width <= 599px) {
   .cart-image {
     width: 168px;
     height: 168px;
     margin-top: 101px;
     font-size: 150px;
   }
+
   .cart-container {
     .title {
       font-size: 18px;
       line-height: 28px;
       margin-top: 40px;
     }
+
     .tracking-code-container {
       font-size: 14px;
+
       .tracking-code-title {
         margin-right: 77px;
       }

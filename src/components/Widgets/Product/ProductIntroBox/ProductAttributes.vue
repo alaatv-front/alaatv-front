@@ -227,9 +227,11 @@ export default defineComponent({
   &:last-child {
     padding-bottom: 0;
   }
+
   .attribute-icon {
     max-width: 16px;
   }
+
   .attribute-title {
     width: 150px;
     color:#303030;

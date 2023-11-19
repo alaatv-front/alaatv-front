@@ -110,6 +110,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .radio-container {
   padding: 40px 0;
+
   .radio-title {
     font-size: 28px;
   }

@@ -583,20 +583,23 @@ export default {
 <style lang="scss" scoped>
 .cart-invoice {
   height: 100%;
+
   .cart-invoice-container {
     &.is-affixed {
       .invoice-container {
         margin-top: 0;
       }
     }
+
     .invoice-container {
       margin-top: 70px;
       margin-left: 30px;
 
-      @media screen and (max-width: 1023px) {
+      @media screen and (width <= 1023px) {
         margin-left: 0;
       }
-      @media screen and (max-width: 599px) {
+
+      @media screen and (width <= 599px) {
         margin-bottom: 80px;
       }
 
@@ -605,16 +608,16 @@ export default {
         flex-direction: column;
         align-items: center;
         padding: 30px;
-        background: #FFFFFF;
-        box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(112, 108, 162, 0.05);
+        background: #FFF;
+        box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%);
         border-radius: 16px;
         width: 100%;
 
-        @media screen and (max-width: 1439px) {
+        @media screen and (width <= 1439px) {
           padding: 24px;
         }
 
-        @media screen and (max-width: 1023px) {
+        @media screen and (width <= 1023px) {
           padding: 20px;
         }
 
@@ -624,15 +627,15 @@ export default {
           background: #EFF4FC;
           margin-bottom: 20px;
 
-          @media screen and (max-width: 1439px) {
+          @media screen and (width <= 1439px) {
             margin-bottom: 14px;
           }
 
-          @media screen and (max-width: 1023px) {
+          @media screen and (width <= 1023px) {
             margin-bottom: 16px;
           }
 
-          @media screen and (max-width: 599px) {
+          @media screen and (width <= 599px) {
             margin-bottom: 12px;
           }
         }
@@ -660,11 +663,11 @@ export default {
               color: #23263B;
               margin-bottom: 20px;
 
-              @media screen and (max-width: 1439px) {
+              @media screen and (width <= 1439px) {
                 margin-bottom: 14px;
               }
 
-              @media screen and (max-width: 1023px) {
+              @media screen and (width <= 1023px) {
                 margin-bottom: 16px;
               }
 
@@ -675,7 +678,7 @@ export default {
               .title {
                 letter-spacing: -0.03em;
 
-                @media screen and (max-width: 599px) {
+                @media screen and (width <= 599px) {
                   font-size: 14px;
                 }
               }
@@ -693,15 +696,15 @@ export default {
               margin-bottom: 20px;
               justify-content: space-between;
 
-              @media screen and (max-width: 1439px) {
+              @media screen and (width <= 1439px) {
                 margin-bottom: 14px;
               }
 
-              @media screen and (max-width: 1023px) {
+              @media screen and (width <= 1023px) {
                 margin-bottom: 16px;
               }
 
-              @media screen and (max-width: 599px) {
+              @media screen and (width <= 599px) {
                 margin-bottom: 12px;
               }
 
@@ -717,15 +720,15 @@ export default {
                 margin-right: 16px;
                 width: $couponFieldTitle;
 
-                @media screen and (max-width: 1439px) {
+                @media screen and (width <= 1439px) {
                   margin-right: 4px;
                 }
 
-                @media screen and (max-width: 1023px) {
+                @media screen and (width <= 1023px) {
                   margin-right: 36px;
                 }
 
-                @media screen and (max-width: 599px) {
+                @media screen and (width <= 599px) {
                   font-size: 14px;
                   margin-right: 14px;
                 }
@@ -733,7 +736,8 @@ export default {
 
               .coupon-input {
                 width: calc( 100% - #{$couponFieldTitle} );
-                @media screen and (max-width: 1023px) {
+
+                @media screen and (width <= 1023px) {
                   width: 100%;
                 }
 
@@ -744,7 +748,7 @@ export default {
                   line-height: 22px;
                   color: #23263B;
 
-                  @media screen and (max-width: 1439px) {
+                  @media screen and (width <= 1439px) {
                     font-size: 14px;
                   }
                 }
@@ -760,15 +764,15 @@ export default {
               margin-bottom: 24px;
               align-items: center;
 
-              @media screen and (max-width: 1439px) {
+              @media screen and (width <= 1439px) {
                 margin-bottom: 18px;
               }
 
-              @media screen and (max-width: 1023px) {
+              @media screen and (width <= 1023px) {
                 margin-bottom: 20px;
               }
 
-              @media screen and (max-width: 599px) {
+              @media screen and (width <= 599px) {
                 margin-bottom: 16px;
               }
 
@@ -778,7 +782,7 @@ export default {
                 line-height: 28px;
                 letter-spacing: -0.03em;
 
-                @media screen and (max-width: 599px) {
+                @media screen and (width <= 599px) {
                   font-size: 16px;
                 }
               }
@@ -789,14 +793,13 @@ export default {
                 line-height: 37px;
                 letter-spacing: -0.05em;
 
-                @media screen and (max-width: 599px) {
+                @media screen and (width <= 599px) {
                   font-size: 20px;
                 }
               }
             }
 
             .payment-gateway {
-
               .payment-title {
                 font-weight: 400;
                 font-size: 16px;
@@ -805,15 +808,15 @@ export default {
                 color: #23263B;
                 margin-bottom: 8px;
 
-                @media screen and (max-width: 1439px) {
+                @media screen and (width <= 1439px) {
                   margin-bottom: 6px;
                 }
 
-                @media screen and (max-width: 1023px) {
+                @media screen and (width <= 1023px) {
                   margin-bottom: 8px;
                 }
 
-                @media screen and (max-width: 599px) {
+                @media screen and (width <= 599px) {
                   margin-bottom: 6px;
                 }
               }
@@ -826,15 +829,15 @@ export default {
               .banks-gateway-list {
                 margin-bottom: 20px;
 
-                @media screen and (max-width: 1439px) {
+                @media screen and (width <= 1439px) {
                   margin-bottom: 8px;
                 }
 
-                @media screen and (max-width: 1023px) {
+                @media screen and (width <= 1023px) {
                   margin-bottom: 16px;
                 }
 
-                @media screen and (max-width: 599px) {
+                @media screen and (width <= 599px) {
                   margin-bottom: 2px;
                 }
 
@@ -845,6 +848,7 @@ export default {
                     align-items: center;
                     box-sizing: border-box;
                     height: 74px;
+
                     //width: 177px;
                     width: 100%;
                     border: 1.3px solid #E7ECF4;
@@ -862,6 +866,7 @@ export default {
                       width: calc( 100% - 64px );
                       justify-content: space-between;
                     }
+
                     //
                     //&:deep(.q-radio__inner  ) {
                     //  width: 20px;
@@ -882,26 +887,28 @@ export default {
                       padding-right: 10px;
                     }
 
-                    @media screen and (max-width: 1439px) {
+                    @media screen and (width <= 1439px) {
                       width: 100%;
                       margin-bottom: 8px;
                     }
 
-                    @media screen and (max-width: 1023px) {
+                    @media screen and (width <= 1023px) {
                       margin-bottom: 0;
                     }
 
-                    @media screen and (max-width: 599px) {
+                    @media screen and (width <= 599px) {
                       margin-bottom: 10px;
                     }
 
                     .bank-icon-container {
                       $iconSize: 58px;
+
                       min-width: $iconSize;
                       height: $iconSize;
                       background: #F4F3FF;
                       border-radius: 5px;
                       margin-right: 8px;
+
                       :deep(.bank-icon-photo) {
                         width: $iconSize;
                         height: $iconSize;
@@ -935,11 +942,11 @@ export default {
                   color: #23263B;
                   margin-bottom: 8px;
 
-                  @media screen and (max-width: 1439px) {
+                  @media screen and (width <= 1439px) {
                     margin-bottom: 6px;
                   }
 
-                  @media screen and (max-width: 599px) {
+                  @media screen and (width <= 599px) {
                     font-size: 14px;
                   }
                 }
@@ -994,7 +1001,7 @@ export default {
               font-size: 16px;
               line-height: 25px;
               letter-spacing: -0.03em;
-              color: #FFFFFF;
+              color: #FFF;
               cursor: pointer;
             }
           }
@@ -1005,12 +1012,13 @@ export default {
       .payment-button-container {
         &.payment-button-container-desktop {
           display: flex;
-          @media screen and (max-width: 599px) {
+
+          @media screen and (width <= 599px) {
             //display: none;
           }
         }
 
-        @media screen and (max-width: 599px) {
+        @media screen and (width <= 599px) {
           position: fixed;
           bottom: 80px;
           left: 0;
@@ -1019,15 +1027,16 @@ export default {
           z-index: 10;
           justify-content: space-between;
           padding: 13px 19px;
-          background: #FFFFFF;
-          box-shadow: 0px -6px 10px rgba(112, 108, 161, 0.07);
+          background: #FFF;
+          box-shadow: 0 -6px 10px rgb(112 108 161 / 7%);
           border-radius: 16px 16px 0 0;
         }
 
         .final-price {
           display: none;
           color: #434765;
-          @media screen and (max-width: 599px) {
+
+          @media screen and (width <= 599px) {
             display: flex;
           }
 
@@ -1066,7 +1075,7 @@ export default {
           font-size: 16px;
           line-height: 25px;
           letter-spacing: -0.03em;
-          color: #FFFFFF;
+          color: #FFF;
           cursor: pointer;
           width: 100%;
 
@@ -1075,7 +1084,7 @@ export default {
             cursor: default;
           }
 
-          @media screen and (max-width: 599px) {
+          @media screen and (width <= 599px) {
             width: 104px;
             height: 36px;
             font-style: normal;
@@ -1086,14 +1095,16 @@ export default {
 
           &.payment-button-mobile-view {
             display: none;
-            @media screen and (max-width: 599px) {
+
+            @media screen and (width <= 599px) {
               display: flex;
             }
           }
 
           &.payment-button-desktop-view {
             display: flex;
-            @media screen and (max-width: 599px) {
+
+            @media screen and (width <= 599px) {
               display: none;
             }
           }
@@ -1102,11 +1113,13 @@ export default {
 
     }
   }
+
   .login {
-    box-shadow: 0 6px 5px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 6px 5px rgb(0 0 0 / 3%);
     border-radius: 10px;
     padding: 30px 0;
     margin-top: 65px;
+
     .login-text {
       border-radius: 8px;
     }

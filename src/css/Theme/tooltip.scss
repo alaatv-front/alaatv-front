@@ -1,13 +1,16 @@
-@import "src/css/Theme/Typography/typography.scss";
+@import "src/css/Theme/Typography/typography";
 
 .q-tooltip {
   @include caption1;
+
   position: relative;
   margin-top: 14px;
   z-index: 100;
+
   .q-icon {
     font-size: 16px;
   }
+
   &.q-tooltip--style {
     background: $grey-8;
   }

@@ -182,35 +182,41 @@ export default {
 
 <style scoped lang="scss">
 .chatr-bookmarks {
-  padding: 16px 16px;
+  padding: 16px;
+
   .content-box {
     cursor: pointer;
     justify-content: center;
-    .bookmarks-entity-index {
-
-    }
   }
-  @media screen and (max-width: 599px) {
+
+  @media screen and (width <= 599px) {
     padding: 0;
   }
+
   &:deep(.entity-filter-box) {
     display: none;
+
     &.opened {
       display: flex;
     }
   }
+
   &:deep(.q-field__control) {
     background-color: #fff !important;
   }
+
   &:deep(.q-table__top) {
     display: none !important;
   }
+
   &:deep(.quasar-crud-index-table) {
     padding: 20px 10 !important;
   }
+
   &:deep(.formBuilder-actionBtn-ActionBtn) {
     padding: 20px;
   }
+
   &:deep(.q-table--grid .q-table__grid-content) {
     justify-content: center;
   }

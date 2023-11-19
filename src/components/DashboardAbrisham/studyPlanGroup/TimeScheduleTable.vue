@@ -261,20 +261,22 @@ export default {
 <style lang="scss" scoped>
 .timeTable {
   position: relative;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  overflow: scroll hidden;
   background-color: white;
   border: solid 4px #e1f0ff;
   border-radius: 10px;
   top: 3px;
-  @media only screen and (max-width: 767px) {
+
+  @media only screen and (width <= 767px) {
     border-radius: 0;
   }
 
   .timeTable-header {
     position: relative;
+
     //ggg
     left: 0.4px;
+
     //border: solid 4px #e1f0ff;
     //border-radius: 10px;
 
@@ -285,7 +287,7 @@ export default {
         padding: 5px 0;
         text-align: center;
         line-height: 48px;
-        background-color: rgba(225, 240, 255, 1);
+        background-color: rgb(225 240 255 / 100%);
 
         &:last-child {
           //gggg
@@ -297,6 +299,7 @@ export default {
           background-color: white;
           width: 30px;
           height: 30px;
+
           //ggggg
           left: 38px;
           border-radius: 50%;
@@ -308,12 +311,14 @@ export default {
           line-height: normal;
           letter-spacing: normal;
           text-align: center;
-          color: #333333;
-          @media only screen and (max-width: 1919px) {
+          color: #333;
+
+          @media only screen and (width <= 1919px) {
             //gggg
             left: 25px;
           }
-          @media screen and (max-width: 575px) {
+
+          @media screen and (width <= 575px) {
             width: 24px;
             height: 24px;
             padding: 5px 5px 1px;
@@ -327,22 +332,27 @@ export default {
     display: flex;
     background-color: white;
     height: 55px;
-    @media only screen and (max-width: 767px) {
+
+    @media only screen and (width <= 767px) {
       height: 36px;
     }
 
     .timeTable-main-line {
       position: relative;
+
       //gggg
       border-right: solid 2px #e1f0ff;
       height: 70px;
+
       //gggggg
       left: -146px;
-      @media only screen and (max-width: 1919px) {
+
+      @media only screen and (width <= 1919px) {
         //ggg
         left: -100px;
       }
-      @media only screen and (max-width: 767px) {
+
+      @media only screen and (width <= 767px) {
         height: 37px;
       }
     }
@@ -350,13 +360,16 @@ export default {
     .timeTable-line {
       display: inline-block;
       position: relative;
+
       //ggggg
       border-right: solid 1px #e1f0ff;
       height: 70px;
+
       //gggggg
       left: -46px;
       bottom: 70px;
-      @media only screen and (max-width: 1919px) {
+
+      @media only screen and (width <= 1919px) {
         //ggggg
         left: 109px;
       }
@@ -370,7 +383,8 @@ export default {
       top: 0;
       height: 100%;
       padding-top: 57px;
-      @media only screen and (max-width: 767px) {
+
+      @media only screen and (width <= 767px) {
         padding-top: 47px;
       }
 
@@ -379,12 +393,13 @@ export default {
         font-size: 14px;
         padding-top: 3px;
         padding-bottom: 3px;
-        @media only screen and (max-width: 767px) {
+
+        @media only screen and (width <= 767px) {
           border-radius: 8px;
         }
 
         &.planActive {
-          box-shadow: 0 2px 5px 0 rgba(255, 143, 0, 0.4) !important;
+          box-shadow: 0 2px 5px 0 rgb(255 143 0 / 40%) !important;
           background-color: #ff8f00 !important;
         }
       }

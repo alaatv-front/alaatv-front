@@ -157,21 +157,14 @@ $fieldBackground: v-bind('localOptions.fieldBackground');
   width: 100%;
   padding: 30px;
   box-shadow: $shadows;
-  -webkit-box-shadow: $shadows;
-  -moz-box-shadow: $shadows;
-  -webkit-border-radius: $borderRadius;
-  -moz-border-radius: $borderRadius;
+  border-radius: $borderRadius;
   border: $border;
 
   &:hover {
     transform: rotate(calc(#{$rotate} * 1deg)) translate(calc(#{$translateX} * 1px), calc(#{$translateY} * 1px)) scale($scaleX, $scaleY) skew(calc(#{$skewX} * 1deg), calc(#{$skewY} * 1deg));
     transition: all calc(#{$transitionTime} * 1s);
     box-shadow: $hoverShadows;
-    -webkit-box-shadow: $hoverShadows;
-    -moz-box-shadow: $hoverShadows;
     border-radius: $hoverBorderRadius;
-    -webkit-border-radius: $hoverBorderRadius;
-    -moz-border-radius: $hoverBorderRadius;
     border: $hoverBorder;
   }
 

@@ -91,7 +91,7 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .progress-wrapper {
-  height: v-bind(computedHeight);
+  height: v-bind(computedheight);
   overflow-y: hidden;
 
   &:deep(.q-circular-progress__text) {

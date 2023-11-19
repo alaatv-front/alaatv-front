@@ -152,14 +152,14 @@ export default {
   width: 1280px;
   height: 990px;
   max-width: 100%;
-  background: #FFFFFF;
+  background: #FFF;
 
   .set-dialog-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 40px;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgb(255 255 255 / 40%);
     border-bottom: 1px solid #D8D8D8;
 
     .set-dialog-header-title {

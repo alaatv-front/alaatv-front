@@ -320,8 +320,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'src/css/Theme/spacing.scss';
-@import 'src/css/Theme/Controls/button.scss';
+@import 'src/css/Theme/spacing';
+@import 'src/css/Theme/Controls/button';
 
 .slider-widget {
   width: 100%;
@@ -337,30 +337,36 @@ export default {
       pointer-events: none !important;
       cursor: pointer;
     }
+
     .slider-image {
       width: 100%;
       pointer-events: none !important;
     }
   }
+
   &:deep(.q-carousel__control) {
     .q-btn{
       @include btn-handle-square-padding('xs')
     }
   }
+
   //.image {
   //  width: 100%;
   //}
-  @media screen and (max-width: 600px){
+  @media screen and (width <= 600px){
     &:deep(.q-carousel__navigation){
       bottom: 3px;
+
       .q-btn {
         margin: 0;
         padding: 0;
       }
     }
+
     &:deep(.q-carousel__next-arrow) {
       right: 0;
     }
+
     &:deep(.q-carousel__prev-arrow) {
       left: 0;
     }

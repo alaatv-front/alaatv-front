@@ -665,13 +665,15 @@ export default {
 
 <style scoped lang="scss">
 .ticket-index{
-  @media screen and (max-width: 1450px){
+  @media screen and (width <= 1450px){
     padding: 10px;
   }
 }
+
 .title-class{
   max-width: 200px;
 }
+
 .rate-img {
   width: 30px;
   height: 30px

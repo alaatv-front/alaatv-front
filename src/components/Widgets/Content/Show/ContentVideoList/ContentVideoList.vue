@@ -232,27 +232,27 @@ export default {
     margin: 0 !important;
     font-size: 20px;
   }
-  .download-section {
-  }
+
   .video-list {
     .main-title{
       font-size: 18px;
       color: #575962;
     }
+
     .set-title{
       color: #afb2c1
     }
+
     .responsive{
       max-height: v-bind('options.listHeight') !important;
+
       .scroll{
-        &:deep(.q-scrollarea__content) {
-          width: -webkit-fill-available
-        }
         .other-contents{
           .content{
             border-radius: 10px;
             margin-left: 10px;
             margin-right: 15px;
+
             .video-title{
               font-size: 16px;
               color: #575962;
@@ -262,14 +262,17 @@ export default {
               white-space: nowrap;
               text-overflow: ellipsis;
             }
+
             .content-show{
               align-items: center;
+
               .time, .date{
                 font-size: 12px;
                 font-weight: 400;
               }
             }
           }
+
           .current {
             background: #ffd196 12%;
           }

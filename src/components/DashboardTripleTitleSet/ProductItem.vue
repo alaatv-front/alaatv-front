@@ -141,11 +141,11 @@ export default {
   align-items: center;
   justify-content: flex-start;
 
-  @media only screen and (max-width: 1024px) {
+  @media only screen and (width <= 1024px) {
     padding: 10px 5px 10px 15px;
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (width <= 600px) {
     min-height: 217px;
     padding: 10px 5px 10px 15px;
     align-items: flex-start;
@@ -162,7 +162,7 @@ export default {
     justify-content: space-between;
     background: transparent;
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
       display: block;
     }
 
@@ -170,7 +170,7 @@ export default {
       width: calc( 100% - 80px );
       display: flex;
 
-      @media only screen and (max-width: 600px) {
+      @media only screen and (width <= 600px) {
         padding: 0;
         width: 100%;
       }
@@ -185,7 +185,7 @@ export default {
       min-width: 80px;
       cursor: pointer;
 
-      @media only screen and (max-width: 600px) {
+      @media only screen and (width <= 600px) {
         margin: 0 0 0 17px;
       }
     }
@@ -194,7 +194,7 @@ export default {
       width: 35%;
       min-width: 35%;
 
-      @media only screen and (max-width: 600px) {
+      @media only screen and (width <= 600px) {
         width: calc( 100% - 97px );
         min-width: calc( 100% - 97px );
       }
@@ -205,10 +205,10 @@ export default {
         font-size: 20px;
         line-height: 28px;
         letter-spacing: -0.03em;
-        color: #333333;
+        color: #333;
         cursor: pointer;
 
-        @media only screen and (max-width: 600px) {
+        @media only screen and (width <= 600px) {
           font-size: 16px;
           line-height: 20px;
         }
@@ -220,10 +220,10 @@ export default {
         font-size: 12px;
         line-height: 19px;
         letter-spacing: -0.02em;
-        color: #333333;
+        color: #333;
         margin-bottom: 5px;
 
-        @media only screen and (max-width: 600px) {
+        @media only screen and (width <= 600px) {
           font-size: 12px;
           line-height: 16px;
           margin-bottom: 5px;
@@ -239,7 +239,7 @@ export default {
         color: #6C6C6C;
         margin-bottom: 10px;
 
-        @media only screen and (max-width: 600px) {
+        @media only screen and (width <= 600px) {
           font-size: 10px;
           line-height: 12px;
         }
@@ -276,9 +276,11 @@ export default {
       display: flex;
       width: 65%;
       padding: 0;
-      @media only screen and (max-width: 600px) {
+
+      @media only screen and (width <= 600px) {
         width: 100%;
       }
+
       .last-content {
         padding-left: 24px;
         width: calc( 100% - 17px );
@@ -286,7 +288,7 @@ export default {
         flex-direction: column;
         justify-content: center;
 
-        @media only screen and (max-width: 600px) {
+        @media only screen and (width <= 600px) {
           padding-left: 0;
         }
 
@@ -296,25 +298,26 @@ export default {
           font-size: 14px;
           line-height: 22px;
           letter-spacing: -0.03em;
-          color: #666666;
+          color: #666;
 
-          @media only screen and (max-width: 600px) {
+          @media only screen and (width <= 600px) {
             font-size: 12px;
             line-height: 16px;
           }
         }
+
         .last-content-title {
           font-style: normal;
           font-weight: 400;
           font-size: 18px;
           line-height: 28px;
           letter-spacing: -0.03em;
-          color: #333333;
+          color: #333;
           margin-bottom: 10px;
           max-width: 65%;
           cursor: pointer;
 
-          @media only screen and (max-width: 600px) {
+          @media only screen and (width <= 600px) {
             font-size: 14px;
             line-height: 20px;
             margin-bottom: 5px;
@@ -322,6 +325,7 @@ export default {
           }
 
         }
+
         .last-content-footer {
           display: flex;
           justify-content: space-between;

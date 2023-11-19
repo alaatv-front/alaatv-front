@@ -144,9 +144,11 @@ export default {
   overflow-y: auto;
   background: white;
   flex-direction: column;
+
   .side-logo {
     padding: 16px 48px;
     display: block;
+
     :deep(.logo-image) {
       width: 100%;
     }

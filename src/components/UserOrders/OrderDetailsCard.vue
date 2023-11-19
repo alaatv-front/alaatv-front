@@ -79,7 +79,7 @@ export default {
 <style scoped lang="scss">
 .order-details-container-card {
   .order-details-card {
-    background: #FFFFFF;
+    background: #FFF;
     box-shadow: none !important;
     border-radius: 16px !important;
     font-style: normal;
@@ -90,19 +90,26 @@ export default {
     letter-spacing: -0.03em;
     color: #434765;
     width: 830px;
+
     //height: 640px;
     overflow-x: scroll;
-    @media screen and (max-width: 1439px) {
+
+    @media screen and (width <= 1439px) {
       width: 664px;
+
       //height: 480px;
     }
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       width: 540px;
+
       //height: 640px;
     }
-    @media screen and (max-width: 599px) {
+
+    @media screen and (width <= 599px) {
       width: 100%;
     }
+
     .dialog-header {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -154,20 +161,23 @@ export default {
       text-align: left;
       letter-spacing: -0.03em;
       color: #434765;
-      padding-top: 0px;
+      padding-top: 0;
     }
   }
+
   .q-dialog__inner--minimized > div {
     max-width: 830px;
     max-height: 640px;
   }
-  @media screen and (max-width: 1439px) {
+
+  @media screen and (width <= 1439px) {
     .q-dialog__inner--minimized > div {
       max-width: 664px;
       max-height: 480px;
     }
   }
-  @media screen and (max-width: 1023px) {
+
+  @media screen and (width <= 1023px) {
     .q-dialog__inner--minimized > div {
       max-width: 540px;
       max-height: 640px;

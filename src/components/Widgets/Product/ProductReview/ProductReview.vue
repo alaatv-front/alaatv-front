@@ -155,29 +155,11 @@ h2 {
   }
 }
 
-@media screen and (max-width: 1199px) {
-  .product-description {
-    .description-container {
-
-      .description-text {
-
-      }
-    }
-
-  }
-}
-
-@media screen and (max-width: 991px) {
-  .product-description {
-    .description-container {
-    }
-  }
-}
-
-@media screen and (max-width: 767px) {
+@media screen and (width <= 767px) {
   .title-style {
     width: 100%;
   }
+
   .product-description {
     width: 100%;
 
@@ -186,18 +168,13 @@ h2 {
       display: flex;
       flex-direction: column;
       align-items: center;
-
-      .description-text {
-      }
     }
-
   }
 }
 
-@media screen and (max-width: 575px) {
+@media screen and (width <= 575px) {
   .product-description {
     .description-container {
-
       .description-text {
         width: 100%;
       }

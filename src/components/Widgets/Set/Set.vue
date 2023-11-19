@@ -272,20 +272,23 @@ export default {
 .set {
   background: #f6f8fa;
   border-radius: 25px;
+
   .header {
     display: flex;
     justify-content: space-between;
     margin-top: 40px;
 
-    @media screen and (max-width: 599px) {
+    @media screen and (width <= 599px) {
       flex-direction: column;
     }
+
     .title {
       display: flex;
       justify-content: center;
       align-items: center;
     }
   }
+
   .archives-row {
     .archives-header {
       display: flex;
@@ -300,14 +303,17 @@ export default {
         align-items: center;
 
       }
+
       .archives-meta {
         display: flex;
         justify-content: center;
         align-items: center;
       }
     }
+
     .archives-list {
       margin-top: 20px;
+
       //@media screen and (max-width: 599px) {
       //  margin-left: 10px;
       //  margin-right: 10px;
@@ -317,6 +323,7 @@ export default {
         border-radius: 16px;
         background: white;
       }
+
       :deep(.q-expansion-item) {
         .q-expansion-item__container {
           .q-item {
@@ -324,6 +331,7 @@ export default {
             background: white;
             box-shadow: 2px -4px 10px rgb(255 255 255 / 60%), -2px 4px 10px rgb(112 108 162 / 5%);
             border-radius: 16px;
+
             .q-item__section.q-item__section--side {
               .q-icon {
                 width: 32px;
@@ -339,22 +347,27 @@ export default {
           }
         }
       }
+
       .section-expansion-header {
         width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
+
         .section-expansion-header-title {
           display: flex;
           justify-content: flex-start;
+
           .icon {
             margin-right: 21px;
           }
         }
+
         .section-expansion-header-meta {
           display: flex;
           justify-content: flex-end;
           padding-right: 40px;
+
           .dot {
             width: 6px;
             height: 6px;
@@ -363,8 +376,10 @@ export default {
           }
         }
       }
+
       .contents-list {
         padding-top: 16px;
+
         &.contents-with-null-section {
           border-radius: 16px;
           background: white;

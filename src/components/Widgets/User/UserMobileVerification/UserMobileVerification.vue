@@ -197,15 +197,17 @@ export default {
 
 <style lang="scss" scoped>
 .UserMobileVerification {
-  box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(112, 108, 162, 0.05);
+  box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%);
   border-radius: 20px;
   background: #fff;
   padding: 16px;
+
   .verified-panel {
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center;
+
     .image-section {
       width: 50px;
     }

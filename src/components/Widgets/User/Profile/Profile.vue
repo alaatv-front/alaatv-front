@@ -296,6 +296,7 @@ export default {
   padding-left: 30px;
   font-size: 18px;
 }
+
 .outsideLabel {
   font-size: 16px;
 }

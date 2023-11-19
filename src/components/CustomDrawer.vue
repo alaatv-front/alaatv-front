@@ -167,20 +167,19 @@ export default {
 
     .drawer__content {
       z-index: 100000;
+
       //transform: translateX(0);
     }
   }
 
   &__overlay {
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     z-index: 200;
     opacity: 0;
     transition-property: opacity;
+
     //background-color: #000000;
     user-select: none;
   }
@@ -197,6 +196,7 @@ export default {
     transition-property: transform;
     display: flex;
     flex-direction: column;
+
     //transform: translateX(100%);
     box-shadow: 0 2px 6px #777;
   }

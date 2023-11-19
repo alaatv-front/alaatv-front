@@ -47,9 +47,10 @@ export default {
 
 <style lang="scss" scoped>
 :deep(.q-card.custom-card) {
-:not([class^=col]) {
+:not([class^="col"]) {
   box-shadow: none;
 }
+
 .custom-card {
   //width: 150px;
 }

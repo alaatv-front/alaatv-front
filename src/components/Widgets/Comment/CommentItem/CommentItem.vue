@@ -116,6 +116,7 @@ $scaleY: v-bind('localOptions.cssHoverEffects.transform.scaleY');
 $translateX: v-bind('localOptions.cssHoverEffects.transform.translateX');
 $translateY: v-bind('localOptions.cssHoverEffects.transform.translateY');
 $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
+
 .comment-card {
   padding: 30px 24px;
   margin: 12PX;
@@ -124,14 +125,11 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
   height: auto;
   max-width: 100%;
   box-shadow: $shadows;
-  -webkit-box-shadow: $shadows;
-  -moz-box-shadow: $shadows;
-  -webkit-border-radius: $borderRadius;
-  -moz-border-radius: $borderRadius;
+  border-radius: $borderRadius;
   border: $border;
   transition: all ease-in-out .4s;
 
-  @media screen and (max-width: 600px){
+  @media screen and (width <= 600px){
     padding: 20px 15px;
     margin: 5PX;
     width: 310px;
@@ -142,11 +140,7 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
     transform: rotate(calc(#{$rotate} * 1deg)) translate(calc(#{$translateX} * 1px), calc(#{$translateY} * 1px)) scale($scaleX, $scaleY) skew(calc(#{$skewX} * 1deg), calc(#{$skewY} * 1deg));
     transition: all calc(#{$transitionTime} * 1s);
     box-shadow: $hoverShadows;
-    -webkit-box-shadow: $hoverShadows;
-    -moz-box-shadow: $hoverShadows;
     border-radius: $hoverBorderRadius;
-    -webkit-border-radius: $hoverBorderRadius;
-    -moz-border-radius: $hoverBorderRadius;
     border: $hoverBorder;
   }
 
@@ -169,7 +163,7 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
       letter-spacing: -0.32px;
       text-align: left;
 
-      @media screen and (max-width: 600px){
+      @media screen and (width <= 600px){
         font-size: 16px;
         letter-spacing: -0.32px;
       }
@@ -188,7 +182,7 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
         line-height: normal;
         letter-spacing: -0.28px;
 
-        @media screen and (max-width: 600px){
+        @media screen and (width <= 600px){
           font-size: 14px;
           letter-spacing: -0.28px;
         }
@@ -207,7 +201,7 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
         line-height: normal;
         letter-spacing: -0.28px;
 
-        @media screen and (max-width: 600px){
+        @media screen and (width <= 600px){
           font-size: 14px;
           letter-spacing: -0.28px;
         }

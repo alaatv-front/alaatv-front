@@ -281,11 +281,14 @@ export default {
       min-width: 100px;
     }
   }
+
   .video-box-col{
     padding: 10px;
+
     .reuse {
       float: right;
     }
+
     .video-box {
       width: 580px;
       height: 326.25px;
@@ -299,13 +302,14 @@ export default {
         font-weight: 600;
         font-size: 16px;
         line-height: 25px;
-        color: #333333;
+        color: #333;
       }
 
       .video {
         width: 100%;
       }
     }
+
     .link-box {
       width: 580px;
       height: 80px;

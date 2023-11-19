@@ -278,7 +278,8 @@ export default defineComponent({
 .BlackFridayParticipation {
   .show-video-section {
     margin-bottom: 10px;
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       margin-bottom: 0;
     }
   }

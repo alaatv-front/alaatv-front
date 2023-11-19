@@ -274,7 +274,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "quasar-ui-q-page-builder/src/components/Component.scss";
+@import "quasar-ui-q-page-builder/src/components/Component";
+
 $backgrounds: (
   xs: (
     size: v-bind('defaultOptions.backgrounds.xs.size'),
@@ -320,6 +321,7 @@ $backgrounds: (
 
 .header-menu {
   @include media-query-backgrounds($backgrounds, $sizes);
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -329,17 +331,21 @@ $backgrounds: (
     display: flex;
     height: 72px;
     align-items: center;
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       height: 64px;
     }
+
     .logo-pic-img {
       height: 40px;
       width: 40px;
-      @media screen and (max-width: 1023px) {
+
+      @media screen and (width <= 1023px) {
         height: 48px;
         width: 48px;
       }
     }
+
     .logo-text {
       padding: 0 10px;
       font-weight: 400;
@@ -374,6 +380,7 @@ $backgrounds: (
     font-weight: 400;
     font-size: 16px;
     line-height: 28px;
+
     &:deep(.q-btn .q-focus-helper) {
       display: none;
     }

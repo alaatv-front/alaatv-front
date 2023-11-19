@@ -214,10 +214,12 @@ export default {
 <style lang="scss" scoped>
 .consulting-page {
   margin: 20px 60px 0;
-  @media screen and (max-width: 1904px) {
+
+  @media screen and (width <= 1904px) {
     margin: 0 10px;
   }
-  @media screen and (max-width: 960px) {
+
+  @media screen and (width <= 960px) {
     margin: 0;
   }
 
@@ -226,7 +228,8 @@ export default {
     font-weight: 500;
     color: #3e5480;
     margin-top: 10px;
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       font-size: 16px;
     }
   }
@@ -234,16 +237,20 @@ export default {
   .consulting-msg {
     padding-bottom: 0 !important;
     margin-bottom: 30px;
-    @media screen and (max-width: 1904px) {
+
+    @media screen and (width <= 1904px) {
       margin-bottom: 25px;
     }
-    @media screen and (max-width: 1200px) {
+
+    @media screen and (width <= 1200px) {
       margin-bottom: 16px;
     }
-    @media screen and (max-width: 990px) {
+
+    @media screen and (width <= 990px) {
       margin-bottom: 20px;
     }
-    @media screen and (max-width: 768px) {
+
+    @media screen and (width <= 768px) {
       padding-right: 0 !important;
     }
 
@@ -252,14 +259,17 @@ export default {
       font-weight: 500;
       color: #3e5480;
       margin-bottom: 20px;
-      @media screen and (max-width: 1904px) {
+
+      @media screen and (width <= 1904px) {
         margin-bottom: 15px;
       }
-      @media screen and (max-width: 990px) {
+
+      @media screen and (width <= 990px) {
         margin-bottom: 20px;
         text-align: center;
       }
-      @media screen and (max-width: 768px) {
+
+      @media screen and (width <= 768px) {
         margin-bottom: 15px;
         font-size: 16px;
       }
@@ -269,23 +279,28 @@ export default {
       height: 190px;
       border-radius: 30px;
       background-color: #eff3ff;
+
       //padding: 20px 0;
-      @media screen and (max-width: 990px) {
+      @media screen and (width <= 990px) {
         height: 170px;
         border-radius: 20px;
         padding: 15px 0;
       }
-      @media screen and (max-width: 768px) {
+
+      @media screen and (width <= 768px) {
         height: 150px;
         width: 100vw;
         border-radius: 0;
       }
-      @media screen and (max-width: 576px) {
+
+      @media screen and (width <= 576px) {
         height: 162px;
       }
-      @media screen and (max-width: 350px) {
+
+      @media screen and (width <= 350px) {
         height: 167px;
       }
+
       .empty-list{
         border: 1px solid;
         padding: 15px;
@@ -312,17 +327,21 @@ export default {
     color: #3e5480;
     font-weight: 500;
     margin-bottom: 30px;
-    padding: 0px 20px !important;
-    @media screen and (max-width: 1904px) {
+    padding: 0 20px !important;
+
+    @media screen and (width <= 1904px) {
       margin-bottom: 15px;
     }
-    @media screen and (max-width: 1200px) {
+
+    @media screen and (width <= 1200px) {
       margin-bottom: 10px;
     }
-    @media screen and (max-width: 990px) {
+
+    @media screen and (width <= 990px) {
       margin-bottom: 20px;
     }
-    @media screen and (max-width: 768px) {
+
+    @media screen and (width <= 768px) {
       margin-bottom: 15px;
       font-size: 15px;
     }
@@ -333,16 +352,20 @@ export default {
 
     .video-box-parent {
       margin-bottom: 20px;
-      @media screen and (max-width: 1904px) {
+
+      @media screen and (width <= 1904px) {
         margin-bottom: 15px;
       }
-      @media screen and (max-width: 990px) {
+
+      @media screen and (width <= 990px) {
         margin-bottom: 20px;
       }
-      @media screen and (max-width: 576px) {
+
+      @media screen and (width <= 576px) {
         margin-bottom: 10px;
       }
-      @media screen and (max-width: 350px) {
+
+      @media screen and (width <= 350px) {
         margin-bottom: 5px;
       }
     }
@@ -350,7 +373,8 @@ export default {
 
   .mobile-view {
     display: none;
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       display: block;
     }
   }
@@ -360,24 +384,29 @@ export default {
     font-weight: 500;
     color: #3e5480;
     margin-bottom: 21px;
-    @media screen and (max-width: 1920px) {
+
+    @media screen and (width <= 1920px) {
       margin-bottom: 15px;
     }
-    @media screen and (max-width: 768px) {
+
+    @media screen and (width <= 768px) {
       margin-bottom: 20px;
     }
-    @media screen and (max-width: 576px) {
+
+    @media screen and (width <= 576px) {
       font-size: 16px;
       margin-bottom: 10px;
     }
-    @media screen and (max-width: 350px) {
+
+    @media screen and (width <= 350px) {
       margin-bottom: 5px;
     }
   }
 
   .desktop-view {
     display: block;
-    @media screen and (max-width: 959px) {
+
+    @media screen and (width <= 959px) {
       display: none;
     }
   }

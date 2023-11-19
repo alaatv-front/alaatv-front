@@ -764,40 +764,48 @@ export default {
 
 <style lang="scss">
 @import "video.js/dist/video-js.css";
+
 .vPlayer {
   width: 100%;
   overflow: hidden;
   display: contents;
+
   .VastElements {
     display: none;
   }
+
   .VastElement {
     position: absolute;
     bottom: 60px;
     height: 50px;
     border: solid 2px $primary;
     border-radius: 8px;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgb(0 0 0 / 30%);
     display: flex;
     flex-flow: row;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     transition: all 1s;
+
     $width: 150px;
+
     &.VastTimerBtn {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
       border-right: none;
       width: $width;
       cursor: not-allowed;
+
       &.show {
         right: 0;
       }
+
       &.hide {
         right: -$width;
       }
     }
+
     &.VastSkipAdBtn {
       right: 0;
       border-top-right-radius: 0;
@@ -809,25 +817,31 @@ export default {
       align-items: center;
       justify-content: center;
       font-size: 0.8rem;
+
       &.show {
         right: 0;
       }
+
       &.hide {
         right: -$width;
       }
     }
+
     &.VastLinkBtn {
       left: 0;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
       border-left: none;
       width: $width;
+
       &.show {
         left: 0;
       }
+
       &.hide {
         left: -$width;
       }
+
       a {
         width: 100%;
         height: 100%;
@@ -838,28 +852,37 @@ export default {
         font-size: 0.8rem;
       }
     }
-    @media screen and (max-width: 600px) {
+
+    @media screen and (width <= 600px) {
       height: 35px;
+
       $screen-max-600-width: 100px;
+
       &.VastTimerBtn {
         width: $screen-max-600-width;
         font-size: 0.7rem;
+
         &.hide {
           left: -$screen-max-600-width;
         }
       }
+
       &.VastSkipAdBtn {
         width: $screen-max-600-width;
         font-size: 0.7rem;
+
         &.hide {
           left: -$screen-max-600-width;
         }
       }
+
       &.VastLinkBtn {
         width: $screen-max-600-width;
+
         &.hide {
           right: -$screen-max-600-width;
         }
+
         a {
           font-size: 0.7rem;
         }
@@ -867,17 +890,20 @@ export default {
     }
 
   }
+
   .over-player-wrapper-div {
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
     z-index: 1;
+
     .over-player-wrapper {
       position: absolute;
       top: 0;
       left: 0;
       height: 100%;
+
       .over-player-slot {
         left: 2000px;
         height: 100%;
@@ -886,9 +912,11 @@ export default {
         direction: ltr;
         position: relative;
         z-index: 1;
+
         &.show {
           right: 0;
         }
+
         &.hide {
           width: 0 !important;
           right: 2500px;
@@ -896,20 +924,24 @@ export default {
       }
     }
   }
+
   .toggleSideBarBtn {
     position: absolute;
     top: 5px;
     left: 5px;
     z-index: 2;
   }
+
   .video-js {
     overflow: hidden;
     background-color: transparent;
+
     &.vjs-ad-playing {
       .vjs-resolution-button {
         display: none;
       }
     }
+
     .vjs-loading-spinner {
       right: 50%;
       margin-right: -50px;
@@ -923,6 +955,7 @@ export default {
         }
       }
     }
+
     .vjs-big-play-button {
       color: white;
       width: 50px;
@@ -933,28 +966,32 @@ export default {
       background: $primary;
       border-color: $primary;
 
-      @media screen and (max-width: 600px) {
+      @media screen and (width <= 600px) {
         margin-top: -60px;
       }
-      .vjs-icon-placeholder:before {
+
+      .vjs-icon-placeholder::before {
         display: flex;
         font-size: 35px;
         align-items: center;
         justify-content: center;
       }
     }
+
     .vjs-control-bar {
       z-index: 2;
+
       .vjs-volume-panel {
         .vjs-volume-control {
           // right: -3.5em;
           // margin-right: -1px;
         }
       }
+
       .vjs-resolution-button {
         .vjs-menu-button {
           .vjs-icon-placeholder {
-            &:before {
+            &::before {
               content: "\f114";
               font-style: normal;
               font-weight: normal;
@@ -964,35 +1001,43 @@ export default {
         }
       }
     }
+
     .vjs-play-progress {
-      &:before {
-        /*rtl:ignore*/
+      &::before {
+        /* rtl:ignore */
         right: -0.5em;
-        /*rtl:ignore*/
+
+        /* rtl:ignore */
         left: auto;
       }
     }
+
     .vjs-volume-tooltip {
       float: right;
     }
+
     .vjs-volume-level {
       right: 0;
     }
   }
 }
 
-.vjs-slider-horizontal .vjs-volume-level:before {
+.vjs-slider-horizontal .vjs-volume-level::before {
   left: 0;
   right: auto;
 }
+
 .video-js .vjs-volume-level {
     /* right: 0; */
 }
+
 .video-js .vjs-volume-tooltip {
     /* float: left; */
 }
+
 .vPlayer .video-js .vjs-control-bar .vjs-volume-panel .vjs-volume-control {
     /* left: -3.5em; */
+
     /* margin-left: -1px; */
 }
 </style>

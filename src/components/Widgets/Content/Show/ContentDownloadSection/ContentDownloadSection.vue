@@ -96,6 +96,7 @@ export default {
 <style scoped lang="scss">
   .download-section {
     height: 100%;
+
     &:not(.canShowBox) {
       display: none;
     }
@@ -105,7 +106,7 @@ export default {
     border-radius: 25px;
     width: 80%;
     margin: 5px 0;
-    color: #ffffff;
+    color: #fff;
   }
 
   h6 {

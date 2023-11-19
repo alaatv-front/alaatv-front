@@ -1,6 +1,5 @@
 .new-theme {
   .q-slider__thumb {
-
     &::after {
       content: "";
       position: absolute;
@@ -13,14 +12,13 @@
     }
   }
 
-  &:deep(.q-slider__thumb-shape ){
+  &.q-slider__thumb-shape {
     color: #fff;
     border-radius: 50%;
     border: 3px solid $primary;
   }
 
-  &:deep(.q-slider__focus-ring) {
+  &.q-slider__focus-ring {
     background: $primary;
   }
-
 }

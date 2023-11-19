@@ -384,7 +384,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "src/css/Theme/spacing.scss";
+@import "src/css/Theme/spacing";
 
 .cart-count {
   font-style: normal;
@@ -392,9 +392,9 @@ export default {
   font-size: 14px;
   line-height: 22px;
   color: #6D708B;
-  margin: 24px 0 24px 0;
+  margin: 24px 0;
 
-  @media screen and (max-width: 1439px) {
+  @media screen and (width <= 1439px) {
     letter-spacing: -0.03em;
     margin: 20px 0;
   }
@@ -404,33 +404,35 @@ export default {
   &:deep(.q-btn .q-btn__content) {
     margin: 0;
   }
+
   .cart-items {
     .cart-card {
-      background: #ffffff;
-      box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6),
-      2px 4px 10px rgba(112, 108, 162, 0.05);
+      background: #fff;
+      box-shadow: -2px -4px 10px rgb(255 255 255 / 60%),
+      2px 4px 10px rgb(112 108 162 / 5%);
       border-radius: 16px;
-      padding: 20px 20px 4px 20px;
+      padding: 20px 20px 4px;
       margin-bottom: 16px;
 
-      @media screen and (max-width: 1439px) {
-        padding: 16px 16px 0 16px;
+      @media screen and (width <= 1439px) {
+        padding: 16px 16px 0;
         border-radius: 12px;
       }
 
-      @media screen and (max-width: 1023px) {
+      @media screen and (width <= 1023px) {
         border-radius: 12px;
       }
 
-      @media screen and (max-width: 599px) {
+      @media screen and (width <= 599px) {
         padding: 12px;
         border-radius: 8px;
         margin-bottom: 19px;
       }
+
       &.cart {
         padding-bottom: 20px;
 
-        @media screen and (max-width: 1439px) {
+        @media screen and (width <= 1439px) {
           padding-bottom: 16px;
         }
       }
@@ -449,16 +451,16 @@ export default {
           padding: 0;
           margin-right: 20px;
 
-          @media screen and (max-width: 1439px) {
+          @media screen and (width <= 1439px) {
             margin-right: 16px;
           }
 
-          @media screen and (max-width: 1023px) {
+          @media screen and (width <= 1023px) {
             width: $orderImageSectionWidth-size-2;
             height: $orderImageSectionWidth-size-2;
           }
 
-          @media screen and (max-width: 599px) {
+          @media screen and (width <= 599px) {
             width: $orderImageSectionWidth-size-3;
             height: $orderImageSectionWidth-size-3;
             margin-right: 8px;
@@ -469,7 +471,7 @@ export default {
             border-radius: 10px;
             background: #F6F9FF;
 
-            @media screen and (max-width: 599px) {
+            @media screen and (width <= 599px) {
               margin-top: 34px;
             }
 
@@ -483,13 +485,15 @@ export default {
         .product-text-info {
           flex-direction: column;
           width: calc( 100% - #{$orderImageSectionWidth-size-1} );
-          @media screen and (max-width: 1023px) {
+
+          @media screen and (width <= 1023px) {
             width: calc( 100% - #{$orderImageSectionWidth-size-2} );
           }
 
-          @media screen and (max-width: 599px) {
+          @media screen and (width <= 599px) {
             width: calc( 100% - #{$orderImageSectionWidth-size-3} );
           }
+
           .order-item-header {
             display: flex;
             justify-content: space-between;
@@ -498,11 +502,11 @@ export default {
             margin-bottom: 10px;
             max-width: 100%;
 
-            @media screen and (max-width: 1023px) {
+            @media screen and (width <= 1023px) {
               margin-bottom: 12px;
             }
 
-            @media screen and (max-width: 599px) {
+            @media screen and (width <= 599px) {
               justify-content: flex-end;
               align-items: normal;
               margin-bottom: 8px;
@@ -522,7 +526,7 @@ export default {
                 max-width: 100%;
               }
 
-              @media screen and (max-width: 599px) {
+              @media screen and (width <= 599px) {
                 position: absolute;
                 padding-right: 36px;
                 font-size: 14px;
@@ -533,11 +537,11 @@ export default {
           .product-information {
             margin-bottom: 3px;
 
-            @media screen and (max-width: 1439px) {
+            @media screen and (width <= 1439px) {
               margin-bottom: 0;
             }
 
-            @media screen and (max-width: 599px) {
+            @media screen and (width <= 599px) {
               margin-bottom: 5px;
             }
 
@@ -546,15 +550,15 @@ export default {
               align-items: center;
               margin-bottom: 8px;
 
-              @media screen and (max-width: 1439px) {
+              @media screen and (width <= 1439px) {
                 margin-bottom: 9px;
               }
 
-              @media screen and (max-width: 1023px) {
+              @media screen and (width <= 1023px) {
                 margin-bottom: 7px;
               }
 
-              @media screen and (max-width: 599px) {
+              @media screen and (width <= 599px) {
                 margin-bottom: 6px;
               }
 
@@ -588,18 +592,18 @@ export default {
           margin-top: -32px;
           margin-left: 164px;
 
-          @media screen and (max-width: 1439px) {
+          @media screen and (width <= 1439px) {
             margin-left: 160px;
           }
 
-          @media screen and (max-width: 1023px) {
+          @media screen and (width <= 1023px) {
             flex-direction: column;
             align-items: flex-end;
             margin-left: 0;
 
           }
 
-          @media screen and (max-width: 599px) {
+          @media screen and (width <= 599px) {
             margin-top: 0;
           }
 
@@ -611,7 +615,7 @@ export default {
               display: flex;
               align-items: center;
 
-              @media screen and (max-width: 599px) {
+              @media screen and (width <= 599px) {
                 margin-right: 6px;
               }
 
@@ -622,11 +626,11 @@ export default {
                 font-size: 12px;
                 width: 30px;
                 height: 20px;
-                border-radius: 6px 6px 0 6px;
+                border-radius: 6px 6px 0;
                 margin-right: 6px;
                 color: white;
 
-                @media screen and (max-width: 1439px) {
+                @media screen and (width <= 1439px) {
                   margin-right: 4px;
 
                 }
@@ -641,11 +645,11 @@ export default {
                 color: #E86562;
                 margin-right: 19px;
 
-                @media screen and (max-width: 1023px) {
+                @media screen and (width <= 1023px) {
                   margin-right: 8px;
                 }
 
-                @media screen and (max-width: 599px) {
+                @media screen and (width <= 599px) {
                   text-align: left;
                 }
               }
@@ -663,7 +667,7 @@ export default {
                 color: #434765;
                 margin-right: 4px;
 
-                @media screen and (max-width: 1439px) {
+                @media screen and (width <= 1439px) {
                   margin-right: 2px;
                 }
 
@@ -694,15 +698,15 @@ export default {
               text-decoration: none;
               margin-right: 24px;
 
-              @media screen and (max-width: 1439px) {
+              @media screen and (width <= 1439px) {
                 margin-right: 12px;
               }
 
-              @media screen and (max-width: 1023px) {
+              @media screen and (width <= 1023px) {
                 margin-right: 24px;
               }
 
-              @media screen and (max-width: 599px) {
+              @media screen and (width <= 599px) {
                 margin-right: 40px;
               }
             }
@@ -710,11 +714,11 @@ export default {
             .details-expansion {
               margin-left: 24px;
 
-              @media screen and (max-width: 1439px) {
+              @media screen and (width <= 1439px) {
                 margin-left: 12px;
               }
 
-              @media screen and (max-width: 1023px) {
+              @media screen and (width <= 1023px) {
                 margin-left: 0;
               }
 
@@ -744,25 +748,25 @@ export default {
               .details-expansion-card {
                 margin-bottom: 20px;
 
-                @media screen and (max-width: 1439px) {
+                @media screen and (width <= 1439px) {
                   margin-bottom: 16px;
                 }
 
-                @media screen and (max-width: 599px) {
+                @media screen and (width <= 599px) {
                   margin-bottom: 12px;
                 }
 
                 .details-expansion-card-section {
                   padding: 0;
-                  margin: 20px 0 20px 0;
+                  margin: 20px 0;
 
-                  @media screen and (max-width: 599px) {
-                    margin: 16px 0 16px 0;
+                  @media screen and (width <= 599px) {
+                    margin: 16px 0;
                   }
 
                   .pamphlet {
                     padding: 0 16px;
-                    background: #FFFFFF;
+                    background: #FFF;
                     border: 1.5px solid #E4E8EF;
                     border-radius: 8px;
                     height: 40px;
@@ -773,7 +777,7 @@ export default {
                     flex-flow: row;
                     flex-wrap: wrap;
 
-                    @media screen and (max-width: 599px) {
+                    @media screen and (width <= 599px) {
                       flex-direction: column;
                       padding: 10px 12px;
                       height: 68px;
@@ -873,6 +877,7 @@ export default {
                 display: none;
               }
             }
+
             flex-direction: column;
             margin-top: 0;
           }
@@ -887,12 +892,12 @@ export default {
   .delete-dialog-card {
     width: 348px;
     max-width: 100%;
-    background: #FFFFFF;
+    background: #FFF;
     border-radius: 10px;
     text-align: end;
 
     .delete-dialog-card-section {
-      padding: 0 24px 24px 24px;
+      padding: 0 24px 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -918,7 +923,7 @@ export default {
       justify-content: space-between;
       align-items: center;
 
-      @media screen and (max-width: 360px) {
+      @media screen and (width <= 360px) {
         justify-content: center;
       }
 
@@ -928,7 +933,8 @@ export default {
         justify-content: center;
         width: 144px;
         height: 40px;
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
           order: 1;
           width: 100%;
           margin-bottom: $space-2;
@@ -943,12 +949,12 @@ export default {
         width: 144px;
         height: 40px;
 
-        @media screen and (max-width: 599px) {
+        @media screen and (width <= 599px) {
           order: 2;
           width: 100%;
         }
 
-        @media screen and (max-width: 360px) {
+        @media screen and (width <= 360px) {
           margin: 16px 0;
         }
       }

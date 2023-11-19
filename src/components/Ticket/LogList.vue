@@ -92,12 +92,14 @@ export default {
       width: 120px;
       font-size: 16px;
     }
+
     .log-info {
       padding-left: 20px;
       margin: 10px 0;
       align-items: center;
       display: grid;
     }
+
     .log-time{
       color: #6a6a6a;
     }

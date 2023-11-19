@@ -65,6 +65,7 @@ export default {
   height: 290px;
   margin-top: 142px;
 }
+
 .cart-container {
   display: flex;
   width: 100%;
@@ -95,25 +96,28 @@ export default {
   }
 }
 
-@media screen and (max-width: 1439px) {
+@media screen and (width <= 1439px) {
   .cart-image {
     width: 230px;
     height: 230px;
     margin-top: 46px;
   }
+
   .cart-container {
     .title {
       font-size: 22px;
       line-height: 34px;
       margin-top: 48px;
     }
+
     .back {
       margin-top: 24px;
       font-size: 18px;
     }
   }
 }
-@media screen and (max-width: 1023px) {
+
+@media screen and (width <= 1023px) {
   .cart-image {
     width: 290px;
     height: 290px;
@@ -121,18 +125,20 @@ export default {
   }
 }
 
-@media screen and (max-width: 599px) {
+@media screen and (width <= 599px) {
   .cart-image {
     width: 200px;
     height: 200px;
     margin-top: 76px;
   }
+
   .cart-container {
     .title {
       font-size: 18px;
       line-height: 28px;
       margin-top: 40px;
     }
+
     .back {
       font-size: 14px;
       line-height: 22px;
