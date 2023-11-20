@@ -3,7 +3,7 @@ import { ProductList } from 'src/models/Product.js'
 import APIRepository from '../classes/APIRepository.js'
 
 export default class VoucherAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('voucher', apiV2)
     this.APIAdresses = {
       Vouchers: {
@@ -24,7 +24,7 @@ export default class VoucherAPI extends APIRepository {
     }
   }
 
-  submit(data = {}) {
+  submit (data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,

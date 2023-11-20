@@ -2,7 +2,7 @@ import { Content } from 'src/models/Content'
 
 const mixinAbrisham = {
   methods: {
-    syncwatchingContentWithContentInList() {
+    syncwatchingContentWithContentInList () {
       const targetContentIndex = this.contents.list.findIndex(item => item.id.toString() === this.watchingContent.id.toString())
       if (typeof targetContentIndex === 'undefined' || targetContentIndex === -1) {
         return false
@@ -10,16 +10,16 @@ const mixinAbrisham = {
 
       this.contents.list[targetContentIndex] = new Content(this.watchingContent)
     },
-    toggleFavor(value) {
+    toggleFavor (value) {
       this.watchingContent.is_favored = value
       this.syncwatchingContentWithContentInList()
     },
-    updateVideoStatus(data) {
+    updateVideoStatus (data) {
       const hasWatch = data || this.watchingContent.has_watched
       this.watchingContent.loading = true
       hasWatch ? this.setVideoStatusToUnwatched() : this.setVideoStatusToWatched()
     },
-    async setVideoStatusToWatched() {
+    async setVideoStatusToWatched () {
       try {
         await this.$apiGateway.content.setVideoWatched({
           watchable_id: this.watchingContent.id,
@@ -32,7 +32,7 @@ const mixinAbrisham = {
         this.watchingContent.loading = false
       }
     },
-    async setVideoStatusToUnwatched() {
+    async setVideoStatusToUnwatched () {
       try {
         await this.$apiGateway.content.setVideoUnWatched({
           watchable_id: this.watchingContent.id,
@@ -45,7 +45,7 @@ const mixinAbrisham = {
         this.watchingContent.loading = false
       }
     },
-    async updateComment(comment) {
+    async updateComment (comment) {
       try {
         const updateCommentResponse = await this.$apiGateway.content.updateComment({
           id: this.watchingContent.comments[0].id,
@@ -61,7 +61,7 @@ const mixinAbrisham = {
 
       }
     },
-    async saveNewComment(comment) {
+    async saveNewComment (comment) {
       try {
         const savedComment = await this.$apiGateway.content.saveComment({
           commentable_id: this.watchingContent.id,
@@ -78,10 +78,10 @@ const mixinAbrisham = {
 
       }
     },
-    saveComment(comment) {
+    saveComment (comment) {
       this.watchingContent.comments[0] ? this.updateComment(comment) : this.saveNewComment(comment)
     },
-    async bookmarkPostIsFavored(timeStampData) {
+    async bookmarkPostIsFavored (timeStampData) {
       try {
         let postStatus = 'unfavored'
         if (timeStampData.isFavored) {

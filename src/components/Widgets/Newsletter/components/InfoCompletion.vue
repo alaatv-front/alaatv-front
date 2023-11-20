@@ -78,7 +78,7 @@ export default {
     }
   },
   emits: ['toggleDialog'],
-  data() {
+  data () {
     return {
       loading: false,
       otpInput: null,
@@ -168,15 +168,15 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.loadConfig()
   },
   methods: {
-    loadConfig() {
+    loadConfig () {
       this.userInputs = this.options
       // this.getTags()
     },
-    getTags() {
+    getTags () {
       this.$apiGateway.forrest.getTags(['major', 'grade']).then(res => {
         this.stringOptions = []
         res.map((tree) => tree.children).forEach(category => {
@@ -187,7 +187,7 @@ export default {
       }).catch(() => {
       })
     },
-    updateUser() {
+    updateUser () {
       this.form.mobile = this.userInfo.mobile
       this.form.code = this.userInfo.code
       this.setLoading(true)
@@ -212,7 +212,7 @@ export default {
           this.setLoading(false)
         })
     },
-    setLoading(loading) {
+    setLoading (loading) {
       this.loading = loading
     },
     redirectToUrl (url) {
@@ -221,7 +221,7 @@ export default {
       }
       window.location.href = url
     },
-    showMessage(message, type = 'negative') {
+    showMessage (message, type = 'negative') {
       this.$q.notify({
         message,
         color: type,
@@ -237,6 +237,7 @@ export default {
 .login-input-wrapper{
   direction: rtl;
 }
+
 .dialog-card {
     background: transparent;
     box-shadow: none !important;
@@ -266,16 +267,19 @@ export default {
         letter-spacing: -0.03em;
         color: #383838;
 
-        @media screen and (max-width: 1439px) {
+        @media screen and (width <= 1439px) {
             margin-top: 16px;
         }
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
             margin-top: 16px;
         }
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
             margin-top: 16px;
         }
     }
+
     .dialog-action {
         display: flex;
         flex-direction: column;
@@ -287,27 +291,32 @@ export default {
             margin-bottom: 24px;
             box-shadow: none;
 
-            @media screen and (max-width: 1439px) {
+            @media screen and (width <= 1439px) {
                 width: 280px;
             }
-            @media screen and (max-width: 1023px) {
+
+            @media screen and (width <= 1023px) {
                 width: 280px;
             }
-            @media screen and (max-width: 599px) {
+
+            @media screen and (width <= 599px) {
                 width: 240px;
             }
         }
 
-        @media screen and (max-width: 1439px) {
+        @media screen and (width <= 1439px) {
             margin-top: 60px;
         }
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
             margin-top: 60px;
         }
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
             margin-top: 49px;
         }
     }
+
  .landing-text-input {
     height: 40px;
     background: #F7E5C6;
@@ -336,16 +345,18 @@ export default {
   margin: 0 10px;
   font-size: 20px;
   border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 1px solid rgb(0 0 0 / 30%);
   text-align: center;
 }
+
 /* Background colour of an input field with value */
 .landing-otp-input.is-complete {
   background-color: #e4e4e4;
 }
+
 .landing-otp-input::-webkit-inner-spin-button,
 .landing-otp-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
+  appearance: none;
   margin: 0;
 }
 </style>

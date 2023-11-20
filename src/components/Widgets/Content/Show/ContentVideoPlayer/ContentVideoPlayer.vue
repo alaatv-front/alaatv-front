@@ -43,13 +43,13 @@ export default {
   props: {
     options: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
   },
   emits: ['timeUpdated'],
-  data() {
+  data () {
     return {
       content: new Content(),
       set: new Set(),
@@ -59,10 +59,10 @@ export default {
     }
   },
   watch: {
-    options() {
+    options () {
       this.loadContent()
     },
-    'data.id': function() {
+    'data.id': function () {
       this.loadContent()
     }
   },
@@ -101,10 +101,10 @@ export default {
           this.prefetchServerDataPromiseCatch()
         })
     },
-    getContentIdByNumberInList(numberInList) {
+    getContentIdByNumberInList (numberInList) {
       return this.set.contents.list[numberInList - 1]?.id
     },
-    getContentNumberInListById(contentId) {
+    getContentNumberInListById (contentId) {
       return this.set.contents.list.findIndex(content => parseInt(content.id) === parseInt(contentId)) + 1
     },
     getContentId () {
@@ -119,12 +119,12 @@ export default {
       }
       return null
     },
-    getContentByRequest() {
+    getContentByRequest () {
       const contentId = this.getContentId()
       this.content.loading = true
       return APIGateway.content.show(contentId)
     },
-    getSetByRequest() {
+    getSetByRequest () {
       const setId = this.content.set?.id || this.$route.params.setId
       if (!setId) {
         return
@@ -141,10 +141,10 @@ export default {
           this.set.loading = false
         })
     },
-    setSources(sources) {
+    setSources (sources) {
       this.sources = new PlayerSourceList(sources)
     },
-    goToContentPage(number) {
+    goToContentPage (number) {
       const id = this.getContentIdByNumberInList(number)
       if (!id) {
         return null
@@ -161,16 +161,18 @@ export default {
 <style scoped lang="scss">
 .video-player{
   border-radius: 10px;
-  box-shadow: 0 6px 5px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 6px 5px rgb(0 0 0 / 3%);
   overflow: hidden;
 
   .paginate {
     flex-wrap: wrap;
+
     :deep(.q-pagination) {
       .q-btn {
         width: 30px;
         height: 30px;
       }
+
       .q-pagination__content {
         .q-pagination__middle {
           display: inline-flex;
@@ -179,7 +181,7 @@ export default {
       }
     }
 
-    @media screen and (max-width: 400px) {
+    @media screen and (width <= 400px) {
       &:deep(.q-pagination__content) {
         display: block !important;
       }

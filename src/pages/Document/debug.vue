@@ -14,11 +14,11 @@
 
 export default {
   name: 'debug',
-  data() {
+  data () {
     return {
     }
   },
-  mounted() {
+  mounted () {
   },
   methods: {
   }

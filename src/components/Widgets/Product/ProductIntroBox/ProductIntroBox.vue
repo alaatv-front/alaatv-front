@@ -70,7 +70,7 @@ export default defineComponent({
   },
   mixins: [mixinWidget],
   emits: ['updateProduct', 'updateProductLoading'],
-  data() {
+  data () {
     return {
       playerKey: Date.now(),
       defaultOptions: {
@@ -95,10 +95,10 @@ export default defineComponent({
     }
   },
   methods: {
-    onUpdateProduct(event) {
+    onUpdateProduct (event) {
       this.$emit('updateProduct', event)
     },
-    onUpdateProductLoading(event) {
+    onUpdateProductLoading (event) {
       this.$emit('updateProductLoading', event)
     }
   }
@@ -114,19 +114,19 @@ export default defineComponent({
   max-width: 100%;
   border-radius: 12px;
   background:#FFF;
-  box-shadow: 2px 2px 3px 0 rgba(16, 24, 40, 0.06);
+  box-shadow: 2px 2px 3px 0 rgb(16 24 40 / 6%);
   padding: 32px;
 
-  @media screen and (max-width: 1439px){
+  @media screen and (width <= 1439px){
     padding: 20px;
   }
 
-  @media screen and (max-width: 1023px) {
+  @media screen and (width <= 1023px) {
     width: 100%;
     padding: 24px;
   }
 
-  @media screen and (max-width: 599px) {
+  @media screen and (width <= 599px) {
     padding: 20px 16px;
     width: 100%;
     height: auto;
@@ -135,7 +135,7 @@ export default defineComponent({
 
   .product-intro-video {
     overflow: hidden;
-    box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(112, 108, 162, 0.05);
+    box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%);
     border-radius: 20px;
     padding: 0;
   }
@@ -147,6 +147,7 @@ export default defineComponent({
       border-radius: 12px;
     }
   }
+
   .photo-wrapper {
     :deep(.product-image) {
       width: 100%;

@@ -46,7 +46,7 @@
 import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'ToggleTheme',
-  data() {
+  data () {
     return {
       value1: {
         min: 250,
@@ -61,7 +61,7 @@ export default defineComponent({
 <style lang="scss" scoped>
   .slider-container {
     padding: 40px;
-    background: #ffffff;
+    background: #fff;
 
     .slider-title {
       font-size: 28px;

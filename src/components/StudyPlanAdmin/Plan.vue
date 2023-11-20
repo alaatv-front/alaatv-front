@@ -70,6 +70,7 @@ export default {
   color: white;
   position: absolute;
 }
+
 .plan-menu{
   cursor: pointer;
   position: absolute;

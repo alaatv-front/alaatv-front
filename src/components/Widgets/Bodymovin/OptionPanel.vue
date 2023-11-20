@@ -58,7 +58,7 @@ export default {
   name: 'OptionPanel',
   components: { OptionPanelTabs },
   mixins: [mixinOptionPanel],
-  data() {
+  data () {
     return {
       responsiveTab: 'lg',
       tabs: ['xl', 'lg', 'md', 'sm', 'xs'],
@@ -120,7 +120,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -98,7 +98,8 @@ p {
   min-height: 170px;
   max-height: 170px;
   display: flex;
-  @media screen and (max-width: 800px) {
+
+  @media screen and (width <= 800px) {
     max-height: none;
     flex-direction: column;
   }
@@ -109,7 +110,7 @@ p {
     position: relative;
     z-index: 5;
 
-    @media screen and (max-width: 800px){
+    @media screen and (width <= 800px){
       width: 100% !important;
     }
 
@@ -117,7 +118,8 @@ p {
       height: 100%;
       width: 100%;
       border-radius: 15px 0 0 15px;
-      @media screen and (max-width: 800px) {
+
+      @media screen and (width <= 800px) {
         border-radius: 15px 15px 0 0 !important;
       }
     }
@@ -126,12 +128,15 @@ p {
   .content-link {
     position: relative;
     width: 100%;
+
     .content-order{
       position: absolute;
       right: 15px;
       height: 100%;
-      @media screen and (max-width: 599px ) {
+
+      @media screen and (width <= 599px ) {
         flex-direction: column;
+
         .videoOrder-title {
           margin-right: 0 !important;
         }
@@ -141,7 +146,8 @@ p {
     .inner-content {
       width: 100%;
       padding-left: 16px;
-      @media screen and (max-width: 1024px ) {
+
+      @media screen and (width <= 1024px ) {
         padding: 16px;
       }
 
@@ -181,7 +187,8 @@ p {
           line-height: 31px;
           letter-spacing: -0.03em;
           color: #3D3F46;
-          @media screen and (max-width: 500px) {
+
+          @media screen and (width <= 500px) {
             font-size: 12px !important;
           }
         }

@@ -1,7 +1,7 @@
 import { User } from 'src/models/User'
 
 const mixinAuthData = {
-  data() {
+  data () {
     return {
       user: new User()
     }
@@ -15,7 +15,7 @@ const mixinAuthData = {
     }
   },
   computed: {
-    isUserLogin() {
+    isUserLogin () {
       return !!this.user.id
     }
   }

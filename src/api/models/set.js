@@ -15,7 +15,7 @@ const urlAddress = {
   getContents: (id) => '/set/' + id + '/contents'
 }
 export default class SetAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('set', apiV2, '/set', new Set(), urlAddress)
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
@@ -32,7 +32,7 @@ export default class SetAPI extends APIRepository {
     })
   }
 
-  show(setId, cache = { TTL: 1000 }) {
+  show (setId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -48,7 +48,7 @@ export default class SetAPI extends APIRepository {
     })
   }
 
-  getContents(setId, cache = { TTL: 1000 }) {
+  getContents (setId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -64,7 +64,7 @@ export default class SetAPI extends APIRepository {
     })
   }
 
-  attachContents(setId, data = {}) {
+  attachContents (setId, data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -81,7 +81,7 @@ export default class SetAPI extends APIRepository {
     })
   }
 
-  favored(data = {}) {
+  favored (data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -95,7 +95,7 @@ export default class SetAPI extends APIRepository {
     })
   }
 
-  unfavored(data = {}) {
+  unfavored (data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,

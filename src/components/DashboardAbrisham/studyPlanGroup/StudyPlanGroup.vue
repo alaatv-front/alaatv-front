@@ -97,7 +97,7 @@ export default {
     }
   },
   emits: ['update:value'],
-  data() {
+  data () {
     return {
       openPlanIndexes: [],
       selectedMajor: new Major(),
@@ -109,7 +109,7 @@ export default {
   },
   watch: {
     value: {
-      handler(newValue) {
+      handler (newValue) {
         if (!newValue) {
           return
         }
@@ -118,7 +118,7 @@ export default {
       }
     },
     currentDate: {
-      handler(newValue) {
+      handler (newValue) {
         if (!newValue) {
           return
         }
@@ -126,18 +126,18 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.initData()
   },
-  updated() {
+  updated () {
   },
   methods: {
-    initData() {
+    initData () {
       this.setSelectedMajor()
       this.loadStudyEvents()
     },
 
-    async loadTodayPlan() {
+    async loadTodayPlan () {
       const todayPlan = this.studyPlanList.list.find(plan => plan.is_current)
       if (!todayPlan) {
         return
@@ -145,13 +145,13 @@ export default {
       await this.openPlanExpansion(todayPlan.studyPlan_id)
     },
 
-    async showStudyPlans(studyPlanIndex) {
+    async showStudyPlans (studyPlanIndex) {
       const studyPlan = this.studyPlanList.list[studyPlanIndex]
       const studyPlanId = studyPlan.studyPlan_id
       this.loadPlans(studyPlanId)
     },
 
-    async openPlanExpansion(studyPlanId) {
+    async openPlanExpansion (studyPlanId) {
       const target = this.getPlan(studyPlanId)
       const studyPlanIndex = target.index
       if (studyPlanIndex === -1) {
@@ -163,7 +163,7 @@ export default {
       this.openPlanIndexes.push(studyPlanIndex)
     },
 
-    async loadStudyEvents() {
+    async loadStudyEvents () {
       this.studyPlanList.loading = true
       const studyPlanNumber = 5
       try {
@@ -177,7 +177,7 @@ export default {
       }
     },
 
-    async loadCurrentDatePlan(studyPlanDate) {
+    async loadCurrentDatePlan (studyPlanDate) {
       const date = this.convertDateFormat(studyPlanDate)
       const target = this.getPlan(date, 'date')
 
@@ -191,7 +191,7 @@ export default {
       this.scrollTo(target.index)
     },
 
-    async loadPlans(planId) {
+    async loadPlans (planId) {
       this.studyPlanList.loading = true
       if (!planId) return
       try {
@@ -226,15 +226,15 @@ export default {
     //   return axios.get('/api/v2/studyEvent/' + studyPlanNumber + '/studyPlans')
     // },
 
-    getMajor(id) {
+    getMajor (id) {
       return this.majors.list.find(major => major.id === id)
     },
 
-    getFirstMajor() {
+    getFirstMajor () {
       return this.majors.list[0]
     },
 
-    getTodayDate() {
+    getTodayDate () {
       let todayDate = new Date()
       const date = String(todayDate.getDate()).padStart(2, '0')
       const month = String(todayDate.getMonth() + 1).padStart(2, '0') // January is 0!
@@ -243,7 +243,7 @@ export default {
       return todayDate
     },
 
-    getPlan(planKey, key) {
+    getPlan (planKey, key) {
       let planIndex = -1
       let target
       if (!key) {
@@ -268,7 +268,7 @@ export default {
     //   return axios.get('/api/v2/studyPlan/' + params.planId + '/plans')
     // },
 
-    setSelectedMajor() {
+    setSelectedMajor () {
       const majorId = this.value
       let major = this.getFirstMajor()
       if (majorId) {
@@ -278,7 +278,7 @@ export default {
       this.selectedMajor = major
     },
 
-    setPlan(planId, planData) {
+    setPlan (planId, planData) {
       const studyPlan = this.getPlan(planId).studyPlan
       if (!studyPlan) {
         return
@@ -286,7 +286,7 @@ export default {
       studyPlan.plans = new PlanList(planData)
     },
 
-    restPageData() {
+    restPageData () {
       this.resetAllPlans()
       this.closeAllPlans()
       if (this.currentDate) {
@@ -294,50 +294,50 @@ export default {
       }
     },
 
-    resetAllPlans() {
+    resetAllPlans () {
       this.studyPlanList.list.forEach(studyPlan => {
         studyPlan.plans = new PlanList()
       })
     },
 
-    changeSelectedMajor() {
+    changeSelectedMajor () {
       this.$emit('update:value', this.selectedMajor.id)
     },
 
-    closeAllPlans() {
+    closeAllPlans () {
       this.openPlanIndexes = []
     },
 
-    planClicked(studyPlan, index) {
+    planClicked (studyPlan, index) {
       const studyPlanId = studyPlan.studyPlan_id
       const isPlanOpen = this.isPlanOpen(index)
       isPlanOpen ? this.closePlan(studyPlanId) : this.loadPlans(studyPlanId)
     },
 
-    isPlanOpen(studyPlanIndex) {
+    isPlanOpen (studyPlanIndex) {
       return this.openPlanIndexes.includes(studyPlanIndex)
     },
 
-    closePlan(planId) {
+    closePlan (planId) {
       // this.openingPlanId = this.openingPlanId.filter(id => id !== planId )
     },
 
-    convertDateFormat(date) {
+    convertDateFormat (date) {
       if (date.includes('/')) {
         return date.split('/').join('-')
       }
       return date
     },
 
-    closePlan2(planId) {
+    closePlan2 (planId) {
       this.studyPlanList.list[planId].plans = new PlanList()
     },
 
-    contentClicked(content) {
+    contentClicked (content) {
       this.$emit('contentClicked', content)
     },
 
-    scrollTo(id) {
+    scrollTo (id) {
       if (this.$refs[id] && this.$refs[id][0]) {
         this.$refs[id][0].$el.scrollIntoView()
       }
@@ -353,22 +353,25 @@ export default {
   .study-plan {
     background-color: #ffe2bc;
     color: #3e5480;
-
-    padding: 40px 60px 51px 60px;
+    padding: 40px 60px 51px;
     border-radius: 30px;
     position: relative;
-    @media screen and (max-width: 1919px) {
-      padding: 40px 45px 50px 45px;
+
+    @media screen and (width <= 1919px) {
+      padding: 40px 45px 50px;
     }
-    @media screen and (max-width: 1200px) {
+
+    @media screen and (width <= 1200px) {
       border-radius: 20px;
-      padding: 30px 35px 78px 35px;
+      padding: 30px 35px 78px;
     }
-    @media screen and (max-width: 767px) {
-      padding: 25px 23px 48px 23px;
+
+    @media screen and (width <= 767px) {
+      padding: 25px 23px 48px;
     }
-    @media screen and (max-width: 575px) {
-      padding: 25px 7px 18px 7px;
+
+    @media screen and (width <= 575px) {
+      padding: 25px 7px 18px;
     }
 
     .study-plan-header-title {
@@ -376,14 +379,18 @@ export default {
       font-weight: 500;
       text-align: center;
       margin-bottom: 56px;
-      @media screen and (max-width: 1919px) {
+
+      @media screen and (width <= 1919px) {
       }
-      @media screen and (max-width: 1200px) {
+
+      @media screen and (width <= 1200px) {
         margin-bottom: 20px;
       }
-      @media screen and (max-width: 767px) {
+
+      @media screen and (width <= 767px) {
       }
-      @media screen and (max-width: 575px) {
+
+      @media screen and (width <= 575px) {
         margin-bottom: 25px;
       }
     }
@@ -395,28 +402,33 @@ export default {
       align-items: center;
       position: absolute;
       top: 42px;
+
       //margin-top: -57px;
       margin-left: 15px !important;
-      @media only screen and (max-width: 1200px) {
+
+      @media only screen and (width <= 1200px) {
         //margin-top: -32px;
         position: static;
         margin-bottom: 30px;
       }
 
-      @media only screen and (max-width: 768px) {
+      @media only screen and (width <= 768px) {
         justify-content: center;
         margin-bottom: 25px;
       }
 
       :deep(.q-field ) {
         width: 195px;
-        @media only screen and (max-width: 1904px) {
+
+        @media only screen and (width <= 1904px) {
           width: 177px;
         }
-        @media only screen and (max-width: 1200px) {
+
+        @media only screen and (width <= 1200px) {
           width: 136px;
         }
-        @media only screen and (max-width: 990px) {
+
+        @media only screen and (width <= 990px) {
           width: 136px;
         }
       }
@@ -429,7 +441,8 @@ export default {
         &.v-text-field--enclosed {
           padding-top: 15px;
           margin-right: 15px !important;
-          @media only screen and (max-width: 1200px) {
+
+          @media only screen and (width <= 1200px) {
             padding-top: 35px;
           }
         }
@@ -438,7 +451,8 @@ export default {
       .major-card-text {
         margin-right: 4%;
         font-size: 16px;
-        @media only screen and (max-width: 768px) {
+
+        @media only screen and (width <= 768px) {
           margin-right: 10px;
         }
 
@@ -447,34 +461,41 @@ export default {
 
     .all-the-expansions {
       height: 540px;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      @media only screen and (max-width: 1200px) {
+      overflow: hidden scroll;
+
+      @media only screen and (width <= 1200px) {
         height: 527px;
       }
-      @media only screen and (max-width: 990px) {
+
+      @media only screen and (width <= 990px) {
         height: 547px;
       }
-      @media only screen and (max-width: 768px) {
+
+      @media only screen and (width <= 768px) {
         height: 466px;
       }
-      @media only screen and (max-width: 350px) {
+
+      @media only screen and (width <= 350px) {
         height: 446px;
       }
 
       .study-plan-expansion {
-        padding: 0 80px 0 80px;
-        @media only screen and (max-width: 1904px) {
-          padding: 0 60px 0 60px;
+        padding: 0 80px;
+
+        @media only screen and (width <= 1904px) {
+          padding: 0 60px;
         }
-        @media only screen and (max-width: 1200px) {
-          padding: 0 48px 0 48px;
+
+        @media only screen and (width <= 1200px) {
+          padding: 0 48px;
         }
-        @media only screen and (max-width: 768px) {
-          padding: 0 37px 0 37px;
+
+        @media only screen and (width <= 768px) {
+          padding: 0 37px;
         }
-        @media only screen and (max-width: 576px) {
-          padding: 0 20px 0 20px;
+
+        @media only screen and (width <= 576px) {
+          padding: 0 20px;
         }
 
         &.theme--light {
@@ -492,7 +513,8 @@ export default {
           line-height: normal;
           text-align: right;
           color: #3e5480;
-          @media only screen and (max-width: 768px) {
+
+          @media only screen and (width <= 768px) {
             font-size: 14px;
           }
 
@@ -521,13 +543,13 @@ export default {
   }
 }
 
-@media only screen and (max-width: 1200px) {
-  .q-card > :first-child:not(.v-btn):not(.v-chip):not(.v-avatar), .q-card > .q-card__progress + :not(.v-btn):not(.v-chip):not(.v-avatar) {
+@media only screen and (width <= 1200px) {
+  .q-card > :first-child:not(.v-btn, .v-chip, .v-avatar), .q-card > .q-card__progress + :not(.v-btn, .v-chip, .v-avatar) {
     border-radius: 20px;
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (width <= 768px) {
   .v-text-field.v-text-field--solo .v-input__control {
     min-height: 40px;
   }
@@ -547,20 +569,23 @@ export default {
     .v-expansion-panel-content__wrap {
       box-shadow: 0 0 0 0;
       padding: 0 20px 16px !important;
-      @media screen and (max-width: 990px) {
+
+      @media screen and (width <= 990px) {
         padding: 0 15px 16px !important;
       }
-      @media screen and (max-width: 768px) {
+
+      @media screen and (width <= 768px) {
         padding: 0 5px 10px !important;
       }
-      @media screen and (max-width: 576px) {
+
+      @media screen and (width <= 576px) {
         padding: 0 5px 9px !important;
       }
     }
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (width <= 768px) {
   .study-plan-group .v-text-field.v-text-field--solo .v-input__control {
     min-height: 40px;
   }

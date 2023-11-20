@@ -41,7 +41,7 @@ export default {
       default: () => []
     }
   },
-  data() {
+  data () {
     return {
       content: null,
       contents: [],
@@ -49,24 +49,24 @@ export default {
       loading: false
     }
   },
-  mounted() {
+  mounted () {
     this.localContents = this.value
     this.value.forEach(content => {
       this.contents.push(content.id)
     })
   },
   methods: {
-    onKeyUp(event) {
+    onKeyUp (event) {
       if (event.key === 'Enter') {
         this.showContentDemo()
       }
     },
-    removeContentDemo(index) {
+    removeContentDemo (index) {
       this.localContents.slice(index, 1)
       this.contents.splice(index, 1)
       this.$emit('update:value', this.contents)
     },
-    showContentDemo() {
+    showContentDemo () {
       this.loading = true
       APIGateway.content.show(this.content)
         .then(content => {

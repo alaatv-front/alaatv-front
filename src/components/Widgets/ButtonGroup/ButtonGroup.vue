@@ -19,7 +19,7 @@ export default defineComponent({
     ActionButton
   },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       defaultOptions: {
         buttonList: [],
@@ -74,7 +74,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .btn-group-wrapper {
-  @media screen and (max-width: 600px){
+  @media screen and (width <= 600px){
     //place-content: center;
     //display: grid;
   }

@@ -89,7 +89,7 @@ export default defineComponent({
   },
   mixins: [mixinWidget, mixinAuth],
   emits: ['updateProduct', 'updateProductLoading'],
-  data() {
+  data () {
     return {
       defaultOptions: {
         product: new Product()
@@ -105,7 +105,7 @@ export default defineComponent({
     productId () {
       return this.localOptions.product.id
     },
-    productPrice() {
+    productPrice () {
       if (this.localOptions.product) {
         return new Price(this.localOptions.product.price)
       }
@@ -119,18 +119,18 @@ export default defineComponent({
     }
   },
   watch: {
-    productId() {
+    productId () {
       this.getProductComplimentary()
       this.getProductExams()
     }
   },
-  mounted() {
+  mounted () {
     this.$bus.on('onLoggedIn', () => {
       this.onLoginAction()
     })
   },
   methods: {
-    addToCart(hasInstalmentOption = false, goToCheckoutReview = true) {
+    addToCart (hasInstalmentOption = false, goToCheckoutReview = true) {
       this.$store.dispatch('Cart/addToCart', { product: this.localOptions.product, has_instalment_option: hasInstalmentOption })
         .then(() => {
           if (goToCheckoutReview) {
@@ -138,7 +138,7 @@ export default defineComponent({
           }
         })
     },
-    paymentAction(paymentMethod) {
+    paymentAction (paymentMethod) {
       this.paymentMethod = paymentMethod
 
       if (paymentMethod === 'installment') {
@@ -158,7 +158,7 @@ export default defineComponent({
       this.addToCart(true, false)
       this.toggleDialog()
     },
-    checkLoginForInstallment() {
+    checkLoginForInstallment () {
       if (this.isUserLogin) {
         this.paymentActionForInstallment()
         return
@@ -168,22 +168,22 @@ export default defineComponent({
       this.onLoginAction = this.paymentActionForInstallment
       this.$store.commit('AppLayout/updateLoginDialog', true)
     },
-    checkLogin() {
+    checkLogin () {
       this.$store.commit('Auth/updateRedirectTo', this.$route.name)
       this.onLoginAction = this.paymentActionForInstallment
       this.$store.commit('AppLayout/updateLoginDialog', true)
     },
-    toggleDialog() {
+    toggleDialog () {
       this.dialog = !this.dialog
     },
-    getProductComplimentary() {
+    getProductComplimentary () {
       APIGateway.product.getProductComplimentary(this.localOptions.product.id)
         .then(productList => {
           this.productComplimentary = productList.list
         })
         .catch(() => {})
     },
-    getProductExams() {
+    getProductExams () {
       APIGateway.product.getProductExamList(this.localOptions.product.id)
         .then(examList => {
           this.examList = examList
@@ -192,10 +192,10 @@ export default defineComponent({
           this.examList = examList
         })
     },
-    onUpdateProduct(event) {
+    onUpdateProduct (event) {
       this.$emit('updateProduct', event)
     },
-    onUpdateProductLoading(event) {
+    onUpdateProductLoading (event) {
       this.$emit('updateProductLoading', event)
     }
   }
@@ -204,7 +204,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 
-@mixin instalment-label () {
+@mixin instalment-label() {
   display: flex;
   padding: 4px 6px;
   justify-content: center;
@@ -228,12 +228,12 @@ export default defineComponent({
   align-items: center;
   width: 100%;
 
-  @media screen and (max-width: 1023px){
+  @media screen and (width <= 1023px){
     position: fixed;
     bottom: 0;
     right: 0;
     left: 0;
-    background: #FFFFFF;
+    background: #FFF;
     z-index: 5;
     padding: 24px 30px 16px;
     box-shadow: 1px 1px 2px 0 #010101;
@@ -246,26 +246,24 @@ export default defineComponent({
     width: 100%;
     margin-bottom: 8px;
     padding: 12px;
-
     border-radius: 8px;
     border: 1px solid #E6E6E6;
     background: #F5F7FA;
 
-    @media screen and (max-width: 1439px){
+    @media screen and (width <= 1439px){
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(2, 1fr);
-      grid-column-gap: 0px;
-      grid-row-gap: 0px;
+      grid-gap: 0;
     }
 
-    @media screen and (max-width: 1023px){
+    @media screen and (width <= 1023px){
       display: flex;
       padding: 12px 20px;
       margin-bottom: 12px;
     }
 
-    @media screen and (max-width: 599px){
+    @media screen and (width <= 599px){
       padding: 12px;
     }
 
@@ -280,16 +278,17 @@ export default defineComponent({
       line-height: normal;
       letter-spacing: -0.54px;
 
-      @media screen and (max-width: 1439px){
+      @media screen and (width <= 1439px){
         grid-area: 1 / 1 / 2 / 2;
         justify-content: flex-start;
       }
 
-      @media screen and (max-width: 1023px){
+      @media screen and (width <= 1023px){
         font-size: 16px;
         flex-grow: 1;
       }
-      @media screen and (max-width: 599px){
+
+      @media screen and (width <= 599px){
         font-size: 10px;
         flex-grow: initial;
       }
@@ -298,20 +297,21 @@ export default defineComponent({
         margin-right: 8px;
       }
     }
+
     .price-calculation {
       display: flex;
       justify-content: center;
       align-items: center;
 
-      @media screen and (max-width: 1439px){
+      @media screen and (width <= 1439px){
         grid-area: 2 / 2 / 3 / 3;
       }
 
-      @media screen and (max-width: 1023px){
+      @media screen and (width <= 1023px){
         margin-right: 8px;
       }
 
-      @media screen and (max-width: 599px){
+      @media screen and (width <= 599px){
         margin-right: initial;
       }
 
@@ -329,27 +329,32 @@ export default defineComponent({
         text-decoration: line-through;
       }
     }
+
     .price-final {
       display: flex;
       justify-content: center;
       align-items: center;
 
-      @media screen and (max-width: 1439px){
+      @media screen and (width <= 1439px){
         grid-area: 1 / 2 / 2 / 3;
       }
 
       .number {
         color:#424242;
         font-size: 24px;
-        @media screen and (max-width: 1300px){
+
+        @media screen and (width <= 1300px){
           font-size: 18px;
         }
-        @media screen and (max-width: 1023px){
+
+        @media screen and (width <= 1023px){
           font-size: 24px;
         }
-        @media screen and (max-width: 400px){
+
+        @media screen and (width <= 400px){
           font-size: 18px;
         }
+
         font-style: normal;
         font-weight: 600;
         line-height: normal;
@@ -370,17 +375,21 @@ export default defineComponent({
         display: flex;
         justify-content: flex-start;
         align-items: center;
+
         .instalment-label {
-          @include instalment-label();
+          @include instalment-label;
+
           margin-right: 16px;
 
-          @media screen and (max-width: 1439px){
+          @media screen and (width <= 1439px){
             display: none;
           }
-          @media screen and (max-width: 1023px){
+
+          @media screen and (width <= 1023px){
             display: flex;
           }
         }
+
         .simple-text {
           color: #303030;
           font-size: 18px;
@@ -388,39 +397,48 @@ export default defineComponent({
           font-weight: 400;
           line-height: normal;
           letter-spacing: -0.54px;
-          @media screen and (max-width: 1439px){
+
+          @media screen and (width <= 1439px){
             font-size: 14px;
           }
-          @media screen and (max-width: 1023px){
+
+          @media screen and (width <= 1023px){
             font-size: 18px;
           }
-          @media screen and (max-width: 599px){
+
+          @media screen and (width <= 599px){
             font-size: 14px;
           }
         }
       }
+
       .instalment-price {
         color: #FF8518;
         font-style: normal;
         line-height: normal;
 
-        @media screen and (max-width: 1439px){
+        @media screen and (width <= 1439px){
           margin-left: auto;
         }
+
         .price-value {
           font-size: 20px;
           font-weight: 600;
           letter-spacing: -1px;
-          @media screen and (max-width: 1439px){
+
+          @media screen and (width <= 1439px){
             font-size: 18px;
           }
-          @media screen and (max-width: 1023px){
+
+          @media screen and (width <= 1023px){
             font-size: 20px;
           }
-          @media screen and (max-width: 599px){
+
+          @media screen and (width <= 599px){
             font-size: 18px;
           }
         }
+
         .price-label {
           font-size: 14px;
           font-weight: 400;
@@ -428,7 +446,8 @@ export default defineComponent({
       }
 
       .instalment-label-responsive {
-        @include instalment-label();
+        @include instalment-label;
+
         display: none;
         margin-top: 7px;
         width: fit-content;
@@ -436,10 +455,11 @@ export default defineComponent({
         margin-left: auto;
         grid-area: 2 / 2 / 3 / 3;
 
-        @media screen and (max-width: 1439px){
+        @media screen and (width <= 1439px){
           display: flex;
         }
-        @media screen and (max-width: 1024px){
+
+        @media screen and (width <= 1024px){
           display: none;
         }
       }
@@ -453,7 +473,7 @@ export default defineComponent({
     align-items: center;
     margin-top: 16px;
 
-    @media screen and (max-width: 1023px){
+    @media screen and (width <= 1023px){
       margin-top: 28px;
     }
 
@@ -462,13 +482,15 @@ export default defineComponent({
       height: 48px;
       max-width: 100%;
 
-      @media screen and (max-width: 1440px){
+      @media screen and (width <= 1440px){
         width: 128px;
       }
-      @media screen and (max-width: 1023px){
+
+      @media screen and (width <= 1023px){
         width: 262px;
       }
-      @media screen and (max-width: 599px){
+
+      @media screen and (width <= 599px){
         width: 149px;
       }
 

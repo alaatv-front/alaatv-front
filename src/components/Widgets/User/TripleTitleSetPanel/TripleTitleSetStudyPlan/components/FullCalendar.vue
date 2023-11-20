@@ -293,7 +293,7 @@ export default defineComponent({
       default: 'calendar_month'
     }
   },
-  setup(props, { emit }) {
+  setup (props, { emit }) {
     // const emit = defineEmits(['editPlan', 'removePlan'])
     const month = ref([
       [
@@ -742,32 +742,32 @@ export default defineComponent({
       }
     }
   },
-  mounted() {
+  mounted () {
     this.loadCalendar(Time.now(), true)
   },
   methods: {
-    getBackgroundColor(color) {
+    getBackgroundColor (color) {
       return colors.lighten(color, 60)
     },
-    calculateTop(event) {
+    calculateTop (event) {
       return ((parseInt(event.start.substring(0, 2)) + (parseInt(event.start.substring(3, 5)) / 60)) - this.baseHour) * this.baseHight + this.baseHight + 48 + 'px'
     },
-    calculateHeight(event) {
+    calculateHeight (event) {
       return (parseInt(event.end.substring(0, 2)) + parseInt(event.end.substring(3, 5)) / 60 - parseInt(event.start.substring(0, 2)) - parseInt(event.start.substring(3, 5)) / 60) * this.baseHight - 8 + 'px'
     },
-    calculateTimeHeight() {
+    calculateTimeHeight () {
       const hour = new Date().getHours()
       const minutes = new Date().getMinutes()
       return (hour + minutes / 60 - this.baseHour) * this.baseHight + this.baseHight + 48 + 'px'
     },
-    calculateEventDate() {
+    calculateEventDate () {
       // const date = new Date(this.selectedEvent.date)
     },
-    openEvent(event) {
+    openEvent (event) {
       this.eventDialog = true
       this.selectedEvent = event
     },
-    getStudyPlanData(eventId, date) {
+    getStudyPlanData (eventId, date) {
       if (date) {
         this.loadCalendar(moment(date).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
       }
@@ -800,23 +800,23 @@ export default defineComponent({
           this.loading = false
         })
     },
-    goToSelectedDate(date) {
+    goToSelectedDate (date) {
       this.loadCalendar(moment(date).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
       this.getStudyPlanData()
     },
-    goToNextWeek() {
+    goToNextWeek () {
       // const today = new Date(this.chartWeek[0].date)
       const nextWeek = new Date(new Date(this.chartWeek[0].date).getTime() + 7 * 24 * 60 * 60 * 1000)
       this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
       this.getStudyPlanData()
     },
-    goToLastWeek() {
+    goToLastWeek () {
       // const today = new Date(this.calendarDate._i)
       const nextWeek = new Date(new Date(this.chartWeek[0].date).getTime() - 7 * 24 * 60 * 60 * 1000)
       this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
       this.getStudyPlanData()
     },
-    setCalendarMonth(selectedMonth) {
+    setCalendarMonth (selectedMonth) {
       const month = this.monthList.indexOf(selectedMonth)
       const shamsi = `${this.calendarYear}-${month + 1}-01`
       moment.loadPersian()
@@ -836,10 +836,12 @@ export default defineComponent({
 <style scoped lang="scss">
 .calender {
   height: 613px;
-  @media screen and (max-width: 1023px) {
+
+  @media screen and (width <= 1023px) {
     margin-bottom: 20px;
   }
-  @media screen and (max-width: 1023px) {
+
+  @media screen and (width <= 1023px) {
     margin-bottom: 16px;
   }
 
@@ -861,8 +863,8 @@ export default defineComponent({
       letter-spacing: -0.03em;
       color: #434765;
 
-      @media screen and (max-width: 600px) {
-        padding: 7px 7px;
+      @media screen and (width <= 600px) {
+        padding: 7px;
         position: absolute;
         top: 10px;
         left: 10px;
@@ -875,7 +877,7 @@ export default defineComponent({
       align-items: center;
       padding: 16px 30px;
 
-      @media screen and (max-width: 600px) {
+      @media screen and (width <= 600px) {
         margin-top: 40px;
         padding: 16px 5px;
       }
@@ -899,13 +901,13 @@ export default defineComponent({
           color: #434765;
           margin-left: 10px;
 
-          @media screen and (max-width: 600px) {
+          @media screen and (width <= 600px) {
             font-size: 10px;
           }
         }
 
-        @media screen and (max-width: 600px) {
-          padding: 10px 10px;
+        @media screen and (width <= 600px) {
+          padding: 10px;
           margin-right: 4px;
           font-weight: 400;
           font-size: 14px;
@@ -951,7 +953,7 @@ export default defineComponent({
       }
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (width <= 600px) {
       flex-direction: column;
       align-items: flex-start;
       height: 120px;
@@ -961,8 +963,8 @@ export default defineComponent({
   }
 
   .box {
-    background: #FFFFFF;
-    box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(112, 108, 162, 0.05) #{"/* rtl:ignore */"};
+    background: #FFF;
+    box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%) #{"/* rtl:ignore */"};
     border-radius: 16px;
     height: 100%;
     padding-top: 30px;
@@ -988,10 +990,12 @@ export default defineComponent({
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        //position: sticky;
+
+        // position: sticky;
 
         .day-name {
           text-align: center;
+
           //font-style: normal;
           //font-weight: 400;
           //font-size: 14px;
@@ -1053,7 +1057,6 @@ export default defineComponent({
               flex-direction: column;
               justify-content: center;
               align-items: center;
-              text-align: center;
               font-style: normal;
               font-weight: 600;
               font-size: 14px;
@@ -1066,19 +1069,19 @@ export default defineComponent({
               }
 
               &.top-left {
-                border-radius: 0px 15px 0px 0px;
+                border-radius: 0 15px 0 0;
               }
 
               &.top-right {
-                border-radius: 15px 0px 0px 0px;
+                border-radius: 15px 0 0;
               }
 
               &.bottom-left {
-                border-radius: 0px 0px 15px 0px;
+                border-radius: 0 0 15px;
               }
 
               &.bottom-right {
-                border-radius: 0px 0px 0px 15px;
+                border-radius: 0 0 0 15px;
               }
             }
           }
@@ -1096,7 +1099,8 @@ export default defineComponent({
             left: 95px;
             background-color: lighten(#EF5350, 30%);
             border-radius: 6px;
-            &:before {
+
+            &::before {
               position: absolute;
               bottom: -4px;
               content: "";
@@ -1124,10 +1128,12 @@ export default defineComponent({
               .hour-line {
                 &.first-row {
                   height: 48px;
+
                   .hour {
                     top: 10px;
                   }
                 }
+
                 width: 280px;
                 height: 80px;
                 border-top: 1px solid #E4E8EF;
@@ -1148,6 +1154,7 @@ export default defineComponent({
                   text-align: center;
                   color: #6D708B;
                 }
+
                 .separator {
                   margin-right: 280px;
                 }
@@ -1160,6 +1167,7 @@ export default defineComponent({
                 border-radius: 8px;
                 margin-left: 6px;
                 margin-top: 4px;
+
                 .event-info {
                   overflow: auto;
                   height: inherit;
@@ -1181,25 +1189,27 @@ export default defineComponent({
           }
         }
 
-        @media screen and (max-width: 720px) {
+        @media screen and (width <= 720px) {
           min-width: 660px;
         }
       }
 
-      @media screen and (max-width: 720px) {
+      @media screen and (width <= 720px) {
         overflow-x: auto;
       }
     }
 
-    @media screen and (max-width: 1439px) {
+    @media screen and (width <= 1439px) {
       margin-right: 0;
       height: 394px;
     }
-    @media screen and (max-width: 1200px) {
+
+    @media screen and (width <= 1200px) {
       margin-right: 0;
       height: auto;
     }
-    @media screen and (max-width: 600px) {
+
+    @media screen and (width <= 600px) {
       padding-top: 120px;
     }
   }
@@ -1209,7 +1219,7 @@ export default defineComponent({
   position: relative;
   width: 335px;
   height: 392px;
-  background: #FFFFFF;
+  background: #FFF;
   border-radius: 16px;
 
   .content-section {
@@ -1222,7 +1232,7 @@ export default defineComponent({
       width: 100%;
       height: 64px;
       background: $primary;
-      border-radius: 16px 16px 0px 0px;
+      border-radius: 16px 16px 0 0;
       font-style: normal;
       font-weight: 400;
       font-size: 16px;
@@ -1231,7 +1241,7 @@ export default defineComponent({
       align-items: center;
       justify-content: center;
       text-align: center;
-      color: #FFFFFF;
+      color: #FFF;
     }
 
     .month-row {
@@ -1256,7 +1266,7 @@ export default defineComponent({
 
         &.selected {
           background: #FFB74D;
-          color: #FFFFFF;
+          color: #FFF;
         }
       }
     }
@@ -1277,7 +1287,7 @@ export default defineComponent({
       font-size: 14px;
       line-height: 22px;
       letter-spacing: -0.03em;
-      color: #FFFFFF;
+      color: #FFF;
     }
 
     .cancel-btn {
@@ -1297,6 +1307,7 @@ export default defineComponent({
 .event-dialog {
   max-width: 640px;
   width: 640px;
+
   .event-description {
     word-wrap: break-word;
   }

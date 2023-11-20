@@ -180,12 +180,12 @@ export default defineComponent({
   props: {
     options: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
   },
-  data() {
+  data () {
     return {
       loading: false,
       rowNumberToDelete: null,
@@ -208,7 +208,7 @@ export default defineComponent({
   },
   computed: {
     columns: {
-      get() {
+      get () {
         return this.localOptions.header.map((item, index) => {
           return {
             name: 'col' + index,
@@ -219,24 +219,24 @@ export default defineComponent({
           }
         })
       },
-      set(value) {
+      set (value) {
         this.localOptions.header = value.map((item) => item.label)
       }
     }
   },
-  mounted() {
+  mounted () {
     this.fillDeleteRowOptions()
   },
   methods: {
-    fillDeleteRowOptions() {
+    fillDeleteRowOptions () {
       this.localOptions.rows.forEach((item, index) => {
         this.deleteRowOptions.push(index + 1)
       })
     },
-    getColName(index) {
+    getColName (index) {
       return 'col' + index
     },
-    changeType(value, rowIndex, colIndex) {
+    changeType (value, rowIndex, colIndex) {
       const row = this.localOptions.rows[rowIndex]
       const col = row[this.getColName(colIndex)]
       col.type = value.type

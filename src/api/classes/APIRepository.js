@@ -3,7 +3,7 @@ requests to a RESTful API */
 import APIInstanceWrapper from './APIInstanceWrapper'
 
 export default class APIRepository {
-  constructor(name, api, urlAddress, model, APIAdresses) {
+  constructor (name, api, urlAddress, model, APIAdresses) {
     this.name = name
     this.api = api
     this.url = urlAddress
@@ -17,7 +17,7 @@ export default class APIRepository {
    * @returns An object with the same keys as the APIAdresses object, but with the values being the
    * baseURL + the APIAdresses values.
    */
-  getFullAPIAddress() {
+  getFullAPIAddress () {
     const urlAddress = {}
     Object.keys(this.APIAdresses).map(item => {
       if (typeof this.APIAdresses[item] === 'function') {
@@ -38,7 +38,7 @@ export default class APIRepository {
    * @param requestData - { apiMethod, api, request, cacheKey, cache, resolveCallback, rejectCallback, data, params }
    * @returns A promise that will resolve or reject based on the response from the API call.
    */
-  sendRequest({ apiMethod, api, request, cacheKey, cache, resolveCallback, rejectCallback, data, params }) {
+  sendRequest ({ apiMethod, api, request, cacheKey, cache, resolveCallback, rejectCallback, data, params }) {
     return new Promise((resolve, reject) => {
       APIInstanceWrapper[apiMethod]({
         api,
@@ -63,7 +63,7 @@ export default class APIRepository {
    * @param data - The data to be sent to the server.
    * @returns The defaultSendData is being returned.
    */
-  getNormalizedSendData(defaultData, data) {
+  getNormalizedSendData (defaultData, data) {
     // for (const key of Object.keys(defaultData)) {
     //   if (data[key] === null || data[key] === undefined) {
     //     delete defaultData[key]
@@ -75,7 +75,7 @@ export default class APIRepository {
   /**
   explain
    */
-  paramSerializer(params) {
+  paramSerializer (params) {
 
   }
 
@@ -83,7 +83,7 @@ export default class APIRepository {
    * It sets the callbacks for the CRUD operations.
    * @param callbacks - an object with the following properties:
    */
-  setCrudCallbacks(callbacks) {
+  setCrudCallbacks (callbacks) {
     this.getResolveCallback = callbacks.get ? callbacks.get : (response) => { return response }
     this.postResolveCallback = callbacks.post ? callbacks.post : (response) => { return response }
     this.putResolveCallback = callbacks.put ? callbacks.put : (response) => { return response }
@@ -95,7 +95,7 @@ export default class APIRepository {
    * @param entityId - The id of the entity you want to get.
    * @returns The response from the server.
    */
-  get(entityData) {
+  get (entityData) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -116,7 +116,7 @@ export default class APIRepository {
    * @param entityData - The data that will be sent to the API.
    * @returns The return value of the sendRequest function.
    */
-  post(entityData) {
+  post (entityData) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -138,7 +138,7 @@ export default class APIRepository {
    * @param entityData - The data to be sent to the server.
    * @returns The return value of the sendRequest function.
    */
-  put(entityData) {
+  put (entityData) {
     return this.sendRequest({
       apiMethod: 'put',
       api: this.api,
@@ -159,7 +159,7 @@ export default class APIRepository {
   * @param entityId - The id of the entity you want to delete.
   * @returns The promise object.
   */
-  delete(entityId) {
+  delete (entityId) {
     return this.sendRequest({
       apiMethod: 'delete',
       api: this.api,

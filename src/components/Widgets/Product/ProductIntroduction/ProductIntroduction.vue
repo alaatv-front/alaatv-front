@@ -76,20 +76,20 @@ export default {
   },
   watch: {
     options: {
-      handler() {
+      handler () {
         this.getProduct()
       },
       deep: true
     }
   },
   methods: {
-    getDownloadDate() {
+    getDownloadDate () {
       if (this.product.attributes.download_date) {
         return this.product.attributes.download_date[0]
       }
       return null
     },
-    getDuration() {
+    getDuration () {
       if (this.product.attributes.duration) {
         return this.product.attributes.duration[0]
       }
@@ -110,13 +110,13 @@ export default {
       this.product.loading = false
     },
 
-    updateEECEventDetail() {
+    updateEECEventDetail () {
       AEE.productDetailViews('product.show', this.product.eec.getData(), {
         TTl: 1000,
         key: this.product.id
       })
     },
-    videoSource() {
+    videoSource () {
       return new PlayerSourceList([{
         default: true,
         res: 1024,
@@ -125,7 +125,7 @@ export default {
         label: 'کیفیت عالی'
       }])
     },
-    getProduct() {
+    getProduct () {
       return APIGateway.product.show(this.productId)
     }
   }

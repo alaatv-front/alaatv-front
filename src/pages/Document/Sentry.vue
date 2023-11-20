@@ -14,7 +14,7 @@
 <script>
 export default {
   name: 'sentry',
-  data() {
+  data () {
     return {
     }
   },

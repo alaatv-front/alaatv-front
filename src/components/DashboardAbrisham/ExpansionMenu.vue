@@ -49,7 +49,7 @@
 
 export default {
   name: 'ExpansionMenu',
-  data() {
+  data () {
     return {
       menuItems: [
         {
@@ -125,11 +125,11 @@ export default {
     }
 
   },
-  created() {
+  created () {
     this.setHeader(this.$route.name)
   },
   methods: {
-    changeSelectedItem(selected) {
+    changeSelectedItem (selected) {
       this.menuItems.map(i => {
         if (i.id === selected.id) {
           i.selected = true
@@ -140,7 +140,7 @@ export default {
       })
       this.$router.push({ name: selected.routeName })
     },
-    setHeader(route) {
+    setHeader (route) {
       this.menuItems.map(i => {
         if (i.routeName === route) {
           i.selected = true
@@ -161,17 +161,20 @@ export default {
     font-size: 14px;
     font-weight: 500;
     margin-bottom: 20px;
+
     .expansion-main{
         .expansion-body{
             .expansion-paragraph{
                 margin-bottom: 0;
             }
+
             .expansion-header{
                 .menu-header-icon{
                     color:#ff8f00;
                     font-size: 18px;
                 }
             }
+
             .menu-header-text{
                 color: #3e5480;
                 font-size: 14px;
@@ -182,9 +185,8 @@ export default {
                 letter-spacing: normal;
                 padding: 10px;
                 position: relative;
-                -moz-box-sizing:border-box;
-                -webkit-box-sizing:border-box;
                 box-sizing:border-box;
+
                 .menu-item-icon{
                     position: absolute;
                     top:12px;
@@ -196,13 +198,16 @@ export default {
             }
         }
     }
+
     .v-item-group {
         border-radius: 15px !important;
     }
+
     .v-expansion-panel {
         .v-expansion-panel-content {
             .v-expansion-panel-content__wrap {
                 padding: 0 24px 16px !important;
+
                 .v-list {
                     .v-list-item{
                         height: 33px;
@@ -211,9 +216,11 @@ export default {
             }
         }
     }
+
     .v-expansion-panel-header{
         padding-top: 0;
         padding-bottom: 0;
+
         .v-expansion-panel-header__icon {
             .v-icon{
                 color: #3e5480;
@@ -232,17 +239,19 @@ export default {
         }
     }
 }
+
 .v-sheet{
     &.v-card{
         &:not(.v-sheet--outlined) {
-            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
+            box-shadow: 0 3px 5px 0 rgb(0 0 0 / 10%);
             border-radius: 15px;
         }
     }
 }
+
 .v-expansion-panel-content__wrap {
     border-radius: 15px;
-    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 5px 0 rgb(0 0 0 / 10%);
 }
 </style>
 <style lang="scss">

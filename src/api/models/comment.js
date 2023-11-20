@@ -2,7 +2,7 @@ import { apiV2 } from 'src/boot/axios'
 import APIRepository from '../classes/APIRepository.js'
 import { Comment } from 'src/models/Comment.js'
 export default class CommentAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('comment', apiV2, '/comment', Comment)
     this.APIAdresses = {
       base: '/comment',
@@ -21,7 +21,7 @@ export default class CommentAPI extends APIRepository {
     })
   }
 
-  getComment(data, cache = { TTL: 1000 }) {
+  getComment (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

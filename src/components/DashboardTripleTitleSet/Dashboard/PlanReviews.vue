@@ -57,7 +57,7 @@ export default defineComponent({
       default: 0
     }
   },
-  data() {
+  data () {
     return {
       reviewList: [],
       linkLoading: false,
@@ -65,15 +65,15 @@ export default defineComponent({
     }
   },
   watch: {
-    studyPlanId() {
+    studyPlanId () {
       this.getReviews()
     }
   },
-  mounted() {
+  mounted () {
     this.getReviews()
   },
   methods: {
-    getReviews() {
+    getReviews () {
       this.reviewLoading = true
       this.$apiGateway.abrisham.getReports()
         .then(reportList => {
@@ -84,7 +84,7 @@ export default defineComponent({
           this.reviewLoading = false
         })
     },
-    markAsRead(item) {
+    markAsRead (item) {
       this.linkLoading = true
       this.$apiGateway.studyPlan.markAsRead(item.id)
         .then(() => {
@@ -114,7 +114,7 @@ export default defineComponent({
     line-height: normal;
     letter-spacing: -0.4px;
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (width <= 600px) {
       margin-top: 64px;
     }
   }
@@ -122,6 +122,7 @@ export default defineComponent({
   .review-list {
     max-height: 270px;
     overflow-y: auto;
+
     .review-item {
       width: 100%;
       height: 120px;
@@ -148,7 +149,7 @@ export default defineComponent({
         letter-spacing: -0.32px;
         margin-bottom: 10px;
 
-        @media only screen and (max-width: 600px) {
+        @media only screen and (width <= 600px) {
           font-size: 14px;
           letter-spacing: -0.28px;
           margin-bottom: 5px;

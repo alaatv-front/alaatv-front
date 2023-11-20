@@ -110,7 +110,7 @@ export default {
     default: () => new Content()
   },
   emits: ['refreshContent'],
-  data() {
+  data () {
     return {
       pervDialog: false,
       currentTime: null,
@@ -152,11 +152,11 @@ export default {
       rows: []
     }
   },
-  mounted() {
+  mounted () {
     this.loadTimestamps()
   },
   methods: {
-    loadTimestamps() {
+    loadTimestamps () {
       this.content.timepoints.list.forEach(element => {
         this.getTimestamp(element.time, false)
         const timestamp = {
@@ -178,7 +178,7 @@ export default {
       })
       this.activeIndex = this.rows.length - 1
     },
-    loadTimestampsFromContent(content) {
+    loadTimestampsFromContent (content) {
       this.$apiGateway.content.showAdmin(content.id).then(res => {
         this.rows = res.timepoints.list
         for (let index = 0; index < this.rows.length; index++) {
@@ -194,10 +194,10 @@ export default {
         }
       })
     },
-    videoSource() {
+    videoSource () {
       return new PlayerSourceList(this.content.file.video)
     },
-    removeTimestamp(row) {
+    removeTimestamp (row) {
       this.$apiGateway.content.DeleteTimestamp({
         id: row.id
       }).then(res => {
@@ -206,12 +206,12 @@ export default {
       })
       this.activeIndex = this.rows.length - 1
     },
-    editTimestamp(row) {
+    editTimestamp (row) {
       const index = this.rows.indexOf(row)
       this.activeIndex = index
       this.toggleAction(index, 'edit')
     },
-    saveTimestamp(row) {
+    saveTimestamp (row) {
       const index = this.rows.indexOf(row)
       const action = row.action
       this.rows.splice(index, 1, row)
@@ -245,10 +245,10 @@ export default {
         })
       }
     },
-    toggleAction(index, action) {
+    toggleAction (index, action) {
       this.rows[index].action = action
     },
-    getTimestamp(time, setActive = true) {
+    getTimestamp (time, setActive = true) {
       const hours = Math.floor(time / 3600)
       const minutes = Math.floor(time / 60)
       const seconds = time % 60
@@ -259,10 +259,10 @@ export default {
         this.rows[this.activeIndex].time = `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`
       }
     },
-    setTimestamp(time) {
+    setTimestamp (time) {
       this.currentTime = (Number(time.split(':')[0]) * 3600) + (Number(time.split(':')[1]) * 60) + Number(time.split(':')[2])
     },
-    toggleDialog() {
+    toggleDialog () {
       this.pervDialog = !this.pervDialog
     }
   }
@@ -281,11 +281,14 @@ export default {
       min-width: 100px;
     }
   }
+
   .video-box-col{
     padding: 10px;
+
     .reuse {
       float: right;
     }
+
     .video-box {
       width: 580px;
       height: 326.25px;
@@ -299,13 +302,14 @@ export default {
         font-weight: 600;
         font-size: 16px;
         line-height: 25px;
-        color: #333333;
+        color: #333;
       }
 
       .video {
         width: 100%;
       }
     }
+
     .link-box {
       width: 580px;
       height: 80px;

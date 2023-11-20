@@ -1,4 +1,4 @@
-const videoJsResolutionSwitcher = function(videojs) {
+const videoJsResolutionSwitcher = function (videojs) {
   if (typeof window === 'undefined') {
     return {}
   }
@@ -8,7 +8,7 @@ const videoJsResolutionSwitcher = function(videojs) {
   const defaults = {},
     menuItemsHolder = {} // stores menuItems
 
-  function setSourcesSanitized(player, sources, label, customSourcePicker) {
+  function setSourcesSanitized (player, sources, label, customSourcePicker) {
     currentResolution = {
       label,
       sources
@@ -17,7 +17,7 @@ const videoJsResolutionSwitcher = function(videojs) {
     if (typeof customSourcePicker === 'function') {
       customSourcePicker(player, sources, label)
     }
-    player.src(sources.map(function(src) {
+    player.src(sources.map(function (src) {
       return { src: src.src, type: src.type, res: src.res }
     }))
 
@@ -90,7 +90,7 @@ const videoJsResolutionSwitcher = function(videojs) {
         handleSeekEvent = 'timeupdate'
       }
       setSourcesSanitized(this.player_, this.src, this.options_.label, customSourcePicker)
-        .one(handleSeekEvent, function() {
+        .one(handleSeekEvent, function () {
           this.player_.currentTime(currentTime)
           this.player_.handleTechSeeked_()
           if (!isPaused) {
@@ -134,7 +134,7 @@ const videoJsResolutionSwitcher = function(videojs) {
       // const sources = this.sources
       const sources = this.options_.groupedSrc
       const labels = (sources && sources.label) || {}
-      const onClickUnselectOthers = function(clickedItem) {
+      const onClickUnselectOthers = function (clickedItem) {
         menuItems.forEach((item) => {
           item.selected(item === clickedItem)
           item.removeClass('vjs-selected')
@@ -166,7 +166,7 @@ const videoJsResolutionSwitcher = function(videojs) {
    * Initialize the plugin.
    * @param {object} [options] configuration for the plugin
    */
-  const videoJsResolutionSwitcher = function(options) {
+  const videoJsResolutionSwitcher = function (options) {
     const settings = videojs.obj.merge(defaults, options),
       player = this,
       label = document.createElement('span')
@@ -179,7 +179,7 @@ const videoJsResolutionSwitcher = function(videojs) {
      * @param   {Array}  [src] array of sources [{src: '', type: '', label: '', res: ''}]
      * @returns {Object|String|Array} videojs player object if used as setter or current source URL, object, or array of sources
      */
-    player.updateSrc = function(src) {
+    player.updateSrc = function (src) {
       // Return current src if src is not given
       if (!src) { return player.src() }
       // Dispose old resolution menu button before adding new sources
@@ -196,7 +196,7 @@ const videoJsResolutionSwitcher = function(videojs) {
       videojs.dom.addClass(menuButton.el(), 'vjs-resolution-button')
       player.controlBar.resolutionSwitcher = player.controlBar.el_.insertBefore(menuButton.el_, player.controlBar.getChild('fullscreenToggle').el_)
 
-      player.controlBar.resolutionSwitcher.dispose = function() {
+      player.controlBar.resolutionSwitcher.dispose = function () {
         this.parentNode.removeChild(this)
       }
       return setSourcesSanitized(player, choosen.sources, choosen.label)
@@ -208,7 +208,7 @@ const videoJsResolutionSwitcher = function(videojs) {
      * @param {Function} [customSourcePicker] custom function to choose source. Takes 3 arguments: player, sources, label. Must return player object.
      * @returns {Object}   current resolution object {label: '', sources: []} if used as getter or player object if used as setter
      */
-    player.currentResolution = function(label, customSourcePicker) {
+    player.currentResolution = function (label, customSourcePicker) {
       if (label == null) { return currentResolution }
       if (menuItemsHolder[label] != null) {
         menuItemsHolder[label].onClick(customSourcePicker)
@@ -220,7 +220,7 @@ const videoJsResolutionSwitcher = function(videojs) {
      * Returns grouped sources by label, resolution and type
      * @returns {Object} grouped sources: { label: { key: [] }, res: { key: [] }, type: { key: [] } }
      */
-    player.getGroupedSrc = function() {
+    player.getGroupedSrc = function () {
       return groupedSrc
     }
 
@@ -230,7 +230,7 @@ const videoJsResolutionSwitcher = function(videojs) {
      * @param   {Object} b - source object with res property
      * @returns {Number} result of comparation
      */
-    function compareResolutions(a, b) {
+    function compareResolutions (a, b) {
       if (!a.res || !b.res) { return 0 }
       return (+b.res) - (+a.res)
     }
@@ -240,7 +240,7 @@ const videoJsResolutionSwitcher = function(videojs) {
      * @param   {Array}  src Array of sources
      * @returns {Object} grouped sources: { label: { key: [] }, res: { key: [] }, type: { key: [] } }
      */
-    function bucketSources(src) {
+    function bucketSources (src) {
       const resolutions = {
         label: {},
         res: {},
@@ -258,13 +258,13 @@ const videoJsResolutionSwitcher = function(videojs) {
       return resolutions
     }
 
-    function initResolutionKey(resolutions, key, source) {
+    function initResolutionKey (resolutions, key, source) {
       if (resolutions[key][source[key]] == null) {
         resolutions[key][source[key]] = []
       }
     }
 
-    function appendSourceToKey(resolutions, key, source) {
+    function appendSourceToKey (resolutions, key, source) {
       resolutions[key][source[key]].push(source)
     }
 
@@ -274,7 +274,7 @@ const videoJsResolutionSwitcher = function(videojs) {
      * @param   {Array}  src Array of sources sorted by resolution used to find high and low res
      * @returns {Object} {res: string, sources: []}
      */
-    function chooseSrc(groupedSrc, src) {
+    function chooseSrc (groupedSrc, src) {
       let selectedRes = settings.default // use array access as default is a reserved keyword
       let selectedLabel = ''
       if (selectedRes === 'high') {
@@ -291,17 +291,17 @@ const videoJsResolutionSwitcher = function(videojs) {
       return { res: selectedRes, label: selectedLabel, sources: groupedSrc.res[selectedRes] }
     }
 
-    function initResolutionForYt(player) {
+    function initResolutionForYt (player) {
       // Init resolution
       player.tech_.ytPlayer.setPlaybackQuality('default')
 
       // Capture events
-      player.tech_.ytPlayer.addEventListener('onPlaybackQualityChange', function() {
+      player.tech_.ytPlayer.addEventListener('onPlaybackQualityChange', function () {
         player.trigger('resolutionchange')
       })
 
       // We must wait for play event
-      player.one('play', function() {
+      player.one('play', function () {
         const qualities = player.tech_.ytPlayer.getAvailableQualityLevels()
         // Map youtube qualities names
         const _yts = {
@@ -330,7 +330,7 @@ const videoJsResolutionSwitcher = function(videojs) {
         groupedSrc = bucketSources(_sources)
 
         // Overwrite defualt sourcePicer function
-        const _customSourcePicker = function(_player, _sources, _label) {
+        const _customSourcePicker = function (_player, _sources, _label) {
           player.tech_.ytPlayer.setPlaybackQuality(_sources[0]._yt)
           return player
         }
@@ -348,7 +348,7 @@ const videoJsResolutionSwitcher = function(videojs) {
       })
     }
 
-    player.ready(function() {
+    player.ready(function () {
       if (player.options_.sources.length > 1) {
         // tech: Html5 and Flash
         // Create resolution switcher for videos form <source> tag inside <video>

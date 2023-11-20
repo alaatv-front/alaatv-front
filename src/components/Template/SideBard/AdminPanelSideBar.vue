@@ -135,7 +135,7 @@ export default {
     }
   },
   computed: {
-    isUserLogin() {
+    isUserLogin () {
       return this.$store.getters['Auth/isUserLogin']
     }
   },
@@ -179,53 +179,67 @@ export default {
     font-size: 18px !important;
   }
 }
+
 .side-menu-main-layout {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   height: calc(100vh - 20px);
+
   .side-logo {
     margin-top: 20px;
     margin-bottom: 10px;
     margin-left: 25px;
     cursor: pointer;
+
     .alaa-logo {
       width: 50px;
     }
+
     .logo-image {
       text-align: left;
+
       .q-img__container {
       }
     }
   }
+
   .side-menu-body {
     display: grid;
     height: calc(100vh - 200px);
     grid-template-rows: 1fr 2fr;
+
     .q-list {
     padding: 0;
+
     &.side-menu-list {
       .search-input {
         margin-bottom: 30px;
       }
-      margin: 0 24px 109px 24px;
-      @media screen and (max-width: 1919px) {
-        margin: 0 24px 34px 24px;
+
+      margin: 0 24px 109px;
+
+      @media screen and (width <= 1919px) {
+        margin: 0 24px 34px;
       }
-      @media screen and (max-width: 1439px) {
-        margin: 0 21px 26px 21px;
+
+      @media screen and (width <= 1439px) {
+        margin: 0 21px 26px;
       }
-      @media screen and (max-width: 599px) {
-        margin: 0 18px 8px 18px;
+
+      @media screen and (width <= 599px) {
+        margin: 0 18px 8px;
       }
 
       .top-separator {
-        margin: 0 40px 32px 40px;
-        @media screen and (max-width: 1919px) {
-          margin: 0 30px 25px 30px;
+        margin: 0 40px 32px;
+
+        @media screen and (width <= 1919px) {
+          margin: 0 30px 25px;
         }
-        @media screen and (max-width: 1439px) {
-          margin: 0 45px 22px 45px;
+
+        @media screen and (width <= 1439px) {
+          margin: 0 45px 22px;
         }
       }
 
@@ -235,28 +249,35 @@ export default {
       }
     }
   }
+
     .log-out {
       align-self: end;
       font-size: 16px;
       font-weight: 500;
       cursor: pointer;
       height: 40px !important;
+
       //width: 232px;
       border-radius: 14px;
       display: flex;
       align-items: center;
       padding: 0 14px 0 10px;
       margin: 0 0 36px 27px;
-      @media screen and (max-width: 1439px) {
-        margin: 0 31px 33px 31px;
+
+      @media screen and (width <= 1439px) {
+        margin: 0 31px 33px;
       }
-      @media screen and (max-width: 599px) {
-        margin: 0 30px 30px 30px;
+
+      @media screen and (width <= 599px) {
+        margin: 0 30px 30px;
+
         //padding: 0 0 0 10px;
       }
+
       &:hover {
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgb(255 255 255 / 10%);
       }
+
       .q-avatar {
         height: 22px;
         width: 22px;
@@ -265,12 +286,14 @@ export default {
       }
     }
   }
+
   &:deep(.side-menu-main-layout) {
     .q-expansion-item__container {
       .q-item {
         display: flex;
         padding: 0 10px !important;
       }
+
       .q-icon {
         font-size: 21px;
       }

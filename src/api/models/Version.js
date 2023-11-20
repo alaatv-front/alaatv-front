@@ -2,7 +2,7 @@ import { apiV2 } from 'src/boot/axios.js'
 import APIRepository from '../classes/APIRepository.js'
 
 export default class CartAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('lastVersion', apiV2)
     this.APIAdresses = {
       lastVersion: '/lastVersion'
@@ -12,7 +12,7 @@ export default class CartAPI extends APIRepository {
     }
   }
 
-  getLastVersion(cache = { TTL: 1000 }) {
+  getLastVersion (cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

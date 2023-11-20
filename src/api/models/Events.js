@@ -13,7 +13,7 @@ const APIAdresses = {
   eventAdvisor: (eventId) => `/events/${eventId}/advisor`
 }
 export default class EventsAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('Chatr', apiV2, 'chatr', {}, APIAdresses)
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
@@ -24,7 +24,7 @@ export default class EventsAPI extends APIRepository {
     }
   }
 
-  getEventInfoByName(eventName) {
+  getEventInfoByName (eventName) {
     const events = [
       {
         id: 10,
@@ -81,7 +81,7 @@ export default class EventsAPI extends APIRepository {
     })
   }
 
-  getEventsProducts(data, cache) {
+  getEventsProducts (data, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -103,7 +103,7 @@ export default class EventsAPI extends APIRepository {
     // return products
   }
 
-  formBuilder(data = {}, cache = { TTL: 1000 }) {
+  formBuilder (data = {}, cache = { TTL: 1000 }) {
     const routeWithParams = function (defaultRoute, payload) {
       if (!Array.isArray(payload.types)) {
         const types = []
@@ -132,7 +132,7 @@ export default class EventsAPI extends APIRepository {
     })
   }
 
-  getEventsAdvisor(data, cache = { TTL: 1000 }) {
+  getEventsAdvisor (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -153,7 +153,7 @@ export default class EventsAPI extends APIRepository {
     // return products
   }
 
-  getKonkurResultByEvent(data = {}, cache = 1000) {
+  getKonkurResultByEvent (data = {}, cache = 1000) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

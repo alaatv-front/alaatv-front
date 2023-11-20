@@ -97,7 +97,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       bookmarkLoading: false,
       product: new Product(),
@@ -160,7 +160,7 @@ export default {
       }
       return this.product.id
     },
-    pageUrl() {
+    pageUrl () {
       return window.location.href
     }
   },
@@ -171,7 +171,7 @@ export default {
     //   },
     //   deep: true
     // },
-    'options.teacher'(newVal) {
+    'options.teacher' (newVal) {
       if (!newVal) {
         this.information.splice(0, 1)
       } else {
@@ -183,7 +183,7 @@ export default {
         })
       }
     },
-    'options.major'(newVal) {
+    'options.major' (newVal) {
       if (!newVal) {
         this.information.splice(2, 1)
       } else {
@@ -195,7 +195,7 @@ export default {
         })
       }
     },
-    'options.production_year'(newVal) {
+    'options.production_year' (newVal) {
       if (!newVal) {
         this.information.splice(1, 1)
       } else {
@@ -207,7 +207,7 @@ export default {
         })
       }
     },
-    'options.shipping_method'(newVal) {
+    'options.shipping_method' (newVal) {
       if (!newVal) {
         this.information.splice(3, 1)
       } else {
@@ -262,11 +262,11 @@ export default {
       this.product.loading = false
     },
 
-    getProduct() {
+    getProduct () {
       return APIGateway.product.show(this.productId)
     },
 
-    setInformation() {
+    setInformation () {
       if (!this.product.attributes) {
         return
       }
@@ -280,10 +280,10 @@ export default {
         }
       })
     },
-    shareGiftCard({ name, url }) {
+    shareGiftCard ({ name, url }) {
       window.open(url, '_blank')
     },
-    updateEECEventDetail() {
+    updateEECEventDetail () {
       AEE.productDetailViews('product.show', this.product.eec.getData(), {
         TTl: 1000,
         key: this.product.id
@@ -296,7 +296,7 @@ export default {
 <style lang="scss" scoped>
 p {
   margin-bottom: 0 !important;
-  color: #333333;
+  color: #333;
   letter-spacing: -0.03em;
 }
 
@@ -331,7 +331,8 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    @media screen and (max-width: 599px) {
+
+    @media screen and (width <= 599px) {
       padding: 0;
     }
 
@@ -351,6 +352,7 @@ p {
         font-weight: bold;
         line-height: 10px;
       }
+
       .share {
         top: 50px;
       }
@@ -369,18 +371,21 @@ p {
           flex-direction: column;
           align-items: center;
           width: 120px;
-          background: #FFFFFF;
-          box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(54, 90, 145, 0.05);
+          background: #FFF;
+          box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(54 90 145 / 5%);
           border-radius: 15px;
-          @media only screen and (max-width: 1439px) {
+
+          @media only screen and (width <= 1439px) {
             width: 108px;
             height: 135px;
           }
-          @media only screen and (max-width: 1023px) {
+
+          @media only screen and (width <= 1023px) {
             width: 190px;
             height: 102px;
           }
-          @media only screen and (max-width: 599px) {
+
+          @media only screen and (width <= 599px) {
             width: 120px;
           }
 
@@ -393,7 +398,8 @@ p {
             background-color: #EEF5FC;
             border-radius: 15px 15px 0 0;
             height: 110px;
-            @media only screen and (max-width: 1023px) {
+
+            @media only screen and (width <= 1023px) {
               height: 65px;
             }
 
@@ -401,7 +407,8 @@ p {
               width: 46px;
               height: 46px;
               margin: 8px 0;
-              @media only screen and (max-width: 1023px) {
+
+              @media only screen and (width <= 1023px) {
                 width: 20px;
                 height: 20px;
                 margin: 4px 0;
@@ -424,18 +431,18 @@ p {
                 max-width: 110px;
               }
 
-              &:after {
+              &::after {
                 content: '-';
                 padding: 0 2px;
               }
 
               &:last-child {
-                &:after {
+                &::after {
                   display: none;
                 }
               }
 
-              @media only screen and (max-width: 1023px) {
+              @media only screen and (width <= 1023px) {
                 font-size: 12px;
               }
             }
@@ -448,16 +455,18 @@ p {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #ffffff;
+      background: #fff;
       height: 70px;
       border-radius: 20px;
       width: 524px;
       padding-right: 20px;
       margin-bottom: 20px;
-      @media only screen and (max-width: 1439px) {
+
+      @media only screen and (width <= 1439px) {
         width: 472px;
       }
-      @media only screen and (max-width: 1023px) {
+
+      @media only screen and (width <= 1023px) {
         max-width: 440px;
         width: 100%;
         padding-right: 10px;
@@ -467,7 +476,7 @@ p {
         width: 120px;
         height: 70px;
         background-color: #E05555;
-        color: #ffffff;
+        color: #fff;
         border-radius: 20px 0 0 20px;
         display: flex;
         justify-content: center;
@@ -482,10 +491,12 @@ p {
         display: flex;
         align-items: center;
         margin: 0 20px;
-        @media only screen and (max-width: 1023px) {
+
+        @media only screen and (width <= 1023px) {
           margin: 0 10px;
         }
-        @media only screen and (max-width: 1023px) {
+
+        @media only screen and (width <= 1023px) {
           flex-direction: column;
         }
 
@@ -579,8 +590,8 @@ p {
   .contents-block {
     display: flex;
     overflow: auto;
-    padding: 10px 0 0 0;
-    background: #ffffff;
+    padding: 10px 0 0;
+    background: #fff;
     margin-right: 20px;
     border-radius: 20px;
 
@@ -644,15 +655,14 @@ p {
   }
 
   .sample-cart-style {
-    background-color: #FFFFFF;
-    box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(54, 90, 145, 0.05);
+    background-color: #FFF;
+    box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(54 90 145 / 5%);
     border-radius: 20px;
     margin-top: 20px;
     padding: 20px 20px 10px 0;
   }
 
   .sample-videos-box {
-
     .sample-videos {
       width: 655px;
       margin-right: 24px;
@@ -701,7 +711,7 @@ p {
         height: 160px;
         background-color: #F2F2F2;
         color: #fdeded;
-        box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(54, 90, 145, 0.05);
+        box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(54 90 145 / 5%);
         border-radius: 16px;
         margin: 10px 0 19px 16px;
         cursor: pointer;
@@ -725,8 +735,8 @@ p {
     width: 1140px;
 
     .description-text {
-      background-color: #FFFFFF;
-      box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(54, 90, 145, 0.05);
+      background-color: #FFF;
+      box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(54 90 145 / 5%);
       border-radius: 20px;
       margin-top: 20px;
       padding: 10px 20px;
@@ -734,7 +744,7 @@ p {
   }
 }
 
-@media screen and (max-width: 1199px) {
+@media screen and (width <= 1199px) {
   .sample-videos-pamphlet-box {
     .sample-videos-box {
       .sample-videos {
@@ -761,7 +771,7 @@ p {
   }
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (width <= 991px) {
   .sample-videos-pamphlet-box {
     margin-bottom: 30px;
 
@@ -782,7 +792,7 @@ p {
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (width <= 767px) {
   .title-style {
     width: 100%;
   }
@@ -826,8 +836,8 @@ p {
         .pamphlet-item {
           min-width: 105px;
           height: 150px;
-          background: #FFFFFF;
-          box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(54, 90, 145, 0.05);
+          background: #FFF;
+          box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(54 90 145 / 5%);
           border-radius: 12px;
           cursor: pointer;
         }
@@ -853,7 +863,7 @@ p {
   }
 }
 
-@media screen and (max-width: 575px) {
+@media screen and (width <= 575px) {
   .sample-videos-pamphlet-box {
     margin-right: 16px;
     margin-bottom: 30px;

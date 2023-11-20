@@ -108,7 +108,7 @@ class Order extends Model {
 }
 
 class OrderList extends Collection {
-  model() {
+  model () {
     return Order
   }
 }

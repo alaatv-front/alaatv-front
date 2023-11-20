@@ -255,7 +255,7 @@ export default {
     }
   },
   emits: ['add_marker', 'change_edit_mode', 'update:item', 'update:zoom', 'update:center', 'update:bounds', 'update:visible-map-items'],
-  data() {
+  data () {
     return {
       nodes: [],
       editablePolylinelatlngs: [],
@@ -376,17 +376,17 @@ export default {
     // calcMapHeight() {
     //
     // },
-    selectedMapClickActionTypes() {
-      return this.mapClickActionTypes.find(function(item) {
+    selectedMapClickActionTypes () {
+      return this.mapClickActionTypes.find(function (item) {
         return item.selected
       })
     },
-    dynamicUrl() {
+    dynamicUrl () {
       return (item) => {
         return item.data.icon.options.iconUrl
       }
     },
-    dynamicAnchor() {
+    dynamicAnchor () {
       return (item) => {
         return [
           item.data.icon.options.iconAnchor[0] + item.data.icon.options.iconSize[0] / 2,
@@ -394,7 +394,7 @@ export default {
         ]
       }
     },
-    dynamicSize() {
+    dynamicSize () {
       return (item) => {
         return [item.data.icon.options.iconSize[0], item.data.icon.options.iconSize[1]]
       }
@@ -431,17 +431,17 @@ export default {
     // resetEditablePolylineLatlngs() {
     //   this.editablePolylinelatlngs = this.adminToolBox.polyline.latlngs
     // },
-    updateLatlngs(latlngs) {
+    updateLatlngs (latlngs) {
       this.adminToolBox.polyline.latlngs = latlngs
     },
-    openMarker() {
+    openMarker () {
       this.adminToolBox.polyline.editMode = false
       this.adminToolBox.marker.editMode = true
       this.$nextTick(() => {
         this.$refs.adminToolBox.setInput(this.adminToolBox.marker)
       })
     },
-    openNode(item) {
+    openNode (item) {
       this.cleanAdminToolBoxMapItem()
       this.$emit('update:visible-map-items')
       this.selectedMarker = new MapItem(item)
@@ -457,7 +457,7 @@ export default {
         window.open(item.action.data.link)
       }
     },
-    goToMarker(data) {
+    goToMarker (data) {
       this.cleanAdminToolBoxMapItem()
       this.mapZoom = 11
       setTimeout(() => {
@@ -477,10 +477,10 @@ export default {
       })
       this.updateAdminMarker(data.row)
     },
-    reportAdminMarker(event) {
+    reportAdminMarker (event) {
       this.adminToolBox.marker.data.latlng = event.target._latlng
     },
-    updateAdminMarker(data) {
+    updateAdminMarker (data) {
       const index = this.items.list.findIndex(item => item.id === data.id)
       if (index === -1) {
         this.updateAdminToolBoxMarker(data)
@@ -491,11 +491,11 @@ export default {
         })
       }
     },
-    updateAdminToolBoxMarker(data) {
+    updateAdminToolBoxMarker (data) {
       this.adminToolBox.marker = new MapItem(data)
     },
 
-    mapClick(event) {
+    mapClick (event) {
       if (this.selectedMapClickActionTypes.name === 'addIcon' && event.latlng) {
         if (!this.adminToolBox.polyline.editMode) {
           this.cleanAdminToolBoxMapItem()
@@ -513,10 +513,10 @@ export default {
         }
       }
     },
-    addAdminMarker(data) {
+    addAdminMarker (data) {
       this.setMapClickActionType('addIcon')
     },
-    addAdminPolyline() {
+    addAdminPolyline () {
       this.setMapClickActionType('addIcon')
       this.adminToolBox.polyline.editMode = true
       // this.adminToolBox.polyline.latlngs = []
@@ -524,7 +524,7 @@ export default {
       // const pointB = [this.mapCenter.lat + 500, this.mapCenter.lng + 500]
       // this.adminToolBox.polyline.latlngs.push(pointA, pointB)
     },
-    setMapClickActionType(type) {
+    setMapClickActionType (type) {
       for (let i = 0; typeof this.mapClickActionTypes[i] !== 'undefined'; i++) {
         this.mapClickActionTypes[i].selected = false
       }
@@ -536,11 +536,11 @@ export default {
       this.polygon.latlngs = []
     },
 
-    setFilters(e) {
+    setFilters (e) {
       this.filterValues = e
       this.sendFilters()
     },
-    expandPanel() {
+    expandPanel () {
       if (!this.expansion) {
         this.expansionIcon = 'mdi-plus'
         this.expansion = true
@@ -551,23 +551,23 @@ export default {
       this.expansion = false
       this.expansionVal = '0'
     },
-    sendFilters() {
+    sendFilters () {
       // console.log('sent')
     },
-    openFilterDrawer() {
+    openFilterDrawer () {
       this.filterDrawer = !this.filterDrawer
       this.isMapFilters = true
     },
-    showMapInfo() {
+    showMapInfo () {
       this.filterDrawer = true
       this.isMapFilters = false
       this.isMapInfo = true
     },
-    openToolsDrawer() {
+    openToolsDrawer () {
       this.toolsDrawer = !this.toolsDrawer
       this.sidebarAdminToolBoxOnTabChange('marker')
     },
-    showMessagesInNotify(message, type) {
+    showMessagesInNotify (message, type) {
       if (!type) {
         type = 'negative'
       }
@@ -576,7 +576,7 @@ export default {
         message
       })
     },
-    copyToClipboard() {
+    copyToClipboard () {
       // ToDo: use quasar clipboard
       // const shareLink = this.baseUrl + '/map?lat=' + this.currentCenter.lat + '&lng=' + this.currentCenter.lng + '&z=' + this.currentZoom
       // console.log(shareLink)
@@ -591,44 +591,44 @@ export default {
       // })
     },
 
-    initMap() {
+    initMap () {
       this.setCRS()
       this.setBounds()
       this.setCenter()
       this.setMaxBounds()
     },
-    initTemplateData() {
+    initTemplateData () {
       this.expansionIcon = 'isax:minus'
     },
-    getCRS(mapExtent) {
+    getCRS (mapExtent) {
       const mapMaxZoom = 10,
         mapMaxResolution = 0.12500000,
         mapMinResolution = Math.pow(2, mapMaxZoom) * mapMaxResolution,
         // tileExtent = mapExtent,
         crs = CRS?.Simple
       // crs.transformation = new L.Transformation(1, -tileExtent[0], -1, tileExtent[3])
-      crs.scale = function(zoom) {
+      crs.scale = function (zoom) {
         return Math.pow(2, zoom) / mapMinResolution
       }
-      crs.zoom = function(scale) {
+      crs.zoom = function (scale) {
         return Math.log(scale * mapMinResolution) / Math.LN2
       }
       return crs
     },
-    setCRS() {
+    setCRS () {
       this.crs = this.getCRS([0.00000000, -15426.00000000, 26934.00000000, 0.00000000])
     },
-    setBounds() {
+    setBounds () {
       const down = -20140,
         left = 220,
         up = -920,
         right = 29650
       this.mapBounds = [[down, left], [up, right]]
     },
-    setMaxBounds() {
+    setMaxBounds () {
       this.maxBounds = this.mapBounds
     },
-    setCenter(lat, lng) {
+    setCenter (lat, lng) {
       if (typeof lat === 'undefined') {
         lat = 0
       }
@@ -638,7 +638,7 @@ export default {
       this.mapCenter = latLng(lat, lng)
       this.currentCenter = this.mapCenter
     },
-    zoomUpdated(zoom) {
+    zoomUpdated (zoom) {
       this.currentZoom = zoom
       if (this.currentZoom === 3.1) {
         this.maxBounds = this.mapBounds
@@ -647,14 +647,14 @@ export default {
       }
       this.$emit('update:zoom', zoom)
     },
-    centerUpdated(center) {
+    centerUpdated (center) {
       this.currentCenter = center
       this.$emit('update:center', center)
     },
-    boundsUpdated(bounds) {
+    boundsUpdated (bounds) {
       this.$emit('update:bounds', bounds)
     },
-    cleanAdminToolBoxMapItem() {
+    cleanAdminToolBoxMapItem () {
       this.adminToolBox.marker = {
         id: 0,
         action: {},
@@ -685,7 +685,7 @@ export default {
         }
       }
     },
-    getNodes() {
+    getNodes () {
       this.$axios.get('/dar/divar')
         .then(() => {
           // console.log(res)
@@ -694,22 +694,22 @@ export default {
           this.node = MapItemsResponse.data
         })
     },
-    saveMapItem() {
+    saveMapItem () {
       const newMapItem = new MapItem(this.adminToolBox.marker)
       APIGateway.map.saveMapItem(newMapItem)
         .then(() => {})
         .catch(() => {})
     },
-    deleteAdminMapItem(data) {
+    deleteAdminMapItem (data) {
     },
-    updateAdminPolyline(data) {
+    updateAdminPolyline (data) {
     },
-    sidebarAdminToolBoxOnTabChange(tabName) {
+    sidebarAdminToolBoxOnTabChange (tabName) {
       this.tabName = tabName
     },
-    openMapItemsList(mapItem) {
+    openMapItemsList (mapItem) {
     },
-    resetEditablePolylineToCenterOfMap() {
+    resetEditablePolylineToCenterOfMap () {
 
     }
   }

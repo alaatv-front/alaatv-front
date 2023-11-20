@@ -1,13 +1,13 @@
 import GTMBase from 'src/assets/js/AEE/GoogleTagManager.js'
 
 export default class GTMEvents {
-  constructor(options = {
+  constructor (options = {
     debugMode: false
   }) {
     this.GTM = new GTMBase(options)
   }
 
-  action_checkoutOption(step, option) {
+  action_checkoutOption (step, option) {
     this.GTM.pushEvent({
       event: 'eec.checkout_option',
       ecommerce: {
@@ -21,7 +21,7 @@ export default class GTMEvents {
     })
   }
 
-  action_purchase(actionField, products) {
+  action_purchase (actionField, products) {
     this.GTM.pushEvent({
       event: 'eec.purchase',
       ecommerce: {
@@ -35,7 +35,7 @@ export default class GTMEvents {
     })
   }
 
-  action_productAddToCart(actionFieldList, products) {
+  action_productAddToCart (actionFieldList, products) {
     this.GTM.pushEvent({
       event: 'eec.add',
       ecommerce: {
@@ -49,7 +49,7 @@ export default class GTMEvents {
     })
   }
 
-  action_productRemoveFromCart(actionFieldList, products) {
+  action_productRemoveFromCart (actionFieldList, products) {
     const productsArray = (Array.isArray(products)) ? products : [products]
     this.GTM.pushEvent({
       event: 'eec.remove',
@@ -64,7 +64,7 @@ export default class GTMEvents {
     })
   }
 
-  action_productDetailViews(actionFieldList, product) {
+  action_productDetailViews (actionFieldList, product) {
     this.GTM.pushEvent({
       event: 'eec.detail',
       ecommerce: {
@@ -87,7 +87,7 @@ export default class GTMEvents {
     })
   }
 
-  action_checkout(step, option, products) {
+  action_checkout (step, option, products) {
     this.GTM.pushEvent({
       event: 'eec.checkout',
       ecommerce: {
@@ -102,7 +102,7 @@ export default class GTMEvents {
     })
   }
 
-  impression_view(impressions) {
+  impression_view (impressions) {
     // sample impression object => {
     //     'name': 'Triblend Android T-Shirt',       // Name or ID is required.
     //     'id': '12345',
@@ -122,7 +122,7 @@ export default class GTMEvents {
     })
   }
 
-  impression_click(actionFieldList, product) {
+  impression_click (actionFieldList, product) {
     this.GTM.pushEvent({
       event: 'eec.impressionClick',
       ecommerce: {
@@ -136,7 +136,7 @@ export default class GTMEvents {
     })
   }
 
-  promotion_view(promotions) {
+  promotion_view (promotions) {
     this.GTM.pushEvent({
       event: 'eec.promotionView',
       ecommerce: {
@@ -147,7 +147,7 @@ export default class GTMEvents {
     })
   }
 
-  promotion_click(promotion) {
+  promotion_click (promotion) {
     this.GTM.pushEvent({
       event: 'eec.promotionClick',
       ecommerce: {

@@ -90,7 +90,7 @@ export default {
     OptionPanelTabs
   },
   mixins: [PageBuilderOptionPanel],
-  data() {
+  data () {
     return {
       defaultOptions: {
         data: [],

@@ -42,7 +42,7 @@ class BlackFridayVideo extends Model {
 }
 
 class BlackFridayVideoList extends Collection {
-  model() {
+  model () {
     return BlackFridayVideo
   }
 }

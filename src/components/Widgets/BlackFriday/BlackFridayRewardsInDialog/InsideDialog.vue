@@ -75,7 +75,7 @@ export default defineComponent({
       isMount: false
     }
   },
-  mounted() {
+  mounted () {
     this.isMount = true
   },
   methods: {
@@ -94,10 +94,10 @@ export default defineComponent({
           })
         })
     },
-    gotoTicket() {
+    gotoTicket () {
       this.$router.push({ name: 'UserPanel.Ticket.Create', params: { d: this.departmentId } })
     },
-    toggleDialog() {
+    toggleDialog () {
       this.$emit('toggleDialog')
     }
   }
@@ -144,11 +144,13 @@ export default defineComponent({
       width: 20px;
       height: 20px;
     }
+
     :deep(.q-btn.q-btn--flat .q-btn__content){
-      color: #ffffff;
+      color: #fff;
       font-size: 20px;
     }
   }
+
   .reward-item {
     padding-top: 12px;
     padding-bottom: 12px;
@@ -156,14 +158,18 @@ export default defineComponent({
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
+
     &:first-child {
       padding-top: 0;
     }
+
     &:last-child {
       padding-bottom: 0;
       border-bottom: none;
     }
+
     $action-width: 153px;
+
     .reward-item-title {
       width: calc( 100% - #{$action-width} );
       display: flex;
@@ -177,8 +183,10 @@ export default defineComponent({
       line-height: normal;
       letter-spacing: -0.64px;
     }
+
     .reward-item-action {
       width: $action-width;
+
       .btn-send-ticket {
         width: 100%;
         padding: 8px;
@@ -192,13 +200,16 @@ export default defineComponent({
         font-weight: 700;
         line-height: normal;
         letter-spacing: -0.48px;
+
         .q-icon {
           font-size: 20px;
           margin-right: 4px;
         }
       }
+
       $code-section-width: 153px;
       $code-section-height: 40px;
+
       .code-section {
         width: $code-section-width;
         height: $code-section-height;
@@ -208,6 +219,7 @@ export default defineComponent({
         align-items: center;
         justify-content: space-between;
         padding: 12px;
+
         .code {
           color: #FFF;
           font-family: ModamFaNumWeb,serif;
@@ -218,8 +230,10 @@ export default defineComponent({
           line-height: normal;
           letter-spacing: -0.32px;
         }
+
         :deep(.q-btn.q-btn--flat.btn-copy) {
           padding: 0 !important;
+
           .q-btn__content {
             color: #D0CCF4 !important;
             font-family: ModamFaNumWeb,serif;
@@ -229,6 +243,7 @@ export default defineComponent({
             font-weight: 400;
             line-height: normal;
             letter-spacing: -0.32px;
+
             .q-icon {
               margin-right: 4px;
               font-size: 20px;
@@ -238,6 +253,7 @@ export default defineComponent({
       }
     }
   }
+
   .no-reward {
     display: flex;
     padding: 28px 12px 12px;
@@ -264,8 +280,9 @@ export default defineComponent({
       height: 48px;
       width: 100%;
       padding: 12px;
+
       .q-btn__content {
-        color: #ffffff;
+        color: #fff;
         text-align: center;
         font-family: ModamFaNumWeb,serif;
         font-size: 16px;

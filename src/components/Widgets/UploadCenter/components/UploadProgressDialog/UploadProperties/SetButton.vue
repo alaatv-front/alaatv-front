@@ -7,7 +7,7 @@ export default {
   name: 'SetButton',
   emits: ['toggleDialog'],
   methods: {
-    emitEvent() {
+    emitEvent () {
       this.$emit('toggleDialog')
     }
   }

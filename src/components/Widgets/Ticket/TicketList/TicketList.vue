@@ -138,7 +138,7 @@ export default {
   props: {
     options: {
       type: Object,
-      default() {
+      default () {
         return {
           showRouteName: '',
           createRouteName: ''
@@ -570,17 +570,17 @@ export default {
     isInAdminPage () {
       return !!this.$route.name.includes('Admin')
     },
-    userCanFilterSupporter() {
+    userCanFilterSupporter () {
       return true
     },
-    userCanFilterAssignees() {
+    userCanFilterAssignees () {
       return true
     },
-    userSupporters() {
+    userSupporters () {
       // پاسخگو
       return []
     },
-    userAssignees() {
+    userAssignees () {
       return []
     }
   },
@@ -616,7 +616,7 @@ export default {
       this.table = this.userTable
       this.inputs = this.userInputs
     },
-    filterInputs(res) {
+    filterInputs (res) {
       this.totalTickets = res.data?.meta?.total
       if (!this.userCanFilterSupporter) {
         this.inputs = this.inputs.filter(item => !((item.label === 'پاسخگو') || (item.name === 'hasMessageFromDate') || (item.name === 'hasMessageToDate')))
@@ -625,7 +625,7 @@ export default {
         this.inputs = this.inputs.filter(item => item.name !== 'hasAssignees')
       }
     },
-    updateTicket(data) {
+    updateTicket (data) {
       const ticketId = data.row.id
       const payload = {
         department_id: data.row.department.id,
@@ -639,7 +639,7 @@ export default {
       this.getInput('pirority_id').options = ticketFields.priorities.list
       this.getInput('status_id').options = ticketFields.statuses.list
     },
-    setEditMode(data) {
+    setEditMode (data) {
       data.expand = true
     },
     rateImg (id) {
@@ -665,13 +665,15 @@ export default {
 
 <style scoped lang="scss">
 .ticket-index{
-  @media screen and (max-width: 1450px){
+  @media screen and (width <= 1450px){
     padding: 10px;
   }
 }
+
 .title-class{
   max-width: 200px;
 }
+
 .rate-img {
   width: 30px;
   height: 30px

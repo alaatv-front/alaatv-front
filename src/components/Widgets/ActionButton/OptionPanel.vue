@@ -352,7 +352,7 @@ export default defineComponent({
   props: {
     options: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
@@ -542,26 +542,26 @@ export default defineComponent({
       }
     },
     localOptions: {
-      handler(newVal) {
+      handler (newVal) {
         this.$emit('update:options', newVal)
       },
       deep: true
     }
   },
   methods: {
-    deleteWidget(sectionName, index) {
+    deleteWidget (sectionName, index) {
       this.localOptions[sectionName].splice(index, 1)
     },
-    addTextWidget(sectionName) {
+    addTextWidget (sectionName) {
       this.localOptions[sectionName].push(this.defaultTextWidget)
     },
-    addImageWidget(sectionName) {
+    addImageWidget (sectionName) {
       this.localOptions[sectionName].push(this.defaultImageWidget)
     },
-    addActionButtonWidget(sectionName) {
+    addActionButtonWidget (sectionName) {
       this.localOptions[sectionName].push(this.defaultActionButtonWidget)
     },
-    addTimerWidget(sectionName) {
+    addTimerWidget (sectionName) {
       this.localOptions[sectionName].push(this.defaultTimerWidget)
     }
   }

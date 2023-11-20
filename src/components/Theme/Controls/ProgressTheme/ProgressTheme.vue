@@ -49,7 +49,7 @@ export default defineComponent({
   components: {
     HalfCircularProgress
   },
-  data() {
+  data () {
     return {
       value1: 0.7,
       value2: 74
@@ -61,6 +61,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .progress-container {
   padding: 40px 0;
+
   .progress-title {
     font-size: 28px;
   }

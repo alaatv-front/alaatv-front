@@ -26,7 +26,7 @@ export default defineComponent({
     StudyPlanSelectionDialog
   },
   mixins: [mixinAuth],
-  data() {
+  data () {
     return {
       loading: false,
       studyPlanInfo: {
@@ -40,15 +40,15 @@ export default defineComponent({
     }
   },
   computed: {
-    studyPlanId() {
+    studyPlanId () {
       return this.studyPlanInfo.id
     }
   },
   methods: {
-    afterAuthenticate() {
+    afterAuthenticate () {
       this.getMyStudyPlan()
     },
-    getMyStudyPlan() {
+    getMyStudyPlan () {
       this.loading = true
       this.$apiGateway.studyPlan.getMyStudyPlan()
         .then(studyPlanInfo => {
@@ -67,7 +67,7 @@ export default defineComponent({
           this.loading = false
         })
     },
-    onToggleDialog() {
+    onToggleDialog () {
       this.dialog = !this.dialog
     }
   }
@@ -78,7 +78,7 @@ export default defineComponent({
 .triple-title-set-dashboard-container {
   padding: 40px 70px 0;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (width <= 600px) {
     padding: 30px 20px;
   }
 }

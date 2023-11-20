@@ -1,7 +1,7 @@
 import { Model, Collection } from 'js-abstract-model'
 
 class ProductCategory extends Model {
-  constructor(data) {
+  constructor (data) {
     super(data, [
       { key: 'name' },
       { key: 'value' },
@@ -14,7 +14,7 @@ class ProductCategory extends Model {
 }
 
 class ProductCategoryList extends Collection {
-  model() {
+  model () {
     return ProductCategory
   }
 }

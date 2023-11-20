@@ -212,7 +212,7 @@ import { copyToClipboard } from 'quasar'
 export default {
   name: 'GiftCardMyCards',
   mixins: [GiftCardMixin],
-  data() {
+  data () {
     return {
       sales_man: {
         wallet_type: 'main_account',
@@ -282,15 +282,15 @@ export default {
     }
   },
   computed: {
-    countOfTotalGiftCards() {
+    countOfTotalGiftCards () {
       // return this.$store.getters.appProps.countOfTotalGiftCards
       return 1
     },
-    countOfUsedGiftCards() {
+    countOfUsedGiftCards () {
       // return this.$store.getters.appProps.countOfUsedGiftCards
       return 1
     },
-    countOfRemainGiftCards() {
+    countOfRemainGiftCards () {
       // return this.$store.getters.appProps.countOfRemainGiftCards
       return 1
     }
@@ -299,7 +299,7 @@ export default {
     this.loadAllData()
   },
   methods: {
-    getOrderStatus(props) {
+    getOrderStatus (props) {
       if (props.row.usageNumber) {
         return 'استفاده شده'
       } else {
@@ -313,7 +313,7 @@ export default {
     onChangeFilter () {
       this.getGiftCardsData()
     },
-    copyCodeNumberToClipboard(code) {
+    copyCodeNumberToClipboard (code) {
       copyToClipboard(code)
         .then(() => {
           this.$q.notify({
@@ -328,7 +328,7 @@ export default {
           })
         })
     },
-    getShareLink(cartItem, socialMedia) {
+    getShareLink (cartItem, socialMedia) {
       if (socialMedia === 'telegram') {
         return 'https://telegram.me/share/url?url=' + cartItem.url
       } else if (socialMedia === 'whatsapp') {
@@ -345,7 +345,7 @@ export default {
         return 'https://www.facebook.com/sharer/sharer.php?u=' + cartItem.url
       }
     },
-    loadAllData() {
+    loadAllData () {
       this.getGiftCardsData()
       this.getSalesMan()
       // APIGateway.referralCode.batchStore({
@@ -360,7 +360,7 @@ export default {
       //   }
       // })
     },
-    getSalesMan() {
+    getSalesMan () {
       this.salesManLoading = true
       APIGateway.referralCode.getSalesManData()
         .then((salesManData) => {
@@ -371,7 +371,7 @@ export default {
           this.salesManLoading = false
         })
     },
-    getGiftCardsData(page = 1) {
+    getGiftCardsData (page = 1) {
       this.loading = true
       APIGateway.referralCode.index({
         data: {
@@ -421,7 +421,7 @@ export default {
     //   }
     //   return Promise.reject('The Clipboard API is not available.')
     // },
-    updateTableData(cardId) {
+    updateTableData (cardId) {
       this.referralCodeList.forEach(item => {
         if (item.id === cardId) {
           item.share = 1
@@ -433,7 +433,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "src/components/Widgets/User/GiftCard/Style/theme.scss";
+@import "src/components/Widgets/User/GiftCard/Style/theme";
 
 :deep(.q-table) {
   color: $text-color-secondary;
@@ -448,9 +448,11 @@ export default {
   color: $text-color-secondary;
   margin-bottom: 16px;
 }
+
 .page-introduction{
   margin-bottom: 31px;
   color: $text-color-primary;
+
   .description {
     font-weight: 400;
     font-size: 16px;
@@ -459,18 +461,21 @@ export default {
     letter-spacing: -0.03em;
     margin-top:50px;
   }
+
   .card-style {
-    background: #FFFFFF;
+    background: #FFF;
     height: 140px;
-    box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
+    box-shadow: 3px 3px 6px rgb(52 54 55 / 4%);
     border-radius: 16px;
-    padding: 20px 30px 18px 30px;
+    padding: 20px 30px 18px;
     display: flex;
     justify-content: space-between;
     position: relative;
+
     &.used-card{
       //margin-left: 15px;
     }
+
     &.unUsed-card{
       //margin-left: 15px;
     }
@@ -481,6 +486,7 @@ export default {
       line-height: 25px;
       text-align: left;
     }
+
     .count{
       font-weight: 400;
       font-size: 18px;
@@ -489,6 +495,7 @@ export default {
       position: absolute;
       bottom: 20px;
       right: 30px;
+
       .number{
         font-weight: 700;
         font-size: 36px;
@@ -497,6 +504,7 @@ export default {
     }
   }
 }
+
 .table-title{
   font-weight: 600;
   font-size: 20px;
@@ -507,22 +515,27 @@ export default {
   margin-bottom: 16px;
   position: relative;
 }
+
 .table-filter-expansion {
   color: #697D9A;
 }
+
 .table-container {
   padding-bottom: 10px;
   overflow-x: scroll;
 
   .isAssigned-column {
     width: 400px;
+
     .share-box {
       display: grid;
       width: 200px;
       grid-template-columns: 150px 50px 50px;
+
       .share-icon-button{
         font-size: 20px;
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
           font-size: 16px;
         }
       }
@@ -531,12 +544,14 @@ export default {
 
   .validity-box {
     display: flex;
+
     .currency {
       margin-left: 5px;
     }
   }
 
 }
+
 .status-box {
   width: 100%;
   font-weight: 400;
@@ -563,77 +578,92 @@ export default {
 
   }
 }
+
 .codeNumber{
   cursor: pointer;
 }
-.max-table-row-width{
 
-}
 .gift-card-pagination{
   margin-top: 40px;
 }
-@media only screen and (max-width: 1903px){
+
+@media only screen and (width <= 1903px){
   .page-introduction{
     margin-bottom: 24px;
+
     .description {
       margin-top:0;
       margin-bottom: 21px;
     }
+
     .card-style{
       display: grid;
       grid-template-columns: 1fr;
-      padding: 20px 30px 10px 30px;
+      padding: 20px 30px 10px;
+
       .count{
         justify-self: end;
       }
     }
   }
+
   .table-title{
     font-size: 18px;
     line-height: 28px;
     margin-bottom: 16px;
   }
+
   .gift-card-pagination{
     margin-top: 30px;
   }
+
   .page-title {
     font-size: 18px;
     line-height: 28px;
     margin-bottom: 10px;
   }
 }
-@media only screen and (max-width: 599px) {
+
+@media only screen and (width <= 599px) {
   .table-title{
     font-weight: 600;
     font-size: 16px;
     line-height: 25px;
     margin-bottom: 16px;
   }
+
   .page-title {
     font-size: 16px;
     line-height: 25px;
     margin-bottom: 5px;
   }
+
   .page-introduction{
     margin-bottom: 29px;
+
     .description {
       margin-bottom: 16px;
     }
+
     .card-style {
       height: 110px;
       padding: 16px;
       position: relative;
+
       &.used-card{
         margin-left: 0;
         margin-bottom: 16px;
       }
+
       &.unUsed-card{
         margin-left: 0;
       }
+
       .count{
         position: absolute;
         bottom: 0;
         left: 16px;
+
         .number{
           font-weight: 700;
           font-size: 36px;
@@ -642,6 +672,7 @@ export default {
       }
     }
   }
+
   .gift-card-pagination{
     margin-top: 24px;
   }

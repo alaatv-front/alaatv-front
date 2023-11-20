@@ -35,7 +35,7 @@ export default {
     }
   },
   emits: ['gotoNextStep', 'updateUser'],
-  data() {
+  data () {
     return {
       loading: false,
       rules: {
@@ -45,16 +45,16 @@ export default {
     }
   },
   methods: {
-    getCodeForLogin() {
+    getCodeForLogin () {
       const loginData = {
         mobile: this.mobile
       }
       this.sendCodeRequest(loginData)
     },
-    setLoading(loading) {
+    setLoading (loading) {
       this.loading = loading
     },
-    sendCodeRequest(userInfo) {
+    sendCodeRequest (userInfo) {
       this.setLoading(true)
       this.$apiGateway.user.resendGuest(userInfo)
         .then(userData => {
@@ -70,7 +70,7 @@ export default {
           this.setLoading(false)
         })
     },
-    showMessage(message, type = 'negative') {
+    showMessage (message, type = 'negative') {
       this.$q.notify({
         message,
         color: type,
@@ -112,13 +112,15 @@ export default {
         letter-spacing: -0.03em;
         color: #383838;
 
-        @media screen and (max-width: 1439px) {
+        @media screen and (width <= 1439px) {
             margin-top: 16px;
         }
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
             margin-top: 16px;
         }
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
             margin-top: 16px;
         }
     }
@@ -130,15 +132,18 @@ export default {
           width: 100%;
         }
 
-        @media screen and (max-width: 1920px) {
+        @media screen and (width <= 1920px) {
         }
-        @media screen and (max-width: 1439px) {
+
+        @media screen and (width <= 1439px) {
             margin-top: 60px;
         }
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
             margin-top: 60px;
         }
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
             margin-top: 66px;
         }
     }
@@ -154,27 +159,32 @@ export default {
             margin-bottom: 24px;
             box-shadow: none;
 
-            @media screen and (max-width: 1439px) {
+            @media screen and (width <= 1439px) {
                 width: 280px;
             }
-            @media screen and (max-width: 1023px) {
+
+            @media screen and (width <= 1023px) {
                 width: 280px;
             }
-            @media screen and (max-width: 599px) {
+
+            @media screen and (width <= 599px) {
                 width: 240px;
             }
         }
 
-        @media screen and (max-width: 1439px) {
+        @media screen and (width <= 1439px) {
             margin-top: 60px;
         }
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
             margin-top: 60px;
         }
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
             margin-top: 49px;
         }
     }
+
  .landing-text-input {
     height: 40px;
     background: #F7E5C6;

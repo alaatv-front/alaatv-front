@@ -37,7 +37,7 @@ export default defineComponent({
   },
   emits: ['toggleDialog'],
   methods: {
-    toggleDialog() {
+    toggleDialog () {
       this.$emit('toggleDialog')
     }
   }

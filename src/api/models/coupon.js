@@ -2,7 +2,7 @@ import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
 
 export default class CouponAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('coupon', apiV2)
     this.APIAddresses = {
       base: '/orderCoupon',
@@ -17,7 +17,7 @@ export default class CouponAPI extends APIRepository {
     }
   }
 
-  base(data = {}) {
+  base (data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -32,7 +32,7 @@ export default class CouponAPI extends APIRepository {
     })
   }
 
-  deleteCoupon(data = {}) {
+  deleteCoupon (data = {}) {
     return this.sendRequest({
       apiMethod: 'delete',
       api: this.api,

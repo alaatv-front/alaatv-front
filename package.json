@@ -7,6 +7,7 @@
   "private": true,
   "scripts": {
     "lint": "eslint --fix --ext .js,.vue ./",
+    "lint:style": "stylelint --custom-syntax postcss-html --config stylelint-config-recommended-vue.json --fix '**/*.{vue,scss}'\n",
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev",
     "ssr": "quasar dev -m ssr",
@@ -56,6 +57,8 @@
     "persian-tools2": "^1.5.0",
     "postcss": "^8.4.31",
     "postcss-rtlcss": "^4.0.8",
+    "postcss-scss": "^4.0.9",
+    "prettier": "^3.1.0",
     "process": "^0.11.10",
     "quasar": "^2.14.0",
     "quasar-app-extension-q-page-builder": "^0.1.71",
@@ -65,6 +68,13 @@
     "quasar-ui-q-page-builder": "^0.2.0",
     "socket.io-client": "^4.7.2",
     "sticky-sidebar-v2": "^1.1.1",
+    "stylelint": "^15.11.0",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-config-recommended": "^13.0.0",
+    "stylelint-config-recommended-vue": "^1.5.0",
+    "stylelint-config-standard": "^34.0.0",
+    "stylelint-config-standard-scss": "^11.1.0",
+    "stylelint-prettier": "^4.0.2",
     "video.js": "^8.6.1",
     "videojs-brand": "^0.0.4",
     "videojs-contrib-quality-levels": "^3.0.0",
@@ -91,5 +101,7 @@
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "postcss-html": "^1.5.0"
+  }
 }

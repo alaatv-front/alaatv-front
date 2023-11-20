@@ -1,28 +1,35 @@
-@import 'src/css/Theme/dialog.scss';
+@import "src/css/Theme/dialog";
 
 @mixin default-bottomSheet {
   @include default-dialog;
+
   .dialog-action {
     padding: 24px;
     display: block;
   }
 }
+
 @mixin default-bottomSheet-gt-sm {
   .dialog-action {
     padding: 10px 20px;
   }
+
   .dialog-action-btn-box {
     display: flex;
     justify-content: flex-end;
   }
 }
+
 .new-theme {
-  .bottomSheet-xs{
+  .bottomSheet-xs {
     width: 350px;
+
     @include default-bottomSheet;
+
     .dialog-body {
       padding: 24px 20px;
     }
+
     .dialog-action {
       .q-btn {
         width: 100%;
@@ -31,12 +38,16 @@
       }
     }
   }
-  .bottomSheet-sm{
+
+  .bottomSheet-sm {
     width: 360px;
+
     @include default-bottomSheet;
+
     .dialog-body {
       padding: 24px 20px;
     }
+
     .dialog-action {
       .q-btn {
         width: 100%;
@@ -45,18 +56,24 @@
       }
     }
   }
-  .bottomSheet-md{
+
+  .bottomSheet-md {
     width: 544px;
+
     @include default-bottomSheet;
     @include default-bottomSheet-gt-sm;
   }
-  .bottomSheet-lg{
+
+  .bottomSheet-lg {
     width: 700px;
+
     @include default-bottomSheet;
     @include default-bottomSheet-gt-sm;
   }
-  .bottomSheet-xl{
+
+  .bottomSheet-xl {
     width: 900px;
+
     @include default-bottomSheet;
     @include default-bottomSheet-gt-sm;
   }

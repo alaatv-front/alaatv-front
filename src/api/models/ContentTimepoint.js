@@ -7,7 +7,7 @@ const APIAdresses = {
   unfavored: (id) => '/c/timepoint/' + id + '/unfavored'
 }
 export default class ContentTimepointAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('ContentTimepoint', apiV2, '/c/', new ContentTimePoint(), APIAdresses)
     this.CacheList = {
       favored: id => this.name + this.APIAdresses.favored(id),
@@ -15,7 +15,7 @@ export default class ContentTimepointAPI extends APIRepository {
     }
   }
 
-  favored(data = {}) {
+  favored (data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -29,7 +29,7 @@ export default class ContentTimepointAPI extends APIRepository {
     })
   }
 
-  unfavored(data = {}) {
+  unfavored (data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,

@@ -34,7 +34,7 @@
 <script>
 export default {
   name: 'Donate',
-  data() {
+  data () {
     return {
       helpAlaa: false,
       donateCost: [{ cost: 5000, isActive: false }, { cost: 10000, isActive: false }, {
@@ -45,7 +45,7 @@ export default {
     }
   },
   methods: {
-    activeDonateCost(idx) {
+    activeDonateCost (idx) {
       if (!this.helpAlaa) {
         this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-sad.png'
       }
@@ -68,7 +68,7 @@ export default {
 <style lang="scss" scoped>
 .donate {
   border-radius: 10px;
-  box-shadow: 0 6px 5px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 6px 5px rgb(0 0 0 / 3%);
   padding:16px 30px;
   color: #575962;
 }
@@ -98,7 +98,7 @@ export default {
   color: #4CAF50
 }
 
-@media (max-width: 1024px) {
+@media (width <= 1024px) {
   .cost {
     margin-top: 0;
   }

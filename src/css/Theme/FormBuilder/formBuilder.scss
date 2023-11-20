@@ -1,29 +1,31 @@
-@import 'src/css/Theme/FormBuilder/card';
-@import 'src/css/Theme/FormBuilder/input';
-@import 'src/css/Theme/FormBuilder/dateTime';
-@import 'src/css/Theme/FormBuilder/select';
-@import 'src/css/Theme/FormBuilder/checkbox';
-@import 'src/css/Theme/FormBuilder/editor';
-@import 'src/css/Theme/FormBuilder/separator';
-@import 'src/css/Theme/FormBuilder/formBuilderCol';
-@import 'src/css/Theme/FormBuilder/toggleButton';
-
-@import 'src/css/Theme/colors.scss';
-@import 'src/css/Theme/Controls/input.scss';
-@import 'src/css/Theme/Typography/typography.scss';
+@import "src/css/Theme/FormBuilder/card";
+@import "src/css/Theme/FormBuilder/input";
+@import "src/css/Theme/FormBuilder/editor";
+@import "src/css/Theme/FormBuilder/dateTime";
+@import "src/css/Theme/FormBuilder/checkbox";
+@import "src/css/Theme/FormBuilder/separator";
+@import "src/css/Theme/FormBuilder/toggleButton";
+@import "src/css/Theme/FormBuilder/formBuilderCol";
+@import "src/css/Theme/colors";
+@import "src/css/Theme/Controls/input";
+@import "src/css/Theme/Typography/typography";
 
 [class^="form-builder"] {
   position: relative;
+
+  .outsideLabel {
+    color: $grey-9;
+
+    @include body2;
+
+    margin-bottom: $q-field__label_margin_bottom;
+  }
+
   &:not(.form-builder-ToggleButton) {
     .outsideLabel {
       position: absolute;
       left: 0;
       top: 0;
     }
-  }
-  .outsideLabel {
-    color: $grey-9;
-    @include body2;
-    margin-bottom: $q-field__label_margin_bottom;
   }
 }

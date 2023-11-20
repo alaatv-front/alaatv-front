@@ -15,7 +15,7 @@ export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs },
   mixins: [PageBuilderOptionPanel],
-  data() {
+  data () {
     return {
       defaultOptions: {
         className: '',

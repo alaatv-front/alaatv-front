@@ -157,7 +157,7 @@ export default {
     this.sortFilterBasedOnSelected()
   },
   methods: {
-    syncSelectedTags(selectedTags) {
+    syncSelectedTags (selectedTags) {
       this.contentSearchData = JSON.parse(JSON.stringify(this.contentFilterData))
       this.mergeContentSearchDataActiveKeyWithSelectedFields()
       this.syncSelectedTagViaContentSearchData(selectedTags)
@@ -266,7 +266,8 @@ export default {
     letter-spacing: normal;
     font-weight: 500;
     width: 100%;
-    @media screen and (max-width:500px) {
+
+    @media screen and (width <=500px) {
         font-size: 12px;
     }
 }

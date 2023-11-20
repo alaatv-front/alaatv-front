@@ -31,12 +31,12 @@ export default {
   props: {
     options: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
   },
-  data() {
+  data () {
     return {
       loading: false,
       content: new Content()
@@ -59,7 +59,7 @@ export default {
     prefetchServerDataPromiseCatch () {
       this.content.loading = false
     },
-    loadContent() {
+    loadContent () {
       this.prefetchServerDataPromise()
         .then((content) => {
           this.prefetchServerDataPromiseThen(content)
@@ -69,7 +69,7 @@ export default {
         })
     },
 
-    getContentByRequest() {
+    getContentByRequest () {
       this.content.loading = true
       const contentId = this.getContentId()
       return APIGateway.content.show(contentId)
@@ -86,7 +86,7 @@ export default {
       }
       return null
     },
-    download(video) {
+    download (video) {
       openURL(video.link)
     }
   }
@@ -96,6 +96,7 @@ export default {
 <style scoped lang="scss">
   .download-section {
     height: 100%;
+
     &:not(.canShowBox) {
       display: none;
     }
@@ -105,7 +106,7 @@ export default {
     border-radius: 25px;
     width: 80%;
     margin: 5px 0;
-    color: #ffffff;
+    color: #fff;
   }
 
   h6 {

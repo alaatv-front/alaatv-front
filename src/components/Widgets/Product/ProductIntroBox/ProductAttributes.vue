@@ -178,7 +178,7 @@ export default defineComponent({
   props: {
     attributes: {
       type: Object,
-      default() {
+      default () {
         return {
           info: {
             teacher: [],
@@ -196,13 +196,13 @@ export default defineComponent({
       }
     }
   },
-  data() {
+  data () {
     return {
       expiration: 'یکسال پس از دریافت'
     }
   },
   methods: {
-    getAttributesValues(valueList) {
+    getAttributesValues (valueList) {
       let finalValue = ''
       if (valueList) {
         for (let valueIndex = 0; valueIndex < valueList.length; valueIndex++) {
@@ -227,9 +227,11 @@ export default defineComponent({
   &:last-child {
     padding-bottom: 0;
   }
+
   .attribute-icon {
     max-width: 16px;
   }
+
   .attribute-title {
     width: 150px;
     color:#303030;

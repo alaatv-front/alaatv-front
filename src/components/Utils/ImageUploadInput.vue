@@ -47,7 +47,7 @@ export default defineComponent({
     }
   },
   emits: ['update:value'],
-  data() {
+  data () {
     return {
       dialog: false
     }
@@ -64,14 +64,14 @@ export default defineComponent({
   },
   watch: {
     value: {
-      handler(newVal) {
+      handler (newVal) {
         this.$emit('update:value', newVal)
       },
       deep: true
     }
   },
   methods: {
-    toggleUploadDialog() {
+    toggleUploadDialog () {
       this.dialog = !this.dialog
     },
     onUpdateValue (urlList) {

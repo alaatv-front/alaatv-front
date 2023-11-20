@@ -5,11 +5,11 @@ const PersianDate = null
 class Assist {
   // constructor() {}
 
-  static isValidData(data) {
+  static isValidData (data) {
     return (typeof data !== 'undefined' && data !== null && data !== '')
   }
 
-  static optional(data, optionalData, refinementData) {
+  static optional (data, optionalData, refinementData) {
     if (this.isValidData(data)) {
       if (typeof refinementData === 'function') {
         return refinementData(data)
@@ -25,7 +25,7 @@ class Assist {
     }
   }
 
-  static miladiToShamsi(miladi, justDate) {
+  static miladiToShamsi (miladi, justDate) {
     if (!miladi) {
       return null
     }
@@ -36,13 +36,13 @@ class Assist {
     return new PersianDate(new Date(miladi)).format('HH:mm:ss YYYY/MM/DD')
   }
 
-  static diffDate(date1, date2, diffType) {
+  static diffDate (date1, date2, diffType) {
     const a = new PersianDate(new Date(date1)),
       b = new PersianDate(new Date(date2))
     return a.diff(b, diffType)
   }
 
-  static getErrors(errors) {
+  static getErrors (errors) {
     const errorsArray = []
 
     for (const prop in errors) {
@@ -56,7 +56,7 @@ class Assist {
     return errorsArray
   }
 
-  static stringContain(search, string) {
+  static stringContain (search, string) {
     if (typeof search === 'undefined' || search === null || search.trim().length === 0) {
       return true
     }

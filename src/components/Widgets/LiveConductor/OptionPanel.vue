@@ -47,7 +47,7 @@ export default {
     OptionPanelTabs
   },
   mixins: [PageBuilderOptionPanel],
-  data() {
+  data () {
     return {
       defaultOptions: {
         loadType: 'OnLoadPage', // OnLoadPage - OnEvent

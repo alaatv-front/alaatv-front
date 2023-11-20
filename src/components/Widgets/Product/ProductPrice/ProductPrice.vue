@@ -93,7 +93,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       product: new Product(),
       productPrice: new Price(),
@@ -154,16 +154,16 @@ export default {
     prefetchServerDataPromiseCatch () {
       this.product.loading = false
     },
-    updateEECEventDetail() {
+    updateEECEventDetail () {
       AEE.productDetailViews('product.show', this.product.eec.getData(), {
         TTl: 1000,
         key: this.product.id
       })
     },
-    getProduct() {
+    getProduct () {
       return APIGateway.product.show(this.productId)
     },
-    addToCart() {
+    addToCart () {
       if (this.product.hasChildren() && this.selectedIds.length === 0) {
         this.$q.notify({
           type: 'negative',
@@ -192,14 +192,17 @@ export default {
     align-items: center;
     height: 70px;
     padding-right: 20px;
-    @media only screen and (max-width: 1439px) {
+
+    @media only screen and (width <= 1439px) {
     }
-    @media only screen and (max-width: 1023px) {
+
+    @media only screen and (width <= 1023px) {
       width: 100%;
       margin: 0;
       padding-right: 30px;
     }
-    @media only screen and (max-width: 600px) {
+
+    @media only screen and (width <= 600px) {
       font-size: 14px;
     }
 
@@ -207,13 +210,13 @@ export default {
       //width: 120px;
       height: 70px;
       background-color: #E05555;
-      color: #ffffff;
+      color: #fff;
       border-radius: 20px 0 0 20px;
       display: flex;
       justify-content: center;
       align-items: center;
 
-      @media only screen and (max-width: 600px) {
+      @media only screen and (width <= 600px) {
         flex-direction: column;
         padding: 5px;
       }
@@ -227,10 +230,12 @@ export default {
       display: flex;
       align-items: center;
       margin: 0 20px;
-      @media only screen and (max-width: 1023px) {
+
+      @media only screen and (width <= 1023px) {
         margin: 0 10px;
       }
-      @media only screen and (max-width: 1023px) {
+
+      @media only screen and (width <= 1023px) {
         //flex-direction: column;
         padding-left: 30px;
       }
@@ -256,13 +261,13 @@ export default {
 
         .main-price {
           text-decoration: line-through;
+
           /* margin-left: 12px; */
           font-style: normal;
           font-weight: 400;
           font-size: 14px;
           line-height: 19px;
           color: #656f7b;
-
           opacity: 0.4;
         }
       }

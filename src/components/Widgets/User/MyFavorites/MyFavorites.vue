@@ -235,7 +235,7 @@ export default {
       return this.setPaginationMeta.last_page
     }
   },
-  mounted() {
+  mounted () {
     this.getFavoreds()
   },
   methods: {

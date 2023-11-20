@@ -86,18 +86,18 @@ export default {
   name: 'ContentShowInfo',
   components: { ProductItem, Bookmark, ShareNetwork },
   mixins: [mixinWidget, mixinPrefetchServerData, mixinAuth],
-  beforeRouteUpdate() {
+  beforeRouteUpdate () {
     this.loadContent()
   },
   props: {
     options: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
   },
-  data() {
+  data () {
     return {
       tab: 'info',
       bookmarkLoading: false,
@@ -105,15 +105,15 @@ export default {
     }
   },
   computed: {
-    pageUrl() {
+    pageUrl () {
       return window.location.href
     },
-    hasRelatedProduct() {
+    hasRelatedProduct () {
       return this.content.related_product
     }
   },
   watch: {
-    data() {
+    data () {
       this.loadContent()
     },
     'options.id': function () {
@@ -133,7 +133,7 @@ export default {
     prefetchServerDataPromiseCatch () {
       this.content.loading = false
     },
-    loadContent() {
+    loadContent () {
       this.prefetchServerDataPromise()
         .then((content) => {
           this.prefetchServerDataPromiseThen(content)
@@ -143,7 +143,7 @@ export default {
         })
     },
 
-    hasPamphlet() {
+    hasPamphlet () {
       return this.content.file.pamphlet && this.content.file.pamphlet.length > 0
     },
     handleContentBookmark () {
@@ -172,11 +172,11 @@ export default {
           this.bookmarkLoading = false
         })
     },
-    shareGiftCard({ name, url }) {
+    shareGiftCard ({ name, url }) {
       window.open(url, '_blank')
     },
 
-    getContentByRequest() {
+    getContentByRequest () {
       this.content.loading = true
       const contentId = this.getContentId()
       return APIGateway.content.show(contentId)

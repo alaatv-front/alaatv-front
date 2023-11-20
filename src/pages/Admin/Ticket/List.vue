@@ -6,7 +6,7 @@
 <script>
 export default {
   name: 'TicketList',
-  data() {
+  data () {
     return {
       pageConfig: {},
       sections: [

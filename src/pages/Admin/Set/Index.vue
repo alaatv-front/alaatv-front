@@ -8,7 +8,7 @@
 
 export default {
   name: 'IndexSet',
-  data() {
+  data () {
     return {
       pageConfig: {},
       sections: [

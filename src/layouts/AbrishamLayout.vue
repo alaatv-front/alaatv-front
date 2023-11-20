@@ -93,7 +93,7 @@ export default {
       return this.$route.name.includes('UserPanel.Asset.AbrishamPro.')
     }
   },
-  created() {
+  created () {
     this.activePage = this.getPageFromRouteName()
   },
   mounted () {
@@ -111,7 +111,7 @@ export default {
 
       return this.menuItem[0]
     },
-    setActivePage(currentPage) {
+    setActivePage (currentPage) {
       this.activePage = currentPage
     }
   }
@@ -120,9 +120,10 @@ export default {
 <style>
 .q-menu{
   border-radius: 0 0 20px 20px;
-  box-shadow: 0 3px 10px 0 rgba(44, 91, 185, 0.15);
+  box-shadow: 0 3px 10px 0 rgb(44 91 185 / 15%);
   background-color: #fff;
 }
+
 .q-menu .q-item--active{
 color: #3e5480;
 }
@@ -137,27 +138,34 @@ color: #3e5480;
 .body.body--light{
   background: white!important;
 }
+
 .abrisham-layout{
   background: white;
+
   .menu-item {
     :deep(.q-item__section) {
       align-items: center;
       display: grid;
       grid-template-columns: 20px 1fr;
     }
+
     .title {
       justify-self: center;
     }
   }
-  @media screen and (max-width: 1023px) {
+
+  @media screen and (width <= 1023px) {
     padding: 0 21px;
   }
-  @media screen and (max-width: 990px) {
+
+  @media screen and (width <= 990px) {
     padding: 0 15px;
   }
-  @media screen and (max-width: 575px) {
+
+  @media screen and (width <= 575px) {
     padding: 0 10px;
   }
+
   .expanded-navigation{
     max-width: 554px;
     margin: 10px auto;
@@ -168,27 +176,34 @@ color: #3e5480;
     line-height: normal;
     letter-spacing: normal;
     color: #3e5480;
+
     &:deep(.q-icon){
       color: #FFCA28;
       font-weight: 500;
     }
+
     &:deep(.expanded-icon-color){
       font-size: 50px;
+
       i {
         color: #3e5480 !important;
         font-weight: 500;
       }
     }
+
     &:deep(.q-item){
       padding: 11px 24px;
     }
+
     &:deep(.q-list){
       padding: 0;
     }
+
     .header-icon{
       color: #FFCA28;
       font-size: 22px;
     }
+
     .menu-item-icon{
       position: absolute;
       font-size: 22px;
@@ -199,8 +214,9 @@ color: #3e5480;
 
   &:deep(.q-expansion-item){
     border-radius: 15px;
-    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 5px 0 rgb(0 0 0 / 10%);
   }
+
   &:deep(.q-item__label){
     text-align: center;
   }

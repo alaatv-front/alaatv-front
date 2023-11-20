@@ -2,7 +2,7 @@ import { apiV2 } from 'src/boot/axios.js'
 import APIRepository from '../classes/APIRepository.js'
 
 export default class AuthAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('ewano', apiV2)
     this.APIAdresses = {
       base: '/ewano',
@@ -31,11 +31,14 @@ export default class AuthAPI extends APIRepository {
     })
   }
 
-  pay () {
+  pay (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.pay,
+      data: this.getNormalizedSendData({
+        order_id: null // alaa order Id
+      }, data),
       resolveCallback: (response) => {
         return response.data.data.status // boolean
       },

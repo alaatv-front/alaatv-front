@@ -10,7 +10,7 @@ class TicketPriority extends Model {
 }
 
 class TicketPriorityList extends Collection {
-  model() {
+  model () {
     return TicketPriority
   }
 }

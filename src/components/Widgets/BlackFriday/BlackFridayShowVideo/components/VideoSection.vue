@@ -187,6 +187,7 @@ export default defineComponent({
   flex-wrap: wrap;
   flex-flow: column;
   align-items: center;
+
   .title {
     color: #FFF;
     text-align: center;
@@ -198,15 +199,18 @@ export default defineComponent({
     letter-spacing: -0.96px;
     margin-bottom: 20px;
     width: 100%;
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       font-size: 28px;
       letter-spacing: -0.84px;
     }
-    @media screen and (max-width: 599px) {
+
+    @media screen and (width <= 599px) {
       font-size: 24px;
       letter-spacing: -0.72px;
     }
   }
+
   .description {
     color: #FFF;
     text-align: center;
@@ -218,47 +222,57 @@ export default defineComponent({
     letter-spacing: -0.54px;
     margin-bottom: 60px;
     width: 711px;
-    @media screen and (max-width: 1439px) {
+
+    @media screen and (width <= 1439px) {
       width: 711px;
     }
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       width: 540px;
       font-size: 16px;
       letter-spacing: -0.48px;
       margin-bottom: 48px;
     }
-    @media screen and (max-width: 599px) {
+
+    @media screen and (width <= 599px) {
       width: 320px;
       margin-bottom: 32px;
     }
   }
+
   .video-section {
     position: relative;
+
     .video-box {
       position: relative;
       width: 668px;
       border-radius: 20px;
       background: #19172E;
-      box-shadow: 0 0 32px 0 rgba(51, 51, 51, 0.09);
+      box-shadow: 0 0 32px 0 rgb(51 51 51 / 9%);
       overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      @media screen and (max-width: 1439px) {
+
+      @media screen and (width <= 1439px) {
         width: 472px;
         border-radius: 16px;
       }
-      @media screen and (max-width: 1023px) {
+
+      @media screen and (width <= 1023px) {
         border-radius: 16.2px;
         width: 540px;
       }
-      @media screen and (max-width: 599px) {
+
+      @media screen and (width <= 599px) {
         border-radius: 9.58px;
         width: 320px;
       }
-      @media screen and (max-width: 360px) {
+
+      @media screen and (width <= 360px) {
         max-width: 100%;
       }
+
       &.unlock {
         .state-layer {
           &.state-unlock {
@@ -266,6 +280,7 @@ export default defineComponent({
           }
         }
       }
+
       &.lock {
         .state-layer {
           &.state-lock {
@@ -273,6 +288,7 @@ export default defineComponent({
           }
         }
       }
+
       .state-layer {
         position: absolute;
         left: 0;
@@ -285,13 +301,17 @@ export default defineComponent({
         justify-content: center;
         align-items: center;
         border-radius: 20px;
+
         &.state-unlock {
         }
+
         &.state-lock {
-          background: rgba(20, 19, 24, 0.40);
+          background: rgb(20 19 24 / 40%);
+
           svg {
             margin-bottom: 8px;
           }
+
           .lock-message {
             color: #D0CCF4;
             text-align: center;
@@ -303,37 +323,46 @@ export default defineComponent({
             letter-spacing: -0.6px;
           }
         }
+
         svg {
           cursor: pointer;
-          @media screen and (max-width: 1439px) {
+
+          @media screen and (width <= 1439px) {
             width: 45.222px;
             height: 45.222px;
           }
-          @media screen and (max-width: 1023px) {
+
+          @media screen and (width <= 1023px) {
             width: 51.737px;
             height: 51.737px;
           }
-          @media screen and (max-width: 599px) {
+
+          @media screen and (width <= 599px) {
             width: 30.666px;
             height: 30.666px;
           }
         }
-        @media screen and (max-width: 1439px) {
+
+        @media screen and (width <= 1439px) {
           border-radius: 16px;
         }
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
           border-radius: 16.168px;
         }
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
           border-radius: 9.583px;
         }
       }
+
       :deep(.vPlayer) {
         .vjs-big-play-button {
           display: none;
         }
       }
     }
+
     :deep(.arrow) {
       position: absolute;
       z-index: 3;
@@ -341,51 +370,69 @@ export default defineComponent({
       height: 40px;
       border-radius: 100px;
       background: #2F2A5B;
-      box-shadow: 0 3px 2px 0 rgba(16, 24, 40, 0.06), 0 3px 3px 0 rgba(16, 24, 40, 0.08);
+      box-shadow: 0 3px 2px 0 rgb(16 24 40 / 6%), 0 3px 3px 0 rgb(16 24 40 / 8%);
       top: calc( 50% - 20px );
-      @media screen and (max-width: 1023px) {
+
+      @media screen and (width <= 1023px) {
         $target-width: 32.335px;
+
         width: $target-width;
         height: $target-width;
         top: calc( 50% - ( #{$target-width} / 2 ) );
       }
-      @media screen and (max-width: 599px) {
+
+      @media screen and (width <= 599px) {
         $target-width: 32px;
+
         width: $target-width;
         height: $target-width;
         top: calc( 50% - ( #{$target-width} / 2 ) );
       }
+
       .q-btn__content {
         .q-icon {
           font-size: 20px;
-          @media screen and (max-width: 1023px) {
+
+          @media screen and (width <= 1023px) {
             font-size: 16.168px;
           }
-          @media screen and (max-width: 599px) {
+
+          @media screen and (width <= 599px) {
             font-size: 16px;
           }
+
           color: #D0CCF4;
         }
       }
+
       &.arrow-left {
         right: -20px;
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
           $target-width: 32.335px;
+
           right: calc( #{$target-width} / -2 );
         }
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
           $target-width: 32px;
+
           right: calc( #{$target-width} / -2 );
         }
       }
+
       &.arrow-right {
         left: -20px;
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
           $target-width: 32.335px;
+
           left: calc( #{$target-width} / -2 );
         }
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
           $target-width: 32px;
+
           left: calc( #{$target-width} / -2 );
         }
       }

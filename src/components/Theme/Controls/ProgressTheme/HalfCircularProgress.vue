@@ -79,11 +79,11 @@ export default defineComponent({
     }
   },
   computed: {
-    computedValue() {
+    computedValue () {
       const percent = (((this.value - this.min) / (this.max - this.min)) * 100)
       return ((percent * (this.max - this.min)) / 100)
     },
-    computedHeight() {
+    computedHeight () {
       return `${this.size / 2}px`
     }
   }
@@ -91,7 +91,7 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .progress-wrapper {
-  height: v-bind(computedHeight);
+  height: v-bind(computedheight);
   overflow-y: hidden;
 
   &:deep(.q-circular-progress__text) {

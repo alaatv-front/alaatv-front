@@ -107,7 +107,7 @@ export default {
     }
   },
   emits: ['setContentInfo'],
-  data() {
+  data () {
     return {
       localLoading: false,
       pervDialog: false,
@@ -243,13 +243,13 @@ export default {
     }
   },
   computed: {
-    order() {
+    order () {
       return this.setForm.orderType
     },
     entityContent: () => this.content
   },
   watch: {
-    order(value) {
+    order (value) {
       if (value === 'last') {
         this.inputs.find(x => x.name === 'order').value = -1
       } else {
@@ -257,24 +257,24 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.getTeachers()
     this.inputs[0].selected = this.content
   },
   methods: {
-    setValues(content) {
+    setValues (content) {
       this.$emit('setContentInfo', content)
     },
-    onInputClick(e) {
+    onInputClick (e) {
       if (e.input.name === 'setButton') {
         this.toggleDialog('set')
       }
     },
-    setTeacher(e) {
+    setTeacher (e) {
       this.setForm.teacher = e
       this.inputs.find(x => x.name === 'author_id').value = e.id
     },
-    getTeachers() {
+    getTeachers () {
       this.$apiGateway.user.adminIndex({
         data: { rollId: this.$enums.Rolls.TEACHER }
       }).then(res => {
@@ -284,14 +284,14 @@ export default {
     expandRow (props) {
       props.expand = !props.selected
     },
-    toggleDialog(dialog) {
+    toggleDialog (dialog) {
       if (dialog === 'set') {
         this.setDialogValue = !this.setDialogValue
       } else {
         this.pervDialog = !this.pervDialog
       }
     },
-    videoSource() {
+    videoSource () {
       // return new PlayerSourceList('')
       return new PlayerSourceList(this.content.file === null ? '' : this.content.file.video)
     }
@@ -304,23 +304,29 @@ export default {
   &:deep(.q-editor__toolbar .q-editor__toolbar-group:nth-child(4)){
     display: none;
   }
+
   &:deep(.q-editor__toolbar .q-editor__toolbar-group:nth-child(5)){
     display: none;
   }
+
   &:deep(.q-editor__toolbar .q-editor__toolbar-group:nth-child(7)){
     display: none;
   }
+
   &:deep(.q-editor__toolbar .q-editor__toolbar-group:nth-child(8)){
     display: none;
   }
+
   &:deep(.q-editor__toolbar .q-editor__toolbar-group:nth-child(2)){
     .q-btn {
       &:nth-child(3) {
         display: none;
       }
+
       &:nth-child(5) {
         display: none;
       }
+
       &:nth-child(6) {
         display: none;
       }
@@ -332,11 +338,14 @@ export default {
     max-height: 500px;
     overflow-y: auto;
   }
+
   .video-box-col{
     padding: 10px;
+
     .reuse {
       float: right;
     }
+
     .video-box {
       width: 580px;
       height: 326.25px;
@@ -350,13 +359,14 @@ export default {
         font-weight: 600;
         font-size: 16px;
         line-height: 25px;
-        color: #333333;
+        color: #333;
       }
 
       .video {
         width: 100%;
       }
     }
+
     .link-box {
       width: 580px;
       height: 80px;
@@ -398,6 +408,7 @@ export default {
       letter-spacing: -0.03em;
       margin-right: 23px;
     }
+
     .input-wrapper {
       display: flex ;
       width: 410px;

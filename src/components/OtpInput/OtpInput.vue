@@ -41,17 +41,17 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       fields: [],
       fieldValues: []
     }
   },
   computed: {
-    length() {
+    length () {
       return this.inputLength
     },
-    composite() {
+    composite () {
       const nonNullFields = this.fieldValues.filter((value) => value)
       if (this.length !== nonNullFields.length) {
         return ''
@@ -60,7 +60,7 @@ export default {
     }
   },
   watch: {
-    composite(newValue) {
+    composite (newValue) {
       if (newValue) {
         // You should emit this value, e.g.
         this.$emit('update:modelValue', newValue)
@@ -71,21 +71,21 @@ export default {
       }
     }
   },
-  beforeUpdate() {
+  beforeUpdate () {
     this.fields = []
   },
   methods: {
-    updateFieldRef(element, index) {
+    updateFieldRef (element, index) {
       if (element) {
         this.fields[index] = element
       }
     },
-    onUpdate(value, index) {
+    onUpdate (value, index) {
       if (value) {
         this.focus(index + 1)
       }
     },
-    onKeyUp(event, index) {
+    onKeyUp (event, index) {
       const key = event.key
 
       if (['Tab', 'Shift', 'Meta', 'Control', 'Alt'].includes(key)) {
@@ -102,7 +102,7 @@ export default {
         this.focus(index + 1)
       }
     },
-    focus(index) {
+    focus (index) {
       if (index >= 0) {
         if (index < this.length) {
           this.fields[index].select()
@@ -120,6 +120,7 @@ export default {
 <style lang="scss" scoped>
 .otp-input {
   margin: 0 4px;
+
   &:deep(.q-field__control) {
     padding-left: 17px;
     height: 56px;
@@ -128,6 +129,7 @@ export default {
     width: 46px;
   }
 }
+
 .otp-hint {
   color: #EF5350;
   margin-left: 4px;

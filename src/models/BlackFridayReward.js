@@ -32,7 +32,7 @@ class BlackFridayReward extends Model {
 }
 
 class BlackFridayRewardList extends Collection {
-  model() {
+  model () {
     return BlackFridayReward
   }
 }

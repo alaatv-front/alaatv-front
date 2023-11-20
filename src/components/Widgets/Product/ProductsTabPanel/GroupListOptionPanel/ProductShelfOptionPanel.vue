@@ -66,7 +66,7 @@ export default {
   },
   // mixins: [PageBuilderOptionPanel],
 
-  data() {
+  data () {
     return {
       eventName: '',
       selectedEvent: '',
@@ -75,16 +75,16 @@ export default {
   },
   computed: {
     localOptions: {
-      get() {
+      get () {
         return this.options
       },
-      set(newValue) {
+      set (newValue) {
         this.$emit('update:options', newValue)
       }
     }
   },
   methods: {
-    addEvent(eventName) {
+    addEvent (eventName) {
       if (!this.localOptions.options.events) {
         this.localOptions.options.events = []
       }
@@ -96,7 +96,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

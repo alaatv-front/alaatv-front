@@ -1,4 +1,13 @@
 .carousel__pagination-button {
+  &.carousel__pagination-button--active {
+    &::after {
+      width: 24px !important;
+      height: 8px !important;
+      border-radius: 18px !important;
+      background: #ffd54f !important;
+    }
+  }
+
   &::after {
     width: 8px !important;
     height: 8px !important;
@@ -8,18 +17,7 @@
 
   &:hover {
     &::after {
-      background-color:#FFD54F !important;
-    }
-  }
-}
-
-.carousel__pagination-button {
-  &.carousel__pagination-button--active {
-    &::after {
-      width: 24px !important;
-      height: 8px !important;
-      border-radius: 18px !important;
-      background: #FFD54F !important;
+      background-color: #ffd54f !important;
     }
   }
 }

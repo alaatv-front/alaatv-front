@@ -169,31 +169,38 @@ export default {
       direction: ltr;
     }
   }
+
   direction: initial;
 }
 </style>
 <style scoped lang="scss">
 .calender-header{
 }
+
 .timeTableHeaderNumber{
   margin-right: 1px;
 }
+
 .hour{
   position: relative;
   left: -15px;
 }
+
 .minutes-line{
   border-left: 1px solid red;
+
   //position: absolute;
   height: 20px;
   z-index: 100;
 }
+
 .hour-line{
   border-left: 2px solid #0095ff;
   position: absolute;
   height: 20px;
   z-index: 100;
 }
+
 .date-style{
   margin: 5px 0;
 

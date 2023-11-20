@@ -51,10 +51,10 @@ export default {
     }
   },
   methods: {
-    getPersianDate(date) {
+    getPersianDate (date) {
       return moment(date, 'YYYY/M/D HH:mm:ss').locale('fa').format('jDD jMMM jYYYY')
     },
-    payInstallment(installment) {
+    payInstallment (installment) {
       APIGateway.cart.getPaymentRedirectEncryptedLink({
         transactionId: installment.id
       })

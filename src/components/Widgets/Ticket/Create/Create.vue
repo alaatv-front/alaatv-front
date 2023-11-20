@@ -76,7 +76,7 @@ export default {
   props: {
     options: {
       type: Object,
-      default() {
+      default () {
         return {
           showRouteName: '',
           indexRouteName: ''
@@ -118,17 +118,17 @@ export default {
     }
   },
   computed: {
-    canChoseOrder() {
+    canChoseOrder () {
       return [2].includes(this.selectedDepartment.id)
     },
-    getRoutingObject() {
+    getRoutingObject () {
       if (this.$route.name.includes('Admin')) {
         return { name: 'Admin.Ticket.Index' }
       }
       return { name: 'UserPanel.Ticket' }
     }
   },
-  created() {
+  created () {
     this.initPageData()
   },
   mounted () {
@@ -177,7 +177,7 @@ export default {
         this.$refs.EntityCreate.setInputByName('priority_id', parseInt(priorityId))
       }
     },
-    goBackToList() {
+    goBackToList () {
       const ticketRouteObj = { name: 'Admin.Ticket.Index' }
       if (this.$route.name.includes('Admin')) {
         this.$router.push(ticketRouteObj)
@@ -186,10 +186,10 @@ export default {
       ticketRouteObj.name = 'UserPanel.Ticket.Index'
       this.$router.push(ticketRouteObj)
     },
-    initPageData() {
+    initPageData () {
       this.setRoleAndPermissions()
     },
-    setRoleAndPermissions() {
+    setRoleAndPermissions () {
       this.userRole = 'user'
       this.canAssignTicket = false
     },

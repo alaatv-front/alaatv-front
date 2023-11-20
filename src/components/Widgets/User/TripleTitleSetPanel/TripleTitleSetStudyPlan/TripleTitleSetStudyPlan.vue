@@ -24,13 +24,16 @@
     </div>
     <q-linear-progress v-if="loading"
                        indeterminate />
-    <div class="col-12 calendar">
+    <div class="col-9 calendar">
       <full-calendar ref="fullCalendar"
                      :study-event="studyEvent"
                      :events="studyPlanList"
                      :filtered-lesson="filteredLesson"
                      @edit-plan="editPlan"
                      @remove-plan="openRemovePlanWarning" />
+    </div>
+    <div class="col-3">
+      <triple-title-set-content-selection v-model:selectedContentList="selectedContentList" />
     </div>
     <q-dialog v-model="newPlanDialog">
       <q-card class="new-theme">
@@ -310,6 +313,7 @@ import SessionInfo from 'src/components/Widgets/User/TripleTitleSetPanel/TripleT
 import ContentsComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/Contents.vue'
 import TextComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/TextComponent.vue'
 import LazyImg from 'components/lazyImg.vue'
+import TripleTitleSetContentSelection from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetContentSelection/TripleTitleSetContentSelection.vue'
 
 const ContentsComponentComp = shallowRef(ContentsComponent)
 const TextComponentComp = shallowRef(TextComponent)
@@ -320,9 +324,10 @@ export default {
     LazyImg,
     FullCalendar,
     EntityCreate,
-    EntityEdit
+    EntityEdit,
+    TripleTitleSetContentSelection
   },
-  data() {
+  data () {
     return {
       loading: false,
       api: APIGateway.studyPlan.APIAdresses.plan,
@@ -334,6 +339,7 @@ export default {
       isAdmin: false,
       needToUpdatePlan: false,
       studyPlanList: new StudyPlanList(),
+      selectedContentList: [],
       planSettings: false,
       acceptPlan: false,
       warning: false,
@@ -559,21 +565,21 @@ export default {
     }
   },
   watch: {
-    planSettings(newVal) {
+    planSettings (newVal) {
       if (newVal) {
         this.isPlanChanged = false
       }
     }
   },
   methods: {
-    afterAuthenticate() {
+    afterAuthenticate () {
       const user = this.$store.getters['Auth/user']
       this.grade = user.grade
       this.major = user.major
       this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
       this.getFilterLesson()
     },
-    updatePlan() {
+    updatePlan () {
       this.loading = true
       const data = {
         major_id: this.$refs.entityEdit.getInputsByName('major_id').value,
@@ -607,16 +613,16 @@ export default {
           this.loading = false
         })
     },
-    editPlan(event) {
+    editPlan (event) {
       this.selectedPlanId = event.id
       this.editApi = APIGateway.studyPlan.APIAdresses.editPlan(this.selectedPlanId)
       this.editPlanDialog = true
     },
-    openRemovePlanWarning(event) {
+    openRemovePlanWarning (event) {
       this.removePlanWarning = true
       this.selectedPlanId = event.id
     },
-    removePlan() {
+    removePlan () {
       this.loading = true
       APIGateway.studyPlan.removePlan(this.selectedPlanId)
         .then(() => {
@@ -628,7 +634,7 @@ export default {
           this.loading = false
         })
     },
-    acceptNewPlan() {
+    acceptNewPlan () {
       this.loading = true
       const data = {
         major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id')?.value,
@@ -666,7 +672,7 @@ export default {
           this.loading = false
         })
     },
-    filterByLesson() {
+    filterByLesson () {
       this.loading = true
       this.$apiGateway.studyPlan.storeSetting({ setting: { abrisham2_calender_default_lesson: this.lesson.id } })
         .then(() => {
@@ -677,7 +683,7 @@ export default {
           this.loading = false
         })
     },
-    getFilterLesson() {
+    getFilterLesson () {
       return new Promise((resolve, reject) => {
         APIGateway.studyPlan.getSetting()
           .then(setting => {
@@ -691,10 +697,10 @@ export default {
           })
       })
     },
-    setFlagTrue() {
+    setFlagTrue () {
       this.isPlanChanged = true
     },
-    getMyStudyPlan() {
+    getMyStudyPlan () {
       this.loading = true
       APIGateway.studyPlan.getMyStudyPlan()
         .then(studyPlan => {
@@ -708,7 +714,7 @@ export default {
           this.loading = false
         })
     },
-    getChangePlanOptions() {
+    getChangePlanOptions () {
       this.loading = true
       APIGateway.studyPlan.getChangePlanOptions()
         .then(options => {
@@ -756,10 +762,10 @@ export default {
         }
       })
     },
-    changeStudyPlan() {
+    changeStudyPlan () {
       this.planSettings = !this.planSettings
     },
-    acceptSettings() {
+    acceptSettings () {
       this.planSettings = false
       if (this.isPlanChanged) {
         this.warning = true
@@ -767,7 +773,7 @@ export default {
         this.filterByLesson()
       }
     },
-    updateMyStudyPlan(data) {
+    updateMyStudyPlan (data) {
       this.loading = true
       this.warning = false
       APIGateway.studyPlan.updateMyStudyPlan({
@@ -793,40 +799,48 @@ export default {
 .calendar {
   margin-top: 25px;
 }
+
 .action-btns {
   .newPlan-btn {
     margin-left: 24px;
   }
 }
+
 .plan-setting {
   width: 488px;
 }
+
 .new-theme-btn {
   .btn {
     width: 104px;
   }
 }
+
 .accept-plan-card {
   width: 500px;
+
   .lazy-image-wrapper {
     place-content: center;
+
     .lazy-image {
       width: 140px;
       height: 140px;
     }
   }
 }
+
 .day-view-current-time-indicator {
   position: absolute;
   height: 10px;
   width: 10px;
   margin-top: -4px;
-  background-color: rgba(0, 0, 255, .5);
+  background-color: rgb(0 0 255 / 50%);
   border-radius: 50%;
 }
+
 .day-view-current-time-line {
   position: absolute;
-  border-top: rgba(0, 0, 255, .5) 2px solid;
+  border-top: rgb(0 0 255 / 50%) 2px solid;
   width: 100%
 }
 

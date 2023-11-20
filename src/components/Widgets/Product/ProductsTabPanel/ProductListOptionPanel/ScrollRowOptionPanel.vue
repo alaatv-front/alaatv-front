@@ -156,7 +156,7 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       sizes: ['xs', 'sm', 'md', 'lg', 'xl'],
       sizeValue: {
@@ -231,10 +231,10 @@ export default {
   },
   computed: {
     localOptions: {
-      get() {
+      get () {
         return this.options
       },
-      set(newValue) {
+      set (newValue) {
         this.$emit('update:options', newValue)
       }
     }
@@ -278,7 +278,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

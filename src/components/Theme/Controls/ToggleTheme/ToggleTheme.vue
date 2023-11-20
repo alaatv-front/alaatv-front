@@ -86,7 +86,7 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'ToggleTheme',
-  data() {
+  data () {
     return {
       value1: true,
       value2: false
@@ -98,6 +98,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .toggle-container {
   padding: 40px 0;
+
   .toggle-title {
     font-size: 28px;
   }

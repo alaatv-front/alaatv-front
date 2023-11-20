@@ -56,7 +56,7 @@ export default {
   //     default: () => []
   //   }
   // },
-  data() {
+  data () {
     return {
       columns: [
         {
@@ -94,7 +94,7 @@ export default {
     }
   },
   methods: {
-    goToMarker(row, index) {
+    goToMarker (row, index) {
       this.$emit('go_to_marker', {
         row,
         index

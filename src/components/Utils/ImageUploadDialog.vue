@@ -88,14 +88,14 @@ export default {
     }
   },
   emits: ['editFile', 'toggleDialog', 'updateValue'],
-  data() {
+  data () {
     return {
       noItem: true,
       urlList: []
     }
   },
   methods: {
-    editFile(file) {
+    editFile (file) {
       this.$emit('editFile', file)
     },
     factoryFn (files) {
@@ -143,10 +143,10 @@ export default {
         }
       })
     },
-    onRejected() {
+    onRejected () {
       this.$refs.uploader.reset()
     },
-    onUploaded() {
+    onUploaded () {
       this.$emit('updateValue', this.urlList)
     }
   }
@@ -158,14 +158,14 @@ export default {
   width: 1280px;
   height: 780px;
   max-width: 100%;
-  background: #FFFFFF;
+  background: #FFF;
 
   .upload-dialog-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 40px;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgb(255 255 255 / 40%);
     border-bottom: 1px solid #D8D8D8;
 
     .upload-dialog-header-title {
@@ -208,7 +208,7 @@ export default {
         font-weight: 400;
         font-size: 12px;
         line-height: 19px;
-        color: #777777;
+        color: #777;
       }
     }
   }

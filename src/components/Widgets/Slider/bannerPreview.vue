@@ -104,7 +104,7 @@ export default {
       default: null
     }
   },
-  data() {
+  data () {
     return {
       visible: false,
       tab: 'photo',
@@ -122,29 +122,29 @@ export default {
     }
   },
   watch: {
-    'image.width'(width) {
+    'image.width' (width) {
       this.img.width = width
     },
-    'image.src'(src) {
+    'image.src' (src) {
       this.updateImage(src)
     },
-    'video.src'(src) {
+    'video.src' (src) {
       this.updateVideo(src)
     }
   },
-  created() {
+  created () {
     this.loadImage()
     this.loadVideo()
   },
   methods: {
-    loadImage() {
+    loadImage () {
       if (this.size) {
         this.image.src = this.banner.features[this.size].src
       } else {
         this.image.src = this.banner.photo.src
       }
     },
-    loadVideo() {
+    loadVideo () {
       if (this.size) {
         this.video.src = this.banner.features[this.size].videoSrc
         this.video.width = this.banner.features[this.size].videoWidth
@@ -193,7 +193,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

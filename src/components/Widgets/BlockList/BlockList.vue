@@ -33,7 +33,7 @@ export default {
   name: 'BlockList',
   components: { Block },
   mixins: [mixinPrefetchServerData, mixinWidget],
-  data() {
+  data () {
     return {
       blocks: new BlockList(),
       defaultOptions: {
@@ -103,7 +103,7 @@ export default {
   },
   watch: {
     options: {
-      handler() {
+      handler () {
         this.reloadWidget()
       },
       deep: true
@@ -137,7 +137,7 @@ export default {
     prefetchServerDataPromiseCatch () {
       this.blocks.loading = false
     },
-    getApiRequest() {
+    getApiRequest () {
       this.blocks.loading = true
       if (this.localOptions.apiName === 'home') {
         return APIGateway.pages.home()

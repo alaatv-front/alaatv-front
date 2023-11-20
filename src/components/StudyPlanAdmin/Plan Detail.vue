@@ -34,6 +34,7 @@ export default {
 <style scoped lang="scss">
 .plan-detail{
   width: 100%;
+
   .header-box{
     .title-box{
       border-radius: 20px;

@@ -2,9 +2,9 @@ const AppIndexedDB = (function () {
   const DBName = 'AlaaTV_DB',
     debugMode = false
 
-  function query(useDB) {
+  function query (useDB) {
     const openRequest = indexedDB.open(DBName, 1)
-    openRequest.onupgradeneeded = function(event) {
+    openRequest.onupgradeneeded = function (event) {
       const db = event.target.result
 
       /*
@@ -36,20 +36,20 @@ const AppIndexedDB = (function () {
           .createIndex('id', 'id', { unique: true })
       }
     }
-    openRequest.onsuccess = function(event) {
+    openRequest.onsuccess = function (event) {
       // get database from event
       const db = event.target.result// create transaction from database
       useDB(db)
     }
-    openRequest.onerror = function() {
+    openRequest.onerror = function () {
       console.error('Error', openRequest.error)
     }
   }
 
-  function getTransaction(db, objectStoreName, readonly) {
+  function getTransaction (db, objectStoreName, readonly) {
     const transaction = db.transaction(objectStoreName, (typeof readonly !== 'undefined' && readonly === true) ? 'readonly' : 'readwrite')// add success event handleer for transaction
     // you should also add onerror, onabort event handlers
-    transaction.onerror = function(event) {
+    transaction.onerror = function (event) {
       if (transaction.error === null) {
         return
       }
@@ -65,14 +65,14 @@ const AppIndexedDB = (function () {
         }
       }
     }
-    transaction.onabort = function() {
+    transaction.onabort = function () {
       if (transaction.error.name === 'ConstraintError') {
         if (debugMode) {
           // console.warn('item with such id already exists') // handle the error
         }
       }
     }
-    transaction.onsuccess = function(event) {
+    transaction.onsuccess = function (event) {
       if (debugMode) {
         // console.warn('[Transaction] ALL DONE!')
       }
@@ -81,17 +81,17 @@ const AppIndexedDB = (function () {
     return transaction
   }
 
-  function getObjectStore(db, objectStoreName, readonly) {
+  function getObjectStore (db, objectStoreName, readonly) {
     const transaction = getTransaction(db, objectStoreName, readonly)
     return transaction.objectStore(objectStoreName)
   }
 
-  function putObjectStores(objectStoreList) {
+  function putObjectStores (objectStoreList) {
     query(function (db) {
       for (let i = 0; (typeof objectStoreList[i] !== 'undefined'); i++) {
         const objectStoreItem = objectStoreList[i]
         const objectStore = getObjectStore(db, objectStoreItem.objectStoreName)
-        objectStoreItem.objectStoreData.forEach(function(data) {
+        objectStoreItem.objectStoreData.forEach(function (data) {
           // var db_op_req = contentsStore.add(content); // IDBRequest
           // const db_op_req = objectStore.put(data) // IDBRequest
           objectStore.put(data) // IDBRequest
@@ -100,12 +100,12 @@ const AppIndexedDB = (function () {
     })
   }
 
-  function searchInObjectStore(objectStoreName, index, indexValue, onsuccess) {
+  function searchInObjectStore (objectStoreName, index, indexValue, onsuccess) {
     query(function (db) {
       const objectStore = getObjectStore(db, objectStoreName, true)
       const objectStoreIndex = objectStore.index(index)
       const indexGet = objectStoreIndex.getAll(indexValue)
-      indexGet.onsuccess = function(e) {
+      indexGet.onsuccess = function (e) {
         const match = e.target.result
         if (match) {
           onsuccess(match)

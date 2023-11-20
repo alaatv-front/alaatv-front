@@ -34,7 +34,7 @@ export default {
   data: () => ({
   }),
   computed: {
-    count() {
+    count () {
       return this.$store.getters['Cart/cart'].count
     }
   },
@@ -43,7 +43,7 @@ export default {
     this.cartReview()
   },
   methods: {
-    cartReview() {
+    cartReview () {
       this.$store.dispatch('loading/overlayLoading', true)
       this.$store.dispatch('Cart/reviewCart')
         .then(() => {

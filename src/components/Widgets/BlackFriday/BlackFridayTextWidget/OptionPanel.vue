@@ -52,12 +52,12 @@ export default defineComponent({
   props: {
     options: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
   },
-  data() {
+  data () {
     return {
       fontStyle: ['inherit', 'normal', 'italic'],
       foreColor: '#000000',
@@ -179,13 +179,13 @@ export default defineComponent({
   },
   watch: {
     localOptions: {
-      handler(newVal) {
+      handler (newVal) {
         this.$emit('update:options', newVal)
       },
       deep: true
     }
   },
-  mounted() {
+  mounted () {
     const windowWidth = window.innerWidth
     if (windowWidth > 1920) {
       this.responsive = 'xl'
@@ -200,7 +200,7 @@ export default defineComponent({
     }
   },
   methods: {
-    color(cmd, name) {
+    color (cmd, name) {
       const edit = this.$refs.editor
       this.$refs.token.hide()
       edit.caret.restore()

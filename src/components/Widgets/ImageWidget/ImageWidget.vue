@@ -24,7 +24,7 @@ import { mixinPrefetchServerData, mixinWidget } from 'src/mixin/Mixins.js'
 export default {
   name: 'ImageWidget',
   mixins: [mixinPrefetchServerData, mixinWidget],
-  data() {
+  data () {
     return {
       imageRef: 'img' + Date.now(),
       windowWidth: 0,
@@ -173,7 +173,7 @@ export default {
         borderRadiusCssString
       }
     },
-    parentComponent() {
+    parentComponent () {
       if (this.localOptions.action.route) {
         if (this.isExternal(this.localOptions.action.route)) {
           return 'a'
@@ -184,14 +184,14 @@ export default {
       return 'div'
     }
   },
-  mounted() {
+  mounted () {
     this.windowWidth = window.innerWidth
     window.addEventListener('resize', this.onResize)
     this.$nextTick(() => {
       this.setAEEEvent()
     })
   },
-  beforeUnmount() {
+  beforeUnmount () {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
@@ -212,7 +212,7 @@ export default {
         observer.observe(obs)
       })
     },
-    handleIntersection(entries, observer) {
+    handleIntersection (entries, observer) {
       entries.forEach(entry => {
         if (entry.intersectionRatio > 0) {
           this.ImageIsViewed()
@@ -220,7 +220,7 @@ export default {
         }
       })
     },
-    getAEEKey() {
+    getAEEKey () {
       let AEEKey
       Object.values(this.localOptions.AEEEventBody).forEach(item => {
         AEEKey += item
@@ -245,7 +245,7 @@ export default {
       }
       this.setProductIntersectionObserver()
     },
-    onResize() {
+    onResize () {
       this.windowWidth = window.innerWidth
     },
     getImageSource (options) {
@@ -302,13 +302,13 @@ export default {
         return ''
       }
     },
-    checkDomain(url) {
+    checkDomain (url) {
       if (url.indexOf('//') === 0) {
         url = window.location.protocol + url
       }
       return url.toLowerCase().replace(/([a-z])?:\/\//, '$1').split('/')[0]
     },
-    isExternal(url) {
+    isExternal (url) {
       if (typeof window === 'undefined') {
         return true
       }
@@ -316,7 +316,7 @@ export default {
       // return ((url.indexOf('http://') > -1 || url.indexOf('https://') > -1) && this.checkDomain(window.location.href) !== this.checkDomain(url))
       return (url.indexOf('http://') > -1 || url.indexOf('https://') > -1)
     },
-    takeAction(action) {
+    takeAction (action) {
       if (!this.localOptions.hasAction) {
         return
       }
@@ -336,7 +336,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "quasar-ui-q-page-builder/src/components/Component.scss";
+@import "quasar-ui-q-page-builder/src/components/Component";
 
 $shadows: v-bind('shadows');
 $hoverShadows: v-bind('hoverShadows');
@@ -352,57 +352,56 @@ $scaleY: v-bind('localOptions.cssHoverEffects.transform.scaleY');
 $translateX: v-bind('localOptions.cssHoverEffects.transform.translateX');
 $translateY: v-bind('localOptions.cssHoverEffects.transform.translateY');
 $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
-
 $responsiveSpacing: (
     xs: (
-        marginTop: v-bind('defaultOptions.responsiveSpacing.xs.marginTop'),
-        marginLeft: v-bind('defaultOptions.responsiveSpacing.xs.marginLeft'),
-        marginRight: v-bind('defaultOptions.responsiveSpacing.xs.marginRight'),
-        marginBottom: v-bind('defaultOptions.responsiveSpacing.xs.marginBottom'),
-        paddingTop: v-bind('defaultOptions.responsiveSpacing.xs.paddingTop'),
-        paddingLeft: v-bind('defaultOptions.responsiveSpacing.xs.paddingLeft'),
-        paddingRight: v-bind('defaultOptions.responsiveSpacing.xs.paddingRight'),
-        paddingBottom: v-bind('defaultOptions.responsiveSpacing.xs.paddingBottom'),
+      marginTop: v-bind('defaultOptions.responsiveSpacing.xs.marginTop'),
+      marginLeft: v-bind('defaultOptions.responsiveSpacing.xs.marginLeft'),
+      marginRight: v-bind('defaultOptions.responsiveSpacing.xs.marginRight'),
+      marginBottom: v-bind('defaultOptions.responsiveSpacing.xs.marginBottom'),
+      paddingTop: v-bind('defaultOptions.responsiveSpacing.xs.paddingTop'),
+      paddingLeft: v-bind('defaultOptions.responsiveSpacing.xs.paddingLeft'),
+      paddingRight: v-bind('defaultOptions.responsiveSpacing.xs.paddingRight'),
+      paddingBottom: v-bind('defaultOptions.responsiveSpacing.xs.paddingBottom'),
     ),
     sm: (
-        marginTop: v-bind('defaultOptions.responsiveSpacing.sm.marginTop'),
-        marginLeft: v-bind('defaultOptions.responsiveSpacing.sm.marginLeft'),
-        marginRight: v-bind('defaultOptions.responsiveSpacing.sm.marginRight'),
-        marginBottom: v-bind('defaultOptions.responsiveSpacing.sm.marginBottom'),
-        paddingTop: v-bind('defaultOptions.responsiveSpacing.sm.paddingTop'),
-        paddingLeft: v-bind('defaultOptions.responsiveSpacing.sm.paddingLeft'),
-        paddingRight: v-bind('defaultOptions.responsiveSpacing.sm.paddingRight'),
-        paddingBottom: v-bind('defaultOptions.responsiveSpacing.sm.paddingBottom'),
+      marginTop: v-bind('defaultOptions.responsiveSpacing.sm.marginTop'),
+      marginLeft: v-bind('defaultOptions.responsiveSpacing.sm.marginLeft'),
+      marginRight: v-bind('defaultOptions.responsiveSpacing.sm.marginRight'),
+      marginBottom: v-bind('defaultOptions.responsiveSpacing.sm.marginBottom'),
+      paddingTop: v-bind('defaultOptions.responsiveSpacing.sm.paddingTop'),
+      paddingLeft: v-bind('defaultOptions.responsiveSpacing.sm.paddingLeft'),
+      paddingRight: v-bind('defaultOptions.responsiveSpacing.sm.paddingRight'),
+      paddingBottom: v-bind('defaultOptions.responsiveSpacing.sm.paddingBottom'),
     ),
     md: (
-        marginTop: v-bind('defaultOptions.responsiveSpacing.md.marginTop'),
-        marginLeft: v-bind('defaultOptions.responsiveSpacing.md.marginLeft'),
-        marginRight: v-bind('defaultOptions.responsiveSpacing.md.marginRight'),
-        marginBottom: v-bind('defaultOptions.responsiveSpacing.md.marginBottom'),
-        paddingTop: v-bind('defaultOptions.responsiveSpacing.md.paddingTop'),
-        paddingLeft: v-bind('defaultOptions.responsiveSpacing.md.paddingLeft'),
-        paddingRight: v-bind('defaultOptions.responsiveSpacing.md.paddingRight'),
-        paddingBottom: v-bind('defaultOptions.responsiveSpacing.md.paddingBottom'),
+      marginTop: v-bind('defaultOptions.responsiveSpacing.md.marginTop'),
+      marginLeft: v-bind('defaultOptions.responsiveSpacing.md.marginLeft'),
+      marginRight: v-bind('defaultOptions.responsiveSpacing.md.marginRight'),
+      marginBottom: v-bind('defaultOptions.responsiveSpacing.md.marginBottom'),
+      paddingTop: v-bind('defaultOptions.responsiveSpacing.md.paddingTop'),
+      paddingLeft: v-bind('defaultOptions.responsiveSpacing.md.paddingLeft'),
+      paddingRight: v-bind('defaultOptions.responsiveSpacing.md.paddingRight'),
+      paddingBottom: v-bind('defaultOptions.responsiveSpacing.md.paddingBottom'),
     ),
     lg: (
-        marginTop: v-bind('defaultOptions.responsiveSpacing.lg.marginTop'),
-        marginLeft: v-bind('defaultOptions.responsiveSpacing.lg.marginLeft'),
-        marginRight: v-bind('defaultOptions.responsiveSpacing.lg.marginRight'),
-        marginBottom: v-bind('defaultOptions.responsiveSpacing.lg.marginBottom'),
-        paddingTop: v-bind('defaultOptions.responsiveSpacing.lg.paddingTop'),
-        paddingLeft: v-bind('defaultOptions.responsiveSpacing.lg.paddingLeft'),
-        paddingRight: v-bind('defaultOptions.responsiveSpacing.lg.paddingRight'),
-        paddingBottom: v-bind('defaultOptions.responsiveSpacing.lg.paddingBottom'),
+      marginTop: v-bind('defaultOptions.responsiveSpacing.lg.marginTop'),
+      marginLeft: v-bind('defaultOptions.responsiveSpacing.lg.marginLeft'),
+      marginRight: v-bind('defaultOptions.responsiveSpacing.lg.marginRight'),
+      marginBottom: v-bind('defaultOptions.responsiveSpacing.lg.marginBottom'),
+      paddingTop: v-bind('defaultOptions.responsiveSpacing.lg.paddingTop'),
+      paddingLeft: v-bind('defaultOptions.responsiveSpacing.lg.paddingLeft'),
+      paddingRight: v-bind('defaultOptions.responsiveSpacing.lg.paddingRight'),
+      paddingBottom: v-bind('defaultOptions.responsiveSpacing.lg.paddingBottom'),
     ),
     xl: (
-        marginTop: v-bind('defaultOptions.responsiveSpacing.xl.marginTop'),
-        marginLeft: v-bind('defaultOptions.responsiveSpacing.xl.marginLeft'),
-        marginRight: v-bind('defaultOptions.responsiveSpacing.xl.marginRight'),
-        marginBottom: v-bind('defaultOptions.responsiveSpacing.xl.marginBottom'),
-        paddingTop: v-bind('defaultOptions.responsiveSpacing.xl.paddingTop'),
-        paddingLeft: v-bind('defaultOptions.responsiveSpacing.xl.paddingLeft'),
-        paddingRight: v-bind('defaultOptions.responsiveSpacing.xl.paddingRight'),
-        paddingBottom: v-bind('defaultOptions.responsiveSpacing.xl.paddingBottom'),
+      marginTop: v-bind('defaultOptions.responsiveSpacing.xl.marginTop'),
+      marginLeft: v-bind('defaultOptions.responsiveSpacing.xl.marginLeft'),
+      marginRight: v-bind('defaultOptions.responsiveSpacing.xl.marginRight'),
+      marginBottom: v-bind('defaultOptions.responsiveSpacing.xl.marginBottom'),
+      paddingTop: v-bind('defaultOptions.responsiveSpacing.xl.paddingTop'),
+      paddingLeft: v-bind('defaultOptions.responsiveSpacing.xl.paddingLeft'),
+      paddingRight: v-bind('defaultOptions.responsiveSpacing.xl.paddingRight'),
+      paddingBottom: v-bind('defaultOptions.responsiveSpacing.xl.paddingBottom'),
     )
 );
 
@@ -411,23 +410,18 @@ $responsiveSpacing: (
     @include media-query-spacings($responsiveSpacing, $sizes);
 
     box-shadow: $shadows;
-    -webkit-box-shadow: $shadows;
-    -moz-box-shadow: $shadows;
-    -webkit-border-radius: $borderRadius;
-    -moz-border-radius: $borderRadius;
+    border-radius: $borderRadius;
     border: $border;
   }
+
   &:hover .q-img {
     transform: rotate(calc(#{$rotate} * 1deg)) translate(calc(#{$translateX} * 1px), calc(#{$translateY} * 1px)) scale($scaleX, $scaleY) skew(calc(#{$skewX} * 1deg), calc(#{$skewY} * 1deg));
     transition: all calc(#{$transitionTime} * 1s);
     box-shadow: $hoverShadows;
-    -webkit-box-shadow: $hoverShadows;
-    -moz-box-shadow: $hoverShadows;
     border-radius: $hoverBorderRadius;
-    -webkit-border-radius: $hoverBorderRadius;
-    -moz-border-radius: $hoverBorderRadius;
     border: $hoverBorder;
   }
+
   .cursor-pointer {
     cursor: pointer;
   }

@@ -15,6 +15,7 @@ export default {
 .UserPanelSideBar {
   background: white;
   height: 100%;
+
   :deep(.custom-card){
     box-shadow: none !important;
   }

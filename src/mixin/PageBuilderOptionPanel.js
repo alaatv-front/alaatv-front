@@ -6,7 +6,7 @@ const PageBuilderOptionPanel = {
   },
   watch: {
     localOptions: {
-      handler(newValue) {
+      handler (newValue) {
         this.updateLocalOptions(newValue)
       },
       deep: true
@@ -26,10 +26,10 @@ const PageBuilderOptionPanel = {
   },
   computed: {
     localOptions: {
-      get() {
+      get () {
         return Object.assign(this.defaultOptions, this.options)
       },
-      set(newValue) {
+      set (newValue) {
         this.updateLocalOptions(newValue)
       }
     }

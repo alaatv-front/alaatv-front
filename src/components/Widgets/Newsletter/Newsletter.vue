@@ -57,7 +57,7 @@ export default {
     InfoCompletion
   },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       dialog: false,
       userForm: {
@@ -80,24 +80,24 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.$bus.on(this.localOptions.eventName, this.toggleDialog)
   },
   methods: {
-    toggleDialog() {
+    toggleDialog () {
       this.dialog = !this.dialog
     },
-    gotoNextStep(currentStep) {
+    gotoNextStep (currentStep) {
       if (currentStep === 'signup' && !this.localOptions.verification) {
         this.$refs.stepper.goTo('info')
       } else {
         this.$refs.stepper.next()
       }
     },
-    gotoPrevStep() {
+    gotoPrevStep () {
       this.$refs.stepper.previous()
     },
-    updateUser(userInfo) {
+    updateUser (userInfo) {
       this.userForm = userInfo
     }
   }
@@ -109,13 +109,14 @@ export default {
   width: 432px;
   height: 487px;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (width <= 600px) {
     width: 100%;
   }
 
   &:deep(.q-stepper__header) {
     display: none !important;
   }
+
   &:deep(.q-stepper__step-inner) {
     padding: 0 !important;
   }
