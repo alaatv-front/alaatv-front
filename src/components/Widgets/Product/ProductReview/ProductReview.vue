@@ -44,7 +44,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       isFavored: false,
       product: new Product()
@@ -83,7 +83,7 @@ export default {
     }
   },
   methods: {
-    prefetchServerDataPromise() {
+    prefetchServerDataPromise () {
       this.product.loading = true
       return this.getProduct()
     },
@@ -98,13 +98,13 @@ export default {
     prefetchServerDataPromiseCatch () {
       this.product.loading = false
     },
-    updateEECEventDetail() {
+    updateEECEventDetail () {
       AEE.productDetailViews('product.show', this.product.eec.getData(), {
         TTl: 1000,
         key: this.product.id
       })
     },
-    getProduct() {
+    getProduct () {
       this.product.loading = true
       return APIGateway.product.show(this.productId)
     }
@@ -155,29 +155,11 @@ h2 {
   }
 }
 
-@media screen and (max-width: 1199px) {
-  .product-description {
-    .description-container {
-
-      .description-text {
-
-      }
-    }
-
-  }
-}
-
-@media screen and (max-width: 991px) {
-  .product-description {
-    .description-container {
-    }
-  }
-}
-
-@media screen and (max-width: 767px) {
+@media screen and (width <= 767px) {
   .title-style {
     width: 100%;
   }
+
   .product-description {
     width: 100%;
 
@@ -186,18 +168,13 @@ h2 {
       display: flex;
       flex-direction: column;
       align-items: center;
-
-      .description-text {
-      }
     }
-
   }
 }
 
-@media screen and (max-width: 575px) {
+@media screen and (width <= 575px) {
   .product-description {
     .description-container {
-
       .description-text {
         width: 100%;
       }

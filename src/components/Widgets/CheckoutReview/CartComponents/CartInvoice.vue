@@ -206,13 +206,13 @@ export default {
   props: {
     data: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
   },
 
-  data() {
+  data () {
     return {
       couponValue: null,
       userEnteredLoginInfo: {
@@ -234,27 +234,27 @@ export default {
   },
 
   computed: {
-    cart() {
+    cart () {
       return this.$store.getters['Cart/cart']
     },
 
-    totalFinalPrice() {
+    totalFinalPrice () {
       return this.getPriceFormat('final') ? this.getPriceFormat('final') : 0
     },
 
-    totalBasePrice() {
+    totalBasePrice () {
       return this.getPriceFormat('base')
     },
 
-    totalDiscount() {
+    totalDiscount () {
       return this.getPriceFormat('discount')
     },
 
-    discountInPercent() {
+    discountInPercent () {
       return this.cart.price?.discountInPercent()
     },
 
-    isUserLogin() {
+    isUserLogin () {
       return this.$store.getters['Auth/isUserLogin']
     },
 
@@ -263,20 +263,20 @@ export default {
     }
   },
 
-  created() {},
+  created () {},
 
   methods: {
-    handleDiscountLogic() {
+    handleDiscountLogic () {
       this.discountCoupon.removeCod ? this.removeDiscountCode() : this.sendDiscountCode()
     },
-    updateDiscountValue(target) {
+    updateDiscountValue (target) {
       // Object.assign(target, this.discountCoupon);
       for (const property in target) {
         this.discountCoupon[property] = target[property]
       }
     },
 
-    async sendDiscountCode() {
+    async sendDiscountCode () {
       this.updateDiscountValue({
         resultMessage: '',
         loading: true,
@@ -336,14 +336,14 @@ export default {
       }
     },
 
-    updatePrice(price) {
+    updatePrice (price) {
       this.cartFinal = price.final
       this.cartBase = price.base
       this.cartDiscount = price.discount
       this.updateCart()
     },
 
-    applyCoupon(data) {
+    applyCoupon (data) {
       this.updateDiscountValue({
         resultMessage: ` کپن ${data.coupon.couponName} با ${this.currencyFormat(Number(data.coupon.totalDiscount))} تومان  تخفیف برای سفارش شما ثبت شد .`,
         messageColor: 'green',
@@ -353,11 +353,11 @@ export default {
       this.updatePrice(data.price)
     },
 
-    submitCode(code) {
+    submitCode (code) {
       return this.$axios.post(Addresses.cart.discount.submit, { params: { code } })
     },
 
-    async removeDiscountCode() {
+    async removeDiscountCode () {
       this.discountCoupon.resultMessage = ''
       this.discountCoupon.status = ''
       this.discountCoupon.loading = true
@@ -371,11 +371,11 @@ export default {
       }
     },
 
-    removeCode() {
+    removeCode () {
       return this.$axios.get(Addresses.cart.discount.remove)
     },
 
-    cartReview() {
+    cartReview () {
       this.$store.commit('loading/loading', true)
       this.$store.dispatch('Cart/reviewCart')
         .then(() => {
@@ -383,7 +383,7 @@ export default {
         })
     },
 
-    payment() {
+    payment () {
       if (!this.selectedBank) {
         return
       }
@@ -398,7 +398,7 @@ export default {
         })
     },
 
-    login() {
+    login () {
       this.$store.dispatch('Auth/login', this.userEnteredLoginInfo)
         .then(() => {
           if (this.isUserLogin) {
@@ -407,11 +407,11 @@ export default {
         })
     },
 
-    getPriceFormat(priceKey) {
+    getPriceFormat (priceKey) {
       return this.cart.price.toman(priceKey, null)
     },
 
-    clickOnGateway() {
+    clickOnGateway () {
       this.selectedBank = !this.selectedBank
     }
   }
@@ -420,10 +420,11 @@ export default {
 
 <style lang="scss" scoped>
 .invoice-container {
-  @media screen and (max-width: 1023px) {
+  @media screen and (width <= 1023px) {
     margin-left: 0;
   }
-  @media screen and (max-width: 599px) {
+
+  @media screen and (width <= 599px) {
     margin-bottom: 70px;
   }
 
@@ -432,16 +433,16 @@ export default {
     flex-direction: column;
     align-items: center;
     padding: 30px;
-    background: #FFFFFF;
-    box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(112, 108, 162, 0.05);
+    background: #FFF;
+    box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%);
     border-radius: 16px;
     width: 100%;
 
-    @media screen and (max-width: 1439px) {
+    @media screen and (width <= 1439px) {
       padding: 24px;
     }
 
-    @media screen and (max-width: 1023px) {
+    @media screen and (width <= 1023px) {
       padding: 20px;
     }
 
@@ -451,15 +452,15 @@ export default {
       background: #EFF4FC;
       margin-bottom: 20px;
 
-      @media screen and (max-width: 1439px) {
+      @media screen and (width <= 1439px) {
         margin-bottom: 14px;
       }
 
-      @media screen and (max-width: 1023px) {
+      @media screen and (width <= 1023px) {
         margin-bottom: 16px;
       }
 
-      @media screen and (max-width: 599px) {
+      @media screen and (width <= 599px) {
         margin-bottom: 12px;
       }
     }
@@ -487,11 +488,11 @@ export default {
           color: #23263B;
           margin-bottom: 20px;
 
-          @media screen and (max-width: 1439px) {
+          @media screen and (width <= 1439px) {
             margin-bottom: 14px;
           }
 
-          @media screen and (max-width: 1023px) {
+          @media screen and (width <= 1023px) {
             margin-bottom: 16px;
           }
 
@@ -502,7 +503,7 @@ export default {
           .title {
             letter-spacing: -0.03em;
 
-            @media screen and (max-width: 599px) {
+            @media screen and (width <= 599px) {
               font-size: 14px;
             }
           }
@@ -520,15 +521,15 @@ export default {
           margin-bottom: 20px;
           justify-content: space-between;
 
-          @media screen and (max-width: 1439px) {
+          @media screen and (width <= 1439px) {
             margin-bottom: 14px;
           }
 
-          @media screen and (max-width: 1023px) {
+          @media screen and (width <= 1023px) {
             margin-bottom: 16px;
           }
 
-          @media screen and (max-width: 599px) {
+          @media screen and (width <= 599px) {
             margin-bottom: 12px;
           }
 
@@ -542,22 +543,22 @@ export default {
             margin-right: 16px;
             min-width: 72px;
 
-            @media screen and (max-width: 1439px) {
+            @media screen and (width <= 1439px) {
               margin-right: 4px;
             }
 
-            @media screen and (max-width: 1023px) {
+            @media screen and (width <= 1023px) {
               margin-right: 36px;
             }
 
-            @media screen and (max-width: 599px) {
+            @media screen and (width <= 599px) {
               font-size: 14px;
               margin-right: 14px;
             }
           }
 
           .coupon-input {
-            @media screen and (max-width: 1023px) {
+            @media screen and (width <= 1023px) {
               width: 100%;
             }
 
@@ -568,19 +569,22 @@ export default {
               padding: 0 16px;
               width: 286px;
 
-              @media screen and (max-width: 1439px) {
+              @media screen and (width <= 1439px) {
                 padding: 0 12px;
+
                 //min-width: 174px;
                 width: 100%;
               }
 
-              @media screen and (max-width: 1023px) {
+              @media screen and (width <= 1023px) {
                 padding: 0 16px;
+
                 //min-width: 392px;
               }
 
-              @media screen and (max-width: 599px) {
+              @media screen and (width <= 599px) {
                 padding: 0 12px;
+
                 //min-width: 196px;
               }
             }
@@ -607,12 +611,12 @@ export default {
               line-height: 22px;
               color: #23263B;
 
-              @media screen and (max-width: 1439px) {
+              @media screen and (width <= 1439px) {
                 font-size: 14px;
               }
             }
 
-            &:deep(.q-field__inner .q-field__control:before) {
+            &:deep(.q-field__inner .q-field__control::before) {
               border: none;
             }
 
@@ -628,15 +632,15 @@ export default {
           margin-bottom: 24px;
           align-items: center;
 
-          @media screen and (max-width: 1439px) {
+          @media screen and (width <= 1439px) {
             margin-bottom: 18px;
           }
 
-          @media screen and (max-width: 1023px) {
+          @media screen and (width <= 1023px) {
             margin-bottom: 20px;
           }
 
-          @media screen and (max-width: 599px) {
+          @media screen and (width <= 599px) {
             margin-bottom: 16px;
           }
 
@@ -646,7 +650,7 @@ export default {
             line-height: 28px;
             letter-spacing: -0.03em;
 
-            @media screen and (max-width: 599px) {
+            @media screen and (width <= 599px) {
               font-size: 16px;
             }
           }
@@ -657,14 +661,13 @@ export default {
             line-height: 37px;
             letter-spacing: -0.05em;
 
-            @media screen and (max-width: 599px) {
+            @media screen and (width <= 599px) {
               font-size: 20px;
             }
           }
         }
 
         .payment-gateway {
-
           .payment-title {
             font-weight: 400;
             font-size: 16px;
@@ -673,15 +676,15 @@ export default {
             color: #23263B;
             margin-bottom: 8px;
 
-            @media screen and (max-width: 1439px) {
+            @media screen and (width <= 1439px) {
               margin-bottom: 6px;
             }
 
-            @media screen and (max-width: 1023px) {
+            @media screen and (width <= 1023px) {
               margin-bottom: 8px;
             }
 
-            @media screen and (max-width: 599px) {
+            @media screen and (width <= 599px) {
               margin-bottom: 6px;
             }
           }
@@ -697,24 +700,24 @@ export default {
             justify-content: space-between;
             flex-wrap: wrap;
 
-            @media screen and (max-width: 1439px) {
+            @media screen and (width <= 1439px) {
               margin-bottom: 8px;
             }
 
-            @media screen and (max-width: 1023px) {
+            @media screen and (width <= 1023px) {
               margin-bottom: 16px;
             }
 
-            @media screen and (max-width: 599px) {
+            @media screen and (width <= 599px) {
               margin-bottom: 2px;
             }
 
             .bank-gateway-container {
-              @media screen and (max-width: 1023px) {
+              @media screen and (width <= 1023px) {
                 padding: 0 6px;
               }
 
-              @media screen and (max-width: 599px) {
+              @media screen and (width <= 599px) {
                 padding: 0;
               }
 
@@ -740,6 +743,7 @@ export default {
                 &:deep(.q-checkbox__inner  ) {
                   width: 20px;
                 }
+
                 &:deep(.q-checkbox__icon-container ) {
                   width: 20px;
                 }
@@ -753,16 +757,16 @@ export default {
                   color: #23263B;
                 }
 
-                @media screen and (max-width: 1439px) {
+                @media screen and (width <= 1439px) {
                   width: 100%;
                   margin-bottom: 8px;
                 }
 
-                @media screen and (max-width: 1023px) {
+                @media screen and (width <= 1023px) {
                   margin-bottom: 0;
                 }
 
-                @media screen and (max-width: 599px) {
+                @media screen and (width <= 599px) {
                   margin-bottom: 10px;
                 }
 
@@ -801,11 +805,11 @@ export default {
               color: #23263B;
               margin-bottom: 8px;
 
-              @media screen and (max-width: 1439px) {
+              @media screen and (width <= 1439px) {
                 margin-bottom: 6px;
               }
 
-              @media screen and (max-width: 599px) {
+              @media screen and (width <= 599px) {
                 font-size: 14px;
               }
             }
@@ -833,7 +837,7 @@ export default {
                 padding: 12px 16px;
               }
 
-              &:deep(.q-field__inner .q-field__control:before) {
+              &:deep(.q-field__inner .q-field__control::before) {
                 border: none;
               }
             }
@@ -873,7 +877,7 @@ export default {
             margin: -8px 0;
           }
 
-          &:deep(.q-field__inner .q-field__control:before) {
+          &:deep(.q-field__inner .q-field__control::before) {
             border: none;
           }
         }
@@ -907,7 +911,7 @@ export default {
           font-size: 16px;
           line-height: 25px;
           letter-spacing: -0.03em;
-          color: #FFFFFF;
+          color: #FFF;
           cursor: pointer;
         }
       }
@@ -918,12 +922,13 @@ export default {
   .payment-button-container {
     &.payment-button-container-desktop {
       display: flex;
-      @media screen and (max-width: 599px) {
+
+      @media screen and (width <= 599px) {
         display: none;
       }
     }
 
-    @media screen and (max-width: 599px) {
+    @media screen and (width <= 599px) {
       position: fixed;
       bottom: 0;
       left: 0;
@@ -931,15 +936,16 @@ export default {
       display: flex;
       justify-content: space-between;
       padding: 13px 19px;
-      background: #FFFFFF;
-      box-shadow: 0px -6px 10px rgba(112, 108, 161, 0.07);
+      background: #FFF;
+      box-shadow: 0 -6px 10px rgb(112 108 161 / 7%);
       border-radius: 16px 16px 0 0;
     }
 
     .final-price {
       display: none;
       color: #434765;
-      @media screen and (max-width: 599px) {
+
+      @media screen and (width <= 599px) {
         display: flex;
       }
 
@@ -978,7 +984,7 @@ export default {
       font-size: 16px;
       line-height: 25px;
       letter-spacing: -0.03em;
-      color: #FFFFFF;
+      color: #FFF;
       cursor: pointer;
       width: 100%;
 
@@ -987,7 +993,7 @@ export default {
         cursor: default;
       }
 
-      @media screen and (max-width: 599px) {
+      @media screen and (width <= 599px) {
         width: 104px;
         height: 36px;
         font-style: normal;
@@ -998,14 +1004,16 @@ export default {
 
       &.payment-button-mobile-view {
         display: none;
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
           display: flex;
         }
       }
 
       &.payment-button-desktop-view {
         display: flex;
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
           display: none;
         }
       }

@@ -76,6 +76,7 @@ export default {
   .state-photo {
     margin-top: 76px;
   }
+
   .q-banner {
     margin-bottom: 64px;
   }

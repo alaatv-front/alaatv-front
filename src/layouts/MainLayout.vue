@@ -123,16 +123,16 @@ export default {
     confirmDialogData () {
       return this.$store.getters['AppLayout/confirmDialog']
     },
-    getTemplateHeaderType() {
+    getTemplateHeaderType () {
       return this.$store.getters['AppLayout/layoutHeaderType']
     },
-    getLeftDrawerType() {
+    getLeftDrawerType () {
       return this.$store.getters['AppLayout/layoutLeftSideBarType']
     },
-    getFooterType() {
+    getFooterType () {
       return this.$store.getters['AppLayout/layoutFooterType']
     },
-    calculateHeightStyle() {
+    calculateHeightStyle () {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
     }
   },
@@ -186,15 +186,18 @@ export default {
   :deep(.main-layout-container) {
     background-color: #f1f1f1;
   }
+
   :deep(.q-layout__section--marginal) {
     background-color: transparent;
     color: inherit;
   }
+
   :deep(.q-drawer-container) {
     .q-drawer {
       background: transparent;
     }
   }
+
   .content-inside {
     //padding-top: 20px;
   }

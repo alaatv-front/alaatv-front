@@ -1,5 +1,5 @@
 export class Fake {
-  constructor() {
+  constructor () {
     this.name = 'Fake Data'
     this.firstName = [
       'پارسا',
@@ -99,7 +99,7 @@ export class Fake {
    * @param key - The name of the field you want to generate data for.
    * @returns the value of the key.
    */
-  getData(key) {
+  getData (key) {
     let val
     if (key.toLowerCase() === 'name' || key.toLowerCase() === 'firstname') {
       const randomIndex = Math.floor(Math.random() * (this.firstName.length))
@@ -142,7 +142,7 @@ export class Fake {
    * @returns An object with the same keys as the object passed in, but with the values replaced with
    * fake data.
    */
-  generate(obj) {
+  generate (obj) {
     const fakeElement = {}
     Object.keys(obj).forEach((key) => {
       if (typeof (obj[key]) === 'object' && obj[key] !== null) {
@@ -161,7 +161,7 @@ export class Fake {
    * @param number - The number of fake data you want to generate
    * @returns An array of objects with the same structure as the object passed in.
    */
-  fakeData(obj, number) {
+  fakeData (obj, number) {
     if (!obj || (typeof (obj) !== 'object')) {
       return 'Object is not valid'
     }

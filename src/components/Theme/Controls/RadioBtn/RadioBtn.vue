@@ -99,7 +99,7 @@
 import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'Checkbox',
-  data() {
+  data () {
     return {
       value: false
     }
@@ -110,6 +110,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .radio-container {
   padding: 40px 0;
+
   .radio-title {
     font-size: 28px;
   }

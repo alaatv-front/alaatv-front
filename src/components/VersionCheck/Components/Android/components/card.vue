@@ -63,8 +63,10 @@ export default {
 <style scoped lang="scss">
 .CardComponent {
   border-radius: 16px;
+
   .item-row {
     $iconWidth: 60px;
+
     display: flex;
     flex-flow: row;
     align-items: center;
@@ -72,21 +74,26 @@ export default {
     position: relative;
     margin-bottom: 8px;
     height: $iconWidth;
+
     &.header-item {
       margin-bottom: 0;
       height: max-content;
+
       .item-row-title {
         font-weight: bold;
       }
     }
+
     .item-row-icon {
       width: $iconWidth;
     }
+
     .item-row-title {
       width: calc( 100% - $iconWidth);
       font-size: 16px;
       padding-left: 8px;
     }
+
     .item-row-action {
       position: absolute;
       right: 0;

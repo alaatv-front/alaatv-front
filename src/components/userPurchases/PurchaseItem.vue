@@ -127,21 +127,25 @@ export default {
 <style lang="scss" scoped>
 
 .product-item{
-  box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(112, 108, 162, 0.05);
+  box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%);
   border-radius: 15px;
   max-height: 120px;
+
   .img-box{
     height:100%;
     max-height: 120px;
+
     .img-style{
       height:100%;
       border-radius: 15px 0 0 15px;
     }
   }
+
   .product-content{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+
     .product-title{
       font-size: 16px;
       font-weight: 700;
@@ -149,6 +153,7 @@ export default {
     }
   }
 }
+
 .set-item{
   border-radius: 15px;
 }
@@ -158,19 +163,24 @@ export default {
 
 .text-limit-size{
   width: 250px;
-   @media only screen and (max-width: 1800px){
+
+   @media only screen and (width <= 1800px){
      width: 200px;
    }
-  @media only screen and (max-width: 1024px){
+
+  @media only screen and (width <= 1024px){
     width: 350px;
   }
-  @media only screen and (max-width: 600px){
+
+  @media only screen and (width <= 600px){
     width: 250px;
   }
-  @media only screen and (max-width: 500px){
+
+  @media only screen and (width <= 500px){
     width: 150px;
   }
 }
+
 .product-btn{
  text-overflow: ellipsis;
 }
@@ -181,7 +191,7 @@ export default {
         transform: translateY(-40px);
     }
 
-    @media only screen and (max-width: 767px) {
+    @media only screen and (width <= 767px) {
         .productItem {
             padding: 0 5px;
         }
@@ -197,6 +207,7 @@ export default {
     }
   }
 }
+
     @for $i from 2 through 10 {
         .fade-PurchaseItem-enter-active > * > *:nth-child(#{$i}) {
             transition-delay: #{($i * 100)}ms;

@@ -93,6 +93,7 @@ export default {
   .state-photo {
     margin-top: 88px;
   }
+
   .action-row {
     margin-top: 105px;
   }

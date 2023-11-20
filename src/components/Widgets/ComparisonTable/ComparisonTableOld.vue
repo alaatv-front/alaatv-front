@@ -72,7 +72,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       Pagination: {
         rowsPerPage: 6
@@ -88,16 +88,16 @@ export default {
   },
   watch: {
     options: {
-      handler() {
+      handler () {
         this.loadConfig()
       }
     }
   },
-  mounted() {
+  mounted () {
     this.loadConfig()
   },
   methods: {
-    loadConfig() {
+    loadConfig () {
       this.title = this.options.title
       this.flat = this.options.flat
       this.color = this.options.color
@@ -107,7 +107,7 @@ export default {
       this.getColumns()
       // this.getRows()
     },
-    getColumns() {
+    getColumns () {
       // this.columns.push({ name: 'attribute', label: this.options.attributesLabel, field: 'attribute' })
       // this.records.forEach(record => {
       //   this.columns.push({ name: record.key, label: record.title, field: record.key })
@@ -122,7 +122,7 @@ export default {
           })
       }
     },
-    getRows() {
+    getRows () {
       this.attributes.forEach(attribute => {
         const row = {
           attribute: attribute.label
@@ -144,7 +144,7 @@ export default {
       })
       this.rows.push(actionRow)
     },
-    scrollToElement(className) {
+    scrollToElement (className) {
       const el = document.getElementsByClassName(className)[0]
       const headerOffset = 60
       const elementPosition = el.getBoundingClientRect().top
@@ -165,6 +165,7 @@ export default {
   &:deep(.q-table__control){
     width: 100%;
   }
+
   &:deep(.q-table__title){
     width: 100%;
     text-align: center;
@@ -182,6 +183,7 @@ export default {
     font-size: 14px;
     font-weight: 500;
   }
+
   .comparison-tr {
     background: #fff;
 

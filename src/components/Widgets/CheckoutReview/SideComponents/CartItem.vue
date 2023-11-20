@@ -220,7 +220,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       // cartItem: new CartItem(),
       loading: false,
@@ -281,27 +281,27 @@ export default {
   },
   watch: {
     rawItem: {
-      handler(newValue, oldValue) {
+      handler (newValue, oldValue) {
         this.updateCartItem()
       },
       deep: true
     }
   },
-  created() {
+  created () {
     // setTimeout(() => {
     //   console.log(this.rawItem)
     // }, 1000)
     // this.updateCartItem()
     this.fillInfoDetails()
   },
-  mounted() {
+  mounted () {
     // this.updateCartItem()
     this.fillInfoDetails()
     // this.calcTotalPrice()
     // this.calcDiscount()
   },
   methods: {
-    fillInfoDetails() {
+    fillInfoDetails () {
       if (this.hasGrand) {
         if (!this.rawItem.order_product.list[0].product.attributes) {
           return
@@ -328,7 +328,7 @@ export default {
         })
       }
     },
-    getDescriptionString(descArray) {
+    getDescriptionString (descArray) {
       let fullString = ''
       descArray.forEach((string, index) => {
         if (!descArray[index + 1]) {
@@ -339,7 +339,7 @@ export default {
       })
       return fullString
     },
-    deleteItem() {
+    deleteItem () {
       if (this.localCartItem.order_product) {
         const idx = this.items.findIndex(item => item.grand.id === this.localCartItem.product.id)
         this.items.splice(idx, 1)
@@ -348,9 +348,9 @@ export default {
       }
       // this.items.findIndex(item=>item.)
     },
-    toggleMenu() {
+    toggleMenu () {
     },
-    calcDiscount() {
+    calcDiscount () {
       if (this.hasGrand) {
         let discount = 0
         this.localCartItem.order_product.forEach(e => {
@@ -361,7 +361,7 @@ export default {
         this.discount = (this.localCartItem.price.discount / this.localCartItem.price.base) * 100
       }
     },
-    calcTotalPrice() {
+    calcTotalPrice () {
       if (this.hasGrand) {
         this.localCartItem.order_product.forEach(e => {
           this.totalPrice += e.price.final
@@ -369,7 +369,7 @@ export default {
         this.localCartItem.price.final = this.totalPrice
       }
     },
-    updateCartItem() {
+    updateCartItem () {
       if (this.hasGrand) {
         this.localCartItem.grand = this.rawItem.grand
         this.localCartItem.order_product = this.rawItem.order_product
@@ -398,7 +398,7 @@ export default {
 }
 
 .cart-item {
-  padding: 20px 20px;
+  padding: 20px;
 
   .title-above {
     font-weight: 500;
@@ -408,10 +408,13 @@ export default {
   }
 
   .item-info-box {
-    /*.info-photo {*/
-    /*    width: 140px;*/
-    /*    height: 140px;*/
-    /*}*/
+    /* .info-photo { */
+
+    /*    width: 140px; */
+
+    /*    height: 140px; */
+
+    /* } */
 
     .info-details {
       .title {
@@ -444,7 +447,7 @@ export default {
   .item-detail-box {
     .time-receive {
       width: 170px;
-      background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 144, 0, 0.2) 100%);
+      background: linear-gradient(to right, rgb(255 255 255 / 0%) 0%, rgb(255 144 0 / 20%) 100%);
       border-radius: 6px;
       margin-top: 5px;
     }
@@ -461,7 +464,7 @@ export default {
     }
 
     .discount-percent {
-      border-radius: 8px 8px 8px 0px;
+      border-radius: 8px 8px 8px 0;
       background: #EF5350;
     }
 
@@ -482,28 +485,31 @@ export default {
   padding: 0 !important;
 }
 
-@media (max-width: 1439px) {
+@media (width <= 1439px) {
   .clear-space {
     display: none;
   }
 }
 
-@media (min-width: 600px) {
+@media (width >= 600px) {
   .title-above {
     display: none;
   }
 }
 
-@media (max-width: 600px) {
+@media (width <= 600px) {
   .title {
     display: none;
   }
+
   .cart-item {
-    padding: 16px 16px;
+    padding: 16px;
   }
+
   .time-receive {
     margin-bottom: 20px;
   }
+
   .product-detail, .price-detail {
     width: 100%;
   }

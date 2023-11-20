@@ -4,7 +4,7 @@ import { Product } from './Product'
 import { OrderProductList } from 'src/models/OrderProduct'
 
 class OrderItem extends Model {
-  constructor(data) {
+  constructor (data) {
     super(data, [
       // { key: 'id' },
       // {

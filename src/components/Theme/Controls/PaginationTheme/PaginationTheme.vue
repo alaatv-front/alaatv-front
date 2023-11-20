@@ -38,7 +38,7 @@
 import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'ToggleTheme',
-  data() {
+  data () {
     return {
       current: 1
     }

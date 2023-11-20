@@ -42,29 +42,29 @@ export default {
     }
   },
   // mixins: [PageBuilderOptionPanel],
-  data() {
+  data () {
     return {
     }
   },
   computed: {
     localOptions: {
-      get() {
+      get () {
         return this.options
       },
-      set(newValue) {
+      set (newValue) {
         this.$emit('update:options', newValue)
       }
     }
   },
   methods: {
-    addGroupList() {
+    addGroupList () {
       this.localOptions.data.push({
         options: { layout: 'ProductTab' },
         type: 'GroupList',
         data: []
       })
     },
-    addProductList() {
+    addProductList () {
       this.localOptions.data.push({
         options: {
           layout: 'ScrollRow',
@@ -82,7 +82,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -38,12 +38,12 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
     }
   },
   methods: {
-    isProduct(item) {
+    isProduct (item) {
       return item.type === 'ProductList'
     }
   }

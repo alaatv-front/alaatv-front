@@ -14,34 +14,36 @@
     }
   }
 }
+
 .new-theme {
-  .q-checkbox__svg{
+  .q-checkbox__svg {
     width: 15px !important;
     margin-right: 5px;
   }
 }
+
 .q-checkbox__inner--truthy {
   .q-checkbox__bg {
-    background: #FFCA28;
-    border: 1px solid #FFCA28 !important;
+    background: #ffca28;
+    border: 1px solid #ffca28 !important;
     border-radius: 5px;
   }
 }
-.q-checkbox__inner--falsy{
-  .q-checkbox__bg{
-    border: 1px solid #8A8CA6;
+
+.q-checkbox__inner--falsy {
+  .q-checkbox__bg {
+    border: 1px solid #8a8ca6;
     border-radius: 5px;
   }
 }
 
 .form-builder-Checkbox-col {
   @include global-check-box;
+
   .q-checkbox__inner--truthy {
     .q-checkbox__bg {
-      background: #FFCA28;
-      border: 1px solid #FFCA28 !important;
+      background: #ffca28;
+      border: 1px solid #ffca28 !important;
     }
-
   }
-
 }

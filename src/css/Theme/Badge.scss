@@ -2,18 +2,23 @@
   border-radius: 8px;
   justify-content: center;
   align-items: center;
+
   &.badge-xs {
     padding: 3px 8px 4px;
   }
+
   &.badge-sm {
     padding: 5px 12px 6px;
   }
+
   &.q-badge--rounded {
     padding: 4px 5px;
+
     &.badge-xs {
       width: 16px;
       height: 16px;
     }
+
     &.badge-sm {
       width: 20px;
       height: 20px;

@@ -24,12 +24,12 @@ export default defineComponent({
   props: {
     options: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
   },
-  data() {
+  data () {
     return {
       defaultOptions: {
         className: '',
@@ -43,7 +43,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style scoped>
-
-</style>

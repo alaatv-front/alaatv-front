@@ -66,7 +66,7 @@ export default defineComponent({
     )
   },
   mixins: [mixinOptionPanel],
-  data() {
+  data () {
     return {
       defaultOptions: {
         type: '',
@@ -82,7 +82,7 @@ export default defineComponent({
   },
   watch: {
     localOptions: {
-      handler(newVal) {
+      handler (newVal) {
         this.$emit('update:options', newVal)
       },
       deep: true

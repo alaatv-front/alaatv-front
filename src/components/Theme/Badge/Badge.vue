@@ -29,7 +29,3 @@ export default {
   name: 'Badge'
 }
 </script>
-
-<style scoped>
-
-</style>

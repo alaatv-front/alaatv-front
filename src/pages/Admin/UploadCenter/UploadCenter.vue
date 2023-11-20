@@ -8,7 +8,7 @@
 
 export default {
   name: 'UploadCenter',
-  data() {
+  data () {
     return {
       pageConfig: {},
       sections: [

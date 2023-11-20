@@ -137,7 +137,7 @@ export default {
     ProductItem
   },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       user: new User(),
       isUserLogin: false,
@@ -153,7 +153,7 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.loadAuthData()
     this.$bus.on(this.localOptions.eventName, this.toggleDialog)
   },
@@ -165,7 +165,7 @@ export default {
       this.user = this.$store.getters['Auth/user']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
     },
-    toggleDialog() {
+    toggleDialog () {
       this.loadAuthData()
       if (this.isUserLogin) {
         this.dialog = !this.dialog
@@ -207,7 +207,7 @@ export default {
           this.liveLinkLoading = false
         })
     },
-    onProductClicked(product) {
+    onProductClicked (product) {
       this.selectedProduct = product
       if (!product.is_purchased) {
         return

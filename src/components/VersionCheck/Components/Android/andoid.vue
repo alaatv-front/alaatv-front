@@ -16,12 +16,12 @@ export default {
   props: {
     latestVersion: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
   },
-  data() {
+  data () {
     return {
       visible: false,
       androidOptions: [
@@ -32,15 +32,15 @@ export default {
     }
   },
   computed: {
-    isAndroidForceUpdate() {
+    isAndroidForceUpdate () {
       return this.latestVersion.android.type.code === 1
     }
   },
-  mounted() {
+  mounted () {
     this.checkAndroidVersion(this.latestVersion.android)
   },
   methods: {
-    checkAndroidVersion(apiAndroidVersion) {
+    checkAndroidVersion (apiAndroidVersion) {
       const installedVersion = VersionConfig.androidVersion
       const isLastVersion = apiAndroidVersion.last_version === installedVersion
       if (!isLastVersion) {
@@ -48,16 +48,16 @@ export default {
         this.handleUrlLinks()
       }
     },
-    selectOption(option) {
+    selectOption (option) {
       window.open(option.link, '_blank')
       if (!this.isAndroidForceUpdate) {
         this.visible = false
       }
     },
-    showDialog() {
+    showDialog () {
       this.visible = true
     },
-    handleUrlLinks() {
+    handleUrlLinks () {
       this.androidOptions.forEach(option => {
         option.link = this.latestVersion.android.url[option.value]
       })

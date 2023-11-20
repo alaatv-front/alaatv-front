@@ -4,7 +4,7 @@ import { BlockList } from 'src/models/Block.js'
 import { Model, Collection } from 'js-abstract-model'
 
 class Channel extends Model {
-  constructor(data) {
+  constructor (data) {
     super(data, [
       { key: 'id' },
       { key: 'title' },
@@ -32,7 +32,7 @@ class Channel extends Model {
 }
 
 class ChannelList extends Collection {
-  model() {
+  model () {
     return Channel
   }
 }

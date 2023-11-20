@@ -53,25 +53,25 @@ export default {
   computed: {
   },
   methods: {
-    redirectComponent(service) {
+    redirectComponent (service) {
       if (this.isExternal(service.link)) {
         return 'a'
       } else {
         return 'router-link'
       }
     },
-    onDragStart(event, service, serviceIndex) {
+    onDragStart (event, service, serviceIndex) {
       event.dataTransfer.dropEffect = 'move'
       event.dataTransfer.setData('value', JSON.stringify({ service, serviceIndex }))
       this.localDraggable = event
     },
-    onDragLeave() {
+    onDragLeave () {
 
     },
-    onDragOver(event) {
+    onDragOver (event) {
       event.preventDefault()
     },
-    onDrop(event, newIndex, parent) {
+    onDrop (event, newIndex, parent) {
       const valueStringfied = event.dataTransfer.getData('value')
       const value = valueStringfied ? JSON.parse(valueStringfied) : null
       const widget = value.widget
@@ -87,17 +87,17 @@ export default {
       // emit('onDrag', 'Drop')
       event.stopPropagation()
     },
-    addToIndex(list, newItem, index) {
+    addToIndex (list, newItem, index) {
       if (list.length > index) {
         list.splice(index, 0, newItem)
       } else {
         list.push(newItem)
       }
     },
-    updatePosition(list, oldIndex, newIndex) {
+    updatePosition (list, oldIndex, newIndex) {
       list.splice(newIndex, 0, list.splice(oldIndex, 1)[0])
     },
-    scrollToElement(service) {
+    scrollToElement (service) {
       let el = null
       if (service.action === 'scrollToId') {
         el = document.getElementById(service.scrollToId)
@@ -112,7 +112,7 @@ export default {
         behavior: 'smooth'
       })
     },
-    isExternal(url) {
+    isExternal (url) {
       if (typeof window === 'undefined') {
         return true
       }
@@ -130,23 +130,27 @@ export default {
 
   .services {
     justify-content: space-around;
+
     .service {
       display: flex;
       flex-direction: column;
       align-items: center;
-      color: #000000;
+      color: #000;
       text-align: center;
+
       &:hover, &:focus {
         .service-image {
           .q-img {
             transform: scale(.9);
           }
-          &:after {
+
+          &::after {
             transform: rotate(135deg);
           }
 
         }
       }
+
       .service-image {
         width: 92px;
         height: 92px;
@@ -158,11 +162,9 @@ export default {
         :deep(.service-image-img) {
           width: 100%;
           transition: transform .4s ease;
-          -webkit-transition: transform .4s ease;
-          -moz-transition: transform .4s ease;
         }
 
-        &:before {
+        &::before {
           content: '';
           position: absolute;
           top: 0;
@@ -173,7 +175,7 @@ export default {
           border-radius: 50%;
         }
 
-        &:after {
+        &::after {
           content: '';
           position: absolute;
           top: 0;
@@ -186,22 +188,23 @@ export default {
           border-left-color: transparent;
           transform: rotate(-45deg);
           transition: transform .4s ease;
-          -webkit-transition: transform .4s ease;
-          -moz-transition: transform .4s ease;
         }
 
-        @media screen and (max-width: 599px) {
+        @media screen and (width <= 599px) {
           width: 70px;
           height: 70px;
+
           .lazy-img {
             width: 40px;
             margin-top: 15px;
           }
         }
       }
+
       .service-title {
         font-weight: bold;
       }
+
       .service-subtitle {
         font-size: 12px;
         color: #65677F;

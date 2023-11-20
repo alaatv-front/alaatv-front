@@ -24,7 +24,7 @@ class TicketDepartment extends Model {
   }
 }
 class TicketDepartmentList extends Collection {
-  model() {
+  model () {
     return TicketDepartment
   }
 }

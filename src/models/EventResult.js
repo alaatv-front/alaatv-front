@@ -3,7 +3,7 @@ import { Major } from 'src/models/Major.js'
 import { Model, Collection } from 'js-abstract-model'
 
 class EventResult extends Model {
-  constructor(data) {
+  constructor (data) {
     super(data, [
       { key: 'id' },
       { key: 'event' },
@@ -57,7 +57,7 @@ class EventResult extends Model {
   }
 }
 class EventResultList extends Collection {
-  model() {
+  model () {
     return EventResult
   }
 }

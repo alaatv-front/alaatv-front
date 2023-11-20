@@ -8,7 +8,7 @@
 <script>
 export default {
   name: 'MapPage',
-  data() {
+  data () {
     return {
       pageConfig: {
         padding: {

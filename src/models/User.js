@@ -135,7 +135,7 @@ class User extends Model {
   }
 }
 class UserList extends Collection {
-  model() {
+  model () {
     return User
   }
 }

@@ -6,7 +6,7 @@ import { OrderProduct } from 'src/models/OrderProduct.js'
 import { CartItem, CartItemList } from 'src/models/CartItem.js'
 
 class Cart extends Model {
-  constructor(data) {
+  constructor (data) {
     super(data, [
       {
         key: 'couponInfo',
@@ -32,15 +32,15 @@ class Cart extends Model {
     ])
   }
 
-  getOrderId() {
+  getOrderId () {
     return this.items.getOrderId()
   }
 
-  isExistInCart(productId) {
+  isExistInCart (productId) {
     return this.items.hasProduct(productId)
   }
 
-  addToCart(data) {
+  addToCart (data) {
     const isSelectableProduct = data.products && data.products.length > 0
     const isConfigurableProduct = data.attribute && data.attribute.length > 0
     const isSimpleProduct = !isSelectableProduct && !isConfigurableProduct
@@ -96,21 +96,21 @@ class Cart extends Model {
     // this.changeCartItems()
   }
 
-  removeProduct(productId) {
+  removeProduct (productId) {
     this.items.removeProduct(productId)
   }
 
-  removeItem(cartItemId) {
+  removeItem (cartItemId) {
     this.items.list = this.items.list.filter(item => item.grand.id !== cartItemId)
     // this.changeCartItems()
   }
 
-  removeAllItems() {
+  removeAllItems () {
     this.items.list = []
     this.changeCartItems()
   }
 
-  calculateTotalFinalPrice() {
+  calculateTotalFinalPrice () {
     let finalPrice = 0
     this.items.list.forEach(item => {
       finalPrice += item.grand.price.final
@@ -118,7 +118,7 @@ class Cart extends Model {
     this.price.final = finalPrice
   }
 
-  calculateTotalBasePrice() {
+  calculateTotalBasePrice () {
     let basePrice = 0
     this.items.list.forEach(item => {
       basePrice += item.grand.price.base
@@ -126,7 +126,7 @@ class Cart extends Model {
     this.price.base = basePrice
   }
 
-  calculateTotalDiscount() {
+  calculateTotalDiscount () {
     let totalDiscount = 0
     this.items.list.forEach(item => {
       totalDiscount += item.grand.price.discount
@@ -134,18 +134,18 @@ class Cart extends Model {
     this.price.discount = totalDiscount
   }
 
-  isEmpty() {
+  isEmpty () {
     return !this.items.list.length
   }
 
-  changeCartItems() {
+  changeCartItems () {
     this.calculateTotalFinalPrice()
     this.calculateTotalDiscount()
     this.calculateTotalBasePrice()
   }
 }
 class CartList extends Collection {
-  model() {
+  model () {
     return Cart
   }
 }

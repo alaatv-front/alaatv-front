@@ -132,10 +132,12 @@ export default {
 .red-text {
   color: #ff5050
 }
+
 .time-text {
   font-size: 14px;
   font-weight: 500;
 }
+
 .mit span {
   font-size: 16px;
   padding: 10px;

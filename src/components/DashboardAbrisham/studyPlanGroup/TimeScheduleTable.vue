@@ -84,7 +84,7 @@ export default {
       default: () => false
     },
     selectedMajor: {
-      default() {
+      default () {
         return new Major({
           id: 1,
           name: 'ریاضی'
@@ -110,7 +110,7 @@ export default {
       default: () => false
     }
   },
-  data() {
+  data () {
     return {
       listOfHours: [],
       startPoint: 0,
@@ -123,7 +123,7 @@ export default {
     }
   },
   computed: {
-    filteredPlans() {
+    filteredPlans () {
       return this.plans.list.filter(item => parseInt(item.major.id) === parseInt(this.selectedMajor.id))
     }
 
@@ -137,7 +137,7 @@ export default {
 
   },
   watch: {
-    plans(val) {
+    plans (val) {
       if (val?.list?.length > 0) {
         this.SetSpaceBetweenTimes()
         this.setListOfHours()
@@ -146,11 +146,11 @@ export default {
   },
   methods: {
 
-    isSelectedPanel(planId) {
+    isSelectedPanel (planId) {
       return planId === this.selectedPanel.id
     },
 
-    setListOfHours() {
+    setListOfHours () {
       // 24  7
       this.setTheStartingPoint()
       const start = this.startPoint
@@ -160,15 +160,15 @@ export default {
       }
     },
 
-    selectPlan(plan) {
+    selectPlan (plan) {
       this.$emit('planClicked', plan)
     },
 
-    canShowTimeTableHeader(time) {
+    canShowTimeTableHeader (time) {
       return (this.parseTheTime(time).minutes !== 0 || this.parseTheTime(time).seconds !== 0)
     },
 
-    customizedHeaderCellWidth() {
+    customizedHeaderCellWidth () {
       const parsedStartTime = this.parseTheTime(this.startTime)
       if (parsedStartTime.minutes !== 0 || parsedStartTime.seconds !== 0) {
         return (
@@ -178,7 +178,7 @@ export default {
       }
     },
 
-    parseTheTime(time) {
+    parseTheTime (time) {
       const [hh = '0', mm = '0', ss = '0'] = (time || '0:0:0').split(':')
       const hour = parseInt(hh, 10) || 0
       const minute = parseInt(mm, 10) || 0
@@ -191,7 +191,7 @@ export default {
       }
     },
 
-    roundTheTime(timeSeconds) {
+    roundTheTime (timeSeconds) {
       if (timeSeconds.minutes === 0 && timeSeconds.seconds === 0) {
         return timeSeconds.hour
       } else {
@@ -199,7 +199,7 @@ export default {
       }
     },
 
-    calcPosition(start, end) {
+    calcPosition (start, end) {
       const rFixed = 990
       const perSecond = this.headerCellWidth / 3600
       const startSeconds = this.parseTheTime(start).totalSeconds
@@ -211,7 +211,7 @@ export default {
       return { right, width }
     },
 
-    setSpaceBetweenEndingTimes() {
+    setSpaceBetweenEndingTimes () {
       const parsedEndTime = this.parseTheTime(this.endTime)
       const lastPlanEnd = this.plans.list[this.plans.list.length - 1].end
       if (lastPlanEnd === '24:00:00') {
@@ -221,7 +221,7 @@ export default {
       this.spaceBetweenEndingTimes = parsedEndTime.hour - this.parseTheTime(lastPlanEnd).hour
     },
 
-    setSpaceBetweenStartTimes() {
+    setSpaceBetweenStartTimes () {
       const parsedStartTime = this.parseTheTime(this.startTime)
       const firstPlanStart = this.plans.list[0].start
       if (firstPlanStart === '00:00:00') {
@@ -231,24 +231,24 @@ export default {
       this.spaceBetweenStartTimes = this.parseTheTime(firstPlanStart).hour - parsedStartTime.hour
     },
 
-    SetSpaceBetweenTimes() {
+    SetSpaceBetweenTimes () {
       this.setSpaceBetweenStartTimes()
       this.setSpaceBetweenEndingTimes()
     },
 
-    calcTheEndingPoint() {
+    calcTheEndingPoint () {
       return (this.parseTheTime(this.endTime).hour - this.spaceBetweenEndingTimes) + this.parseTheTime(this.timeGap).hour
     },
 
-    setTheStartingPoint() {
+    setTheStartingPoint () {
       this.startPoint = this.roundTheTime(this.parseTheTime(this.startTime)) + this.spaceBetweenStartTimes - this.parseTheTime(this.timeGap).hour
     },
 
-    calcTheStartingPointSeconds() {
+    calcTheStartingPointSeconds () {
       return this.parseTheTime(this.startTime).hour + this.spaceBetweenStartTimes - this.parseTheTime(this.timeGap).hour
     },
 
-    changePanelStatus(active) {
+    changePanelStatus (active) {
       this.openedPanel = false
       if (active) {
         this.openedPanel = true
@@ -261,20 +261,22 @@ export default {
 <style lang="scss" scoped>
 .timeTable {
   position: relative;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  overflow: scroll hidden;
   background-color: white;
   border: solid 4px #e1f0ff;
   border-radius: 10px;
   top: 3px;
-  @media only screen and (max-width: 767px) {
+
+  @media only screen and (width <= 767px) {
     border-radius: 0;
   }
 
   .timeTable-header {
     position: relative;
+
     //ggg
     left: 0.4px;
+
     //border: solid 4px #e1f0ff;
     //border-radius: 10px;
 
@@ -285,7 +287,7 @@ export default {
         padding: 5px 0;
         text-align: center;
         line-height: 48px;
-        background-color: rgba(225, 240, 255, 1);
+        background-color: rgb(225 240 255 / 100%);
 
         &:last-child {
           //gggg
@@ -297,6 +299,7 @@ export default {
           background-color: white;
           width: 30px;
           height: 30px;
+
           //ggggg
           left: 38px;
           border-radius: 50%;
@@ -308,12 +311,14 @@ export default {
           line-height: normal;
           letter-spacing: normal;
           text-align: center;
-          color: #333333;
-          @media only screen and (max-width: 1919px) {
+          color: #333;
+
+          @media only screen and (width <= 1919px) {
             //gggg
             left: 25px;
           }
-          @media screen and (max-width: 575px) {
+
+          @media screen and (width <= 575px) {
             width: 24px;
             height: 24px;
             padding: 5px 5px 1px;
@@ -327,22 +332,27 @@ export default {
     display: flex;
     background-color: white;
     height: 55px;
-    @media only screen and (max-width: 767px) {
+
+    @media only screen and (width <= 767px) {
       height: 36px;
     }
 
     .timeTable-main-line {
       position: relative;
+
       //gggg
       border-right: solid 2px #e1f0ff;
       height: 70px;
+
       //gggggg
       left: -146px;
-      @media only screen and (max-width: 1919px) {
+
+      @media only screen and (width <= 1919px) {
         //ggg
         left: -100px;
       }
-      @media only screen and (max-width: 767px) {
+
+      @media only screen and (width <= 767px) {
         height: 37px;
       }
     }
@@ -350,13 +360,16 @@ export default {
     .timeTable-line {
       display: inline-block;
       position: relative;
+
       //ggggg
       border-right: solid 1px #e1f0ff;
       height: 70px;
+
       //gggggg
       left: -46px;
       bottom: 70px;
-      @media only screen and (max-width: 1919px) {
+
+      @media only screen and (width <= 1919px) {
         //ggggg
         left: 109px;
       }
@@ -370,7 +383,8 @@ export default {
       top: 0;
       height: 100%;
       padding-top: 57px;
-      @media only screen and (max-width: 767px) {
+
+      @media only screen and (width <= 767px) {
         padding-top: 47px;
       }
 
@@ -379,12 +393,13 @@ export default {
         font-size: 14px;
         padding-top: 3px;
         padding-bottom: 3px;
-        @media only screen and (max-width: 767px) {
+
+        @media only screen and (width <= 767px) {
           border-radius: 8px;
         }
 
         &.planActive {
-          box-shadow: 0 2px 5px 0 rgba(255, 143, 0, 0.4) !important;
+          box-shadow: 0 2px 5px 0 rgb(255 143 0 / 40%) !important;
           background-color: #ff8f00 !important;
         }
       }

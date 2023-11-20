@@ -120,6 +120,7 @@ export default defineComponent({
 .StepSection {
   display: flex;
   justify-content: center;
+
   .items {
     display: flex;
     flex-flow: row;
@@ -147,18 +148,20 @@ export default defineComponent({
       background-color: #D14835;
     }
 
-    @media screen and (max-width: 1439px) {
+    @media screen and (width <= 1439px) {
       width: 964px;
       padding-right: 82px;
       padding-left: 82px;
     }
-    @media screen and (max-width: 1023px) {
+
+    @media screen and (width <= 1023px) {
       width: 540px;
       padding-top: 48px;
       padding-right: 0;
       padding-left: 0;
     }
-    @media screen and (max-width: 599px) {
+
+    @media screen and (width <= 599px) {
       width: 100%;
       max-width: 100%;
       overflow-x: auto;
@@ -167,10 +170,12 @@ export default defineComponent({
       padding-bottom: 102px;
       padding-top: 40px;
     }
+
     .item {
       position: relative;
       z-index: 1;
-      &:after {
+
+      &::after {
         content: ' ';
         position: absolute;
         z-index: -1;
@@ -179,69 +184,85 @@ export default defineComponent({
         top: calc( 50% - 12px );
         width: 160px;
         background: #19172E;
-        @media screen and (max-width: 1439px) {
+
+        @media screen and (width <= 1439px) {
           width: 140px;
         }
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
           width: 75px;
           height: 20px;
           top: calc( 50% - 10px );
         }
       }
+
       &:last-child {
-        &:after {
+        &::after {
           display: none;
         }
       }
+
       .q-btn {
         width: 56px;
         height: 56px;
         padding: 18px;
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
           width: 48px;
           height: 48px;
           padding: 15px;
         }
+
         border-radius: 100px;
-        box-shadow: 0 0 32px 0 rgba(51, 51, 51, 0.09);
+        box-shadow: 0 0 32px 0 rgb(51 51 51 / 9%);
       }
+
       &.lock {
         .q-btn {
           background: #2F2A5B;
         }
       }
+
       //&.unlock:not(.current) {
       &.unlock {
         .q-btn {
           background: #5E57AC;
         }
       }
+
       &.selected {
         .q-btn {
           background: #D14835;
         }
       }
+
       &.current {
         position: relative;
+
         .q-btn {
           width: 64px;
           height: 64px;
           padding: 20px;
-          @media screen and (max-width: 1023px) {
+
+          @media screen and (width <= 1023px) {
             width: 56px;
             height: 56px;
             padding: 18px;
           }
+
           border-radius: 100px;
+
           //background: #D14835;
-          box-shadow: 0 0 50px 0 rgba(85, 32, 24, 0.32);
+          box-shadow: 0 0 50px 0 rgb(85 32 24 / 32%);
         }
+
         .curren-info {
           position: absolute;
           top: calc( 64px + 24px );
           left: calc( (75px - 32px) * -1 );
           width: 150px;
           text-align: center;
+
           .curren-info-title {
             color: #D75F4E;
             text-align: center;
@@ -252,6 +273,7 @@ export default defineComponent({
             line-height: normal;
             letter-spacing: -0.6px;
           }
+
           .curren-info-caption {
             color: #FFF;
             text-align: center;
@@ -264,8 +286,10 @@ export default defineComponent({
           }
         }
       }
-      @media screen and (max-width: 599px) {
+
+      @media screen and (width <= 599px) {
         margin-right: 18px;
+
         &:first-child {
           margin-left: 20px;
         }

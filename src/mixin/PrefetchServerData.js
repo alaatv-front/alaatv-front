@@ -1,7 +1,7 @@
 import { Loading, uid } from 'quasar'
 
 const mixinPrefetchServerData = {
-  data() {
+  data () {
     return {
       widgetUid: null
     }
@@ -13,7 +13,7 @@ const mixinPrefetchServerData = {
     return this.prefetchServerData(false)
   },
   methods: {
-    async prefetchServerData(prefetch) {
+    async prefetchServerData (prefetch) {
       const widgetName = this.$options.name
       if (prefetch) {
         this.widgetUid = uid()

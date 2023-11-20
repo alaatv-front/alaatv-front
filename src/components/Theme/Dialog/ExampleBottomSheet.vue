@@ -48,7 +48,7 @@
 <script>
 export default {
   name: 'ExampleBottomSheet',
-  data() {
+  data () {
     return {
       bottomSheetValue: {
         xs: false,
@@ -83,7 +83,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

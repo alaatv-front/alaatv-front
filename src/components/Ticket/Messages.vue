@@ -121,7 +121,7 @@ export default {
   props: {
     data: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
@@ -134,7 +134,7 @@ export default {
     }
   },
   computed: {
-    userIsCustomer() {
+    userIsCustomer () {
       return (this.data.user.role === 'کاربر')
     }
 
@@ -142,7 +142,7 @@ export default {
   watch: {
   },
   methods: {
-    getAdminName() {
+    getAdminName () {
       const name = this.data.user.first_name || '-'
       const lastName = this.data.user.last_name || ''
       return name + ' ' + lastName
@@ -185,20 +185,25 @@ export default {
 .user-photo {
   border-radius: 50%;
 }
+
 .dateTime-chip {
-  color: #FFFFFF;
+  color: #FFF;
   height: 30px;
 }
+
 .user-icon{
   margin-right: 5px;
   margin-top: 2px;
 }
+
 .info-section {
   margin-top: 34px;
 }
+
 .private-message-card{
   background: #fff9f0;
 }
+
 .av-waveform {
   width: calc( 100% - 76px);
   padding-top: 9px;
@@ -207,13 +212,16 @@ export default {
  .user-info {
    justify-content: end;
  }
+
 .admin-info {
   justify-content: start;
 
  }
+
  .message-body {
    padding-top: 0;
  }
+
  .report-panel {
    width: 100%;
    margin-left: 30px;
@@ -226,7 +234,8 @@ export default {
   border-radius: 15px;
   color: #575962;
   font-size: 16px;
-  box-shadow: 2px -4px 10px rgba(255, 255, 255, 0.6), -2px 4px 10px rgba(46, 56, 112, 0.05);
+  box-shadow: 2px -4px 10px rgb(255 255 255 / 60%), -2px 4px 10px rgb(46 56 112 / 5%);
+
   .user-img {
     position: absolute;
     margin:0 30px;
@@ -235,27 +244,33 @@ export default {
     border: 1px solid #ffc107;
     background: #fff;
     z-index: 3;
-    box-shadow: 2px -4px 10px rgba(255, 255, 255, 0.6), -2px 4px 10px rgba(46, 56, 112, 0.05);
+    box-shadow: 2px -4px 10px rgb(255 255 255 / 60%), -2px 4px 10px rgb(46 56 112 / 5%);
+
     &.right-side{
       left: 0;
     }
+
     &.left-side{
       right: 0;
     }
   }
+
   :deep(.q-card__section) {
     .body {
       overflow: auto;
     }
   }
 }
+
 .voice-player-section {
   margin-top: 10px;
   margin-bottom: 10px;
+
   .q-btn {
     margin-bottom: 5px;
     background: #34bfa3;
     color: #FFF;
+
     &:deep(.q-btn__content) {
       margin: 15px;
     }

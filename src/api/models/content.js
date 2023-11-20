@@ -59,7 +59,7 @@ const APIAdresses = {
 
 }
 export default class ContentAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('content', apiV2, '/c/', new Content(), APIAdresses)
     this.CacheList = {
       admin: this.name + this.APIAdresses.admin,
@@ -82,7 +82,7 @@ export default class ContentAPI extends APIRepository {
     }
   }
 
-  show(data, cache = { TTL: 1000 }) {
+  show (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -98,7 +98,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  favored(data = {}, cache = { TTL: 1000 }) {
+  favored (data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -114,7 +114,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  unfavored(data = {}, cache = { TTL: 1000 }) {
+  unfavored (data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -130,7 +130,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  showAdmin(contentId, cache) {
+  showAdmin (contentId, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -148,7 +148,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  update(data = {}) {
+  update (data = {}) {
     return this.sendRequest({
       apiMethod: 'put',
       api: this.api,
@@ -179,7 +179,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  relatedProducts(contentId, cache) {
+  relatedProducts (contentId, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -195,7 +195,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  bulkEditText(data) {
+  bulkEditText (data) {
     return this.sendRequest({
       apiMethod: 'put',
       api: this.api,
@@ -212,7 +212,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  bulkUpdate(data) {
+  bulkUpdate (data) {
     return this.sendRequest({
       apiMethod: 'put',
       api: this.api,
@@ -229,7 +229,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  bulkEditTags(data) {
+  bulkEditTags (data) {
     return this.sendRequest({
       apiMethod: 'put',
       api: this.api,
@@ -246,7 +246,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  deleteContents(data) {
+  deleteContents (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -263,7 +263,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  search(data = {}) {
+  search (data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -283,7 +283,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  SetTimestamp(data = {}, cache) {
+  SetTimestamp (data = {}, cache) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -306,7 +306,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  UpdateTimestamp(data = {}, cache) {
+  UpdateTimestamp (data = {}, cache) {
     return this.sendRequest({
       apiMethod: 'put',
       api: this.api,
@@ -329,7 +329,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  GetTimestamp(data = {}, cache) {
+  GetTimestamp (data = {}, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -347,7 +347,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  DeleteTimestamp(data = {}, cache) {
+  DeleteTimestamp (data = {}, cache) {
     return this.sendRequest({
       apiMethod: 'delete',
       api: this.api,
@@ -365,7 +365,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  getPresigned(data = {}) {
+  getPresigned (data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -385,7 +385,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  setBookmarkTimepointFavoredStatus(data = {}) {
+  setBookmarkTimepointFavoredStatus (data = {}) {
     const mergedData = this.getNormalizedSendData({
       id: '',
       status: 'favored'
@@ -406,12 +406,12 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  getConsultingContentList(isPro) {
+  getConsultingContentList (isPro) {
     const setId = isPro ? 1597 : 1213
     return APIGateway.set.getContents(setId)
   }
 
-  saveComment(data = {}) {
+  saveComment (data = {}) {
     const mergedData = this.getNormalizedSendData({
       commentable_id: '',
       commentable_type: 'content',
@@ -431,7 +431,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  updateComment(data = {}) {
+  updateComment (data = {}) {
     const mergedData = this.getNormalizedSendData({
       id: '',
       data: {}
@@ -450,7 +450,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  setVideoWatched(data = {}) {
+  setVideoWatched (data = {}) {
     const mergedData = this.getNormalizedSendData({
       // seconds_watched: null,
       studyevent_id: null,
@@ -483,7 +483,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  setVideoUnWatched(data = {}) {
+  setVideoUnWatched (data = {}) {
     const mergedData = this.getNormalizedSendData({
       watchable_id: '',
       watchable_type: 'content'

@@ -6,7 +6,7 @@
 <script>
 export default {
   name: 'ProductIndex',
-  data() {
+  data () {
     return {
       pageConfig: {},
       sections: [

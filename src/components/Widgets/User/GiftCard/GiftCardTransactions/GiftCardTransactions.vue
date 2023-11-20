@@ -410,44 +410,44 @@ export default {
         base: this.minAmountUntilSettlement - this.sales_man.wallet_balance
       })
     },
-    awaitingSattlement() {
+    awaitingSattlement () {
       return new Price({
         base: this.sales_man.income_being_settle
       })
     },
-    walletBalance() {
+    walletBalance () {
       // return this.$store.getters.appProps.walletBalance
       return 1
     },
-    totalCommission() {
+    totalCommission () {
       // return this.$store.getters.appProps.totalCommission
       return 1
     },
-    settlementGuide() {
+    settlementGuide () {
       // return this.$store.getters.appProps.settlementGuide
       return 1
     },
-    minAmountUntilSettlement() {
+    minAmountUntilSettlement () {
       // return this.$store.getters.appProps.minAmountUntilSettlement
       return 1000000
     },
-    incomeBeingSettle() {
+    incomeBeingSettle () {
       // return this.$store.getters.appProps.incomeBeingSettle
       return 1
     }
   },
-  mounted() {
+  mounted () {
     this.loadAllData()
   },
   methods: {
-    loadAllData() {
+    loadAllData () {
       this.getSalesMan()
       this.setPercentage()
       this.getZeroCardDataFromApi()
       this.getTransactionDataFromApi()
       this.getWithdrawHistory()
     },
-    getSalesMan() {
+    getSalesMan () {
       this.salesManLoading = true
       APIGateway.referralCode.getSalesManData()
         .then((response) => {
@@ -458,7 +458,7 @@ export default {
           this.salesManLoading = false
         })
     },
-    openSettlementGuideDialog() {
+    openSettlementGuideDialog () {
       this.settlementGuideDialog = true
     },
     setPercentage () {
@@ -468,7 +468,7 @@ export default {
       }
       this.percentage = (1 - (this.minAmountUntilSettlement - this.walletBalance) / this.minAmountUntilSettlement) * 100
     },
-    clearWallet() {
+    clearWallet () {
       APIGateway.referralCode.getWithdrawWallet()
         .then((response) => {
           location.reload()
@@ -479,7 +479,7 @@ export default {
           this.showErrorMessages(messages)
         })
     },
-    getWithdrawStatus(value) {
+    getWithdrawStatus (value) {
       if (value === 'pending') {
         return 'در صف انتظار'
       }
@@ -493,7 +493,7 @@ export default {
         return 'پرداخت شده'
       }
     },
-    getWithdrawHistory(page = 1) {
+    getWithdrawHistory (page = 1) {
       this.clearingHistoryTableRowLoading = true
       APIGateway.referralCode.getWithdrawHistory({ /* per_page: this.historyPerPage,  */page })
         .then(({ clearingHistoryTableRow, paginate }) => {
@@ -505,7 +505,7 @@ export default {
           this.clearingHistoryTableRowLoading = false
         })
     },
-    getTransactionDataFromApi(page = 1) {
+    getTransactionDataFromApi (page = 1) {
       this.transactionsTableRowLoading = true
       APIGateway.referralCode.getOrderProducts({ per_page: this.transactionPerPage, page })
         .then(({ transactionsTableRow, paginate }) => {
@@ -517,7 +517,7 @@ export default {
           this.transactionsTableRowLoading = false
         })
     },
-    getZeroCardDataFromApi(page = 1) {
+    getZeroCardDataFromApi (page = 1) {
       this.zeroCardTableRowLoading = true
       APIGateway.referralCode.noneProfitableOrderproducts({ per_page: this.zeroCardPerPage, page })
         .then(({ zeroCardTableRow, paginate }) => {
@@ -538,9 +538,11 @@ export default {
 .transition-panel .v-application--is-rtl .v-tabs--right > .v-tabs-bar .v-tab, .v-application--is-rtl .v-tabs--right > .v-tabs-bar .v-tabs-slider-wrapper + .v-tab {
   margin-left: 0;
 }
+
 .transition-panel .v-application--is-rtl .v-tabs--right > .v-tabs-bar .v-tab, .v-application--is-rtl .v-tabs--right > .v-tabs-bar .v-tabs-slider-wrapper {
   height: 4px!important;
 }
+
 .theme--light.v-tabs-items {
   background-color: transparent;
 }
@@ -549,9 +551,10 @@ export default {
   .v-card {
     padding-top: 20px;
   }
+
   .v-sheet.v-card:not(.v-sheet--outlined) {
-    border: 1px solid #DDDDDD;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    border: 1px solid #DDD;
+    box-shadow: 0 2px 2px rgb(0 0 0 / 10%);
     border-radius: 10px;
   }
 }
@@ -565,12 +568,14 @@ export default {
     :deep(.q-tab-panels){
       background: transparent;
     }
+
     .table-container{
       .table-row-txt{
         font-size: 16px;
         font-weight: 600;
         color: #697D9A;
       }
+
       .table-column-txt{
         font-size: 14px;
         font-weight: 400;
@@ -578,15 +583,19 @@ export default {
       }
     }
   }
+
   .green-text{
     color :#E94B47;
   }
+
   .red-text{
     color: #4CAF50;
   }
+
   .tabs{
     background: transparent;
   }
+
   .product-title{
     max-width: 242px;
     overflow: hidden;
@@ -596,13 +605,16 @@ export default {
     line-clamp: 1;
     -webkit-box-orient: vertical;
   }
+
   .introduction-box{
     width: 100%;
     margin-bottom: 40px;
+
     .left-side{
       margin-left: 15px;
     }
   }
+
   .tab-title{
     font-weight: 400;
     font-size: 16px;
@@ -610,7 +622,8 @@ export default {
     text-align: center;
     color: #8798B1;
     letter-spacing: -0.03em;
-    @media screen and (max-width: 599px) {
+
+    @media screen and (width <= 599px) {
       font-size: 16px;
       line-height: 25px;
     }
@@ -618,6 +631,7 @@ export default {
 
   .tabs-box{
     position: relative;
+
     .line-style{
       width: 100%;
       height: 2px;
@@ -640,7 +654,8 @@ export default {
       letter-spacing: -0.03em;
       color: #8798B1 !important;
       margin-bottom: 16px;
-      @media screen and (max-width: 599px) {
+
+      @media screen and (width <= 599px) {
         font-size: 16px;
         line-height: 25px;
       }
@@ -653,12 +668,14 @@ export default {
       font-size: 16px;
       line-height: 25px;
       letter-spacing: -0.03em;
-      @media screen and (max-width: 599px) {
+
+      @media screen and (width <= 599px) {
         font-size: 14px;
         line-height: 25px;
       }
     }
   }
+
   .page-title{
     font-style: normal;
     font-weight: 600;
@@ -670,18 +687,18 @@ export default {
     margin-bottom: 16px;
 
   }
+
   .card-style-flex{
     display: flex;
     justify-content: space-between;
     flex-direction: column;
   }
-  .card-container{
-  }
+
   .card-style{
     position: relative;
     height: 140px;
-    background: #FFFFFF;
-    box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
+    background: #FFF;
+    box-shadow: 3px 3px 6px rgb(52 54 55 / 4%);
     border-radius: 16px;
     padding: 20px;
 
@@ -693,12 +710,14 @@ export default {
       text-align: left;
       color: #697D9A;
     }
+
     .price-box {
       margin-top: 29px;
       display: flex;
       align-items: center;
       justify-content: flex-end;
     }
+
     .price-progress{
       display: flex;
       justify-content: space-between;
@@ -707,9 +726,11 @@ export default {
       &.price-progress-incomeBeingSettle {
         justify-content: end;
       }
+
       .progress-box{
         margin-bottom: 15px;
       }
+
       .progress-title{
         font-style: normal;
         font-weight: 400;
@@ -719,6 +740,7 @@ export default {
         color: #697D9A;
       }
     }
+
     .price{
       font-style: normal;
       font-weight: 700;
@@ -726,6 +748,7 @@ export default {
       line-height: 56px;
       color: #697D9A;
     }
+
     .currency{
       font-style: normal;
       font-weight: 400;
@@ -735,12 +758,15 @@ export default {
       margin-left: 8px;
     }
   }
+
   .income{
     //margin: 0 0 0 15px;
   }
+
   .demand{
     margin: 0 15px;
   }
+
   .clearing-title{
     font-style: normal;
     font-weight: 600;
@@ -750,6 +776,7 @@ export default {
     color: #8798B1;
     margin-bottom: 16px;
   }
+
   .guide-info{
     font-style: normal;
     font-weight: 400;
@@ -758,34 +785,39 @@ export default {
     color: #8798B1;
     margin-bottom: 10px;
   }
+
   .custom-color{
     color: #FF9000;
     cursor: pointer;
   }
+
   .clearing-btn-box {
     display: flex;
     justify-content: right;
+
     .clearing-btn{
       width: 134px;
       height: 48px;
       background: #FF9000;
-      box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
+      box-shadow: 3px 3px 6px rgb(52 54 55 / 4%);
       border-radius: 8px;
       font-style: normal;
       font-weight: 400;
       font-size: 16px;
       line-height: 25px;
       letter-spacing: -0.03em;
-      color: #FFFFFF;
+      color: #FFF;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
     }
   }
+
   .pagination-box{
     margin-top: 40px
   }
+
   .dialog-container {
     .settlementGuide-dialog {
       background-color: #E5E5E5;
@@ -794,11 +826,13 @@ export default {
     }
   }
 }
-@media only screen and (max-width: 1903px){
+
+@media only screen and (width <= 1903px){
     .settlementGuide-dialog {
       background-color: white;
       border-radius: 20px;
       padding: 20px;
+
       .text {
         font-size: 20px;
       }
@@ -806,25 +840,28 @@ export default {
 
   .introduction-box{
     margin-bottom: 24px;
+
     .left-side{
       margin-left: 0;
     }
   }
+
   .transition-panel{
     .product-title{
       max-width: 162px;
     }
+
     .page-title{
       font-size: 18px;
       line-height: 28px;
 
     }
+
     .card-style-flex{
       display: flex;
       justify-content: space-between;
     }
-    .card-container{
-    }
+
     .card-style{
       .title{
         font-style: normal;
@@ -834,16 +871,16 @@ export default {
         text-align: left;
         color: #697D9A;
       }
+
       .price-box {
         display: flex;
         align-items: center;
 
       }
+
       .price-progress{
         justify-content: space-between;
-        .content{
 
-        }
         .progress-title{
           font-style: normal;
           font-weight: 400;
@@ -853,6 +890,7 @@ export default {
           color: #697D9A;
         }
       }
+
       .currency{
         font-style: normal;
         font-weight: 400;
@@ -862,18 +900,23 @@ export default {
         margin-left: 8px;
       }
     }
+
     .income{
       margin: 0 0 16px;
     }
+
     .demand{
       margin: 0 0 20px;
     }
+
     .custom-color{
       color: #FF9000;
     }
+
     .pagination-box{
       margin-top: 40px
     }
+
     .clearing-btn-box {
       .clearing-btn{
         margin-bottom: 24px;
@@ -881,42 +924,50 @@ export default {
     }
   }
 }
-@media only screen and (max-width: 599px) {
 
+@media only screen and (width <= 599px) {
   .transition-panel{
     .introduction-box{
       margin-bottom:21px;
+
       .left-side{
         margin-left: 0;
       }
     }
+
     max-width:100%;
+
     .product-title{
       max-width: 122px;
     }
+
     .page-title{
       font-size: 16px;
       line-height: 25px;
 
     }
+
     .card-style-flex{
       flex-direction: column;
     }
-    .card-container{
-    }
+
     .card-style{
       height: 110px;
       padding: 16px;
       border-radius: 12px;
+
       .price-box {
         margin-top: 16px;
       }
+
       .price-progress{
         justify-content: flex-end;
       }
+
       .progress-box{
         display: none;
       }
+
       .price{
         font-size: 30px;
         line-height: 46px;
@@ -924,6 +975,7 @@ export default {
       }
 
     }
+
     .clearing-title{
       font-style: normal;
       font-weight: 600;
@@ -931,15 +983,18 @@ export default {
       line-height: 25px;
       margin-bottom: 6px;
     }
+
     .guide-info{
       font-size: 14px;
       line-height: 22px;
       margin-bottom: 4px;
     }
+
     .custom-color{
       color: #FF9000;
 
     }
+
     .clearing-btn-box {
       .clearing-btn{
         width: 110px;
@@ -947,6 +1002,7 @@ export default {
         margin-bottom: 0;
       }
     }
+
     .pagination-box{
       margin-top: 40px
     }

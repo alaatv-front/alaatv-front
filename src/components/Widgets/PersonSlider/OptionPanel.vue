@@ -322,7 +322,7 @@ export default defineComponent({
   props: {
     options: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
@@ -452,7 +452,7 @@ export default defineComponent({
     }
   },
   methods: {
-    reIndexRows(item, index, value) {
+    reIndexRows (item, index, value) {
       if (value > this.localOptions.sliderItems[index][item.name]) {
         this.localOptions.sliderItems[index][item.name] = Number(value + 1)
       } else {
@@ -475,10 +475,10 @@ export default defineComponent({
       }
       this.localOptions.sliderItems.unshift(newRow)
     },
-    removeRow(index) {
+    removeRow (index) {
       this.localOptions.sliderItems.splice(index, 1)
     },
-    updateSlidItemBackground(url) {
+    updateSlidItemBackground (url) {
       this.localOptions.slidItemBackgroundImage = url
     }
   }

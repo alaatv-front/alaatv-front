@@ -40,7 +40,7 @@ export default {
     default: () => {}
   },
   emits: ['updateFormData'],
-  data() {
+  data () {
     return {
       inputs: [
         {
@@ -105,10 +105,10 @@ export default {
     }
   },
   computed: {
-    timePlan() {
+    timePlan () {
       return this.inputs[1].value
     },
-    formData() {
+    formData () {
       return {
         isFree: this.inputs[0].value,
         enable: this.inputs[1].value === 'public' || this.inputs[1].value === 'timePlan' ? 1 : 0,
@@ -117,7 +117,7 @@ export default {
     }
   },
   watch: {
-    timePlan(value) {
+    timePlan (value) {
       if (value === 'timePlan') {
         this.inputs[2].type = 'date'
         this.inputs[3].type = 'time'
@@ -126,18 +126,18 @@ export default {
         this.inputs[3].type = 'hidden'
       }
     },
-    formData(value) {
+    formData (value) {
       this.$emit('updateFormData', value)
     }
   },
-  mounted() {
+  mounted () {
     this.$refs.publishForm.setInputValues(this.content, this.inputs)
   },
   methods: {
-    videoSource() {
+    videoSource () {
       return new PlayerSourceList(this.content.file.video)
     },
-    publish() {
+    publish () {
       const values = this.$refs.publishForm.getValues()
       const type = values.find(x => x.name === 'isFree').value
       const status = values.find(x => x.name === 'status').value
@@ -161,8 +161,10 @@ export default {
   .upload-publish-col {
     padding: 10px;
   }
+
   .video-box-col{
     padding: 10px;
+
     .video-box {
       width: 580px;
       height: 326.25px;
@@ -176,12 +178,14 @@ export default {
         font-weight: 600;
         font-size: 16px;
         line-height: 25px;
-        color: #333333;
+        color: #333;
       }
+
       .video {
         width: 100%;
       }
     }
+
     .link-box {
       width: 580px;
       height: 80px;

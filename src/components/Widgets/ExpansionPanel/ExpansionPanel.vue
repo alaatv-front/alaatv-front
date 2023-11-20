@@ -61,7 +61,7 @@ import { mixinWidget } from 'src/mixin/Mixins.js'
 export default {
   name: 'ExpansionPanel',
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       defaultOptions: {
         expansionList: [],
@@ -145,7 +145,7 @@ export default {
     }
   },
   computed: {
-    computedMargin() {
+    computedMargin () {
       return this.localOptions.dense ? '5px' : this.localOptions.marginBottom
     },
     shadows () {
@@ -178,7 +178,7 @@ export default {
     }
   },
   methods: {
-    toggleExpand(ItemIndex) {
+    toggleExpand (ItemIndex) {
       if (this.localOptions.toggle) {
         this.localOptions.expansionList.filter((item, index) => index !== ItemIndex).map(item => {
           item.expanded = false
@@ -186,13 +186,13 @@ export default {
         })
       }
     },
-    closeExpand(ItemIndex) {
+    closeExpand (ItemIndex) {
       this.localOptions.expansionList.filter((item, index) => index === ItemIndex).map(item => {
         item.expanded = false
         return item
       })
     },
-    openExpand(ItemIndex) {
+    openExpand (ItemIndex) {
       this.localOptions.expansionList
         .filter((item, index) => index === ItemIndex).map(item => {
           item.expanded = true
@@ -200,7 +200,7 @@ export default {
         })
       this.toggleExpand(ItemIndex)
     },
-    headerClick(event) {
+    headerClick (event) {
       event.stopPropagation()
     }
   }
@@ -227,29 +227,23 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
   &:deep(.q-expansion-item) {
     background: v-bind('localOptions.expandItemBackground');
     margin-bottom: v-bind('localOptions.expandItemMargin');
-
     box-shadow: $shadows;
-    -webkit-box-shadow: $shadows;
-    -moz-box-shadow: $shadows;
-    -webkit-border-radius: $borderRadius;
-    -moz-border-radius: $borderRadius;
     border: $border;
     border-radius:  v-bind('localOptions.expandItemRadius');
+
     &:hover .q-img {
       transform: rotate(calc(#{$rotate} * 1deg)) translate(calc(#{$translateX} * 1px), calc(#{$translateY} * 1px)) scale($scaleX, $scaleY) skew(calc(#{$skewX} * 1deg), calc(#{$skewY} * 1deg));
       transition: all calc(#{$transitionTime} * 1s);
       box-shadow: $hoverShadows;
-      -webkit-box-shadow: $hoverShadows;
-      -moz-box-shadow: $hoverShadows;
       border-radius: $hoverBorderRadius;
-      -webkit-border-radius: $hoverBorderRadius;
-      -moz-border-radius: $hoverBorderRadius;
       border: $hoverBorder;
     }
   }
+
   &:deep(.q-expansion-item__content) {
     padding:  v-bind('localOptions.expandItemContentPadding');
   }
+
   &:deep(.q-item__label) {
     font-size: 16px
   }
@@ -261,12 +255,12 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
   &:deep(.q-item) {
     padding: v-bind('localOptions.headerPadding');
   }
+
   .expand-header {
     width:100%;
 
     &.theme-2 {
-
-      @media screen and (max-width: 600px) {
+      @media screen and (width <= 600px) {
         display: flex;
         flex-direction: column;
       }
@@ -277,6 +271,7 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
     margin-top: v-bind('localOptions.contentSeparator.marginTop');
     margin-bottom: v-bind('localOptions.contentSeparator.marginBottom');
   }
+
   .text {
     line-height: v-bind('localOptions.xl.lineHeight');
     color: v-bind('localOptions.color');
@@ -285,34 +280,35 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
     font-family: v-bind('localOptions.fontFamily');
     font-style: v-bind('localOptions.xl.fontStyle');
 
-    @media screen and (max-width: 1920px) {
+    @media screen and (width <= 1920px) {
       font-size: v-bind('localOptions.lg.fontSize');
       font-weight: v-bind('localOptions.lg.fontWeight');
       font-style: v-bind('localOptions.lg.fontStyle');
       line-height: v-bind('localOptions.lg.lineHeight');
     }
 
-    @media screen and (max-width: 1440px) {
+    @media screen and (width <= 1440px) {
       font-size: v-bind('localOptions.md.fontSize');
       font-weight: v-bind('localOptions.md.fontWeight');
       font-style: v-bind('localOptions.md.fontStyle');
       line-height: v-bind('localOptions.md.lineHeight');
     }
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (width <= 1024px) {
       font-size: v-bind('localOptions.sm.fontSize');
       font-weight: v-bind('localOptions.sm.fontWeight');
       font-style: v-bind('localOptions.sm.fontStyle');
       line-height: v-bind('localOptions.sm.lineHeight');
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (width <= 600px) {
       font-size: v-bind('localOptions.xs.fontSize');
       font-weight: v-bind('localOptions.xs.fontWeight');
       font-style: v-bind('localOptions.xs.fontStyle');
       line-height: v-bind('localOptions.xs.lineHeight');
     }
   }
+
   .theme-action-btn {
     display: flex;
     justify-content: flex-end;
@@ -324,7 +320,7 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
     .open-btn {
       margin-top: v-bind('computedMargin');
 
-      @media screen and (max-width: 600px) {
+      @media screen and (width <= 600px) {
         margin-top: 10px;
       }
     }

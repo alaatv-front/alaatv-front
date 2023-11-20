@@ -1,119 +1,106 @@
-// ------ quasar variables
-$primary   : #FFCA28; // for alaa
-$primary-1: #FFF8E1;
-$primary-2: #FFECB3;
-$primary-3: #FFE082;
-$primary-4: #FFD54F;
-$primary-5: #FFCA28;
-$primary-6: #FFC107;
-$primary-7: #FFB300;
-$primary-8: #FFA000;
-$primary-9: #FF8F00;
-$primary-10: #FF6F00;
-
-$secondary: #26A69A;
-$secondary-1: #E0F2F1;
-$secondary-2: #B2DFDB;
-$secondary-3: #80CBC4;
-$secondary-4: #4DB6AC;
-$secondary-5: #26A69A;
+/* quasar variables */
+$primary: #ffca28;
+$primary-1: #fff8e1;
+$primary-2: #ffecb3;
+$primary-3: #ffe082;
+$primary-4: #ffd54f;
+$primary-5: #ffca28;
+$primary-6: #ffc107;
+$primary-7: #ffb300;
+$primary-8: #ffa000;
+$primary-9: #ff8f00;
+$primary-10: #ff6f00;
+$secondary: #26a69a;
+$secondary-1: #e0f2f1;
+$secondary-2: #b2dfdb;
+$secondary-3: #80cbc4;
+$secondary-4: #4db6ac;
+$secondary-5: #26a69a;
 $secondary-6: #009688;
-$secondary-7: #00897B;
-$secondary-8: #00796B;
-$secondary-9: #00695C;
-$secondary-10: #004D40;
-
-$accent: #5C6BC0;
-$accent-1: #E8EAF6;
-$accent-2: #C5CAE9;
-$accent-3: #9FA8DA;
-$accent-4: #7986CB;
-$accent-5: #5C6BC0;
-$accent-6: #3F51B5;
-$accent-7: #3949AB;
-$accent-8: #303F9F;
+$secondary-7: #00897b;
+$secondary-8: #00796b;
+$secondary-9: #00695c;
+$secondary-10: #004d40;
+$accent: #5c6bc0;
+$accent-1: #e8eaf6;
+$accent-2: #c5cae9;
+$accent-3: #9fa8da;
+$accent-4: #7986cb;
+$accent-5: #5c6bc0;
+$accent-6: #3f51b5;
+$accent-7: #3949ab;
+$accent-8: #303f9f;
 $accent-9: #283593;
-$accent-10: #1A237E;
-
-$positive: #09AC73;
-$positive-1: #E6F7F1;
-$positive-3: #9DDEC7;
-$positive-5: #09AC73;
+$accent-10: #1a237e;
+$positive: #09ac73;
+$positive-1: #e6f7f1;
+$positive-3: #9ddec7;
+$positive-5: #09ac73;
 $positive-7: #078156;
-
-$warning: #FFB240;
-$warning-1: #FFF7EC;
-$warning-3: #FFE0B3;
-$warning-5: #FFB240;
-$warning-7: #BF8630;
-
-$negative: #EF5350;
-$negative-1: #FDEEEE;
-$negative-3: #F9BAB9;
-$negative-5: #EF5350;
-$negative-7: #B33E3C;
-
-$info: #29B6F6;
-$info-1: #EAF8FE;
-$info-3: #A9E2FB;
-$info-5: #29B6F6;
-$info-7: #1F89B9;
-
-$grey-1: #FFFFFF;
-$grey-2: #F5F5F5;
-$grey-3: #EEEEEE;
-$grey-4: #E0E0E0;
-$grey-5: #BDBDBD;
-$grey-6: #9E9E9E;
+$warning: #ffb240;
+$warning-1: #fff7ec;
+$warning-3: #ffe0b3;
+$warning-5: #ffb240;
+$warning-7: #bf8630;
+$negative: #ef5350;
+$negative-1: #fdeeee;
+$negative-3: #f9bab9;
+$negative-5: #ef5350;
+$negative-7: #b33e3c;
+$info: #29b6f6;
+$info-1: #eaf8fe;
+$info-3: #a9e2fb;
+$info-5: #29b6f6;
+$info-7: #1f89b9;
+$grey-1: #fff;
+$grey-2: #f5f5f5;
+$grey-3: #eee;
+$grey-4: #e0e0e0;
+$grey-5: #bdbdbd;
+$grey-6: #9e9e9e;
 $grey-7: #757575;
 $grey-8: #616161;
 $grey-9: #424242;
 $grey-10: #303030;
+$blue-grey-1: #f5f7fa;
+$blue-grey-2: #eceff1;
+$blue-grey-3: #cfd8dc;
+$blue-grey-4: #b0bec5;
+$blue-grey-5: #90a4ae;
+$blue-grey-6: #78909c;
+$blue-grey-7: #607d8b;
+$blue-grey-8: #546e7a;
+$blue-grey-9: #455a64;
+$blue-grey-10: #37474f;
+$other1: #f5f7fa;
+$other2: #3f454f;
 
-$blue-grey-1: #F5F7FA;
-$blue-grey-2: #ECEFF1;
-$blue-grey-3: #CFD8DC;
-$blue-grey-4: #B0BEC5;
-$blue-grey-5: #90A4AE;
-$blue-grey-6: #78909C;
-$blue-grey-7: #607D8B;
-$blue-grey-8: #546E7A;
-$blue-grey-9: #455A64;
-$blue-grey-10: #37474F;
+/* $accent    : #65677F; */
+$dark: #1d1d1d;
+$success: #4caf50;
 
-$other1: #F5F7FA;
-$other2: #3F454F;
-
-//$accent    : #65677F;
-$dark      : #1D1D1D;
-$success : #4caf50;
-
-
-//colors
-$customGray: #F4F5F6;
-$customBlack : #23263B;
-$customGreen : #72BC75;
-
-$grey1: #FFFFFF;
-$grey2: #F5F5F5;
-$grey3: #EBEBEB;
-$grey4: #E0E0E0;
-$grey5: #BDBDBD;
-$grey6: #9E9E9E;
-$grey7: #444444;
+/* colors */
+$customGray: #f4f5f6;
+$customBlack: #23263b;
+$customGreen: #72bc75;
+$grey1: #fff;
+$grey2: #f5f5f5;
+$grey3: #ebebeb;
+$grey4: #e0e0e0;
+$grey5: #bdbdbd;
+$grey6: #9e9e9e;
+$grey7: #444;
 $grey8: #303030;
 $grey9: #424242;
 
-//Lighten
+/* Lighten */
 $lighten-1: rgba($grey-1, 0.04);
 $lighten-3: rgba($grey-1, 0.12);
-$lighten-5: rgba($grey-1, 0.20);
-$lighten-7: rgba($grey-1, 0.80);
+$lighten-5: rgba($grey-1, 0.2);
+$lighten-7: rgba($grey-1, 0.8);
 
-//Darken
+/* Darken */
 $darken-1: rgba($grey-10, 0.04);
 $darken-3: rgba($grey-10, 0.12);
-$darken-5: rgba($grey-10, 0.20);
-$darken-7: rgba($grey-10, 0.80);
-
-
+$darken-5: rgba($grey-10, 0.2);
+$darken-7: rgba($grey-10, 0.8);

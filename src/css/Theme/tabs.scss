@@ -1,31 +1,38 @@
-@import "src/css/Theme/Typography/typography.scss";
+@import "src/css/Theme/Typography/typography";
 
 .q-tab {
   padding: 0 12px;
+
   .q-tab__content {
-      display: flex;
-      flex-direction: row;
-      .q-tab__indicator {
-        border: 2px solid $primary-5;
-        border-radius: 8px;
-      }
-      .q-tab__icon {
-        color: $grey-9;
-        width: 13px;
-        height: 13px;
-        font-size: 13px;
-        margin-right: 6px;
-      }
-      .q-tab__label {
-        @include body1;
-        color: $grey-9;
-      }
+    display: flex;
+    flex-direction: row;
+
+    .q-tab__indicator {
+      border: 2px solid $primary-5;
+      border-radius: 8px;
     }
+
+    .q-tab__icon {
+      color: $grey-9;
+      width: 13px;
+      height: 13px;
+      font-size: 13px;
+      margin-right: 6px;
+    }
+
+    .q-tab__label {
+      @include body1;
+
+      color: $grey-9;
+    }
+  }
+
   &.disabled {
     .q-tab__content {
       .q-tab__icon {
         color: $grey-5;
       }
+
       .q-tab__label {
         color: $grey-5;
       }

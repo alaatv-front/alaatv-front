@@ -144,7 +144,7 @@ export default {
       this.updateLazyImageSrc()
     }
   },
-  mounted() {
+  mounted () {
     this.updateLazyImageSrc()
     this.observeImageIntersection()
     window.addEventListener('resize', this.onresize)
@@ -241,6 +241,7 @@ export default {
 
 .lazy-img {
   font-size: 0;
+
   //min-width: 100%;
   //max-width: 100%;
   overflow: hidden;

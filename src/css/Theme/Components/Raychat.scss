@@ -1,9 +1,14 @@
-@import 'src/css/Theme/spacing.scss';
+@use "sass:map";
+
+@import "src/css/Theme/spacing";
 
 iframe.raychat_frame {
   z-index: 2000 !important;
-  $size-md: map_get($sizes, 'md');
-  @media screen and (max-width: $size-md) {
+
+  $size-md: map.get($sizes, "md");
+
+  /* @media screen and ( width <= #{$size-md} ) { */
+  @media (max-width: #{$size-md}) {
     & {
       bottom: $space-13;
     }

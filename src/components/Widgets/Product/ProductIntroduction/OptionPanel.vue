@@ -27,7 +27,7 @@ export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs },
   mixins: [mixinOptionPanel],
-  data() {
+  data () {
     return {
       defaultOptions: {
         className: '',
@@ -40,7 +40,7 @@ export default defineComponent({
   },
   watch: {
     localOptions: {
-      handler(newVal) {
+      handler (newVal) {
         this.$emit('update:options', newVal)
       },
       deep: true

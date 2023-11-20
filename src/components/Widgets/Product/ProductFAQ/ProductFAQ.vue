@@ -25,7 +25,7 @@ import { mixinWidget } from 'src/mixin/Mixins.js'
 export default defineComponent({
   name: 'ProductFAQ',
   mixins: [mixinWidget],
-  date() {
+  date () {
     return {
       defaultOptions: {
         faqList: []
@@ -68,6 +68,7 @@ export default defineComponent({
     line-height: normal;
   }
 }
+
 .expanded-item-header {
   height: 100%;
   border-radius: 8px;
@@ -79,6 +80,7 @@ export default defineComponent({
   line-height: normal;
   letter-spacing: -0.36px;
 }
+
 .expanded-item-icon {
   color: #78909C
 }

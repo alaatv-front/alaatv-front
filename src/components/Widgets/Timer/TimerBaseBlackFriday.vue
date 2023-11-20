@@ -65,13 +65,13 @@ export default defineComponent({
     },
     timerStyle: {
       type: Object,
-      default() {
+      default () {
         return defaultTimerStyle
       }
     },
     counters: {
       type: Object,
-      default() {
+      default () {
         return {
           seconds: true,
           minutes: true,
@@ -81,7 +81,7 @@ export default defineComponent({
       }
     }
   },
-  data() {
+  data () {
     return {
       eventTime: 0,
       seconds: 0,
@@ -93,44 +93,44 @@ export default defineComponent({
     }
   },
   computed: {
-    computedTimerStyle() {
+    computedTimerStyle () {
       return Object.assign(defaultTimerStyle, this.timerStyle)
     },
-    secondsBackground() {
+    secondsBackground () {
       return this.computedTimerStyle.secondsBackground || this.computedTimerStyle.timerBackground || 'transparent'
     },
-    counterBorderRadius() {
+    counterBorderRadius () {
       return this.computedTimerStyle.counterBorderRadius + 'px' || '10px'
     },
-    computedSeconds() {
+    computedSeconds () {
       return this.loading || !this.time ? '00' : this.seconds
     },
-    computedMinutes() {
+    computedMinutes () {
       return this.loading || !this.time ? '00' : this.minutes
     },
-    computedHour() {
+    computedHour () {
       return this.loading || !this.time ? '00' : this.hour
     },
-    computedDay() {
+    computedDay () {
       return this.loading || !this.time ? '00' : this.day
     }
 
   },
   watch: {
-    time() {
+    time () {
       this.getEventInfo()
       this.updateTimer()
     }
   },
-  mounted() {
+  mounted () {
     this.getEventInfo()
     this.updateTimer()
   },
-  unmounted() {
+  unmounted () {
     clearInterval(this.interval)
   },
   methods: {
-    updateTimer() {
+    updateTimer () {
       this.interval = setInterval(() => {
         this.eventTime--
         this.day = Math.floor(this.eventTime / 86400)
@@ -144,7 +144,7 @@ export default defineComponent({
         this.seconds = this.seconds < 10 ? '0' + this.seconds : this.seconds
       }, 1000)
     },
-    getEventInfo() {
+    getEventInfo () {
       clearInterval(this.interval)
       this.loading = true
       moment.loadPersian()
@@ -163,7 +163,7 @@ export default defineComponent({
       this.seconds = seconds < 10 ? '0' + seconds : seconds
       this.loading = false
     },
-    getDifference(date1, date2) {
+    getDifference (date1, date2) {
       const diffInMs = Math.abs(date2 - date1)
       return diffInMs / 1000
     }
@@ -185,13 +185,14 @@ $counterMargin: v-bind('computedTimerStyle.counterMargin');
 $counterPadding: v-bind('computedTimerStyle.counterPadding');
 $fontFamily: v-bind('computedTimerStyle.fontFamily');
 $counterBorderRadius: v-bind('counterBorderRadius');
+
 .event-counter-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: $fontFamily;
 
-  @media screen and (max-width: 1023px) and (min-width: 350px) {
+  @media screen and (width <= 1023px) and (width >= 350px) {
     width: 100%;
     justify-content: center;
   }
@@ -211,7 +212,7 @@ $counterBorderRadius: v-bind('counterBorderRadius');
         display: flex;
         width: 59.63px;
         height: 87.457px;
-        padding-bottom: 0px;
+        padding-bottom: 0;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -226,20 +227,22 @@ $counterBorderRadius: v-bind('counterBorderRadius');
         letter-spacing: -1.193px;
         margin: 0 6px;
 
-        @media screen and (max-width: 1919px) {
+        @media screen and (width <= 1919px) {
           width: 59.63px;
           height: 87.457px;
           font-size: 39.753px;
           letter-spacing: -1.193px;
         }
-        @media screen and (max-width: 1439px) {
+
+        @media screen and (width <= 1439px) {
           width: 60px;
           height: 88px;
           font-size: 40px;
           letter-spacing: -1.2px;
           margin: 0 6px;
         }
-        @media screen and (max-width: 1023px) {
+
+        @media screen and (width <= 1023px) {
           width: 54px;
           height: 80px;
           font-size: 32px;
@@ -247,7 +250,8 @@ $counterBorderRadius: v-bind('counterBorderRadius');
           letter-spacing: -0.96px;
           margin: 0 4px;
         }
-        @media screen and (max-width: 599px) {
+
+        @media screen and (width <= 599px) {
           width: 32px;
           height: 48.692px;
           font-size: 20px;
@@ -257,7 +261,6 @@ $counterBorderRadius: v-bind('counterBorderRadius');
       }
 
       &.seconds {
-
         .counter-item-number {
           background: #D14835;
         }
@@ -266,6 +269,7 @@ $counterBorderRadius: v-bind('counterBorderRadius');
 
     &:not(:last-child) {
         flex-direction: row;
+
         &::after{
           content: ':';
             color: #FFF;
@@ -279,20 +283,23 @@ $counterBorderRadius: v-bind('counterBorderRadius');
             width: 16px;
             text-align: center;
 
-            @media screen and (max-width: 1919px) {
+            @media screen and (width <= 1919px) {
               font-size: 39.753px;
               letter-spacing: -1.193px;
             }
-            @media screen and (max-width: 1439px) {
+
+            @media screen and (width <= 1439px) {
               font-size: 40px;
               letter-spacing: -1.2px;
             }
-            @media screen and (max-width: 1023px) {
+
+            @media screen and (width <= 1023px) {
               font-size: 40px;
               letter-spacing: -1.2px;
-              margin: 0px;
+              margin: 0;
             }
-            @media screen and (max-width: 599px) {
+
+            @media screen and (width <= 599px) {
               font-size: 20px;
               letter-spacing: -0.6px;
               margin: 0 1px;

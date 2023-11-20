@@ -5,7 +5,7 @@ import { GatewayList } from 'src/models/Gateway.js'
 import APIRepository from '../classes/APIRepository.js'
 
 export default class CartAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('cart', apiV2, '/orderproduct', new Cart())
     this.seller = 1 // 1: Alaa - 2: Soala
     this.APIAdresses = {
@@ -50,7 +50,7 @@ export default class CartAPI extends APIRepository {
     }
   }
 
-  addToCart(data = {}, cache) {
+  addToCart (data = {}, cache) {
     const payload = {
       product_id: data.product_id, // Number or String
       products: data.products, // Number or String (List ofProduct's ID)
@@ -80,7 +80,7 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  discountSubmit(data = {}) {
+  discountSubmit (data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -97,7 +97,7 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  discountRemove(data = {}) {
+  discountRemove (data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -113,7 +113,7 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  reviewCart(cartItems = [], cache = { TTL: 1000 }) {
+  reviewCart (cartItems = [], cache = { TTL: 1000 }) {
     const queryParams = {}
     queryParams.seller = this.seller
 
@@ -170,7 +170,7 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  getGateways(cache = { TTL: 1000 }) {
+  getGateways (cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -186,7 +186,7 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  getPaymentRedirectEncryptedLink(data, cache = { TTL: 1000 }) {
+  getPaymentRedirectEncryptedLink (data, cache = { TTL: 1000 }) {
     const mergedData = this.getNormalizedSendData(
       {
         device: 'web', // String
@@ -211,7 +211,7 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  removeFromCart(orderProductId) {
+  removeFromCart (orderProductId) {
     return this.sendRequest({
       apiMethod: 'delete',
       api: this.api,
@@ -226,7 +226,7 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  removeFromCartByProductId(productId) {
+  removeFromCartByProductId (productId) {
     return this.sendRequest({
       apiMethod: 'delete',
       api: this.api,
@@ -241,7 +241,7 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  getorderWithTransaction(orderId, cache = { TTL: 1000 }) {
+  getorderWithTransaction (orderId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

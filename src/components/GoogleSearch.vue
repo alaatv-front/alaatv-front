@@ -326,7 +326,7 @@ export default {
   line-height: 16px;
   color: #006621;
   font-size: 16px;
-  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif !important;
+  font-family: Roboto, Helvetica, Arial, sans-serif !important;
   font-weight: 400;
 }
 
@@ -344,7 +344,7 @@ export default {
 }
 
 .container {
-  background: #FFFFFF;
+  background: #FFF;
   margin-top: 10px;
   padding: 24px 16px;
   border: 1px solid transparent;
@@ -353,8 +353,7 @@ export default {
   .search-area {
     .google-logo {
       display: grid;
-      justify-items: center;
-      align-items: center;
+      place-items: center center;
     }
 
     .search-box {
@@ -384,7 +383,7 @@ export default {
 
         &:deep(.q-btn__content) {
           font-size: 14px;
-          font-family: Google Sans, arial, sans-serif;
+          font-family: "Google Sans", arial, sans-serif;
         }
       }
     }
@@ -396,7 +395,7 @@ export default {
     padding-right: 17.5%;
 
     .rating {
-      font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif !important;
+      font-family: Roboto, Helvetica, Arial, sans-serif !important;
       font-size: 14px;
       font-weight: 400;
       line-height: 20px;
@@ -409,7 +408,7 @@ export default {
 
     .date-and-description {
       color: #545454;
-      font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif !important;
+      font-family: Roboto, Helvetica, Arial, sans-serif !important;
       font-size: 14px;
       font-weight: 400;
       line-height: 20px;
@@ -420,24 +419,29 @@ export default {
     display: flex;
     justify-content: center;
     margin-top: 24px;
+
     .mobile-card {
       width: 100%;
       max-width: 360px;
       color: #3C4043;
+
       .search-title {
         .title {
           color: #1967D2;
           font-size: 16px;
         }
+
         margin-top: 10px;
         margin-bottom: 12px;
       }
+
       .search-url {
         color: #3C4043;
         font-size: 12px;
       }
+
       .rating {
-        font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif !important;
+        font-family: Roboto, Helvetica, Arial, sans-serif !important;
         font-size: 14px;
         font-weight: 400;
         line-height: 20px;

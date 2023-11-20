@@ -166,21 +166,25 @@ export default {
   width: 434px;
   height: 485px;
 }
+
 .login-card {
-  box-shadow: 2px -4px 10px rgba(255, 255, 255, 0.6), -2px 4px 10px rgba(112, 108, 162, 0.05);
+  box-shadow: 2px -4px 10px rgb(255 255 255 / 60%), -2px 4px 10px rgb(112 108 162 / 5%);
   background: #fff;
   margin: auto;
   border-radius: 20px;
   padding:60px 67px;
-  @media only screen and (max-width: 600px){
+
+  @media only screen and (width <= 600px){
     padding: 30px;
   }
+
   .login-loading {
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
+
   .header{
     margin-bottom: 50px;
     font-style: normal;
@@ -190,6 +194,7 @@ export default {
     letter-spacing: -0.03em;
     color: #65677F;
   }
+
   .label{
     font-weight: 400;
     font-size: 16px;
@@ -198,6 +203,7 @@ export default {
     color: #434765;
     margin-bottom: 8px;
   }
+
   .login-btn{
     :deep(.q-btn__content){
       font-weight: 600;
@@ -205,21 +211,26 @@ export default {
       line-height: 22px;
     }
   }
+
   .phone-number{
     margin-bottom: 16px;
   }
+
   .national-code{
     margin-bottom: 56px;
   }
+
   :deep(.q-field--focused) {
     appearance: none;
   }
+
   &:deep(.q-field--focused .q-field__control) {
-    background-color: rgba(255,255,255,0) !important;
+    background-color: rgb(255 255 255 / 0%) !important;
     appearance: none;
   }
 }
-@media only screen and (max-width: 1023px){
+
+@media only screen and (width <= 1023px){
   .default-login-card {
     width: 312px;
     height: 409px;
@@ -240,14 +251,14 @@ export default {
   }
 }
 
-@media only screen and (max-width: 600px){
+@media only screen and (width <= 600px){
   .defaultLoginCard{
     width: 300px;
     height: 450px;
   }
 }
 
-@media only screen and (max-width: 400px){
+@media only screen and (width <= 400px){
   .defaultLoginCard{
     width: 270px;
     height: 450px;

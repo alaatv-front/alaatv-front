@@ -6,7 +6,7 @@
 <script>
 export default {
   name: 'CreatTicket',
-  data() {
+  data () {
     return {
       pageConfig: {},
       sections: [

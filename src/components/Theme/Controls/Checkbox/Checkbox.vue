@@ -106,7 +106,7 @@
 import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'Checkbox',
-  data() {
+  data () {
     return {
       falseValue: false,
       trueValue: true,

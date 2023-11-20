@@ -269,7 +269,7 @@ export default {
     this.loadDefaultSeoData()
   },
   methods: {
-    truncateString(string, length) {
+    truncateString (string, length) {
       if (!string) {
         return ''
       }
@@ -420,38 +420,43 @@ export default {
   width: 200px;
   margin: 0 auto;
 }
+
 .vue-google-serp {
   direction: rtl;
   font-family: arial, sans-serif !important;
   margin: 0;
   padding: 0;
+
   .preview {
     padding: 20px;
     max-width: 600px;
     border: 1px solid #ddd;
     border-radius: 5px;
   }
+
   h3 {
     font-family: arial, sans-serif !important;
     margin: 0;
-    color: rgb(26, 13, 171);
+    color: rgb(26 13 171);
     font-size: 18px;
     font-weight: 400;
     line-height: 1.2;
   }
+
   p {
     font-family: arial, sans-serif !important;
     margin: 0;
-    color: rgb(84, 84, 84);
+    color: rgb(84 84 84);
     font-size: 13px;
     line-height: 1.4;
   }
+
   cite {
     font-family: arial, sans-serif !important;
     margin: 0;
     font-style: normal;
     height: 18px;
-    color: rgb(0, 102, 33);
+    color: rgb(0 102 33);
     font-size: 14px;
     line-height: 16px;
     white-space: nowrap;
@@ -465,33 +470,37 @@ export default {
   font-family: arial, sans-serif !important;
   margin: 0;
   padding: 0;
+
   .preview {
     padding: 20px;
     max-width: 350px;
     border: 1px solid #ddd;
     border-radius: 5px;
   }
+
   h3 {
     font-family: arial, sans-serif !important;
-    margin: 0 0 5px 0;
-    color: rgb(26, 13, 171);
+    margin: 0 0 5px;
+    color: rgb(26 13 171);
     font-size: 16px;
     font-weight: 400;
     line-height: 1.2;
   }
+
   p {
     font-family: arial, sans-serif !important;
     margin: 0;
-    color: rgb(84, 84, 84);
+    color: rgb(84 84 84);
     font-size: 12px;
     line-height: 1.4;
   }
+
   cite {
     font-family: arial, sans-serif !important;
     margin: 0;
     font-style: normal;
     height: 18px;
-    color: rgb(0, 102, 33);
+    color: rgb(0 102 33);
     font-size: 14px;
     line-height: 16px;
     white-space: nowrap;
@@ -508,12 +517,14 @@ export default {
     max-width: 80vw;
   }
 }
+
 .pageBuilderShowConfigDialog {
   .pageBuilderShowConfigDialog-config-section {
     overflow: auto;
     max-height: 50vh;
   }
 }
+
 .showMenuItemsDialog {
   .showMenuItemsDialog-config-section {
     overflow: auto;

@@ -10,7 +10,7 @@ import { mixinSEO, mixinPageOptions } from 'src/mixin/Mixins.js'
 export default {
   name: 'FireDay',
   mixins: [mixinPageOptions, mixinSEO],
-  data() {
+  data () {
     return {
       pageConfig: {},
       sections: [

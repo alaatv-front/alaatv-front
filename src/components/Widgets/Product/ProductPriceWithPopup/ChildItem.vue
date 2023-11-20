@@ -63,14 +63,14 @@ export default defineComponent({
       default: 0
     }
   },
-  data() {
+  data () {
     return {
       selectedOnes: [],
       selected: false
     }
   },
   computed: {
-    productPrice() {
+    productPrice () {
       return new Price(this.product.price)
     }
   },
@@ -188,20 +188,25 @@ export default defineComponent({
     letter-spacing: -0.28px;
     margin: auto;
   }
+
   .checkbox-section{
     padding: 0;
   }
+
   .ProductPriceChildItem-with-child {
     :deep(.q-expansion-item) {
       .q-expansion-item__container {
         .q-item {
           border-radius: 15px;
+
           //.q-focus-helper {
           //  background: white;
           //}
         }
+
         .q-expansion-item__content {
           padding-left: 20px;
+
           .q-card {
             border-radius: 15px;
           }
@@ -209,8 +214,10 @@ export default defineComponent({
       }
     }
   }
+
   .ProductPriceChildItem-without-child {
     border-radius: 15px;
+
     &:hover {
       background: #e8e8e8;
     }

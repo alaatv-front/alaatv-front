@@ -21,7 +21,7 @@ import { mixinWidget } from 'src/mixin/Mixins.js'
 export default {
   name: 'Bodymovin',
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       animation1: true,
       animation2: false,
@@ -85,7 +85,7 @@ export default {
     }
   },
   computed: {
-    responsiveBodymovin() {
+    responsiveBodymovin () {
       let result = {}
       if (this.windowWidth >= 1920) {
         result = this.localOptions.xl.directory !== '' ? this.localOptions.xl : this.localOptions.lg.directory !== '' ? this.localOptions.lg : this.localOptions.sm.directory !== '' ? this.localOptions.md : this.localOptions.sm.directory !== '' ? this.localOptions.sm : this.localOptions.xs
@@ -130,12 +130,12 @@ export default {
       this.animationData1.play()
     }
   },
-  mounted() {
+  mounted () {
     this.windowWidth = window.innerWidth
     this.reInitBodyMovin()
     window.addEventListener('resize', this.onResize)
   },
-  beforeUnmount() {
+  beforeUnmount () {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
@@ -150,14 +150,14 @@ export default {
         this.isAllowedToPlay = false
       }
     },
-    onClickElement() {
+    onClickElement () {
       this.takeAction()
       if (this.localOptions.animate === 'onClick') {
         this.animationData1.stop()
         this.animationData1.play()
       }
     },
-    onHoverElement() {
+    onHoverElement () {
       if (this.localOptions.animate === 'onHover') {
         this.animationData1.loop = true
         this.animationData1.stop()
@@ -169,7 +169,7 @@ export default {
         this.animationData1.play()
       }
     },
-    onMouseLeave() {
+    onMouseLeave () {
       if (this.localOptions.animate === 'onHover' && !this.localOptions.loop) {
         this.animationData1.loop = false
       } else if (this.localOptions.animate === 'in & out') {
@@ -179,13 +179,13 @@ export default {
         this.animationData2.play()
       }
     },
-    onHoverElement2() {
+    onHoverElement2 () {
       this.$refs.secondBm.style.display = 'none'
       this.$refs.firstBm.style.display = 'block'
       this.animationData1.stop()
       this.animationData1.play()
     },
-    reInitBodyMovin() {
+    reInitBodyMovin () {
       if (this.animationData1) {
         this.animationData1.destroy()
       }
@@ -194,14 +194,14 @@ export default {
       }
       this.loadBodyMovin()
     },
-    onResize() {
+    onResize () {
       if (typeof window === 'undefined') {
         return
       }
       this.windowWidth = window.innerWidth
       this.reInitBodyMovin()
     },
-    loadBodyMovin() {
+    loadBodyMovin () {
       this.animationData1 = lottie.loadAnimation({
         wrapper: this.$refs.firstBm,
         animType: 'svg',
@@ -226,6 +226,7 @@ export default {
   .animation1 {
     display: block;
   }
+
   .animation2 {
     display: none;
   }

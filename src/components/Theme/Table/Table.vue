@@ -38,7 +38,7 @@ import { APIGateway } from 'src/api/APIGateway'
 export default {
   name: 'ExampleTable',
   components: { EntityIndex },
-  data() {
+  data () {
     return {
       inputs: [],
       api: APIGateway.user.APIAdresses.favored + '?type=content',
@@ -88,7 +88,3 @@ export default {
 
 }
 </script>
-
-<style scoped>
-
-</style>

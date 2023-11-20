@@ -34,7 +34,7 @@ export default defineComponent({
   name: 'ProductDiscountBadge',
   components: { LazyImg },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       defaultOptions: {
         price: new Price()
@@ -46,10 +46,12 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 $size: 64px;
+
 .discount-badge {
   z-index: 2;
   width: $size;
   height: $size;
+
   &_percent {
     position: absolute;
     top: 15px;
@@ -78,9 +80,10 @@ $size: 64px;
       line-height: normal;
     }
 
-    @media screen and (max-width: 600px){
+    @media screen and (width <= 600px){
       top: 7px;
       right: 16px;
+
       &__number {
         text-align: center;
         color: #FFF;
@@ -101,10 +104,12 @@ $size: 64px;
       }
     }
   }
+
   :deep(.discount-badge_percent__img) {
     position: absolute;
     width: $size;
-    @media screen and (max-width: 600px){
+
+    @media screen and (width <= 600px){
       width: 32px;
       top: 0;
       right: 12px;

@@ -13,7 +13,3 @@ export default {
   mixins: [mixinPrefetchServerData, mixinPageOptions, mixinSEO]
 }
 </script>
-
-<style scoped>
-
-</style>

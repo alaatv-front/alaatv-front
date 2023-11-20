@@ -6,7 +6,7 @@ import { Content, ContentList } from 'src/models/Content.js'
 import { Product, ProductList } from 'src/models/Product.js'
 import { ProductCategoryList } from 'src/models/ProductCategory.js'
 export default class ProductAPI extends APIRepository {
-  constructor() {
+  constructor () {
     super('product', apiV2)
     this.APIAdresses = {
       base: '/product',
@@ -76,7 +76,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  show(productId, cache = { TTL: 1000 }) {
+  show (productId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -92,7 +92,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  updateSetOrders(data) {
+  updateSetOrders (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -107,7 +107,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  liveConductors(cache = { TTL: 1000 }) {
+  liveConductors (cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -126,7 +126,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  gifts(productId, cache = { TTL: 1000 }) {
+  gifts (productId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -142,7 +142,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  sampleContent(productId, cache) {
+  sampleContent (productId, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -158,7 +158,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  favored(productId) {
+  favored (productId) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -176,7 +176,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  unfavored(productId) {
+  unfavored (productId) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -194,7 +194,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getPrice(data) {
+  getPrice (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -213,7 +213,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getProductList(data, cache = { TTL: 1000 }) {
+  getProductList (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -230,7 +230,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getLiveProducts(cache = { TTL: 1000 }) {
+  getLiveProducts (cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -246,7 +246,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getLiveLink(productId, cache = { TTL: 1000 }) {
+  getLiveLink (productId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -262,7 +262,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getSets(productId, cache = { TTL: 1000 }) {
+  getSets (productId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -278,7 +278,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getAdminSets(productId, cache = { TTL: 1000 }) {
+  getAdminSets (productId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -294,7 +294,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getContents(data = {}, cache) {
+  getContents (data = {}, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -312,7 +312,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getCategories(cache = { TTL: 1000 }) {
+  getCategories (cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -328,7 +328,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getUserLastState(id, cache = { TTL: 1000 }) {
+  getUserLastState (id, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -344,7 +344,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getProductComplimentary(id, cache = { TTL: 1000 }) {
+  getProductComplimentary (id, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -360,7 +360,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getProductExamList(id, cache = { TTL: 1000 }) {
+  getProductExamList (id, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -376,7 +376,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getProductFaq(id, cache = { TTL: 1000 }) {
+  getProductFaq (id, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

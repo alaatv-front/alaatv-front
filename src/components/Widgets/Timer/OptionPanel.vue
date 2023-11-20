@@ -272,7 +272,7 @@ export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs, ComponentWrapperOptionPanel },
   mixins: [mixinOptionPanel],
-  data() {
+  data () {
     return {
       defaultOptions: {
         time: '1402-06-01 00:00',
@@ -421,7 +421,7 @@ export default defineComponent({
   },
   watch: {
     localOptions: {
-      handler(newVal) {
+      handler (newVal) {
         this.$emit('update:options', newVal)
       },
       deep: true

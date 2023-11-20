@@ -1,6 +1,6 @@
 const GiftCardMixin = {
   methods: {
-    getErrorMessages(data) {
+    getErrorMessages (data) {
       const messages = []
       if (data.errors) {
         const errors = data.errors

@@ -93,7 +93,7 @@ export default {
     }
   },
   emits: ['ActionButton'],
-  data() {
+  data () {
     return {
       drawer: false,
       defaultOptions: {
@@ -216,13 +216,13 @@ export default {
     }
   },
   computed: {
-    drawerWidth() {
+    drawerWidth () {
       return Number(this.localOptions.drawer.width)
     },
-    hideInAuth() {
+    hideInAuth () {
       return this.localOptions.hideInAuth ? this.isUserLogin : false
     },
-    displayAuth() {
+    displayAuth () {
       if (!this.localOptions.displayAuth) {
         return true
       }
@@ -249,22 +249,22 @@ export default {
   },
   watch: {
     options: {
-      handler() {
+      handler () {
         this.loadConfig()
       }
     }
   },
-  mounted() {
+  mounted () {
     this.loadConfig()
     this.checkAuth()
   },
   methods: {
-    checkAuth() {
+    checkAuth () {
       this.$bus.on('onLoggedIn', () => {
         this.loadAuthData()
       })
     },
-    loadConfig() {
+    loadConfig () {
       if (this.localOptions.imageSource) {
         this.localOptions.flat = true
         this.localOptions.className = this.localOptions.className + ' img-btn'
@@ -273,7 +273,7 @@ export default {
         this.localOptions.className = this.localOptions.className + ' fixed-btn' + ` ${this.localOptions.fixedPosition}`
       }
     },
-    scrollToElement(className) {
+    scrollToElement (className) {
       const el = document.getElementsByClassName(className)[0]
       const headerOffset = 0
       const elementPosition = el.getBoundingClientRect().top
@@ -283,14 +283,14 @@ export default {
         behavior: 'smooth'
       })
     },
-    redirectRoute(url) {
+    redirectRoute (url) {
       if ((url.indexOf('http://') > -1 || url.indexOf('https://') > -1)) {
         window.open(url, '_blank')
       } else {
         this.$router.push(url)
       }
     },
-    takeAction() {
+    takeAction () {
       if (!this.localOptions.hasAction) {
         this.$emit('ActionButton')
       } else if (this.callBack) {
@@ -310,61 +310,63 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "quasar-ui-q-page-builder/src/components/Component.scss";
+@import "quasar-ui-q-page-builder/src/components/Component";
+
 $shadows: v-bind('shadows');
 $responsiveSpacing: (
   xs: (
-    marginTop: v-bind('localOptions.responsiveSpacing.xs.marginTop'),
-    marginLeft: v-bind('localOptions.responsiveSpacing.xs.marginLeft'),
-    marginRight: v-bind('localOptions.responsiveSpacing.xs.marginRight'),
-    marginBottom: v-bind('localOptions.responsiveSpacing.xs.marginBottom'),
-    paddingTop: v-bind('localOptions.responsiveSpacing.xs.paddingTop'),
-    paddingLeft: v-bind('localOptions.responsiveSpacing.xs.paddingLeft'),
-    paddingRight: v-bind('localOptions.responsiveSpacing.xs.paddingRight'),
-    paddingBottom: v-bind('localOptions.responsiveSpacing.xs.paddingBottom'),
+    margintop: v-bind('localOptions.responsiveSpacing.xs.marginTop'),
+    marginleft: v-bind('localOptions.responsiveSpacing.xs.marginLeft'),
+    marginright: v-bind('localOptions.responsiveSpacing.xs.marginRight'),
+    marginbottom: v-bind('localOptions.responsiveSpacing.xs.marginBottom'),
+    paddingtop: v-bind('localOptions.responsiveSpacing.xs.paddingTop'),
+    paddingleft: v-bind('localOptions.responsiveSpacing.xs.paddingLeft'),
+    paddingright: v-bind('localOptions.responsiveSpacing.xs.paddingRight'),
+    paddingbottom: v-bind('localOptions.responsiveSpacing.xs.paddingBottom'),
   ),
   sm: (
-    marginTop: v-bind('localOptions.responsiveSpacing.sm.marginTop'),
-    marginLeft: v-bind('localOptions.responsiveSpacing.sm.marginLeft'),
-    marginRight: v-bind('localOptions.responsiveSpacing.sm.marginRight'),
-    marginBottom: v-bind('localOptions.responsiveSpacing.sm.marginBottom'),
-    paddingTop: v-bind('localOptions.responsiveSpacing.sm.paddingTop'),
-    paddingLeft: v-bind('localOptions.responsiveSpacing.sm.paddingLeft'),
-    paddingRight: v-bind('localOptions.responsiveSpacing.sm.paddingRight'),
-    paddingBottom: v-bind('localOptions.responsiveSpacing.sm.paddingBottom'),
+    margintop: v-bind('localOptions.responsiveSpacing.sm.marginTop'),
+    marginleft: v-bind('localOptions.responsiveSpacing.sm.marginLeft'),
+    marginright: v-bind('localOptions.responsiveSpacing.sm.marginRight'),
+    marginbottom: v-bind('localOptions.responsiveSpacing.sm.marginBottom'),
+    paddingtop: v-bind('localOptions.responsiveSpacing.sm.paddingTop'),
+    paddingleft: v-bind('localOptions.responsiveSpacing.sm.paddingLeft'),
+    paddingright: v-bind('localOptions.responsiveSpacing.sm.paddingRight'),
+    paddingbottom: v-bind('localOptions.responsiveSpacing.sm.paddingBottom'),
   ),
   md: (
-    marginTop: v-bind('localOptions.responsiveSpacing.md.marginTop'),
-    marginLeft: v-bind('localOptions.responsiveSpacing.md.marginLeft'),
-    marginRight: v-bind('localOptions.responsiveSpacing.md.marginRight'),
-    marginBottom: v-bind('localOptions.responsiveSpacing.md.marginBottom'),
-    paddingTop: v-bind('localOptions.responsiveSpacing.md.paddingTop'),
-    paddingLeft: v-bind('localOptions.responsiveSpacing.md.paddingLeft'),
-    paddingRight: v-bind('localOptions.responsiveSpacing.md.paddingRight'),
-    paddingBottom: v-bind('localOptions.responsiveSpacing.md.paddingBottom'),
+    margintop: v-bind('localOptions.responsiveSpacing.md.marginTop'),
+    marginleft: v-bind('localOptions.responsiveSpacing.md.marginLeft'),
+    marginright: v-bind('localOptions.responsiveSpacing.md.marginRight'),
+    marginbottom: v-bind('localOptions.responsiveSpacing.md.marginBottom'),
+    paddingtop: v-bind('localOptions.responsiveSpacing.md.paddingTop'),
+    paddingleft: v-bind('localOptions.responsiveSpacing.md.paddingLeft'),
+    paddingright: v-bind('localOptions.responsiveSpacing.md.paddingRight'),
+    paddingbottom: v-bind('localOptions.responsiveSpacing.md.paddingBottom'),
   ),
   lg: (
-    marginTop: v-bind('localOptions.responsiveSpacing.lg.marginTop'),
-    marginLeft: v-bind('localOptions.responsiveSpacing.lg.marginLeft'),
-    marginRight: v-bind('localOptions.responsiveSpacing.lg.marginRight'),
-    marginBottom: v-bind('localOptions.responsiveSpacing.lg.marginBottom'),
-    paddingTop: v-bind('localOptions.responsiveSpacing.lg.paddingTop'),
-    paddingLeft: v-bind('localOptions.responsiveSpacing.lg.paddingLeft'),
-    paddingRight: v-bind('localOptions.responsiveSpacing.lg.paddingRight'),
-    paddingBottom: v-bind('localOptions.responsiveSpacing.lg.paddingBottom'),
+    margintop: v-bind('localOptions.responsiveSpacing.lg.marginTop'),
+    marginleft: v-bind('localOptions.responsiveSpacing.lg.marginLeft'),
+    marginright: v-bind('localOptions.responsiveSpacing.lg.marginRight'),
+    marginbottom: v-bind('localOptions.responsiveSpacing.lg.marginBottom'),
+    paddingtop: v-bind('localOptions.responsiveSpacing.lg.paddingTop'),
+    paddingleft: v-bind('localOptions.responsiveSpacing.lg.paddingLeft'),
+    paddingright: v-bind('localOptions.responsiveSpacing.lg.paddingRight'),
+    paddingbottom: v-bind('localOptions.responsiveSpacing.lg.paddingBottom'),
   ),
   xl: (
-    marginTop: v-bind('localOptions.responsiveSpacing.xl.marginTop'),
-    marginLeft: v-bind('localOptions.responsiveSpacing.xl.marginLeft'),
-    marginRight: v-bind('localOptions.responsiveSpacing.xl.marginRight'),
-    marginBottom: v-bind('localOptions.responsiveSpacing.xl.marginBottom'),
-    paddingTop: v-bind('localOptions.responsiveSpacing.xl.paddingTop'),
-    paddingLeft: v-bind('localOptions.responsiveSpacing.xl.paddingLeft'),
-    paddingRight: v-bind('localOptions.responsiveSpacing.xl.paddingRight'),
-    paddingBottom: v-bind('localOptions.responsiveSpacing.xl.paddingBottom'),
+    margintop: v-bind('localOptions.responsiveSpacing.xl.marginTop'),
+    marginleft: v-bind('localOptions.responsiveSpacing.xl.marginLeft'),
+    marginright: v-bind('localOptions.responsiveSpacing.xl.marginRight'),
+    marginbottom: v-bind('localOptions.responsiveSpacing.xl.marginBottom'),
+    paddingtop: v-bind('localOptions.responsiveSpacing.xl.paddingTop'),
+    paddingleft: v-bind('localOptions.responsiveSpacing.xl.paddingLeft'),
+    paddingright: v-bind('localOptions.responsiveSpacing.xl.paddingRight'),
+    paddingbottom: v-bind('localOptions.responsiveSpacing.xl.paddingBottom'),
   )
 );
-$displayAuth : v-bind('displayAuth ? "initial" :  "none"');
+$displayAuth: v-bind('displayAuth ? "initial" :  "none"');
+
 .drawer {
   z-index: 100;
 
@@ -373,15 +375,18 @@ $displayAuth : v-bind('displayAuth ? "initial" :  "none"');
       height: inherit;
     }
   }
+
 .action-btn-wrapper {
   display: flex;
   align-items: center;
 
   .action-btn {
     @include media-query-spacings($responsiveSpacing, $sizes);
+
     box-shadow: $shadows;
     display: $displayAuth;
     border-radius: v-bind('localOptions.borderRadius');
+
     &.fixed-btn {
       position: fixed;
       z-index: 1;

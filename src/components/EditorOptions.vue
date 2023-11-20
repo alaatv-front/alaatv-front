@@ -46,7 +46,7 @@ import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 export default {
   name: 'EditorOptions',
   mixins: [PageBuilderOptionPanel],
-  data() {
+  data () {
     return {
       fontStyle: ['inherit', 'normal', 'italic'],
       responsiveOpts: ['xs', 'sm', 'md', 'lg', 'xl'],
@@ -56,7 +56,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -1,24 +1,16 @@
-@import 'src/css/Theme/Controls/input.scss';
+@import "src/css/Theme/Controls/input";
 
 .form-builder-ToggleButton {
-  .outsideLabel {
-
-  }
-
   .q-btn-group {
     border-radius: 10px;
     overflow: hidden;
   }
+
   .q-btn-toggle {
     height: $input-height;
     box-shadow: none;
-    background-color: var(--3a-Neutral3);
     justify-content: space-between;
-    :first-child {
-      &.q-btn {
-        border-radius: unset;
-      }
-    }
+
     .q-btn {
       height: $input-height;
       width: 58px;
@@ -35,11 +27,12 @@
       .q-btn__content {
         margin: 0;
       }
+    }
 
+    :first-child {
+      &.q-btn {
+        border-radius: unset;
+      }
     }
   }
 }
-
-//q-btn q-btn-item non-selectable no-outline
-
-//q-btn q-btn-item non-selectable no-outline

@@ -61,7 +61,7 @@ import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 export default {
   name: 'UserDashboardItems',
   mixins: [mixinEwano],
-  data() {
+  data () {
     return {
       isAdmin: false,
       user: new User(),
@@ -196,7 +196,7 @@ export default {
 
 <style scoped lang="scss">
 .Dashboard {
-  background: #FFFFFF;
+  background: #FFF;
   border: 1px solid #F2F5F9;
   border-radius: 0 16px 16px 16px #{"/* rtl:ignore */"};
   display: flex;
@@ -209,7 +209,7 @@ export default {
 
     &.side-menu-list {
       .top-separator {
-        margin: 0 40px 32px 40px;
+        margin: 0 40px 32px;
       }
 
       .q-item {
@@ -244,6 +244,7 @@ export default {
               }
             }
           }
+
           &.alone-item-mode-drawer {
             &.active-route-side-mode {
               .indicator {
@@ -292,7 +293,7 @@ export default {
 
         .q-expansion-item__content {
           .vertical-separator {
-            margin: 6px 9px 9px 9px;
+            margin: 6px 9px 9px;
           }
         }
 
@@ -334,8 +335,8 @@ export default {
       }
 
       .active-route-side-mode {
-
         background-color: #8075DC;
+
         .indicator {
           height: 6px;
           width: 6px;
@@ -343,8 +344,10 @@ export default {
           margin: auto;
         }
       }
+
       .item-mode-drawer {
         background: #F6F9FF;
+
         .indicator {
           height: 6px;
           width: 6px;
@@ -368,6 +371,7 @@ export default {
 
   &.list-side-mode {
     color: white;
+
     .q-list {
       a {
         color: white;
@@ -377,6 +381,7 @@ export default {
 
   &.list-drawer-mode {
     color: #6D708B;
+
     .q-list {
       a {
         color: #6D708B;
@@ -391,11 +396,13 @@ export default {
     cursor: pointer;
     height: 40px !important;
     padding: 0 6px;
+
     //width: 232px;
     border-radius: 14px;
     display: flex;
     align-items: center;
     margin-top: 15px;
+
     //@media screen and (max-width: 1439px) {
     //  margin: 0 31px 33px 31px;
     //}
@@ -405,7 +412,7 @@ export default {
     //}
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgb(255 255 255 / 10%);
     }
 
     .q-avatar {

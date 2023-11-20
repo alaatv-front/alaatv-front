@@ -31,17 +31,17 @@ export default {
   name: 'ChannelInfo',
   components: { LazyImg },
   mixins: [mixinWidget],
-  data() {
+  data () {
     return {
       channel: new Channel(),
       loading: false
     }
   },
-  mounted() {
+  mounted () {
     this.setChannel()
   },
   methods: {
-    setChannel() {
+    setChannel () {
       const id = this.$route.params.id
       APIGateway.channel.getChannel({ id })
         .then(channel => {
