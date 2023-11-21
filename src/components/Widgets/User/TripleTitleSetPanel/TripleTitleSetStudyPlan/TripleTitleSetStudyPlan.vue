@@ -561,7 +561,6 @@ export default {
       this.selectedDate = this.$refs.entityEdit.getInputsByName('date').value
       APIGateway.abrisham.findMyStudyPlan(data)
         .then(studyPlan => {
-          debugger
           this.$refs.entityEdit.setInputByName('event_id', studyPlan.id)
           if (this.studyEvent !== studyPlan.id) {
             this.studyEvent = studyPlan.id

@@ -60,7 +60,7 @@ RUN yarn build:ssr
 ##############################################
 
 
-FROM node:16.16.0-alpine
+FROM node:20.9-alpine
 COPY --from=prebuild /var/www/app/dist/ssr /var/www/app/dist/ssr
 #Why we simply don't copy node_module to new docker image so we can remove yar install
 COPY --from=prebuild /var/www/app/node_modules /var/www/app/dist/ssr/node_modules
