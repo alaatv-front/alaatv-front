@@ -49,6 +49,7 @@ import Toast from 'components/Theme/Toast/Toast.vue'
 import ExampleTabs from 'components/Theme/Tabs/ExampleTabs.vue'
 import ExampleDialog from 'components/Theme/Dialog/ExampleDialog.vue'
 import Badge from 'components/Theme/Badge/Badge.vue'
+import ExpansionItem from 'components/Theme/ExpansionItem/ExpansionItem.vue'
 
 export default {
   name: 'Controls',
@@ -71,7 +72,8 @@ export default {
     ExampleTabs,
     ExampleDialog,
     ProgressTheme,
-    PaginationTheme
+    PaginationTheme,
+    ExpansionItem
   },
   data () {
     return {
@@ -113,6 +115,10 @@ export default {
         {
           label: 'example-tabs',
           name: 'example-tabs'
+        },
+        {
+          label: 'expansion-item',
+          name: 'expansion-item'
         },
         {
           label: 'toggle-theme',
