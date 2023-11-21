@@ -58,10 +58,6 @@ export default {
         return this.value
       },
       set (value) {
-        // const contentsIds = []
-        // value.forEach(content => {
-        //   contentsIds.push(content.id)
-        // })
         this.$emit('update:value', value)
       }
     }
@@ -76,7 +72,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.value)
     this.value.forEach(content => {
       this.contents.push(content.id)
     })
