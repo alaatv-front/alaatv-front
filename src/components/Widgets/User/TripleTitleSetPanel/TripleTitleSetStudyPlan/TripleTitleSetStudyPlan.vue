@@ -1,5 +1,5 @@
 <template>
-  <div class="row q-pa-xl new-theme">
+  <div class="row q-pa-xl">
     <div class="col-12 q-mb-md">
       <h5>
         برنامه مطالعاتی
@@ -32,8 +32,12 @@
                      @edit-plan="editPlan"
                      @remove-plan="openRemovePlanWarning" />
     </div>
-    <div class="col-3">
-      <triple-title-set-content-selection v-model:selectedContentList="selectedContentList" />
+    <div class="col-3 content-selection">
+      <q-card class="custom-card">
+        <q-card-section>
+          <triple-title-set-content-selection v-model:selectedContentList="selectedContentList" />
+        </q-card-section>
+      </q-card>
     </div>
     <q-dialog v-model="newPlanDialog">
       <q-card class="new-theme">
@@ -569,7 +573,13 @@ export default {
       if (newVal) {
         this.isPlanChanged = false
       }
+    },
+    selectedContentList (val) {
+      FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'value', val)
     }
+  },
+  mounted () {
+    this.afterAuthenticate()
   },
   methods: {
     afterAuthenticate () {
@@ -687,7 +697,8 @@ export default {
       return new Promise((resolve, reject) => {
         APIGateway.studyPlan.getSetting()
           .then(setting => {
-            this.filteredLesson = setting.setting.abrisham2_calender_default_lesson
+            const lessonId = setting?.setting?.abrisham2_calender_default_lesson
+            this.filteredLesson = lessonId
             this.lesson = this.lessonOptions.find(lesson => lesson.id === this.filteredLesson)
             this.getMyStudyPlan()
             resolve()
@@ -799,7 +810,10 @@ export default {
 .calendar {
   margin-top: 25px;
 }
-
+.content-selection {
+  padding-left: 5px;
+  margin-top: 95px;
+}
 .action-btns {
   .newPlan-btn {
     margin-left: 24px;
