@@ -205,4 +205,19 @@ export default class StudyPlanAPI extends APIRepository {
       }
     })
   }
+
+  createPlan (data = {}) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.plan,
+      data,
+      resolveCallback: (response) => {
+        return new StudyPlan(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
 }

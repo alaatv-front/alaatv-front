@@ -49,25 +49,41 @@
         </q-card-section>
         <q-separator />
         <q-card-section>
-          <entity-create ref="entityCreate"
-                         v-model:value="inputs"
-                         :defaultLayout="false"
-                         :api="api">
-            <template #after-form-builder>
-              <div class="text-right q-mt-md new-theme-btn">
-                <q-btn class="btn cancel q-mx-sm text-grey-9"
-                       size="md"
-                       outline
-                       label="لغو"
-                       @click="newPlanDialog = false" />
-                <q-btn class="btn q-mx-sm"
-                       label="تایید"
-                       size="md"
-                       color="positive"
-                       @click="acceptNewPlan" />
-              </div>
-            </template>
-          </entity-create>
+          <form-builder ref="formBuilder"
+                        v-model:value="inputs" />
+          <!--          <entity-create ref="entityCreate"-->
+          <!--                         v-model:value="inputs"-->
+          <!--                         :defaultLayout="false"-->
+          <!--                         :api="api">-->
+          <!--            <template #after-form-builder>-->
+          <!--              <div class="text-right q-mt-md new-theme-btn">-->
+          <!--                <q-btn class="btn cancel q-mx-sm text-grey-9"-->
+          <!--                       size="md"-->
+          <!--                       outline-->
+          <!--                       label="لغو"-->
+          <!--                       @click="newPlanDialog = false" />-->
+          <!--                <q-btn class="btn q-mx-sm"-->
+          <!--                       label="تایید"-->
+          <!--                       size="md"-->
+          <!--                       color="positive"-->
+          <!--                       @click="acceptNewPlan" />-->
+          <!--              </div>-->
+          <!--            </template>-->
+          <!--          </entity-create>-->
+        </q-card-section>
+        <q-card-section>
+          <div class="text-right q-mt-md new-theme-btn">
+            <q-btn class="btn cancel q-mx-sm text-grey-9"
+                   size="md"
+                   outline
+                   label="لغو"
+                   @click="newPlanDialog = false" />
+            <q-btn class="btn q-mx-sm"
+                   label="تایید"
+                   size="md"
+                   color="positive"
+                   @click="acceptNewPlan" />
+          </div>
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -297,7 +313,7 @@
 <script>
 import { shallowRef } from 'vue'
 import { APIGateway } from 'src/api/APIGateway.js'
-import { EntityCreate, EntityEdit } from 'quasar-crud'
+import { EntityEdit } from 'quasar-crud'
 import { FormBuilderAssist } from 'quasar-form-builder'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
 import FullCalendar from './components/FullCalendar.vue'
@@ -305,6 +321,7 @@ import SessionInfo from 'src/components/Widgets/User/TripleTitleSetPanel/TripleT
 import ContentsComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/Contents.vue'
 import TextComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/TextComponent.vue'
 import LazyImg from 'components/lazyImg.vue'
+import FormBuilder from 'quasar-form-builder/src/FormBuilder.vue'
 
 const ContentsComponentComp = shallowRef(ContentsComponent)
 const TextComponentComp = shallowRef(TextComponent)
@@ -314,7 +331,8 @@ export default {
   components: {
     LazyImg,
     FullCalendar,
-    EntityCreate,
+    // EntityCreate,
+    FormBuilder,
     EntityEdit
   },
   data () {
@@ -356,13 +374,14 @@ export default {
         {
           type: 'hidden',
           name: 'event_id',
-          value: null
+          value: []
         },
         {
           type: 'select',
           name: 'study_method_id',
           label: 'برنامه',
           options: [],
+          multiple: true,
           optionLabel: 'display_name',
           optionValue: 'id',
           value: null,
@@ -608,36 +627,39 @@ export default {
     },
     acceptNewPlan () {
       this.loading = true
-      const data = {
-        major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id')?.value,
-        grade_id: FormBuilderAssist.getInputsByName(this.inputs, 'grade_id')?.value,
-        study_method_id: FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id')?.value
-      }
-      APIGateway.abrisham.findMyStudyPlan(data)
-        .then(studyPlan => {
-          this.needToUpdatePlan = false
-          FormBuilderAssist.setAttributeByName(this.inputs, 'event_id', 'value', studyPlan.id)
-          if (this.studyEvent !== studyPlan.id) {
-            this.studyEvent = studyPlan.id
-            this.needToUpdatePlan = true
-          }
-          this.$refs.entityCreate.createEntity(false)
+      const eventPromises = []
+      const majorId = FormBuilderAssist.getInputsByName(this.inputs, 'major_id')?.value
+      const gradeId = FormBuilderAssist.getInputsByName(this.inputs, 'grade_id')?.value
+      FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value.forEach(methodId => {
+        const data = {
+          major_id: majorId,
+          grade_id: gradeId,
+          study_method_id: methodId
+        }
+        eventPromises.push(this.getEventPromise(data))
+      })
+      Promise.all(eventPromises)
+        .then(studyPlans => {
+          const createPlanPromises = []
+          const formData = this.$refs.formBuilder.getFormData()
+          formData.contents.forEach((content, index) => {
+            formData.contents[index] = content.id
+          })
+          studyPlans.forEach((studtPlan) => {
+            formData.event_id = studtPlan.id
+            createPlanPromises.push(this.getPlanPromise(formData))
+          })
+          Promise.all(createPlanPromises)
             .then(() => {
-              if (this.needToUpdatePlan) {
-                this.updateMyStudyPlan({
-                  major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id').value,
-                  grade_id: FormBuilderAssist.getInputsByName(this.inputs, 'grade_id').value,
-                  study_method_id: FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value
-                })
-                this.needToUpdatePlan = false
-              } else {
-                this.loading = false
-                this.$refs.fullCalendar.getStudyPlanData(null, FormBuilderAssist.getInputsByName(this.inputs, 'date')?.value)
-              }
+              this.updateMyStudyPlan({
+                major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id').value,
+                grade_id: FormBuilderAssist.getInputsByName(this.inputs, 'grade_id').value,
+                study_method_id: FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value[0]
+              })
               this.newPlanDialog = false
             })
             .catch(() => {
-              this.loading = false
+              this.newPlanDialog = false
             })
         })
         .catch(() => {
