@@ -1,6 +1,6 @@
 <template>
   <q-card v-if="localOptions.product"
-          class="product-intro-wrapper custom-card">
+          class="product-intro-wrapper">
     <q-card-section v-if="localOptions.product.intro?.photo"
                     class="product-intro-video">
       <video-player :key="playerKey"
@@ -136,7 +136,7 @@ export default defineComponent({
   .product-intro-video {
     overflow: hidden;
     box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%);
-    border-radius: 20px;
+    border-radius: 8px;
     padding: 0;
   }
 
