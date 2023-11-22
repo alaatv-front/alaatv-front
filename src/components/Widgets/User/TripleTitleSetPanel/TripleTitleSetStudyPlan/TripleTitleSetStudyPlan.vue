@@ -24,20 +24,13 @@
     </div>
     <q-linear-progress v-if="loading"
                        indeterminate />
-    <div class="col-9 calendar">
+    <div class="col-12 calendar">
       <full-calendar ref="fullCalendar"
                      :study-event="studyEvent"
                      :events="studyPlanList"
                      :filtered-lesson="filteredLesson"
                      @edit-plan="editPlan"
                      @remove-plan="openRemovePlanWarning" />
-    </div>
-    <div class="col-3 content-selection">
-      <q-card class="custom-card">
-        <q-card-section>
-          <triple-title-set-content-selection v-model:selectedContentList="selectedContentList" />
-        </q-card-section>
-      </q-card>
     </div>
     <q-dialog v-model="newPlanDialog">
       <q-card class="new-theme">
@@ -59,7 +52,6 @@
           <entity-create ref="entityCreate"
                          v-model:value="inputs"
                          :defaultLayout="false"
-                         :after-send-data="afterSendData"
                          :api="api">
             <template #after-form-builder>
               <div class="text-right q-mt-md new-theme-btn">
@@ -141,33 +133,29 @@
         <q-card-section>
           <div class="row q-col-gutter-md">
             <div class="col-12">
-              <div class="outsideLabel">برنامه</div>
               <q-select v-model="planType"
-                        label="انتخاب کنید"
+                        label="برنامه"
                         option-label="display_name"
                         :options="planOptions"
                         @update:model-value="setFlagTrue" />
             </div>
             <div class="col-6">
-              <div class="outsideLabel">مقطع</div>
               <q-select v-model="grade"
-                        label="انتخاب کنید"
+                        label="مقطع"
                         option-label="title"
                         :options="gradeOptions"
                         @update:model-value="setFlagTrue" />
             </div>
             <div class="col-6">
-              <div class="outsideLabel">رشته</div>
               <q-select v-model="major"
-                        label="انتخاب کنید"
+                        label="رشته"
                         option-label="title"
                         :options="majorOptions"
                         @update:model-value="setFlagTrue" />
             </div>
             <div class="col-12">
-              <div class="outsideLabel">درس مورد نمایش</div>
               <q-select v-model="lesson"
-                        label="انتخاب کنید"
+                        label="درس مورد نمایش"
                         option-label="lesson_name"
                         :options="lessonOptions" />
             </div>
@@ -317,7 +305,6 @@ import SessionInfo from 'src/components/Widgets/User/TripleTitleSetPanel/TripleT
 import ContentsComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/Contents.vue'
 import TextComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/TextComponent.vue'
 import LazyImg from 'components/lazyImg.vue'
-import TripleTitleSetContentSelection from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetContentSelection/TripleTitleSetContentSelection.vue'
 
 const ContentsComponentComp = shallowRef(ContentsComponent)
 const TextComponentComp = shallowRef(TextComponent)
@@ -328,8 +315,7 @@ export default {
     LazyImg,
     FullCalendar,
     EntityCreate,
-    EntityEdit,
-    TripleTitleSetContentSelection
+    EntityEdit
   },
   data () {
     return {
@@ -376,7 +362,6 @@ export default {
           type: 'select',
           name: 'study_method_id',
           label: 'برنامه',
-          placeholder: 'انتخاب کنید',
           options: [],
           optionLabel: 'display_name',
           optionValue: 'id',
@@ -388,7 +373,6 @@ export default {
           name: 'major_id',
           label: 'رشته',
           options: [],
-          placeholder: 'انتخاب کنید',
           optionLabel: 'title',
           optionValue: 'id',
           value: null,
@@ -399,17 +383,10 @@ export default {
           name: 'grade_id',
           label: 'مقطع',
           options: [],
-          placeholder: 'انتخاب کنید',
           optionLabel: 'title',
           optionValue: 'id',
           value: null,
           col: 'col-4'
-        },
-        {
-          type: TextComponentComp,
-          name: 'customComponent',
-          text: 'اطلاعات محتوای موردنظر برای نمایش رو وارد کنید.',
-          col: 'col-12'
         },
         {
           type: ContentsComponentComp,
@@ -427,7 +404,6 @@ export default {
           name: 'date',
           label: 'تاریخ',
           value: '',
-          placeholder: 'انتخاب کنید',
           calendarIcon: ' ',
           optionLabel: 'title',
           col: 'col-4'
@@ -437,7 +413,6 @@ export default {
           name: 'start',
           label: 'از ساعت',
           value: '',
-          placeholder: 'انتخاب کنید',
           optionLabel: 'title',
           col: 'col-4'
         },
@@ -446,7 +421,6 @@ export default {
           name: 'end',
           label: 'تا ساعت',
           value: '',
-          placeholder: 'انتخاب کنید',
           optionLabel: 'title',
           col: 'col-4'
         },
@@ -475,7 +449,6 @@ export default {
           type: 'select',
           name: 'study_method_id',
           label: 'برنامه',
-          placeholder: 'انتخاب کنید',
           options: [],
           optionLabel: 'display_name',
           optionValue: 'id',
@@ -488,7 +461,6 @@ export default {
           name: 'major_id',
           label: 'رشته',
           options: [],
-          placeholder: 'انتخاب کنید',
           optionLabel: 'title',
           optionValue: 'id',
           value: null,
@@ -500,18 +472,11 @@ export default {
           name: 'grade_id',
           label: 'مقطع',
           options: [],
-          placeholder: 'انتخاب کنید',
           optionLabel: 'title',
           optionValue: 'id',
           value: null,
           responseKey: 'data.grade.id',
           col: 'col-4'
-        },
-        {
-          type: TextComponentComp,
-          name: 'customComponent',
-          text: 'اطلاعات محتوای موردنظر برای نمایش رو وارد کنید.',
-          col: 'col-12'
         },
         {
           type: ContentsComponentComp,
@@ -573,9 +538,6 @@ export default {
       if (newVal) {
         this.isPlanChanged = false
       }
-    },
-    selectedContentList (val) {
-      FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'value', val)
     }
   },
   mounted () {
@@ -584,8 +546,8 @@ export default {
   methods: {
     afterAuthenticate () {
       const user = this.$store.getters['Auth/user']
-      this.grade = user.grade
-      this.major = user.major
+      this.grade = user.grade.id ? user.grade : { title: '', id: null }
+      this.major = user.major.id ? user.major : { title: '', id: null }
       this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
       this.getFilterLesson()
     },
@@ -594,7 +556,7 @@ export default {
       const data = {
         major_id: this.$refs.entityEdit.getInputsByName('major_id').value,
         grade_id: this.$refs.entityEdit.getInputsByName('grade_id').value,
-        study_method_id: this.$refs.entityEdit.getInputsByName('study_method_id').value
+        study_method_id: this.$refs.entityEdit.getInputsByName('study_method_id').value.id
       }
       this.selectedDate = this.$refs.entityEdit.getInputsByName('date').value
       APIGateway.abrisham.findMyStudyPlan(data)
@@ -615,7 +577,7 @@ export default {
           })
           FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'value', newContents)
           this.$refs.entityEdit.editEntity(false)
-          this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
+          this.getMyStudyPlan()
           this.loading = false
           this.editPlanDialog = false
         })
