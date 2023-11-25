@@ -15,21 +15,27 @@
           </div>
           <div class="with-title">
             <q-checkbox v-model="falseValue"
+                        color="secondary"
                         left-label
                         label="عنوان" />
             <q-checkbox v-model="trueValue"
+                        color="secondary"
                         left-label
                         label="عنوان" />
             <q-checkbox v-model="maybeValue"
                         left-label
+                        color="secondary"
                         label="عنوان" />
           </div>
           <div class="title-less">
             <q-checkbox v-model="falseValue"
+                        color="secondary"
                         left-label />
             <q-checkbox v-model="trueValue"
+                        color="secondary"
                         left-label />
             <q-checkbox v-model="maybeValue"
+                        color="secondary"
                         left-label />
           </div>
         </div>
@@ -41,26 +47,32 @@
           </div>
           <div class="with-title">
             <q-checkbox v-model="falseValue"
+                        color="secondary"
                         class="hovered"
                         left-label
                         label="عنوان" />
             <q-checkbox v-model="trueValue"
+                        color="secondary"
                         class="hovered"
                         left-label
                         label="عنوان" />
             <q-checkbox v-model="maybeValue"
+                        color="secondary"
                         class="hovered"
                         left-label
                         label="عنوان" />
           </div>
           <div class="title-less">
             <q-checkbox v-model="falseValue"
+                        color="secondary"
                         class="hovered"
                         left-label />
             <q-checkbox v-model="trueValue"
+                        color="secondary"
                         class="hovered"
                         left-label />
             <q-checkbox v-model="maybeValue"
+                        color="secondary"
                         class="hovered"
                         left-label />
           </div>
@@ -73,26 +85,32 @@
           </div>
           <div class="with-title">
             <q-checkbox v-model="falseValue"
+                        color="secondary"
                         disable
                         left-label
                         label="عنوان" />
             <q-checkbox v-model="trueValue"
+                        color="secondary"
                         disable
                         left-label
                         label="عنوان" />
             <q-checkbox v-model="maybeValue"
+                        color="secondary"
                         disable
                         left-label
                         label="عنوان" />
           </div>
           <div class="title-less">
             <q-checkbox v-model="falseValue"
+                        color="secondary"
                         disable
                         left-label />
             <q-checkbox v-model="trueValue"
+                        color="secondary"
                         disable
                         left-label />
             <q-checkbox v-model="maybeValue"
+                        color="secondary"
                         disable
                         left-label />
           </div>
