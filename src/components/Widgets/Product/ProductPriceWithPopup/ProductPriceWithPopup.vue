@@ -1,21 +1,12 @@
 <template>
   <div class="product-price-container">
-    <div class="price-info">
-      <div class="price-title">
-        <q-icon name="ph:tag"
-                color="gray-7"
-                size="16px" />
-        <template v-if="hasInstallment">
-          قیمت نقدی:
-        </template>
-        <template v-else>
-          قیمت:
-        </template>
-      </div>
+    <div v-if="paymentMode === 'cash'"
+         class="price-info">
       <div v-if="productPrice.discount > 0"
            class="price-calculation">
         <div class="discount">
           <q-badge color="negative"
+                   size="xs"
                    text-color="white"
                    :label="'%' + productPrice.discountInPercent()" />
         </div>
@@ -24,44 +15,17 @@
         </div>
       </div>
       <div class="price-final">
-        <div class="number">{{ productPrice.toman('final', null) }}</div>
+        <h5>{{ productPrice.toman('final', null) }}</h5>
         <div class="label">تومان</div>
       </div>
     </div>
-    <div v-if="hasInstallment"
-         class="price-info hasInstallment">
-      <span class="instalment-message">
-        <span class="instalment-label">
-          اقساطی
-        </span>
-        <span class="simple-text">
-          بیا تو دوره فقط با:
-        </span>
-      </span>
-      <span v-if="localOptions.product.instalments && localOptions.product.instalments.length > 0"
-            class="instalment-price">
-        <span class="price-value">
-          {{ localOptions.product.instalments[0].value.toLocaleString('fa') }}
-        </span>
-        <span class="price-label">
-          تومان
-        </span>
-      </span>
-      <span class="instalment-label-responsive">
-        اقساطی
-      </span>
-    </div>
-    <div class="price-action">
-      <q-btn :color="!localOptions.product.payment_default || localOptions.product.payment_default === 1 ? 'primary' : 'grey'"
+    <div v-if="paymentMode === 'cash'"
+         class="price-action">
+      <q-btn color="primary"
              class="action-btn"
-             :class="{'full-width': !hasInstallment}"
+             size="md"
              :label="hasInstallment ? 'ثبت نام نقدی' : 'ثبت نام'"
              @click="paymentAction('cash')" />
-      <q-btn v-if="hasInstallment"
-             :color="localOptions.product?.payment_default || localOptions.product.payment_default === 2 ? 'primary' : 'grey'"
-             class="action-btn gesti"
-             label="ثبت نام اقساطی"
-             @click="paymentAction('installment')" />
     </div>
     <payment-dialog :dialog="dialog"
                     :paymentMethod="paymentMethod"
@@ -71,6 +35,82 @@
                     @toggle-dialog="toggleDialog"
                     @update-product="onUpdateProduct($event)"
                     @update-product-loading="onUpdateProductLoading($event)" />
+    <div v-if="paymentMode === 'installment' && hasInstallment"
+         class="installment-info">
+      <div class="installment-header">
+        <q-icon name="ph:credit-card"
+                class="header-icon" />
+        <div class="header-text">
+          امکان ثبت نام به صورت اقساطی در آلاء
+        </div>
+      </div>
+      <div class="installment-payment-info">
+        <div class="installment-count">
+          <h4 class="count-number">
+            6
+          </h4>
+          <div class="count-title">
+            قسط
+          </div>
+        </div>
+        <div class="installment-price">
+          <span class="installment-price-pre">فقط با</span>
+          <h5 class="installment-price-number">{{ localOptions.product.instalments[0].value.toLocaleString('fa') }}</h5>
+          <span class="installment-price-title">تومان</span>
+        </div>
+      </div>
+      <div class="price-action installment">
+        <q-btn color="accent"
+               class="action-btn"
+               size="md"
+               label="ثبت نام اقساطی"
+               @click="paymentAction('installment')" />
+      </div>
+
+    </div>
+  </div>
+  <div v-if="showResponsive"
+       class="mobile-view">
+    <div class="mobile-price-info">
+      <div class="mobile-discount">
+        <q-badge color="negative"
+                 size="xs"
+                 text-color="white"
+                 :label="'%' + productPrice.discountInPercent()" />
+      </div>
+      <div class="mobile-price-calculation">
+        <div class="mobile-price-calculation-base">
+          {{ productPrice.toman('base', null) }}
+        </div>
+        <h5 class="mobile-price-calculation-final">{{ productPrice.toman('final', null) }}</h5>
+        <div class="mobile-price-calculation-label">تومان</div>
+      </div>
+    </div>
+    <div class="mobile-installment-info">
+      <q-badge color="accent"
+               size="xs"
+               text-color="white"
+               :label="'۶قسط'" />
+      <div class="mobile-installment-price">
+        <span class="mobile-installment-price-pre">فقط با</span>
+        <h5 class="mobile-installment-price-number">{{ localOptions.product.instalments[0].value.toLocaleString('fa') }}</h5>
+        <span class="mobile-installment-price-title">تومان</span>
+      </div>
+    </div>
+    <div class="mobile-price-action">
+      <q-btn color="primary"
+             class="mobile-action-btn"
+             :class="{'has-installment': hasInstallment}"
+             size="md"
+             :label="hasInstallment ? 'ثبت نام نقدی' : 'ثبت نام'"
+             @click="paymentAction('cash')" />
+      <q-btn color="accent"
+             class="mobile-action-btn"
+             :class="{'has-installment': hasInstallment}"
+             size="md"
+             label="ثبت نام اقساطی"
+             @click="paymentAction('installment')" />
+    </div>
   </div>
 </template>
 
@@ -88,6 +128,16 @@ export default defineComponent({
     PaymentDialog
   },
   mixins: [mixinWidget, mixinAuth],
+  props: {
+    paymentMode: {
+      type: String,
+      default: 'cash'
+    },
+    showResponsive: {
+      type: Boolean,
+      default: false
+    }
+  },
   emits: ['updateProduct', 'updateProductLoading'],
   data () {
     return {
@@ -203,6 +253,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/Theme/Typography/typography";
+@import "src/css/Theme/colors";
+@import "src/css/Theme/spacing";
+@import "src/css/Theme/radius";
 
 @mixin instalment-label() {
   display: flex;
@@ -228,39 +282,17 @@ export default defineComponent({
   align-items: center;
   width: 100%;
 
-  @media screen and (width <= 1023px){
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background: #FFF;
-    z-index: 5;
-    padding: 24px 30px 16px;
-    box-shadow: 1px 1px 2px 0 #010101;
-  }
-
   .price-info {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     width: 100%;
-    margin-bottom: 8px;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #E6E6E6;
-    background: #F5F7FA;
 
     @media screen and (width <= 1439px){
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-      grid-gap: 0;
     }
 
     @media screen and (width <= 1023px){
-      display: flex;
-      padding: 12px 20px;
-      margin-bottom: 12px;
+      display: none;
     }
 
     @media screen and (width <= 599px){
@@ -279,7 +311,6 @@ export default defineComponent({
       letter-spacing: -0.54px;
 
       @media screen and (width <= 1439px){
-        grid-area: 1 / 1 / 2 / 2;
         justify-content: flex-start;
       }
 
@@ -300,11 +331,10 @@ export default defineComponent({
 
     .price-calculation {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-
+      width: 100%;
       @media screen and (width <= 1439px){
-        grid-area: 2 / 2 / 3 / 3;
       }
 
       @media screen and (width <= 1023px){
@@ -327,6 +357,7 @@ export default defineComponent({
         line-height: normal;
         letter-spacing: -0.8px;
         text-decoration: line-through;
+        margin-right: $space-2;
       }
     }
 
@@ -338,129 +369,111 @@ export default defineComponent({
       @media screen and (width <= 1439px){
         grid-area: 1 / 2 / 2 / 3;
       }
-
-      .number {
-        color:#424242;
-        font-size: 24px;
-
-        @media screen and (width <= 1300px){
-          font-size: 18px;
-        }
-
-        @media screen and (width <= 1023px){
-          font-size: 24px;
-        }
-
-        @media screen and (width <= 400px){
-          font-size: 18px;
-        }
-
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
-        letter-spacing: -1.2px;
-      }
-
       .label {
-        color:#424242;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
+        @include caption1;
+        margin-left: $space-1;
+      }
+    }
+  }
+
+  .installment-info {
+    display: flex;
+    width: 100%;
+    padding: $space-4;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: $space-4;
+    border-radius: $radius-3;
+    border: 1px solid $accent-5;
+    background: $grey-2;
+
+    @media screen and (width <= 1023px){
+      display: none;
+    }
+
+    .installment-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      align-self: stretch;
+
+      .header-icon {
+        color: $accent-5;
+        font-size: 24px;
+      }
+      .header-text {
+        color: $grey-9;
+        font-feature-settings: 'clig' off, 'liga' off;
+
+        @include subtitle2
       }
     }
 
-    &.hasInstallment {
-      .instalment-message {
+    .installment-payment-info {
+      height: 48px;
+      align-self: stretch;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      flex-shrink: 0;
+      border-radius: $radius-2;
+      border: 2px solid $accent-4;
+      background: $grey-1;
+
+      .installment-count {
+        position: relative;
+        border-radius: 6px;
+        background: $accent-5;
+        width: 52px;
+        height: 48px;
         display: flex;
-        justify-content: flex-start;
+        flex-shrink: 0;
+
+        .count-number {
+          position: absolute;
+          top: 2px;
+          right: 20px;
+          left: 20px;
+          z-index: 5;
+          color: $grey-1;
+          text-align: center;
+        }
+
+        .count-title {
+          position: absolute;
+          bottom: 6px;
+          right: 12px;
+          left: 12px;
+          z-index: 4;
+          color: $grey-1;
+          text-align: center;
+          font-feature-settings: 'clig' off, 'liga' off;
+
+          @include subtitle2
+        }
+      }
+
+      .installment-price {
+        margin-left: $space-7;
+        display: flex;
         align-items: center;
+        justify-content: center;
 
-        .instalment-label {
-          @include instalment-label;
-
-          margin-right: 16px;
-
-          @media screen and (width <= 1439px){
-            display: none;
-          }
-
-          @media screen and (width <= 1023px){
-            display: flex;
-          }
+        &-pre {
+          @include caption1;
+          color: $grey-9;
         }
 
-        .simple-text {
-          color: #303030;
-          font-size: 18px;
-          font-style: normal;
-          font-weight: 400;
-          line-height: normal;
-          letter-spacing: -0.54px;
-
-          @media screen and (width <= 1439px){
-            font-size: 14px;
-          }
-
-          @media screen and (width <= 1023px){
-            font-size: 18px;
-          }
-
-          @media screen and (width <= 599px){
-            font-size: 14px;
-          }
-        }
-      }
-
-      .instalment-price {
-        color: #FF8518;
-        font-style: normal;
-        line-height: normal;
-
-        @media screen and (width <= 1439px){
-          margin-left: auto;
+        &-number {
+          color: $grey-9;
+          margin: $spacing-none $space-1;
         }
 
-        .price-value {
-          font-size: 20px;
-          font-weight: 600;
-          letter-spacing: -1px;
-
-          @media screen and (width <= 1439px){
-            font-size: 18px;
-          }
-
-          @media screen and (width <= 1023px){
-            font-size: 20px;
-          }
-
-          @media screen and (width <= 599px){
-            font-size: 18px;
-          }
-        }
-
-        .price-label {
-          font-size: 14px;
-          font-weight: 400;
-        }
-      }
-
-      .instalment-label-responsive {
-        @include instalment-label;
-
-        display: none;
-        margin-top: 7px;
-        width: fit-content;
-        justify-content: flex-end;
-        margin-left: auto;
-        grid-area: 2 / 2 / 3 / 3;
-
-        @media screen and (width <= 1439px){
-          display: flex;
-        }
-
-        @media screen and (width <= 1024px){
-          display: none;
+        &-title {
+          @include caption1;
+          color: $grey-9;
         }
       }
     }
@@ -471,31 +484,132 @@ export default defineComponent({
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-top: 16px;
+    margin-top: 12px;
+
+    @media screen and (width <= 1023px){
+      display: none;
+    }
+
+    &.installment {
+      margin-top: 0;
+    }
 
     @media screen and (width <= 1023px){
       margin-top: 28px;
     }
 
     .action-btn {
-      width: 179px;
-      height: 48px;
+      width: 100%;
       max-width: 100%;
+    }
+  }
 
-      @media screen and (width <= 1440px){
-        width: 128px;
+}
+
+.mobile-view {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  z-index: 15;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: $space-3;
+  border-radius: $radius-4 $radius-4 $radius-none $radius-none;
+  background: $grey-1;
+  box-shadow: $shadow-8;
+
+  @media screen and (width <= 1023px){
+    display: flex;
+    padding: $space-4 $space-7 $space-6 $space-7;
+  }
+
+  @media screen and (width <= 599px){
+    padding: $space-4 $space-5 $space-5 $space-5;
+  }
+
+  .mobile-price-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    padding: $space-2 $space-3;
+    align-self: stretch;
+    width: 100%;
+    border-radius: $radius-3;
+    border: 1px solid $primary;
+
+    .mobile-price-calculation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &-base {
+        color:#757575;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: -0.8px;
+        text-decoration: line-through;
       }
 
-      @media screen and (width <= 1023px){
-        width: 262px;
+      &-final {
+        margin: $spacing-none $space-1 $spacing-none $space-2;
       }
 
-      @media screen and (width <= 599px){
-        width: 149px;
+      &-label {
+        @include caption2;
+        color: $grey-9;
+      }
+    }
+  }
+
+  .mobile-installment-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $space-2 $space-3;
+    align-self: stretch;
+    border-radius: $radius-3;
+    border: 1px solid $accent;
+    background: $grey-1;
+
+    .mobile-installment-price {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      &-pre {
+        @include caption2;
+        color: $grey-9;
       }
 
-      &.gesti {
-        margin-left: 16px;
+      &-number {
+        color: $grey-9;
+        margin: $spacing-none $space-1 $spacing-none $space-2;
+      }
+
+      &-title {
+        @include caption2;
+        color: $grey-9;
+      }
+    }
+  }
+
+  .mobile-price-action {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    align-self: stretch;
+
+    .mobile-action-btn {
+      width: 100%;
+
+      &.has-installment {
+        width: 50%;
       }
     }
   }

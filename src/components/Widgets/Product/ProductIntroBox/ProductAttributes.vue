@@ -2,13 +2,13 @@
   <q-list separator>
     <q-item class="attribute-item">
       <q-item-section class="attribute-icon">
-        <q-icon name="ph:chalkboard-teacher"
+        <q-icon name="ph:calendar-blank"
                 color="gray-7"
                 size="16px" />
       </q-item-section>
       <q-item-section>
         <div class="attribute-title">
-          نام دبیر
+          آخرین آپدیت
         </div>
       </q-item-section>
       <q-item-section side
@@ -17,110 +17,6 @@
           {{ getAttributesValues(attributes.info.teacher) }}
           <q-tooltip>
             {{ getAttributesValues(attributes.info.teacher) }}
-          </q-tooltip>
-        </div>
-      </q-item-section>
-    </q-item>
-    <q-item class="attribute-item">
-      <q-item-section class="attribute-icon">
-        <q-icon name="ph:book-open-text"
-                color="gray-7"
-                size="16px" />
-      </q-item-section>
-      <q-item-section>
-        <div class="attribute-title">
-          رشته
-        </div>
-      </q-item-section>
-      <q-item-section side
-                      class="attribute-value-section">
-        <div class="value-text ellipsis">
-          {{ getAttributesValues(attributes.info.major) }}
-          <q-tooltip>
-            {{ getAttributesValues(attributes.info.major) }}
-          </q-tooltip>
-        </div>
-      </q-item-section>
-    </q-item>
-    <q-item class="attribute-item">
-      <q-item-section class="attribute-icon">
-        <q-icon name="ph:books"
-                color="gray-7"
-                size="16px" />
-      </q-item-section>
-      <q-item-section>
-        <div class="attribute-title">
-          مقطع تحصیلی
-        </div>
-      </q-item-section>
-      <q-item-section class="attribute-value-section">
-        <div class="value-text ellipsis">
-          {{ getAttributesValues(attributes.info.grade) }}
-          <q-tooltip>
-            {{ getAttributesValues(attributes.info.grade) }}
-          </q-tooltip>
-        </div>
-      </q-item-section>
-    </q-item>
-    <q-item class="attribute-item">
-      <q-item-section class="attribute-icon">
-        <q-icon name="ph:siren"
-                color="gray-7"
-                size="16px" />
-      </q-item-section>
-      <q-item-section>
-        <div class="attribute-title">
-          خدمات دریافتی
-        </div>
-      </q-item-section>
-      <q-item-section side
-                      class="attribute-value-section">
-        <div class="value-text ellipsis">
-          {{ getAttributesValues(attributes.info.services) }}
-          <q-tooltip>
-            {{ getAttributesValues(attributes.info.services) }}
-          </q-tooltip>
-        </div>
-      </q-item-section>
-    </q-item>
-    <q-item class="attribute-item">
-      <q-item-section class="attribute-icon">
-        <q-icon name="ph:calendar-blank"
-                color="gray-7"
-                size="16px" />
-      </q-item-section>
-      <q-item-section>
-        <div class="attribute-title">
-          سال تولید
-        </div>
-      </q-item-section>
-      <q-item-section side
-                      class="attribute-value-section">
-        <div class="value-text ellipsis">
-          {{ getAttributesValues(attributes.info.production_year) }}
-          <q-tooltip>
-            {{ getAttributesValues(attributes.info.production_year) }}
-          </q-tooltip>
-        </div>
-      </q-item-section>
-    </q-item>
-    <q-item class="attribute-item">
-      <q-item-section class="attribute-icon">
-        <q-icon name="ph:calendar-x"
-                color="gray-7"
-                size="16px" />
-      </q-item-section>
-      <q-item-section>
-        <div class="attribute-title">
-          مدت اعتبار
-        </div>
-      </q-item-section>
-      <q-item-section side
-                      class="attribute-value-section">
-        <div class="value-text ellipsis">
-          {{ getAttributesValues(attributes.info.expiration_duration) }}
-          <q-tooltip>
-            {{ getAttributesValues(attributes.info.expiration_duration) }}
           </q-tooltip>
         </div>
       </q-item-section>
@@ -148,21 +44,21 @@
     </q-item>
     <q-item class="attribute-item">
       <q-item-section class="attribute-icon">
-        <q-icon name="ph:clock-countdown"
+        <q-icon name="ph:calendar-x"
                 color="gray-7"
                 size="16px" />
       </q-item-section>
       <q-item-section>
         <div class="attribute-title">
-          زمان دریافت
+          مدت اعتبار
         </div>
       </q-item-section>
       <q-item-section side
                       class="attribute-value-section">
         <div class="value-text ellipsis">
-          {{ getAttributesValues(attributes.info.download_date) }}
+          {{ getAttributesValues(attributes.info.expiration_duration) }}
           <q-tooltip>
-            {{ getAttributesValues(attributes.info.download_date) }}
+            {{ getAttributesValues(attributes.info.expiration_duration) }}
           </q-tooltip>
         </div>
       </q-item-section>
@@ -239,6 +135,7 @@ export default defineComponent({
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    align-items: center;
     width: 50%;
     max-width: 250px;
 
