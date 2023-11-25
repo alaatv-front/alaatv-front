@@ -43,8 +43,6 @@
                   </q-btn>
                 </div>
               </div>
-              <q-separator size="3px"
-                           dark />
               <div class="description-expansion-wrapper">
                 <div class="description-expansion">
                   <div class="product-short-description">
@@ -87,13 +85,17 @@
                 </div>
               </div>
               <div class="product-info-footer">
-                <div class="info-footer-action">
-                  <q-btn v-if="showMore"
-                         class="footer-action-btn"
-                         flat
-                         :icon-right="expanded ? 'expand_less' : 'expand_more'"
-                         :label="expanded ? 'توضیحات کمتر' : 'توضیحات بیشتر'"
-                         @click="toggleExpanded" />
+                <div v-for="(productAttribute, index) in productAttributes"
+                     :key="index"
+                     class="attribute-item">
+                  <div class="attribute-item-icon">
+                    <q-icon :name="productAttribute.icon" />
+                  </div>
+                  <div class="attribute-item-title"
+                       v-text="productAttribute.title" />
+                  <q-tooltip>
+                    {{ productAttribute.title }}
+                  </q-tooltip>
                 </div>
               </div>
             </div>
@@ -131,13 +133,14 @@ import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import ProductInfoTab from 'src/components/Widgets/Product/ProductInfoTab/ProductInfoTab.vue'
 import ProductIntroBox from 'src/components/Widgets/Product/ProductIntroBox/ProductIntroBox.vue'
 
-let StickySidebar
-if (typeof window !== 'undefined') {
-  import('sticky-sidebar-v2')
-    .then((stickySidebar) => {
-      StickySidebar = stickySidebar.default
-    })
-}
+// let StickySidebar
+// if (typeof window !== 'undefined') {
+//   import('sticky-sidebar-v2')
+//     .then((stickySidebar) => {
+//       StickySidebar = stickySidebar.default
+//     })
+// }
+
 export default defineComponent({
   name: 'ProductPage',
   components: {
@@ -158,7 +161,29 @@ export default defineComponent({
       loading: false,
       expanded: false,
       bookmarkLoading: false,
-      showMore: false
+      showMore: false,
+      productAttributes: [
+        {
+          name: 'major',
+          icon: 'ph:books',
+          title: 'رشته ریاضی'
+        },
+        {
+          name: 'grade',
+          icon: 'ph:graduation-cap',
+          title: 'کنکوری'
+        },
+        {
+          name: 'brand',
+          icon: 'ph:chalkboard-teacher',
+          title: 'گروه آموزشی آلاء'
+        },
+        {
+          name: 'download_date',
+          icon: 'ph:clock',
+          title: '24 ساعت'
+        }
+      ]
     }
   },
   computed: {
@@ -185,6 +210,13 @@ export default defineComponent({
     this.calculateDescriptionHight()
   },
   methods: {
+    loadProductAttributes () {
+      this.productAttributes.forEach(item => {
+        if (this.product.attributes.info[item.name]) {
+          item.title = this.product.attributes.info[item.name].join(', ')
+        }
+      })
+    },
     prefetchServerDataPromise () {
       this.loading = true
       return APIGateway.product.show(this.productId)
@@ -192,6 +224,7 @@ export default defineComponent({
     prefetchServerDataPromiseThen (product) {
       this.product = product
       this.loading = false
+      this.loadProductAttributes()
       this.$nextTick(() => {
         this.calculateDescriptionHight()
       })
@@ -256,21 +289,13 @@ export default defineComponent({
       // const parentClientHeight = parent.clientHeight
       // this.$refs.CartInvoice.style.height = parentClientHeight + 'px'
 
-      this.stickySidebarInstance = new StickySidebar(this.$refs.productIntroBox, {
-        topSpacing: 142,
-        // bottomSpacing: 20,
-        containerSelector: false,
-        // containerSelector: '.cart-invoice.main-content',
-        innerWrapperSelector: '.product-intro-wrapper'
-        // scrollContainer: '#main-viewport'
-      })
-
-      // this.stickySidebar = new StickySidebar(this.$refs.CartInvoiceContainer, {
-      //   topSpacing: 20,
-      //   bottomSpacing: 20,
-      //   containerSelector: '.cart-invoice',
-      //   innerWrapperSelector: '.invoice-container',
-      //   scrollContainer: '.page-builder'
+      // this.stickySidebarInstance = new StickySidebar(this.$refs.productIntroBox, {
+      //   topSpacing: 142,
+      //   // bottomSpacing: 20,
+      //   containerSelector: false,
+      //   // containerSelector: '.cart-invoice.main-content',
+      //   innerWrapperSelector: '.product-intro-wrapper'
+      //   // scrollContainer: '#main-viewport'
       // })
     }
   }
@@ -278,7 +303,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/Theme/colors.scss";
 @import "src/css/Theme/spacing.scss";
+@import "src/css/Theme/Typography/typography.scss";
 
 $background-height-xl: 367px;
 $background-height-md: 454px;
@@ -287,6 +314,7 @@ $boxed-width-md: 100%;
 $page-size-md: map-get($sizes, "md");
 $page-size-sm: map-get($sizes, "sm");
 $top-page-padding: $space-7;
+$short-decription-height: 150px;
 
 .product-page-container {
   width: 100%;
@@ -325,10 +353,18 @@ $top-page-padding: $space-7;
       background-position: center;
 
       &:after {
+        position: absolute;
+        left: 0;
+        top: 0;
         content: ' ';
         width: 100%;
         height: 100%;
-        background: linear-gradient(270deg,  rgb(0 0 0 / 15%)0%, rgb(0 0 0 / 60%) 47.60%, rgb(0 0 0 / 95%) 100%), lightgray 0 0 / 100% 100% no-repeat;
+        background: linear-gradient(270deg,
+          rgba(0, 0, 0, 0.26) 97.98%,
+          rgba(0, 0, 0, 0.60) 52.49%,
+          rgba(0, 0, 0, 0.95) 2%),
+        lightgray 0 0 / 100% 100% no-repeat;
+        filter: blur(10px);
         mix-blend-mode: multiply;
       }
     }
@@ -367,7 +403,9 @@ $top-page-padding: $space-7;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: $space-5;
+          padding-bottom: $space-5;
+          margin-bottom: $space-6;
+          border-bottom: solid 1px $grey-3;
 
           .product-title {
             color:#FFF;
@@ -404,61 +442,12 @@ $top-page-padding: $space-7;
           }
         }
 
-        .product-info-footer {
-          width: 100%;
-          display: flex;
-          justify-content: flex-end;
-          align-items: flex-end;
-
-          @media screen and (width <= 1023px){
-            flex-direction: column;
-            align-items: center;
-            width: auto;
-          }
-
-          .product-expiration {
-            .expiration-title {
-              color:#FFF;
-              font-size: 16px;
-              font-style: normal;
-              font-weight: 700;
-              line-height: normal;
-              letter-spacing: -0.48px;
-              margin-top: 8px;
-            }
-
-            .expiration-text {
-              color:#FFF;
-              font-size: 16px;
-              font-style: normal;
-              font-weight: 400;
-              line-height: normal;
-              letter-spacing: -0.48px;
-            }
-          }
-
-          .info-footer-action {
-            @media screen and (width <= 1023px){
-              width: 100%;
-              display: flex;
-              align-items: center;
-              justify-content: flex-end;
-            }
-
-            .footer-action-btn {
-              color: #FFF;
-              background: transparent;
-
-              @media screen and (width <= 599px){
-                padding: 0;
-              }
-            }
-          }
-        }
-
         .description-expansion-wrapper {
           width: 1200px;
           max-width: 100%;
+          max-height: $short-decription-height;
+          overflow: hidden;
+          margin-bottom: $space-7;
 
           @media screen and (width <= 599px){
             width: 100%;
@@ -467,7 +456,6 @@ $top-page-padding: $space-7;
           .description-expansion {
             width: 800px;
             max-width: 100%;
-            margin-top: 10px;
 
             @media screen and (width <= 599px){
               width: 100%;
@@ -475,7 +463,6 @@ $top-page-padding: $space-7;
 
             .product-short-description {
               .short-description-title {
-                margin-top: 15px;
 
                 &__text {
                   color:#FFF;
@@ -546,6 +533,28 @@ $top-page-padding: $space-7;
                   }
                 }
               }
+            }
+          }
+        }
+
+        .product-info-footer {
+          display: flex;
+          justify-content: flex-start;
+          .attribute-item {
+            display: flex;
+            align-items: center;
+            margin-right: $space-9;
+            &:last-child {
+              margin-right: 0;
+            }
+            .attribute-item-icon {
+              font-size: 16px;
+              color: $primary;
+              margin-right: $space-1;
+            }
+            .attribute-item-title {
+              @include body2;
+              color: $grey-1;
             }
           }
         }
