@@ -88,13 +88,19 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+.text-h1,
+.text-h2,
+.text-h3,
+.text-h4,
+.text-h5,
+.text-h6 {
   margin: 0;
   font-style: normal;
   line-height: normal;
 }
 
-h1 {
+h1, .text-h1 {
   font-size: 48px;
   font-weight: 800;
   letter-spacing: -1.44px;
@@ -106,7 +112,7 @@ h1 {
   }
 }
 
-h2 {
+h2, .text-h2 {
   font-size: 40px;
   font-weight: 700;
   letter-spacing: -1.2px;
@@ -118,7 +124,7 @@ h2 {
   }
 }
 
-h3 {
+h3, .text-h3 {
   font-size: 32px;
   font-weight: 700;
   letter-spacing: -0.96px;
@@ -130,7 +136,7 @@ h3 {
   }
 }
 
-h4 {
+h4, .text-h4 {
   font-size: 24px;
   font-weight: 700;
   letter-spacing: -0.72px;
@@ -142,7 +148,7 @@ h4 {
   }
 }
 
-h5 {
+h5, .text-h5 {
   font-size: 20px;
   font-weight: 600;
   letter-spacing: -0.6px;
@@ -154,7 +160,7 @@ h5 {
   }
 }
 
-h6 {
+h6, .text-h6 {
   font-size: 18px;
   font-weight: 600;
   letter-spacing: -0.54px;
