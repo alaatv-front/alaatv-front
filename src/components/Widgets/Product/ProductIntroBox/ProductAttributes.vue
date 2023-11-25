@@ -203,18 +203,11 @@ export default defineComponent({
   },
   methods: {
     getAttributesValues (valueList) {
-      let finalValue = ''
-      if (valueList) {
-        for (let valueIndex = 0; valueIndex < valueList.length; valueIndex++) {
-          if (valueIndex === 0) {
-            finalValue = finalValue + valueList[valueIndex]
-          } else {
-            finalValue = finalValue + '، ' + valueList[valueIndex]
-          }
-        }
+      if (!valueList) {
+        return '-'
       }
 
-      return finalValue
+      return valueList.join(', ')
     }
   }
 })

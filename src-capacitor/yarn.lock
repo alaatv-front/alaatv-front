@@ -2,27 +2,27 @@
 # yarn lockfile v1
 
 
-"@capacitor-community/sqlite@^5.0.7-2":
-  version "5.0.7-2"
-  resolved "https://registry.yarnpkg.com/@capacitor-community/sqlite/-/sqlite-5.0.7-2.tgz#cc486833c5eaadab302fa5ccf9a999165c1af183"
-  integrity sha512-aN6VtR4+XaDmB+Q0y13dmbOFYWX68YUvrelRatR5FL0drae1GDDsckpNXZGt75u70yRgZ6YLmHwmVmGlSKsp+w==
+"@capacitor-community/sqlite@^5.4.2-2":
+  version "5.4.2-2"
+  resolved "https://registry.yarnpkg.com/@capacitor-community/sqlite/-/sqlite-5.4.2-2.tgz#fdd7238d6302a59fa063550181ca8155cb57495d"
+  integrity sha512-9cEammM0faTc3U6tkxItmkNw/KUU7rWDkzUXOkWkemh/pYxKY34BtcF3k5s1jNUnQjI3OEx/xdEUQcCtyHY+LA==
   dependencies:
-    jeep-sqlite "^2.4.1"
+    jeep-sqlite "^2.5.3"
 
-"@capacitor/android@^5.0.0":
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-5.0.4.tgz#aa6497782bae0851553682126a6051157fe932b5"
-  integrity sha512-WtXmjRQ0bCtFkwBID/jVEPbqnh0uR9wTSgkW7QNzogDuA0iyJJI2nxDfT9knUmg6mne/CnfTXg093zzdc13C0w==
+"@capacitor/android@^5.5.1":
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-5.5.1.tgz#128dc5ab00f68c80d64ea18e961876b34b4ed859"
+  integrity sha512-WTnPnpaEvTtaEtTNRbh06Y1afF7A4plY/4uajAL0WW8tdR1FxieadF357yKGiAT6CudI/B+eOu6rxn6qWuphKg==
 
-"@capacitor/app@^5.0.0":
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/@capacitor/app/-/app-5.0.2.tgz#79a448ff0a5a1158f362874987d813e22a7bd004"
-  integrity sha512-TRs5Iu94+IfUJ4iiljWC0tuVsHXBOD4asADggpUH6DnwlQo3cVuRnFK+A0jJnWW9GvlFy9uTsXxytzzXP/V0vQ==
+"@capacitor/app@^5.0.6":
+  version "5.0.6"
+  resolved "https://registry.yarnpkg.com/@capacitor/app/-/app-5.0.6.tgz#2ee02551115fd2e92dc7e81bc30a6c6fa78efa66"
+  integrity sha512-6ZXVdnNmaYILasC/RjQw+yfTmq2ZO7Q3v5lFcDVfq3PFGnybyYQh+RstBrYri+376OmXOXxBD7E6UxBhrMzXGA==
 
-"@capacitor/cli@^5.0.0":
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-5.0.4.tgz#f8d31f32262e457b2a8e31f76295c15b5c6f57b8"
-  integrity sha512-ALzAZlU1L0lwrxtBcvYeu6tFt5i3cLglQdsbohGLqAhipMWW/QNuafIJshxMMR8lMeBAEVYizdDOxEUFHcnWOQ==
+"@capacitor/cli@^5.5.1":
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-5.5.1.tgz#6da1eadea31963b5be64544b88f3e973fe0b1a31"
+  integrity sha512-/oGd2IIc+k1H/fc7tUzP7vqMtZi0gNcJ4/4wUE2kzAnETxxxHXMM/2V62KfjCby/OOAzJbtI7n5OPlnWE9un1A==
   dependencies:
     "@ionic/cli-framework-output" "^2.2.5"
     "@ionic/utils-fs" "^3.1.6"
@@ -32,7 +32,7 @@
     debug "^4.3.4"
     env-paths "^2.2.0"
     kleur "^4.1.4"
-    native-run "^1.7.2"
+    native-run "^1.7.3"
     open "^8.4.0"
     plist "^3.0.5"
     prompts "^2.4.2"
@@ -42,10 +42,10 @@
     tslib "^2.4.0"
     xml2js "^0.5.0"
 
-"@capacitor/core@^5.0.0":
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-5.0.4.tgz#70c5551a34657482042c351cbadac0fd9aba53a7"
-  integrity sha512-BFvziz9jM87pLHW2sXPNIzwrdmI5mAP0tBsBHgXoCO2+wVdpvIMYCpcst5BuTULaMz5JBFZZ6g6nqwgfs+SMCA==
+"@capacitor/core@^5.5.1":
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-5.5.1.tgz#bd2a969a1149a480aed3483d8867677e85606058"
+  integrity sha512-VG6Iv8Q7ZAbvjodxpvjcSe0jfxUwZXnvjbi93ehuJ6eYP8U926qLSXyrT/DToZq+F6v/HyGyVgn3mrE/9jW2Tg==
   dependencies:
     tslib "^2.1.0"
 
@@ -54,10 +54,10 @@
   resolved "https://registry.yarnpkg.com/@capacitor/device/-/device-5.0.6.tgz#11322a9c737196f2df8f82abbe6d1a5b32e35fb7"
   integrity sha512-tmjK0H8IKbDLMcmzZzJPbV+9yLkKJ76QOdz4A7fZAOYx2GnFHsFngxldq/wKotGAJuDX/ih3ZzHNrzVguzlv2g==
 
-"@capacitor/ios@^5.0.0":
-  version "5.0.5"
-  resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-5.0.5.tgz#799c6eb3bf5988ff1e394a28d7f5caa8435460da"
-  integrity sha512-U72TPbKN1HlUqEGCOPsCBp6j93Qu1TazWUuA8Q1yfcGDfSOE0zMDNl3eU7XO5OyzpV7z9lf8NJdehimezVl7sA==
+"@capacitor/ios@^5.5.1":
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-5.5.1.tgz#e07d0752b8934215a9defc2d22a537060f2dd7f7"
+  integrity sha512-h00qt8u32t8eEbIkuG4IjR0r34YZC0sIXglDH8fRDdA84xDkTybmz3WtdpRWDzh6ukE2RIY7rmD7p410WSJ2yA==
 
 "@capacitor/preferences@^5.0.6":
   version "5.0.6"
@@ -148,10 +148,10 @@
     untildify "^4.0.0"
     wrap-ansi "^7.0.0"
 
-"@stencil/core@^4.0.5":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-4.1.0.tgz#236d88cc071e482ae096f56cee4c747541fb21ba"
-  integrity sha512-yIpL+CX02fy5zvFXwXcHZjjEILRm3aiONbucpfLIWPS7zcBAuucdROssartEa+D7E1JRko97ydxn1Ntdu4GoWg==
+"@stencil/core@^4.3.0":
+  version "4.7.2"
+  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-4.7.2.tgz#e83db6a79b2e30d56848c860314124588b02e178"
+  integrity sha512-sPPDYrXiTbfeUF5CCyfqysXK/yfTHC4xYR1+nHzGkS2vhRSBOLp0oPuB+xkJLKA+K2ZqDJUxpOnDxy1CLWwBXA==
 
 "@types/fs-extra@^8.0.0":
   version "8.1.2"
@@ -253,10 +253,10 @@ commander@^9.3.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-9.5.0.tgz#bc08d1eb5cedf7ccb797a96199d41c7bc3e60d30"
   integrity sha512-KRs7WVDKg86PWiuAqhDrAQnTXZKraVcCc6vFdL14qrZ/DcWwuRo7VoiYXalXO7S5GKpqYiVEwCbgFDfxNHKJBQ==
 
-cordova-plugin-screen-orientation@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-screen-orientation/-/cordova-plugin-screen-orientation-3.0.3.tgz#2df550d26eeef7e0328874b7aa280c757e8adb89"
-  integrity sha512-Dt8lO8BECZfE/pKbYQZ72Wr811fYMScxw7c9v/gJ3etOPCBrgl8xIHOOZu4nY2ehRyxFPtZi3VeGvIG+3DZoZQ==
+cordova-plugin-screen-orientation@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-screen-orientation/-/cordova-plugin-screen-orientation-3.0.4.tgz#2527870c95019ddf42af495f0e8a29a1d5ec728f"
+  integrity sha512-AswRuUKJ8J3HycUilTJsIB50aa9TLrwndPNBFG+wfAPhHEqIBF0HaD0q3HbAK7ypgmaj0cvbzk84qP51IcTfrQ==
 
 core-util-is@~1.0.0:
   version "1.0.3"
@@ -387,12 +387,12 @@ isexe@^2.0.0:
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
 
-jeep-sqlite@^2.4.1:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/jeep-sqlite/-/jeep-sqlite-2.5.0.tgz#a07d2cbf6e8338038d07cce8d6e858501ffc8180"
-  integrity sha512-y6z/aL/mf7Yehi9zzxbp9WXaIhbJxFxLuq6Mbt7JWRw0t0SDQ9HSAtu9kJTwHnpztcJA0xN3VOhmx1COMs5ZXA==
+jeep-sqlite@^2.5.3:
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/jeep-sqlite/-/jeep-sqlite-2.5.4.tgz#c7fab283d6386fc80f2202ecc996ed4c3a72b64d"
+  integrity sha512-1eMhAIYdHXvnSop82mRXzOjOQoUP8Jq1GOPskUWVmHdsg9jHWSqiYwMYyXI9vOYIVj/3g7Ugtg/3JwUo8t4k0g==
   dependencies:
-    "@stencil/core" "^4.0.5"
+    "@stencil/core" "^4.3.0"
     browser-fs-access "^0.33.0"
     jszip "^3.10.1"
     localforage "^1.10.0"
@@ -507,10 +507,10 @@ ms@2.1.2:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-native-run@^1.7.2:
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/native-run/-/native-run-1.7.2.tgz#42ee36102039c2a892507bbc1cb75695f676098b"
-  integrity sha512-2aahC8iXIO8BcvEukVMrYwL5sXurkuIGyQgfSGBto832W6ejV+cB5Ww+2/CRxmyozhbxARJ2OMpEGPV8sTqsrQ==
+native-run@^1.7.3:
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/native-run/-/native-run-1.7.4.tgz#b98b74812805cef8665cfceec651e66e662123e3"
+  integrity sha512-yDEwTp66vmXpqFiSQzz4sVQgyq5U58gGRovglY4GHh12ITyWa6mh6Lbpm2gViVOVD1JYFtYnwcgr7GTFBinXNA==
   dependencies:
     "@ionic/utils-fs" "^3.1.6"
     "@ionic/utils-terminal" "^2.3.3"
