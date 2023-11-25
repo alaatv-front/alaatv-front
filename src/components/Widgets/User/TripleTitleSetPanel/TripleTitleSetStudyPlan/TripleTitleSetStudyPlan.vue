@@ -625,44 +625,64 @@ export default {
           this.loading = false
         })
     },
-    acceptNewPlan () {
-      this.loading = true
-      const eventPromises = []
-      const majorId = FormBuilderAssist.getInputsByName(this.inputs, 'major_id')?.value
-      const gradeId = FormBuilderAssist.getInputsByName(this.inputs, 'grade_id')?.value
-      FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value.forEach(methodId => {
+    getPlanPromise (majorId, gradeId, methodId) {
+      return new Promise((resolve, reject) => {
         const data = {
           major_id: majorId,
           grade_id: gradeId,
           study_method_id: methodId
         }
-        eventPromises.push(this.getEventPromise(data))
+        APIGateway.abrisham.findMyStudyPlan(data)
+          .then(studtPlan => {
+            this.createPlan(studtPlan)
+              .then((plan) => {
+                resolve(plan)
+              })
+              .catch(() => {
+                reject()
+              })
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    },
+    createPlan (studtPlan) {
+      return new Promise((resolve, reject) => {
+        const formData = this.$refs.formBuilder.getFormData()
+        formData.contents.forEach((content, index) => {
+          formData.contents[index] = content.id
+        })
+        formData.event_id = studtPlan.id
+        APIGateway.studyPlan.createPlan(formData)
+          .then((plan) => {
+            resolve(plan)
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    },
+    acceptNewPlan () {
+      this.loading = true
+      const eventPromises = []
+      const majorId = FormBuilderAssist.getInputsByName(this.inputs, 'major_id')?.value
+      const gradeId = FormBuilderAssist.getInputsByName(this.inputs, 'grade_id')?.value
+      const methodIds = FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value
+      methodIds.forEach(methodId => {
+        eventPromises.push(this.getPlanPromise(majorId, gradeId, methodId))
       })
       Promise.all(eventPromises)
-        .then(studyPlans => {
-          const createPlanPromises = []
-          const formData = this.$refs.formBuilder.getFormData()
-          formData.contents.forEach((content, index) => {
-            formData.contents[index] = content.id
+        .then((plans) => {
+          this.updateMyStudyPlan({
+            major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id').value,
+            grade_id: FormBuilderAssist.getInputsByName(this.inputs, 'grade_id').value,
+            study_method_id: FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value[0]
           })
-          studyPlans.forEach((studtPlan) => {
-            formData.event_id = studtPlan.id
-            createPlanPromises.push(this.getPlanPromise(formData))
-          })
-          Promise.all(createPlanPromises)
-            .then(() => {
-              this.updateMyStudyPlan({
-                major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id').value,
-                grade_id: FormBuilderAssist.getInputsByName(this.inputs, 'grade_id').value,
-                study_method_id: FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value[0]
-              })
-              this.newPlanDialog = false
-            })
-            .catch(() => {
-              this.newPlanDialog = false
-            })
+          this.newPlanDialog = false
         })
         .catch(() => {
+          this.newPlanDialog = false
           this.loading = false
         })
     },
