@@ -3,7 +3,12 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  letter-spacing: -0.32px;
+  letter-spacing: -0.48px;
+
+  @media screen and (width <= #{$breakpoint-xs}){
+    font-size: 14px;
+    letter-spacing: -0.42px;
+  }
 }
 
 @mixin body2 {
@@ -11,7 +16,12 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  letter-spacing: -0.28px;
+  letter-spacing: -0.42px;
+
+  @media screen and (width <= #{$breakpoint-xs}){
+    font-size: 12px;
+    letter-spacing: -0.36px;
+  }
 }
 
 @mixin caption1 {
@@ -19,7 +29,12 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  letter-spacing: -0.24px;
+  letter-spacing: -0.36px;
+
+  @media screen and (width <= #{$breakpoint-xs}){
+    font-size: 12px;
+    letter-spacing: -0.3px;
+  }
 }
 
 @mixin caption2 {
@@ -27,7 +42,12 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  letter-spacing: -0.2px;
+  letter-spacing: -0.3px;
+
+  @media screen and (width <= #{$breakpoint-xs}){
+    font-size: 10px;
+    letter-spacing: -0.3px;
+  }
 }
 
 @mixin subtitle1 {
@@ -35,7 +55,12 @@
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-  letter-spacing: -0.32px;
+  letter-spacing: -0.48px;
+
+  @media screen and (width <= #{$breakpoint-xs}){
+    font-size: 14px;
+    letter-spacing: -0.42px;
+  }
 }
 
 @mixin subtitle2 {
@@ -43,7 +68,11 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  letter-spacing: -0.28px;
+  letter-spacing: -0.42px;
+
+  @media screen and (width <= $breakpoint-xs){
+    font-size: 12px;
+  }
 }
 
 $katexFontSize: 1.2rem;
@@ -59,46 +88,88 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+.text-h1,
+.text-h2,
+.text-h3,
+.text-h4,
+.text-h5,
+.text-h6 {
   margin: 0;
   font-style: normal;
   line-height: normal;
 }
 
-h1 {
+h1, .text-h1 {
   font-size: 48px;
   font-weight: 800;
-  letter-spacing: -0.96px;
+  letter-spacing: -1.44px;
+
+  @media screen and (width <= #{$breakpoint-xs}){
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -1.2px;
+  }
 }
 
-h2 {
+h2, .text-h2 {
   font-size: 40px;
   font-weight: 700;
-  letter-spacing: -0.8px;
+  letter-spacing: -1.2px;
+
+  @media screen and (width <= #{$breakpoint-xs}){
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.96px;
+  }
 }
 
-h3 {
+h3, .text-h3 {
   font-size: 32px;
   font-weight: 700;
-  letter-spacing: -0.64px;
+  letter-spacing: -0.96px;
+
+  @media screen and (width <= #{$breakpoint-xs}){
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.72px;
+  }
 }
 
-h4 {
+h4, .text-h4 {
   font-size: 24px;
   font-weight: 700;
-  letter-spacing: -0.48px;
+  letter-spacing: -0.72px;
+
+  @media screen and (width <= #{$breakpoint-xs}){
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.6px;
+  }
 }
 
-h5 {
+h5, .text-h5 {
   font-size: 20px;
   font-weight: 600;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.6px;
+
+  @media screen and (width <= #{$breakpoint-xs}){
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.54px;
+  }
 }
 
-h6 {
+h6, .text-h6 {
   font-size: 18px;
   font-weight: 600;
-  letter-spacing: -0.36px;
+  letter-spacing: -0.54px;
+
+  @media screen and (width <= #{$breakpoint-xs}){
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.48px;
+  }
 }
 
 .body1 {
