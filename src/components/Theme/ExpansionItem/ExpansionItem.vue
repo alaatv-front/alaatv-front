@@ -9,10 +9,12 @@
     </div>
     <div class="row flex flex-center">
       <div class="col-12 col-md-6 flex flex-center q-pa-md">
-        <expansion-item-component />
+        <expansion-item-component label="متن عنوان اصلی" />
       </div>
       <div class="col-12 col-md-6 bg-grey-1 flex flex-center q-pa-md">
         <expansion-item-component :hasAction="true"
+                                  icon="ph:question"
+                                  label="متن عنوان اصلی"
                                   :grey="true">
           <template v-slot:action>متن ۱</template>
         </expansion-item-component>

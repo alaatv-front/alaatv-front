@@ -4,7 +4,8 @@
     <template v-slot:header>
       <q-item-section>
         <q-item-section class="header-label-section">
-          <q-icon :name="icon"
+          <q-icon v-if="icon"
+                  :name="icon"
                   class="header-icon"
                   size="20px"
                   color="grey9" />
@@ -44,11 +45,11 @@ export default defineComponent({
   props: {
     icon: {
       type: String,
-      default: 'ph:question'
+      default: null
     },
     label: {
       type: String,
-      default: 'عنوان متن اصلی'
+      default: null
     },
     separated: {
       type: Boolean,
