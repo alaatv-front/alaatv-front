@@ -16,11 +16,8 @@
         </q-item-section>
         <q-item-section class="responsive-action-section">
           <div class="action-wrapper">
-            <div class="action1">
-              <slot name="action1" />
-            </div>
-            <div class="action2">
-              <slot name="action2" />
+            <div class="action">
+              <slot name="action" />
             </div>
           </div>
         </q-item-section>
@@ -29,11 +26,8 @@
       <q-item-section v-if="hasAction"
                       class="header-action-section">
         <div class="action-wrapper">
-          <div class="action1">
-            <slot name="action1" />
-          </div>
-          <div class="action2">
-            <slot name="action2" />
+          <div class="action">
+            <slot name="action" />
           </div>
         </div>
       </q-item-section>

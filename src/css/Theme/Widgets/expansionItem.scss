@@ -55,6 +55,7 @@
 
   .q-expansion-item__content {
     padding: $space-4;
+    border-radius: $radius-3;
   }
 
 
@@ -70,9 +71,6 @@
       justify-content: flex-end;
       align-items: center;
 
-      .action2 {
-        margin: 0 $space-2 0 $space-5;
-      }
     }
   }
 
@@ -88,10 +86,6 @@
       justify-content: flex-start;
       align-items: center;
       margin-top: 12px;
-
-      .action2 {
-        margin: 0 $space-2 0 $space-5;
-      }
     }
   }
 }

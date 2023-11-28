@@ -11,11 +11,10 @@
       <div class="col-12 col-md-6 flex flex-center q-pa-md">
         <expansion-item-component />
       </div>
-      <div class="col-12 col-md-6 flex flex-center q-pa-md">
+      <div class="col-12 col-md-6 bg-grey-1 flex flex-center q-pa-md">
         <expansion-item-component :hasAction="true"
                                   :grey="true">
-          <template v-slot:action1>متن ۱</template>
-          <template v-slot:action2>متن ۲</template>
+          <template v-slot:action>متن ۱</template>
         </expansion-item-component>
       </div>
     </div>
