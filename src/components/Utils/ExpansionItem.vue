@@ -1,8 +1,6 @@
 <template>
   <q-expansion-item expand-separator
-                    icon="perm_identity"
-                    label="Account settings"
-                    caption="John Doe">
+                    :class="{'grey-mode': grey}">
     <template v-slot:header>
       <q-item-section>
         <q-item-section class="header-label-section">
@@ -63,6 +61,10 @@ export default defineComponent({
       default: true
     },
     expanded: {
+      type: Boolean,
+      default: false
+    },
+    grey: {
       type: Boolean,
       default: false
     },

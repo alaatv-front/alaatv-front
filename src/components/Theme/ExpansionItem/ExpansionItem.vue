@@ -12,7 +12,8 @@
         <expansion-item-component />
       </div>
       <div class="col-12 col-md-6 flex flex-center q-pa-md">
-        <expansion-item-component :hasAction="true">
+        <expansion-item-component :hasAction="true"
+                                  :grey="true">
           <template v-slot:action1>متن ۱</template>
           <template v-slot:action2>متن ۲</template>
         </expansion-item-component>
