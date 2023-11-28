@@ -49,10 +49,12 @@ import Toast from 'components/Theme/Toast/Toast.vue'
 import ExampleTabs from 'components/Theme/Tabs/ExampleTabs.vue'
 import ExampleDialog from 'components/Theme/Dialog/ExampleDialog.vue'
 import Badge from 'components/Theme/Badge/Badge.vue'
+import Card from 'components/Theme/Card/Card.vue'
 
 export default {
   name: 'Controls',
   components: {
+    Card,
     Badge,
     Color,
     Toast,
@@ -153,6 +155,10 @@ export default {
         {
           label: 'dropdown',
           name: 'dropdown'
+        },
+        {
+          label: 'card',
+          name: 'card'
         }
       ]
     }
