@@ -129,17 +129,10 @@ export default defineComponent({
   }
 
   @media screen and (width <= 1023px) {
-    width: 100%;
-    padding: 24px;
-    height: auto;
-    min-height: auto;
-  }
-
-  @media screen and (width <= 599px) {
-    padding: 20px 16px;
-    width: 100%;
-    height: auto;
-    min-height: auto;
+    width: 0;
+    padding: 0;
+    height: 0;
+    min-height: 0;
   }
 
   .product-intro-video {
@@ -147,6 +140,10 @@ export default defineComponent({
     box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%);
     border-radius: 8px;
     padding: 0;
+
+    @media screen and (width <= 1023px){
+      display: none;
+    }
   }
 
   .photo_wide-wrapper {
@@ -155,6 +152,10 @@ export default defineComponent({
       height: 100%;
       border-radius: 12px;
     }
+
+    @media screen and (width <= 1023px){
+      display: none;
+    }
   }
 
   .photo-wrapper {
@@ -162,6 +163,9 @@ export default defineComponent({
       width: 100%;
       height: 100%;
       border-radius: 12px;
+    }
+    @media screen and (width <= 1023px){
+      display: none;
     }
   }
 

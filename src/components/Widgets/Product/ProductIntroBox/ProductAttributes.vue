@@ -3,17 +3,19 @@
     <q-item class="attribute-item">
       <q-item-section class="attribute-icon">
         <q-icon name="ph:calendar-blank"
-                color="gray-7"
+                :color="darkMode ? 'grey-1' : 'grey-7'"
                 size="16px" />
       </q-item-section>
       <q-item-section>
-        <div class="attribute-title">
+        <div class="attribute-title"
+             :class="{'dark': darkMode}">
           آخرین آپدیت
         </div>
       </q-item-section>
       <q-item-section side
                       class="attribute-value-section">
-        <div class="value-text ellipsis">
+        <div class="value-text ellipsis"
+             :class="{'dark': darkMode}">
           {{ getAttributesValues(attributes.info.teacher) }}
           <q-tooltip>
             {{ getAttributesValues(attributes.info.teacher) }}
@@ -24,17 +26,19 @@
     <q-item class="attribute-item">
       <q-item-section class="attribute-icon">
         <q-icon name="ph:download-simple"
-                color="gray-7"
+                :color="darkMode ? 'grey-1' : 'grey-7'"
                 size="16px" />
       </q-item-section>
       <q-item-section>
-        <div class="attribute-title">
+        <div class="attribute-title"
+             :class="{'dark': darkMode}">
           مدل دریافت
         </div>
       </q-item-section>
       <q-item-section side
                       class="attribute-value-section">
-        <div class="value-text ellipsis">
+        <div class="value-text ellipsis"
+             :class="{'dark': darkMode}">
           {{ getAttributesValues(attributes.info.shipping_method) }}
           <q-tooltip>
             {{ getAttributesValues(attributes.info.shipping_method) }}
@@ -45,17 +49,19 @@
     <q-item class="attribute-item">
       <q-item-section class="attribute-icon">
         <q-icon name="ph:calendar-x"
-                color="gray-7"
+                :color="darkMode ? 'grey-1' : 'grey-7'"
                 size="16px" />
       </q-item-section>
       <q-item-section>
-        <div class="attribute-title">
+        <div class="attribute-title"
+             :class="{'dark': darkMode}">
           مدت اعتبار
         </div>
       </q-item-section>
       <q-item-section side
                       class="attribute-value-section">
-        <div class="value-text ellipsis">
+        <div class="value-text ellipsis"
+             :class="{'dark': darkMode}">
           {{ getAttributesValues(attributes.info.expiration_duration) }}
           <q-tooltip>
             {{ getAttributesValues(attributes.info.expiration_duration) }}
@@ -90,6 +96,10 @@ export default defineComponent({
           subscription: null
         }
       }
+    },
+    darkMode: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -110,11 +120,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/Theme/colors.scss";
+@import "src/css/Theme/spacing.scss";
+@import "src/css/Theme/Typography/typography.scss";
+
 .attribute-item {
-  padding: 10px 0;
+  padding: $space-3 $spacing-none;
 
   &:last-child {
-    padding-bottom: 0;
+    padding-bottom: $spacing-none;
   }
 
   .attribute-icon {
@@ -123,12 +137,12 @@ export default defineComponent({
 
   .attribute-title {
     width: 150px;
-    color:#303030;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: -0.42px;
+    color: $grey-7;
+    @include body2;
+
+    &.dark {
+      color: $grey-1;
+    }
   }
 
   .attribute-value-section {
@@ -140,16 +154,20 @@ export default defineComponent({
     max-width: 250px;
 
     .value-text {
-      color:#303030;
-      text-align: right;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      letter-spacing: -0.42px;
+      color: $grey-7;
       width: 100%;
       max-width: 100%;
+      text-align: right;
+      @include body2;
+
+      &.dark {
+        color: $grey-1;
+      }
     }
   }
+}
+
+.q-list--separator > .q-item-type + .q-item-type {
+  border-top: 1px solid $grey-4;
 }
 </style>

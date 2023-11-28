@@ -28,6 +28,7 @@
              @click="paymentAction('cash')" />
     </div>
     <payment-dialog :dialog="dialog"
+                    :position="position"
                     :paymentMethod="paymentMethod"
                     :product="localOptions.product"
                     :productComplimentary="productComplimentary"
@@ -145,6 +146,7 @@ export default defineComponent({
         product: new Product()
       },
       dialog: false,
+      position: 'center',
       paymentMethod: null,
       productComplimentary: [],
       onLoginAction: () => {},
@@ -224,6 +226,9 @@ export default defineComponent({
       this.$store.commit('AppLayout/updateLoginDialog', true)
     },
     toggleDialog () {
+      if (this.$q.screen.lt.md && this.dialog === false) {
+        this.position = 'bottom'
+      }
       this.dialog = !this.dialog
     },
     getProductComplimentary () {
