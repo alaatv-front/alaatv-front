@@ -1,7 +1,7 @@
 @import "src/css/Theme/Typography/typography";
 
 .q-tab {
-  padding: 0 12px;
+  padding: 0 $space-3;
 
   &.q-tab--active {
     .q-tab__content {
