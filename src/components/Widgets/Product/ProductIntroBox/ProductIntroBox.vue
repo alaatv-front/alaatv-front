@@ -112,6 +112,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/Theme/radius";
+@import "src/css/Theme/colors";
+@import "src/css/Theme/shadow";
+@import "src/css/Theme/spacing";
+@import "src/css/Theme/Typography/typography";
+
 .product-intro-wrapper {
   position: sticky;
   top: 88px;
@@ -119,29 +125,24 @@ export default defineComponent({
   min-width: 307px;
   min-height: 638px;
   max-width: 100%;
-  border-radius: 12px;
-  background:#FFF;
-  box-shadow: 2px 2px 3px 0 rgb(16 24 40 / 6%);
+  border-radius: $radius-4;
+  background: $grey-1;
+  box-shadow: $shadow-1;
 
   @media screen and (width <= 1439px){
-    padding: 20px;
+    padding: $space-5;
   }
 
   @media screen and (width <= 1023px) {
     width: 0;
-    padding: 0;
+    padding: $spacing-none;
     height: 0;
     min-height: 0;
   }
 
-  .intro-card-section {
-    padding: 0;
-  }
-
   .product-intro-video {
     overflow: hidden;
-    box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%);
-    border-radius: 8px;
+    border-radius: $radius-3;
 
     @media screen and (width <= 1023px){
       display: none;
@@ -152,7 +153,7 @@ export default defineComponent({
     :deep(.product-image) {
       width: 100%;
       height: 100%;
-      border-radius: 12px;
+      border-radius: $radius-4;
     }
 
     @media screen and (width <= 1023px){
@@ -164,7 +165,7 @@ export default defineComponent({
     :deep(.product-image) {
       width: 100%;
       height: 100%;
-      border-radius: 12px;
+      border-radius: $radius-4;
     }
     @media screen and (width <= 1023px){
       display: none;
@@ -172,19 +173,19 @@ export default defineComponent({
   }
 
   .price-section {
-    padding: 16px 0 25px;
+    padding: $space-4 0 $space-6;
 
     &.installment {
-      padding: 16px 0 0;
+      padding: $space-4 0 0;
     }
 
     @media screen and (width <= 1023px){
-      padding: 0;
+      padding: $spacing-none;
     }
   }
 
   .attributes-section {
-    padding: 0;
+    padding: $spacing-none;
 
     @media screen and (width <= 1023px){
       display: none;

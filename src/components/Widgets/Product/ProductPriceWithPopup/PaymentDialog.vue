@@ -34,9 +34,9 @@
               <div class="installment-roules-and-conditions-body">
                 <div class="installment-roules-and-conditions-content">
                   ۱. درصورت عدم پرداخت اقساط در زمان های مشخص اعلام شده، دسترسی به تمام محتوا و مکمل های دوره به طور موقت غیرفعال می‌گردد تا پرداخت صورت گیرد و مجدد دسترسی فعال شود.
-                  <br><br v-if="$q.screen.gt.md">
+                  <br><br class="gt-md">
                   ۲. استفاده اشتراکی از محتواها در هر دو پرداخت اقساطی و نقدی ممنوع می باشد.
-                  <br><br v-if="$q.screen.gt.md">
+                  <br><br class="gt-md">
                   ۳. درصورت “تاخیر مکرر” در پرداخت اقساط، آلا می‌تواند دسترسی به دوره را به طور دائم غیرفعال نماید.
                 </div>
                 <div class="
@@ -674,7 +674,6 @@ $page-size-sm: map-get($sizes, "sm");
     //height: 450px;
     overflow-y: auto;
     margin-bottom: $space-8;
-    padding-bottom: $space-6;
 
     @media screen and (width < #{$page-size-md}){
       height: 420px;
@@ -724,6 +723,7 @@ $page-size-sm: map-get($sizes, "sm");
           .installment-roules-and-conditions-content {
             color: $grey-9;
             @include body2;
+            padding-bottom: $space-6;
           }
 
           .installment-roules-and-conditions-accept {
