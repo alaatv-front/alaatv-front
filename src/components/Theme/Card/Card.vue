@@ -119,6 +119,36 @@
                 </div>
               </div>
             </div>
+            <div class="col-6">
+              <div class="row q-col-gutter-md">
+                <div class="col-12 text-center">
+                  White Scroll Card 1
+                  Main & Outlined
+                </div>
+                <div class="col-6">
+                  <q-card class="main-card">
+                    <q-scroll-area class="scroll-card">
+                      <q-card-section v-for="n in 6"
+                                      :key="n"
+                                      class="q-mb-md">
+                        <div class="sample-content" />
+                      </q-card-section>
+                    </q-scroll-area>
+                  </q-card>
+                </div>
+                <div class="col-6">
+                  <q-card class="outline-card grey-card">
+                    <q-scroll-area class="scroll-card">
+                      <q-card-section v-for="n in 6"
+                                      :key="n"
+                                      class="q-mb-md">
+                        <div class="sample-content" />
+                      </q-card-section>
+                    </q-scroll-area>
+                  </q-card>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -143,6 +173,9 @@ export default {
   .sample-content-white {
     height: 68px;
     background-color: $grey-1;
+  }
+  .scroll-card {
+    height: 200px;
   }
 }
 </style>
