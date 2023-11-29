@@ -1,17 +1,28 @@
 <template>
   <q-dialog :model-value="dialog"
+            :position="position"
             @hide="toggleDialog">
-    <q-card class="payment-card"
+    <q-card v-touch-swipe.mouse.down="handleSwipe"
+            class="payment-card"
             :class="{'cash': paymentMethod === 'cash'}">
+      <div class="header-swapper" />
       <q-card-section class="header-section">
         <div class="payment-header">
-          <div class="header-title">ثبت نام</div>
+          <div class="header-title">
+            <div class="header-title__text">ثبت نام</div>
+            <q-btn color="grey"
+                   class="header-title__action"
+                   icon="close"
+                   size="xs"
+                   flat
+                   @click="toggleDialog" />
+          </div>
           <div class="header-subtitle">
             شما میتونید در این دوره به صورت قسطی ثبت نام کنید.
           </div>
         </div>
       </q-card-section>
-      <q-card-section class="q-pt-none">
+      <q-card-section class="q-pt-none body-section">
         <div class="row payment-body"
              :class="{'q-col-gutter-lg': paymentMethod !== 'cash'}">
           <div class="col-12 products-col"
@@ -28,7 +39,9 @@
                 </div>
                 <div class="installment-roules-and-conditions-accept">
                   <q-checkbox v-model="installmentAccept"
-                              label="شرایط تسهیلات ویژه ثبت نام رو میپذیرم." />
+                              left-label
+                              color="secondary"
+                              label=".شرایط تسهیلات ویژه ثبت نام رو میپذیرم" />
                 </div>
               </div>
             </div>
@@ -136,7 +149,7 @@
                                :label="'%' + discountInPercent" />
                     </div>
                     <div class="footer-discount-label">
-                      تخفیف
+                      {{ getProductPrice(totalPrice, 'base') }}
                     </div>
                   </q-item-section>
                   <q-item-section class="installment-footer-amount"
@@ -205,16 +218,16 @@
       <q-card-section v-if="hasInstallment"
                       class="payment-footer">
         <div class="instalment-info ellipsis">
-          <span class="simple-text before">فقط با</span>
+          <h6 class="simple-text before">فقط با</h6>
           <template v-if="product.instalments && product.instalments.length > 0">
-            <span class="price price-value">
+            <h4 class="price price-value">
               {{ product.instalments[0].value.toLocaleString('fa') }}
-            </span>
+            </h4>
             <span class="price price-label">
               تومان
             </span>
           </template>
-          <span class="simple-text after">بیا تو دوره</span>
+          <h6 class="simple-text after">بیا تو دوره</h6>
         </div>
         <div class="footer-action">
           <q-btn v-if="paymentMethod === 'cash'"
@@ -225,9 +238,9 @@
                  label="ثبت نام نقدی"
                  @click="addToCart('cash')" />
           <q-btn v-else
-                 color="primary"
-                 text-color="grey-9"
+                 color="accent"
                  unelevated
+                 size="md"
                  class="action-btn full-width"
                  :disable="!installmentAccept"
                  label="ثبت نام اقساطی"
@@ -258,6 +271,10 @@ export default defineComponent({
     paymentMethod: {
       type: String,
       default: 'cash'
+    },
+    position: {
+      type: String,
+      default: 'center'
     },
     product: {
       type: Object,
@@ -402,6 +419,11 @@ export default defineComponent({
     this.loadProductInfo()
   },
   methods: {
+    handleSwipe ({ evt, ...newInfo }) {
+      if (newInfo.direction === 'down') {
+        this.$emit('toggleDialog')
+      }
+    },
     loadProductInfo () {
       this.productPrice = this.product.price
       this.installment = this.product.instalments
@@ -527,7 +549,9 @@ export default defineComponent({
       this.selectedExam = examId
     },
     toggleDialog () {
-      this.$emit('toggleDialog')
+      if (this.dialog) {
+        this.$emit('toggleDialog')
+      }
     },
     toggleProductToCard (productIndex, dependency) {
       if (this.paymentMethod === 'cash') {
@@ -552,7 +576,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/Theme/radius";
+@import "src/css/Theme/colors";
+@import "src/css/Theme/spacing";
 @import "src/css/Theme/Typography/typography";
+
+$page-size-lg: map-get($sizes, "lg");
+$page-size-md: map-get($sizes, "md");
+$page-size-sm: map-get($sizes, "sm");
 
 .payment-card {
   border-radius: 12px;
@@ -560,55 +591,113 @@ export default defineComponent({
   box-shadow: 0 2px 4px -2px rgb(16 24 40 / 6%), 0 4px 8px -2px rgb(16 24 40 / 10%);
   width: 800px;
   max-width: 100%;
-
+  padding: $space-7;
+  margin: auto;
   //height: 649px;
   position: relative;
 
-  @media screen and (width <= 599px){
+  @media screen and (width < #{$page-size-md}){
     //height: 666px;
+    padding: $space-4 $space-5 $space-6 $space-5;
+    margin: initial;
   }
 
   &.cash {
     width: 480px;
   }
 
+  .header-swapper {
+    position: absolute;
+    top: 8px;
+    left: 45%;
+    width: 48px;
+    height: 6px;
+    border-radius: 100px;
+    background: $grey-3;
+
+    @media screen and (width < #{$page-size-md}){
+      display: none;
+    }
+  }
+
   .header-section{
-    padding-bottom: 0;
+    padding: $spacing-none;
+
+    @media screen and (width < #{$page-size-md}){
+      padding: $spacing-none;
+    }
+    @media screen and (width < #{$page-size-sm}){
+      padding: $spacing-none;
+    }
+  }
+
+  .body-section{
+    padding: $spacing-none;
+
+    @media screen and (width < #{$page-size-md}){
+      //height: 666px;
+      padding-bottom: $spacing-none;
+      padding-top: $space-4;
+    }
+    @media screen and (width < #{$page-size-sm}){
+      //height: 666px;
+      padding: $spacing-none;
+      padding-top: $space-4;
+    }
   }
 
   .payment-header {
-    padding: 14px 7px 30px;
+    padding: $spacing-none $spacing-none $space-6;
+
+    @media screen and (width < #{$page-size-md}){
+      //height: 666px;
+      padding-bottom: $space-5;
+    }
 
     .header-title {
-      color: #616161;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-      letter-spacing: -0.48px;
-      margin-bottom: 4px;
+      margin-bottom: $space-1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      &__text {
+        color: $grey-9;
+        @include subtitle1;
+      }
+
+      &__action {
+        display: none;
+
+        @media screen and (width < #{$page-size-md}){
+          display: block;
+        }
+      }
     }
 
     .header-subtitle {
-      color: #616161;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      letter-spacing: -0.42px;
+      color: $grey-6;
+      @include body2;
     }
   }
 
   .payment-body {
     //height: 450px;
     overflow-y: auto;
+    margin-bottom: $space-8;
+    padding-bottom: $space-6;
 
-    @media screen and (width <= 599px){
+    @media screen and (width < #{$page-size-md}){
       height: 420px;
+      margin-bottom: $spacing-none;
+    }
+    @media screen and (width < #{$page-size-sm}){
+      height: 420px;
+      margin-bottom: $space-4;
     }
 
     .products-col {
-      padding-left:30px;
+      @media screen and (width < #{$page-size-md}){
+        padding-top: $space-2;
+      }
 
       &.hidden-responsive {
         @media screen and (width <= 599px){
@@ -618,7 +707,12 @@ export default defineComponent({
     }
 
     .installment-col {
-      padding-left: 30px;
+      padding-left: $space-7;
+
+      @media screen and (width < #{$page-size-md}){
+        padding-left: $space-5;
+        padding-top: $space-5;
+      }
     }
   }
 
@@ -626,13 +720,9 @@ export default defineComponent({
         height: 100%;
 
         .installment-roules-and-conditions-title {
-          color: #333;
-          font-size: 16px;
-          font-style: normal;
-          font-weight: 500;
-          line-height: normal;
-          letter-spacing: -0.48px;
-          margin-bottom: 16px;
+          color: $grey-9;
+          @include subtitle1;
+          margin-bottom: $space-4;
         }
 
         .installment-roules-and-conditions-body {
@@ -641,19 +731,17 @@ export default defineComponent({
           justify-content: space-between;
 
           .installment-roules-and-conditions-content {
-            color: #424242;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 22.4px;
-            letter-spacing: -0.42px;
+            color: $grey-9;
+            @include body2;
           }
 
           .installment-roules-and-conditions-accept {
-            margin-top: 110px;
+            position: absolute;
+            bottom: 0;
 
-            @media screen and (width <= 1023px){
-              margin-top: 33px;
+            @media screen and (width < #{$page-size-md}){
+              position: relative;
+              margin-top: $space-4;
             }
           }
         }
@@ -728,10 +816,14 @@ export default defineComponent({
   }
 
   .products-label {
-    padding: 16px 15px;
+    padding: $space-4 $spacing-none;
 
     &.instalment {
-      padding: 16px 0;
+      padding: $spacing-none $spacing-none $space-3;
+
+      @media screen and (width < #{$page-size-md}){
+        display: none;
+      }
     }
 
   }
@@ -740,121 +832,88 @@ export default defineComponent({
     width: 100%;
 
     //height: 349px;
-    border-radius: 8px;
-    background: #ECEFF1;
+    border-radius: $radius-3;
+    background: $blue-grey-1;
 
     //overflow-y: auto;
-    padding: 20px;
+    padding: $space-4;
 
     @media screen and (width <= 599px){
-      padding: 16px 12px 12px;
-      margin-bottom: 10px;
+      padding: $space-4;
+      margin-bottom: $spacing-none;
     }
 
     .installment-header {
-      padding: 0 20px;
-      min-height: 18px;
+      padding: 0 $space-4;
+      min-height: 21px;
 
       .installment-order-label {
-        color: #616161;
-        text-align: center;
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        letter-spacing: -0.36px;
+        color: $grey-8;
+        text-align: left;
+        font-feature-settings: 'clig' off, 'liga' off;
+        @include subtitle2
       }
 
       .installment-date-label {
+        color: $grey-8;
         text-align: center;
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        letter-spacing: -0.36px;
-        color: #616161;
+        font-feature-settings: 'clig' off, 'liga' off;
+        @include subtitle2
       }
 
       .installment-amount-label {
-        text-align: center;
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        letter-spacing: -0.36px;
-        color: #616161;
-        padding: 0 5px 0 50px;
+        color: $grey-8;
+        text-align: right;
+        font-feature-settings: 'clig' off, 'liga' off;
+        @include subtitle2
       }
     }
 
     .installment-item {
-      border-radius: 4px;
+      border-radius: $radius-1;
       background: #FFF;
-      margin: 8px 0;
-      height: 36px;
-      padding: 0 20px;
-      min-height: 36px;
+      margin: $space-3 $spacing-none;
+      padding: $space-2 $space-4;
+      height: 40px;
+      min-height: 40px;
+
+      @media screen and (width < #{$page-size-md}){
+        margin: $space-2 $spacing-none;
+      }
 
       .installment-order {
-        color:#616161;
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        letter-spacing: -0.36px;
+        color: $grey-9;
+        @include body2;
 
         &.active {
-          color: #616161;
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 800;
-          line-height: normal;
-          letter-spacing: -0.42px;
+          @include subtitle1;
         }
       }
 
       .installment-date {
-        color:#616161;
+        color: $grey-9;
+        @include body2;
         text-align: center;
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        letter-spacing: -0.36px;
 
         &.active {
-          color: #616161;
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 800;
-          line-height: normal;
-          letter-spacing: -0.42px;
+          @include subtitle1
         }
       }
 
       .installment-amount {
-        color:#616161;
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        letter-spacing: -0.36px;
+        color: $grey-9;
+        @include body2;
 
         &.active {
-          color: #616161;
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 800;
-          line-height: normal;
-          letter-spacing: -0.42px;
+          @include subtitle1
         }
       }
     }
 
     .installment-footer {
-      padding: 12px 20px 5px;
+      padding: $space-4 $spacing-none $spacing-none $space-4;
       min-height: 18px;
-      margin: 12px 0 0;
+      margin: $space-4 0 $space-5;
       border-top: dashed 1px #AEAEAE;
 
       @media screen and (width <= 1023px){
@@ -866,7 +925,7 @@ export default defineComponent({
       }
 
       .installment-footer-label {
-        @include caption1;
+        @include body2;
 
         color: $grey-8;
       }
@@ -878,15 +937,16 @@ export default defineComponent({
         flex-direction: row;
 
         .footer-discount-label {
-          @include caption1;
+          @include body2;
 
-          color: $grey-8;
+          color: $grey-7;
+          text-decoration-line: line-through;;
           margin-left: $spacing-base;
         }
       }
 
       .installment-footer-amount {
-        @include caption1;
+        @include body2;
 
         display: flex;
         justify-content: center;
@@ -895,7 +955,7 @@ export default defineComponent({
         color: $grey-8;
 
         .footer-amount-label {
-          @include caption2;
+          @include caption1;
 
           color: $grey-8;
           margin-left: $spacing-base;
@@ -905,14 +965,7 @@ export default defineComponent({
   }
 
   .payment-footer {
-    //position: absolute;
-    //bottom: 0;
-    //width: 100%;
-    padding: 0 30px 30px;
-
-    @media screen and (width <= 599px){
-      padding: 0 30px 16px;
-    }
+    padding: $spacing-none;
 
     .price-title-responsive {
         display: none;
@@ -1017,13 +1070,13 @@ export default defineComponent({
     }
 
     .instalment-info {
-      margin-bottom: 20px;
+      margin-bottom: $space-6;
       display: flex;
       justify-content: center;
       align-items: center;
 
-      @media screen and (width <= 1440px){
-        justify-content: flex-start;
+      @media screen and (width < #{$page-size-md}){
+        margin: $space-4 $spacing-none;
       }
 
       .simple-text {
@@ -1044,20 +1097,14 @@ export default defineComponent({
       }
 
       .price {
-        color: #FF8518;
-        font-style: normal;
-        line-height: normal;
+        color: $secondary;
 
         &.price-value {
-          font-size: 24px;
-          font-weight: 700;
-          letter-spacing: -0.72px;
+          margin-right: $space-1;
         }
 
         &.price-label {
-          font-size: 14px;
-          font-weight: 600;
-          letter-spacing: -0.42px;
+          @include body2;
         }
       }
     }
