@@ -109,6 +109,7 @@
         <div class="col-12 col-md-8 col-lg-9">
           <div class="product-info-tab-wrapper">
             <product-info-tab v-if="!loading"
+                              ref="productInfoTab"
                               :options="{product}" />
           </div>
         </div>
@@ -195,6 +196,12 @@ export default defineComponent({
     }
   },
   computed: {
+    paddingTop () {
+      if (this.$refs.productInfoTab && this.$refs.productInfoTab.$refs.headerSticky) {
+        return `${this.$refs.productInfoTab.$refs.headerSticky.clientHeight}px`
+      }
+      return '0px'
+    },
     productId () {
       if (typeof this.localOptions.productId !== 'undefined' && this.localOptions.productId !== null) {
         return this.localOptions.productId
@@ -342,6 +349,7 @@ $short-description-height-xl: 150px;
 $short-description-height-lg: 220px;
 $short-description-height-md: 144px;
 $short-description-height-sm: 216px;
+$paddingTop: v-bind('paddingTop');
 
 .product-page-container {
   width: 100%;
@@ -350,6 +358,7 @@ $short-description-height-sm: 216px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: $paddingTop;
 
   .product-background {
     position: relative;

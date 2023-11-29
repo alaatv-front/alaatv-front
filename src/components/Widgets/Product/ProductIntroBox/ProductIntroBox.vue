@@ -7,8 +7,7 @@
                     :poster="localOptions.product.intro?.photo"
                     :source="videoSource" />
     </q-card-section>
-    <q-card-section v-else-if="localOptions.product.photo_wide"
-                    class="q-pa-none">
+    <q-card-section v-else-if="localOptions.product.photo_wide">
       <div class="photo_wide-wrapper">
         <lazy-img :src="localOptions.product.photo_wide"
                   class="product-image"
@@ -24,7 +23,7 @@
                   height="300" />
       </div>
     </q-card-section>
-    <q-card-section class="q-pa-none">
+    <q-card-section>
       <div class="price-section">
         <product-price-with-popup :options="{product: localOptions.product}"
                                   :show-responsive="true"
@@ -45,7 +44,7 @@
         <product-attributes :attributes="localOptions.product.attributes" />
       </div>
     </q-card-section>
-    <q-card-section class="q-pa-none">
+    <q-card-section>
       <div class="price-section installment">
         <product-price-with-popup :options="{product: localOptions.product}"
                                   :paymentMode="'installment'"
@@ -123,7 +122,6 @@ export default defineComponent({
   border-radius: 12px;
   background:#FFF;
   box-shadow: 2px 2px 3px 0 rgb(16 24 40 / 6%);
-  padding: 24px;
 
   @media screen and (width <= 1439px){
     padding: 20px;
@@ -136,11 +134,14 @@ export default defineComponent({
     min-height: 0;
   }
 
+  .intro-card-section {
+    padding: 0;
+  }
+
   .product-intro-video {
     overflow: hidden;
     box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%);
     border-radius: 8px;
-    padding: 0;
 
     @media screen and (width <= 1023px){
       display: none;
