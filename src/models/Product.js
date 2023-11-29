@@ -81,6 +81,12 @@ class Product extends Model {
       },
       { key: 'intro' },
       {
+        key: 'duration'
+      },
+      {
+        key: 'number_of_sessions'
+      },
+      {
         key: 'blocks',
         default: []
       }
