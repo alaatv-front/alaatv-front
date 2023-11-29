@@ -17,14 +17,42 @@
         </div>
       </div>
     </div>
+    <div v-if="products.list.length > 0"
+         class="next-steps">
+      <card-slider :title="'قدم های بعدی'"
+                   :products="products" />
+    </div>
     <div ref="headerSticky"
-         class="header-info"
+         class="mobile-header">
+      <q-tabs v-model="activeTab"
+              inline-label
+              outside-arrows
+              mobile-arrows
+              align="left"
+              breakpoint="md"
+              indicator-color="primary"
+              active-color="primary"
+              class="text-grey">
+        <q-tab name="description"
+               label="توضیحات دوره"
+               @click="scrollTo('description')" />
+        <q-tab v-if="setList.length !== 0"
+               name="sections"
+               label="سرفصل ها"
+               @click="scrollTo('sections')" />
+        <q-tab v-if="contentListLength !== 0"
+               name="documents"
+               label="نمونه محتوا"
+               @click="scrollTo('documents')" />
+      </q-tabs>
+    </div>
+    <div class="header-info"
          :class="{'sticky': isSticky}">
-      <q-card>
+      <q-card class="outline-card">
         <q-card-section>
           <div class="row items-center">
-            <div class="col-6">
-              <q-tabs v-model="tab"
+            <div class="col-10">
+              <q-tabs v-model="activeTab"
                       inline-label
                       outside-arrows
                       mobile-arrows
@@ -52,7 +80,7 @@
                 <!--             label="سوالات متداول" />-->
               </q-tabs>
             </div>
-            <div class="col-6">
+            <div class="col-2">
               <div class="text-right">
                 <q-btn class="size-md"
                        icon="ph:arrow-up"
@@ -96,18 +124,10 @@
          ref="documents"
          class="documents">
       <q-intersection @enter="activeTab = 'documents'">
-        <course-explain :title="'نمونه محتوا'"
-                        :height="'100%'"
-                        :show-button="false">
-          <template v-slot:content>
-            <div class="product-tab-panel">
-              <product-demos :options="{
-                contents: contents,
-                product: localOptions.product
-              }" />
-            </div>
-          </template>
-        </course-explain>
+        <card-slider :title="'نمونه محتوا'"
+                     :contents="contents"
+                     :product="localOptions.product"
+                     :slider-type="'content'" />
       </q-intersection>
     </div>
     <!--    <q-tab-panels v-model="tab"-->
@@ -153,20 +173,21 @@ import { Product, ProductList } from 'src/models/Product.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { ContentList } from 'src/models/Content.js'
 // import ProductGifts from 'src/components/Widgets/Product/ProductGifts/ProductGifts.vue'
-import ProductDemos from 'src/components/Widgets/Product/ProductDemos/ProductDemos.vue'
 // import ProductFAQ from 'src/components/Widgets/Product/ProductFAQ/ProductFAQ.vue'
 import ProductSetList from 'src/components/Widgets/Product/ProductSetList/ProductSetList.vue'
 import CourseExplain from 'components/Widgets/Product/ProductPage/components/CourseExplain/CourseExplain.vue'
 import childProduct from 'components/Widgets/Product/ProductPage/components/ChildProduct.vue'
+import CardSlider from 'components/Widgets/Product/ProductPage/components/CardSlider.vue'
 import lazyImg from 'components/lazyImg.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default defineComponent({
   name: 'ProductInfoTab',
   components: {
     lazyImg,
     childProduct,
+    CardSlider,
     // ProductGifts,
-    ProductDemos,
     // ProductFAQ,
     ProductSetList,
     CourseExplain
@@ -183,6 +204,7 @@ export default defineComponent({
       tab: 'description',
       gifts: new ProductList(),
       contents: new ContentList(),
+      products: new ProductList(),
       isSticky: false,
       faqList: [],
       setList: [],
@@ -231,9 +253,111 @@ export default defineComponent({
       this.getSampleContents()
       this.getProductFaq()
     }
+    if (this.localOptions.product.children.length > 0) {
+      this.getNextSteps()
+    }
     window.addEventListener('scroll', this.handleScroll)
   },
   methods: {
+    getNextSteps () {
+      const response = {
+        data: [
+          {
+            id: 1315,
+            title: 'test5',
+            price: {
+              base: 0,
+              discount: 0,
+              final: 0,
+              payableByWallet: null,
+              final_instalmentally: 0,
+              discount_instalmentally: 0
+            },
+            url: {
+              web: 'http://127.0.0.1:82/product/1315',
+              api: 'http://127.0.0.1:82/api/v2/product/1315'
+            },
+            photo: 'https://nodes.alaatv.com/upload/images/product/test.jpg',
+            attributes: {
+              info: {
+                teacher: null,
+                shipping_method: null,
+                major: null,
+                services: null,
+                download_date: null,
+                educational_system: null,
+                duration: [],
+                production_year: null,
+                expiration_duration: null,
+                grade: null
+              },
+              extra: null,
+              subscription: null
+            },
+            category: 'هفتانه',
+            variant: '-',
+            is_purchased: false,
+            is_dependent: null,
+            enable: 1,
+            has_instalment_option: 0,
+            payment_default: 1,
+            instalments: null,
+            duration: 6000,
+            number_of_sessions: 3
+          },
+          {
+            id: 1311,
+            title: 'test4',
+            price: {
+              base: 0,
+              discount: 0,
+              final: 0,
+              payableByWallet: null,
+              final_instalmentally: 0,
+              discount_instalmentally: 0
+            },
+            url: {
+              web: 'http://127.0.0.1:82/product/1311',
+              api: 'http://127.0.0.1:82/api/v2/product/1311'
+            },
+            photo: 'https://nodes.alaatv.com/upload/images/product/test.jpg',
+            attributes: {
+              info: {
+                teacher: null,
+                shipping_method: null,
+                major: null,
+                services: null,
+                download_date: null,
+                educational_system: null,
+                duration: [],
+                production_year: null,
+                expiration_duration: null,
+                grade: null
+              },
+              extra: null,
+              subscription: null
+            },
+            category: 'هفتانه',
+            variant: '-',
+            is_purchased: false,
+            is_dependent: null,
+            enable: 1,
+            has_instalment_option: 0,
+            payment_default: 1,
+            instalments: null,
+            duration: 6000,
+            number_of_sessions: 3
+          }
+        ]
+      }
+      APIGateway.product.getSiblings(1304)
+        .then(() => {
+          this.products = new ProductList(response.data)
+        })
+        .catch(() => {
+          this.products = new ProductList(response.data)
+        })
+    },
     scrollTop () {
       window.scrollTo({
         top: 0,
@@ -321,18 +445,28 @@ export default defineComponent({
       margin-bottom: 24px;
     }
   }
+  .mobile-header {
+    display: none;
+    @media screen and (max-width: 600px) {
+      padding: 10px 32px;
+      background-color: $grey-1;
+      display: block;
+      position: fixed;
+      right: 0;
+      width: 100%;
+      top: 65px;
+      z-index: 999;
+    }
+  }
   .header-info {
     @media screen and (max-width: 600px) {
-      position: fixed;
-      width: 500px;
-      top: 88px;
-      z-index: 9999;
+      display: none;
     }
   }
   .sticky {
     position: sticky;
     top: 88px;
-    z-index: 9999;
+    z-index: 99;
   }
   .sections, .documents {
     margin-top: 16px;
@@ -357,6 +491,11 @@ export default defineComponent({
   margin-top: 16px;
   //height: 294px;
 }
+.next-steps {
+  margin-top: 16px;
+  margin-bottom: 22px;
+}
+
 .content-info {
   margin-top: 16px;
   .scroll-area {

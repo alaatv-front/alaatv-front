@@ -28,6 +28,7 @@ export default class ProductAPI extends APIRepository {
         show: '/admin/product'
       },
       getSets: id => `/product/${id}/sets`,
+      siblings: productId => `/product/${productId}/siblings`,
       getAdminSets: id => `/admin/product/${id}/sets`,
       liveLink: id => `/product/${id}/liveInfo`,
       getComments: id => `/product/${id}/content-comments`,
@@ -49,6 +50,7 @@ export default class ProductAPI extends APIRepository {
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
       bulk: (productIds) => this.name + this.APIAdresses.bulk(productIds),
+      siblings: (productId) => this.name + this.APIAdresses.siblings(productId),
       liveProducts: this.name + this.APIAdresses.liveProducts,
       liveLink: (id) => this.name + this.APIAdresses.liveLink(id),
       create: this.name + this.APIAdresses.create,
@@ -385,6 +387,22 @@ export default class ProductAPI extends APIRepository {
       // ...(cache && { cache }),
       resolveCallback: (response) => {
         return response.data.data // FAQ list
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getSiblings (productId, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.siblings(productId),
+      CacheList: this.CacheList.siblings(productId),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return response.data.data
       },
       rejectCallback: (error) => {
         return error

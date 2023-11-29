@@ -53,7 +53,6 @@
       </div>
     </q-card>
     <component :is="localOptions.theme"
-               v-else
                :ref="productRef"
                class="product-item-box"
                :class="'productItem' + product.id"
@@ -72,10 +71,10 @@
                @handleProductBookmark="handleProductBookmark"
                @customActionClicked="customActionClicked"
                @addToCart="addToCart" />
-    <product-bottom-sheet v-if="productMounted"
-                          :dialog="bottomSheetDialog"
-                          :productId="product.id"
-                          @toggle-dialog="toggleBottomSheet" />
+    <!--    <product-bottom-sheet v-if="productMounted"-->
+    <!--                          :dialog="bottomSheetDialog"-->
+    <!--                          :productId="product.id"-->
+    <!--                          @toggle-dialog="toggleBottomSheet" />-->
   </div>
 </template>
 
@@ -84,7 +83,7 @@ import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import ProductBottomSheet from 'src/components/Widgets/Product/ProductItem/components/ProductBottomSheet.vue'
+// import ProductBottomSheet from 'src/components/Widgets/Product/ProductItem/components/ProductBottomSheet.vue'
 import ThemeDefault from 'components/Product/ProductItem/Themes/ThemeDefault.vue'
 import ThemeProduct1 from 'components/Product/ProductItem/Themes/ThemeProduct1.vue'
 import ThemeProduct2 from 'components/Product/ProductItem/Themes/ThemeProduct2.vue'
@@ -109,8 +108,8 @@ export default defineComponent({
     ThemeDefault,
     ThemeProduct1,
     ThemeProduct2,
-    ThemeProduct3,
-    ProductBottomSheet
+    ThemeProduct3
+    // ProductBottomSheet
   },
   mixins: [mixinWidget, mixinPrefetchServerData],
   emits: ['onBookmarkLoaded', 'onBookmarkClicked', 'productClicked'],
