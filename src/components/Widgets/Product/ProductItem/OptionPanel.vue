@@ -102,7 +102,7 @@ export default defineComponent({
   mixins: [mixinOptionPanel],
   data () {
     return {
-      themeOptions: [{ title: 'بدون دکمه ثبت نام', value: 'ThemeDefault' }, { title: 'با دکمه ثبت نام', value: 'ThemeProduct1' }, { title: 'قدیمی', value: 'ThemeProduct2' }],
+      themeOptions: [{ title: 'بدون دکمه ثبت نام', value: 'ThemeDefault' }, { title: 'با دکمه ثبت نام', value: 'ThemeProduct1' }, { title: 'قدیمی', value: 'ThemeProduct2' }, { title: 'قدم بعدی', value: 'ThemeProduct3' }],
       mobileThemeOptions: [{ title: 'عمودی', value: 'vertical' }, { title: 'افقی', value: 'horizontal' }],
       productViewTypeOptions: [{ title: 'صفحه محصول', value: 'productPage' }, { title: 'دیالوگ', value: 'bottomSheet' }],
       fontFamilyOptions: ['iranyekan', 'IRANSans', 'IRANSansXFaNum', 'IRANSansDN', 'Doran FaNum', 'ModamFaNumWeb', 'Panchang', 'Plasma-Lozenge-Dots'],
