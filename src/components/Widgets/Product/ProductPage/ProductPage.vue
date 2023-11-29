@@ -6,13 +6,40 @@
            class="background-image"
            :style="{backgroundImage: `url(${product.photo})`}" />
       <div class="product-info-row">
-        <div class="row q-col-gutter-lg">
-          <div class="col-12 col-md-9">
+        <div class="row q-col-gutter-xl-lg q-col-gutter-md-lg">
+          <div class="col-12 video-col">
+            <q-card class="video-card">
+              <q-card-section v-if="product.intro?.photo"
+                              class="product-intro-video">
+                <video-player :key="playerKey"
+                              :poster="product.intro?.photo"
+                              :source="videoSource" />
+              </q-card-section>
+              <q-card-section v-else-if="product.photo_wide"
+                              class="q-pa-none">
+                <div class="photo_wide-wrapper">
+                  <lazy-img :src="product.photo_wide"
+                            class="product-image"
+                            width="300"
+                            height="180" />
+                </div>
+              </q-card-section>
+              <q-card-section v-else-if="product.photo">
+                <div class="photo-wrapper">
+                  <lazy-img :src="product.photo"
+                            class="product-image"
+                            width="300"
+                            height="300" />
+                </div>
+              </q-card-section>
+            </q-card>
+          </div>
+          <div class="col-12 col-md-8 col-lg-9">
             <div class="product-info-wrapper">
               <div class="product-info-header">
-                <div class="product-title ellipsis">
+                <h5 class="product-title ellipsis">
                   {{ product.title }}
-                </div>
+                </h5>
                 <div class="header-action">
                   <bookmark :is-favored="product.is_favored"
                             :rounded="false"
@@ -46,37 +73,6 @@
               <div class="description-expansion-wrapper">
                 <div class="description-expansion">
                   <div class="product-short-description">
-                    <div class="short-description-title">
-                      <div class="short-description-title__text">معرفی دوره</div>
-                      <div class="short-description-title__action">
-                        <bookmark :is-favored="product.is_favored"
-                                  :rounded="false"
-                                  :flat="false"
-                                  :favoredIcon="'bookmark'"
-                                  :unFavoredIcon="'bookmark_border'"
-                                  :loading="bookmarkLoading"
-                                  class="bookmark-btn"
-                                  @clicked="handleProductBookmark" />
-                        <q-btn icon="ph:share-network"
-                               color="grey"
-                               class="header-action-btn">
-                          <q-tooltip anchor="top middle"
-                                     self="bottom middle"
-                                     :offset="[10, 10]">
-                            اشتراک گزاری
-                          </q-tooltip>
-                          <q-popup-proxy :offset="[10, 10]"
-                                         transition-show="flip-up"
-                                         transition-hide="flip-down">
-                            <q-banner dense
-                                      rounded>
-                              <share-network :url="pageUrl"
-                                             @on-select="shareGiftCard" />
-                            </q-banner>
-                          </q-popup-proxy>
-                        </q-btn>
-                      </div>
-                    </div>
                     <div ref="shortDescription"
                          class="short-description-text"
                          :class="{'auto-height': expanded}"
@@ -98,20 +94,25 @@
                   </q-tooltip>
                 </div>
               </div>
+              <div v-if="product.attributes?.info"
+                   class="attributes-list">
+                <product-attributes :dark-mode="true"
+                                    :attributes="product.attributes" />
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="product-page-content-container">
-      <div class="row content-row q-col-gutter-lg">
-        <div class="col-12 col-md-9">
+      <div class="row content-row q-col-gutter-xl-lg q-col-gutter-md-lg">
+        <div class="col-12 col-md-8 col-lg-9">
           <div class="product-info-tab-wrapper">
             <product-info-tab v-if="!loading"
                               :options="{product}" />
           </div>
         </div>
-        <div class="col-12 col-md-3 intro-box-col">
+        <div class="col-12 col-md-4 col-lg-3 intro-box-col">
           <product-intro-box v-if="!loading"
                              ref="productIntroBox"
                              :options="{product}"
@@ -126,12 +127,16 @@
 <script>
 import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
+import lazyImg from 'src/components/lazyImg.vue'
 import Bookmark from 'src/components/Bookmark.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
+import VideoPlayer from 'src/components/VideoPlayer.vue'
 import ShareNetwork from 'src/components/ShareNetwork.vue'
+import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import ProductInfoTab from 'src/components/Widgets/Product/ProductInfoTab/ProductInfoTab.vue'
 import ProductIntroBox from 'src/components/Widgets/Product/ProductIntroBox/ProductIntroBox.vue'
+import ProductAttributes from 'src/components/Widgets/Product/ProductIntroBox/ProductAttributes.vue'
 
 // let StickySidebar
 // if (typeof window !== 'undefined') {
@@ -144,10 +149,13 @@ import ProductIntroBox from 'src/components/Widgets/Product/ProductIntroBox/Prod
 export default defineComponent({
   name: 'ProductPage',
   components: {
+    lazyImg,
     Bookmark,
+    VideoPlayer,
     ShareNetwork,
     ProductInfoTab,
-    ProductIntroBox
+    ProductIntroBox,
+    ProductAttributes
   },
   mixins: [mixinWidget, mixinPrefetchServerData],
   data () {
@@ -204,6 +212,15 @@ export default defineComponent({
         return this.product.has_instalment_option
       }
       return false
+    },
+    videoSource () {
+      return new PlayerSourceList([{
+        default: true,
+        res: 1024,
+        type: 'video/mp4',
+        src: this.product.intro?.video,
+        label: 'کیفیت عالی'
+      }])
     }
   },
   mounted () {
@@ -303,18 +320,28 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/colors.scss";
-@import "src/css/Theme/spacing.scss";
-@import "src/css/Theme/Typography/typography.scss";
+@import "src/css/Theme/radius";
+@import "src/css/Theme/colors";
+@import "src/css/Theme/spacing";
+@import "src/css/Theme/Typography/typography";
 
 $background-height-xl: 367px;
-$background-height-md: 454px;
+$background-height-lg: 454px;
+$background-height-md: auto;
 $boxed-width-xl: 1362px;
-$boxed-width-md: 100%;
+$boxed-width-md: 960px;
+$boxed-width-sm: 100%;
+$page-size-lg: map-get($sizes, "lg");
 $page-size-md: map-get($sizes, "md");
 $page-size-sm: map-get($sizes, "sm");
-$top-page-padding: $space-7;
-$short-decription-height: 150px;
+$top-page-padding-xl: $space-8;
+$top-page-padding-lg: $space-7;
+$top-page-padding-md: $space-6;
+$top-page-padding-sm: $space-5;
+$short-description-height-xl: 150px;
+$short-description-height-lg: 220px;
+$short-description-height-md: 144px;
+$short-description-height-sm: 216px;
 
 .product-page-container {
   width: 100%;
@@ -333,15 +360,22 @@ $short-decription-height: 150px;
     align-items: center;
     max-width: 100%;
     width: 100%;
-    padding-top: $top-page-padding;
+    padding-top: $top-page-padding-xl;
     overflow: hidden;
 
+    @media screen and (width <= #{$page-size-lg}) {
+      height: $background-height-lg;
+      padding-top: $top-page-padding-lg;
+    }
     @media screen and (width <= #{$page-size-md}) {
       height: $background-height-md;
+      padding-top: $top-page-padding-md;
+    }
+    @media screen and (width <= #{$page-size-sm}) {
+      padding-top: $top-page-padding-sm;
     }
 
-    $inset-margin: 20px;
-    //padding: $inset-margin;
+    $inset-margin: $space-5;
     .background-image {
       position: absolute;
       inset: calc( -1 * #{$inset-margin});
@@ -373,30 +407,37 @@ $short-decription-height: 150px;
       width: $boxed-width-xl;
       max-width: 100%;
 
-      @media screen and (width <= #{$page-size-md}){
+      @media screen and (width < #{$page-size-lg}){
         width: $boxed-width-md;
         padding-left: $space-7;
         padding-right: $space-7;
       }
 
-      @media screen and (width <= #{$page-size-sm}){
+      @media screen and (width < #{$page-size-md}){
+        width: $boxed-width-sm;
         padding-left: $space-5;
         padding-right: $space-5;
+        margin-bottom: $space-7;
+      }
+      @media screen and (width < #{$page-size-sm}){
+        width: $boxed-width-sm;
+        padding-left: $space-5;
+        padding-right: $space-5;
+        margin-bottom: $space-5;
       }
 
       .product-info-wrapper {
         position: relative;
         max-width: 100%;
 
-        @media screen and (width <= 1023px){
-          padding: 0 30px;
-          min-height: 400px;
-          margin: 10px 0;
+        @media screen and (width < #{$page-size-md}){
+          padding: $spacing-none;
+          min-height: auto;
+          margin: $space-6 $spacing-none $spacing-none;
         }
 
-        @media screen and (width <= 599px){
-          min-height: 623px;
-          padding: 20px 20px 0;
+        @media screen and (width < #{$page-size-sm}){
+          min-height: auto;
         }
 
         .product-info-header {
@@ -407,18 +448,25 @@ $short-decription-height: 150px;
           margin-bottom: $space-6;
           border-bottom: solid 1px $grey-3;
 
+          @media screen and (width <= #{$page-size-lg}){
+            padding-bottom: $space-4;
+            margin-bottom: $space-5;
+          }
+          @media screen and (width < #{$page-size-md}){
+            border-bottom: none;
+            flex-direction: column;
+            padding-bottom: $spacing-none;
+            margin-bottom: $space-6;
+          }
+
           .product-title {
             color:#FFF;
-            font-size: 22px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: normal;
-            letter-spacing: -0.66px;
+            text-align: left;
 
             @media screen and (width <= 1023px){
+              width: 100%;
               max-width: 100%;
-              font-size: 20px;
-              letter-spacing: -0.6px;
+              margin-bottom: $space-6;
             }
           }
 
@@ -427,8 +475,9 @@ $short-decription-height: 150px;
             justify-content: center;
             align-items: center;
 
-            @media screen and (width <= 599px){
-              display: none;
+            @media screen and (width < #{$page-size-md}){
+              width: 100%;
+              justify-content: flex-end;
             }
 
             .header-action-btn {
@@ -436,7 +485,7 @@ $short-decription-height: 150px;
               height: 40px;
 
               &:not(:last-child) {
-                margin-right: 12px;
+                margin-right: $space-3;
               }
             }
           }
@@ -444,12 +493,23 @@ $short-decription-height: 150px;
 
         .description-expansion-wrapper {
           width: 1200px;
+          height: $short-description-height-xl;
           max-width: 100%;
-          max-height: $short-decription-height;
           overflow: hidden;
           margin-bottom: $space-7;
 
-          @media screen and (width <= 599px){
+          @media screen and (width < #{$page-size-lg}){
+            height: $short-description-height-lg;
+            margin-bottom: $space-12;
+          }
+
+          @media screen and (width < #{$page-size-md}){
+            height: $short-description-height-md;
+            margin-bottom: $space-6;
+          }
+
+          @media screen and (width < #{$page-size-sm}){
+            height: $short-description-height-sm;
             width: 100%;
           }
 
@@ -457,11 +517,22 @@ $short-decription-height: 150px;
             width: 800px;
             max-width: 100%;
 
-            @media screen and (width <= 599px){
+            @media screen and (width < #{$page-size-sm}){
               width: 100%;
             }
 
             .product-short-description {
+              height: $short-description-height-xl;
+
+              @media screen and (width < #{$page-size-lg}){
+                height: $short-description-height-lg;
+              }
+              @media screen and (width < #{$page-size-md}){
+                height: $short-description-height-md;
+              }
+              @media screen and (width < #{$page-size-sm}){
+                height: $short-description-height-sm;
+              }
               .short-description-title {
 
                 &__text {
@@ -485,20 +556,20 @@ $short-decription-height: 150px;
                   .header-action-btn {
                     width: 40px;
                     height: 40px;
-                    border-radius: 8px;
+                    border-radius: $radius-3;
                     background:#FFF;
 
                     &:not(:last-child) {
-                      margin-right: 12px;
+                      margin-right: $space-3;
                     }
                   }
 
-                  @media screen and (width <= 599px){
+                  @media screen and (width < #{$page-size-sm}){
                     display: flex;
                   }
                 }
 
-                @media screen and (width <= 599px){
+                @media screen and (width < #{$page-size-sm}){
                   display: flex;
                   justify-content: space-between;
                   align-items: center;
@@ -507,7 +578,7 @@ $short-decription-height: 150px;
               }
 
               .short-description-text {
-                height: 300px;
+                height: $short-description-height-xl;
                 overflow-y: hidden;
                 transition: all .3s ease-in-out;
                 color:#FFF;
@@ -517,10 +588,15 @@ $short-decription-height: 150px;
                 line-height: normal;
                 letter-spacing: -0.48px;
                 text-align: justify;
-                margin-top: 8px;
 
-                @media screen and (width <= 599px){
-                  height: 623px;
+                @media screen and (width < #{$page-size-lg}){
+                  height: $short-description-height-lg;
+                }
+                @media screen and (width < #{$page-size-md}){
+                  height: $short-description-height-md;
+                }
+                @media screen and (width < #{$page-size-sm}){
+                  height: $short-description-height-sm;
                 }
 
                 &.auto-height {
@@ -528,7 +604,7 @@ $short-decription-height: 150px;
                   min-height: 300px;
                   transition: all .3s ease-in-out;
 
-                  @media screen and (width <= 599px){
+                  @media screen and (width < #{$page-size-sm}){
                     min-height: 623px;
                   }
                 }
@@ -540,12 +616,19 @@ $short-decription-height: 150px;
         .product-info-footer {
           display: flex;
           justify-content: flex-start;
+          flex-wrap: wrap;
           .attribute-item {
             display: flex;
             align-items: center;
+            white-space: nowrap;
             margin-right: $space-9;
+            margin-bottom: $space-3;
+
+            @media screen and (width < #{$page-size-md}){
+              margin-right: $space-5;
+            }
             &:last-child {
-              margin-right: 0;
+              margin-right: $spacing-none;
             }
             .attribute-item-icon {
               font-size: 16px;
@@ -558,7 +641,51 @@ $short-decription-height: 150px;
             }
           }
         }
+
+        .attributes-list {
+          display: none;
+          margin-bottom: $space-6;
+
+          @media screen and (width < #{$page-size-md}){
+            display: block;
+            margin-bottom: $spacing-none;
+          }
+        }
       }
+
+      .video-col {
+        display: none;
+
+        @media screen and (width < #{$page-size-md}){
+          display: block;
+        }
+
+        .video-card {
+          border-radius: $radius-6;
+          .product-intro-video {
+            overflow: hidden;
+            border-radius: $radius-3;
+            padding: $spacing-none;
+          }
+
+          .photo_wide-wrapper {
+            :deep(.product-image) {
+              width: 100%;
+              height: 100%;
+              border-radius: $radius-5;
+            }
+          }
+
+          .photo-wrapper {
+            :deep(.product-image) {
+              width: 100%;
+              height: 100%;
+              border-radius: $radius-5;
+            }
+          }
+        }
+      }
+
     }
   }
 
@@ -566,9 +693,9 @@ $short-decription-height: 150px;
     width: $boxed-width-xl;
     max-width: 100%;
     position: relative;
-    margin: 30px 0;
+    margin: $space-7 $spacing-none;
 
-    @media screen and (width <= #{$page-size-md}){
+    @media screen and (width <= #{$page-size-lg}){
       width: $boxed-width-md;
       padding-left: $space-7;
       padding-right: $space-7;
@@ -580,33 +707,34 @@ $short-decription-height: 150px;
     }
 
     .content-row {
-      @media screen and (width <= 1023px) {
+      @media screen and (width < #{$page-size-md}) {
         flex-wrap: wrap-reverse;
-        padding: 0 30px;
       }
 
-      @media screen and (width <= 599px) {
-        padding: 0 20px;
-      }
     }
 
     .product-info-tab-wrapper {
       max-width: 100%;
 
-      @media screen and (width <= 1023px) {
+      @media screen and (width < #{$page-size-md}) {
         width: 100%;
       }
 
       &:deep(.q-tab-panels) {
-        border-radius: 20px;
+        border-radius: $radius-6;
       }
     }
 
     .intro-box-col {
       margin-top: calc( -1 * $background-height-xl );
 
-      @media screen and (width <= 1023px) {
-        margin-top: 0;
+      @media screen and (width <= #{$page-size-lg}){
+        margin-top: calc( -1 * $background-height-lg );
+      }
+
+      @media screen and (width < #{$page-size-md}) {
+        margin-top: $spacing-none;
+        padding: $spacing-none;
       }
     }
   }
