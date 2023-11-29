@@ -5,7 +5,9 @@
     <q-card v-touch-swipe.mouse.down="handleSwipe"
             class="payment-card"
             :class="{'cash': paymentMethod === 'cash'}">
-      <div class="header-swapper" />
+      <q-card-section>
+        <div class="header-swapper" />
+      </q-card-section>
       <q-card-section class="header-section">
         <div class="payment-header">
           <div class="header-title">
@@ -32,12 +34,13 @@
               <div class="installment-roules-and-conditions-body">
                 <div class="installment-roules-and-conditions-content">
                   ۱. درصورت عدم پرداخت اقساط در زمان های مشخص اعلام شده، دسترسی به تمام محتوا و مکمل های دوره به طور موقت غیرفعال می‌گردد تا پرداخت صورت گیرد و مجدد دسترسی فعال شود.
-                  <br><br>
+                  <br><br class="gt-md">
                   ۲. استفاده اشتراکی از محتواها در هر دو پرداخت اقساطی و نقدی ممنوع می باشد.
-                  <br><br>
+                  <br><br class="gt-md">
                   ۳. درصورت “تاخیر مکرر” در پرداخت اقساط، آلا می‌تواند دسترسی به دوره را به طور دائم غیرفعال نماید.
                 </div>
-                <div class="installment-roules-and-conditions-accept">
+                <div class="
+                          installment-roules-and-conditions-accept">
                   <q-checkbox v-model="installmentAccept"
                               left-label
                               color="secondary"
@@ -591,14 +594,13 @@ $page-size-sm: map-get($sizes, "sm");
   box-shadow: 0 2px 4px -2px rgb(16 24 40 / 6%), 0 4px 8px -2px rgb(16 24 40 / 10%);
   width: 800px;
   max-width: 100%;
-  padding: $space-7;
   margin: auto;
   //height: 649px;
   position: relative;
 
   @media screen and (width < #{$page-size-md}){
     //height: 666px;
-    padding: $space-4 $space-5 $space-6 $space-5;
+    // padding: $space-4 $space-5 $space-6 $space-5;
     margin: initial;
   }
 
@@ -607,6 +609,7 @@ $page-size-sm: map-get($sizes, "sm");
   }
 
   .header-swapper {
+    display: none;
     position: absolute;
     top: 8px;
     left: 45%;
@@ -616,32 +619,20 @@ $page-size-sm: map-get($sizes, "sm");
     background: $grey-3;
 
     @media screen and (width < #{$page-size-md}){
-      display: none;
+      display: block;
     }
   }
 
   .header-section{
-    padding: $spacing-none;
 
-    @media screen and (width < #{$page-size-md}){
-      padding: $spacing-none;
-    }
-    @media screen and (width < #{$page-size-sm}){
-      padding: $spacing-none;
-    }
   }
 
   .body-section{
-    padding: $spacing-none;
 
     @media screen and (width < #{$page-size-md}){
-      //height: 666px;
-      padding-bottom: $spacing-none;
       padding-top: $space-4;
     }
     @media screen and (width < #{$page-size-sm}){
-      //height: 666px;
-      padding: $spacing-none;
       padding-top: $space-4;
     }
   }
@@ -683,7 +674,6 @@ $page-size-sm: map-get($sizes, "sm");
     //height: 450px;
     overflow-y: auto;
     margin-bottom: $space-8;
-    padding-bottom: $space-6;
 
     @media screen and (width < #{$page-size-md}){
       height: 420px;
@@ -696,7 +686,7 @@ $page-size-sm: map-get($sizes, "sm");
 
     .products-col {
       @media screen and (width < #{$page-size-md}){
-        padding-top: $space-2;
+        padding-top: $space-5;
       }
 
       &.hidden-responsive {
@@ -733,6 +723,7 @@ $page-size-sm: map-get($sizes, "sm");
           .installment-roules-and-conditions-content {
             color: $grey-9;
             @include body2;
+            padding-bottom: $space-6;
           }
 
           .installment-roules-and-conditions-accept {
@@ -965,7 +956,6 @@ $page-size-sm: map-get($sizes, "sm");
   }
 
   .payment-footer {
-    padding: $spacing-none;
 
     .price-title-responsive {
         display: none;
