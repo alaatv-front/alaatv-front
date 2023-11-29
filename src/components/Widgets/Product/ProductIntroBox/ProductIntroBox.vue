@@ -28,6 +28,7 @@
       <div class="price-section">
         <product-price-with-popup :options="{product: localOptions.product}"
                                   :show-responsive="true"
+                                  :listen-to-update="true"
                                   @update-product="onUpdateProduct($event)"
                                   @update-product-loading="onUpdateProductLoading($event)" />
       </div>

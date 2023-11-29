@@ -1,21 +1,25 @@
 <template>
-  <div class="product-price-container">
+  <q-skeleton v-if="computedProductPrice.loading"
+              type="text"
+              width="100%" />
+  <div v-else
+       class="product-price-container">
     <div v-if="paymentMode === 'cash'"
          class="price-info">
-      <div v-if="productPrice.discount > 0"
+      <div v-if="computedProductPrice.discount > 0"
            class="price-calculation">
         <div class="discount">
           <q-badge color="negative"
                    size="xs"
                    text-color="white"
-                   :label="'%' + productPrice.discountInPercent()" />
+                   :label="'%' + computedProductPrice.discountInPercent()" />
         </div>
         <div class="base">
-          {{ productPrice.toman('base', null) }}
+          {{ computedProductPrice.toman('base', null) }}
         </div>
       </div>
       <div class="price-final">
-        <h5>{{ productPrice.toman('final', null) }}</h5>
+        <h5>{{ computedProductPrice.toman('final', null) }}</h5>
         <div class="label">تومان</div>
       </div>
     </div>
@@ -72,18 +76,22 @@
   </div>
   <div v-if="showResponsive"
        class="mobile-view">
-    <div class="mobile-price-info">
+    <q-skeleton v-if="computedProductPrice.loading"
+                type="text"
+                width="70px" />
+    <div v-else
+         class="mobile-price-info">
       <div class="mobile-discount">
         <q-badge color="negative"
                  size="xs"
                  text-color="white"
-                 :label="'%' + productPrice.discountInPercent()" />
+                 :label="'%' + computedProductPrice.discountInPercent()" />
       </div>
       <div class="mobile-price-calculation">
         <div class="mobile-price-calculation-base">
-          {{ productPrice.toman('base', null) }}
+          {{ computedProductPrice.toman('base', null) }}
         </div>
-        <h5 class="mobile-price-calculation-final">{{ productPrice.toman('final', null) }}</h5>
+        <h5 class="mobile-price-calculation-final">{{ computedProductPrice.toman('final', null) }}</h5>
         <div class="mobile-price-calculation-label">تومان</div>
       </div>
     </div>
@@ -137,6 +145,10 @@ export default defineComponent({
     showResponsive: {
       type: Boolean,
       default: false
+    },
+    listenToUpdate: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ['updateProduct', 'updateProductLoading'],
@@ -147,7 +159,11 @@ export default defineComponent({
       },
       dialog: false,
       position: 'center',
+      productPrice: new Price(),
       paymentMethod: null,
+      selectedProducts: {
+        products: []
+      },
       productComplimentary: [],
       onLoginAction: () => {},
       examList: []
@@ -157,11 +173,8 @@ export default defineComponent({
     productId () {
       return this.localOptions.product.id
     },
-    productPrice () {
-      if (this.localOptions.product) {
-        return new Price(this.localOptions.product.price)
-      }
-      return new Price()
+    computedProductPrice () {
+      return this.productPrice
     },
     hasInstallment () {
       if (this.localOptions.product) {
@@ -174,16 +187,38 @@ export default defineComponent({
     productId () {
       this.getProductComplimentary()
       this.getProductExams()
+      this.setProductPrice()
     }
   },
   mounted () {
+    this.setProductPrice()
     this.$bus.on('onLoggedIn', () => {
       this.onLoginAction()
     })
+    this.$bus.on('updateSelectedProductPrice', (products) => {
+      if (this.listenToUpdate) {
+        this.onUpdateSelectedProductPrice(products)
+      }
+    })
   },
   methods: {
+    setProductPrice () {
+      this.productPrice = new Price(this.localOptions.product.price)
+    },
+    onUpdateSelectedProductPrice (products) {
+      this.selectedProducts = products
+      this.productPrice.loading = true
+      APIGateway.product.getPrice(products)
+        .then((price) => {
+          this.productPrice = new Price(price)
+          this.productPrice.loading = false
+        })
+        .catch(() => {
+          this.productPrice.loading = false
+        })
+    },
     addToCart (hasInstalmentOption = false, goToCheckoutReview = true) {
-      this.$store.dispatch('Cart/addToCart', { product: this.localOptions.product, has_instalment_option: hasInstalmentOption })
+      this.$store.dispatch('Cart/addToCart', { product: this.localOptions.product, products: this.selectedProducts.products, has_instalment_option: hasInstalmentOption })
         .then(() => {
           if (goToCheckoutReview) {
             this.$router.push({ name: 'Public.Checkout.Review' })
