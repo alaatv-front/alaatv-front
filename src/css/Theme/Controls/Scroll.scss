@@ -1,5 +1,6 @@
 @import "src/css/Theme/spacing";
 @import "src/css/Theme/colors";
+@import "src/css/Theme/radius";
 
   .q-scrollarea {
     padding: 0 0 $space-4 $space-4;
@@ -21,7 +22,7 @@
     }
 
     .q-scrollarea__thumb {
-      border-radius: 12px;
+      border-radius: $radius-4;
       background: $primary;
       width: 8px;
       height: 8px;
