@@ -27,6 +27,7 @@
     <q-card-section class="q-pa-none">
       <div class="price-section">
         <product-price-with-popup :options="{product: localOptions.product}"
+                                  :show-responsive="true"
                                   @update-product="onUpdateProduct($event)"
                                   @update-product-loading="onUpdateProductLoading($event)" />
       </div>
@@ -38,12 +39,17 @@
     </q-card-section> -->
     <q-card-section class="attributes-section">
 
-      <div class="attributes-title">
-        ویژگی های دوره
-      </div>
       <div v-if="localOptions.product.attributes?.info"
            class="attributes-list">
         <product-attributes :attributes="localOptions.product.attributes" />
+      </div>
+    </q-card-section>
+    <q-card-section class="q-pa-none">
+      <div class="price-section installment">
+        <product-price-with-popup :options="{product: localOptions.product}"
+                                  :paymentMode="'installment'"
+                                  @update-product="onUpdateProduct($event)"
+                                  @update-product-loading="onUpdateProductLoading($event)" />
       </div>
     </q-card-section>
 
@@ -108,29 +114,25 @@ export default defineComponent({
 <style lang="scss" scoped>
 .product-intro-wrapper {
   position: sticky;
-  top: 60px;
+  top: 88px;
   width: 434px;
-  min-height: 754px;
+  min-width: 307px;
+  min-height: 638px;
   max-width: 100%;
   border-radius: 12px;
   background:#FFF;
   box-shadow: 2px 2px 3px 0 rgb(16 24 40 / 6%);
-  padding: 32px;
+  padding: 24px;
 
   @media screen and (width <= 1439px){
     padding: 20px;
   }
 
   @media screen and (width <= 1023px) {
-    width: 100%;
-    padding: 24px;
-  }
-
-  @media screen and (width <= 599px) {
-    padding: 20px 16px;
-    width: 100%;
-    height: auto;
-    min-height: auto;
+    width: 0;
+    padding: 0;
+    height: 0;
+    min-height: 0;
   }
 
   .product-intro-video {
@@ -138,6 +140,10 @@ export default defineComponent({
     box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%);
     border-radius: 8px;
     padding: 0;
+
+    @media screen and (width <= 1023px){
+      display: none;
+    }
   }
 
   .photo_wide-wrapper {
@@ -145,6 +151,10 @@ export default defineComponent({
       width: 100%;
       height: 100%;
       border-radius: 12px;
+    }
+
+    @media screen and (width <= 1023px){
+      display: none;
     }
   }
 
@@ -154,14 +164,29 @@ export default defineComponent({
       height: 100%;
       border-radius: 12px;
     }
+    @media screen and (width <= 1023px){
+      display: none;
+    }
   }
 
   .price-section {
     padding: 16px 0 25px;
+
+    &.installment {
+      padding: 16px 0 0;
+    }
+
+    @media screen and (width <= 1023px){
+      padding: 0;
+    }
   }
 
   .attributes-section {
     padding: 0;
+
+    @media screen and (width <= 1023px){
+      display: none;
+    }
 
     .attributes-title {
       color: $grey-10;
