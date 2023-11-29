@@ -205,6 +205,7 @@ export default {
   emits: ['updateSetList'],
   data () {
     return {
+      setLoading: false,
       defaultOptions: {
         product: new Product(),
         setList: []
