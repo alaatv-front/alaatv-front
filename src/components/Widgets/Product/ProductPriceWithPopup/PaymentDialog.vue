@@ -614,6 +614,10 @@ $page-size-sm: map-get($sizes, "sm");
     height: 6px;
     border-radius: 100px;
     background: $grey-3;
+
+    @media screen and (width < #{$page-size-md}){
+      display: none;
+    }
   }
 
   .header-section{
@@ -679,6 +683,7 @@ $page-size-sm: map-get($sizes, "sm");
     //height: 450px;
     overflow-y: auto;
     margin-bottom: $space-8;
+    padding-bottom: $space-6;
 
     @media screen and (width < #{$page-size-md}){
       height: 420px;
