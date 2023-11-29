@@ -4,7 +4,6 @@
        :style="options.style">
     <div v-if="contents.list && contents.list.length > 0"
          class="demos-container col-md-12 q-mt-md">
-      <p class="section-title">نمونه فیلم ها</p>
       <div v-dragscroll
            class="contents-block">
         <div v-for="content in contents.list"
@@ -12,13 +11,6 @@
           <content-item class="q-mr-md"
                         :options="{content,contentLinkTarget: '_blank'}" />
         </div>
-      </div>
-    </div>
-    <div v-if="pamphlets && pamphlets.length > 0"
-         class="demos-container col-md-12 q-mt-md">
-      <p class="section-title">نمونه جزوه ها</p>
-      <div v-dragscroll
-           class="contents-block">
         <div v-for="(pamphlet, index) in pamphlets"
              :key="pamphlet.id"
              class="pamphlet-image">
