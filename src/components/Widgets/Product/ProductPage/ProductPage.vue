@@ -358,6 +358,7 @@ $paddingTop: v-bind('paddingTop');
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: $paddingTop;
 
   @media screen and (width <= #{$page-size-sm}) {
     margin-top: $paddingTop;
