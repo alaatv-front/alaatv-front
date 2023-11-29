@@ -212,8 +212,8 @@ $page-size-sm: map-get($sizes, "sm");
 
 .theme-3-container {
   display: flex;
-  padding-top: 22px;
-  margin: 0 auto;
+  padding-top: $space-5;
+  margin: $spacing-none auto;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
@@ -225,7 +225,7 @@ $page-size-sm: map-get($sizes, "sm");
 
   .product-discount-badge {
     position: absolute;
-    right: 20px;
+    right: $space-5;
     rotate: -16deg;
     transition: all ease-in-out .4s;
 
@@ -233,33 +233,31 @@ $page-size-sm: map-get($sizes, "sm");
       right: revert;
 
       .discount-badge_percent__number {
-        color: $grey-1;
-        text-align: center;
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 900;
-        line-height: normal;
+        @media screen and (width <= #{$page-size-sm}) {
+          color: $grey-1;
+          @include body2;
+        }
       }
 
       .discount-badge_percent__text {
-        color: $grey-1;
-        text-align: center;
-        font-size: 5px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
+        @media screen and (width <= #{$page-size-sm}) {
+          color: $grey-1;
+          @include caption2;
+        }
       }
     }
 
     :deep(.discount-badge_percent__img)  {
-      width: 40px;
+      @media screen and (width <= #{$page-size-sm}) {
+        width: 40px;
+      }
     }
   }
 
   .img-box {
     position: absolute;
-    left: 20px;
-    top: 0;
+    left: $space-5;
+    top: $spacing-none;
     width: 72px;
     height: 72px;
 
@@ -273,7 +271,7 @@ $page-size-sm: map-get($sizes, "sm");
       width: 100%;
       height: 100%;
       border-radius: $radius-4;
-      border: 0 solid #FFF;
+      border: 0 solid $grey-1;
 
       :deep(.lazy-img) {
         border-radius: inherit;
@@ -288,15 +286,16 @@ $page-size-sm: map-get($sizes, "sm");
 
   .theme-3-content-wrapper {
     display: flex;
-    width: 100%;
+    max-width: 322px;
     flex-direction: column;
-    padding: 64px $space-5 $space-5 $space-5;
-    gap: 16px;
-    background-color: #fff;
+    padding: $space-11 $space-5 $space-5 $space-5;
+    gap: $space-4;
+    background-color: $grey-1;
     border-radius: $radius-6;
 
     @media screen and (width <= #{$page-size-sm}) {
-      padding: 56px $space-5 $space-5 $space-5;
+      max-width: 280px;
+      padding: $space-10 $space-5 $space-5 $space-5;
     }
     .product-content-box {
       position: relative;
@@ -313,7 +312,7 @@ $page-size-sm: map-get($sizes, "sm");
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        gap: 8px;
+        gap: $space-2;
         align-self: stretch;
 
         @media screen and (width <= #{$page-size-sm}) {
@@ -329,7 +328,7 @@ $page-size-sm: map-get($sizes, "sm");
               display: flex;
               justify-content: flex-end;
               align-items: center;
-              gap: 6px;
+              gap: $space-2;
               flex: 1 0 0;
 
               .before-base {
@@ -338,11 +337,7 @@ $page-size-sm: map-get($sizes, "sm");
               }
               .main-price {
                 color: $grey-6;
-                font-size: 14px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
-                letter-spacing: -0.28px;
+                @include body2;
                 text-decoration-line: line-through;
               }
               .final-price-box {
@@ -395,7 +390,7 @@ $page-size-sm: map-get($sizes, "sm");
         padding: $space-1 $space-2;
         justify-content: flex-end;
         align-items: center;
-        gap: 4px;
+        gap: $space-1;
         border-radius: $radius-2;
         background: $blue-grey-2;
         margin-right: $space-3;
@@ -410,7 +405,7 @@ $page-size-sm: map-get($sizes, "sm");
         padding: $space-1 $space-2;
         justify-content: flex-end;
         align-items: center;
-        gap: 4px;
+        gap: $space-1;
         border-radius: $radius-2;
         background: $blue-grey-2;
         margin-right: $space-3;
