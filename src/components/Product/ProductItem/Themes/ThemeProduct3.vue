@@ -272,7 +272,7 @@ $page-size-sm: map-get($sizes, "sm");
       box-shadow: none;
       width: 100%;
       height: 100%;
-      border-radius: 12px;
+      border-radius: $radius-4;
       border: 0 solid #FFF;
 
       :deep(.lazy-img) {
@@ -290,13 +290,13 @@ $page-size-sm: map-get($sizes, "sm");
     display: flex;
     width: 100%;
     flex-direction: column;
-    padding: 64px 20px 20px 20px;
+    padding: 64px $space-5 $space-5 $space-5;
     gap: 16px;
     background-color: #fff;
     border-radius: $radius-6;
 
     @media screen and (width <= #{$page-size-sm}) {
-      padding: 56px 20px 20px 20px;
+      padding: 56px $space-5 $space-5 $space-5;
     }
     .product-content-box {
       position: relative;
