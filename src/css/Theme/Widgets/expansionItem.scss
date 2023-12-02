@@ -16,6 +16,7 @@
 
   .q-item {
     border-radius: $radius-4;
+
     padding: $space-4 $space-5;
     min-height: 64px;
     height: auto;
@@ -30,7 +31,6 @@
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
     }
-
     .header-separator {
       display: block !important;
     }
@@ -43,6 +43,7 @@
     bottom: 0;
     left: 20px;
     width: calc(100% - 40px);
+
   }
 
   .header-label-section {

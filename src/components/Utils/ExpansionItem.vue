@@ -1,5 +1,6 @@
 <template>
   <q-expansion-item :class="{'grey-mode': grey}">
+
     <template v-slot:header>
       <q-item-section>
         <q-item-section class="header-label-section">
@@ -32,6 +33,7 @@
         </div>
       </q-item-section>
       <q-separator class="header-separator" />
+
     </template>
     <slot name="body" />
   </q-expansion-item>
