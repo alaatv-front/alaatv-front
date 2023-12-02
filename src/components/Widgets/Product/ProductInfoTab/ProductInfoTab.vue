@@ -100,7 +100,7 @@
         <course-explain v-model:height="courseExplainHeight"
                         :title="'توضیحات دوره'">
           <template v-slot:content>
-            <div class="product-long-description"
+            <div class="product-long-description body2"
                  v-html="localOptions.product.description?.long" />
           </template>
         </course-explain>
