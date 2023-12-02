@@ -1,6 +1,6 @@
 .q-expansion-item {
   width: 100%;
-  border-radius: $radius-6;
+  border-radius: $radius-4;
   background: $grey-1;
   box-shadow: $shadow-1;
   padding: 0;
@@ -15,7 +15,7 @@
   }
 
   .q-item {
-    border-radius: $radius-6;
+    border-radius: $radius-4;
     padding: $space-4 $space-5;
     min-height: 64px;
     height: auto;
@@ -31,6 +31,18 @@
       border-bottom-right-radius: 0;
     }
 
+    .header-separator {
+      display: block !important;
+    }
+
+  }
+
+  .header-separator {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    width: calc(100% - 40px);
   }
 
   .header-label-section {
