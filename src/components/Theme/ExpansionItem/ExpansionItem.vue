@@ -18,7 +18,7 @@
                                   :grey="true">
           <template v-slot:action>متن ۱</template>
           <template v-slot:body>
-            adsfasdfasdfasdfasdf
+            test
           </template>
         </expansion-item-component>
       </div>
