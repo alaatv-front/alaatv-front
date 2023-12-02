@@ -593,13 +593,8 @@ $paddingTop: v-bind('paddingTop');
                 height: $short-description-height-xl;
                 overflow-y: hidden;
                 transition: all .3s ease-in-out;
-                color:#FFF;
-                font-size: 16px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
-                letter-spacing: -0.48px;
-                text-align: justify;
+                color: $grey-1;
+                @include body1;
 
                 @media screen and (width < #{$page-size-lg}){
                   height: $short-description-height-lg;
