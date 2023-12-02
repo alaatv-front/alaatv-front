@@ -17,13 +17,12 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import ProductPage from 'src/components/Widgets/Product/ProductPage/ProductPage.vue'
+import { defineComponent, defineAsyncComponent } from 'vue'
 
 export default defineComponent({
   name: 'ProductBottomSheet',
   components: {
-    ProductPage
+    ProductPage: defineAsyncComponent(() => import('src/components/Widgets/Product/ProductPage/ProductPage.vue'))
   },
   props: {
     dialog: {
