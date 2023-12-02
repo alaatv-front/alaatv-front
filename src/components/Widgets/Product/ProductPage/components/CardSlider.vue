@@ -101,22 +101,23 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "src/css/Theme/spacing";
+
 .card-slider-container {
   .carousel-btns {
     .carousel-right {
-      margin-right: 4px;
+      margin-right: $spacing-base;
     }
   }
   .title {
-    margin-left: 8px;
+    margin-left: $space-2;
   }
   .content {
     .contents-block {
       display: flex;
       overflow: auto;
-      padding: 10px 0 0;
       .product {
-        margin-right: 24px;
+        margin-right: $space-6;
       }
     }
   }

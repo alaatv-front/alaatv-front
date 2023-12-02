@@ -705,7 +705,7 @@ $paddingTop: v-bind('paddingTop');
     width: $boxed-width-xl;
     max-width: 100%;
     position: relative;
-    margin: $space-7 $spacing-none;
+    margin: $space-4 $spacing-none;
 
     @media screen and (width <= #{$page-size-lg}){
       width: $boxed-width-md;

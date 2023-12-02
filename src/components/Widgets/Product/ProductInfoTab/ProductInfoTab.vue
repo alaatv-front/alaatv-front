@@ -242,6 +242,7 @@ export default defineComponent({
       this.getProductFaq()
     },
     activeTab (newValue) {
+      console.log(newValue)
       this.scrollTo(newValue)
     }
   },
@@ -260,103 +261,11 @@ export default defineComponent({
   },
   methods: {
     getNextSteps () {
-      const response = {
-        data: [
-          {
-            id: 1315,
-            title: 'test5',
-            price: {
-              base: 0,
-              discount: 0,
-              final: 0,
-              payableByWallet: null,
-              final_instalmentally: 0,
-              discount_instalmentally: 0
-            },
-            url: {
-              web: 'http://127.0.0.1:82/product/1315',
-              api: 'http://127.0.0.1:82/api/v2/product/1315'
-            },
-            photo: 'https://nodes.alaatv.com/upload/images/product/test.jpg',
-            attributes: {
-              info: {
-                teacher: null,
-                shipping_method: null,
-                major: null,
-                services: null,
-                download_date: null,
-                educational_system: null,
-                duration: [],
-                production_year: null,
-                expiration_duration: null,
-                grade: null
-              },
-              extra: null,
-              subscription: null
-            },
-            category: 'هفتانه',
-            variant: '-',
-            is_purchased: false,
-            is_dependent: null,
-            enable: 1,
-            has_instalment_option: 0,
-            payment_default: 1,
-            instalments: null,
-            duration: 6000,
-            number_of_sessions: 3
-          },
-          {
-            id: 1311,
-            title: 'test4',
-            price: {
-              base: 0,
-              discount: 0,
-              final: 0,
-              payableByWallet: null,
-              final_instalmentally: 0,
-              discount_instalmentally: 0
-            },
-            url: {
-              web: 'http://127.0.0.1:82/product/1311',
-              api: 'http://127.0.0.1:82/api/v2/product/1311'
-            },
-            photo: 'https://nodes.alaatv.com/upload/images/product/test.jpg',
-            attributes: {
-              info: {
-                teacher: null,
-                shipping_method: null,
-                major: null,
-                services: null,
-                download_date: null,
-                educational_system: null,
-                duration: [],
-                production_year: null,
-                expiration_duration: null,
-                grade: null
-              },
-              extra: null,
-              subscription: null
-            },
-            category: 'هفتانه',
-            variant: '-',
-            is_purchased: false,
-            is_dependent: null,
-            enable: 1,
-            has_instalment_option: 0,
-            payment_default: 1,
-            instalments: null,
-            duration: 6000,
-            number_of_sessions: 3
-          }
-        ]
-      }
       APIGateway.product.getSiblings(1304)
-        .then(() => {
-          this.products = new ProductList(response.data)
+        .then((productList) => {
+          this.products = productList
         })
-        .catch(() => {
-          this.products = new ProductList(response.data)
-        })
+        .catch(() => {})
     },
     scrollTop () {
       window.scrollTo({
@@ -366,7 +275,7 @@ export default defineComponent({
       })
     },
     handleScroll () {
-      this.isSticky = this.$refs.headerSticky.getBoundingClientRect().top <= 88
+      this.isSticky = this.$refs.headerSticky.offsetTop <= 88
     },
     scrollTo (refName) {
       const element = this.$refs[refName]
@@ -437,17 +346,21 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/Theme/spacing";
+@import "src/css/Theme/colors";
+$page-size-sm: map-get($sizes, "sm");
+
 .product-info-container {
   display: flex;
   flex-direction: column;
   .selectable-product {
     .header {
-      margin-bottom: 24px;
+      margin-bottom: $space-6;
     }
   }
   .mobile-header {
     display: none;
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: $page-size-sm) {
       padding: 10px 32px;
       background-color: $grey-1;
       display: block;
@@ -459,7 +372,7 @@ export default defineComponent({
     }
   }
   .header-info {
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: $page-size-sm) {
       display: none;
     }
   }
@@ -469,7 +382,7 @@ export default defineComponent({
     z-index: 99;
   }
   .sections, .documents {
-    margin-top: 16px;
+    margin-top: $space-4;
   }
 }
 .product-tab-panel {
@@ -488,17 +401,15 @@ export default defineComponent({
   }
 }
 .description {
-  margin-top: 16px;
+  margin-top: $space-4;
   //height: 294px;
 }
 .next-steps {
-  margin-top: 16px;
-  margin-bottom: 22px;
+  margin-top: $space-4;
+  margin-bottom: $space-4;
 }
 
 .content-info {
-  margin-top: 16px;
-  .scroll-area {
-  }
+  margin-top: $space-4;
 }
 </style>

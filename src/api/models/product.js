@@ -401,8 +401,100 @@ export default class ProductAPI extends APIRepository {
       request: this.APIAdresses.siblings(productId),
       CacheList: this.CacheList.siblings(productId),
       ...(cache && { cache }),
-      resolveCallback: (response) => {
-        return response.data.data
+      resolveCallback: () => {
+        const response = {
+          data: {
+            data: [
+              {
+                id: 1315,
+                title: 'test5',
+                price: {
+                  base: 0,
+                  discount: 0,
+                  final: 0,
+                  payableByWallet: null,
+                  final_instalmentally: 0,
+                  discount_instalmentally: 0
+                },
+                url: {
+                  web: 'http://127.0.0.1:82/product/1315',
+                  api: 'http://127.0.0.1:82/api/v2/product/1315'
+                },
+                photo: 'https://nodes.alaatv.com/upload/images/product/test.jpg',
+                attributes: {
+                  info: {
+                    teacher: null,
+                    shipping_method: null,
+                    major: null,
+                    services: null,
+                    download_date: null,
+                    educational_system: null,
+                    duration: [],
+                    production_year: null,
+                    expiration_duration: null,
+                    grade: null
+                  },
+                  extra: null,
+                  subscription: null
+                },
+                category: 'هفتانه',
+                variant: '-',
+                is_purchased: false,
+                is_dependent: null,
+                enable: 1,
+                has_instalment_option: 0,
+                payment_default: 1,
+                instalments: null,
+                duration: 6000,
+                number_of_sessions: 3
+              },
+              {
+                id: 1311,
+                title: 'test4',
+                price: {
+                  base: 0,
+                  discount: 0,
+                  final: 0,
+                  payableByWallet: null,
+                  final_instalmentally: 0,
+                  discount_instalmentally: 0
+                },
+                url: {
+                  web: 'http://127.0.0.1:82/product/1311',
+                  api: 'http://127.0.0.1:82/api/v2/product/1311'
+                },
+                photo: 'https://nodes.alaatv.com/upload/images/product/test.jpg',
+                attributes: {
+                  info: {
+                    teacher: null,
+                    shipping_method: null,
+                    major: null,
+                    services: null,
+                    download_date: null,
+                    educational_system: null,
+                    duration: [],
+                    production_year: null,
+                    expiration_duration: null,
+                    grade: null
+                  },
+                  extra: null,
+                  subscription: null
+                },
+                category: 'هفتانه',
+                variant: '-',
+                is_purchased: false,
+                is_dependent: null,
+                enable: 1,
+                has_instalment_option: 0,
+                payment_default: 1,
+                instalments: null,
+                duration: 6000,
+                number_of_sessions: 3
+              }
+            ]
+          }
+        }
+        return new ProductList(response.data.data)
       },
       rejectCallback: (error) => {
         return error

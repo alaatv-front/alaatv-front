@@ -96,22 +96,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/Theme/spacing";
+@import "src/css/Theme/colors";
+
 .explain-container {
-  padding: 8px;
+  padding: $space-2;
   .content {
-    margin-top: 20px;
+    margin-top: $space-5;
     height: v-bind('height');
     overflow: hidden;
   }
   .more-icon {
-    margin-top: 20px;
+    margin-top: $space-5;
     width: 8px;
     height: 8px;
     border-radius: 50%;
     background-color: $grey-4;
   }
   .action-btn {
-    margin-top: 20px;
+    margin-top: $space-5;
   }
   .title {
     margin-left: 8px;
