@@ -367,7 +367,7 @@ $page-size-sm: map-get($sizes, "sm");
       position: fixed;
       right: 0;
       width: 100%;
-      top: 65px;
+      top: $space-11;
       z-index: 999;
     }
   }
