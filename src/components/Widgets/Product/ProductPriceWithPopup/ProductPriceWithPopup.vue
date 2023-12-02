@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="price-final">
-        <h5>{{ computedProductPrice.toman('final', null) }}</h5>
+        <h5 class="final-number">{{ computedProductPrice.toman('final', null) }}</h5>
         <div class="label">تومان</div>
       </div>
     </div>
@@ -409,8 +409,13 @@ export default defineComponent({
       @media screen and (width <= 1439px){
         grid-area: 1 / 2 / 2 / 3;
       }
+
+      .final-number {
+        color: $grey-9;
+      }
       .label {
         @include caption1;
+        color: $grey-9;
         margin-left: $space-1;
       }
     }
