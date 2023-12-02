@@ -29,7 +29,6 @@
               </div>
             </template>
             <template v-slot:body>
-              <q-separator inset />
               <q-card class="set-card">
                 <q-card-section v-if="!setLoading || set.contents.list.length > 0">
                   <q-list class="set-list"
@@ -43,7 +42,11 @@
                                       @click="download(content)">
                         <div class="row items-center">
                           <q-icon v-if="content.isPamphlet()"
+                                  size="xs"
                                   name="ph:file-pdf" />
+                          <q-icon v-else
+                                  size="xs"
+                                  name="ph:play-circle" />
                           <div class="q-ml-xs">
                             {{ content.title }}
                           </div>
@@ -357,9 +360,6 @@ export default {
   max-width: 100%;
 
   &:deep(.q-expansion-item) {
-    border-radius: 8px;
-    background:#F5F7FA;
-    color:#424242;
     margin: 8px 0;
 
     @media screen and (width <= 1023px){

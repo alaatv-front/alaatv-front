@@ -4,7 +4,8 @@
        :style="options.style">
     <div v-if="contents.list && contents.list.length > 0"
          class="demos-container col-md-12 q-mt-md">
-      <div v-dragscroll
+      <div ref="contentScroll"
+           v-dragscroll
            class="contents-block">
         <div v-for="content in contents.list"
              :key="content.id">
@@ -83,6 +84,12 @@ export default {
     }
   },
   methods: {
+    scrollToRight () {
+      this.$refs.contentScroll.scrollLeft += 200
+    },
+    scrollToLeft () {
+      this.$refs.contentScroll.scrollLeft -= 200
+    },
     prefetchServerDataPromise () {
       this.product.loading = true
       return this.getProduct()
