@@ -137,7 +137,7 @@ export default defineComponent({
 
   .attribute-title {
     width: 150px;
-    color: $grey-7;
+    color: $grey-10;
     @include body2;
 
     &.dark {
@@ -154,7 +154,7 @@ export default defineComponent({
     max-width: 250px;
 
     .value-text {
-      color: $grey-7;
+      color: $grey-10;
       width: 100%;
       max-width: 100%;
       text-align: right;

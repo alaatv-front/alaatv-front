@@ -2,8 +2,9 @@
   <q-card v-if="localOptions.product"
           class="product-intro-wrapper">
     <q-card-section v-if="localOptions.product.intro?.photo"
-                    class="product-intro-video">
+                    class="product-intro-video-section">
       <video-player :key="playerKey"
+                    class="product-intro-video"
                     :poster="localOptions.product.intro?.photo"
                     :source="videoSource" />
     </q-card-section>
@@ -130,7 +131,7 @@ export default defineComponent({
   box-shadow: $shadow-1;
 
   @media screen and (width <= 1439px){
-    padding: $space-5;
+    padding: $spacing-none;
   }
 
   @media screen and (width <= 1023px) {
@@ -140,9 +141,16 @@ export default defineComponent({
     min-height: 0;
   }
 
-  .product-intro-video {
-    overflow: hidden;
-    border-radius: $radius-3;
+  .product-intro-video-section {
+
+    .product-intro-video {
+      overflow: hidden;
+      border-radius: $radius-3;
+
+      :deep(.video-js ) {
+        border-radius: $radius-3;
+      }
+    }
 
     @media screen and (width <= 1023px){
       display: none;
