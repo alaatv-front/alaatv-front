@@ -1,11 +1,13 @@
 <template>
   <div class="child-product-container">
-    <q-card>
+    <q-card class="outline-card"
+            :class="{'grey-card': productIsSelect}">
       <q-card-section>
         <div class="row">
           <div class="col-6">
             <div class="flex items-center">
               <q-checkbox v-model="productIsSelect"
+                          color="secondary"
                           @update:model-value="selectChildren" />
               <div class="subtitle2">{{ product.title }}</div>
             </div>

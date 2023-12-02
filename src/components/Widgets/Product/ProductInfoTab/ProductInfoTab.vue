@@ -242,7 +242,6 @@ export default defineComponent({
       this.getProductFaq()
     },
     activeTab (newValue) {
-      console.log(newValue)
       this.scrollTo(newValue)
     }
   },
