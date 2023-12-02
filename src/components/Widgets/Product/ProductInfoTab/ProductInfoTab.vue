@@ -17,14 +17,42 @@
         </div>
       </div>
     </div>
+    <div v-if="products.list.length > 0"
+         class="next-steps">
+      <card-slider :title="'قدم های بعدی'"
+                   :products="products" />
+    </div>
     <div ref="headerSticky"
-         class="header-info"
+         class="mobile-header">
+      <q-tabs v-model="activeTab"
+              inline-label
+              outside-arrows
+              mobile-arrows
+              align="left"
+              breakpoint="md"
+              indicator-color="primary"
+              active-color="primary"
+              class="text-grey">
+        <q-tab name="description"
+               label="توضیحات دوره"
+               @click="scrollTo('description')" />
+        <q-tab v-if="setList.length !== 0"
+               name="sections"
+               label="سرفصل ها"
+               @click="scrollTo('sections')" />
+        <q-tab v-if="contentListLength !== 0"
+               name="documents"
+               label="نمونه محتوا"
+               @click="scrollTo('documents')" />
+      </q-tabs>
+    </div>
+    <div class="header-info"
          :class="{'sticky': isSticky}">
-      <q-card>
+      <q-card class="outline-card">
         <q-card-section>
           <div class="row items-center">
-            <div class="col-6">
-              <q-tabs v-model="tab"
+            <div class="col-10">
+              <q-tabs v-model="activeTab"
                       inline-label
                       outside-arrows
                       mobile-arrows
@@ -52,7 +80,7 @@
                 <!--             label="سوالات متداول" />-->
               </q-tabs>
             </div>
-            <div class="col-6">
+            <div class="col-2">
               <div class="text-right">
                 <q-btn class="size-md"
                        icon="ph:arrow-up"
@@ -96,18 +124,10 @@
          ref="documents"
          class="documents">
       <q-intersection @enter="activeTab = 'documents'">
-        <course-explain :title="'نمونه محتوا'"
-                        :height="'100%'"
-                        :show-button="false">
-          <template v-slot:content>
-            <div class="product-tab-panel">
-              <product-demos :options="{
-                contents: contents,
-                product: localOptions.product
-              }" />
-            </div>
-          </template>
-        </course-explain>
+        <card-slider :title="'نمونه محتوا'"
+                     :contents="contents"
+                     :product="localOptions.product"
+                     :slider-type="'content'" />
       </q-intersection>
     </div>
     <!--    <q-tab-panels v-model="tab"-->
@@ -153,20 +173,21 @@ import { Product, ProductList } from 'src/models/Product.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { ContentList } from 'src/models/Content.js'
 // import ProductGifts from 'src/components/Widgets/Product/ProductGifts/ProductGifts.vue'
-import ProductDemos from 'src/components/Widgets/Product/ProductDemos/ProductDemos.vue'
 // import ProductFAQ from 'src/components/Widgets/Product/ProductFAQ/ProductFAQ.vue'
 import ProductSetList from 'src/components/Widgets/Product/ProductSetList/ProductSetList.vue'
 import CourseExplain from 'components/Widgets/Product/ProductPage/components/CourseExplain/CourseExplain.vue'
 import childProduct from 'components/Widgets/Product/ProductPage/components/ChildProduct.vue'
+import CardSlider from 'components/Widgets/Product/ProductPage/components/CardSlider.vue'
 import lazyImg from 'components/lazyImg.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default defineComponent({
   name: 'ProductInfoTab',
   components: {
     lazyImg,
     childProduct,
+    CardSlider,
     // ProductGifts,
-    ProductDemos,
     // ProductFAQ,
     ProductSetList,
     CourseExplain
@@ -183,6 +204,7 @@ export default defineComponent({
       tab: 'description',
       gifts: new ProductList(),
       contents: new ContentList(),
+      products: new ProductList(),
       isSticky: false,
       faqList: [],
       setList: [],
@@ -220,6 +242,7 @@ export default defineComponent({
       this.getProductFaq()
     },
     activeTab (newValue) {
+      console.log(newValue)
       this.scrollTo(newValue)
     }
   },
@@ -231,9 +254,19 @@ export default defineComponent({
       this.getSampleContents()
       this.getProductFaq()
     }
+    if (this.localOptions.product.children.length > 0) {
+      this.getNextSteps()
+    }
     window.addEventListener('scroll', this.handleScroll)
   },
   methods: {
+    getNextSteps () {
+      APIGateway.product.getSiblings(1304)
+        .then((productList) => {
+          this.products = productList
+        })
+        .catch(() => {})
+    },
     scrollTop () {
       window.scrollTo({
         top: 0,
@@ -242,7 +275,7 @@ export default defineComponent({
       })
     },
     handleScroll () {
-      this.isSticky = this.$refs.headerSticky.getBoundingClientRect().top <= 88
+      this.isSticky = this.$refs.headerSticky.offsetTop <= 88
     },
     scrollTo (refName) {
       const element = this.$refs[refName]
@@ -313,29 +346,43 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/Theme/spacing";
+@import "src/css/Theme/colors";
+$page-size-sm: map-get($sizes, "sm");
+
 .product-info-container {
   display: flex;
   flex-direction: column;
   .selectable-product {
     .header {
-      margin-bottom: 24px;
+      margin-bottom: $space-6;
+    }
+  }
+  .mobile-header {
+    display: none;
+    @media screen and (max-width: $page-size-sm) {
+      padding: $space-3 $space-7;
+      background-color: $grey-1;
+      display: block;
+      position: fixed;
+      right: 0;
+      width: 100%;
+      top: $space-11;
+      z-index: 999;
     }
   }
   .header-info {
-    @media screen and (max-width: 600px) {
-      position: fixed;
-      width: 500px;
-      top: 88px;
-      z-index: 9999;
+    @media screen and (max-width: $page-size-sm) {
+      display: none;
     }
   }
   .sticky {
     position: sticky;
     top: 88px;
-    z-index: 9999;
+    z-index: 99;
   }
   .sections, .documents {
-    margin-top: 16px;
+    margin-top: $space-4;
   }
 }
 .product-tab-panel {
@@ -354,12 +401,15 @@ export default defineComponent({
   }
 }
 .description {
-  margin-top: 16px;
+  margin-top: $space-4;
   //height: 294px;
 }
+.next-steps {
+  margin-top: $space-4;
+  margin-bottom: $space-4;
+}
+
 .content-info {
-  margin-top: 16px;
-  .scroll-area {
-  }
+  margin-top: $space-4;
 }
 </style>
