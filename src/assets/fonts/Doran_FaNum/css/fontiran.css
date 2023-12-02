@@ -22,8 +22,8 @@ This set of fonts are used in this project under the license: (.....)
 	font-family: Doran FaNum;
 	font-style: normal;
 	font-weight: 100;
-	src: url('../fonts/woff/DoranFaNum-Thin.woff') format('woff'),
-	url('../fonts/woff2/DoranFaNum-Thin.woff2') format('woff2');
+	src: url('https://nodes.alaatv.com/upload/fonts/Doran_FaNum/fonts/woff/DoranFaNum-Thin.woff') format('woff'),
+	url('https://nodes.alaatv.com/upload/fonts/Doran_FaNum/fonts/woff2/DoranFaNum-Thin.woff2') format('woff2');
   font-display: swap;
 }
 
@@ -31,8 +31,8 @@ This set of fonts are used in this project under the license: (.....)
 	font-family: Doran FaNum;
 	font-style: normal;
 	font-weight: 300;
-	src: url('../fonts/woff/DoranFaNum-Light.woff') format('woff'),
-	url('../fonts/woff2/DoranFaNum-Light.woff2') format('woff2');
+	src: url('https://nodes.alaatv.com/upload/fonts/Doran_FaNum/fonts/woff/DoranFaNum-Light.woff') format('woff'),
+	url('https://nodes.alaatv.com/upload/fonts/Doran_FaNum/fonts/woff2/DoranFaNum-Light.woff2') format('woff2');
   /*src: url('../fonts/eot/DoranFaNum-Light.eot');*/
   /*src: url('../fonts/eot/DoranFaNum-Light.eot?#iefix') format('embedded-opentype'),*/
   /*url('../fonts/svg/DoranFaNum-Light.svg#DoranFaNum-Light') format('svg');*/
@@ -43,9 +43,9 @@ This set of fonts are used in this project under the license: (.....)
 	font-family: Doran FaNum;
 	font-style: normal;
 	font-weight: normal;
-	src: url('../fonts/woff/DoranFaNum-Regular.woff') format('woff'),
-	url('../fonts/woff2/DoranFaNum-Regular.woff2') format('woff2');
-  /*src: url('../fonts/eot/DoranFaNum-Regular.eot');*/
+	src: url('https://nodes.alaatv.com/upload/fonts/Doran_FaNum/fonts/woff/DoranFaNum-Regular.woff') format('woff'),
+	url('https://nodes.alaatv.com/upload/fonts/Doran_FaNum/fonts/woff2/DoranFaNum-Regular.woff2') format('woff2');
+  /*src: url('https://nodes.alaatv.com/upload/fonts/Doran_FaNum/fonts/eot/DoranFaNum-Regular.eot');*/
   /*src: url('../fonts/eot/DoranFaNum-Regular.eot?#iefix') format('embedded-opentype'),*/
   /*url('../fonts/svg/DoranFaNum-Regular.svg#DoranFaNum-Regular') format('svg');*/
   font-display: swap;
