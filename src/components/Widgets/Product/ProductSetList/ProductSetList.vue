@@ -333,19 +333,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/Theme/spacing";
+$page-size-md: map-get($sizes, "md");
+
 .set-sections {
   .set-section {
     .separator-div{
-      margin-top: 24px;
-      padding-bottom: 8px;
+      margin-top: $space-6;
+      padding-bottom: $space-2;
 
       .separator-title {
         background: white;
-        padding-right: 8px;
+        padding-right: $space-2;
       }
 
       .q-separator {
-        margin-top: -10px;
+        margin-top: -$space-2;
       }
     }
   }
@@ -360,10 +363,10 @@ export default {
   max-width: 100%;
 
   &:deep(.q-expansion-item) {
-    margin: 8px 0;
+    margin: $space-2 0;
 
-    @media screen and (width <= 1023px){
-      margin: 6px 0;
+    @media screen and (width <= $page-size-md){
+      margin: $space-2 0;
     }
   }
 
