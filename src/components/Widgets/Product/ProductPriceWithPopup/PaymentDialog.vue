@@ -810,6 +810,8 @@ $page-size-sm: map-get($sizes, "sm");
     padding: $space-4 $spacing-none;
 
     &.instalment {
+      @include subtitle1;
+      color: $grey-8;
       padding: $spacing-none $spacing-none $space-3;
 
       @media screen and (width < #{$page-size-md}){

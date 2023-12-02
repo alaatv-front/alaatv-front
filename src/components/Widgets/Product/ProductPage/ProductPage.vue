@@ -37,9 +37,9 @@
           <div class="col-12 col-md-8 col-lg-9">
             <div class="product-info-wrapper">
               <div class="product-info-header">
-                <h5 class="product-title ellipsis">
+                <h4 class="product-title ellipsis">
                   {{ product.title }}
-                </h5>
+                </h4>
                 <div class="header-action">
                   <bookmark :is-favored="product.is_favored"
                             :rounded="false"
@@ -183,7 +183,7 @@ export default defineComponent({
           title: 'کنکوری'
         },
         {
-          name: 'brand',
+          name: 'teacher',
           icon: 'ph:chalkboard-teacher',
           title: 'گروه آموزشی آلاء'
         },
@@ -593,13 +593,8 @@ $paddingTop: v-bind('paddingTop');
                 height: $short-description-height-xl;
                 overflow-y: hidden;
                 transition: all .3s ease-in-out;
-                color:#FFF;
-                font-size: 16px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
-                letter-spacing: -0.48px;
-                text-align: justify;
+                color: $grey-1;
+                @include body1;
 
                 @media screen and (width < #{$page-size-lg}){
                   height: $short-description-height-lg;
@@ -705,7 +700,7 @@ $paddingTop: v-bind('paddingTop');
     width: $boxed-width-xl;
     max-width: 100%;
     position: relative;
-    margin: $space-7 $spacing-none;
+    margin: $space-4 $spacing-none;
 
     @media screen and (width <= #{$page-size-lg}){
       width: $boxed-width-md;

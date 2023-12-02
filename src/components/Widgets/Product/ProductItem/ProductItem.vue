@@ -53,7 +53,6 @@
       </div>
     </q-card>
     <component :is="localOptions.theme"
-               v-else
                :ref="productRef"
                class="product-item-box"
                :class="'productItem' + product.id"
