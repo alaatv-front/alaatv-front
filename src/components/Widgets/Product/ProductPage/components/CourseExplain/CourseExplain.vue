@@ -100,7 +100,6 @@ export default {
 @import "src/css/Theme/colors";
 
 .explain-container {
-  padding: $space-2;
   .content {
     margin-top: $space-5;
     height: v-bind('height');
