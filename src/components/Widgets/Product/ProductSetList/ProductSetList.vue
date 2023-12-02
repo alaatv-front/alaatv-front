@@ -16,87 +16,86 @@
             </span>
             <q-separator />
           </div>
-          <q-expansion-item v-for="(set, index) in sectoin.sets"
-                            :key="index"
-                            v-model="set.expand"
-                            header-class="expanded-item-header"
-                            expand-icon-class="expanded-item-icon"
-                            @show="getSet(set.id)">
-            <template v-slot:header>
-              <q-item-section class="title-column flex column no-wrap">
-                <div class="ellipsis"><q-icon name="square"
-                                              class="set-title-icon"
-                                              size="16px" />
-                  <span class="set-title">{{ set.short_title.split('-')[2] }}</span>
-                </div>
-                <div class="lt-sm title-duration ellipsis">{{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}</div>
-              </q-item-section>
-
-              <!-- <q-item-section side
-                              class="steps-count-column">
-                {{set.contents_count}} گام
-              </q-item-section> -->
-              <q-item-section side
-                              class="duration-column gt-xs">
+          <expansion-item-component v-for="(set, index) in sectoin.sets"
+                                    :key="index"
+                                    :hasAction="true"
+                                    icon="ph:book-open"
+                                    :label="set.short_title.split('-')[2]"
+                                    :grey="true"
+                                    @show="getSet(set.id)">
+            <template v-slot:action>
+              <div class="duration-column gt-xs">
                 {{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}
-              </q-item-section>
+              </div>
             </template>
-            <q-separator inset />
-            <q-card class="set-card">
-              <q-card-section v-if="!setLoading || set.contents.list.length > 0">
-                <q-list class="set-list"
-                        separator>
-                  <q-item v-for="(content, index) in set.contents.list"
-                          :key="index"
-                          :to="content.isPamphlet() ? '' : { name: 'Public.Content.Show', params: {id: content.id} }"
-                          clickable
-                          @click="setSelectedData($event,content,set)">
-                    <q-item-section class="cursor-pointer ellipsis"
-                                    @click="download(content)">
-                      {{ content.title }}
-                      <q-tooltip>
-                        {{ content.title }}
-                      </q-tooltip>
-                    </q-item-section>
-                    <q-item-section v-if="!content.isPamphlet()"
-                                    avatar>
-                      <q-icon :name="content.can_see ? 'play_circle_outline' : 'lock_outline'" />
-                    </q-item-section>
-                    <q-item-section v-if="content.isPamphlet()"
-                                    class="side-section"
-                                    side>
-                      <q-btn color="primary"
-                             label="دانلود"
-                             @click="download(content)" />
-                    </q-item-section>
-                    <q-item-section v-else
-                                    class="side-section"
-                                    side>
-                      {{ content.duration === null || content.duration == 0 ? 'مدت ندارد' : humanizeDuration(content.duration) }}
-                    </q-item-section>
-                  </q-item>
-                </q-list>
-              </q-card-section>
-              <q-card-section v-else>
-                <q-list>
-                  <q-item v-for="item in 4"
-                          :key="item">
-                    <q-skeleton width="100%"
-                                bordered />
-                  </q-item>
-                </q-list>
-              </q-card-section>
-            </q-card>
-          </q-expansion-item>
+            <template v-slot:body>
+              <q-separator inset />
+              <q-card class="set-card">
+                <q-card-section v-if="!setLoading || set.contents.list.length > 0">
+                  <q-list class="set-list"
+                          separator>
+                    <q-item v-for="(content, index) in set.contents.list"
+                            :key="index"
+                            :to="content.isPamphlet() ? '' : { name: 'Public.Content.Show', params: {id: content.id} }"
+                            clickable
+                            @click="setSelectedData($event,content,set)">
+                      <q-item-section class="cursor-pointer ellipsis body2"
+                                      @click="download(content)">
+                        <div class="row items-center">
+                          <q-icon v-if="content.isPamphlet()"
+                                  name="ph:file-pdf" />
+                          <div class="q-ml-xs">
+                            {{ content.title }}
+                          </div>
+                        </div>
+                      </q-item-section>
+                      <q-item-section class="side-section body2"
+                                      side>
+                        {{ content.duration === null || content.duration == 0 ? 'مدت ندارد' : humanizeDuration(content.duration) }}
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-card-section>
+                <q-card-section v-else>
+                  <q-list>
+                    <q-item v-for="item in 4"
+                            :key="item">
+                      <q-skeleton width="100%"
+                                  bordered />
+                    </q-item>
+                  </q-list>
+                </q-card-section>
+              </q-card>
+            </template>
+            <!--                        <template v-slot:header>-->
+            <!--                          <q-item-section class="title-column flex column no-wrap">-->
+            <!--                            <div class="ellipsis"><q-icon name="square"-->
+            <!--                                                          class="set-title-icon"-->
+            <!--                                                          size="16px" />-->
+            <!--                              <span class="set-title">{{ set.short_title.split('-')[2] }}</span>-->
+            <!--                            </div>-->
+            <!--                            <div class="lt-sm title-duration ellipsis">{{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}</div>-->
+            <!--                          </q-item-section>-->
+
+            <!--                          &lt;!&ndash; <q-item-section side-->
+            <!--                                          class="steps-count-column">-->
+            <!--                            {{set.contents_count}} گام-->
+            <!--                          </q-item-section> &ndash;&gt;-->
+            <!--                          <q-item-section side-->
+            <!--                                          class="duration-column gt-xs">-->
+            <!--                            {{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}-->
+            <!--                          </q-item-section>-->
+            <!--                        </template>-->
+            <!--            <q-separator inset />-->
+          </expansion-item-component>
         </div>
       </div>
       <template v-else>
-        <q-expansion-item v-for="(set, index) in setList"
-                          :key="index"
-                          v-model="set.expand"
-                          header-class="expanded-item-header"
-                          expand-icon-class="expanded-item-icon"
-                          @show="getSet(set.id)">
+        <expansion-item-component v-for="(set, index) in setList"
+                                  :key="index"
+                                  header-class="expanded-item-header"
+                                  expand-icon-class="expanded-item-icon"
+                                  @show="getSet(set.id)">
           <template v-slot:header>
             <q-item-section class="title-column ellipsis">
               {{ set.short_title.split('-')[2] }}
@@ -157,7 +156,7 @@
               </q-list>
             </q-card-section>
           </q-card>
-        </q-expansion-item>
+        </expansion-item-component>
       </template>
     </q-list>
     <q-list v-else>
@@ -195,10 +194,12 @@ import { openURL } from 'quasar'
 import { ContentList } from 'src/models/Content.js'
 import { Product } from 'src/models/Product.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
+import ExpansionItemComponent from 'src/components/Utils/ExpansionItem.vue'
 
 export default {
   name: 'ProductSetList',
   components: {
+    ExpansionItemComponent,
     ProductItem: defineAsyncComponent(() => import('src/components/Widgets/Product/ProductItem/ProductItem.vue'))
   },
   mixins: [mixinWidget],
