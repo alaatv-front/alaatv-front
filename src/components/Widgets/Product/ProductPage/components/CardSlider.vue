@@ -31,25 +31,42 @@
     </q-card-section>
     <q-card-section>
       <div class="content">
-        <div v-if="sliderType === 'content'">
-          <div class="product-tab-panel">
-            <product-demos :options="{
-              contents: contents,
-              product: product
-            }" />
-          </div>
+        <div v-if="sliderType === 'content'"
+             class="product-tab-panel">
+          <product-demos ref="scrollContainer"
+                         :options="{
+                           contents: contents,
+                           product: product
+                         }" />
         </div>
-        <div v-else-if="sliderType === 'product'">
-          <div v-dragscroll
-               class="contents-block">
-            <div v-for="product in products.list"
-                 :key="product"
-                 class="product">
-              <product-item :options="{
-                product,
-                theme: 'ThemeProduct3'
-              }" />
-            </div>
+        <div v-else-if="sliderType === 'product'"
+             ref="scrollContainer"
+             v-dragscroll
+             class="contents-block">
+          <div v-for="product in products.list"
+               :key="product"
+               class="product">
+            <product-item :options="{
+              backgrounds: {
+                xs: {
+                  color: null,
+                },
+                sm: {
+                  color: null,
+                },
+                md: {
+                  color: null,
+                },
+                lg: {
+                  color: null,
+                },
+                xl: {
+                  color: null,
+                }
+              },
+              product,
+              theme: 'ThemeProduct3'
+            }" />
           </div>
         </div>
       </div>
@@ -96,6 +113,14 @@ export default {
       type: ProductList,
       default: new ProductList()
     }
+  },
+  methods: {
+    scrollToRight () {
+      this.$refs.scrollContainer.scrollToRight()
+    },
+    scrollToLeft () {
+      this.$refs.scrollContainer.scrollToLeft()
+    }
   }
 }
 </script>
@@ -113,9 +138,15 @@ export default {
     margin-left: $space-2;
   }
   .content {
+    margin-top: $space-6;
+    .product-tab-panel {
+      overflow-x: auto;
+      white-space: nowrap;
+    }
     .contents-block {
       display: flex;
-      overflow: auto;
+      white-space: nowrap;
+      overflow-x: auto;
       .product {
         margin-right: $space-6;
       }
