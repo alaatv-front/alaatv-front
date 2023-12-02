@@ -361,7 +361,7 @@ $page-size-sm: map-get($sizes, "sm");
   .mobile-header {
     display: none;
     @media screen and (max-width: $page-size-sm) {
-      padding: 10px 32px;
+      padding: $space-3 $space-7;
       background-color: $grey-1;
       display: block;
       position: fixed;

@@ -117,7 +117,7 @@ export default {
     margin-top: $space-5;
   }
   .title {
-    margin-left: 8px;
+    margin-left: $space-2;
   }
 }
 </style>
