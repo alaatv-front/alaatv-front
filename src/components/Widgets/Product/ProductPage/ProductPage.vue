@@ -37,9 +37,9 @@
           <div class="col-12 col-md-8 col-lg-9">
             <div class="product-info-wrapper">
               <div class="product-info-header">
-                <h5 class="product-title ellipsis">
+                <h4 class="product-title ellipsis">
                   {{ product.title }}
-                </h5>
+                </h4>
                 <div class="header-action">
                   <bookmark :is-favored="product.is_favored"
                             :rounded="false"
@@ -183,7 +183,7 @@ export default defineComponent({
           title: 'کنکوری'
         },
         {
-          name: 'brand',
+          name: 'teacher',
           icon: 'ph:chalkboard-teacher',
           title: 'گروه آموزشی آلاء'
         },
