@@ -8,13 +8,13 @@
       background: $grey-2;
     }
     .q-scrollarea__bar--v {
-      width: 10px;
+      width: 8px;
       &.absolute-right {
         left: $space-2;
       }
     }
     .q-scrollarea__bar--h {
-      height: 10px;
+      height: 8px;
       &.absolute-bottom {
         bottom: $space-2;
       }
@@ -23,8 +23,8 @@
     .q-scrollarea__thumb {
       border-radius: $space-3;
       background: $primary;
-      width: 8px;
-      height: 8px;
+      width: 6px;
+      height: 6px;
       opacity: 1;
       &.q-scrollarea__thumb--h {
         bottom: $space-2;
