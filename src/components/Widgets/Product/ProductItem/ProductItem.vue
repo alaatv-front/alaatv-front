@@ -91,7 +91,7 @@ import ThemeProduct3 from 'components/Product/ProductItem/Themes/ThemeProduct3.v
 
 const defaultTypography = {
   fontFamily: 'iranyekan',
-  titleColor: '#D1D1D1',
+  titleColor: '#424242',
   priceColor: '#9E9E9E',
   finalColor: '#009688',
   simpleTextColor: '#757575',
