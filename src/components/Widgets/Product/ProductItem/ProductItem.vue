@@ -53,7 +53,6 @@
       </div>
     </q-card>
     <component :is="localOptions.theme"
-               v-else
                :ref="productRef"
                class="product-item-box"
                :class="'productItem' + product.id"
@@ -88,6 +87,7 @@ import ProductBottomSheet from 'src/components/Widgets/Product/ProductItem/compo
 import ThemeDefault from 'components/Product/ProductItem/Themes/ThemeDefault.vue'
 import ThemeProduct1 from 'components/Product/ProductItem/Themes/ThemeProduct1.vue'
 import ThemeProduct2 from 'components/Product/ProductItem/Themes/ThemeProduct2.vue'
+import ThemeProduct3 from 'components/Product/ProductItem/Themes/ThemeProduct3.vue'
 
 const defaultTypography = {
   fontFamily: 'iranyekan',
@@ -108,6 +108,7 @@ export default defineComponent({
     ThemeDefault,
     ThemeProduct1,
     ThemeProduct2,
+    ThemeProduct3,
     ProductBottomSheet
   },
   mixins: [mixinWidget, mixinPrefetchServerData],
