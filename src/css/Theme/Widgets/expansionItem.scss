@@ -1,6 +1,6 @@
 .q-expansion-item {
   width: 100%;
-  border-radius: $radius-6;
+  border-radius: $radius-4;
   background: $grey-1;
   box-shadow: $shadow-1;
   padding: 0;
@@ -12,10 +12,15 @@
     .q-expansion-item__content {
       background: $grey-2;
     }
+
+    .header-separator {
+      color: $grey-4;
+    }
   }
 
   .q-item {
-    border-radius: $radius-6;
+    border-radius: $radius-4;
+
     padding: $space-4 $space-5;
     min-height: 64px;
     height: auto;
@@ -30,6 +35,19 @@
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
     }
+    .header-separator {
+      display: block !important;
+    }
+
+  }
+
+  .header-separator {
+    display: none;
+    position: absolute;
+    color: $grey-3;
+    bottom: 0;
+    left: 20px;
+    width: calc(100% - 40px);
 
   }
 

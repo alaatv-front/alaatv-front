@@ -17,6 +17,10 @@
                                   label="متن عنوان اصلی"
                                   :grey="true">
           <template v-slot:action>متن ۱</template>
+          <template v-slot:body>
+            test
+          </template>
+
         </expansion-item-component>
       </div>
     </div>
