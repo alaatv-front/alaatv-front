@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'Panchang';
-    src: url('src/assets/fonts/Panchang/fonts/eot/Panchang-Semibold.eot');
-    src: url('src/assets/fonts/Panchang/fonts/eot/Panchang-Semibold.eot?#iefix') format('embedded-opentype'),
-        url('src/assets/fonts/Panchang/fonts/woff2/Panchang-Semibold.woff2') format('woff2'),
-        url('src/assets/fonts/Panchang/fonts/woff/Panchang-Semibold.woff') format('woff'),
-        url('src/assets/fonts/Panchang/fonts/ttf/Panchang-Semibold.ttf') format('truetype'),
-        url('src/assets/fonts/Panchang/fonts/svg/Panchang-Semibold.svg#Panchang-Semibold') format('svg');
+    src: url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/eot/Panchang-Semibold.eot');
+    src: url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/eot/Panchang-Semibold.eot?#iefix') format('embedded-opentype'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/woff2/Panchang-Semibold.woff2') format('woff2'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/woff/Panchang-Semibold.woff') format('woff'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/ttf/Panchang-Semibold.ttf') format('truetype'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/svg/Panchang-Semibold.svg#Panchang-Semibold') format('svg');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -13,12 +13,12 @@
 
 @font-face {
     font-family: 'Panchang';
-    src: url('src/assets/fonts/Panchang/fonts/eot/Panchang-Regular.eot');
-    src: url('src/assets/fonts/Panchang/fonts/eot/Panchang-Regular.eot?#iefix') format('embedded-opentype'),
-        url('src/assets/fonts/Panchang/fonts/woff2/Panchang-Regular.woff2') format('woff2'),
-        url('src/assets/fonts/Panchang/fonts/woff/Panchang-Regular.woff') format('woff'),
-        url('src/assets/fonts/Panchang/fonts/ttf/Panchang-Regular.ttf') format('truetype'),
-        url('src/assets/fonts/Panchang/fonts/svg/Panchang-Regular.svg#Panchang-Regular') format('svg');
+    src: url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/eot/Panchang-Regular.eot');
+    src: url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/eot/Panchang-Regular.eot?#iefix') format('embedded-opentype'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/woff2/Panchang-Regular.woff2') format('woff2'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/woff/Panchang-Regular.woff') format('woff'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/ttf/Panchang-Regular.ttf') format('truetype'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/svg/Panchang-Regular.svg#Panchang-Regular') format('svg');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -26,12 +26,12 @@
 
 @font-face {
     font-family: 'Panchang';
-    src: url('src/assets/fonts/Panchang/fonts/eot/Panchang-Medium.eot');
-    src: url('src/assets/fonts/Panchang/fonts/eot/Panchang-Medium.eot?#iefix') format('embedded-opentype'),
-        url('src/assets/fonts/Panchang/fonts/woff2/Panchang-Medium.woff2') format('woff2'),
-        url('src/assets/fonts/Panchang/fonts/woff/Panchang-Medium.woff') format('woff'),
-        url('src/assets/fonts/Panchang/fonts/ttf/Panchang-Medium.ttf') format('truetype'),
-        url('src/assets/fonts/Panchang/fonts/svg/Panchang-Medium.svg#Panchang-Medium') format('svg');
+    src: url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/eot/Panchang-Medium.eot');
+    src: url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/eot/Panchang-Medium.eot?#iefix') format('embedded-opentype'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/woff2/Panchang-Medium.woff2') format('woff2'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/woff/Panchang-Medium.woff') format('woff'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/ttf/Panchang-Medium.ttf') format('truetype'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/svg/Panchang-Medium.svg#Panchang-Medium') format('svg');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -39,12 +39,12 @@
 
 @font-face {
     font-family: 'Panchang';
-    src: url('src/assets/fonts/Panchang/fonts/eot/Panchang-Light.eot');
-    src: url('src/assets/fonts/Panchang/fonts/eot/Panchang-Light.eot?#iefix') format('embedded-opentype'),
-        url('src/assets/fonts/Panchang/fonts/woff2/Panchang-Light.woff2') format('woff2'),
-        url('src/assets/fonts/Panchang/fonts/woff/Panchang-Light.woff') format('woff'),
-        url('src/assets/fonts/Panchang/fonts/ttf/Panchang-Light.ttf') format('truetype'),
-        url('src/assets/fonts/Panchang/fonts/svg/Panchang-Light.svg#Panchang-Light') format('svg');
+    src: url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/eot/Panchang-Light.eot');
+    src: url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/eot/Panchang-Light.eot?#iefix') format('embedded-opentype'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/woff2/Panchang-Light.woff2') format('woff2'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/woff/Panchang-Light.woff') format('woff'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/ttf/Panchang-Light.ttf') format('truetype'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/svg/Panchang-Light.svg#Panchang-Light') format('svg');
     font-weight: 300;
     font-style: normal;
     font-display: swap;
@@ -52,12 +52,12 @@
 
 @font-face {
     font-family: 'Panchang';
-    src: url('src/assets/fonts/Panchang/fonts/eot/Panchang-Extralight.eot');
-    src: url('src/assets/fonts/Panchang/fonts/eot/Panchang-Extralight.eot?#iefix') format('embedded-opentype'),
-        url('src/assets/fonts/Panchang/fonts/woff2/Panchang-Extralight.woff2') format('woff2'),
-        url('src/assets/fonts/Panchang/fonts/woff/Panchang-Extralight.woff') format('woff'),
-        url('src/assets/fonts/Panchang/fonts/ttf/Panchang-Extralight.ttf') format('truetype'),
-        url('src/assets/fonts/Panchang/fonts/svg/Panchang-Extralight.svg#Panchang-Extralight') format('svg');
+    src: url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/eot/Panchang-Extralight.eot');
+    src: url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/eot/Panchang-Extralight.eot?#iefix') format('embedded-opentype'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/woff2/Panchang-Extralight.woff2') format('woff2'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/woff/Panchang-Extralight.woff') format('woff'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/ttf/Panchang-Extralight.ttf') format('truetype'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/svg/Panchang-Extralight.svg#Panchang-Extralight') format('svg');
     font-weight: 200;
     font-style: normal;
     font-display: swap;
@@ -65,12 +65,12 @@
 
 @font-face {
     font-family: 'Panchang';
-    src: url('src/assets/fonts/Panchang/fonts/eot/Panchang-Extrabold.eot');
-    src: url('src/assets/fonts/Panchang/fonts/eot/Panchang-Extrabold.eot?#iefix') format('embedded-opentype'),
-        url('src/assets/fonts/Panchang/fonts/woff2/Panchang-Extrabold.woff2') format('woff2'),
-        url('src/assets/fonts/Panchang/fonts/woff/Panchang-Extrabold.woff') format('woff'),
-        url('src/assets/fonts/Panchang/fonts/ttf/Panchang-Extrabold.ttf') format('truetype'),
-        url('src/assets/fonts/Panchang/fonts/svg/Panchang-Extrabold.svg#Panchang-Extrabold') format('svg');
+    src: url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/eot/Panchang-Extrabold.eot');
+    src: url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/eot/Panchang-Extrabold.eot?#iefix') format('embedded-opentype'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/woff2/Panchang-Extrabold.woff2') format('woff2'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/woff/Panchang-Extrabold.woff') format('woff'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/ttf/Panchang-Extrabold.ttf') format('truetype'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/svg/Panchang-Extrabold.svg#Panchang-Extrabold') format('svg');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
@@ -78,12 +78,12 @@
 
 @font-face {
     font-family: 'Panchang';
-    src: url('src/assets/fonts/Panchang/fonts/eot/Panchang-Bold.eot');
-    src: url('src/assets/fonts/Panchang/fonts/eot/Panchang-Bold.eot?#iefix') format('embedded-opentype'),
-        url('src/assets/fonts/Panchang/fonts/woff2/Panchang-Bold.woff2') format('woff2'),
-        url('src/assets/fonts/Panchang/fonts/woff/Panchang-Bold.woff') format('woff'),
-        url('src/assets/fonts/Panchang/fonts/ttf/Panchang-Bold.ttf') format('truetype'),
-        url('src/assets/fonts/Panchang/fonts/svg/Panchang-Bold.svg#Panchang-Bold') format('svg');
+    src: url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/eot/Panchang-Bold.eot');
+    src: url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/eot/Panchang-Bold.eot?#iefix') format('embedded-opentype'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/woff2/Panchang-Bold.woff2') format('woff2'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/woff/Panchang-Bold.woff') format('woff'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/ttf/Panchang-Bold.ttf') format('truetype'),
+        url('https://nodes.alaatv.com/upload/fonts/Panchang/fonts/svg/Panchang-Bold.svg#Panchang-Bold') format('svg');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
