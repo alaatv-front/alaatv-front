@@ -34,7 +34,7 @@ $button-height: (
 
   @if index(("xs", "sm"), $size) {
     $target-radius: $radius-2;
-  } @else if index(("sm", "md", "lg", "xl"), $size) {
+  } @else if index(("md", "lg", "xl"), $size) {
     $target-radius: $radius-3;
   }
 
