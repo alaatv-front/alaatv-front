@@ -51,10 +51,13 @@ import ExampleDialog from 'components/Theme/Dialog/ExampleDialog.vue'
 import Badge from 'components/Theme/Badge/Badge.vue'
 import ExpansionItem from 'components/Theme/ExpansionItem/ExpansionItem.vue'
 import Card from 'components/Theme/Card/Card.vue'
+import Banner from 'components/Theme/Banner/Banner.vue'
+import Iconography from 'components/Theme/Iconography/Iconography.vue'
 
 export default {
   name: 'Controls',
   components: {
+    Banner,
     Card,
     Badge,
     Color,
@@ -72,6 +75,7 @@ export default {
     ToggleTheme,
     BreadCrumbs,
     ExampleTabs,
+    Iconography,
     ExampleDialog,
     ProgressTheme,
     PaginationTheme,
@@ -165,6 +169,14 @@ export default {
         {
           label: 'card',
           name: 'card'
+        },
+        {
+          label: 'Banner',
+          name: 'Banner'
+        },
+        {
+          label: 'Iconography',
+          name: 'Iconography'
         }
       ]
     }
