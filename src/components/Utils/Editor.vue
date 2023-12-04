@@ -74,7 +74,7 @@ export default {
             icon: $q.iconSet.editor.font,
             list: 'no-icons',
             // options: ['p', 'h3', 'h4', 'h5', 'h6', 'code']
-            options: ['Doran', 'IRANSans', 'IRANSansDN', 'IRANSansX', 'iranyekan', 'Plasma', 'Panchang', 'Modam']
+            options: ['Doran', 'IRANSans', 'IRANSansDN', 'IRANSansX', 'iranyekan', 'Plasma', 'Panchang', 'ModamFaNumWeb']
           },
           {
             icon: $q.iconSet.editor.fontSize,
@@ -104,7 +104,7 @@ export default {
         iranyekan: 'iranyekan',
         Plasma: 'Plasma-Lozenge-Dots',
         Panchang: 'Panchang',
-        Modam: 'Modam'
+        Modam: 'ModamFaNumWeb'
         // options: ['Doran', 'IRANSans', 'IRANSansDN', 'IRANSansX', 'iranyekan', 'Plasma']
       }
     }
@@ -125,8 +125,7 @@ export default {
   methods: {
     onPaste (evt) {
       const str = evt.clipboardData.getData('text')
-      const replace = str.replace(/(<([^>]+)>)/ig, '')
-      this.editorValue = replace
+      this.editorValue = str.replace(/(<([^>]+)>)/ig, '')
     },
     color (cmd, name) {
       const edit = this.$refs.editor
