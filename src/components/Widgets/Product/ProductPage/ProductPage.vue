@@ -341,7 +341,7 @@ $boxed-width-sm: 100%;
 $page-size-lg: map-get($sizes, "lg");
 $page-size-md: map-get($sizes, "md");
 $page-size-sm: map-get($sizes, "sm");
-$top-page-padding-xl: $space-8;
+$top-page-padding-xl: $space-7;
 $top-page-padding-lg: $space-7;
 $top-page-padding-md: $space-6;
 $top-page-padding-sm: $space-5;
@@ -734,6 +734,7 @@ $paddingTop: v-bind('paddingTop');
 
     .intro-box-col {
       margin-top: calc( -1 * $background-height-xl );
+      padding-top: $space-8;
 
       @media screen and (width <= #{$page-size-lg}){
         margin-top: calc( -1 * $background-height-lg );

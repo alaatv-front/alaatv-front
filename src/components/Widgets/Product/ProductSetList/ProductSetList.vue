@@ -29,7 +29,6 @@
               </div>
             </template>
             <template v-slot:body>
-              <q-separator inset />
               <q-card class="set-card">
                 <q-card-section v-if="!setLoading || set.contents.list.length > 0">
                   <q-list class="set-list"
@@ -43,7 +42,11 @@
                                       @click="download(content)">
                         <div class="row items-center">
                           <q-icon v-if="content.isPamphlet()"
+                                  size="xs"
                                   name="ph:file-pdf" />
+                          <q-icon v-else
+                                  size="xs"
+                                  name="ph:play-circle" />
                           <div class="q-ml-xs">
                             {{ content.title }}
                           </div>
@@ -330,19 +333,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/Theme/spacing";
+$page-size-md: map-get($sizes, "md");
+
 .set-sections {
   .set-section {
     .separator-div{
-      margin-top: 24px;
-      padding-bottom: 8px;
+      margin-top: $space-6;
+      padding-bottom: $space-2;
 
       .separator-title {
         background: white;
-        padding-right: 8px;
+        padding-right: $space-2;
       }
 
       .q-separator {
-        margin-top: -10px;
+        margin-top: -$space-2;
       }
     }
   }
@@ -357,13 +363,10 @@ export default {
   max-width: 100%;
 
   &:deep(.q-expansion-item) {
-    border-radius: 8px;
-    background:#F5F7FA;
-    color:#424242;
-    margin: 8px 0;
+    margin: $space-2 0;
 
-    @media screen and (width <= 1023px){
-      margin: 6px 0;
+    @media screen and (width <= $page-size-md){
+      margin: $space-2 0;
     }
   }
 
