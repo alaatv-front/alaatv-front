@@ -8,7 +8,7 @@
     </div>
     <div v-else
          class="product-content row justify-center items-center"
-         :class="options.className"
+         :class="{'expand-panel': options.hasExpand, ...options.className}"
          :style="options.style">
       <div v-for="(product, index) in data"
            :key="index"
@@ -16,6 +16,23 @@
            class="product-item">
         <product-item :options="{product: product, ...localOptions.productOptions}" />
       </div>
+    </div>
+    <div v-if="options.hasExpand"
+         class="col-12 text-center view-more">
+      <q-btn v-if="isPanelCollapsed"
+             label="مشاهده بیشتر"
+             class="size-lg"
+             flat
+             text-color="neutral-4"
+             icon="ph:caret-down"
+             @click="expandPanel" />
+      <q-btn v-else
+             label="بستن"
+             class="size-lg"
+             flat
+             text-color="neutral-4"
+             icon="ph:caret-up"
+             @click="collapsePanel" />
     </div>
   </div>
 </template>
@@ -48,6 +65,9 @@ export default {
   },
   data () {
     return {
+      collapseHeight: '',
+      height: '100%',
+      isPanelCollapsed: true,
       defaultOptions: {
         colNumber: 'col',
         productOptions: {
@@ -97,18 +117,43 @@ export default {
 
       return colNumber
     }
+  },
+  mounted () {
+    this.height = this.options.collapsedHeight
+  },
+  methods: {
+    expandPanel () {
+      this.collapseHeight = this.height
+      this.isPanelCollapsed = false
+      this.height = '100%'
+    },
+    collapsePanel () {
+      this.height = this.collapseHeight
+      this.isPanelCollapsed = true
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/Theme/spacing";
+
 .product-content-wrapper {
   width: 100%;
 
+  .view-more {
+    margin-top: $space-5;
+  }
+
   .product-content {
     //justify-content: flex-start;
-    padding: 10px 0 40px;
+    padding: $space-3 0 $space-8;
     width: 100%;
+    &.expand-panel {
+      padding: $space-3 0 0;
+      overflow-y: hidden;
+      height: v-bind('height');
+    }
 
     @media screen and (width <= 600px){
       padding: 0;

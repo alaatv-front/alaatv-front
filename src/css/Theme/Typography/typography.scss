@@ -75,6 +75,22 @@
   }
 }
 
+@mixin button1 {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.48px;
+}
+
+@mixin button2 {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.42px;
+}
+
 $katexFontSize: 1.2rem;
 $katexLineHeight: 4rem;
 
