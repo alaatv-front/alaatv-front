@@ -1,0 +1,53 @@
+@import "src/css/Theme/colors";
+@import "src/css/Theme/Typography/typography";
+@import "src/css/Theme/spacing";
+@import "src/css/Theme/radius";
+
+.q-banner {
+  padding: $space-3;
+  border-radius: $radius-3;
+  @include body2;
+  align-content: center;
+  .q-banner__content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-left: 8px !important;
+  }
+  &.success-banner {
+    background: $positive-1 ;
+    .q-banner__content {
+      color: $positive-7;
+    }
+    .q-banner__avatar {
+      color: $positive-5;
+    }
+  }
+  &.error-banner {
+    background: $negative-1 ;
+    .q-banner__content {
+      color: $negative-7;
+    }
+    .q-banner__avatar {
+      color: $negative-5;
+    }
+  }
+  &.info-banner {
+    background: $info-1 ;
+    .q-banner__content {
+      color: $info-7;
+    }
+    .q-banner__avatar {
+      color: $info-5;
+    }
+  }
+  &.warning-banner {
+    background: $warning-1 ;
+    .q-banner__content {
+      color: $warning-7;
+    }
+    .q-banner__avatar {
+      color: $warning-5;
+    }
+  }
+}
