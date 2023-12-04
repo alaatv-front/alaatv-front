@@ -1,5 +1,9 @@
 import axios from 'axios'
 import { Capacitor } from '@capacitor/core'
+const apiV2Prefix = process.env.ALAA_API_V2
+const appDomain = process.env.VITE_APP_DOMAIN
+const appProtocol = process.env.VITE_APP_PROTOCOL
+const nativeApiV2Server = appProtocol + '://' + appDomain + apiV2Prefix
 
 const cache = []
 const timeout = 0
@@ -9,7 +13,7 @@ export default class APIInstanceWrapper {
   static createInstance (baseURL, serverURL) {
     const serverSide = typeof window === 'undefined'
     const isNative = this.isNative()
-    const finalBaseURL = isNative ? serverURL : baseURL
+    const finalBaseURL = isNative ? nativeApiV2Server : baseURL
     if (!serverSide) {
       const axiosInstance = axios.create({ baseURL: finalBaseURL })
       axiosInstance.defaults.serverURL = serverURL
