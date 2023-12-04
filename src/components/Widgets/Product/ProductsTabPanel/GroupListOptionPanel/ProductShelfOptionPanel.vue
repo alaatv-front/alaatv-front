@@ -1,29 +1,33 @@
 <template>
   <div class="option-panel-container">
-    <div class="row q-px-md">
+    <div class="row q-px-md q-col-gutter-md items-center">
       <div class="col-12">
-        <div class="outsideLabel">type</div>
         <q-select v-model="localOptions.options.layout"
+                  label="type"
                   :options="layoutOptions" />
       </div>
       <div class="col-4">
-        <div class="outsideLabel">event name</div>
-        <div class="row">
-          <q-input v-model="eventName" />
-          <q-btn color="positive"
-                 icon="check"
-                 class="q-mr-sm"
-                 @click="addEvent(eventName)" />
+        <div class="row items-center">
+          <q-input v-model="eventName"
+                   label="event name">
+            <template v-slot:after>
+              <q-btn color="positive"
+                     icon="check"
+                     square
+                     class="size-sm"
+                     @click="addEvent(eventName)" />
+            </template>
+          </q-input>
         </div>
       </div>
       <div class="col-4">
-        <div class="outsideLabel">events</div>
         <q-select v-model="selectedEvent"
+                  label="events"
                   :options="localOptions.options.events" />
       </div>
       <div class="col-4">
-        <div class="outsideLabel">tabName</div>
-        <q-input v-model="localOptions.options[selectedEvent]" />
+        <q-input v-model="localOptions.options[selectedEvent]"
+                 label="tabName" />
       </div>
     </div>
 
