@@ -44,13 +44,15 @@ describe('Actions', () => {
     context = {
       getters: {
         loading: false,
-        'Auth/isUserLogin': false,
-        'Cart/cart': {},
         cart: {
           loading: false,
           items: new CartItemList(),
           addToCart: vi.fn()
         }
+      },
+      rootGetters: {
+        'Auth/isUserLogin': false,
+        'Cart/cart': {}
       },
       commit: vi.fn(),
       dispatch: vi.fn()
@@ -68,7 +70,7 @@ describe('Actions', () => {
         items: []
       })
       context.getters.cart = mockCart
-      context.getters['Auth/isUserLogin'] = false
+      context.rootGetters['Auth/isUserLogin'] = false
       const productToAdd = new Product({ id: 1 })
       const productData = { product: productToAdd, product_id: productToAdd.id }
 
@@ -148,7 +150,7 @@ describe('Actions', () => {
         ]
       })
       context.getters.cart = mockCart
-      context.getters['Auth/isUserLogin'] = false
+      context.rootGetters['Auth/isUserLogin'] = false
       mockCart.addToCart = vi.fn()
       APIGateway.cart.reviewCart = vi.fn(() => Promise.resolve(mockCart))
 
@@ -207,7 +209,7 @@ describe('Actions', () => {
         ]
       })
       context.getters.cart = mockCart
-      context.getters['Auth/isUserLogin'] = true
+      context.rootGetters['Auth/isUserLogin'] = true
       mockCart.addToCart = vi.fn()
       APIGateway.cart.reviewCart = vi.fn(() => Promise.resolve(mockCart))
 
@@ -261,7 +263,7 @@ describe('Actions', () => {
         ]
       })
       context.getters.cart = mockCart
-      context.getters['Auth/isUserLogin'] = false
+      context.rootGetters['Auth/isUserLogin'] = false
       mockCart.addToCart = vi.fn()
       APIGateway.cart.reviewCart = vi.fn(() => Promise.resolve(mockCart))
 
@@ -326,7 +328,7 @@ describe('Actions', () => {
         ]
       })
       context.getters.cart = mockCart
-      context.getters['Auth/isUserLogin'] = true
+      context.rootGetters['Auth/isUserLogin'] = true
       mockCart.addToCart = vi.fn()
       APIGateway.cart.reviewCart = vi.fn(() => Promise.resolve(mockCart))
 
