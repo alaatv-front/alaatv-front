@@ -229,7 +229,7 @@ export default {
       return this.localOptions.showInAuth ? this.isUserLogin : !this.isUserLogin
     },
     actionBtnDisplayAuth () {
-      return this.displayAuth ? 'initial' : 'none'
+      return this.displayAuth ? 'flex' : 'none'
     },
     shadows () {
       const shadows = []
