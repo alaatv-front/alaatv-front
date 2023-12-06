@@ -141,6 +141,8 @@ body {
     min-height: auto;
     min-width: auto;
     color: $grey-1;
+    display: flex;
+    align-items: center;
 
     /* fill */
     .q-btn__content {
