@@ -277,7 +277,7 @@ export default defineComponent({
     },
     position: {
       type: String,
-      default: 'center'
+      default: 'standard'
     },
     product: {
       type: Object,
