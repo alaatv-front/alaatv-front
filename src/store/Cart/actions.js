@@ -5,7 +5,7 @@ import CookieCart from 'src/assets/js/CookieCart.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export function addToCart (context, newProductData) {
-  const isUserLogin = !!this.getters['Auth/isUserLogin']
+  const isUserLogin = !!context.rootGetters['Auth/isUserLogin']
   return new Promise((resolve, reject) => {
     const payload = {
       product: newProductData.product, // Number or String
@@ -15,13 +15,14 @@ export function addToCart (context, newProductData) {
       ...(newProductData.has_instalment_option && { has_instalment_option: newProductData.has_instalment_option })
     }
     const setCartLoading = (loadingState) => {
-      const cart = context.getters.cart
-      cart.loading = loadingState
+      // Clone the current cart and update the loading state
+      const cart = { ...context.getters.cart, loading: loadingState }
       context.commit('updateCart', cart)
     }
     const updateCart = (payload) => {
       const cart = context.getters.cart
       cart.addToCart(payload)
+      // console.log('cart', cart.items.list)
       context.commit('updateCart', cart)
     }
     const showNotify = () => {
@@ -38,13 +39,13 @@ export function addToCart (context, newProductData) {
           color: 'grey',
           class: 'bg-green-3',
           handler: () => {
-            this.$router.push({ name: 'Public.Checkout.Review' })
+            context.$router.push({ name: 'Public.Checkout.Review' })
           }
         }]
       })
     }
     const reviewCart = () => {
-      this.dispatch('Cart/reviewCart')
+      context.dispatch('reviewCart')
     }
     const pushAEEEvent = (product) => {
       const productToPush = new Product(product)
@@ -80,15 +81,17 @@ export function addToCart (context, newProductData) {
 }
 
 export function reviewCart (context) {
-  const currentCart = this.getters['Cart/cart']
   const cartItems = []
-  const isUserLogin = !!this.getters['Auth/isUserLogin']
+  const isUserLogin = !!context.rootGetters['Auth/isUserLogin']
   const setCartLoading = (loadingState) => {
-    const cart = context.getters.cart
-    cart.loading = loadingState
+    // Clone the current cart and update the loading state
+    const cart = { ...context.getters.cart, loading: loadingState }
     context.commit('updateCart', cart)
   }
   const pushAEEEvent = (cart) => {
+    if (cart.items.list.length === 0) {
+      return
+    }
     AEE.checkout(1,
       'reviewAndPayment',
       cart.items.list[0]?.order_product?.list.map(item => item.product.eec.getData()),
@@ -98,7 +101,9 @@ export function reviewCart (context) {
       }
     )
   }
+
   if (!isUserLogin) {
+    const currentCart = context.getters.cart
     currentCart.items.list.forEach(currentCartItem => {
       if (currentCartItem.grand.id) {
         const cartItemObject = {
@@ -196,7 +201,7 @@ export function removeItemFromCart (context, product) {
   }
 
   return new Promise((resolve, reject) => {
-    const isUserLogin = this.getters['Auth/isUserLogin']
+    const isUserLogin = context.rootGetters['Auth/isUserLogin']
     if (isUserLogin) {
       setCartLoading(true)
       APIGateway.cart.removeFromCartByProductId(product.id)
@@ -223,7 +228,7 @@ export function removeItemFromCart (context, product) {
 }
 
 export function deleteList (context) {
-  const isUserLogin = !!this.getters['Auth/isUserLogin']
+  const isUserLogin = !!context.rootGetters['Auth/isUserLogin']
   const cart = context.getters.cart
 
   return new Promise((resolve, reject) => {
