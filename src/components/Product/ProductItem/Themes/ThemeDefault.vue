@@ -202,6 +202,7 @@ $actionColor: v-bind('localOptions.typography.actionColor');
 $actionHoverColor: v-bind('localOptions.typography.actionHoverColor');
 $installmentColor: v-bind('localOptions.typography.installmentColor');
 $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBackground');
+$page-size-md: map-get($sizes, "md");
 
 @mixin instalment-label() {
   display: flex;
@@ -286,7 +287,7 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
       }
     }
 
-    @media screen and (width <= 600px) {
+    @media screen and (width <= $page-size-md) {
       display: flex;
       border-radius: 18px;
       padding-top: 0;

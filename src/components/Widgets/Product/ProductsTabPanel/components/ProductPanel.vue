@@ -44,9 +44,6 @@ export default {
     return {
     }
   },
-  mounted () {
-    // this.height = this.options.height
-  },
   methods: {
     isProduct (item) {
       return item.type === 'ProductList'

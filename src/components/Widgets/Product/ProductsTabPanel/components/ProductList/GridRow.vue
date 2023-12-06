@@ -8,9 +8,8 @@
     </div>
     <div v-else
          class="product-content row justify-center items-center"
-         :class="{'expand-panel': options.hasExpand, ...options.className}"
          :style="options.style">
-      <div v-for="(product, index) in data"
+      <div v-for="(product, index) in displayableProducts"
            :key="index"
            :class="colClassName"
            class="product-item">
@@ -18,21 +17,15 @@
       </div>
     </div>
     <div v-if="options.hasExpand"
-         class="col-12 text-center view-more">
-      <q-btn v-if="isPanelCollapsed"
-             label="مشاهده بیشتر"
-             class="size-lg"
-             flat
-             text-color="neutral-4"
-             icon="ph:caret-down"
-             @click="expandPanel" />
-      <q-btn v-else
-             label="بستن"
-             class="size-lg"
-             flat
-             text-color="neutral-4"
-             icon="ph:caret-up"
-             @click="collapsePanel" />
+         class="col-12 view-more">
+      <action-button v-if="isPanelCollapsed"
+                     class="action-btn"
+                     :options="options.expandedButtonOptions"
+                     @click="expandPanel" />
+      <action-button v-else
+                     class="action-btn"
+                     :options="options.collapsedButtonOptions"
+                     @click="collapsePanel" />
     </div>
   </div>
 </template>
@@ -41,12 +34,14 @@
 import ProductRowSkeleton from '../ProductRowSkeleton.vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 import ProductItem from '../../../ProductItem/ProductItem.vue'
+import ActionButton from 'components/Widgets/ActionButton/ActionButton.vue'
 
 export default {
   name: 'GridRow',
   components: {
     ProductItem,
-    ProductRowSkeleton
+    ProductRowSkeleton,
+    ActionButton
   },
   mixins: [PageBuilderOptionPanel],
   props: {
@@ -65,8 +60,6 @@ export default {
   },
   data () {
     return {
-      collapseHeight: '',
-      height: '100%',
       isPanelCollapsed: true,
       defaultOptions: {
         colNumber: 'col',
@@ -112,23 +105,24 @@ export default {
     }
   },
   computed: {
+    displayableProducts () {
+      if (this.isPanelCollapsed) {
+        return this.data.slice(0, this.options.showInCollapse)
+      } else {
+        return this.data
+      }
+    },
     colClassName () {
       const colNumber = this.options.colNumber ? this.options.colNumber : ''
 
       return colNumber
     }
   },
-  mounted () {
-    this.height = this.options.collapsedHeight
-  },
   methods: {
     expandPanel () {
-      this.collapseHeight = this.height
       this.isPanelCollapsed = false
-      this.height = '100%'
     },
     collapsePanel () {
-      this.height = this.collapseHeight
       this.isPanelCollapsed = true
     }
   }
@@ -137,30 +131,29 @@ export default {
 
 <style lang="scss" scoped>
 @import "src/css/Theme/spacing";
+@import "src/css/Theme/sizes";
 
 .product-content-wrapper {
   width: 100%;
 
   .view-more {
     margin-top: $space-5;
+    .action-btn {
+      place-content: center;
+    }
   }
 
   .product-content {
     //justify-content: flex-start;
-    padding: $space-3 0 $space-8;
+    padding: $space-4 $spacing-none $spacing-none;
     width: 100%;
-    &.expand-panel {
-      padding: $space-3 0 0;
-      overflow-y: hidden;
-      height: v-bind('height');
-    }
 
-    @media screen and (width <= 600px){
-      padding: 0;
+    @include media-max-width('sm') {
+      padding: $spacing-none;
     }
 
     .product-item {
-      padding: 5px;
+      padding: $spacing-base;
     }
   }
 }
