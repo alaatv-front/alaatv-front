@@ -5,6 +5,7 @@ import { APIGateway } from 'src/api/APIGateway.js'
 import { CartItemList } from 'src/models/CartItem.js'
 import { addToCart, reviewCart } from 'src/store/Cart/actions.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+// eslint-disable-next-line
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 // Mock outside dependencies
