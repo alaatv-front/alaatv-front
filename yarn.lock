@@ -6254,10 +6254,10 @@ quasar-ui-q-page-builder@^0.2.0:
     shvl "^3.0.0"
     vue "^3.2.47"
 
-quasar-ui-q-page-builder@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/quasar-ui-q-page-builder/-/quasar-ui-q-page-builder-0.3.1.tgz#84ffd94acf144b1e8398143d0608f71825df8c3b"
-  integrity sha512-LElQm0veoAGpEArZDs2wvBwaugWMemiH54S4W137FR+qxuWHqNkg9lkiNxIXCVh3zVa02j9o4iciPYAYwetawA==
+quasar-ui-q-page-builder@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/quasar-ui-q-page-builder/-/quasar-ui-q-page-builder-0.4.0.tgz#362e62452f53289d9f325a67cd103421ee1a1da6"
+  integrity sha512-fgaZB70Sf7R1W8DTivx3Yg9Y+hmHFerI6Rag6yiOnwyNa2h9iXvytPtg/HpKS3k75X6UbaqYwTtzFbDGntmJKg==
   dependencies:
     "@quasar/extras" "^1.16.1"
     "@vue/compiler-sfc" "^3.2.47"
@@ -6265,7 +6265,7 @@ quasar-ui-q-page-builder@^0.3.1:
     shvl "^3.0.0"
     vue "^3.2.47"
 
-quasar@^2.11.7, quasar@^2.11.9, quasar@^2.12.2, quasar@^2.14.0:
+quasar@^2.11.7, quasar@^2.11.9, quasar@^2.12.2, quasar@^2.14.1:
   version "2.14.1"
   resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.14.1.tgz#3681cca0aff98b8eb5214b00c69dfdfcce58dfc9"
   integrity sha512-TAIGUgHASlL7COS9qqfDKyV2+WGFcHQseIDTzN+yfXaXY5gn/FZqwkEnb87bgOqgGYw8KJerkfZg3aSel+bLPw==
