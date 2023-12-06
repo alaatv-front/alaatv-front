@@ -1,46 +1,46 @@
 <template>
   <div class="action-btn-wrapper">
-    <div v-if="localOptions.profileMode && isUserLogin"
-         class="profile">
-      <div class="info-name truncate-text">{{user.getFullNameOrPhoneNumber()}}</div>
-      <q-avatar>
-        <lazy-img :src="user.photo"
-                  :alt="'user photo'"
-                  class="full-width" />
-      </q-avatar>
-    </div>
-    <div v-else>
-      <q-btn v-if="!localOptions.rightIcon"
-             :label="localOptions.label"
-             :flat="localOptions.flat"
-             :disable="disable"
-             :outline="localOptions.outline"
-             :class="[localOptions.className, responsiveShow]"
-             :style="localOptions.style"
-             class="action-btn"
-             @click="takeAction">
+    <q-btn v-if="!localOptions.rightIcon || (localOptions.profileMode && isUserLogin)"
+           :label="localOptions.label"
+           :flat="localOptions.flat"
+           :disable="disable"
+           :outline="localOptions.outline"
+           :class="[localOptions.className, responsiveShow]"
+           :style="localOptions.style"
+           class="action-btn"
+           @click="takeAction">
+      <template v-if=" (localOptions.profileMode && isUserLogin)">
+        <div class="info-name ellipsis">{{user.getFullNameOrPhoneNumber()}}</div>
+        <q-avatar class="user-avatar">
+          <lazy-img :src="user.photo"
+                    :alt="'user photo'"
+                    class="user-img" />
+        </q-avatar>
+      </template>
+      <template v-else>
         <q-icon v-if="localOptions.icon"
                 :name="localOptions.icon" />
 
         <img v-if="localOptions.imageSource"
              :src="localOptions.imageSource"
              alt="actionBtn">
-      </q-btn>
-      <q-btn v-else
-             :label="localOptions.label"
-             :icon="localOptions.icon"
-             :outline="localOptions.outline"
-             :flat="localOptions.flat"
-             :class="localOptions.className"
-             :style="localOptions.style"
-             :disable="disable"
-             class="action-btn"
-             @click="takeAction">
-        <img v-if="localOptions.imageSource"
-             :src="localOptions.imageSource"
-             alt="actionBtn">
-      </q-btn>
-    </div>
+      </template>
+    </q-btn>
+    <q-btn v-else
+           :label="localOptions.label"
+           :icon="localOptions.icon"
+           :outline="localOptions.outline"
+           :flat="localOptions.flat"
+           :class="localOptions.className"
+           :style="localOptions.style"
+           :disable="disable"
+           class="action-btn"
+           @click="takeAction">
+      <img v-if="localOptions.imageSource"
+           :src="localOptions.imageSource"
+           alt="actionBtn">
+    </q-btn>
+
     <q-layout v-if="localOptions.action === 'hamburger_menu'">
       <q-drawer v-model="drawer"
                 :width="drawerWidth"
@@ -437,32 +437,28 @@ $responsiveSpacing: (
         display: none;
       }
     }
+
+    .user-avatar {
+      font-size: 40px;
+      :deep(.lazy-img){
+        border: 1.5px solid #FFC8C7;
+      }
+    }
+
+    .info-name {
+      width: 120px;
+      height: 100%;
+      display: block;
+      vertical-align: middle;
+      padding: 100% 0;
+      margin-right: 8px;
+    }
   }
 
   .separator {
     height: 16px;
     align-self: center;
     color: $grey4;
-  }
-
-  .profile{
-    display: flex ;
-    height: 40px;
-    min-height: 40px;
-    align-items: center;
-    .q-avatar{
-      font-size: 40px ;
-    }
-
-    .info-name{
-      width: 120px;
-      height: 100%;
-      display: flex;
-      overflow: hidden;
-      align-items: center;
-      white-space: nowrap;
-      margin-right: $space-2 ;
-    }
   }
 }
 </style>

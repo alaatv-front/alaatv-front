@@ -238,21 +238,21 @@
                     <q-card-section>
                       <div class="row q-col-gutter-md">
                         <div>
-                          <q-btn icon="isax:add"
+                          <q-btn icon="ph:plus-circle"
                                  class="full-width"
                                  color="positive"
                                  label="text"
                                  @click="addTextWidget('topSectionWidgets')" />
                         </div>
                         <div>
-                          <q-btn icon="isax:add"
+                          <q-btn icon="ph:plus-circle"
                                  class="full-width"
                                  color="positive"
                                  label="image"
                                  @click="addImageWidget('topSectionWidgets')" />
                         </div>
                         <div>
-                          <q-btn icon="isax:add"
+                          <q-btn icon="ph:plus-circle"
                                  class="full-width"
                                  color="positive"
                                  label="action button"
