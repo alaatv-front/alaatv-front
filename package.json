@@ -8,7 +8,7 @@
   "scripts": {
     "lint": "eslint --fix --ext .js,.vue ./",
     "lint:style": "stylelint --custom-syntax postcss-html --config stylelint-config-recommended-vue.json --fix '**/*.{vue,scss}'\n",
-    "test": "echo \"No test specified\" && exit 0",
+    "test": "echo \"See package.json => scripts for available tests.\" && exit 0",
     "dev": "quasar dev",
     "ssr": "quasar dev -m ssr",
     "prebuild": "node inject-env-vars.js",
@@ -20,7 +20,10 @@
     "build:pwa": "quasar build -m pwa",
     "build:ssr": "quasar build --mode ssr",
     "pm2start": "pm2 start dist/ssr/index.js",
-    "start:ssr": "yarn ci && yarn build:ssr && cd dist/ssr && yarn install && yarn start"
+    "start:ssr": "yarn ci && yarn build:ssr && cd dist/ssr && yarn install && yarn start",
+    "test:unit:ui": "vitest --ui",
+    "test:unit": "vitest",
+    "test:unit:ci": "vitest run"
   },
   "dependencies": {
     "@capacitor-community/sqlite": "^5.4.2-2",
@@ -102,6 +105,9 @@
     "yarn": ">= 1.21.1"
   },
   "devDependencies": {
-    "postcss-html": "^1.5.0"
+    "@quasar/quasar-app-extension-testing-unit-vitest": "^0.4.0",
+    "@vue/test-utils": "^2.4.1",
+    "postcss-html": "^1.5.0",
+    "vitest": "^0.34.0"
   }
 }
