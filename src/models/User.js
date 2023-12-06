@@ -133,6 +133,12 @@ class User extends Model {
 
     return status
   }
+
+  getFullNameOrPhoneNumber () {
+    if (!this.full_name || this.full_name === ' ') {
+      return this.mobile
+    } else return this.full_name
+  }
 }
 class UserList extends Collection {
   model () {
