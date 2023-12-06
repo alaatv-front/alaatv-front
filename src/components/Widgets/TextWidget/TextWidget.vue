@@ -150,7 +150,7 @@ export default {
 
 <style scoped lang="scss">
 @import "quasar-ui-q-page-builder/src/components/Component";
-@import "src/css/Theme/spacing";
+@import "src/css/Theme/sizes";
 
 $responsiveSpacing: (
   xs: (
