@@ -26,9 +26,10 @@
             <q-checkbox v-model="localOptions.options.hasExpand"
                         label="hasExpand" />
           </div>
-          <div class="col-4">
-            <q-input v-model="localOptions.options.collapsedHeight"
-                     label="collapsed height" />
+          <div class="col-3">
+            <q-input v-model="localOptions.options.showInCollapse"
+                     type="number"
+                     label="hasExpand" />
           </div>
         </div>
       </div>
@@ -61,6 +62,20 @@
         <q-expansion-item expand-separator
                           label="تنظیمات محصول">
           <product-option-panel v-model:options="localOptions.options.productOptions" />
+        </q-expansion-item>
+      </div>
+      <div v-if="localOptions.options.hasExpand"
+           class="col-12 q-py-md">
+        <q-expansion-item expand-separator
+                          label="تنظیمات دکمه expand">
+          <action-button-option-panel v-model:options="localOptions.options.expandedButtonOptions" />
+        </q-expansion-item>
+      </div>
+      <div v-if="localOptions.options.hasExpand"
+           class="col-12 q-py-md">
+        <q-expansion-item expand-separator
+                          label="تنظیمات دکمه collapse">
+          <action-button-option-panel v-model:options="localOptions.options.collapsedButtonOptions" />
         </q-expansion-item>
       </div>
       <div class="col-md-6 q-ml-md">
@@ -131,12 +146,14 @@
 import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 import ProductOptionPanel from 'src/components/Widgets/Product/ProductItem/OptionPanel.vue'
 // import { Product } from 'src/models/Product'
+import ActionButtonOptionPanel from 'components/Widgets/ActionButton/OptionPanel.vue'
 
 export default {
   name: 'ProductListGridOptionPanel',
   components: {
     ProductItem,
-    ProductOptionPanel
+    ProductOptionPanel,
+    ActionButtonOptionPanel
   },
   // mixins: [PageBuilderOptionPanel],
   props: {
@@ -175,11 +192,155 @@ export default {
       dialogProductId: '',
       productDialog: false,
       defaultOptions: {
+        collapsedButtonOptions: {
+          name: 'ActionButton',
+          options: {
+            color: null,
+            icon: null,
+            label: null,
+            flat: false,
+            callBack: null,
+            imageSource: null,
+            className: null,
+            fixed: false,
+            fixedPosition: null,
+            eventArgs: null,
+            hasAction: true,
+            action: null,
+            scrollTo: null,
+            route: null,
+            eventName: null,
+            responsiveSpacing: {
+              xs: {
+                marginTop: null,
+                marginLeft: null,
+                marginRight: null,
+                marginBottom: null,
+                paddingTop: null,
+                paddingLeft: null,
+                paddingRight: null,
+                paddingBottom: null
+              },
+              sm: {
+                marginTop: null,
+                marginLeft: null,
+                marginRight: null,
+                marginBottom: null,
+                paddingTop: null,
+                paddingLeft: null,
+                paddingRight: null,
+                paddingBottom: null
+              },
+              md: {
+                marginTop: null,
+                marginLeft: null,
+                marginRight: null,
+                marginBottom: null,
+                paddingTop: null,
+                paddingLeft: null,
+                paddingRight: null,
+                paddingBottom: null
+              },
+              lg: {
+                marginTop: null,
+                marginLeft: null,
+                marginRight: null,
+                marginBottom: null,
+                paddingTop: null,
+                paddingLeft: null,
+                paddingRight: null,
+                paddingBottom: null
+              },
+              xl: {
+                marginTop: null,
+                marginLeft: null,
+                marginRight: null,
+                marginBottom: null,
+                paddingTop: null,
+                paddingLeft: null,
+                paddingRight: null,
+                paddingBottom: null
+              }
+            }
+          }
+        },
+        expandedButtonOptions: {
+          name: 'ActionButton',
+          options: {
+            color: null,
+            icon: null,
+            label: null,
+            flat: false,
+            callBack: null,
+            imageSource: null,
+            className: null,
+            fixed: false,
+            fixedPosition: null,
+            eventArgs: null,
+            hasAction: true,
+            action: null,
+            scrollTo: null,
+            route: null,
+            eventName: null,
+            responsiveSpacing: {
+              xs: {
+                marginTop: null,
+                marginLeft: null,
+                marginRight: null,
+                marginBottom: null,
+                paddingTop: null,
+                paddingLeft: null,
+                paddingRight: null,
+                paddingBottom: null
+              },
+              sm: {
+                marginTop: null,
+                marginLeft: null,
+                marginRight: null,
+                marginBottom: null,
+                paddingTop: null,
+                paddingLeft: null,
+                paddingRight: null,
+                paddingBottom: null
+              },
+              md: {
+                marginTop: null,
+                marginLeft: null,
+                marginRight: null,
+                marginBottom: null,
+                paddingTop: null,
+                paddingLeft: null,
+                paddingRight: null,
+                paddingBottom: null
+              },
+              lg: {
+                marginTop: null,
+                marginLeft: null,
+                marginRight: null,
+                marginBottom: null,
+                paddingTop: null,
+                paddingLeft: null,
+                paddingRight: null,
+                paddingBottom: null
+              },
+              xl: {
+                marginTop: null,
+                marginLeft: null,
+                marginRight: null,
+                marginBottom: null,
+                paddingTop: null,
+                paddingLeft: null,
+                paddingRight: null,
+                paddingBottom: null
+              }
+            }
+          }
+        },
         options: {
           label: '',
           hasLabel: false,
           hasExpand: false,
-          collapsedHeight: '100%',
+          showInCollapse: 3,
           layout: 'GridRow',
           // labelStyle: {
           //   color: '',

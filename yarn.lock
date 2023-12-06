@@ -6265,7 +6265,7 @@ quasar-ui-q-page-builder@^0.3.1:
     shvl "^3.0.0"
     vue "^3.2.47"
 
-quasar@^2.11.7, quasar@^2.11.9, quasar@^2.12.2, quasar@^2.14.0:
+quasar@^2.11.7, quasar@^2.11.9, quasar@^2.12.2, quasar@^2.14.1:
   version "2.14.1"
   resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.14.1.tgz#3681cca0aff98b8eb5214b00c69dfdfcce58dfc9"
   integrity sha512-TAIGUgHASlL7COS9qqfDKyV2+WGFcHQseIDTzN+yfXaXY5gn/FZqwkEnb87bgOqgGYw8KJerkfZg3aSel+bLPw==
