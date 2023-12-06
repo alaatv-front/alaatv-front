@@ -1,13 +1,15 @@
 <template>
-  <div v-for="(item, index) in data"
-       :key="index"
-       :style="options.style"
-       :class="options.className"
-       class="product-panel-wrapper">
-    <component :is="item.type"
-               :loading="loading"
-               :data="item.data"
-               :options="item.options" />
+  <div class="product-panel-wrapper row">
+    <div v-for="(item, index) in data"
+         :key="index"
+         :style="options.style"
+         class="col-12"
+         :class="options.className">
+      <component :is="item.type"
+                 :loading="loading"
+                 :data="item.data"
+                 :options="item.options" />
+    </div>
   </div>
 </template>
 
@@ -41,6 +43,9 @@ export default {
   data () {
     return {
     }
+  },
+  mounted () {
+    // this.height = this.options.height
   },
   methods: {
     isProduct (item) {

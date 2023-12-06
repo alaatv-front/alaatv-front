@@ -35,7 +35,7 @@
       <q-separator class="header-separator" />
 
     </template>
-    <slot name="body" />
+    <slot name="default" />
   </q-expansion-item>
 </template>
 
