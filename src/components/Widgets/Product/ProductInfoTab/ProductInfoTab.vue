@@ -81,7 +81,7 @@
               </q-tabs>
             </div>
             <div class="col-2">
-              <div class="text-right">
+              <div class="flex justify-end">
                 <q-btn class="size-md"
                        icon="ph:arrow-up"
                        square
