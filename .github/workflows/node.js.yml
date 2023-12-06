@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "master", "dev" ]
   pull_request:
-    branches: [ "dev" ]
+    branches: [ "master", "dev" ]
 
 jobs:
   build:
@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x, 18.x]
+        node-version: [18.x, 20.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -29,4 +29,5 @@ jobs:
     - run: yarn
     - run: yarn lint
     - run: yarn build:ssr --if-present
+    - run: yarn test:unit
     # - run: npm test
