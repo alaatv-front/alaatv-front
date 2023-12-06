@@ -131,6 +131,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "src/css/Theme/spacing";
+@import "src/css/Theme/sizes";
 
 .product-content-wrapper {
   width: 100%;
@@ -147,7 +148,7 @@ export default {
     padding: $space-4 $spacing-none $spacing-none;
     width: 100%;
 
-    @include media-max-width('sm'){
+    @include media-max-width('sm') {
       padding: $spacing-none;
     }
 
