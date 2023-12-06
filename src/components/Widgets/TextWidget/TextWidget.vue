@@ -233,7 +233,7 @@ $responsiveSpacing: (
   font-style: v-bind('localOptions.xl.fontStyle');
   letter-spacing: v-bind('localOptions.xl.letterSpacing');
 
-  @media screen and (width <= 1920px) {
+  @media screen and (width < 1920px) {
     font-size: v-bind('localOptions.lg.fontSize');
     font-weight: v-bind('localOptions.lg.fontWeight');
     font-style: v-bind('localOptions.lg.fontStyle');
@@ -241,7 +241,7 @@ $responsiveSpacing: (
     letter-spacing: v-bind('localOptions.lg.letterSpacing');
   }
 
-  @media screen and (width <= 1440px) {
+  @media screen and (width < 1440px) {
     font-size: v-bind('localOptions.md.fontSize');
     font-weight: v-bind('localOptions.md.fontWeight');
     font-style: v-bind('localOptions.md.fontStyle');
@@ -249,7 +249,7 @@ $responsiveSpacing: (
     letter-spacing: v-bind('localOptions.md.letterSpacing');
   }
 
-  @media screen and (width <= 1024px) {
+  @media screen and (width < 1024px) {
     font-size: v-bind('localOptions.sm.fontSize');
     font-weight: v-bind('localOptions.sm.fontWeight');
     font-style: v-bind('localOptions.sm.fontStyle');
@@ -257,7 +257,7 @@ $responsiveSpacing: (
     letter-spacing: v-bind('localOptions.sm.letterSpacing');
   }
 
-  @media screen and (width <= 600px) {
+  @media screen and (width < 600px) {
     font-size: v-bind('localOptions.xs.fontSize');
     font-weight: v-bind('localOptions.xs.fontWeight');
     font-style: v-bind('localOptions.xs.fontStyle');
