@@ -8,9 +8,9 @@
     </div>
     <div v-else
          class="product-content row justify-center items-center"
-         :class="{'expand-panel': options.hasExpand, ...options.className}"
          :style="options.style">
       <div v-for="(product, index) in data"
+           v-show="showProduct(index)"
            :key="index"
            :class="colClassName"
            class="product-item">
@@ -18,21 +18,13 @@
       </div>
     </div>
     <div v-if="options.hasExpand"
-         class="col-12 text-center view-more">
-      <q-btn v-if="isPanelCollapsed"
-             label="مشاهده بیشتر"
-             class="size-lg"
-             flat
-             text-color="neutral-4"
-             icon="ph:caret-down"
-             @click="expandPanel" />
-      <q-btn v-else
-             label="بستن"
-             class="size-lg"
-             flat
-             text-color="neutral-4"
-             icon="ph:caret-up"
-             @click="collapsePanel" />
+         class="col-12 view-more">
+      <action-button v-if="isPanelCollapsed"
+                     class="action-btn"
+                     :options="options.expandedButtonOptions" />
+      <action-button v-else
+                     class="action-btn"
+                     :options="options.collapsedButtonOptions" />
     </div>
   </div>
 </template>
@@ -41,12 +33,14 @@
 import ProductRowSkeleton from '../ProductRowSkeleton.vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 import ProductItem from '../../../ProductItem/ProductItem.vue'
+import ActionButton from 'components/Widgets/ActionButton/ActionButton.vue'
 
 export default {
   name: 'GridRow',
   components: {
     ProductItem,
-    ProductRowSkeleton
+    ProductRowSkeleton,
+    ActionButton
   },
   mixins: [PageBuilderOptionPanel],
   props: {
@@ -65,8 +59,6 @@ export default {
   },
   data () {
     return {
-      collapseHeight: '',
-      height: '100%',
       isPanelCollapsed: true,
       defaultOptions: {
         colNumber: 'col',
@@ -119,16 +111,21 @@ export default {
     }
   },
   mounted () {
-    this.height = this.options.collapsedHeight
+    this.$bus.on('expand', this.expandPanel)
+    this.$bus.on('collapse', this.collapsePanel)
   },
   methods: {
+    showProduct (index) {
+      if (this.isPanelCollapsed) {
+        return index < 3
+      } else {
+        return true
+      }
+    },
     expandPanel () {
-      this.collapseHeight = this.height
       this.isPanelCollapsed = false
-      this.height = '100%'
     },
     collapsePanel () {
-      this.height = this.collapseHeight
       this.isPanelCollapsed = true
     }
   }
@@ -143,17 +140,15 @@ export default {
 
   .view-more {
     margin-top: $space-5;
+    .action-btn {
+      place-content: center;
+    }
   }
 
   .product-content {
     //justify-content: flex-start;
-    padding: $space-3 0 $space-8;
+    padding: $space-4 0 0;
     width: 100%;
-    &.expand-panel {
-      padding: $space-3 0 0;
-      overflow-y: hidden;
-      height: v-bind('height');
-    }
 
     @media screen and (width <= 600px){
       padding: 0;
