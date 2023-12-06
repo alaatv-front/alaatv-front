@@ -1,0 +1,1216 @@
+[
+  {
+    "data": {
+      "rows": [
+        {
+          "cols": [
+            {
+              "widgets": [
+                {
+                  "name": "YaldaOmen",
+                  "options": {
+                    "omen": {
+                      "title": {
+                        "text": "<font color=\"#df4f4c\" face=\"ModamFaNumWeb\">فال و عیدی به راهه !</font>",
+                        "fontFamily": null,
+                        "color": null,
+                        "fontSize": null,
+                        "fontWeight": null,
+                        "fontStyle": null,
+                        "letterSpacing": null,
+                        "xs": {
+                          "fontSize": "24px",
+                          "fontWeight": "700",
+                          "fontStyle": "normal",
+                          "lineHeight": "150%",
+                          "letterSpacing": "-0.72px"
+                        },
+                        "sm": {
+                          "fontSize": "24px",
+                          "fontWeight": "700",
+                          "fontStyle": null,
+                          "lineHeight": "150%",
+                          "letterSpacing": "-0.72px"
+                        },
+                        "md": {
+                          "fontSize": "28px",
+                          "fontWeight": "700",
+                          "fontStyle": "normal",
+                          "lineHeight": "150%",
+                          "letterSpacing": " -0.84px"
+                        },
+                        "lg": {
+                          "fontSize": "32px",
+                          "fontWeight": "700",
+                          "fontStyle": "normal",
+                          "lineHeight": "150%",
+                          "letterSpacing": "-0.96px"
+                        },
+                        "xl": {
+                          "fontSize": "32px",
+                          "fontWeight": "700",
+                          "fontStyle": "normal",
+                          "lineHeight": "150%",
+                          "letterSpacing": "-0.96px"
+                        },
+                        "responsiveSpacing": {
+                          "xs": {
+                            "marginTop": null,
+                            "marginLeft": null,
+                            "marginRight": null,
+                            "marginBottom": null,
+                            "paddingTop": null,
+                            "paddingLeft": null,
+                            "paddingRight": null,
+                            "paddingBottom": null
+                          },
+                          "sm": {
+                            "marginTop": null,
+                            "marginLeft": null,
+                            "marginRight": null,
+                            "marginBottom": null,
+                            "paddingTop": null,
+                            "paddingLeft": null,
+                            "paddingRight": null,
+                            "paddingBottom": null
+                          },
+                          "md": {
+                            "marginTop": null,
+                            "marginLeft": null,
+                            "marginRight": null,
+                            "marginBottom": null,
+                            "paddingTop": null,
+                            "paddingLeft": null,
+                            "paddingRight": null,
+                            "paddingBottom": null
+                          },
+                          "lg": {
+                            "marginTop": null,
+                            "marginLeft": null,
+                            "marginRight": null,
+                            "marginBottom": null,
+                            "paddingTop": null,
+                            "paddingLeft": null,
+                            "paddingRight": null,
+                            "paddingBottom": null
+                          },
+                          "xl": {
+                            "marginTop": null,
+                            "marginLeft": null,
+                            "marginRight": null,
+                            "marginBottom": null,
+                            "paddingTop": null,
+                            "paddingLeft": null,
+                            "paddingRight": null,
+                            "paddingBottom": null
+                          }
+                        },
+                        "hasTheme": null,
+                        "activeTheme": "default",
+                        "themes": {
+                          "theme1": {
+                            "borderColor": null,
+                            "borderSize": null,
+                            "borderWidth": null,
+                            "borderHeight": null,
+                            "top": null,
+                            "left": null,
+                            "bottom": null,
+                            "right": null
+                          }
+                        },
+                        "responsiveShow": {
+                          "xl": true,
+                          "lg": true,
+                          "md": true,
+                          "sm": true,
+                          "xs": true
+                        },
+                        "style": {}
+                      },
+                      "description": {
+                        "text": "<div style=\"text-align: center;\"><span style=\"font-family: ModamFaNumWeb;\"><font color=\"#303030\">اول نیت کن و روی یکی از انار ها بزن تا فال حافظ آلایی رو برات بگیریم. یه عیدی هم علاوه بر تخفیفای یلدایی برات گذاشتیم که هم فال باشه و هم تماشا</font></span></div>",
+                        "fontFamily": null,
+                        "color": null,
+                        "fontSize": null,
+                        "fontWeight": null,
+                        "fontStyle": null,
+                        "letterSpacing": null,
+                        "xs": {
+                          "fontSize": "16px",
+                          "fontWeight": "400",
+                          "fontStyle": "normal",
+                          "lineHeight": "150%",
+                          "letterSpacing": "-0.48px"
+                        },
+                        "sm": {
+                          "fontSize": "16px",
+                          "fontWeight": "400",
+                          "fontStyle": "normal",
+                          "lineHeight": "150%",
+                          "letterSpacing": "-0.48px"
+                        },
+                        "md": {
+                          "fontSize": "18px",
+                          "fontWeight": "400",
+                          "fontStyle": "normal",
+                          "lineHeight": "150%",
+                          "letterSpacing": "-0.54px"
+                        },
+                        "lg": {
+                          "fontSize": "18px",
+                          "fontWeight": "400",
+                          "fontStyle": "normal",
+                          "lineHeight": "150%",
+                          "letterSpacing": "-0.54px"
+                        },
+                        "xl": {
+                          "fontSize": "18px",
+                          "fontWeight": "400",
+                          "fontStyle": "normal",
+                          "lineHeight": "150%",
+                          "letterSpacing": "-0.54px"
+                        },
+                        "responsiveSpacing": {
+                          "xs": {
+                            "marginTop": null,
+                            "marginLeft": null,
+                            "marginRight": null,
+                            "marginBottom": null,
+                            "paddingTop": null,
+                            "paddingLeft": null,
+                            "paddingRight": null,
+                            "paddingBottom": null
+                          },
+                          "sm": {
+                            "marginTop": null,
+                            "marginLeft": null,
+                            "marginRight": null,
+                            "marginBottom": null,
+                            "paddingTop": null,
+                            "paddingLeft": null,
+                            "paddingRight": null,
+                            "paddingBottom": null
+                          },
+                          "md": {
+                            "marginTop": null,
+                            "marginLeft": null,
+                            "marginRight": null,
+                            "marginBottom": null,
+                            "paddingTop": null,
+                            "paddingLeft": null,
+                            "paddingRight": null,
+                            "paddingBottom": null
+                          },
+                          "lg": {
+                            "marginTop": null,
+                            "marginLeft": null,
+                            "marginRight": null,
+                            "marginBottom": null,
+                            "paddingTop": null,
+                            "paddingLeft": null,
+                            "paddingRight": null,
+                            "paddingBottom": null
+                          },
+                          "xl": {
+                            "marginTop": null,
+                            "marginLeft": null,
+                            "marginRight": null,
+                            "marginBottom": null,
+                            "paddingTop": null,
+                            "paddingLeft": null,
+                            "paddingRight": null,
+                            "paddingBottom": null
+                          }
+                        },
+                        "hasTheme": null,
+                        "activeTheme": "default",
+                        "themes": {
+                          "theme1": {
+                            "borderColor": null,
+                            "borderSize": null,
+                            "borderWidth": null,
+                            "borderHeight": null,
+                            "top": null,
+                            "left": null,
+                            "bottom": null,
+                            "right": null
+                          }
+                        },
+                        "responsiveShow": {
+                          "xl": true,
+                          "lg": true,
+                          "md": true,
+                          "sm": true,
+                          "xs": true
+                        },
+                        "style": {}
+                      },
+                      "image": "https://nodes.alaatv.com/upload/alaaPages/2023-12/icon1701678897.png",
+                      "poem": {
+                        "firstVerse": {
+                          "text": "<font color=\"#21965a\" face=\"ModamFaNumWeb\">ای حافـظ آلایـی، تـو مرهــم هـر حالــی</font>",
+                          "fontFamily": null,
+                          "color": null,
+                          "fontSize": null,
+                          "fontWeight": null,
+                          "fontStyle": null,
+                          "letterSpacing": null,
+                          "xs": {
+                            "fontSize": "16px",
+                            "fontWeight": "600",
+                            "fontStyle": "normal",
+                            "lineHeight": "160%",
+                            "letterSpacing": "-0.32px"
+                          },
+                          "sm": {
+                            "fontSize": "16px",
+                            "fontWeight": "600",
+                            "fontStyle": "normal",
+                            "lineHeight": "160%",
+                            "letterSpacing": "-0.32px"
+                          },
+                          "md": {
+                            "fontSize": "20px",
+                            "fontWeight": "600",
+                            "fontStyle": "normal",
+                            "lineHeight": "160%",
+                            "letterSpacing": "-0.4px"
+                          },
+                          "lg": {
+                            "fontSize": "20px",
+                            "fontWeight": "600",
+                            "fontStyle": "normal",
+                            "lineHeight": "160%",
+                            "letterSpacing": "-0.4px"
+                          },
+                          "xl": {
+                            "fontSize": "20px",
+                            "fontWeight": "600",
+                            "fontStyle": "normal",
+                            "lineHeight": "160%",
+                            "letterSpacing": "-0.4px"
+                          },
+                          "responsiveSpacing": {
+                            "xs": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            },
+                            "sm": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            },
+                            "md": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            },
+                            "lg": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            },
+                            "xl": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            }
+                          },
+                          "hasTheme": null,
+                          "activeTheme": "default",
+                          "themes": {
+                            "theme1": {
+                              "borderColor": null,
+                              "borderSize": null,
+                              "borderWidth": null,
+                              "borderHeight": null,
+                              "top": null,
+                              "left": null,
+                              "bottom": null,
+                              "right": null
+                            }
+                          },
+                          "responsiveShow": {
+                            "xl": true,
+                            "lg": true,
+                            "md": true,
+                            "sm": true,
+                            "xs": true
+                          },
+                          "style": {}
+                        },
+                        "secondVerse": {
+                          "text": "<font color=\"#21965a\" face=\"ModamFaNumWeb\">من طالب یک فالم، بر من بنما شانسی</font>",
+                          "fontFamily": null,
+                          "color": null,
+                          "fontSize": null,
+                          "fontWeight": null,
+                          "fontStyle": null,
+                          "letterSpacing": null,
+                          "xs": {
+                            "fontSize": "16px",
+                            "fontWeight": "600",
+                            "fontStyle": null,
+                            "lineHeight": "160%",
+                            "letterSpacing": "-0.32px"
+                          },
+                          "sm": {
+                            "fontSize": "16px",
+                            "fontWeight": "600",
+                            "fontStyle": "normal",
+                            "lineHeight": "160%",
+                            "letterSpacing": "-0.32px"
+                          },
+                          "md": {
+                            "fontSize": "20px",
+                            "fontWeight": "600",
+                            "fontStyle": "normal",
+                            "lineHeight": "160%",
+                            "letterSpacing": "-0.4px"
+                          },
+                          "lg": {
+                            "fontSize": "20px",
+                            "fontWeight": "600",
+                            "fontStyle": "normal",
+                            "lineHeight": "160%",
+                            "letterSpacing": "-0.4px"
+                          },
+                          "xl": {
+                            "fontSize": "20px",
+                            "fontWeight": "600",
+                            "fontStyle": "normal",
+                            "lineHeight": "160%",
+                            "letterSpacing": "-0.4px"
+                          },
+                          "responsiveSpacing": {
+                            "xs": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            },
+                            "sm": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            },
+                            "md": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            },
+                            "lg": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            },
+                            "xl": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            }
+                          },
+                          "hasTheme": null,
+                          "activeTheme": "default",
+                          "themes": {
+                            "theme1": {
+                              "borderColor": null,
+                              "borderSize": null,
+                              "borderWidth": null,
+                              "borderHeight": null,
+                              "top": null,
+                              "left": null,
+                              "bottom": null,
+                              "right": null
+                            }
+                          },
+                          "responsiveShow": {
+                            "xl": true,
+                            "lg": true,
+                            "md": true,
+                            "sm": true,
+                            "xs": true
+                          },
+                          "style": {}
+                        }
+                      }
+                    },
+                    "bodymovin": {
+                      "loop": false,
+                      "animate": "in & out",
+                      "autoplay": true,
+                      "xs": {
+                        "directory": "https://nodes.alaatv.com/upload/alaaPages/2023-12/startS1701700018.json",
+                        "directory2": "https://nodes.alaatv.com/upload/alaaPages/2023-12/endS1701700111.json",
+                        "style": {
+                          "width": "67px",
+                          "height": "89px"
+                        }
+                      },
+                      "sm": {
+                        "directory": "https://nodes.alaatv.com/upload/alaaPages/2023-12/startS1701700018.json",
+                        "directory2": "https://nodes.alaatv.com/upload/alaaPages/2023-12/endS1701700111.json",
+                        "style": {
+                          "width": "67px",
+                          "height": "89px"
+                        }
+                      },
+                      "md": {
+                        "directory": "https://nodes.alaatv.com/upload/alaaPages/2023-12/StartL1701699885.json",
+                        "directory2": "https://nodes.alaatv.com/upload/alaaPages/2023-12/endL1701699724.json",
+                        "style": {
+                          "width": "78px",
+                          "height": "104px"
+                        }
+                      },
+                      "lg": {
+                        "directory": "https://nodes.alaatv.com/upload/alaaPages/2023-12/StartL1701699885.json",
+                        "directory2": "https://nodes.alaatv.com/upload/alaaPages/2023-12/endL1701699724.json",
+                        "style": {
+                          "width": "78px",
+                          "height": "104px"
+                        }
+                      },
+                      "xl": {
+                        "directory": "https://nodes.alaatv.com/upload/alaaPages/2023-12/StartL1701699885.json",
+                        "directory2": "https://nodes.alaatv.com/upload/alaaPages/2023-12/endL1701699724.json",
+                        "style": {
+                          "width": "78px",
+                          "height": "104px"
+                        }
+                      },
+                      "action": {
+                        "hasAction": true,
+                        "actionName": "event",
+                        "scrollTo": null,
+                        "route": null,
+                        "eventName": "yaldaGiftDialog",
+                        "eventArgs": null
+                      },
+                      "style": {}
+                    },
+                    "yaldaGiftDialogContent": {
+                      "poemAndOmenList": [
+                        {
+                          "poem1": {
+                            "text": "<div style=\"text-align: center;\"><font face=\"ModamFaNumWeb\">گر آن رتبه ممتازی به دست آرم در این سالا</font></div><div style=\"text-align: center;\"><font face=\"ModamFaNumWeb\">به خال هندویش بخشم سوشال و سریال را</font></div><div style=\"text-align: center;\"><font face=\"ModamFaNumWeb\"></font></div>",
+                            "fontFamily": null,
+                            "color": null,
+                            "fontSize": null,
+                            "fontWeight": null,
+                            "fontStyle": null,
+                            "letterSpacing": null,
+                            "xs": {
+                              "fontSize": "14px",
+                              "fontWeight": "500",
+                              "fontStyle": "normal",
+                              "lineHeight": "normal",
+                              "letterSpacing": "-0.42px"
+                            },
+                            "sm": {
+                              "fontSize": "14px",
+                              "fontWeight": "500",
+                              "fontStyle": null,
+                              "lineHeight": "normal",
+                              "letterSpacing": "-0.42px"
+                            },
+                            "md": {
+                              "fontSize": "18px",
+                              "fontWeight": "400",
+                              "fontStyle": "normal",
+                              "lineHeight": "normal",
+                              "letterSpacing": "-0.54px"
+                            },
+                            "lg": {
+                              "fontSize": "18px",
+                              "fontWeight": "400",
+                              "fontStyle": "normal",
+                              "lineHeight": "normal",
+                              "letterSpacing": "-0.54px"
+                            },
+                            "xl": {
+                              "fontSize": "18px",
+                              "fontWeight": "400",
+                              "fontStyle": "normal",
+                              "lineHeight": "normal",
+                              "letterSpacing": "-0.54px"
+                            },
+                            "responsiveSpacing": {
+                              "xs": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": null,
+                                "paddingLeft": null,
+                                "paddingRight": null,
+                                "paddingBottom": null
+                              },
+                              "sm": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": null,
+                                "paddingLeft": null,
+                                "paddingRight": null,
+                                "paddingBottom": null
+                              },
+                              "md": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": null,
+                                "paddingLeft": null,
+                                "paddingRight": null,
+                                "paddingBottom": null
+                              },
+                              "lg": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": null,
+                                "paddingLeft": null,
+                                "paddingRight": null,
+                                "paddingBottom": null
+                              },
+                              "xl": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": null,
+                                "paddingLeft": null,
+                                "paddingRight": null,
+                                "paddingBottom": null
+                              }
+                            },
+                            "hasTheme": null,
+                            "activeTheme": "default",
+                            "themes": {
+                              "theme1": {
+                                "borderColor": null,
+                                "borderSize": null,
+                                "borderWidth": null,
+                                "borderHeight": null,
+                                "top": null,
+                                "left": null,
+                                "bottom": null,
+                                "right": null
+                              }
+                            },
+                            "responsiveShow": {
+                              "xl": true,
+                              "lg": true,
+                              "md": true,
+                              "sm": true,
+                              "xs": true
+                            },
+                            "style": {}
+                          },
+                          "poem2": {
+                            "text": "<div style=\"text-align: center;\"><font face=\"ModamFaNumWeb\">ز عشق ناتمام ما به آن رتبه بحثی نیست</font></div><div style=\"text-align: center;\"><font face=\"ModamFaNumWeb\">به آب و رنگ و خال و خط، چه حاجت رتبه زیبا را؟</font></div>",
+                            "fontFamily": null,
+                            "color": null,
+                            "fontSize": null,
+                            "fontWeight": null,
+                            "fontStyle": null,
+                            "letterSpacing": null,
+                            "xs": {
+                              "fontSize": "14px",
+                              "fontWeight": "500",
+                              "fontStyle": "normal",
+                              "lineHeight": "normal",
+                              "letterSpacing": "-0.42px"
+                            },
+                            "sm": {
+                              "fontSize": "14px",
+                              "fontWeight": "500",
+                              "fontStyle": null,
+                              "lineHeight": "normal",
+                              "letterSpacing": "-0.42px"
+                            },
+                            "md": {
+                              "fontSize": "18px",
+                              "fontWeight": "400",
+                              "fontStyle": "normal",
+                              "lineHeight": "normal",
+                              "letterSpacing": "-0.54px"
+                            },
+                            "lg": {
+                              "fontSize": "18px",
+                              "fontWeight": "400",
+                              "fontStyle": "normal",
+                              "lineHeight": "normal",
+                              "letterSpacing": "-0.54px"
+                            },
+                            "xl": {
+                              "fontSize": "18px",
+                              "fontWeight": "400",
+                              "fontStyle": "normal",
+                              "lineHeight": "normal",
+                              "letterSpacing": "-0.54px"
+                            },
+                            "responsiveSpacing": {
+                              "xs": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": null,
+                                "paddingLeft": null,
+                                "paddingRight": null,
+                                "paddingBottom": null
+                              },
+                              "sm": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": null,
+                                "paddingLeft": null,
+                                "paddingRight": null,
+                                "paddingBottom": null
+                              },
+                              "md": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": null,
+                                "paddingLeft": null,
+                                "paddingRight": null,
+                                "paddingBottom": null
+                              },
+                              "lg": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": null,
+                                "paddingLeft": null,
+                                "paddingRight": null,
+                                "paddingBottom": null
+                              },
+                              "xl": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": null,
+                                "paddingLeft": null,
+                                "paddingRight": null,
+                                "paddingBottom": null
+                              }
+                            },
+                            "hasTheme": null,
+                            "activeTheme": "default",
+                            "themes": {
+                              "theme1": {
+                                "borderColor": null,
+                                "borderSize": null,
+                                "borderWidth": null,
+                                "borderHeight": null,
+                                "top": null,
+                                "left": null,
+                                "bottom": null,
+                                "right": null
+                              }
+                            },
+                            "responsiveShow": {
+                              "xl": true,
+                              "lg": true,
+                              "md": true,
+                              "sm": true,
+                              "xs": true
+                            },
+                            "style": {}
+                          },
+                          "omen": {
+                            "text": "<div style=\"text-align: center;\"><font face=\"ModamFaNumWeb\">گر بخواهی تمام عمر خود را در انتظار کسی باشی که برایت کاری انجام دهد؛ هرگز در زندگی موفق نمی شوی. موفقیت جسارت می‌خواهد که تو داری. فالت نیک درآمد و یک عیدی یلدایی از آلا گرفتی و در قبال این نیک بختی شکر واجب است و شکر آن، اولین قدم در راه موفقیت برداشتن است</font></div>",
+                            "fontFamily": null,
+                            "color": null,
+                            "fontSize": null,
+                            "fontWeight": null,
+                            "fontStyle": null,
+                            "letterSpacing": null,
+                            "xs": {
+                              "fontSize": "14px",
+                              "fontWeight": "400",
+                              "fontStyle": "normal",
+                              "lineHeight": "normal",
+                              "letterSpacing": "-0.42px"
+                            },
+                            "sm": {
+                              "fontSize": "14px",
+                              "fontWeight": "400",
+                              "fontStyle": "normal",
+                              "lineHeight": "normal",
+                              "letterSpacing": "-0.42px"
+                            },
+                            "md": {
+                              "fontSize": "18px",
+                              "fontWeight": "400",
+                              "fontStyle": "normal",
+                              "lineHeight": "noramal",
+                              "letterSpacing": "-0.54px"
+                            },
+                            "lg": {
+                              "fontSize": "18px",
+                              "fontWeight": "400",
+                              "fontStyle": "normal",
+                              "lineHeight": "normal",
+                              "letterSpacing": "-0.54px"
+                            },
+                            "xl": {
+                              "fontSize": "18px",
+                              "fontWeight": "400",
+                              "fontStyle": "normal",
+                              "lineHeight": "normal",
+                              "letterSpacing": "-0.54px"
+                            },
+                            "responsiveSpacing": {
+                              "xs": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": null,
+                                "paddingLeft": null,
+                                "paddingRight": null,
+                                "paddingBottom": null
+                              },
+                              "sm": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": null,
+                                "paddingLeft": null,
+                                "paddingRight": null,
+                                "paddingBottom": null
+                              },
+                              "md": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": null,
+                                "paddingLeft": null,
+                                "paddingRight": null,
+                                "paddingBottom": null
+                              },
+                              "lg": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": null,
+                                "paddingLeft": null,
+                                "paddingRight": null,
+                                "paddingBottom": null
+                              },
+                              "xl": {
+                                "marginTop": null,
+                                "marginLeft": null,
+                                "marginRight": null,
+                                "marginBottom": null,
+                                "paddingTop": null,
+                                "paddingLeft": null,
+                                "paddingRight": null,
+                                "paddingBottom": null
+                              }
+                            },
+                            "hasTheme": null,
+                            "activeTheme": "default",
+                            "themes": {
+                              "theme1": {
+                                "borderColor": null,
+                                "borderSize": null,
+                                "borderWidth": null,
+                                "borderHeight": null,
+                                "top": null,
+                                "left": null,
+                                "bottom": null,
+                                "right": null
+                              }
+                            },
+                            "responsiveShow": {
+                              "xl": true,
+                              "lg": true,
+                              "md": true,
+                              "sm": true,
+                              "xs": true
+                            },
+                            "style": {}
+                          }
+                        }
+                      ],
+                      "congratulationMessage": {
+                        "text": "<font face=\"ModamFaNumWeb\">مبلغ این عیدی از کل مبلغ سبد خریدت حین ثبت نام هر دوره ای به صورت خودکار کسر میشه. فقط تا  ۱۳ دی ماه فرصت داری</font>",
+                        "fontFamily": null,
+                        "color": null,
+                        "fontSize": null,
+                        "fontWeight": null,
+                        "fontStyle": null,
+                        "letterSpacing": null,
+                        "xs": {
+                          "fontSize": "14px",
+                          "fontWeight": "400",
+                          "fontStyle": "normal",
+                          "lineHeight": "normal",
+                          "letterSpacing": "-0.42px"
+                        },
+                        "sm": {
+                          "fontSize": "14px",
+                          "fontWeight": "400",
+                          "fontStyle": "normal",
+                          "lineHeight": "normal",
+                          "letterSpacing": "-0.42px"
+                        },
+                        "md": {
+                          "fontSize": "16px",
+                          "fontWeight": "400",
+                          "fontStyle": "normal",
+                          "lineHeight": "normal",
+                          "letterSpacing": " -0.48px"
+                        },
+                        "lg": {
+                          "fontSize": "16px",
+                          "fontWeight": "400",
+                          "fontStyle": "normal",
+                          "lineHeight": "normal",
+                          "letterSpacing": " -0.48px"
+                        },
+                        "xl": {
+                          "fontSize": "16px",
+                          "fontWeight": "400",
+                          "fontStyle": "normal",
+                          "lineHeight": "normal",
+                          "letterSpacing": " -0.48px"
+                        },
+                        "responsiveSpacing": {
+                          "xs": {
+                            "marginTop": null,
+                            "marginLeft": null,
+                            "marginRight": null,
+                            "marginBottom": null,
+                            "paddingTop": null,
+                            "paddingLeft": null,
+                            "paddingRight": null,
+                            "paddingBottom": null
+                          },
+                          "sm": {
+                            "marginTop": null,
+                            "marginLeft": null,
+                            "marginRight": null,
+                            "marginBottom": null,
+                            "paddingTop": null,
+                            "paddingLeft": null,
+                            "paddingRight": null,
+                            "paddingBottom": null
+                          },
+                          "md": {
+                            "marginTop": null,
+                            "marginLeft": null,
+                            "marginRight": null,
+                            "marginBottom": null,
+                            "paddingTop": null,
+                            "paddingLeft": null,
+                            "paddingRight": null,
+                            "paddingBottom": null
+                          },
+                          "lg": {
+                            "marginTop": null,
+                            "marginLeft": null,
+                            "marginRight": null,
+                            "marginBottom": null,
+                            "paddingTop": null,
+                            "paddingLeft": null,
+                            "paddingRight": null,
+                            "paddingBottom": null
+                          },
+                          "xl": {
+                            "marginTop": null,
+                            "marginLeft": null,
+                            "marginRight": null,
+                            "marginBottom": null,
+                            "paddingTop": null,
+                            "paddingLeft": null,
+                            "paddingRight": null,
+                            "paddingBottom": null
+                          }
+                        },
+                        "hasTheme": null,
+                        "activeTheme": "default",
+                        "themes": {
+                          "theme1": {
+                            "borderColor": null,
+                            "borderSize": null,
+                            "borderWidth": null,
+                            "borderHeight": null,
+                            "top": null,
+                            "left": null,
+                            "bottom": null,
+                            "right": null
+                          }
+                        },
+                        "responsiveShow": {
+                          "xl": true,
+                          "lg": true,
+                          "md": true,
+                          "sm": true,
+                          "xs": true
+                        },
+                        "style": {}
+                      },
+                      "style": {}
+                    },
+                    "style": {}
+                  }
+                }
+              ],
+              "options": {}
+            }
+          ],
+          "options": {
+            "className": "",
+            "height": "auto",
+            "boxed": true,
+            "boxedWidth": "1360px",
+            "paddingOfBoxedInFullWidth": "",
+            "responsiveBoxedWidth": true,
+            "responsiveBoxedWidths": {
+              "xs": {
+                "width": "320px"
+              },
+              "sm": {
+                "width": "536px"
+              },
+              "md": {
+                "width": "960px"
+              },
+              "lg": {
+                "width": "1360px"
+              },
+              "xl": {
+                "width": "1360px"
+              }
+            },
+            "gutterXSize": "md",
+            "gutterYSize": "md",
+            "absolute": "none",
+            "backgrounds": {
+              "xs": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "sm": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "md": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "lg": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "xl": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              }
+            },
+            "responsiveSpacing": {
+              "xs": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "sm": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "md": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "lg": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "xl": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              }
+            },
+            "boxShadows": [],
+            "borderStyle": {
+              "borderCssString": "",
+              "borderRadiusCssString": ""
+            },
+            "cssHoverEffects": {
+              "boxShadows": [],
+              "borderStyle": {
+                "borderCssString": "",
+                "borderRadiusCssString": ""
+              },
+              "transition": {
+                "time": 0
+              },
+              "transform": {
+                "rotate": null,
+                "scaleX": null,
+                "scaleY": null,
+                "skewX": null,
+                "skewY": null,
+                "translateX": null,
+                "translateY": null
+              }
+            },
+            "responsiveShow": {
+              "xl": true,
+              "lg": true,
+              "md": true,
+              "sm": true,
+              "xs": true
+            },
+            "alignment": {
+              "justifyContent": {
+                "global": null,
+                "xl": null,
+                "lg": null,
+                "md": null,
+                "sm": null,
+                "xs": null
+              },
+              "alignItems": {
+                "global": null,
+                "xl": null,
+                "lg": null,
+                "md": null,
+                "sm": null,
+                "xs": null
+              },
+              "alignContent": {
+                "global": null,
+                "xl": null,
+                "lg": null,
+                "md": null,
+                "sm": null,
+                "xs": null
+              }
+            },
+            "style": {
+              "maxWidth": null,
+              "width": null
+            }
+          }
+        }
+      ]
+    }
+  }
+]
