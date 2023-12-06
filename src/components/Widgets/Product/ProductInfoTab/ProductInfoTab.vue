@@ -111,6 +111,7 @@
          class="sections">
       <q-intersection @enter="activeTab = 'sections'">
         <course-explain v-model:height="sectionsHeight"
+                        :more-button-label="'مشاهده سرفصل ها'"
                         :content-type="'expansion-panel'"
                         :title="'سرفصل ها'">
           <template v-slot:content>

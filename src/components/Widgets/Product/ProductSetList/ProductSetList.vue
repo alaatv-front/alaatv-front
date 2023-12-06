@@ -2,8 +2,12 @@
   <div class="product-page">
     <q-list v-if="!setListLoading"
             class="rounded-borders">
-      <q-banner class="bg-light-blue-1">
+      <q-banner class="info-banner">
         سرفصل های زیر تاکنون مطابق برنامه مطالعاتی منتشر شده است.
+        <template v-slot:avatar>
+          <q-icon name="ph:info"
+                  size="xs" />
+        </template>
       </q-banner>
       <div v-if="setSections.length > 0"
            class="set-sections">
@@ -19,12 +23,13 @@
           <expansion-item-component v-for="(set, index) in sectoin.sets"
                                     :key="index"
                                     :hasAction="true"
+                                    class="expansion-item"
                                     icon="ph:book-open"
                                     :label="set.short_title.split('-')[2]"
                                     :grey="true"
                                     @show="getSet(set.id)">
             <template v-slot:action>
-              <div class="duration-column gt-xs">
+              <div class="duration-column gt-xs body-2 ">
                 {{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}
               </div>
             </template>
@@ -351,6 +356,13 @@ $page-size-md: map-get($sizes, "md");
         margin-top: -$space-2;
       }
     }
+  .expansion-item {
+    margin: $space-5 0;
+
+    @media screen and (width <= $page-size-md){
+      margin: $space-4 0;
+    }
+  }
   }
 }
 
@@ -361,14 +373,6 @@ $page-size-md: map-get($sizes, "md");
 
 .product-page {
   max-width: 100%;
-
-  &:deep(.q-expansion-item) {
-    margin: $space-2 0;
-
-    @media screen and (width <= $page-size-md){
-      margin: $space-2 0;
-    }
-  }
 
   &:deep(.q-item) {
     padding: 12px 24px;
