@@ -29,5 +29,5 @@ jobs:
     - run: yarn
     - run: yarn lint
     - run: yarn build:ssr --if-present
-    - run: yarn test:unit --if-present
+    - run: yarn test:unit
     # - run: npm test
