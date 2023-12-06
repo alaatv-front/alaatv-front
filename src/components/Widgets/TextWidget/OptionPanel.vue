@@ -177,14 +177,6 @@ export default defineComponent({
       themes: ['default', 'theme1']
     }
   },
-  watch: {
-    localOptions: {
-      handler (newVal) {
-        this.$emit('update:options', newVal)
-      },
-      deep: true
-    }
-  },
   mounted () {
     const windowWidth = window.innerWidth
     if (windowWidth > 1920) {
