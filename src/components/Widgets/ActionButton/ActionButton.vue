@@ -228,6 +228,9 @@ export default {
       }
       return this.localOptions.showInAuth ? this.isUserLogin : !this.isUserLogin
     },
+    actionBtnDisplayAuth () {
+      return this.displayAuth ? 'initial' : 'none'
+    },
     shadows () {
       const shadows = []
       this.localOptions.boxShadows.forEach(shadow => {
@@ -310,9 +313,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "quasar-ui-q-page-builder/src/components/Component";
+@import "quasar-ui-q-page-builder/src/components/Component.scss";
 
 $shadows: v-bind('shadows');
+$displayAuth: v-bind('actionBtnDisplayAuth');
 $responsiveSpacing: (
   xs: (
     marginTop: v-bind('localOptions.responsiveSpacing.xs.marginTop'),
@@ -365,7 +369,6 @@ $responsiveSpacing: (
     paddingBottom: v-bind('localOptions.responsiveSpacing.xl.paddingBottom'),
   )
 );
-$displayAuth: v-bind('displayAuth ? "initial" :  "none"');
 
 .drawer {
   z-index: 100;
