@@ -1268,7 +1268,6 @@ export default {
   },
   methods: {
     scrollToElement (className) {
-      debugger
       const el = document.getElementsByClassName(className)[0]
       const headerOffset = 0
       const elementPosition = el.getBoundingClientRect().top

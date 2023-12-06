@@ -9,8 +9,7 @@
     <div v-else
          class="product-content row justify-center items-center"
          :style="options.style">
-      <div v-for="(product, index) in data"
-           v-show="showProduct(index)"
+      <div v-for="(product, index) in displayableProducts"
            :key="index"
            :class="colClassName"
            class="product-item">
@@ -21,10 +20,12 @@
          class="col-12 view-more">
       <action-button v-if="isPanelCollapsed"
                      class="action-btn"
-                     :options="options.expandedButtonOptions" />
+                     :options="options.expandedButtonOptions"
+                     @click="expandPanel" />
       <action-button v-else
                      class="action-btn"
-                     :options="options.collapsedButtonOptions" />
+                     :options="options.collapsedButtonOptions"
+                     @click="collapsePanel" />
     </div>
   </div>
 </template>
@@ -104,24 +105,20 @@ export default {
     }
   },
   computed: {
+    displayableProducts () {
+      if (this.isPanelCollapsed) {
+        return this.data.slice(0, 3)
+      } else {
+        return this.data
+      }
+    },
     colClassName () {
       const colNumber = this.options.colNumber ? this.options.colNumber : ''
 
       return colNumber
     }
   },
-  mounted () {
-    this.$bus.on('expand', this.expandPanel)
-    this.$bus.on('collapse', this.collapsePanel)
-  },
   methods: {
-    showProduct (index) {
-      if (this.isPanelCollapsed) {
-        return index < 3
-      } else {
-        return true
-      }
-    },
     expandPanel () {
       this.isPanelCollapsed = false
     },
@@ -147,15 +144,15 @@ export default {
 
   .product-content {
     //justify-content: flex-start;
-    padding: $space-4 0 0;
+    padding: $space-4 $spacing-none $spacing-none;
     width: 100%;
 
-    @media screen and (width <= 600px){
-      padding: 0;
+    @include media-max-width('sm'){
+      padding: $spacing-none;
     }
 
     .product-item {
-      padding: 5px;
+      padding: $spacing-base;
     }
   }
 }
