@@ -107,7 +107,7 @@ export default {
   computed: {
     displayableProducts () {
       if (this.isPanelCollapsed) {
-        return this.data.slice(0, 3)
+        return this.data.slice(0, this.options.showInCollapse)
       } else {
         return this.data
       }

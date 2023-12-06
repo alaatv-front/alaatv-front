@@ -26,6 +26,11 @@
             <q-checkbox v-model="localOptions.options.hasExpand"
                         label="hasExpand" />
           </div>
+          <div class="col-3">
+            <q-input v-model="localOptions.options.showInCollapse"
+                     type="number"
+                     label="hasExpand" />
+          </div>
         </div>
       </div>
       <div class="col-12 q-pa-md">
@@ -335,6 +340,7 @@ export default {
           label: '',
           hasLabel: false,
           hasExpand: false,
+          showInCollapse: 3,
           layout: 'GridRow',
           // labelStyle: {
           //   color: '',
