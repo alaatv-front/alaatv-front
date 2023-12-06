@@ -1,35 +1,46 @@
 <template>
   <div class="action-btn-wrapper">
-    <q-btn v-if="!localOptions.rightIcon"
-           :label="localOptions.label"
-           :flat="localOptions.flat"
-           :disable="disable"
-           :outline="localOptions.outline"
-           :class="[localOptions.className, responsiveShow]"
-           :style="localOptions.style"
-           class="action-btn"
-           @click="takeAction">
-      <q-icon v-if="localOptions.icon"
-              :name="localOptions.icon" />
+    <div v-if="localOptions.profileMode && isUserLogin"
+         class="profile">
+      <div class="info-name truncate-text">{{user.getFullNameOrPhoneNumber()}}</div>
+      <q-avatar>
+        <lazy-img :src="user.photo"
+                  :alt="'user photo'"
+                  class="full-width" />
+      </q-avatar>
+    </div>
+    <div v-else>
+      <q-btn v-if="!localOptions.rightIcon"
+             :label="localOptions.label"
+             :flat="localOptions.flat"
+             :disable="disable"
+             :outline="localOptions.outline"
+             :class="[localOptions.className, responsiveShow]"
+             :style="localOptions.style"
+             class="action-btn"
+             @click="takeAction">
+        <q-icon v-if="localOptions.icon"
+                :name="localOptions.icon" />
 
-      <img v-if="localOptions.imageSource"
-           :src="localOptions.imageSource"
-           alt="actionBtn">
-    </q-btn>
-    <q-btn v-else
-           :label="localOptions.label"
-           :icon="localOptions.icon"
-           :outline="localOptions.outline"
-           :flat="localOptions.flat"
-           :class="localOptions.className"
-           :style="localOptions.style"
-           :disable="disable"
-           class="action-btn"
-           @click="takeAction">
-      <img v-if="localOptions.imageSource"
-           :src="localOptions.imageSource"
-           alt="actionBtn">
-    </q-btn>
+        <img v-if="localOptions.imageSource"
+             :src="localOptions.imageSource"
+             alt="actionBtn">
+      </q-btn>
+      <q-btn v-else
+             :label="localOptions.label"
+             :icon="localOptions.icon"
+             :outline="localOptions.outline"
+             :flat="localOptions.flat"
+             :class="localOptions.className"
+             :style="localOptions.style"
+             :disable="disable"
+             class="action-btn"
+             @click="takeAction">
+        <img v-if="localOptions.imageSource"
+             :src="localOptions.imageSource"
+             alt="actionBtn">
+      </q-btn>
+    </div>
     <q-layout v-if="localOptions.action === 'hamburger_menu'">
       <q-drawer v-model="drawer"
                 :width="drawerWidth"
@@ -76,10 +87,12 @@ import ImageWidget from 'components/Widgets/ImageWidget/ImageWidget.vue'
 import TextWidget from 'components/Widgets/TextWidget/TextWidget.vue'
 import separatorWidget from 'components/Widgets/Separator/Separator.vue'
 import { defineAsyncComponent } from 'vue'
+import LazyImg from 'components/lazyImg.vue'
 
 export default {
   name: 'ActionButton',
   components: {
+    LazyImg,
     ImageWidget,
     TextWidget,
     separatorWidget,
@@ -313,6 +326,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/Theme/spacing';
 @import "quasar-ui-q-page-builder/src/components/Component.scss";
 
 $shadows: v-bind('shadows');
@@ -429,6 +443,26 @@ $responsiveSpacing: (
     height: 16px;
     align-self: center;
     color: $grey4;
+  }
+
+  .profile{
+    display: flex ;
+    height: 40px;
+    min-height: 40px;
+    align-items: center;
+    .q-avatar{
+      font-size: 40px ;
+    }
+
+    .info-name{
+      width: 120px;
+      height: 100%;
+      display: flex;
+      overflow: hidden;
+      align-items: center;
+      white-space: nowrap;
+      margin-right: $space-2 ;
+    }
   }
 }
 </style>
