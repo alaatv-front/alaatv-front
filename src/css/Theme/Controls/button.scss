@@ -1,14 +1,23 @@
+@use "sass:map";
 @import "src/css/Theme/colors";
 @import "src/css/Theme/radius";
 @import "src/css/Theme/shadow";
 @import "src/css/Theme/spacing";
 @import "src/css/Theme/Typography/typography";
 
+$button-height: (
+  "xs": $space-6,
+  "sm": $space-7,
+  "md": $space-8,
+  "lg": $space-9,
+  "xl": $space-10,
+);
+
 @mixin btn-content-typo($size) {
   @if index(("xs", "sm", "md"), $size) {
-    @include subtitle2;
+    @include button2;
   } @else if index(("lg", "xl"), $size) {
-    @include subtitle1;
+    @include button1;
   }
 }
 
@@ -23,13 +32,23 @@
 @mixin btn-handle-radius($size) {
   $target-radius: $radius-1;
 
-  @if $size == "xs" {
+  @if index(("xs", "sm"), $size) {
     $target-radius: $radius-2;
-  } @else if index(("sm", "md", "lg", "xl"), $size) {
+  } @else if index(("md", "lg", "xl"), $size) {
     $target-radius: $radius-3;
   }
 
   border-radius: $target-radius;
+}
+
+@mixin btn-handle-round-width($size) {
+  $round-width: map.get($button-height, $size);
+  min-width: $round-width !important;
+}
+
+@mixin btn-handle-square-width($size) {
+  $square-width: map.get($button-height, $size);
+  min-width: $square-width !important;
 }
 
 @mixin btn-handle-round-padding($size) {
@@ -70,38 +89,40 @@
 
 @mixin btn_handle_padding($size) {
   $target-padding-x: $space-1;
-  $target-padding-y: $space-2;
+  $target-padding-y: $spacing-none;
 
   @if $size == "xs" {
     $target-padding-x: $space-1;
-    $target-padding-y: $space-2;
   } @else if $size == "sm" {
     $target-padding-x: $space-1;
-    $target-padding-y: $space-3;
   } @else if $size == "md" {
     $target-padding-x: $space-2;
-    $target-padding-y: $space-4;
   } @else if $size == "lg" {
     $target-padding-x: $space-3;
     $target-padding-y: $space-4;
   } @else if $size == "xl" {
     $target-padding-x: $space-4;
-    $target-padding-y: $space-4;
   }
 
-  padding: $target-padding-x $target-padding-y;
+  padding: $target-padding-y $target-padding-x;
+}
+
+@mixin btn-handle-height($size) {
+
+  height: map.get($button-height, $size) !important;
 }
 
 @mixin btn-handle-sizes($size) {
+  @include btn_handle_height($size);
   @include btn-handle-radius($size);
   @include btn_handle_padding($size);
 
   &.q-btn--square {
-    @include btn-handle-square-padding($size);
+    @include btn-handle-square-width($size);
   }
 
   &.q-btn--round {
-    @include btn-handle-round-padding($size);
+    @include btn-handle-round-width($size);
 
     border-radius: $radius-round !important;
   }

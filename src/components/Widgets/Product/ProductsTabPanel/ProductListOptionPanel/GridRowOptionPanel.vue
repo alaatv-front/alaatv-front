@@ -1,29 +1,34 @@
 <template>
   <div class="scroll-row-container">
 
-    <div class="row q-my-xs q-col-gutter-md">
+    <div class="row q-my-xs q-col-gutter-md items-center">
       <div class="col-3">
         <q-checkbox v-model="localOptions.options.hasLabel"
                     label="hasLabel" />
       </div>
       <div v-if="layout === 'ProductShelf'"
            class="col-md-9">
-        <div class="row q-col-gutter-md">
-          <div class="col-md-3">
-            <div class="outsideLabel">label color</div>
+        <div class="row q-col-gutter-md items-center">
+          <div class="col-md-4">
             <q-input v-model="localOptions.options.labelStyle.color"
                      label="label color" />
           </div>
-          <div class="col-md-3">
-            <div class="outsideLabel">label font size</div>
+          <div class="col-md-4">
             <q-input v-model="localOptions.options.labelStyle.fontSize"
                      label="label font size" />
           </div>
-          <div class="col-md-3">
-            <div class="outsideLabel">label align</div>
+          <div class="col-md-4">
             <q-select v-model="localOptions.options.labelStyle.textAlign"
                       :options="textAlignOptions"
                       label="label align" />
+          </div>
+          <div class="col-3">
+            <q-checkbox v-model="localOptions.options.hasExpand"
+                        label="hasExpand" />
+          </div>
+          <div class="col-4">
+            <q-input v-model="localOptions.options.collapsedHeight"
+                     label="collapsed height" />
           </div>
         </div>
       </div>
@@ -172,6 +177,9 @@ export default {
       defaultOptions: {
         options: {
           label: '',
+          hasLabel: false,
+          hasExpand: false,
+          collapsedHeight: '100%',
           layout: 'GridRow',
           // labelStyle: {
           //   color: '',
