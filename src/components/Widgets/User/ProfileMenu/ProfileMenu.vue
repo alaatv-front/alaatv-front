@@ -220,12 +220,12 @@
 import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
-import { mixinWidget, mixinAuthData } from 'src/mixin/Mixins.js'
+import { mixinWidget, mixinAuth } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ProfileMenu',
   components: { LazyImg },
-  mixins: [mixinWidget, mixinAuthData],
+  mixins: [mixinWidget, mixinAuth],
   data () {
     return {
       api: APIGateway.user.APIAdresses.base,

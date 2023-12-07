@@ -112,6 +112,7 @@ export default {
           hasAction: false,
           actionName: null,
           scrollTo: null,
+          headerOffset: 0,
           route: null,
           eventName: null,
           eventArgs: null
