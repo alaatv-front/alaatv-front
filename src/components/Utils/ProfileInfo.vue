@@ -23,19 +23,13 @@
 </template>
 
 <script>
+import { mixinAuth } from 'src/mixin/Mixins.js'
 import LazyImg from 'src/components/lazyImg.vue'
-import mixinAuthData from 'src/mixin/AuthData.js'
 
 export default {
   name: 'ProfileInfo',
   components: { LazyImg },
-  mixins: [
-    mixinAuthData
-  ],
-  data () {
-    return {}
-  }
-
+  mixins: [mixinAuth]
 }
 </script>
 

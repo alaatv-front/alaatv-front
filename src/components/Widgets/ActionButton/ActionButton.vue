@@ -1,6 +1,6 @@
 <template>
   <div class="action-btn-wrapper">
-    <q-btn v-if="!localOptions.rightIcon"
+    <q-btn v-if="!localOptions.rightIcon || (localOptions.profileMode && isUserLogin)"
            :label="localOptions.label"
            :flat="localOptions.flat"
            :disable="disable"
@@ -9,12 +9,22 @@
            :style="localOptions.style"
            class="action-btn"
            @click="takeAction">
-      <q-icon v-if="localOptions.icon"
-              :name="localOptions.icon" />
+      <template v-if=" (localOptions.profileMode && isUserLogin)">
+        <div class="info-name ellipsis">{{user.getFullNameOrPhoneNumber()}}</div>
+        <q-avatar class="user-avatar">
+          <lazy-img :src="user.photo"
+                    :alt="'user photo'"
+                    class="user-img" />
+        </q-avatar>
+      </template>
+      <template v-else>
+        <q-icon v-if="localOptions.icon"
+                :name="localOptions.icon" />
 
-      <img v-if="localOptions.imageSource"
-           :src="localOptions.imageSource"
-           alt="actionBtn">
+        <img v-if="localOptions.imageSource"
+             :src="localOptions.imageSource"
+             alt="actionBtn">
+      </template>
     </q-btn>
     <q-btn v-else
            :label="localOptions.label"
@@ -30,6 +40,7 @@
            :src="localOptions.imageSource"
            alt="actionBtn">
     </q-btn>
+
     <q-layout v-if="localOptions.action === 'hamburger_menu'">
       <q-drawer v-model="drawer"
                 :width="drawerWidth"
@@ -76,10 +87,12 @@ import ImageWidget from 'components/Widgets/ImageWidget/ImageWidget.vue'
 import TextWidget from 'components/Widgets/TextWidget/TextWidget.vue'
 import separatorWidget from 'components/Widgets/Separator/Separator.vue'
 import { defineAsyncComponent } from 'vue'
+import LazyImg from 'components/lazyImg.vue'
 
 export default {
   name: 'ActionButton',
   components: {
+    LazyImg,
     ImageWidget,
     TextWidget,
     separatorWidget,
@@ -229,7 +242,7 @@ export default {
       return this.localOptions.showInAuth ? this.isUserLogin : !this.isUserLogin
     },
     actionBtnDisplayAuth () {
-      return this.displayAuth ? 'initial' : 'none'
+      return this.displayAuth ? 'flex' : 'none'
     },
     shadows () {
       const shadows = []
@@ -313,6 +326,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/Theme/spacing';
 @import "quasar-ui-q-page-builder/src/components/Component.scss";
 
 $shadows: v-bind('shadows');
@@ -422,6 +436,22 @@ $responsiveSpacing: (
       &:deep(.q-focus-helper) {
         display: none;
       }
+    }
+
+    .user-avatar {
+      font-size: 40px;
+      :deep(.lazy-img){
+        border: 1.5px solid #FFC8C7;
+      }
+    }
+
+    .info-name {
+      width: 120px;
+      height: 100%;
+      display: block;
+      vertical-align: middle;
+      padding: 100% 0;
+      margin-right: 8px;
     }
   }
 
