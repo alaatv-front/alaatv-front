@@ -2853,13 +2853,6 @@
                       "eventArgs": null
                     }
                   }
-                },
-                {
-                  "name": "BlackFridayRewardsInDialog",
-                  "options": {
-                    "eventName": "rewards-dialog",
-                    "style": {}
-                  }
                 }
               ],
               "options": {
@@ -3260,8 +3253,8 @@
                       "xl": true,
                       "lg": true,
                       "md": true,
-                      "sm": false,
-                      "xs": false
+                      "sm": true,
+                      "xs": true
                     }
                   }
                 },
@@ -8613,7 +8606,7 @@
                       "responsiveSpacing": {
                         "xs": {
                           "marginTop": null,
-                          "marginLeft": null,
+                          "marginLeft": "4px",
                           "marginRight": null,
                           "marginBottom": null,
                           "paddingTop": null,
@@ -8623,7 +8616,7 @@
                         },
                         "sm": {
                           "marginTop": null,
-                          "marginLeft": null,
+                          "marginLeft": "4px",
                           "marginRight": null,
                           "marginBottom": null,
                           "paddingTop": null,
@@ -8633,8 +8626,8 @@
                         },
                         "md": {
                           "marginTop": null,
-                          "marginLeft": null,
-                          "marginRight": null,
+                          "marginLeft": "8px",
+                          "marginRight": "20px",
                           "marginBottom": null,
                           "paddingTop": null,
                           "paddingLeft": null,
@@ -8643,8 +8636,8 @@
                         },
                         "lg": {
                           "marginTop": null,
-                          "marginLeft": null,
-                          "marginRight": null,
+                          "marginLeft": "8px",
+                          "marginRight": "20px",
                           "marginBottom": null,
                           "paddingTop": null,
                           "paddingLeft": null,
@@ -8653,8 +8646,8 @@
                         },
                         "xl": {
                           "marginTop": null,
-                          "marginLeft": null,
-                          "marginRight": null,
+                          "marginLeft": "8px",
+                          "marginRight": "20px",
                           "marginBottom": null,
                           "paddingTop": null,
                           "paddingLeft": null,
@@ -8740,7 +8733,7 @@
                           "paddingBottom": null
                         },
                         "sm": {
-                          "marginTop": null,
+                          "marginTop": "-16px",
                           "marginLeft": null,
                           "marginRight": null,
                           "marginBottom": null,
@@ -8751,7 +8744,7 @@
                         },
                         "md": {
                           "marginTop": null,
-                          "marginLeft": null,
+                          "marginLeft": "-60px",
                           "marginRight": null,
                           "marginBottom": null,
                           "paddingTop": null,
@@ -8761,7 +8754,7 @@
                         },
                         "lg": {
                           "marginTop": null,
-                          "marginLeft": null,
+                          "marginLeft": "-130px",
                           "marginRight": null,
                           "marginBottom": null,
                           "paddingTop": null,
@@ -8771,7 +8764,7 @@
                         },
                         "xl": {
                           "marginTop": null,
-                          "marginLeft": null,
+                          "marginLeft": "-130px",
                           "marginRight": null,
                           "marginBottom": null,
                           "paddingTop": null,
@@ -9595,7 +9588,7 @@
                       "responsiveSpacing": {
                         "xs": {
                           "marginTop": null,
-                          "marginLeft": null,
+                          "marginLeft": "4px",
                           "marginRight": null,
                           "marginBottom": null,
                           "paddingTop": null,
@@ -9605,7 +9598,7 @@
                         },
                         "sm": {
                           "marginTop": null,
-                          "marginLeft": null,
+                          "marginLeft": "4px",
                           "marginRight": null,
                           "marginBottom": null,
                           "paddingTop": null,
@@ -9615,8 +9608,8 @@
                         },
                         "md": {
                           "marginTop": null,
-                          "marginLeft": null,
-                          "marginRight": null,
+                          "marginLeft": "8px",
+                          "marginRight": "20px",
                           "marginBottom": null,
                           "paddingTop": null,
                           "paddingLeft": null,
@@ -9625,8 +9618,8 @@
                         },
                         "lg": {
                           "marginTop": null,
-                          "marginLeft": null,
-                          "marginRight": null,
+                          "marginLeft": "8px",
+                          "marginRight": "20px",
                           "marginBottom": null,
                           "paddingTop": null,
                           "paddingLeft": null,
@@ -9635,8 +9628,8 @@
                         },
                         "xl": {
                           "marginTop": null,
-                          "marginLeft": null,
-                          "marginRight": null,
+                          "marginLeft": "8px",
+                          "marginRight": "20px",
                           "marginBottom": null,
                           "paddingTop": null,
                           "paddingLeft": null,
@@ -9722,7 +9715,7 @@
                           "paddingBottom": null
                         },
                         "sm": {
-                          "marginTop": null,
+                          "marginTop": "-16px",
                           "marginLeft": null,
                           "marginRight": null,
                           "marginBottom": null,
@@ -9733,7 +9726,7 @@
                         },
                         "md": {
                           "marginTop": null,
-                          "marginLeft": null,
+                          "marginLeft": "-15px",
                           "marginRight": null,
                           "marginBottom": null,
                           "paddingTop": null,
@@ -9743,7 +9736,7 @@
                         },
                         "lg": {
                           "marginTop": null,
-                          "marginLeft": null,
+                          "marginLeft": "-85px",
                           "marginRight": null,
                           "marginBottom": null,
                           "paddingTop": null,
@@ -9753,7 +9746,7 @@
                         },
                         "xl": {
                           "marginTop": null,
-                          "marginLeft": null,
+                          "marginLeft": "-85px",
                           "marginRight": null,
                           "marginBottom": null,
                           "paddingTop": null,
@@ -10577,7 +10570,7 @@
                       "responsiveSpacing": {
                         "xs": {
                           "marginTop": null,
-                          "marginLeft": null,
+                          "marginLeft": "4px",
                           "marginRight": null,
                           "marginBottom": null,
                           "paddingTop": null,
@@ -10587,7 +10580,7 @@
                         },
                         "sm": {
                           "marginTop": null,
-                          "marginLeft": null,
+                          "marginLeft": "4px",
                           "marginRight": null,
                           "marginBottom": null,
                           "paddingTop": null,
@@ -10597,8 +10590,8 @@
                         },
                         "md": {
                           "marginTop": null,
-                          "marginLeft": null,
-                          "marginRight": null,
+                          "marginLeft": "8px",
+                          "marginRight": "",
                           "marginBottom": null,
                           "paddingTop": null,
                           "paddingLeft": null,
@@ -10607,8 +10600,8 @@
                         },
                         "lg": {
                           "marginTop": null,
-                          "marginLeft": null,
-                          "marginRight": null,
+                          "marginLeft": "8px",
+                          "marginRight": "20px",
                           "marginBottom": null,
                           "paddingTop": null,
                           "paddingLeft": null,
@@ -10617,8 +10610,8 @@
                         },
                         "xl": {
                           "marginTop": null,
-                          "marginLeft": null,
-                          "marginRight": null,
+                          "marginLeft": "8px",
+                          "marginRight": "20px",
                           "marginBottom": null,
                           "paddingTop": null,
                           "paddingLeft": null,
@@ -10704,7 +10697,7 @@
                           "paddingBottom": null
                         },
                         "sm": {
-                          "marginTop": null,
+                          "marginTop": "-16px",
                           "marginLeft": null,
                           "marginRight": null,
                           "marginBottom": null,
@@ -10715,7 +10708,7 @@
                         },
                         "md": {
                           "marginTop": null,
-                          "marginLeft": null,
+                          "marginLeft": "",
                           "marginRight": null,
                           "marginBottom": null,
                           "paddingTop": null,
@@ -10725,7 +10718,7 @@
                         },
                         "lg": {
                           "marginTop": null,
-                          "marginLeft": null,
+                          "marginLeft": "-60px",
                           "marginRight": null,
                           "marginBottom": null,
                           "paddingTop": null,
@@ -10735,7 +10728,7 @@
                         },
                         "xl": {
                           "marginTop": null,
-                          "marginLeft": null,
+                          "marginLeft": "-60px",
                           "marginRight": null,
                           "marginBottom": null,
                           "paddingTop": null,
@@ -14576,7 +14569,7 @@
         "xs": {
           "size": null,
           "color": null,
-          "image": "linear-gradient(129deg, #CF403D 8.99%, #E85754 26.33%, #F08165 88.22%)",
+          "image": "linear-gradient(270deg, #CF403D 8.99%, #E85754 26.33%, #F08165 88.22%)",
           "repeat": null,
           "position": null,
           "attachment": null
@@ -14584,7 +14577,7 @@
         "sm": {
           "size": null,
           "color": null,
-          "image": "linear-gradient(129deg, #F08165 8.99%, #E85754 26.33%, #CF403D 88.22%)",
+          "image": "linear-gradient(270deg, #CF403D 8.99%, #E85754 26.33%, #F08165 88.22%)",
           "repeat": null,
           "position": null,
           "attachment": null
@@ -14592,7 +14585,7 @@
         "md": {
           "size": null,
           "color": null,
-          "image": "linear-gradient(129deg, #F08165 8.99%, #E85754 26.33%, #CF403D 88.22%)",
+          "image": "linear-gradient(270deg, #CF403D 8.99%, #E85754 26.33%, #F08165 88.22%)",
           "repeat": null,
           "position": null,
           "attachment": null
