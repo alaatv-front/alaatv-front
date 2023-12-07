@@ -343,7 +343,7 @@ $page-size-md: map-get($sizes, "md");
 $page-size-sm: map-get($sizes, "sm");
 $top-page-padding-xl: $space-7;
 $top-page-padding-lg: $space-7;
-$top-page-padding-md: $space-6;
+$top-page-padding-md: $space-12;
 $top-page-padding-sm: $space-5;
 $short-description-height-xl: 150px;
 $short-description-height-lg: 220px;
