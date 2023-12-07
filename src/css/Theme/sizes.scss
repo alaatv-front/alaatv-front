@@ -1,3 +1,14 @@
 $radius-15: 15px;
 $radius-10: 10px;
 $mobileFooterHeight: 72px;
+
+@mixin media-max-width($size) {
+  @if map-has-key($sizes, $size) {
+    $width: map-get($sizes, $size);
+    @media (max-width: #{$width}) {
+      @content;
+    }
+  } @else {
+    @warn "The key `#{$size}` is not in the \$sizes map.";
+  }
+}

@@ -1,3 +1,6 @@
+$header-separator-padding-xl: $space-8;
+$header-separator-padding-md: $space-5;
+
 .q-expansion-item {
   width: 100%;
   border-radius: $radius-4;
@@ -46,8 +49,13 @@
     position: absolute;
     color: $grey-3;
     bottom: 0;
-    left: 20px;
-    width: calc(100% - 40px);
+    left: $header-separator-padding-xl;
+    width: calc(100% - (2*$header-separator-padding-xl));
+
+    @media screen and (width < #{$breakpoint-md}){
+      left: $header-separator-padding-md;
+      width: calc(100% - (2*$header-separator-padding-md));
+    }
 
   }
 
@@ -72,7 +80,7 @@
   }
 
   .q-expansion-item__content {
-    padding: $space-4;
+    padding: $spacing-none $space-5 $space-1;
     border-radius: $radius-3;
   }
 

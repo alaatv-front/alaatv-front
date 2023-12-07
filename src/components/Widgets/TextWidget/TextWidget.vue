@@ -150,6 +150,7 @@ export default {
 
 <style scoped lang="scss">
 @import "quasar-ui-q-page-builder/src/components/Component";
+@import "src/css/Theme/sizes";
 
 $responsiveSpacing: (
   xs: (
@@ -233,7 +234,7 @@ $responsiveSpacing: (
   font-style: v-bind('localOptions.xl.fontStyle');
   letter-spacing: v-bind('localOptions.xl.letterSpacing');
 
-  @media screen and (width <= 1920px) {
+  @include media-max-width('xl') {
     font-size: v-bind('localOptions.lg.fontSize');
     font-weight: v-bind('localOptions.lg.fontWeight');
     font-style: v-bind('localOptions.lg.fontStyle');
@@ -241,7 +242,7 @@ $responsiveSpacing: (
     letter-spacing: v-bind('localOptions.lg.letterSpacing');
   }
 
-  @media screen and (width <= 1440px) {
+  @include media-max-width('lg') {
     font-size: v-bind('localOptions.md.fontSize');
     font-weight: v-bind('localOptions.md.fontWeight');
     font-style: v-bind('localOptions.md.fontStyle');
@@ -249,7 +250,7 @@ $responsiveSpacing: (
     letter-spacing: v-bind('localOptions.md.letterSpacing');
   }
 
-  @media screen and (width <= 1024px) {
+  @include media-max-width('md')  {
     font-size: v-bind('localOptions.sm.fontSize');
     font-weight: v-bind('localOptions.sm.fontWeight');
     font-style: v-bind('localOptions.sm.fontStyle');
@@ -257,7 +258,7 @@ $responsiveSpacing: (
     letter-spacing: v-bind('localOptions.sm.letterSpacing');
   }
 
-  @media screen and (width <= 600px) {
+  @include media-max-width('sm')  {
     font-size: v-bind('localOptions.xs.fontSize');
     font-weight: v-bind('localOptions.xs.fontWeight');
     font-style: v-bind('localOptions.xs.fontStyle');

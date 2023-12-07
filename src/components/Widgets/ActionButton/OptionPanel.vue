@@ -76,29 +76,33 @@
             <q-input v-model="localOptions.borderRadius"
                      label="border radius" />
           </div>
-          <div class="input-container col-md-2">
+          <div class="input-container col-md-1 text-center">
             <div class="outsideLabel">flat</div>
             <q-checkbox v-model="localOptions.flat"
                         left-label />
           </div>
-          <div class="input-container col-md-2">
+          <div class="input-container col-md-1 text-center">
             <div class="outsideLabel">fix</div>
             <q-checkbox v-model="localOptions.fixed"
                         left-label />
           </div>
-          <div class="input-container col-md-2">
+          <div class="input-container col-md-2 text-center">
             <div class="outsideLabel">outline</div>
             <q-checkbox v-model="localOptions.outline"
                         left-label />
           </div>
-          <div class="input-container col-md-2">
+          <div class="input-container col-md-2 text-center">
             <div class="outsideLabel">show separator</div>
             <q-checkbox v-model="localOptions.showSeparator"
                         left-label />
           </div>
-          <div class="input-container col-md-2">
+          <div class="input-container col-md-2 text-center">
             <div class="outsideLabel">right icon</div>
             <q-checkbox v-model="localOptions.rightIcon" />
+          </div>
+          <div class="input-container col-md-2 text-center">
+            <div class="outsideLabel">profile mode</div>
+            <q-checkbox v-model="localOptions.profileMode" />
           </div>
           <div class="input-container col-md-3">
             <q-checkbox v-model="localOptions.displayAuth"
@@ -234,21 +238,21 @@
                     <q-card-section>
                       <div class="row q-col-gutter-md">
                         <div>
-                          <q-btn icon="isax:add"
+                          <q-btn icon="ph:plus-circle"
                                  class="full-width"
                                  color="positive"
                                  label="text"
                                  @click="addTextWidget('topSectionWidgets')" />
                         </div>
                         <div>
-                          <q-btn icon="isax:add"
+                          <q-btn icon="ph:plus-circle"
                                  class="full-width"
                                  color="positive"
                                  label="image"
                                  @click="addImageWidget('topSectionWidgets')" />
                         </div>
                         <div>
-                          <q-btn icon="isax:add"
+                          <q-btn icon="ph:plus-circle"
                                  class="full-width"
                                  color="positive"
                                  label="action button"
@@ -518,6 +522,7 @@ export default defineComponent({
         scrollTo: null,
         route: null,
         eventName: null,
+        profileMode: false,
         drawer: {
           style: {},
           overlay: true,

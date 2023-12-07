@@ -8,6 +8,7 @@ import { CartItem, CartItemList } from 'src/models/CartItem.js'
 class Cart extends Model {
   constructor (data) {
     super(data, [
+      { key: 'id' },
       {
         key: 'couponInfo',
         relatedModel: Coupon
@@ -49,7 +50,7 @@ class Cart extends Model {
       if (this.items.hasProduct(product.id)) {
         return
       }
-      const getItemWithNullGrandIndex = () => this.items.list.findIndex(item => item.grand.id === null)
+      const getItemWithNullGrandIndex = () => this.items.list.findIndex(item => !item.grand.id)
 
       let itemWithNullGrandIndex = getItemWithNullGrandIndex()
       if (itemWithNullGrandIndex === -1) {

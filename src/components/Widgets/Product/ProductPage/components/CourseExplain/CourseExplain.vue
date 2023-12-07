@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import lazyImg from 'components/lazyImg.vue'
+import lazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'CourseExplain',

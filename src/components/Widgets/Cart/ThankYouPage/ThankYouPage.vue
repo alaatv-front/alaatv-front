@@ -48,14 +48,14 @@
 </template>
 
 <script>
-import mixinAuthData from 'src/mixin/AuthData.js'
+import { mixinAuth } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default {
   name: 'ThankYouPage',
-  mixins: [mixinAuthData, mixinEwano],
+  mixins: [mixinAuth, mixinEwano],
   data () {
     return {
       loading: false,
