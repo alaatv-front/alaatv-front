@@ -331,6 +331,7 @@ export default defineComponent({
 @import "src/css/Theme/colors";
 @import "src/css/Theme/spacing";
 @import "src/css/Theme/Typography/typography";
+@import "src/css/Theme/sizes";
 
 $background-height-xl: 367px;
 $background-height-lg: 454px;
@@ -359,7 +360,7 @@ $paddingTop: v-bind('paddingTop');
   justify-content: center;
   align-items: center;
 
-  @media screen and (width <= #{$page-size-sm}) {
+  @include media-max-width('sm'){
     margin-top: $paddingTop;
   }
 
@@ -375,15 +376,15 @@ $paddingTop: v-bind('paddingTop');
     padding-top: $top-page-padding-xl;
     overflow: hidden;
 
-    @media screen and (width <= #{$page-size-lg}) {
+    @include media-max-width('lg') {
       height: $background-height-lg;
       padding-top: $top-page-padding-lg;
     }
-    @media screen and (width <= #{$page-size-md}) {
+    @include media-max-width('md') {
       height: $background-height-md;
       padding-top: $top-page-padding-md;
     }
-    @media screen and (width <= #{$page-size-sm}) {
+    @include media-max-width('sm') {
       padding-top: $top-page-padding-sm;
     }
 
