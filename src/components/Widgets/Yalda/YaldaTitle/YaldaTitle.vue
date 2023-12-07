@@ -255,6 +255,11 @@ $responsiveSpacing: (
         position: absolute;
         right: -29px;
         bottom: 27px;
+
+        @media screen and (width <= 599px) {
+          right: 24px;
+          bottom: 64px;
+        }
       }
 
       .img-blackFriday {
