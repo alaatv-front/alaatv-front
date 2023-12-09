@@ -145,16 +145,7 @@ export default {
 
   .product-content {
     //justify-content: flex-start;
-    padding: $space-4 $spacing-none $spacing-none;
     width: 100%;
-
-    @include media-max-width('sm') {
-      padding: $spacing-none;
-    }
-
-    .product-item {
-      padding: $spacing-base;
-    }
   }
 }
 

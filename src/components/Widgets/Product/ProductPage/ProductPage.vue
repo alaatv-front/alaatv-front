@@ -61,11 +61,8 @@
                     <q-popup-proxy :offset="[10, 10]"
                                    transition-show="flip-up"
                                    transition-hide="flip-down">
-                      <q-banner dense
-                                rounded>
-                        <share-network :url="pageUrl"
-                                       @on-select="shareGiftCard" />
-                      </q-banner>
+                      <share-network :url="pageUrl"
+                                     @on-select="shareGiftCard" />
                     </q-popup-proxy>
                   </q-btn>
                 </div>

@@ -190,6 +190,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import "src/css/Theme/Typography/typography";
+@import "src/css/Theme/spacing";
+@import "src/css/Theme/radius";
+@import "src/css/Theme/sizes";
 
 $productFontFamily: v-bind('localOptions.typography.fontFamily');
 $titleColor: v-bind('localOptions.typography.titleColor');
@@ -226,9 +229,9 @@ $page-size-md: map-get($sizes, "md");
   height: inherit;
 
   // background-color: #ffffff;
-  border-radius: 20px;
-  padding-top: 20px;
-  margin-top: 45px;
+  border-radius: $radius-6;
+  padding-top: $space-5;
+  margin-top: $space-8;
   font-family: $productFontFamily;
 
   &.vertical {
@@ -287,13 +290,13 @@ $page-size-md: map-get($sizes, "md");
       }
     }
 
-    @media screen and (width <= $page-size-md) {
+    @include media-max-width('md'){
       display: flex;
-      border-radius: 18px;
+      border-radius: $radius-6;
       padding-top: 0;
-      padding-left: 20px;
-      margin-top: 20px;
-      margin-left: 16px;
+      padding-left: $space-5;
+      margin-top: $space-5;
+      margin-left: $space-4;
 
       .product-discount-badge {
         &.vertical-mode {
