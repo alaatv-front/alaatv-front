@@ -54,7 +54,7 @@
              @click="takeAction(localOptions.actionObject)" />
     </div>
     <div v-else
-         class="left-section col justify-end">
+         class="left-section col-grow justify-end">
       <component :is="component.name"
                  v-for="(component, index) in localOptions[size].leftSectionWidgets"
                  :key="index"
