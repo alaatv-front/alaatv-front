@@ -353,7 +353,7 @@ export default {
   &::after {
     content:'';
     position: absolute;
-    left: 145px;
+    left: 129px;
     right: 0;
     bottom: 0;
     margin: 0 auto;
