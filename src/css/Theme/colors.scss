@@ -232,7 +232,7 @@ $darken-7: rgba($grey-10, 0.8);
 
 
 /* border colors */
-@mixin generate-border-classes() {
+@mixin generate-border-color-classes() {
   @each $key, $value in $colors {
     .border-#{$key} {
       border-color: $value;
@@ -240,4 +240,4 @@ $darken-7: rgba($grey-10, 0.8);
   }
 }
 
-@include generate-border-classes();
+@include generate-border-color-classes();
