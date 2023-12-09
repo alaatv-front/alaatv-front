@@ -23,7 +23,7 @@
                  :options="component.options" />
     </div>
     <div v-if="localOptions.menuLink.length > 0"
-         class="center-section col-grow">
+         class="center-section col-grow justify-center">
       <q-list class="routes-list">
         <q-item v-for="(item, index) in localOptions.menuLink"
                 :key="item"
