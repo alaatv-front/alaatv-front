@@ -855,14 +855,13 @@ $page-size-sm: map-get($sizes, "sm");
 
     .pomegranate-wrapper {
       display: flex;
-      padding: 12px 16px 32px 16px;
+      padding: 0;
       width: 110px;
       height: 148px;
       justify-content: center;
       align-items: center;
 
       @media screen and (width < #{$page-size-md}) {
-        padding: 0;
         width: 86px;
         height: 116px;
       }
