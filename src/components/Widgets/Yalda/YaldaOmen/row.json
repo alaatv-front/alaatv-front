@@ -14,7 +14,7 @@
                         {
                           "name": "TextWidget",
                           "options": {
-                            "text": "<font face=\"Modam\" color=\"#ffffff\">جشن یلدا و تخفیفاش تا 3 دی ماه !</font>",
+                            "text": "<font color=\"#ffffff\" face=\"ModamFaNumWeb\">یلدا و تخفیفاش تا 3 دی ماه !</font>",
                             "fontFamily": null,
                             "color": null,
                             "fontSize": null,
@@ -22,10 +22,11 @@
                             "fontStyle": null,
                             "letterSpacing": null,
                             "xs": {
-                              "fontSize": "14px",
+                              "fontSize": "15px",
                               "fontWeight": "900",
-                              "fontStyle": null,
-                              "lineHeight": null
+                              "fontStyle": "normal",
+                              "lineHeight": "196.5%",
+                              "letterSpacing": "-0.48px"
                             },
                             "sm": {
                               "fontSize": "20px",
@@ -164,19 +165,19 @@
                             "timerStyle": {
                               "timerColor": null,
                               "timerBackground": null,
-                              "timerSize": "28px",
+                              "timerSize": "16px",
                               "timerLabelColor": null,
                               "timerLabelBackground": null,
-                              "timerLabelSize": "",
+                              "timerLabelSize": "14px",
                               "secondsBackground": null,
-                              "counterWidth": null,
+                              "counterWidth": "28px",
                               "counterHeight": null,
-                              "counterMargin": "",
+                              "counterMargin": "0 14px",
                               "counterPadding": "",
                               "counterBorderRadius": null,
                               "fontFamily": "ModamFaNumWeb"
                             },
-                            "theme": "theme1",
+                            "theme": "default",
                             "topComponentOptions": {
                               "direction": "top"
                             },
@@ -208,7 +209,7 @@
                               "sm": {
                                 "marginTop": null,
                                 "marginLeft": null,
-                                "marginRight": null,
+                                "marginRight": "32px",
                                 "marginBottom": null,
                                 "paddingTop": null,
                                 "paddingLeft": null,
@@ -273,11 +274,16 @@
                       ]
                     },
                     "sm": {
+                      "rightSectionWidgets": [],
+                      "centerSectionWidgets": [],
+                      "leftSectionWidgets": []
+                    },
+                    "md": {
                       "rightSectionWidgets": [
                         {
                           "name": "TextWidget",
                           "options": {
-                            "text": "<font color=\"#ffffff\" face=\"Modam\">جشن یلدا و تخفیفاش تا 3 دی ماه !</font>",
+                            "text": "<font color=\"#ffffff\" face=\"ModamFaNumWeb\">یلدا و تخفیفاش تا 3 دی ماه !</font>",
                             "fontFamily": null,
                             "color": null,
                             "fontSize": null,
@@ -285,10 +291,11 @@
                             "fontStyle": null,
                             "letterSpacing": null,
                             "xs": {
-                              "fontSize": "14px",
+                              "fontSize": "15px",
                               "fontWeight": "900",
-                              "fontStyle": null,
-                              "lineHeight": null
+                              "fontStyle": "normal",
+                              "lineHeight": "196.5%",
+                              "letterSpacing": "-0.48px"
                             },
                             "sm": {
                               "fontSize": "20px",
@@ -389,7 +396,7 @@
                         {
                           "name": "TextWidget",
                           "options": {
-                            "text": "<div style=\"text-align: center;\"><font color=\"#ffffff\" style=\"\" face=\"ModamFaNumWeb\">تا پایــان</font></div><div style=\"text-align: center;\"><font color=\"#ffffff\" face=\"ModamFaNumWeb\">جشنواره</font></div>",
+                            "text": "<div style=\"text-align: center;\"><font color=\"#ffffff\" face=\"ModamFaNumWeb\">تا پایــان</font></div><div style=\"text-align: center;\"><font color=\"#ffffff\" face=\"ModamFaNumWeb\">تخفیـف</font></div>",
                             "fontFamily": null,
                             "color": null,
                             "fontSize": null,
@@ -403,26 +410,27 @@
                               "lineHeight": null
                             },
                             "sm": {
-                              "fontSize": "20px",
-                              "fontWeight": "900",
+                              "fontSize": null,
+                              "fontWeight": null,
                               "fontStyle": null,
                               "lineHeight": null
                             },
                             "md": {
-                              "fontSize": "20px",
-                              "fontWeight": "900",
+                              "fontSize": "14px",
+                              "fontWeight": "700",
                               "fontStyle": null,
-                              "lineHeight": null
+                              "lineHeight": "129.7%",
+                              "letterSpacing": "-0.7px"
                             },
                             "lg": {
-                              "fontSize": "20px",
-                              "fontWeight": "900",
+                              "fontSize": null,
+                              "fontWeight": null,
                               "fontStyle": null,
                               "lineHeight": null
                             },
                             "xl": {
-                              "fontSize": "20px",
-                              "fontWeight": "900",
+                              "fontSize": null,
+                              "fontWeight": null,
                               "fontStyle": null,
                               "lineHeight": null
                             },
@@ -440,7 +448,7 @@
                               "sm": {
                                 "marginTop": null,
                                 "marginLeft": null,
-                                "marginRight": "",
+                                "marginRight": null,
                                 "marginBottom": null,
                                 "paddingTop": null,
                                 "paddingLeft": null,
@@ -450,7 +458,7 @@
                               "md": {
                                 "marginTop": null,
                                 "marginLeft": null,
-                                "marginRight": "20px",
+                                "marginRight": null,
                                 "marginBottom": null,
                                 "paddingTop": null,
                                 "paddingLeft": null,
@@ -460,7 +468,7 @@
                               "lg": {
                                 "marginTop": null,
                                 "marginLeft": null,
-                                "marginRight": "20px",
+                                "marginRight": null,
                                 "marginBottom": null,
                                 "paddingTop": null,
                                 "paddingLeft": null,
@@ -470,7 +478,7 @@
                               "xl": {
                                 "marginTop": null,
                                 "marginLeft": null,
-                                "marginRight": "20px",
+                                "marginRight": null,
                                 "marginBottom": null,
                                 "paddingTop": null,
                                 "paddingLeft": null,
@@ -479,7 +487,7 @@
                               }
                             },
                             "hasTheme": null,
-                            "activeTheme": null,
+                            "activeTheme": "default",
                             "themes": {
                               "theme1": {
                                 "borderColor": null,
@@ -492,17 +500,13 @@
                                 "right": null
                               }
                             },
-                            "style": {
-                              "image": null,
-                              "marginRight": "",
-                              "backgroundImage": null
-                            }
+                            "style": {}
                           }
                         },
                         {
                           "name": "Timer",
                           "options": {
-                            "time": "1402-08-14 00:00",
+                            "time": "1402-06-01 00:00",
                             "counters": {
                               "seconds": true,
                               "minutes": true,
@@ -543,12 +547,12 @@
                               "timerSize": "28px",
                               "timerLabelColor": null,
                               "timerLabelBackground": null,
-                              "timerLabelSize": "21px",
+                              "timerLabelSize": "14px",
                               "secondsBackground": null,
-                              "counterWidth": null,
+                              "counterWidth": "28px",
                               "counterHeight": null,
                               "counterMargin": "0 14px",
-                              "counterPadding": "",
+                              "counterPadding": null,
                               "counterBorderRadius": null,
                               "fontFamily": "ModamFaNumWeb"
                             },
@@ -594,7 +598,7 @@
                               "md": {
                                 "marginTop": null,
                                 "marginLeft": null,
-                                "marginRight": "48px",
+                                "marginRight": "40px",
                                 "marginBottom": null,
                                 "paddingTop": null,
                                 "paddingLeft": null,
@@ -604,7 +608,7 @@
                               "lg": {
                                 "marginTop": null,
                                 "marginLeft": null,
-                                "marginRight": "59px",
+                                "marginRight": "40px",
                                 "marginBottom": null,
                                 "paddingTop": null,
                                 "paddingLeft": null,
@@ -614,7 +618,7 @@
                               "xl": {
                                 "marginTop": null,
                                 "marginLeft": null,
-                                "marginRight": "279px",
+                                "marginRight": "280px",
                                 "marginBottom": null,
                                 "paddingTop": null,
                                 "paddingLeft": null,
@@ -645,11 +649,6 @@
                           }
                         }
                       ]
-                    },
-                    "md": {
-                      "rightSectionWidgets": [],
-                      "centerSectionWidgets": [],
-                      "leftSectionWidgets": []
                     },
                     "lg": {
                       "rightSectionWidgets": [],
@@ -1596,7 +1595,7 @@
                                   "xs": {
                                     "height": null,
                                     "width": "111px",
-                                    "src": "https://nodes.alaatv.com/upload/alaaPages/2023-11/Logotype-white1699349463.png"
+                                    "src": "https://nodes.alaatv.com/upload/design-system/alaa-logotype2.png"
                                   },
                                   "sm": {
                                     "height": null,
@@ -1714,6 +1713,7 @@
                                   "scrollTo": null,
                                   "route": "/",
                                   "eventName": null,
+                                  "profileMode": false,
                                   "drawer": {
                                     "style": {},
                                     "overlay": true,
@@ -1724,7 +1724,7 @@
                                   "topSectionWidgets": [],
                                   "bottomSectionWidgets": [],
                                   "style": {
-                                    "color": "rgba(255,255,255,1)"
+                                    "color": "rgba(0,0,0,1)"
                                   }
                                 }
                               },
@@ -2953,10 +2953,10 @@
             "responsiveBoxedWidth": true,
             "responsiveBoxedWidths": {
               "xs": {
-                "width": "100%"
+                "width": "320px"
               },
               "sm": {
-                "width": "100%"
+                "width": "536px"
               },
               "md": {
                 "width": "964px "
@@ -3253,6 +3253,130 @@
                       "xl": true,
                       "lg": true,
                       "md": true,
+                      "sm": false,
+                      "xs": false
+                    }
+                  }
+                },
+                {
+                  "name": "YaldaTitle",
+                  "options": {
+                    "text": "<div style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255); font-family: ModamFaNumWeb;\">یلـدای باحال آلایـی</span></div>",
+                    "fontFamily": "",
+                    "color": null,
+                    "fontSize": null,
+                    "fontWeight": null,
+                    "fontStyle": null,
+                    "letterSpacing": null,
+                    "xs": {
+                      "fontSize": "40px",
+                      "fontWeight": "900",
+                      "fontStyle": "normal",
+                      "lineHeight": "normal",
+                      "letterSpacing": "-1.2px"
+                    },
+                    "sm": {
+                      "fontSize": "40px",
+                      "fontWeight": "900",
+                      "fontStyle": "normal",
+                      "lineHeight": "normal",
+                      "letterSpacing": "-1.2px"
+                    },
+                    "md": {
+                      "fontSize": "48px",
+                      "fontWeight": "900",
+                      "fontStyle": "normal",
+                      "lineHeight": "normal",
+                      "letterSpacing": "-1.44px"
+                    },
+                    "lg": {
+                      "fontSize": "56px",
+                      "fontWeight": "900",
+                      "fontStyle": "normal",
+                      "lineHeight": "normal",
+                      "letterSpacing": "-1.68px"
+                    },
+                    "xl": {
+                      "fontSize": "56px",
+                      "fontWeight": "900",
+                      "fontStyle": "normal",
+                      "lineHeight": "normal",
+                      "letterSpacing": "-1.68px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
+                    },
+                    "style": {
+                      "marginTop": "20px",
+                      "backgroundImage": null
+                    },
+                    "responsiveShow": {
+                      "xl": false,
+                      "lg": false,
+                      "md": false,
                       "sm": true,
                       "xs": true
                     }
@@ -3292,16 +3416,16 @@
                     "lg": {
                       "fontSize": "18px",
                       "fontWeight": "400",
-                      "fontStyle": null,
+                      "fontStyle": "normal",
                       "lineHeight": "30px",
-                      "letterSpacing": ""
+                      "letterSpacing": "-0.54px"
                     },
                     "xl": {
                       "fontSize": "18px",
                       "fontWeight": "400",
                       "fontStyle": null,
                       "lineHeight": "35px",
-                      "letterSpacing": ""
+                      "letterSpacing": "-0.54px"
                     },
                     "responsiveSpacing": {
                       "xs": {
@@ -3386,8 +3510,8 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<div style=\"text-align: center;\"><font color=\"#fff5f5\">7 ویدیو برات قرار دادیم که توی هرکدوم، 1 قانون از 7 قانون موفقیت رتبه های تک رقمی و دو رقمی آلا رو بهت گفتیم. بعد از دیدن هر جلسه (روزی یک جلسه) یک کد تخفیف و یک شانس سرعت بینهایت (سبد خرید رایگان) هم هدیه میگیری.</font></div>",
-                    "fontFamily": "ModamFaNumWeb",
+                    "text": "<div style=\"text-align: center;\"><font face=\"ModamFaNumWeb\" color=\"#ffffff\">جشنواره یلدای آلایی، هر سال پر از عیدی و تخفیف بوده؛ آلا امسال هم کلی تخفیف داره تا 3 دی ماه، روی همه دوره هایی که دوستشون داری. علاوه بر تخفیف، همینجا یه فال آلایی هم بگیر (+عیدی یلدا) ببین حافظ آلایی، چی داره برات</font></div>",
+                    "fontFamily": "",
                     "color": null,
                     "fontSize": null,
                     "fontWeight": null,
@@ -3395,17 +3519,17 @@
                     "letterSpacing": null,
                     "xs": {
                       "fontSize": "16px",
-                      "fontWeight": "400",
-                      "fontStyle": null,
+                      "fontWeight": "500",
+                      "fontStyle": "normal",
                       "lineHeight": "24px",
                       "letterSpacing": "-0.48px"
                     },
                     "sm": {
-                      "fontSize": "18px",
-                      "fontWeight": "400",
-                      "fontStyle": null,
-                      "lineHeight": "35px",
-                      "letterSpacing": ""
+                      "fontSize": "16px",
+                      "fontWeight": "500",
+                      "fontStyle": "normal",
+                      "lineHeight": "150%",
+                      "letterSpacing": "-0.48px"
                     },
                     "md": {
                       "fontSize": "18px",
@@ -3575,8 +3699,8 @@
                               "marginRight": "",
                               "marginBottom": null,
                               "paddingTop": "12px",
-                              "paddingLeft": "16px",
-                              "paddingRight": "16px",
+                              "paddingLeft": "36px",
+                              "paddingRight": "36px",
                               "paddingBottom": "12px"
                             },
                             "lg": {
@@ -3585,8 +3709,8 @@
                               "marginRight": null,
                               "marginBottom": null,
                               "paddingTop": "16px",
-                              "paddingLeft": "20px",
-                              "paddingRight": "20px",
+                              "paddingLeft": "36px",
+                              "paddingRight": "36px",
                               "paddingBottom": "16px"
                             },
                             "xl": {
@@ -3595,8 +3719,8 @@
                               "marginRight": null,
                               "marginBottom": null,
                               "paddingTop": "16px",
-                              "paddingLeft": "20px",
-                              "paddingRight": "20px",
+                              "paddingLeft": "36px",
+                              "paddingRight": "36px",
                               "paddingBottom": "16px"
                             }
                           },
@@ -3676,8 +3800,8 @@
                               "marginRight": null,
                               "marginBottom": null,
                               "paddingTop": "12px",
-                              "paddingLeft": "16px",
-                              "paddingRight": "16px",
+                              "paddingLeft": "36px",
+                              "paddingRight": "36px",
                               "paddingBottom": "12px"
                             },
                             "lg": {
@@ -3686,18 +3810,18 @@
                               "marginRight": null,
                               "marginBottom": null,
                               "paddingTop": "16px",
-                              "paddingLeft": "20px",
-                              "paddingRight": "20px",
+                              "paddingLeft": "36px",
+                              "paddingRight": "36px",
                               "paddingBottom": "16px"
                             },
                             "xl": {
                               "marginTop": null,
-                              "marginLeft": "20px",
+                              "marginLeft": "36px",
                               "marginRight": null,
                               "marginBottom": null,
                               "paddingTop": "16px",
                               "paddingLeft": "20px",
-                              "paddingRight": "20px",
+                              "paddingRight": "36px",
                               "paddingBottom": "16px"
                             }
                           },
@@ -3715,7 +3839,7 @@
                       }
                     ],
                     "borderStyle": {
-                      "topLeftRadius": 100,
+                      "topLeftRadius": 196,
                       "topRightRadius": 100,
                       "bottomLeftRadius": 100,
                       "bottomRightRadius": 100,
@@ -3723,7 +3847,7 @@
                       "borderColor": "rgba(0,0,0,0.1)",
                       "borderStyle": "solid",
                       "borderCssString": "solid 0px rgba(0,0,0,0.1)",
-                      "borderRadiusCssString": "100px 100px 100px 100px"
+                      "borderRadiusCssString": "196px 100px 100px 100px"
                     },
                     "boxShadows": [],
                     "cssHoverEffects": {
@@ -3759,6 +3883,263 @@
                       "xl": true,
                       "lg": true,
                       "md": true,
+                      "sm": false,
+                      "xs": false
+                    }
+                  }
+                },
+                {
+                  "name": "ButtonGroup",
+                  "options": {
+                    "buttonList": [
+                      {
+                        "options": {
+                          "color": null,
+                          "icon": "ph:arrow-left",
+                          "rightIcon": false,
+                          "label": "فال من رو بگیر",
+                          "flat": false,
+                          "callBack": null,
+                          "imageSource": null,
+                          "className": "col-sm-6",
+                          "fixed": false,
+                          "fixedPosition": null,
+                          "eventArgs": null,
+                          "boxShadows": [],
+                          "hasAction": true,
+                          "action": "scroll",
+                          "scrollTo": "yalda-omen-row",
+                          "route": null,
+                          "eventName": null,
+                          "profileMode": false,
+                          "drawer": {
+                            "style": {},
+                            "overlay": true,
+                            "bordered": true,
+                            "width": 200,
+                            "breakpoint": 500
+                          },
+                          "topSectionWidgets": [],
+                          "bottomSectionWidgets": [],
+                          "style": {
+                            "background": "",
+                            "color": "#fff",
+                            "backgroundImage": "linear-gradient(275deg, #259A61 0%, #2DBD77 98.8%)",
+                            "fontSize": "",
+                            "fontWeight": "",
+                            "fontFamily": "ModamFaNumWeb"
+                          },
+                          "responsiveSpacing": {
+                            "xs": {
+                              "marginTop": "",
+                              "marginLeft": "",
+                              "marginRight": "",
+                              "marginBottom": null,
+                              "paddingTop": "12px",
+                              "paddingLeft": "16px",
+                              "paddingRight": "16px",
+                              "paddingBottom": "12px"
+                            },
+                            "sm": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": "12px",
+                              "paddingLeft": "55px",
+                              "paddingRight": "55px",
+                              "paddingBottom": "12px"
+                            },
+                            "md": {
+                              "marginTop": null,
+                              "marginLeft": "",
+                              "marginRight": "",
+                              "marginBottom": null,
+                              "paddingTop": "12px",
+                              "paddingLeft": "36px",
+                              "paddingRight": "36px",
+                              "paddingBottom": "12px"
+                            },
+                            "lg": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": "16px",
+                              "paddingLeft": "36px",
+                              "paddingRight": "36px",
+                              "paddingBottom": "16px"
+                            },
+                            "xl": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": "16px",
+                              "paddingLeft": "36px",
+                              "paddingRight": "36px",
+                              "paddingBottom": "16px"
+                            }
+                          },
+                          "responsiveShow": {
+                            "xl": true,
+                            "lg": true,
+                            "md": true,
+                            "sm": true,
+                            "xs": true
+                          },
+                          "borderRadius": "100px",
+                          "outline": false
+                        },
+                        "name": "شروع !"
+                      },
+                      {
+                        "options": {
+                          "color": null,
+                          "icon": "ph:percent",
+                          "rightIcon": true,
+                          "label": "تخفیف هارو بیار",
+                          "flat": false,
+                          "callBack": null,
+                          "imageSource": null,
+                          "className": "col-sm-6",
+                          "fixed": false,
+                          "fixedPosition": null,
+                          "eventArgs": null,
+                          "boxShadows": [],
+                          "hasAction": true,
+                          "action": "scroll",
+                          "scrollTo": "products",
+                          "route": null,
+                          "eventName": null,
+                          "profileMode": false,
+                          "drawer": {
+                            "style": {},
+                            "overlay": true,
+                            "bordered": true,
+                            "width": 200,
+                            "breakpoint": 500
+                          },
+                          "topSectionWidgets": [],
+                          "bottomSectionWidgets": [],
+                          "style": {
+                            "background": "",
+                            "color": "rgba(255,255,255,1)",
+                            "backgroundImage": null,
+                            "fontSize": "",
+                            "fontWeight": "",
+                            "fontFamily": "ModamFaNumWeb"
+                          },
+                          "responsiveSpacing": {
+                            "xs": {
+                              "marginTop": "",
+                              "marginLeft": "",
+                              "marginRight": "",
+                              "marginBottom": null,
+                              "paddingTop": "12px",
+                              "paddingLeft": "16px",
+                              "paddingRight": "16px",
+                              "paddingBottom": "12px"
+                            },
+                            "sm": {
+                              "marginTop": " ",
+                              "marginLeft": "24px",
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": "12px",
+                              "paddingLeft": "50px",
+                              "paddingRight": "50px",
+                              "paddingBottom": "12px"
+                            },
+                            "md": {
+                              "marginTop": null,
+                              "marginLeft": "20px",
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": "12px",
+                              "paddingLeft": "36px",
+                              "paddingRight": "36px",
+                              "paddingBottom": "12px"
+                            },
+                            "lg": {
+                              "marginTop": null,
+                              "marginLeft": "20px",
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": "16px",
+                              "paddingLeft": "36px",
+                              "paddingRight": "36px",
+                              "paddingBottom": "16px"
+                            },
+                            "xl": {
+                              "marginTop": null,
+                              "marginLeft": "36px",
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": "16px",
+                              "paddingLeft": "20px",
+                              "paddingRight": "36px",
+                              "paddingBottom": "16px"
+                            }
+                          },
+                          "responsiveShow": {
+                            "xl": false,
+                            "lg": true,
+                            "md": false,
+                            "sm": false,
+                            "xs": false
+                          },
+                          "borderRadius": "100px",
+                          "outline": true
+                        },
+                        "name": "مشاوره!"
+                      }
+                    ],
+                    "borderStyle": {
+                      "topLeftRadius": 196,
+                      "topRightRadius": 100,
+                      "bottomLeftRadius": 100,
+                      "bottomRightRadius": 100,
+                      "borderWidth": 0,
+                      "borderColor": "rgba(0,0,0,0.1)",
+                      "borderStyle": "solid",
+                      "borderCssString": "solid 0px rgba(0,0,0,0.1)",
+                      "borderRadiusCssString": "196px 100px 100px 100px"
+                    },
+                    "boxShadows": [],
+                    "cssHoverEffects": {
+                      "boxShadows": [],
+                      "borderStyle": {
+                        "borderCssString": "",
+                        "borderRadiusCssString": ""
+                      },
+                      "transition": {
+                        "time": 0
+                      },
+                      "transform": {
+                        "rotate": 0,
+                        "scaleX": 1,
+                        "scaleY": 1,
+                        "skewX": 0,
+                        "skewY": 0,
+                        "translateX": 0,
+                        "translateY": 0
+                      }
+                    },
+                    "style": {
+                      "marginTop": "",
+                      "marginBottom": "62px",
+                      "image": null,
+                      "color": "rgba(53,240,24,0.72)",
+                      "backgroundImage": null,
+                      "marginLeft": "",
+                      "marginRight": ""
+                    },
+                    "className": "flex flex-center",
+                    "responsiveShow": {
+                      "xl": false,
+                      "lg": false,
+                      "md": false,
                       "sm": true,
                       "xs": false
                     }
@@ -4170,7 +4551,7 @@
                       },
                       "sm": {
                         "marginTop": null,
-                        "marginLeft": "-30px",
+                        "marginLeft": "",
                         "marginRight": null,
                         "marginBottom": null,
                         "paddingTop": null,
@@ -4181,7 +4562,7 @@
                       "md": {
                         "marginTop": null,
                         "marginLeft": "",
-                        "marginRight": null,
+                        "marginRight": "",
                         "marginBottom": null,
                         "paddingTop": null,
                         "paddingLeft": null,
@@ -4209,7 +4590,17 @@
                         "paddingBottom": null
                       }
                     },
-                    "borderStyle": {},
+                    "borderStyle": {
+                      "topLeftRadius": 0,
+                      "topRightRadius": 99,
+                      "bottomLeftRadius": 0,
+                      "bottomRightRadius": 0,
+                      "borderWidth": 0,
+                      "borderColor": "rgba(0,0,0,0.1)",
+                      "borderStyle": "solid",
+                      "borderCssString": "solid 0px rgba(0,0,0,0.1)",
+                      "borderRadiusCssString": "0px 99px 0px 0px"
+                    },
                     "boxShadows": [],
                     "cssHoverEffects": {
                       "boxShadows": [],
@@ -4230,7 +4621,9 @@
                         "translateY": 0
                       }
                     },
-                    "style": {}
+                    "style": {
+                      "backgroundImage": null
+                    }
                   }
                 }
               ],
@@ -4347,8 +4740,8 @@
                 "width": "1360px"
               }
             },
-            "gutterXSize": null,
-            "gutterYSize": null,
+            "gutterXSize": "md",
+            "gutterYSize": "md",
             "absolute": "none",
             "backgrounds": {
               "xs": {
@@ -4481,11 +4874,11 @@
                 "xl": "justify-xl-between",
                 "lg": "justify-lg-between",
                 "md": "justify-md-between",
-                "sm": null,
-                "xs": null
+                "sm": "justify-sm-center",
+                "xs": "justify-xs-center"
               },
               "alignItems": {
-                "global": null,
+                "global": "items-center",
                 "xl": null,
                 "lg": null,
                 "md": null,
@@ -4665,8 +5058,8 @@
                   "xl": true,
                   "lg": true,
                   "md": true,
-                  "sm": true,
-                  "xs": true
+                  "sm": false,
+                  "xs": false
                 },
                 "className": ""
               }
@@ -5348,40 +5741,40 @@
                         "directory": "https://nodes.alaatv.com/upload/alaaPages/2023-12/startS1701700018.json",
                         "directory2": "https://nodes.alaatv.com/upload/alaaPages/2023-12/endS1701700111.json",
                         "style": {
-                          "width": "67px",
-                          "height": "89px"
+                          "width": "",
+                          "height": ""
                         }
                       },
                       "sm": {
                         "directory": "https://nodes.alaatv.com/upload/alaaPages/2023-12/startS1701700018.json",
                         "directory2": "https://nodes.alaatv.com/upload/alaaPages/2023-12/endS1701700111.json",
                         "style": {
-                          "width": "67px",
-                          "height": "89px"
+                          "width": "",
+                          "height": ""
                         }
                       },
                       "md": {
                         "directory": "https://nodes.alaatv.com/upload/alaaPages/2023-12/StartL1701699885.json",
                         "directory2": "https://nodes.alaatv.com/upload/alaaPages/2023-12/endL1701699724.json",
                         "style": {
-                          "width": "78px",
-                          "height": "104px"
+                          "width": "",
+                          "height": ""
                         }
                       },
                       "lg": {
                         "directory": "https://nodes.alaatv.com/upload/alaaPages/2023-12/StartL1701699885.json",
                         "directory2": "https://nodes.alaatv.com/upload/alaaPages/2023-12/endL1701699724.json",
                         "style": {
-                          "width": "78px",
-                          "height": "104px"
+                          "width": "",
+                          "height": ""
                         }
                       },
                       "xl": {
                         "directory": "https://nodes.alaatv.com/upload/alaaPages/2023-12/StartL1701699885.json",
                         "directory2": "https://nodes.alaatv.com/upload/alaaPages/2023-12/endL1701699724.json",
                         "style": {
-                          "width": "78px",
-                          "height": "104px"
+                          "width": "",
+                          "height": ""
                         }
                       },
                       "action": {
@@ -6356,7 +6749,7 @@
                 "marginTop": "-20px",
                 "marginLeft": null,
                 "marginRight": null,
-                "marginBottom": "-20px",
+                "marginBottom": "-40px",
                 "paddingTop": "",
                 "paddingLeft": null,
                 "paddingRight": null,
@@ -6366,7 +6759,7 @@
                 "marginTop": "-40px",
                 "marginLeft": null,
                 "marginRight": null,
-                "marginBottom": "-40px",
+                "marginBottom": "-47px",
                 "paddingTop": "",
                 "paddingLeft": null,
                 "paddingRight": null,
@@ -6376,7 +6769,7 @@
                 "marginTop": "-50px",
                 "marginLeft": "",
                 "marginRight": "",
-                "marginBottom": "-50px",
+                "marginBottom": "-85px",
                 "paddingTop": "",
                 "paddingLeft": null,
                 "paddingRight": null,
@@ -6386,7 +6779,7 @@
                 "marginTop": "-70px",
                 "marginLeft": "",
                 "marginRight": "",
-                "marginBottom": "-70px",
+                "marginBottom": "-110px",
                 "paddingTop": "",
                 "paddingLeft": null,
                 "paddingRight": null,
@@ -7454,7 +7847,8 @@
                             "sm": true,
                             "xs": true
                           },
-                          "style": {}
+                          "style": {},
+                          "className": "chatrenejat"
                         },
                         "description": {
                           "text": "<font color=\"#8e8e8e\">فارغ التحصیلان</font>",
@@ -7692,7 +8086,8 @@
                             "sm": true,
                             "xs": true
                           },
-                          "style": {}
+                          "style": {},
+                          "className": "shelick"
                         },
                         "description": {
                           "text": "<font color=\"#8e8e8e\">امتحانات نهایی</font>",
@@ -7930,7 +8325,8 @@
                             "sm": true,
                             "xs": true
                           },
-                          "style": {}
+                          "style": {},
+                          "className": "soalaa"
                         },
                         "description": {
                           "text": "<font color=\"#8e8e8e\">تمامی پایه ها</font>",
@@ -7959,7 +8355,7 @@
                             "fontWeight": "600",
                             "fontStyle": null,
                             "lineHeight": null,
-                            "letterSpacing": null
+                            "letterSpacing": "-0.48px"
                           },
                           "lg": {
                             "fontSize": "16px",
@@ -8168,7 +8564,8 @@
                             "sm": true,
                             "xs": true
                           },
-                          "style": {}
+                          "style": {},
+                          "className": "haftaneh"
                         },
                         "description": {
                           "text": "<font color=\"#8e8e8e\">یازدهم (به زودی)</font>",
@@ -8183,21 +8580,21 @@
                             "fontWeight": "600",
                             "fontStyle": null,
                             "lineHeight": null,
-                            "letterSpacing": null
+                            "letterSpacing": "-0.36px"
                           },
                           "sm": {
-                            "fontSize": "12px",
+                            "fontSize": "11px",
                             "fontWeight": "600",
-                            "fontStyle": null,
-                            "lineHeight": null,
-                            "letterSpacing": null
+                            "fontStyle": "normal",
+                            "lineHeight": "150%",
+                            "letterSpacing": "-0.36px"
                           },
                           "md": {
                             "fontSize": "16px",
                             "fontWeight": "600",
                             "fontStyle": null,
                             "lineHeight": null,
-                            "letterSpacing": null
+                            "letterSpacing": "-0.48px"
                           },
                           "lg": {
                             "fontSize": "16px",
@@ -8840,7 +9237,7 @@
                     },
                     "responsiveSpacing": {
                       "xs": {
-                        "marginTop": null,
+                        "marginTop": "-12px",
                         "marginLeft": null,
                         "marginRight": null,
                         "marginBottom": null,
@@ -8850,7 +9247,7 @@
                         "paddingBottom": "12px"
                       },
                       "sm": {
-                        "marginTop": null,
+                        "marginTop": "-12px",
                         "marginLeft": null,
                         "marginRight": null,
                         "marginBottom": null,
@@ -9012,7 +9409,9 @@
                                 "height": "auto",
                                 "boxed": false,
                                 "boxedWidth": 1200,
-                                "style": {},
+                                "style": {
+                                  "backgroundImage": null
+                                },
                                 "borderStyle": {
                                   "borderCssString": "",
                                   "borderRadiusCssString": "20px"
@@ -9091,53 +9490,53 @@
                                 },
                                 "responsiveSpacing": {
                                   "xs": {
-                                    "marginTop": null,
+                                    "marginTop": "16px",
                                     "marginLeft": null,
                                     "marginRight": null,
-                                    "marginBottom": "10px",
+                                    "marginBottom": "",
                                     "paddingTop": null,
                                     "paddingLeft": null,
                                     "paddingRight": null,
                                     "paddingBottom": null
                                   },
                                   "sm": {
-                                    "marginTop": null,
+                                    "marginTop": "16px",
                                     "marginLeft": null,
                                     "marginRight": null,
-                                    "marginBottom": "10px",
-                                    "paddingTop": null,
+                                    "marginBottom": "",
+                                    "paddingTop": "",
                                     "paddingLeft": null,
                                     "paddingRight": null,
                                     "paddingBottom": null
                                   },
                                   "md": {
-                                    "marginTop": null,
+                                    "marginTop": "43px",
                                     "marginLeft": null,
                                     "marginRight": null,
-                                    "marginBottom": "10px",
+                                    "marginBottom": "",
                                     "paddingTop": null,
-                                    "paddingLeft": null,
-                                    "paddingRight": null,
+                                    "paddingLeft": "10px",
+                                    "paddingRight": "10px",
                                     "paddingBottom": null
                                   },
                                   "lg": {
-                                    "marginTop": null,
+                                    "marginTop": "56px",
                                     "marginLeft": null,
                                     "marginRight": null,
-                                    "marginBottom": "10px",
+                                    "marginBottom": "",
                                     "paddingTop": null,
-                                    "paddingLeft": null,
-                                    "paddingRight": null,
+                                    "paddingLeft": "16px",
+                                    "paddingRight": "16px",
                                     "paddingBottom": null
                                   },
                                   "xl": {
-                                    "marginTop": null,
+                                    "marginTop": "56px",
                                     "marginLeft": null,
                                     "marginRight": null,
-                                    "marginBottom": "10px",
+                                    "marginBottom": "",
                                     "paddingTop": null,
-                                    "paddingLeft": null,
-                                    "paddingRight": null,
+                                    "paddingLeft": "16px",
+                                    "paddingRight": "16px",
                                     "paddingBottom": null
                                   }
                                 },
@@ -9206,7 +9605,7 @@
                                 "flat": true,
                                 "callBack": null,
                                 "imageSource": null,
-                                "className": null,
+                                "className": "size-lg",
                                 "fixed": false,
                                 "fixedPosition": null,
                                 "eventArgs": null,
@@ -9227,18 +9626,19 @@
                                 "topSectionWidgets": [],
                                 "bottomSectionWidgets": [],
                                 "style": {
-                                  "background": ""
+                                  "background": "",
+                                  "color": "#8E8E8E"
                                 }
                               },
                               "collapsedButtonOptions": {
                                 "color": null,
-                                "icon": null,
+                                "icon": "ph:caret-up",
                                 "rightIcon": false,
-                                "label": null,
-                                "flat": false,
+                                "label": "بستن",
+                                "flat": true,
                                 "callBack": null,
                                 "imageSource": null,
-                                "className": null,
+                                "className": "size-lg",
                                 "fixed": false,
                                 "fixedPosition": null,
                                 "eventArgs": null,
@@ -9258,7 +9658,10 @@
                                 },
                                 "topSectionWidgets": [],
                                 "bottomSectionWidgets": [],
-                                "style": {}
+                                "style": {
+                                  "background": "",
+                                  "color": "#8E8E8E"
+                                }
                               },
                               "showInCollapse": "3"
                             },
@@ -9277,7 +9680,7 @@
                     "style": {},
                     "responsiveSpacing": {
                       "xs": {
-                        "marginTop": null,
+                        "marginTop": "-12px",
                         "marginLeft": null,
                         "marginRight": null,
                         "marginBottom": null,
@@ -9287,7 +9690,7 @@
                         "paddingBottom": null
                       },
                       "sm": {
-                        "marginTop": null,
+                        "marginTop": "-12px",
                         "marginLeft": null,
                         "marginRight": null,
                         "marginBottom": null,
@@ -9334,7 +9737,7 @@
                 "colNumber": "col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12",
                 "style": {
                   "backgroundImage": null,
-                  "marginTop": "12px"
+                  "marginTop": ""
                 },
                 "boxShadows": [],
                 "backgrounds": {
@@ -9962,7 +10365,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": "raheabrisham text-left"
+                "className": "chatrenejat text-left"
               }
             },
             {
@@ -10073,53 +10476,53 @@
                                 },
                                 "responsiveSpacing": {
                                   "xs": {
-                                    "marginTop": null,
+                                    "marginTop": "16px",
                                     "marginLeft": null,
                                     "marginRight": null,
-                                    "marginBottom": "10px",
+                                    "marginBottom": "",
                                     "paddingTop": null,
                                     "paddingLeft": null,
                                     "paddingRight": null,
                                     "paddingBottom": null
                                   },
                                   "sm": {
-                                    "marginTop": null,
+                                    "marginTop": "16px",
                                     "marginLeft": null,
                                     "marginRight": null,
-                                    "marginBottom": "10px",
+                                    "marginBottom": "",
                                     "paddingTop": null,
                                     "paddingLeft": null,
                                     "paddingRight": null,
                                     "paddingBottom": null
                                   },
                                   "md": {
-                                    "marginTop": null,
+                                    "marginTop": "43px",
                                     "marginLeft": null,
                                     "marginRight": null,
                                     "marginBottom": "10px",
                                     "paddingTop": null,
-                                    "paddingLeft": null,
-                                    "paddingRight": null,
+                                    "paddingLeft": "10px",
+                                    "paddingRight": "10px",
                                     "paddingBottom": null
                                   },
                                   "lg": {
-                                    "marginTop": null,
+                                    "marginTop": "56px",
                                     "marginLeft": null,
                                     "marginRight": null,
                                     "marginBottom": "10px",
                                     "paddingTop": null,
-                                    "paddingLeft": null,
-                                    "paddingRight": null,
+                                    "paddingLeft": "16px",
+                                    "paddingRight": "16px",
                                     "paddingBottom": null
                                   },
                                   "xl": {
-                                    "marginTop": null,
+                                    "marginTop": "56px",
                                     "marginLeft": null,
                                     "marginRight": null,
                                     "marginBottom": "10px",
                                     "paddingTop": null,
-                                    "paddingLeft": null,
-                                    "paddingRight": null,
+                                    "paddingLeft": "16px",
+                                    "paddingRight": "16px",
                                     "paddingBottom": null
                                   }
                                 },
@@ -10188,7 +10591,7 @@
                                 "flat": true,
                                 "callBack": null,
                                 "imageSource": null,
-                                "className": null,
+                                "className": "size-lg",
                                 "fixed": false,
                                 "fixedPosition": null,
                                 "eventArgs": null,
@@ -10209,18 +10612,19 @@
                                 "topSectionWidgets": [],
                                 "bottomSectionWidgets": [],
                                 "style": {
-                                  "background": ""
+                                  "background": "",
+                                  "color": "#8E8E8E"
                                 }
                               },
                               "collapsedButtonOptions": {
                                 "color": null,
-                                "icon": null,
+                                "icon": "ph:caret-up",
                                 "rightIcon": false,
-                                "label": null,
-                                "flat": false,
+                                "label": " بستن",
+                                "flat": true,
                                 "callBack": null,
                                 "imageSource": null,
-                                "className": null,
+                                "className": "size-lg",
                                 "fixed": false,
                                 "fixedPosition": null,
                                 "eventArgs": null,
@@ -10240,7 +10644,10 @@
                                 },
                                 "topSectionWidgets": [],
                                 "bottomSectionWidgets": [],
-                                "style": {}
+                                "style": {
+                                  "background": "",
+                                  "color": "#8E8E8E"
+                                }
                               },
                               "showInCollapse": "3"
                             },
@@ -10259,7 +10666,7 @@
                     "style": {},
                     "responsiveSpacing": {
                       "xs": {
-                        "marginTop": null,
+                        "marginTop": "-12px",
                         "marginLeft": null,
                         "marginRight": null,
                         "marginBottom": null,
@@ -10269,7 +10676,7 @@
                         "paddingBottom": null
                       },
                       "sm": {
-                        "marginTop": null,
+                        "marginTop": "-12px",
                         "marginLeft": null,
                         "marginRight": null,
                         "marginBottom": null,
@@ -10316,7 +10723,7 @@
                 "colNumber": "col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12",
                 "style": {
                   "backgroundImage": null,
-                  "marginTop": "12px"
+                  "marginTop": ""
                 },
                 "boxShadows": [],
                 "backgrounds": {
@@ -10944,7 +11351,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": "raheabrisham text-left"
+                "className": "shelick text-left"
               }
             },
             {
@@ -11055,53 +11462,53 @@
                                 },
                                 "responsiveSpacing": {
                                   "xs": {
-                                    "marginTop": null,
+                                    "marginTop": "16px",
                                     "marginLeft": null,
                                     "marginRight": null,
-                                    "marginBottom": "10px",
+                                    "marginBottom": "",
                                     "paddingTop": null,
                                     "paddingLeft": null,
                                     "paddingRight": null,
                                     "paddingBottom": null
                                   },
                                   "sm": {
-                                    "marginTop": null,
+                                    "marginTop": "16px",
                                     "marginLeft": null,
                                     "marginRight": null,
-                                    "marginBottom": "10px",
+                                    "marginBottom": "",
                                     "paddingTop": null,
-                                    "paddingLeft": null,
-                                    "paddingRight": null,
+                                    "paddingLeft": "",
+                                    "paddingRight": "",
                                     "paddingBottom": null
                                   },
                                   "md": {
-                                    "marginTop": null,
+                                    "marginTop": "43px",
                                     "marginLeft": null,
                                     "marginRight": null,
-                                    "marginBottom": "10px",
+                                    "marginBottom": "",
                                     "paddingTop": null,
-                                    "paddingLeft": null,
-                                    "paddingRight": null,
+                                    "paddingLeft": "10px",
+                                    "paddingRight": "10px",
                                     "paddingBottom": null
                                   },
                                   "lg": {
-                                    "marginTop": null,
+                                    "marginTop": "56px",
                                     "marginLeft": null,
                                     "marginRight": null,
-                                    "marginBottom": "10px",
+                                    "marginBottom": "",
                                     "paddingTop": null,
-                                    "paddingLeft": null,
-                                    "paddingRight": null,
+                                    "paddingLeft": "16px",
+                                    "paddingRight": "16px",
                                     "paddingBottom": null
                                   },
                                   "xl": {
-                                    "marginTop": null,
+                                    "marginTop": "56px",
                                     "marginLeft": null,
                                     "marginRight": null,
-                                    "marginBottom": "10px",
+                                    "marginBottom": "",
                                     "paddingTop": null,
-                                    "paddingLeft": null,
-                                    "paddingRight": null,
+                                    "paddingLeft": "16px",
+                                    "paddingRight": "16px",
                                     "paddingBottom": null
                                   }
                                 },
@@ -11170,7 +11577,7 @@
                                 "flat": true,
                                 "callBack": null,
                                 "imageSource": null,
-                                "className": null,
+                                "className": "size-lg",
                                 "fixed": false,
                                 "fixedPosition": null,
                                 "eventArgs": null,
@@ -11191,18 +11598,19 @@
                                 "topSectionWidgets": [],
                                 "bottomSectionWidgets": [],
                                 "style": {
-                                  "background": ""
+                                  "background": "",
+                                  "color": "#8E8E8E"
                                 }
                               },
                               "collapsedButtonOptions": {
                                 "color": null,
-                                "icon": null,
+                                "icon": "ph:caret-up",
                                 "rightIcon": false,
-                                "label": null,
-                                "flat": false,
+                                "label": "بستن",
+                                "flat": true,
                                 "callBack": null,
                                 "imageSource": null,
-                                "className": null,
+                                "className": "size-lg",
                                 "fixed": false,
                                 "fixedPosition": null,
                                 "eventArgs": null,
@@ -11222,7 +11630,10 @@
                                 },
                                 "topSectionWidgets": [],
                                 "bottomSectionWidgets": [],
-                                "style": {}
+                                "style": {
+                                  "background": "",
+                                  "color": "#8E8E8E"
+                                }
                               },
                               "showInCollapse": "3"
                             },
@@ -11241,7 +11652,7 @@
                     "style": {},
                     "responsiveSpacing": {
                       "xs": {
-                        "marginTop": null,
+                        "marginTop": "-12px",
                         "marginLeft": null,
                         "marginRight": null,
                         "marginBottom": null,
@@ -11251,7 +11662,7 @@
                         "paddingBottom": null
                       },
                       "sm": {
-                        "marginTop": null,
+                        "marginTop": "-12px",
                         "marginLeft": null,
                         "marginRight": null,
                         "marginBottom": null,
@@ -11298,7 +11709,7 @@
                 "colNumber": "col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12",
                 "style": {
                   "backgroundImage": null,
-                  "marginTop": "12px"
+                  "marginTop": ""
                 },
                 "boxShadows": [],
                 "backgrounds": {
@@ -11595,7 +12006,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": ""
+                "className": "soalaa"
               }
             },
             {
@@ -11810,7 +12221,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": ""
+                "className": "haftaneh"
               }
             }
           ],
