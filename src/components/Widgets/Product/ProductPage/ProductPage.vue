@@ -324,12 +324,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/radius";
-@import "src/css/Theme/colors";
-@import "src/css/Theme/spacing";
-@import "src/css/Theme/Typography/typography";
-@import "src/css/Theme/sizes";
-
 $background-height-xl: 367px;
 $background-height-lg: 454px;
 $background-height-md: auto;

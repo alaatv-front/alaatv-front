@@ -299,11 +299,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/Typography/typography";
-@import "src/css/Theme/colors";
-@import "src/css/Theme/spacing";
-@import "src/css/Theme/radius";
-
 @mixin instalment-label() {
   display: flex;
   padding: 4px 6px;

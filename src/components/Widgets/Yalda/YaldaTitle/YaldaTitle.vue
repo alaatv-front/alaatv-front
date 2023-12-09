@@ -163,9 +163,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "quasar-ui-q-page-builder/src/components/Component";
-@import "src/css/Theme/sizes";
-
+@import "quasar-ui-q-page-builder/src/components/Component.scss";
 $responsiveSpacing: (
   xs: (
     marginTop: v-bind('defaultOptions.responsiveSpacing.xs.marginTop'),
