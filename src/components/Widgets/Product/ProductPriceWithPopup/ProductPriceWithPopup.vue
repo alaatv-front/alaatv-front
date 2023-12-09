@@ -507,10 +507,11 @@ export default defineComponent({
       }
 
       .installment-price {
-        margin-left: $space-7;
         display: flex;
         align-items: center;
         justify-content: center;
+        text-align: center;
+        width: calc(100% - 52px);
 
         &-pre {
           @include caption1;
