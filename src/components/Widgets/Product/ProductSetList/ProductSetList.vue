@@ -33,7 +33,7 @@
                 {{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}
               </div>
             </template>
-            <template v-slot:body>
+            <template v-slot:default>
               <q-card class="set-card">
                 <q-card-section v-if="!setLoading || set.contents.list.length > 0">
                   <q-list class="set-list"
