@@ -164,6 +164,7 @@ export default {
 
 <style scoped lang="scss">
 @import "quasar-ui-q-page-builder/src/components/Component";
+@import "src/css/Theme/sizes";
 
 $responsiveSpacing: (
   xs: (
@@ -221,6 +222,16 @@ $responsiveSpacing: (
 .text-widget-container {
   @include media-query-spacings($responsiveSpacing, $sizes);
 
+  width: 552px !important;
+  @include media-max-width('lg') {
+    width: 485px !important;
+  }
+  @include media-max-width('md') {
+    width: 275px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
   &.theme1 {
     &::before {
       content: "";
@@ -256,8 +267,8 @@ $responsiveSpacing: (
         right: -29px;
         bottom: 27px;
 
-        @media screen and (width <= 599px) {
-          right: 24px;
+        @include media-max-width('md') {
+          right: -20px;
           bottom: 64px;
         }
       }
@@ -267,11 +278,6 @@ $responsiveSpacing: (
         height: 100%;
       }
     }
-  }
-
-  @media screen and (width <= 599px) {
-    //display: flex;
-    //width: 100%;
   }
 }
 
