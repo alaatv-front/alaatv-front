@@ -1351,14 +1351,16 @@ $responsiveSpacing: (
         }
       }
     }
-    @media screen and (max-width: 1440px){
+    @media screen and (width < 1440px){
       width: 147.2px;
     }
-    @media screen and (max-width: 1024px){
+    @media screen and (width < 1024px){
       width: 91.2px;
+      padding: 8px;
     }
-    @media screen and (max-width: 600px){
+    @media screen and (width < 600px){
       width: 132px;
+      padding: 8px;
       margin-bottom: 12px;
       &:last-child {
         margin-bottom: 0;

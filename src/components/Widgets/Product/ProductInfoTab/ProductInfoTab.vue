@@ -348,6 +348,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import "src/css/Theme/spacing";
 @import "src/css/Theme/colors";
+@import "src/css/Theme/sizes";
 $page-size-sm: map-get($sizes, "sm");
 
 .product-info-container {
@@ -360,7 +361,7 @@ $page-size-sm: map-get($sizes, "sm");
   }
   .mobile-header {
     display: none;
-    @media screen and (max-width: $page-size-sm) {
+    @include media-max-width('md'){
       padding: $space-3 $space-7;
       background-color: $grey-1;
       display: block;
@@ -372,7 +373,8 @@ $page-size-sm: map-get($sizes, "sm");
     }
   }
   .header-info {
-    @media screen and (max-width: $page-size-sm) {
+    margin-bottom: $space-4;
+    @include media-max-width('md') {
       display: none;
     }
   }
@@ -401,7 +403,6 @@ $page-size-sm: map-get($sizes, "sm");
   }
 }
 .description {
-  margin-top: $space-4;
   //height: 294px;
 }
 .next-steps {
