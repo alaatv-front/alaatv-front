@@ -170,9 +170,9 @@
                               "timerLabelBackground": null,
                               "timerLabelSize": "14px",
                               "secondsBackground": null,
-                              "counterWidth": "28px",
+                              "counterWidth": "24px",
                               "counterHeight": null,
-                              "counterMargin": "0 14px",
+                              "counterMargin": "0 8px",
                               "counterPadding": "",
                               "counterBorderRadius": null,
                               "fontFamily": "ModamFaNumWeb"
@@ -423,16 +423,18 @@
                               "letterSpacing": "-0.7px"
                             },
                             "lg": {
-                              "fontSize": null,
-                              "fontWeight": null,
-                              "fontStyle": null,
-                              "lineHeight": null
+                              "fontSize": "14px",
+                              "fontWeight": "700",
+                              "fontStyle": "normal",
+                              "lineHeight": "129.7%",
+                              "letterSpacing": "-0.7px"
                             },
                             "xl": {
-                              "fontSize": null,
-                              "fontWeight": null,
-                              "fontStyle": null,
-                              "lineHeight": null
+                              "fontSize": "14px",
+                              "fontWeight": "700",
+                              "fontStyle": "normal",
+                              "lineHeight": "129.7%",
+                              "letterSpacing": "-0.7px"
                             },
                             "responsiveSpacing": {
                               "xs": {
@@ -500,7 +502,11 @@
                                 "right": null
                               }
                             },
-                            "style": {}
+                            "style": {
+                              "backgroundImage": null,
+                              "marginTop": "auto",
+                              "marginBottom": "auto"
+                            }
                           }
                         },
                         {
@@ -551,7 +557,7 @@
                               "secondsBackground": null,
                               "counterWidth": "28px",
                               "counterHeight": null,
-                              "counterMargin": "0 14px",
+                              "counterMargin": "0 12px -8px",
                               "counterPadding": null,
                               "counterBorderRadius": null,
                               "fontFamily": "ModamFaNumWeb"
@@ -4165,7 +4171,7 @@
                           "boxShadows": [],
                           "hasAction": true,
                           "action": "scroll",
-                          "scrollTo": "body-movin-scroll",
+                          "scrollTo": "yalda-omen-row",
                           "route": null,
                           "eventName": null,
                           "profileMode": false,
@@ -4266,7 +4272,7 @@
                           "boxShadows": [],
                           "hasAction": true,
                           "action": "scroll",
-                          "scrollTo": "today-chance",
+                          "scrollTo": "products",
                           "route": null,
                           "eventName": null,
                           "profileMode": false,
@@ -12648,7 +12654,7 @@
                 "paddingBottom": null
               },
               "sm": {
-                "marginTop": "-40px",
+                "marginTop": "-45px",
                 "marginLeft": null,
                 "marginRight": null,
                 "marginBottom": "",
@@ -12658,7 +12664,7 @@
                 "paddingBottom": null
               },
               "md": {
-                "marginTop": "-50px",
+                "marginTop": "-55px",
                 "marginLeft": "",
                 "marginRight": "",
                 "marginBottom": "",
@@ -12668,7 +12674,7 @@
                 "paddingBottom": null
               },
               "lg": {
-                "marginTop": "-70px",
+                "marginTop": "-90px",
                 "marginLeft": "",
                 "marginRight": "",
                 "marginBottom": "",
@@ -12678,7 +12684,7 @@
                 "paddingBottom": null
               },
               "xl": {
-                "marginTop": "-100px",
+                "marginTop": "-140px",
                 "marginLeft": null,
                 "marginRight": "",
                 "marginBottom": "",
@@ -14856,11 +14862,11 @@
                 "marginTop": null,
                 "marginLeft": null,
                 "marginRight": null,
-                "marginBottom": null,
+                "marginBottom": "",
                 "paddingTop": "",
                 "paddingLeft": "",
                 "paddingRight": "",
-                "paddingBottom": "70px"
+                "paddingBottom": "110px"
               },
               "sm": {
                 "marginTop": null,
@@ -14870,7 +14876,7 @@
                 "paddingTop": "",
                 "paddingLeft": "",
                 "paddingRight": "",
-                "paddingBottom": "120px"
+                "paddingBottom": "214px"
               },
               "md": {
                 "marginTop": null,
@@ -14880,7 +14886,7 @@
                 "paddingTop": "",
                 "paddingLeft": "",
                 "paddingRight": "",
-                "paddingBottom": "150px"
+                "paddingBottom": "214px"
               },
               "lg": {
                 "marginTop": "",
@@ -14890,7 +14896,7 @@
                 "paddingTop": "",
                 "paddingLeft": "",
                 "paddingRight": "",
-                "paddingBottom": "230px"
+                "paddingBottom": "214px"
               },
               "xl": {
                 "marginTop": "",
@@ -14900,7 +14906,7 @@
                 "paddingTop": "",
                 "paddingLeft": "",
                 "paddingRight": "",
-                "paddingBottom": "230px"
+                "paddingBottom": "214px"
               }
             },
             "boxShadows": [],
