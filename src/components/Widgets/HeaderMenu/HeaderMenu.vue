@@ -16,7 +16,7 @@
       </div>
     </div>
     <div v-else
-         class="right-section col">
+         class="right-section col-grow">
       <component :is="component.name"
                  v-for="(component, index) in localOptions[size].rightSectionWidgets"
                  :key="index"
@@ -38,7 +38,7 @@
       </q-list>
     </div>
     <div v-else
-         class="center-section col-grow">
+         class="center-section col-grow justify-center">
       <div v-for="(component, index) in localOptions[size].centerSectionWidgets"
            :key="index"
            class="row">
@@ -47,7 +47,7 @@
       </div>
     </div>
     <div v-if="localOptions.hasAction"
-         class="left-section col justify-end">
+         class="left-section col-grow justify-end">
       <q-btn v-if="localOptions.hasAction"
              flat
              :label="localOptions.actionObject.buttonLabel"
