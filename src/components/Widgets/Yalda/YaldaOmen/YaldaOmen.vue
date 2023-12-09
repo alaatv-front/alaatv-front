@@ -18,7 +18,7 @@
         </div>
         <div class="omen-poem__separator">
           <div class="omen-poem__separator--dot">
-            <lazy-img src="https://nodes.alaatv.com/upload/alaaPages/2023-12/vector11701780813.png" />
+            <lazy-img src="https://nodes.alaatv.com/upload/alaaPages/2023-12/vector1701681190.png" />
           </div>
           <div class="omen-poem__separator--dot">
             <lazy-img src="https://nodes.alaatv.com/upload/alaaPages/2023-12/vector1701681190.png" />
@@ -49,7 +49,7 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { mixinWidget } from 'src/mixin/Mixins.js'
+import { mixinWidget, mixinAuth } from 'src/mixin/Mixins.js'
 import TextWidget from 'components/Widgets/TextWidget/TextWidget.vue'
 import LazyImg from 'src/components/lazyImg.vue'
 import Bodymovin from 'src/components/Widgets/Bodymovin/Bodymovin.vue'
@@ -63,7 +63,7 @@ export default defineComponent({
     Bodymovin,
     YaldaGiftDialogContent
   },
-  mixins: [mixinWidget],
+  mixins: [mixinWidget, mixinAuth],
   data () {
     return {
       dialog: false,
@@ -722,9 +722,20 @@ export default defineComponent({
     this.$bus.on(this.eventName, () => {
       this.toggleDialog()
     })
+    this.$bus.on('onLoggedIn', () => {
+      this.toggleDialog()
+    })
   },
   methods: {
+    showLoginDialog () {
+      this.$store.commit('Auth/updateRedirectTo', { name: this.$route.name, params: this.$route.params, query: this.$route.query })
+      this.$store.commit('AppLayout/updateLoginDialog', true)
+    },
     toggleDialog () {
+      if (!this.isUserLogin) {
+        this.showLoginDialog()
+        return
+      }
       this.dialog = !this.dialog
     },
     scrollToElement () {
@@ -739,7 +750,9 @@ export default defineComponent({
     },
     onActionButtonClick () {
       this.toggleDialog()
-      this.scrollToElement()
+      this.$nextTick(() => {
+        this.scrollToElement()
+      })
     }
   }
 })
