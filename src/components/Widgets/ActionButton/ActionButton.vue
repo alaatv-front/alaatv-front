@@ -452,6 +452,7 @@ $responsiveSpacing: (
       vertical-align: middle;
       padding: 100% 0;
       margin-right: 8px;
+      text-align: right;
     }
   }
 
