@@ -326,7 +326,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'src/css/Theme/spacing';
 @import "quasar-ui-q-page-builder/src/components/Component.scss";
 
 $shadows: v-bind('shadows');

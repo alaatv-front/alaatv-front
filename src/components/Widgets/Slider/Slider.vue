@@ -320,8 +320,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'src/css/Theme/spacing';
-@import 'src/css/Theme/Controls/button';
+@import 'src/css/Theme/Controls/button.scss';
 
 .slider-widget {
   width: 100%;

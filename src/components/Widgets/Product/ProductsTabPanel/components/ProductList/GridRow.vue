@@ -130,9 +130,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/spacing";
-@import "src/css/Theme/sizes";
-
 .product-content-wrapper {
   width: 100%;
 

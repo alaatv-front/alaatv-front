@@ -18,7 +18,7 @@ $radius-4: map-get($corners, "radius-4");
 $radius-5: map-get($corners, "radius-5");
 $radius-6: map-get($corners, "radius-6");
 $radius-7: map-get($corners, "radius-7");
-$radius-round: map-get($corners, "$radius-round");
+$radius-round: map-get($corners, "radius-round");
 
 /* border radius */
 @mixin generate-border-radius-classes() {

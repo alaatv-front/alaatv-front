@@ -113,12 +113,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/radius";
-@import "src/css/Theme/colors";
-@import "src/css/Theme/shadow";
-@import "src/css/Theme/spacing";
-@import "src/css/Theme/Typography/typography";
-
 .product-intro-wrapper {
   position: sticky;
   top: 88px;
