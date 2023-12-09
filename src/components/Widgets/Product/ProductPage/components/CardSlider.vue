@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="col-6">
-          <div class="carousel-btns text-right">
+          <div class="carousel-btns flex justify-end">
             <q-btn icon="ph:caret-right"
                    class="carousel-right"
                    text-color="grey-9"
