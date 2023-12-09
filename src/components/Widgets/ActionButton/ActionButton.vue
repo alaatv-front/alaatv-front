@@ -447,10 +447,8 @@ $responsiveSpacing: (
 
     .info-name {
       width: 120px;
-      height: 100%;
       display: block;
       vertical-align: middle;
-      padding: 100% 0;
       margin-right: $space-2;
       text-align: right;
     }
