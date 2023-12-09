@@ -126,8 +126,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "src/css/Theme/spacing";
-
 .card-slider-container {
   .carousel-btns {
     .carousel-right {

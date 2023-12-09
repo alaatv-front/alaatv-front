@@ -480,8 +480,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "src/css/Theme/sizes";
-@import "quasar-ui-q-page-builder/src/components/Component";
+@import "quasar-ui-q-page-builder/src/components/Component.scss";
 $backgrounds: (
   xs: (
     size: v-bind('localOptions.backgrounds.xs.size'),

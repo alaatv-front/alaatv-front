@@ -96,9 +96,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/spacing";
-@import "src/css/Theme/colors";
-
 .explain-container {
   .content {
     margin-top: $space-5;

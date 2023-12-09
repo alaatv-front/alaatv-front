@@ -13,6 +13,9 @@ const mixinAuth = {
   mounted () {
     this.loadAuthData()
     this.loadDomainSameWithAppDomain()
+    this.$bus.on('onLoggedIn', () => {
+      this.loadAuthData()
+    })
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch

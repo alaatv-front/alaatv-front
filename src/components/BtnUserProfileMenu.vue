@@ -91,8 +91,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import 'src/css/Theme/spacing';
-
 .BtnUserProfileMenu {
   //margin-left: 18px;
   width: 48px;
