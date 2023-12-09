@@ -39,6 +39,7 @@ import ReferralCodeAPI from 'src/api/models/ReferralCode.js'
 import TeleMarketingAPI from 'src/api/models/teleMarketing.js'
 import LiveDescriptionAPI from 'src/api/models/LiveDescription.js'
 import ContentTimepointAPI from 'src/api/models/ContentTimepoint.js'
+import YaldaAPI from 'src/api/models/Yalda.js'
 /* Exporting the APIGateway object. */
 export const APIGateway = {
   tag: new TagAPI(),
@@ -56,6 +57,7 @@ export const APIGateway = {
   pages: new PagesAPI(),
   ewano: new EwanoAPI(),
   order: new OrderAPI(),
+  yalda: new YaldaAPI(),
   events: new EventsAPI(),
   source: new SourceAPI(),
   coupon: new CouponAPI(),

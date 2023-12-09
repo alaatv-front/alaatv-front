@@ -1,9 +1,32 @@
-$radius-none: 0;
-$radius-1: 4px;
-$radius-2: 6px;
-$radius-3: 8px;
-$radius-4: 12px;
-$radius-5: 16px;
-$radius-6: 20px;
-$radius-7: 24px;
-$radius-round: 100%;
+$corners: (
+  "radius-none": 0,
+  "radius-1": 4px,
+  "radius-2": 6px,
+  "radius-3": 8px,
+  "radius-4": 12px,
+  "radius-5": 16px,
+  "radius-6": 20px,
+  "radius-7": 24px,
+  "radius-round": 100%
+);
+
+$radius-none: map-get($corners, "radius-none");
+$radius-1: map-get($corners, "radius-1");
+$radius-2: map-get($corners, "radius-2");
+$radius-3: map-get($corners, "radius-3");
+$radius-4: map-get($corners, "radius-4");
+$radius-5: map-get($corners, "radius-5");
+$radius-6: map-get($corners, "radius-6");
+$radius-7: map-get($corners, "radius-7");
+$radius-round: map-get($corners, "$radius-round");
+
+/* border radius */
+@mixin generate-border-radius-classes() {
+  @each $key, $value in $corners {
+    .border-#{$key} {
+      border-radius: $value;
+    }
+  }
+}
+
+@include generate-border-radius-classes();

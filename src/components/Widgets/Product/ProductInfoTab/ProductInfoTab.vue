@@ -81,7 +81,7 @@
               </q-tabs>
             </div>
             <div class="col-2">
-              <div class="text-right">
+              <div class="flex justify-end">
                 <q-btn class="size-md"
                        icon="ph:arrow-up"
                        square
@@ -100,7 +100,7 @@
         <course-explain v-model:height="courseExplainHeight"
                         :title="'توضیحات دوره'">
           <template v-slot:content>
-            <div class="product-long-description"
+            <div class="product-long-description body2"
                  v-html="localOptions.product.description?.long" />
           </template>
         </course-explain>
@@ -111,6 +111,7 @@
          class="sections">
       <q-intersection @enter="activeTab = 'sections'">
         <course-explain v-model:height="sectionsHeight"
+                        :more-button-label="'مشاهده سرفصل ها'"
                         :content-type="'expansion-panel'"
                         :title="'سرفصل ها'">
           <template v-slot:content>
@@ -347,6 +348,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import "src/css/Theme/spacing";
 @import "src/css/Theme/colors";
+@import "src/css/Theme/sizes";
 $page-size-sm: map-get($sizes, "sm");
 
 .product-info-container {
@@ -359,7 +361,7 @@ $page-size-sm: map-get($sizes, "sm");
   }
   .mobile-header {
     display: none;
-    @media screen and (max-width: $page-size-sm) {
+    @include media-max-width('md'){
       padding: $space-3 $space-7;
       background-color: $grey-1;
       display: block;
@@ -371,7 +373,8 @@ $page-size-sm: map-get($sizes, "sm");
     }
   }
   .header-info {
-    @media screen and (max-width: $page-size-sm) {
+    margin-bottom: $space-4;
+    @include media-max-width('md') {
       display: none;
     }
   }
@@ -400,7 +403,6 @@ $page-size-sm: map-get($sizes, "sm");
   }
 }
 .description {
-  margin-top: $space-4;
   //height: 294px;
 }
 .next-steps {

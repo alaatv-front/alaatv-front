@@ -3,7 +3,6 @@ import mixinTree from 'src/mixin/Tree.js'
 import mixinAuth from 'src/mixin/Auth.js'
 import mixinTicket from 'src/mixin/ticket.js'
 import mixinWidget from 'src/mixin/Widgets.js'
-import mixinAuthData from 'src/mixin/AuthData.js'
 import mixinAbrisham from 'src/mixin/Abrisham.js'
 import mixinDateOptions from 'src/mixin/DateOptions.js'
 import mixinPageOptions from 'src/mixin/PageOptions.js'
@@ -19,7 +18,6 @@ export {
   mixinWidget,
   mixinTicket,
   mixinAbrisham,
-  mixinAuthData,
   mixinDateOptions,
   mixinPageOptions,
   mixinPageBuilder,

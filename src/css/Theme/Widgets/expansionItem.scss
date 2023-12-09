@@ -1,3 +1,11 @@
+@import "src/css/Theme/sizes";
+@import "src/css/Theme/spacing";
+@import "src/css/Theme/shadow";
+@import "src/css/Theme/colors";
+@import "src/css/Theme/radius";
+$header-separator-padding-xl: $space-8;
+$header-separator-padding-md: $space-5;
+
 .q-expansion-item {
   width: 100%;
   border-radius: $radius-4;
@@ -25,7 +33,7 @@
     min-height: 64px;
     height: auto;
 
-    @media (max-width: $breakpoint-sm) {
+    @include media-max-width('sm'){
       padding: $space-3 $space-4;
     }
   }
@@ -46,8 +54,13 @@
     position: absolute;
     color: $grey-3;
     bottom: 0;
-    left: 20px;
-    width: calc(100% - 40px);
+    left: $header-separator-padding-xl;
+    width: calc(100% - (2*$header-separator-padding-xl));
+
+    @include media-max-width('md'){
+      left: $header-separator-padding-md;
+      width: calc(100% - (2*$header-separator-padding-md));
+    }
 
   }
 
@@ -72,7 +85,7 @@
   }
 
   .q-expansion-item__content {
-    padding: $space-4;
+    padding: $spacing-none $space-5 $space-1;
     border-radius: $radius-3;
   }
 
@@ -80,7 +93,7 @@
   .header-action-section {
     display: flex;
 
-    @media (max-width: $breakpoint-sm) {
+    @include media-max-width('sm'){
       display: none;
     }
 
@@ -96,7 +109,7 @@
     margin-left: 0;
     display: none;
 
-    @media (max-width: $breakpoint-sm) {
+    @include media-max-width('sm') {
       display: flex;
     }
     .action-wrapper {

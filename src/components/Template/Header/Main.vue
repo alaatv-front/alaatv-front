@@ -38,7 +38,6 @@
             <q-btn icon="ph:shopping-cart"
                    flat
                    square
-                   size="xl"
                    class="size-xl"
                    :loading="cartLoading"
                    :to="{name: 'Public.Checkout.Review'}">

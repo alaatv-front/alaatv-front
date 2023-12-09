@@ -31,11 +31,11 @@
                  @click="showAllContent" />
         </div>
         <div v-else>
-          <q-btn :label="moreButtonLabel"
+          <q-btn :label="lessButtonLabel"
                  flat
                  class="size-xs"
                  color="secondary"
-                 icon-right="ph:caret-down"
+                 icon-right="ph:caret-up"
                  @click="showDefaultContent" />
         </div>
       </div>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import lazyImg from 'components/lazyImg.vue'
+import lazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'CourseExplain',
@@ -72,7 +72,7 @@ export default {
     },
     lessButtonLabel: {
       type: String,
-      default: 'مشاهده کمتر'
+      default: 'بستن'
     }
   },
   data () {
