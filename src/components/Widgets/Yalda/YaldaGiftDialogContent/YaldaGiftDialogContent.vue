@@ -437,7 +437,7 @@ export default defineComponent({
   emits: ['ActionButtonClick'],
   data () {
     return {
-      code: 1,
+      code: 0,
       amount: 0,
       loading: false,
       separatorImage: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/vector1701681190.png',
