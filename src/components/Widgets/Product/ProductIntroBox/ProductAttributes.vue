@@ -16,9 +16,9 @@
                       class="attribute-value-section">
         <div class="value-text ellipsis"
              :class="{'dark': darkMode}">
-          {{ getAttributesValues(attributes.info.teacher) }}
+          {{ getAttributesValues(attributes.info.last_update) }}
           <q-tooltip>
-            {{ getAttributesValues(attributes.info.teacher) }}
+            {{ getAttributesValues(attributes.info.last_update) }}
           </q-tooltip>
         </div>
       </q-item-section>
