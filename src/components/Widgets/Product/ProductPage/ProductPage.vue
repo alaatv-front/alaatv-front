@@ -61,11 +61,8 @@
                     <q-popup-proxy :offset="[10, 10]"
                                    transition-show="flip-up"
                                    transition-hide="flip-down">
-                      <q-banner dense
-                                rounded>
-                        <share-network :url="pageUrl"
-                                       @on-select="shareGiftCard" />
-                      </q-banner>
+                      <share-network :url="pageUrl"
+                                     @on-select="shareGiftCard" />
                     </q-popup-proxy>
                   </q-btn>
                 </div>
@@ -327,12 +324,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/radius";
-@import "src/css/Theme/colors";
-@import "src/css/Theme/spacing";
-@import "src/css/Theme/Typography/typography";
-@import "src/css/Theme/sizes";
-
 $background-height-xl: 367px;
 $background-height-lg: 454px;
 $background-height-md: auto;

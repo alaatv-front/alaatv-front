@@ -346,9 +346,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/spacing";
-@import "src/css/Theme/colors";
-@import "src/css/Theme/sizes";
 $page-size-sm: map-get($sizes, "sm");
 
 .product-info-container {

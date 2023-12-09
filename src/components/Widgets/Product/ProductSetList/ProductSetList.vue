@@ -338,7 +338,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/spacing";
 $page-size-md: map-get($sizes, "md");
 
 .set-sections {
