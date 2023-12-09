@@ -82,12 +82,7 @@ export default {
 
   .product-content {
     justify-content: space-between;
-    padding: 10px 0 40px;
     width: 100%;
-
-    @media screen and (width <= 600px){
-      padding: 0;
-    }
   }
 }
 </style>
