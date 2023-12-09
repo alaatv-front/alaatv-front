@@ -5,7 +5,7 @@ $mobileFooterHeight: 72px;
 @mixin media-max-width($size) {
   @if map-has-key($sizes, $size) {
     $width: map-get($sizes, $size);
-    @media (max-width: #{$width}) {
+    @media (width < #{$width}) {
       @content;
     }
   } @else {

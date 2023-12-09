@@ -1,5 +1,6 @@
 <template>
   <option-panel-tabs v-model:options="localOptions"
+                     :show-responsive-show="true"
                      :show-action-tab="true">
     <template #main-tab>
       <div class="option-panel-container q-my-md">
