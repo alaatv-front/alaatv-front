@@ -189,11 +189,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/Typography/typography";
-@import "src/css/Theme/spacing";
-@import "src/css/Theme/radius";
-@import "src/css/Theme/sizes";
-
 $productFontFamily: v-bind('localOptions.typography.fontFamily');
 $titleColor: v-bind('localOptions.typography.titleColor');
 $priceColor: v-bind('localOptions.typography.priceColor');

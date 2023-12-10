@@ -120,10 +120,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/colors.scss";
-@import "src/css/Theme/spacing.scss";
-@import "src/css/Theme/Typography/typography.scss";
-
 .attribute-item {
   padding: $space-3 $spacing-none;
 
