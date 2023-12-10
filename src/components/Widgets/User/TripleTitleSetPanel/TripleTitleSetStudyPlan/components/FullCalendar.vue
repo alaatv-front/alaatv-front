@@ -773,7 +773,6 @@ export default defineComponent({
       this.selectedEvent = event
     },
     getStudyPlanData (eventId, date) {
-      debugger
       if (date) {
         this.loadCalendar(moment(date).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
       }
