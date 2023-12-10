@@ -742,6 +742,11 @@ export default defineComponent({
       }
     }
   },
+  computed: {
+    filteredLessonId () {
+      return this.filteredLesson
+    }
+  },
   mounted () {
     this.loadCalendar(Time.now(), true)
   },
@@ -768,6 +773,7 @@ export default defineComponent({
       this.selectedEvent = event
     },
     getStudyPlanData (eventId, date) {
+      debugger
       if (date) {
         this.loadCalendar(moment(date).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
       }
@@ -776,7 +782,7 @@ export default defineComponent({
         study_event: eventId || this.studyEvent,
         since_date: this.chartWeek[0].date,
         till_date: this.chartWeek[6].date,
-        product_id: this.filteredLesson ? this.filteredLesson : null
+        product_id: this.filteredLessonId ? this.filteredLessonId : null
       }
       APIGateway.studyPlan.getStudyPlanData(data)
         .then(studyPlanList => {
