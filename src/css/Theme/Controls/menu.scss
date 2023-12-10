@@ -1,6 +1,6 @@
 .q-menu {
   padding: $space-2;
-  border-radius: 12px;
+  border-radius: $radius-4;
   background: $grey-1;
   box-shadow:
     0 2px 4px -2px rgb(16 24 40 / 6%),
@@ -28,6 +28,18 @@
           }
         }
       }
+    }
+  }
+
+  &.megaMenu{
+      width: 1362px;
+      max-width: 1362px !important;
+      border-radius: 0 0 $space-4 $space-4;
+      padding: 0;
+
+    @include media-max-width('lg'){
+      max-width: 964px !important;
+      width: 964px;
     }
   }
 }
