@@ -6,7 +6,9 @@
       </h5>
     </div>
     <div class="col-md-6 col-12 body1">
-      برنامه مطالعاتی - رشته {{ major.title }}
+      برنامه مطالعاتی
+      <span v-if="major.title">/ رشته {{ major.title }}</span>
+      <span v-if="grade.title">/ مقطع {{grade.title}}</span>
     </div>
     <div class="col-md-6 col-12 text-right action-btns">
       <q-btn flat
@@ -578,9 +580,9 @@ export default {
         study_method_id: this.$refs.entityEdit.getInputsByName('study_method_id').value.id
       }
       this.selectedDate = this.$refs.entityEdit.getInputsByName('date').value
-      APIGateway.abrisham.findMyStudyPlan(data)
+      this.findStudyPlan(data)
         .then(studyPlan => {
-          this.$refs.entityEdit.setInputByName('event_id', studyPlan.id)
+          FormBuilderAssist.setAttributeByName(this.editInputs, 'event_id', 'value', studyPlan.id)
           if (this.studyEvent !== studyPlan.id) {
             this.studyEvent = studyPlan.id
             this.needToUpdatePlan = true
@@ -632,7 +634,7 @@ export default {
           grade_id: gradeId,
           study_method_id: methodId
         }
-        APIGateway.abrisham.findMyStudyPlan(data)
+        this.findStudyPlan(data)
           .then(studtPlan => {
             this.createPlan(studtPlan)
               .then((plan) => {
@@ -647,11 +649,24 @@ export default {
           })
       })
     },
+    findStudyPlan (data) {
+      return new Promise((resolve, reject) => {
+        APIGateway.abrisham.findMyStudyPlan(data)
+          .then(studtPlan => {
+            resolve(studtPlan)
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    },
     createPlan (studtPlan) {
       return new Promise((resolve, reject) => {
         const formData = this.$refs.formBuilder.getFormData()
         formData.contents.forEach((content, index) => {
-          formData.contents[index] = content.id
+          if (content.id) {
+            formData.contents[index] = content.id
+          }
         })
         formData.event_id = studtPlan.id
         APIGateway.studyPlan.createPlan(formData)
@@ -674,11 +689,24 @@ export default {
       })
       Promise.all(eventPromises)
         .then((plans) => {
-          this.updateMyStudyPlan({
+          FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'value', [])
+          const data = {
             major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id').value,
             grade_id: FormBuilderAssist.getInputsByName(this.inputs, 'grade_id').value,
             study_method_id: FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value[0]
-          })
+          }
+          this.findStudyPlan(data)
+            .then(studtPlan => {
+              if (studtPlan.id !== this.studyEvent) {
+                this.updateMyStudyPlan(data)
+              } else {
+                this.$refs.fullCalendar.getStudyPlanData(studtPlan.id)
+              }
+              this.loading = false
+            })
+            .catch(() => {
+              this.loading = false
+            })
           this.newPlanDialog = false
         })
         .catch(() => {
@@ -691,7 +719,12 @@ export default {
       this.$apiGateway.studyPlan.storeSetting({ setting: { abrisham2_calender_default_lesson: this.lesson.id } })
         .then(() => {
           this.loading = false
-          this.updateMyStudyPlan()
+          this.filteredLesson = this.lesson.id
+          if (this.isPlanChanged) {
+            this.updateMyStudyPlan()
+          } else {
+            this.$refs.fullCalendar.getStudyPlanData(this.studyEvent)
+          }
         })
         .catch(() => {
           this.loading = false
@@ -791,11 +824,12 @@ export default {
     updateMyStudyPlan (data) {
       this.loading = true
       this.warning = false
-      APIGateway.studyPlan.updateMyStudyPlan({
-        study_method_id: data.study_method_id ? data.study_method_id : this.planType.id,
-        major_id: data.major_id ? data.major_id : this.major.id,
-        grade_id: data.grade_id ? data.grade_id : this.grade.id
-      })
+      const studyPlanData = {
+        study_method_id: data && data.study_method_id ? data.study_method_id : this.planType.id,
+        major_id: data && data.major_id ? data.major_id : this.major.id,
+        grade_id: data && data.grade_id ? data.grade_id : this.grade.id
+      }
+      APIGateway.studyPlan.updateMyStudyPlan(studyPlanData)
         .then(studyPlan => {
           this.studyEvent = studyPlan.id
           this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)

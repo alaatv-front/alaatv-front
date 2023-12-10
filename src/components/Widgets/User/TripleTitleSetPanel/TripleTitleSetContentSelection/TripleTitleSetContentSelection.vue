@@ -21,7 +21,7 @@
       <div class="col-12 inout-col">
         <q-select v-model="topic"
                   :options="setTopicList"
-                  :loading="setLoading"
+                  :loading="setListLoading"
                   :readOnly="setTopicList.length === 0"
                   label="سرفصل" />
       </div>
@@ -66,12 +66,13 @@
                       separator>
                 <q-item v-for="(content, index) in computedSelectedContentList"
                         :key="index"
+                        class="items-center"
                         clickable>
                   <q-item-section avatar>
                     {{ content.id }}
                   </q-item-section>
                   <q-item-section class="selected-content ellipsis-2-lines">
-                    {{ content.short_title }}
+                    {{ content.short_title || content.title }}
                   </q-item-section>
                   <q-item-section side>
                     <q-btn color="secondary"
@@ -149,6 +150,9 @@ export default defineComponent({
     }
   },
   computed: {
+    setListLoading () {
+      return this.$store.getters['TripleTitleSet/setListLoading']
+    },
     setList () {
       const setList = this.$store.getters['TripleTitleSet/setList']
       return setList.filter(set => {
