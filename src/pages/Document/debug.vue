@@ -11,11 +11,9 @@
 </template>
 
 <script>
-import ShowMothersDayPostcard from 'src/components/Widgets/MothersDayPostcard/ShowMothersDayPostcard/ShowMothersDayPostcard.vue'
 
 export default {
   name: 'debug',
-  components: { ShowMothersDayPostcard },
   data () {
     return {
     }
