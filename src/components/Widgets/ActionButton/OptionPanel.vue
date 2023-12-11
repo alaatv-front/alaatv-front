@@ -2,7 +2,8 @@
   <option-panel-tabs v-model:options="localOptions"
                      :show-responsive-spacing="true"
                      :show-box-shadows-tab="true"
-                     :show-responsive-show="true">
+                     :show-responsive-show="true"
+                     :show-border-style-tab="true">
     <template #main-tab>
       <div class="option-panel-container q-py-md">
         <div class="row q-gutter-sm items-center">
@@ -531,7 +532,11 @@ export default defineComponent({
           breakpoint: 500
         },
         topSectionWidgets: [],
-        bottomSectionWidgets: []
+        bottomSectionWidgets: [],
+        borderStyle: {
+          borderCssString: '',
+          borderRadiusCssString: ''
+        }
       }
     }
   },
