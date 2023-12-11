@@ -1,7 +1,11 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <show-mothers-day-postcard />
+      <div class="row items-center justify-center">
+        <div class="col-6">
+          debug
+        </div>
+      </div>
     </div>
   </div>
 </template>
