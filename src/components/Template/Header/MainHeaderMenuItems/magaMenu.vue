@@ -396,10 +396,10 @@ export default {
         }
 
         &:hover {
+          background: $primary-1 ;
+          border-radius: $radius-3;
           :deep(.q-focus-helper) {
-            opacity: 1;
-            background: $primary-1 ;
-            border-radius: $radius-3;
+            background: unset ;
           }
         }
       }
