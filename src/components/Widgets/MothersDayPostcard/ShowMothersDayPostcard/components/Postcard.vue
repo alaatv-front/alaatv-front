@@ -1,6 +1,6 @@
 <template>
   <div class="Postcard">
-    <div class="action-area testBorer">
+    <div class="action-area">
       <q-btn flat>
         <svg xmlns="http://www.w3.org/2000/svg"
              width="48"
@@ -36,11 +36,20 @@
         </div>
       </q-btn>
     </div>
-    <div class="poem testBorer">
-      poem
+    <div class="poem">
+      <div class="poem-title">
+        {{ poemTitle }}
+      </div>
+      <div class="poem-body"
+           v-html="poemBody" />
     </div>
-    <div class="message testBorer">
-      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطر آنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا
+    <div class="message">
+      <div class="message-text"
+           v-html="messageText" />
+      <div class="message-from">
+        {{ messageFrom }}
+        - از طرف
+      </div>
     </div>
   </div>
 </template>
@@ -48,32 +57,103 @@
 <script>
 import { defineComponent } from 'vue'
 export default defineComponent({
-  name: 'Postcard'
+  name: 'Postcard',
+  props: {
+    poemTitle: {
+      type: String,
+      default: 'روزت مبارک مادر عزیزم'
+    },
+    poemBody: {
+      type: String,
+      default: '' +
+        '        مادر حضور نام تو در شعر های من\n' +
+        '<br>\n' +
+        '        لطف خداست شامل حال غزل شده است\n' +
+        '<br>\n' +
+        '        غیر از تو جای هیچ کسی نیست در دلم\n' +
+        '<br>\n' +
+        '        این مسأله میان من و عشق حل شده است...'
+    },
+    messageText: {
+      type: String,
+      default: '        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطر آنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا'
+    },
+    messageFrom: {
+      type: String,
+      default: 'بهزاد'
+    },
+    backgrounds: {
+      type: Object,
+      default: () => {
+        return {
+          size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/19201702280797.png',
+          size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/14401702280833.png',
+          size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/10241702280978.png',
+          size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/6001702280907.png',
+          size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3601702281026.png'
+        }
+      }
+    }
+  },
+  data () {
+    return {
+    }
+  },
+  computed: {
+    backgroundUrls () {
+      const items = {}
+      Object.keys(this.backgrounds).forEach(key => {
+        items[key] = 'url(' + this.backgrounds[key] + ')'
+      })
+
+      return items
+    }
+  }
 })
 </script>
 
 <style lang="scss" scoped>
-.testBorer {
-  border: solid 1px red;
-}
+//$backgrounds-size-1920: v-bind('backgrounds.size1920');
+$backgrounds-size-1920: v-bind('backgroundUrls.size1920');
+$backgrounds-size-1440: v-bind('backgroundUrls.size1440');
+$backgrounds-size-1024: v-bind('backgroundUrls.size1024');
+$backgrounds-size-600: v-bind('backgroundUrls.size600');
+$backgrounds-size-360: v-bind('backgroundUrls.size360');
+
 .Postcard {
-  /* < 1920 */
+  /* page > 1920 */
   width: 784px;
   height: 784px;
   position: relative;
   background-size: cover;
-  background-image: url("https://nodes.alaatv.com/upload/alaaPages/2023-12/19201702280797.png");
+  background-image: $backgrounds-size-1920;
   .poem {
     position: absolute;
     width: 272px;
-    height: 288px;
     top: 56px;
     left: 56px;
     padding-top: 16px;
+    color: #FFF;
+    font-family: IranNastaliq;
+    .poem-title {
+      text-align: center;
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 48px; /* 150% */
+      margin-bottom: 32px;
+    }
+    .poem-body {
+      text-align: center;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 48px; /* 200% */
+    }
   }
   .action-area {
     position: absolute;
-    width: 239px;
+    width: max-content;
     height: 79px;
     top: 56px;
     right: 56px;
@@ -88,6 +168,7 @@ export default defineComponent({
       .q-btn__content {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         width: 100%;
         height: 100%;
         $svg-width: 48px;
@@ -123,27 +204,55 @@ export default defineComponent({
   .message {
     position: absolute;
     width: 250px;
-    height: 177px;
     bottom: 64px;
     left: 56px;
     padding-left: 8px;
     color: #FFF;
-    text-align: justify;
-    @include body1();
+    .message-text {
+      text-align: justify;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: -0.48px;
+      margin-bottom: 12px;
+    }
+    .message-from {
+      text-align: left;
+      font-feature-settings: 'clig' off, 'liga' off;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      letter-spacing: -0.48px;
+    }
   }
-  @include media-max-width('xl') /* 1440 < page < 1920 */ {
+  /* 1440 < page < 1920 */
+  @include media-max-width('xl') {
     width: 784px;
     height: 784px;
-    background-image: url("https://nodes.alaatv.com/upload/alaaPages/2023-12/14401702280833.png");
+    background-image: $backgrounds-size-1440;
     .poem {
       width: 272px;
-      height: 288px;
       top: 56px;
       left: 56px;
       padding-top: 16px;
+      .poem-title {
+        text-align: center;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 48px; /* 150% */
+      }
+      .poem-body {
+        text-align: center;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 48px; /* 200% */
+      }
     }
     .action-area {
-      width: 239px;
       height: 79px;
       top: 56px;
       right: 56px;
@@ -179,39 +288,65 @@ export default defineComponent({
     }
     .message {
       width: 250px;
-      height: 177px;
       bottom: 64px;
       left: 56px;
-      padding-left: 8px;
-      @include body1();
+      text-align: justify;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: -0.48px;
+      .message-text {
+        text-align: justify;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: -0.48px;
+      }
+      .message-from {
+        text-align: left;
+        font-feature-settings: 'clig' off, 'liga' off;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: -0.48px;
+      }
     }
   }
-  @include media-max-width('lg') /* 1024 < page < 1440 */ {
+  /* 1024 < page < 1440 */
+  @include media-max-width('lg') {
     width: 540px;
     height: 638px;
-    background-image: url("https://nodes.alaatv.com/upload/alaaPages/2023-12/10241702280978.png");
+    background-image: $backgrounds-size-1024;
     .poem {
       width: 227px;
-      height: 228px;
-      top: 48px;
+      top: 40px;
       left: 32px;
+      .poem-title {
+        text-align: center;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 48px; /* 200% */
+        margin-bottom: 20px;
+      }
+      .poem-body {
+        text-align: center;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 40px; /* 200% */
+      }
     }
     .action-area {
-      width: 223px;
       height: 79px;
       top: 48px;
       right: 32px;
       :deep(.q-btn) {
-        padding: 12px 16px;
         .q-btn__content {
-          $svg-width: 48px;
-          svg {
-            width: $svg-width;
-            height: $svg-width;
-          }
           .text-of-btn {
-            width: calc( 100% - #{$svg-width} );
-            padding-left: 12px;
             .top-text {
               font-size: 18px;
               font-style: normal;
@@ -237,27 +372,58 @@ export default defineComponent({
       bottom: 48px;
       left: 32px;
       padding-left: 4px;
+      .message-text {
+        text-align: justify;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: -0.42px;
+      }
+      .message-from {
+        font-feature-settings: 'clig' off, 'liga' off;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: -0.42px;
+      }
     }
   }
-  @include media-max-width('md') /* 600 < page < 1024 */ {
+  /* 600 < page < 1024 */
+  @include media-max-width('md') {
     width: 536px;
     height: 654px;
-    background-image: url("https://nodes.alaatv.com/upload/alaaPages/2023-12/6001702280907.png");
+    background-image: $backgrounds-size-600;
     .poem {
+      padding-top: 0;
       width: 227px;
-      height: 192px;
       top: 119px;
       left: 50%;
       transform: translateX(-50%);
+      .poem-title {
+        text-align: center;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 48px; /* 200% */
+        margin-bottom: 12px;
+      }
+      .poem-body {
+        text-align: center;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px; /* 120% */
+      }
     }
     .action-area {
-      width: 170px;
       height: 55px;
       top: 40px;
       right: 50%;
       transform: translateX(50%);
       :deep(.q-btn) {
-        padding: 12px 16px;
+        padding: 8px 16px;
         .q-btn__content {
           $svg-width: 32px;
           svg {
@@ -266,21 +432,21 @@ export default defineComponent({
           }
           .text-of-btn {
             width: calc( 100% - #{$svg-width} );
-            padding-left: 12px;
+            padding-left: 8px;
             .top-text {
-              font-size: 18px;
+              font-size: 14px;
               font-style: normal;
               font-weight: 600;
               line-height: normal;
-              letter-spacing: -0.54px;
-              margin-bottom: 4px;
+              letter-spacing: -0.42px;
+              margin-bottom: 0;
             }
             .bottom-text {
-              font-size: 16px;
+              font-size: 12px;
               font-style: normal;
               font-weight: 400;
               line-height: normal;
-              letter-spacing: -0.48px;
+              letter-spacing: -0.36px;
             }
           }
         }
@@ -292,27 +458,55 @@ export default defineComponent({
       bottom: 40px;
       left: 40px;
       padding-left: 0;
+      .message-text {
+        text-align: left;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: -0.42px;
+      }
+      .message-from {
+        text-align: left;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+      }
     }
   }
-  @include media-max-width('sm') /* 360 < page < 600 */ {
+  /* 360 < page < 600 */
+  @include media-max-width('sm') {
     width: 320px;
     height: 704px;
-    background-image: url("https://nodes.alaatv.com/upload/alaaPages/2023-12/3601702281026.png");
+    background-image: $backgrounds-size-360;
     .poem {
       width: 204px;
-      height: 192px;
       top: 111px;
       left: 50%;
       transform: translateX(-50%);
+      .poem-title {
+        text-align: center;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 48px; /* 240% */
+      }
+      .poem-body {
+        text-align: center;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px; /* 133.333% */
+      }
     }
     .action-area {
-      width: 186px;
       height: 55px;
       top: 32px;
       right: 50%;
       transform: translateX(50%);
       :deep(.q-btn) {
-        padding: 12px 16px;
+        padding: 8px 16px;
         .q-btn__content {
           $svg-width: 32px;
           svg {
@@ -321,21 +515,21 @@ export default defineComponent({
           }
           .text-of-btn {
             width: calc( 100% - #{$svg-width} );
-            padding-left: 12px;
+            padding-left: 8px;
             .top-text {
-              font-size: 18px;
+              font-size: 14px;
               font-style: normal;
               font-weight: 600;
               line-height: normal;
-              letter-spacing: -0.54px;
-              margin-bottom: 4px;
+              letter-spacing: -0.42px;
+              margin-bottom: 0;
             }
             .bottom-text {
-              font-size: 16px;
+              font-size: 12px;
               font-style: normal;
               font-weight: 400;
               line-height: normal;
-              letter-spacing: -0.48px;
+              letter-spacing: -0.36px;
             }
           }
         }
@@ -344,9 +538,24 @@ export default defineComponent({
     .message {
       width: 256px;
       height: 102px;
-      top: 327px;
+      bottom: 275px;
       left: 50%;
       transform: translateX(-50%);
+      .message-text {
+        text-align: center;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: -0.36px;
+      }
+      .message-from {
+        text-align: center !important;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+      }
     }
   }
 }
