@@ -36,7 +36,7 @@
       max-width: 1362px !important;
       border-radius: 0 0 $space-4 $space-4;
       padding: 0;
-
+      transform: translateY(16px);
     @include media-max-width('lg'){
       max-width: 964px !important;
       width: 964px;

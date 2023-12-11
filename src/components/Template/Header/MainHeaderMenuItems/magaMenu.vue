@@ -31,7 +31,7 @@
                     <q-item-section>
                       <q-icon name="ph:book-open"
                               class="size-lg" />
-                      <div class="item-title">{{ item.title }}</div>
+                      <div class="item-title ellipsis">{{ item.title }}</div>
                     </q-item-section>
                     <q-badge v-if="item.badge"
                              color="blue"
@@ -127,10 +127,10 @@
               <div v-else-if="item.type === 'text'">
                 <div v-show="item.selected"
                      :style="{background: item.backgroundColor}">
-                  <div class="row">
+                  <div class="row list-container">
                     <div v-for="(col, colIndex) in item.children"
                          :key="colIndex"
-                         class="col-md-4 text-subtitle1 q-mb-xs">
+                         class="col-md-4 q-mb-xs">
                       <q-list>
                         <router-link v-if="isValidRoute(col.route)"
                                      :to="col.route">
@@ -151,14 +151,14 @@
                           <router-link v-if="isValidRoute(colItem.route)"
                                        :to="colItem.route">
                             <q-item clickable>
-                              <q-item-section>
+                              <q-item-section class="list-items">
                                 {{colItem.title}}
                               </q-item-section>
                             </q-item>
                           </router-link>
                           <q-item v-else
                                   clickable>
-                            <q-item-section>
+                            <q-item-section class="list-items">
                               {{colItem.title}}
                             </q-item-section>
                           </q-item>
@@ -281,63 +281,65 @@ export default {
 
 <style scoped lang="scss">
 
-.category-container {
-  background:$blue-grey-2;
-  .scroll {
-    height: 100%;
-    padding: $space-8 0 $space-8 30px;
-    .item {
-      position: relative;
+.megaMenu{
+  transform: translateY(16px);
+  .category-container {
+    background:$blue-grey-2;
+    .scroll {
+      height: 100%;
+      padding: $space-8 0 $space-8 $space-7;
+      :deep(.scroll){
+        .absolute{
+          position: relative;
+        }
+      }
+      .item {
+        position: relative;
 
-      .edit-btn {
-        position: absolute;
-        left: 0;
-        top: -10px;
+        .edit-btn {
+          position: absolute;
+          left: 0;
+          top: -10px;
+        }
       }
     }
   }
-  @media screen and (width <= 1400px) {
-    width: 200px;
 
-    .scroll {
-      height: 200px;
-    }
+  .sub-category-items {
+    place-self: center;
   }
-}
 
-.sub-category-items {
-  place-self: center;
-}
-
-.item {
-  .q-item__section{
+  .item {
+    margin-bottom: $space-2;
+    .q-item__section{
       display: flex;
       flex-direction: row;
-      justify-content: start;
       align-items: center;
-    .item-title{
-      @include subtitle1;
-      color: $blue-grey-8;
-    }
-    .q-icon{
-      color: $blue-grey-7;
-      margin-right: $space-2;
-    }
-  }
-
-  &.selectedItem{
-    border-radius: $radius-3 0 0 $radius-3;
-    background-color:  $grey-1;
-
-    .q-item__section{
+      justify-content: start;
       .item-title{
-        color: $grey-9;
+        @include subtitle1;
+        color: $blue-grey-8;
+        max-width: calc(100% - $space-7);
       }
       .q-icon{
-        color: $primary-5;
+        color: $blue-grey-7;
+        margin-right: $space-2;
       }
     }
-  }
+
+    &.selectedItem{
+      border-radius: $radius-3 0 0 $radius-3;
+      background-color:  $grey-1;
+
+      .q-item__section{
+        .item-title{
+          color: $grey-9;
+        }
+        .q-icon{
+          color: $primary-5;
+        }
+      }
+    }
 
     &:hover {
       :deep(.q-focus-helper) {
@@ -345,47 +347,81 @@ export default {
       }
     }
 
-  .badge{
+    .badge{
+      align-self: center;
+      animation: badge 1s infinite;
+    }
+
+    @keyframes badge {
+      0% {
+        box-shadow:0 0 0 0 rgb(55 55 55 / 68%);
+      }
+
+      70% {
+        box-shadow:0 0 0 10px rgb(0 0 0 / 0%);
+      }
+
+      100% {
+        box-shadow:0 0 0 0 rgb(0 0 0 / 0%);
+      }
+    }
+  }
+
+  .list-container{
+    padding: $space-6 0 $space-6 $space-6;
+
+    .q-list{
+      .q-item{
+        padding: $space-3 $space-4;
+        .list-title{
+          color: $grey-9;
+          display: flex;
+          align-items: center;
+          @include subtitle1;
+          flex-direction: row;
+          justify-content: flex-start;
+          &:before{
+            content: ' ';
+            width: 3px;
+            height: 18px;
+            margin-right: $space-2;
+            border-radius: $space-1;
+            background: $primary-5;
+          }
+        }
+
+        .list-items{
+          color: $grey-9;
+          @include body2;
+        }
+
+        &:hover {
+          :deep(.q-focus-helper) {
+            opacity: 1;
+            background: $primary-1 ;
+            border-radius: $radius-3;
+          }
+        }
+      }
+    }
+  }
+
+  .magaMenu-photo-container{
     position: absolute;
-    top: 13px;
-    left: 115px;
-    z-index: 100;
-    animation: badge 1s infinite;
-  }
-
-  @keyframes badge {
-    0% {
-      box-shadow:0 0 0 0 rgb(55 55 55 / 68%);
-    }
-
-    70% {
-      box-shadow:0 0 0 10px rgb(0 0 0 / 0%);
-    }
-
-    100% {
-      box-shadow:0 0 0 0 rgb(0 0 0 / 0%);
-    }
-  }
-}
-
-.list-title{
-  font-weight: bold;
-}
-
-.magaMenu-photo-container{
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
-  width: 100px;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .megaMenu-svg{
+    right: 20px;
+    bottom: 20px;
     width: 100px;
     height: 100px;
-    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .megaMenu-svg{
+      width: 100px;
+      height: 100px;
+      position: absolute;
+    }
   }
 }
+
 </style>
