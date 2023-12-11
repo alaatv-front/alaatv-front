@@ -250,7 +250,7 @@ export default {
         item.selected = subIndex === 0
       })
     },
-    editItem (event, childrenIndex) {
+    editItem (event) {
       event.preventDefault()
       event.stopPropagation()
       this.optionDialog = true
