@@ -1,6 +1,6 @@
 import { apiV2 } from 'src/boot/axios.js'
-import { Postcard, PostcardList } from 'src/models/Postcard.js'
 import APIRepository from '../classes/APIRepository.js'
+import { Postcard, PostcardList } from 'src/models/Postcard.js'
 
 export default class PostcardAPI extends APIRepository {
   constructor () {
