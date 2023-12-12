@@ -224,7 +224,11 @@ export default {
           breakpoint: 500
         },
         topSectionWidgets: [],
-        bottomSectionWidgets: []
+        bottomSectionWidgets: [],
+        borderStyle: {
+          borderCssString: '',
+          borderRadiusCssString: ''
+        }
       }
     }
   },
@@ -382,7 +386,7 @@ $responsiveSpacing: (
     paddingBottom: v-bind('localOptions.responsiveSpacing.xl.paddingBottom'),
   )
 );
-
+$border: v-bind('localOptions.borderStyle.borderCssString');
 .drawer {
   z-index: 100;
   .drawer-sections {
@@ -400,6 +404,7 @@ $responsiveSpacing: (
 
     box-shadow: $shadows;
     display: $displayAuth;
+    border: $border;
     border-radius: v-bind('localOptions.borderRadius');
 
     &.fixed-btn {
