@@ -270,10 +270,12 @@ const routes = [
         children: [
           {
             path: '',
+            name: 'UserPanel.index',
             redirect: { name: 'UserPanel.Profile' }
           },
           {
             path: 'postcard',
+            name: 'UserPanel.Postcard',
             redirect: { name: 'Public.Postcard.Index' }
           },
           {

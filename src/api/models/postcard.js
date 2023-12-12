@@ -19,7 +19,7 @@ export default class PostcardAPI extends APIRepository {
     })
   }
 
-  getContacts (data, cache = { TTL: 1000 }) {
+  getPostcards (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
