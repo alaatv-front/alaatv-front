@@ -1,9 +1,7 @@
 import axios from 'axios'
 import { Capacitor } from '@capacitor/core'
-const apiV2Prefix = process.env.ALAA_API_V2
-const appDomain = process.env.VITE_APP_DOMAIN
-const appProtocol = process.env.VITE_APP_PROTOCOL
-const nativeApiV2Server = appProtocol + '://' + appDomain + apiV2Prefix
+
+const nativeApiV2Server = process.env.NATIVE_APP_BACKEND_ADDRESS
 
 const cache = []
 const timeout = 0
