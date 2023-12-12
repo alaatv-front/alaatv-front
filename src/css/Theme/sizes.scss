@@ -12,3 +12,17 @@ $mobileFooterHeight: 72px;
     @warn "The key `#{$size}` is not in the \$sizes map.";
   }
 }
+
+
+// Custom media query mixin using the above map
+@mixin media-min-width($size) {
+  @if map-has-key($sizes, $size) {
+    $min-width: map-get($sizes, $size);
+    @media (min-width: $min-width) {
+      @content;
+    }
+  }
+  @else {
+    @warn "No value found in \$breakpoints for '#{$size}'.";
+  }
+}

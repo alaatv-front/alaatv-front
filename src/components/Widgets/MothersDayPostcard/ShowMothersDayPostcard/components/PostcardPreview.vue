@@ -1,5 +1,6 @@
 <template>
-  <div class="PostcardPreview">
+  <div class="PostcardPreview"
+       @click="onCardClicked">
     <div class="boxed-content">
       <div class="Postcard">
         <postcard :poem-title="postcardPoemTitle"
@@ -20,7 +21,7 @@
       </div>
     </div>
     <div class="soundEqualizer">
-      <sound />
+      <sound ref="sound" />
     </div>
   </div>
 </template>
@@ -127,6 +128,12 @@ export default defineComponent({
 
       return items
     }
+  },
+  methods: {
+    onCardClicked () {
+      debugger
+      this.$refs.sound.tryAutoplay()
+    }
   }
 })
 </script>
@@ -150,11 +157,14 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
   background-repeat: no-repeat;
   background-position: center center;
   position: relative;
+  z-index: -1;
   .boxed-content {
     display: flex;
     flex-wrap: nowrap;
     gap: 24px;
     justify-content: center;
+    position: relative;
+    z-index: 1;
     .Postcard {
       position: relative;
       .flower-element {
@@ -169,7 +179,7 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
       .flower-element {
         position: absolute;
         top: 115.7px;
-        left: 279.7px;
+        left: 289.7px;
         width: 116px;
       }
     }
@@ -177,7 +187,8 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
   .soundEqualizer {
     position: absolute;
     left: 0;
-    bottom: 0;
+    bottom: -10px;
+    z-index: 0;
     width: 100%;
   }
   /* 1440 < page < 1920 */
@@ -187,6 +198,22 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
   /* 1024 < page < 1440 */
   @include media-max-width('lg') {
     background-image: $backgrounds-size-1024;
+    .boxed-content {
+      .Postcard {
+        .flower-element {
+          top: 266px;
+          right: 474.1px;
+          width: 116.2px;
+        }
+      }
+      .SurpriseBox {
+        .flower-element {
+          top: 157.19px;
+          left: 195.39px;
+          width: 81.34px;
+        }
+      }
+    }
   }
   /* 600 < page < 1024 */
   @include media-max-width('md') {
@@ -194,6 +221,18 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
     .boxed-content {
       flex-wrap: wrap;
       gap: 20px;
+      .Postcard {
+        .flower-element {
+          top: 306.24px;
+          right: 434.76px;
+          width: 119.07px;
+        }
+      }
+      .SurpriseBox {
+        .flower-element {
+          display: none;
+        }
+      }
     }
   }
   /* 360 < page < 600 */
@@ -201,6 +240,13 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
     background-image: $backgrounds-size-360;
     .boxed-content {
       gap: 16px;
+      .Postcard {
+        .flower-element {
+          top: 426.24px;
+          right: 236.77px;
+          width: 119.07px;
+        }
+      }
     }
   }
 }
