@@ -1,6 +1,7 @@
 <template>
   <div class="ShowMothersDayPostcard">
-    <postcard-preview :postcard-backgrounds="postcardBackgrounds"
+    <postcard-preview v-if="!postcard.loading"
+                      :postcard-backgrounds="postcardBackgrounds"
                       :postcard-message-from="postcardMessageFrom"
                       :postcard-message-text="postcardMessageText"
                       :postcard-poem-body="postcardPoemBody"
@@ -9,13 +10,19 @@
                       :surprise-banners="surpriseBanners"
                       :surprise-discount-code="surpriseDiscountCode"
                       :flower-image="flowerImage" />
+    <div v-else>
+      <q-spinner-cube color="orange"
+                      size="5.5em" />
+    </div>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { Postcard } from 'src/models/Postcard.js'
 import PostcardPreview from './components/PostcardPreview.vue'
-import { APIGateway } from 'src/api/APIGateway'
+
 export default defineComponent({
   name: 'ShowMothersDayPostcard',
   components: { PostcardPreview },
@@ -61,15 +68,41 @@ export default defineComponent({
           link: ''
         }
       ],
-      flowerImage: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/object1702374033.png'
+      flowerImage: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/object1702374033.png',
+      postcard: new Postcard()
+    }
+  },
+  computed: {
+    postcardId () {
+      return this.$route.params.id
     }
   },
   mounted () {
     this.surpriseDiscountCode = null
+    this.getPostcard()
   },
   methods: {
     getPostcard () {
-      APIGateway.postcard.sendRequest()
+      this.postcard.loading = true
+      APIGateway.postcard.sendRequest(this.postcardId)
+        .then((postcard) => {
+          this.postcard = new Postcard(postcard)
+          this.postcard.loading = false
+        })
+        .catch(() => {
+          this.postcard.loading = false
+        })
+    },
+    getCoupon () {
+      this.postcard.loading = true
+      APIGateway.postcard.sendRequest(this.postcardId)
+        .then((postcard) => {
+          this.postcard = new Postcard(postcard)
+          this.postcard.loading = false
+        })
+        .catch(() => {
+          this.postcard.loading = false
+        })
     }
   }
 })
