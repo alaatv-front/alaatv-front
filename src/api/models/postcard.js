@@ -1,17 +1,18 @@
 import { apiV2 } from 'src/boot/axios.js'
 import APIRepository from '../classes/APIRepository.js'
 import { Postcard, PostcardList } from 'src/models/Postcard.js'
+import { Coupon } from 'src/models/Coupon'
 
 export default class PostcardAPI extends APIRepository {
   constructor () {
     super('postcard', apiV2, '/user')
     this.APIAdresses = {
       postcard: '/postal-cards',
-      data: '/postal-cards/data',
+      data: (userId) => '/postal-cards/data/' + userId,
       byId: (id) => '/postal-cards/' + id
     }
     this.CacheList = {
-      data: this.name + this.APIAdresses.data,
+      data: (userId) => this.name + this.APIAdresses.data(userId),
       postcard: this.name + this.APIAdresses.postcard,
       byId: (id) => this.name + this.APIAdresses.byId(id)
     }
@@ -56,15 +57,18 @@ export default class PostcardAPI extends APIRepository {
     })
   }
 
-  getData (postcardId, cache = { TTL: 1000 }) {
+  getData (userId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.data,
-      cacheKey: this.CacheList.data,
+      request: this.APIAdresses.data(userId),
+      cacheKey: this.CacheList.data(userId),
       ...(cache && { cache }),
       resolveCallback: (response) => {
-        return new Postcard(response.data.data)
+        return {
+          coupon: new Coupon(response.data.coupon),
+          banners: Array.isArray(response.data?.banners) ? response.data.banners : [] // array of object { src: '' }
+        }
       },
       rejectCallback: (error) => {
         return error

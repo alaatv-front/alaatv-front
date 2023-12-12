@@ -84,20 +84,27 @@ export default defineComponent({
   methods: {
     getPostcard () {
       this.postcard.loading = true
-      APIGateway.postcard.sendRequest(this.postcardId)
+      APIGateway.postcard.getPostcard(this.postcardId)
         .then((postcard) => {
           this.postcard = new Postcard(postcard)
-          this.postcard.loading = false
+          const postcardData = this.postcard.getDecodedValue()
+          this.postcardPoemBody = postcardData.postcardPoemBody
+          this.postcardMessageText = postcardData.postcardMessageText
+          this.postcardBackgrounds = postcardData.postcardBackgrounds
+          this.patternBackgrounds = postcardData.patternBackgrounds
+          this.flowerImage = postcardData.flowerImage
+          this.postcardMessageFrom = this.postcard.user.first_name + ' ' + this.postcard.user.last_name
+          this.getCoupon(this.postcard.user.id)
         })
         .catch(() => {
           this.postcard.loading = false
         })
     },
-    getCoupon () {
-      this.postcard.loading = true
-      APIGateway.postcard.sendRequest(this.postcardId)
-        .then((postcard) => {
-          this.postcard = new Postcard(postcard)
+    getCoupon (userId) {
+      APIGateway.postcard.getData(userId)
+        .then((data) => {
+          this.surpriseDiscountCode = data.coupon.code
+          this.surpriseBanners = data.banners
           this.postcard.loading = false
         })
         .catch(() => {
