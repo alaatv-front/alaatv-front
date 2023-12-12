@@ -1,6 +1,6 @@
 <template>
   <div>
-    MothersDayPostcardFirstForm
+    <h1 class="text-accent">Mothers Day Postcard First Form placeholder</h1>
   </div>
 </template>
 
