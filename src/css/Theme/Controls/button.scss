@@ -106,6 +106,7 @@ $button-height: (
   &.q-btn--round {
     @include btn-handle-round-width($size);
 
+
     border-radius: $radius-round !important;
   }
 
@@ -121,7 +122,7 @@ $button-height: (
 body {
   .q-btn {
     min-height: auto;
-    min-width: auto;
+    min-width: 96px;
     color: $grey-1;
     display: inline-flex;
     align-items: center;
@@ -234,6 +235,7 @@ body {
     /* flat */
     &.q-btn--flat {
       color: $grey-9;
+      min-width: auto !important;
 
       &.text-grey {
         color: $grey-9 !important;
