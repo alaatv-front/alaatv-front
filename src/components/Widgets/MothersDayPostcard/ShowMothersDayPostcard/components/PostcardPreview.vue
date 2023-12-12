@@ -12,8 +12,8 @@
         </div>
       </div>
       <div class="SurpriseBox">
-        <surprise-box :discount-code="surprise.discountCode"
-                      :banners="surprise.banners" />
+        <surprise-box :discount-code="surpriseDiscountCode"
+                      :banners="surpriseBanners" />
         <div class="flower-element">
           <flower :src="flowerImage" />
         </div>
@@ -40,51 +40,82 @@ export default defineComponent({
     Postcard,
     SurpriseBox
   },
-  data () {
-    return {
-      postcardPoemTitle: 'روزت مبارک مادر عزیزم',
-      postcardPoemBody: '' +
+  props: {
+    postcardPoemTitle: {
+      type: String,
+      default: 'روزت مبارک مادر عزیزم'
+    },
+    postcardPoemBody: {
+      type: String,
+      default: '' +
         '        مادر حضور نام تو در شعر های من\n' +
         '<br>\n' +
         '        لطف خداست شامل حال غزل شده است\n' +
         '<br>\n' +
         '        غیر از تو جای هیچ کسی نیست در دلم\n' +
         '<br>\n' +
-        '        این مسأله میان من و عشق حل شده است...',
-      postcardMessageText: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطر آنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا',
-      postcardMessageFrom: 'بهزاد',
-      postcardBackgrounds: {
-        size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/19201702280797.png',
-        size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/14401702280833.png',
-        size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/10241702280978.png',
-        size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/6001702280907.png',
-        size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3601702281026.png'
-      },
-      patternBackgrounds: {
-        size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back1440-19201702374213.png',
-        size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back1440-19201702374213.png',
-        size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back10241702374341.png',
-        size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back6001702374421.png',
-        size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back3601702374436.png'
-      },
-      surprise: {
-        discountCode: 'GFDfgkler0',
-        banners: [
-          {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/11702373602.png',
-            link: ''
-          },
-          {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/21702373813.png',
-            link: ''
-          },
-          {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/31702373855.png',
-            link: ''
-          }
-        ]
-      },
-      flowerImage: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/object1702374033.png'
+        '        این مسأله میان من و عشق حل شده است...'
+    },
+    postcardMessageText: {
+      type: String,
+      default: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطر آنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا'
+    },
+    postcardMessageFrom: {
+      type: String,
+      default: 'بهزاد'
+    },
+    postcardBackgrounds: {
+      type: Object,
+      default: () => {
+        return {
+          size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/19201702280797.png',
+          size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/14401702280833.png',
+          size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/10241702280978.png',
+          size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/6001702280907.png',
+          size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3601702281026.png'
+        }
+      }
+    },
+    patternBackgrounds: {
+      type: Object,
+      default: () => {
+        return {
+          size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back1440-19201702374213.png',
+          size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back1440-19201702374213.png',
+          size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back10241702374341.png',
+          size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back6001702374421.png',
+          size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back3601702374436.png'
+        }
+      }
+    },
+    surpriseDiscountCode: {
+      type: String,
+      default: 'GFDfgkler0'
+    },
+    surpriseBanners: {
+      type: Array,
+      default: () => [
+        {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/11702373602.png',
+          link: ''
+        },
+        {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/21702373813.png',
+          link: ''
+        },
+        {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/31702373855.png',
+          link: ''
+        }
+      ]
+    },
+    flowerImage: {
+      type: String,
+      default: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/object1702374033.png'
+    }
+  },
+  data () {
+    return {
     }
   },
   computed: {
