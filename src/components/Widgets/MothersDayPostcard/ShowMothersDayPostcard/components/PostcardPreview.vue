@@ -157,6 +157,7 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
   background-position: center center;
   position: relative;
   z-index: 0;
+  overflow: hidden;
   .boxed-content {
     display: flex;
     flex-wrap: nowrap;
