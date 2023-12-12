@@ -8,14 +8,6 @@ $button-height: (
   "xl": $space-10,
 );
 
-$button-height: (
-  "xs": $space-6,
-  "sm": $space-7,
-  "md": $space-8,
-  "lg": $space-9,
-  "xl": $space-10,
-);
-
 @mixin btn-content-typo($size) {
   @if index(("xs", "sm", "md"), $size) {
     @include button2;
