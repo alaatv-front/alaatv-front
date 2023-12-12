@@ -238,6 +238,24 @@ const routes = [
           {
             path: 'asset',
             redirect: { name: 'UserPanel.MyPurchases' }
+          },
+          {
+            path: 'postcard',
+            name: 'Public.Postcard',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                path: '',
+                name: 'Public.Postcard.Index',
+                meta: { middlewares: [Authenticated(false)] },
+                component: () => import('pages/Public/Postcard/Index.vue')
+              },
+              {
+                path: ':id',
+                name: 'Public.Postcard.Show',
+                component: () => import('pages/Public/Postcard/Show.vue')
+              }
+            ]
           }
         ]
       },
@@ -250,6 +268,14 @@ const routes = [
         },
         component: () => import('layouts/bareLayout.vue'),
         children: [
+          {
+            path: '',
+            redirect: { name: 'UserPanel.Profile' }
+          },
+          {
+            path: 'postcard',
+            redirect: { name: 'Public.Postcard.Index' }
+          },
           {
             // ToDo: check this to remove
             name: 'UserPanel.CompleteInfo',
