@@ -78,7 +78,7 @@ export default defineComponent({
     }
   },
   mounted () {
-    this.surpriseDiscountCode = null
+    // this.surpriseDiscountCode = null
     this.getPostcard()
   },
   methods: {
@@ -93,7 +93,8 @@ export default defineComponent({
           this.postcardBackgrounds = postcardData.postcardBackgrounds
           this.patternBackgrounds = postcardData.patternBackgrounds
           this.flowerImage = postcardData.flowerImage
-          this.postcardMessageFrom = this.postcard.user.first_name + ' ' + this.postcard.user.last_name
+          // this.postcardMessageFrom = this.postcard.user.first_name + ' ' + this.postcard.user.last_name
+          this.postcardMessageFrom = this.postcard.user.first_name
           this.getCoupon(this.postcard.user.id)
         })
         .catch(() => {
