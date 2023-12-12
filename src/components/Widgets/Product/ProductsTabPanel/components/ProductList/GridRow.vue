@@ -8,14 +8,24 @@
     </div>
     <div v-else
          class="product-content row justify-center items-center"
-         :class="options.className"
          :style="options.style">
-      <div v-for="(product, index) in data"
+      <div v-for="(product, index) in displayableProducts"
            :key="index"
            :class="colClassName"
            class="product-item">
         <product-item :options="{product: product, ...localOptions.productOptions}" />
       </div>
+    </div>
+    <div v-if="options.hasExpand"
+         class="col-12 view-more">
+      <action-button v-if="isPanelCollapsed"
+                     class="action-btn"
+                     :options="options.expandedButtonOptions"
+                     @click="expandPanel" />
+      <action-button v-else
+                     class="action-btn"
+                     :options="options.collapsedButtonOptions"
+                     @click="collapsePanel" />
     </div>
   </div>
 </template>
@@ -24,12 +34,14 @@
 import ProductRowSkeleton from '../ProductRowSkeleton.vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 import ProductItem from '../../../ProductItem/ProductItem.vue'
+import ActionButton from 'components/Widgets/ActionButton/ActionButton.vue'
 
 export default {
   name: 'GridRow',
   components: {
     ProductItem,
-    ProductRowSkeleton
+    ProductRowSkeleton,
+    ActionButton
   },
   mixins: [PageBuilderOptionPanel],
   props: {
@@ -48,6 +60,7 @@ export default {
   },
   data () {
     return {
+      isPanelCollapsed: true,
       defaultOptions: {
         colNumber: 'col',
         productOptions: {
@@ -92,10 +105,25 @@ export default {
     }
   },
   computed: {
+    displayableProducts () {
+      if (this.isPanelCollapsed) {
+        return this.data.slice(0, this.options.showInCollapse)
+      } else {
+        return this.data
+      }
+    },
     colClassName () {
       const colNumber = this.options.colNumber ? this.options.colNumber : ''
 
       return colNumber
+    }
+  },
+  methods: {
+    expandPanel () {
+      this.isPanelCollapsed = false
+    },
+    collapsePanel () {
+      this.isPanelCollapsed = true
     }
   }
 }
@@ -105,18 +133,16 @@ export default {
 .product-content-wrapper {
   width: 100%;
 
+  .view-more {
+    margin-top: $space-5;
+    .action-btn {
+      place-content: center;
+    }
+  }
+
   .product-content {
     //justify-content: flex-start;
-    padding: 10px 0 40px;
     width: 100%;
-
-    @media screen and (width <= 600px){
-      padding: 0;
-    }
-
-    .product-item {
-      padding: 5px;
-    }
   }
 }
 

@@ -16,9 +16,9 @@
                       class="attribute-value-section">
         <div class="value-text ellipsis"
              :class="{'dark': darkMode}">
-          {{ getAttributesValues(attributes.info.teacher) }}
+          {{ getAttributesValues(attributes.info.last_update) }}
           <q-tooltip>
-            {{ getAttributesValues(attributes.info.teacher) }}
+            {{ getAttributesValues(attributes.info.last_update) }}
           </q-tooltip>
         </div>
       </q-item-section>
@@ -120,10 +120,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/colors.scss";
-@import "src/css/Theme/spacing.scss";
-@import "src/css/Theme/Typography/typography.scss";
-
 .attribute-item {
   padding: $space-3 $spacing-none;
 

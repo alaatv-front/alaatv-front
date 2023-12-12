@@ -13,9 +13,8 @@
           <div class="header-title">
             <div class="header-title__text">ثبت نام</div>
             <q-btn color="grey"
-                   class="header-title__action"
+                   class="header-title__action size-xs"
                    icon="close"
-                   size="xs"
                    flat
                    @click="toggleDialog" />
           </div>
@@ -203,16 +202,12 @@
         <div class="footer-action">
           <q-btn v-if="paymentMethod === 'cash'"
                  color="primary"
-                 text-color="grey-9"
-                 unelevated
-                 class="action-btn full-width"
+                 class="action-btn full-width size-md"
                  label="ثبت نام نقدی"
                  @click="addToCart('cash')" />
           <q-btn v-else
                  color="primary"
-                 text-color="grey-9"
-                 unelevated
-                 class="action-btn full-width"
+                 class="action-btn full-width size-md"
                  :disable="!installmentAccept"
                  label="ثبت نام اقساطی"
                  @click="addToCart('installment')" />
@@ -235,16 +230,12 @@
         <div class="footer-action">
           <q-btn v-if="paymentMethod === 'cash'"
                  color="primary"
-                 text-color="grey-9"
-                 unelevated
-                 class="action-btn full-width"
+                 class="action-btn full-width size-md"
                  label="ثبت نام نقدی"
                  @click="addToCart('cash')" />
           <q-btn v-else
                  color="accent"
-                 unelevated
-                 size="md"
-                 class="action-btn full-width"
+                 class="action-btn full-width size-md"
                  :disable="!installmentAccept"
                  label="ثبت نام اقساطی"
                  @click="addToCart('installment')" />
@@ -277,7 +268,7 @@ export default defineComponent({
     },
     position: {
       type: String,
-      default: 'center'
+      default: 'standard'
     },
     product: {
       type: Object,
@@ -579,11 +570,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/radius";
-@import "src/css/Theme/colors";
-@import "src/css/Theme/spacing";
-@import "src/css/Theme/Typography/typography";
-
 $page-size-lg: map-get($sizes, "lg");
 $page-size-md: map-get($sizes, "md");
 $page-size-sm: map-get($sizes, "sm");
@@ -1045,18 +1031,6 @@ $page-size-sm: map-get($sizes, "sm");
           font-style: normal;
           font-weight: 400;
           line-height: normal;
-        }
-      }
-    }
-
-    :deep(.action-btn) {
-      &.disabled {
-        color: #424242 !important;
-        opacity: 0.3 !important;;
-        background: #FFCA28 !important;
-
-        .q-btn__content {
-          color: #424242 !important;
         }
       }
     }

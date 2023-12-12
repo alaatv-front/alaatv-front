@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'Plasma-Lozenge-Dots';
-    src: url('fonts/eot/PlasmaLozengeDots-Bold.eot');
-    src: url('fonts/eot/PlasmaLozengeDots-Bold.eot?#iefix') format('embedded-opentype'),
-        url('fonts/WOFF-WOFF2/PlasmaLozengeDots-Bold.woff2') format('woff2'),
-        url('fonts/WOFF-WOFF2/PlasmaLozengeDots-Bold.woff') format('woff'),
-        url('fonts/svg/PlasmaLozengeDots-Bold.svg#PlasmaLozengeDots-Bold') format('svg');
+    src: url('https://nodes.alaatv.com/upload/fonts/Plasma_FaNum/fonts/eot/PlasmaLozengeDots-Bold.eot');
+    src: url('https://nodes.alaatv.com/upload/fonts/Plasma_FaNum/fonts/eot/PlasmaLozengeDots-Bold.eot?#iefix') format('embedded-opentype'),
+        url('https://nodes.alaatv.com/upload/fonts/Plasma_FaNum/fonts/WOFF-WOFF2/PlasmaLozengeDots-Bold.woff2') format('woff2'),
+        url('https://nodes.alaatv.com/upload/fonts/Plasma_FaNum/fonts/WOFF-WOFF2/PlasmaLozengeDots-Bold.woff') format('woff'),
+        url('https://nodes.alaatv.com/upload/fonts/Plasma_FaNum/fonts/svg/PlasmaLozengeDots-Bold.svg#PlasmaLozengeDots-Bold') format('svg');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
@@ -12,11 +12,11 @@
 
 @font-face {
     font-family: 'Plasma-Circle-Dots';
-    src: url('fonts/eot/PlasmaCircleDots-Bold.eot');
-    src: url('fonts/eot/PlasmaCircleDots-Bold.eot?#iefix') format('embedded-opentype'),
-        url('fonts/WOFF-WOFF2/PlasmaCircleDots-Bold.woff2') format('woff2'),
-        url('fonts/WOFF-WOFF2/PlasmaCircleDots-Bold.woff') format('woff'),
-        url('fonts/svg/PlasmaCircleDots-Bold.svg#PlasmaCircleDots-Bold') format('svg');
+    src: url('https://nodes.alaatv.com/upload/fonts/Plasma_FaNum/fonts/eot/PlasmaCircleDots-Bold.eot');
+    src: url('https://nodes.alaatv.com/upload/fonts/Plasma_FaNum/fonts/eot/PlasmaCircleDots-Bold.eot?#iefix') format('embedded-opentype'),
+        url('https://nodes.alaatv.com/upload/fonts/Plasma_FaNum/fonts/WOFF-WOFF2/PlasmaCircleDots-Bold.woff2') format('woff2'),
+        url('https://nodes.alaatv.com/upload/fonts/Plasma_FaNum/fonts/WOFF-WOFF2/PlasmaCircleDots-Bold.woff') format('woff'),
+        url('https://nodes.alaatv.com/upload/fonts/Plasma_FaNum/fonts/svg/PlasmaCircleDots-Bold.svg#PlasmaCircleDots-Bold') format('svg');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
@@ -24,11 +24,11 @@
 
 @font-face {
     font-family: 'Plasma-Square-Dots';
-    src: url('fonts/eot/PlasmaSquareDots-Bold.eot');
-    src: url('fonts/eot/PlasmaSquareDots-Bold.eot?#iefix') format('embedded-opentype'),
-        url('fonts/WOFF-WOFF2/PlasmaSquareDots-Bold.woff2') format('woff2'),
-        url('fonts/WOFF-WOFF2/PlasmaSquareDots-Bold.woff') format('woff'),
-        url('fonts/svg/PlasmaSquareDots-Bold.svg#PlasmaSquareDots-Bold') format('svg');
+    src: url('https://nodes.alaatv.com/upload/fonts/Plasma_FaNum/fonts/eot/PlasmaSquareDots-Bold.eot');
+    src: url('https://nodes.alaatv.com/upload/fonts/Plasma_FaNum/fonts/eot/PlasmaSquareDots-Bold.eot?#iefix') format('embedded-opentype'),
+        url('https://nodes.alaatv.com/upload/fonts/Plasma_FaNum/fonts/WOFF-WOFF2/PlasmaSquareDots-Bold.woff2') format('woff2'),
+        url('https://nodes.alaatv.com/upload/fonts/Plasma_FaNum/fonts/WOFF-WOFF2/PlasmaSquareDots-Bold.woff') format('woff'),
+        url('https://nodes.alaatv.com/upload/fonts/Plasma_FaNum/fonts/svg/PlasmaSquareDots-Bold.svg#PlasmaSquareDots-Bold') format('svg');
     font-weight: bold;
     font-style: normal;
     font-display: swap;

@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { Capacitor } from '@capacitor/core'
 
+const nativeApiV2Server = process.env.NATIVE_APP_BACKEND_ADDRESS
+
 const cache = []
 const timeout = 0
 /* It's a wrapper for the API instance that allows you to call the API instance's methods in a more
@@ -9,7 +11,7 @@ export default class APIInstanceWrapper {
   static createInstance (baseURL, serverURL) {
     const serverSide = typeof window === 'undefined'
     const isNative = this.isNative()
-    const finalBaseURL = isNative ? serverURL : baseURL
+    const finalBaseURL = isNative ? nativeApiV2Server : baseURL
     if (!serverSide) {
       const axiosInstance = axios.create({ baseURL: finalBaseURL })
       axiosInstance.defaults.serverURL = serverURL

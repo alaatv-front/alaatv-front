@@ -52,7 +52,7 @@
       <div class="installment-payment-info">
         <div class="installment-count">
           <h4 class="count-number">
-            6
+            {{ countOfInstalments }}
           </h4>
           <div class="count-title">
             قسط
@@ -99,7 +99,7 @@
       <q-badge color="accent"
                size="xs"
                text-color="white"
-               :label="'۶قسط'" />
+               :label="countOfInstalments + 'قسط'" />
       <div class="mobile-installment-price">
         <span class="mobile-installment-price-pre">فقط با</span>
         <h5 class="mobile-installment-price-number">{{ localOptions.product.instalments[0].value.toLocaleString('fa') }}</h5>
@@ -158,7 +158,7 @@ export default defineComponent({
         product: new Product()
       },
       dialog: false,
-      position: 'center',
+      position: 'standard',
       productPrice: new Price(),
       paymentMethod: null,
       selectedProducts: {
@@ -177,10 +177,16 @@ export default defineComponent({
       return this.productPrice
     },
     hasInstallment () {
-      if (this.localOptions.product) {
-        return this.localOptions.product.has_instalment_option
+      return !!this.localOptions.product?.has_instalment_option
+    },
+    instalments () {
+      if (!this.hasInstallment || !Array.isArray(this.localOptions.product?.instalments)) {
+        return []
       }
-      return false
+      return this.localOptions.product.instalments
+    },
+    countOfInstalments () {
+      return this.instalments.length
     }
   },
   watch: {
@@ -293,11 +299,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/Typography/typography";
-@import "src/css/Theme/colors";
-@import "src/css/Theme/spacing";
-@import "src/css/Theme/radius";
-
 @mixin instalment-label() {
   display: flex;
   padding: 4px 6px;
@@ -501,10 +502,11 @@ export default defineComponent({
       }
 
       .installment-price {
-        margin-left: $space-7;
         display: flex;
         align-items: center;
         justify-content: center;
+        text-align: center;
+        width: calc(100% - 52px);
 
         &-pre {
           @include caption1;

@@ -496,10 +496,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "src/css/Theme/sizes";
-@import "src/css/Theme/spacing";
-@import "src/css/Theme/Typography/typography";
-
 .main-footer {
   .homePage-footer-container {
     @media screen and (width <=599px){
