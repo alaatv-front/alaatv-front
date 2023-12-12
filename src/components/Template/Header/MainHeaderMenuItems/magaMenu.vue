@@ -267,7 +267,7 @@ export default {
     },
     onMouseleave () {
       this.onMouseleaveSetTimeout = setTimeout(() => {
-        // this.showMenu = false
+        this.showMenu = false
       }, 50)
     },
     showData (colIndex) {
