@@ -28,7 +28,7 @@ export default defineComponent({
                       }
                     ],
                     options: {
-                      colNumber: 'col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10',
+                      colNumber: 'col-xs-12 col-sm-12 col-md-10 col-lg-12 col-xl-12',
                       style: {},
                       boxShadows: [],
                       backgrounds: {

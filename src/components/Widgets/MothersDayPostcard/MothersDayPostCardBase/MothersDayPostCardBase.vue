@@ -1,10 +1,17 @@
 <template>
   <div v-if="!loading"
        class="postcard-base-container">
-    <mothers-day-postcard-first-form v-if="currentForm === 'first'" />
-    <mothers-day-postcard-second-form v-if="currentForm === 'second'"
-                                      @toggle-preview-dialog="togglePreview(this.postcard)"
-                                      @invoke-edit-form="toggleForm" />
+    <div class="row full-width flex justify-center items-center">
+      <div v-if="currentForm === 'first'"
+           class="col-12">
+        <mothers-day-postcard-first-form />
+      </div>
+      <div v-if="currentForm === 'second'"
+           class="col-12 col-md-10">
+        <mothers-day-postcard-second-form @toggle-preview-dialog="togglePreview(this.postcard)"
+                                          @invoke-edit-form="toggleForm" />
+      </div>
+    </div>
     <q-dialog v-model="previewDialog">
       <postcard-preview :postcard-poem-title="postcardConfig.postcardPoemTitle"
                         :postcard-poem-body="postcardConfig.postcardPoemBody"
