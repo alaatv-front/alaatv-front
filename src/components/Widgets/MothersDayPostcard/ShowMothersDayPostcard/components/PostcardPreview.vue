@@ -131,7 +131,6 @@ export default defineComponent({
   },
   methods: {
     onCardClicked () {
-      debugger
       this.$refs.sound.tryAutoplay()
     }
   }
@@ -157,7 +156,7 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
   background-repeat: no-repeat;
   background-position: center center;
   position: relative;
-  z-index: -1;
+  z-index: 0;
   .boxed-content {
     display: flex;
     flex-wrap: nowrap;
@@ -187,7 +186,7 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
   .soundEqualizer {
     position: absolute;
     left: 0;
-    bottom: -10px;
+    bottom: -30px;
     z-index: 0;
     width: 100%;
   }
