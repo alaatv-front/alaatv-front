@@ -43,7 +43,7 @@ export default class ContactAPI extends APIRepository {
         phonetype_id: null // Number
       }, data),
       resolveCallback: (response) => {
-        return new Contact(response)
+        return new Contact(response.data.data)
       },
       rejectCallback: (error) => {
         return error
@@ -61,7 +61,7 @@ export default class ContactAPI extends APIRepository {
         phone_id: 1 // Number
       }, data.phone),
       resolveCallback: (response) => {
-        return new Contact(response)
+        return new Contact(response.data.data)
       },
       rejectCallback: (error) => {
         return error

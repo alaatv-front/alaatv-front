@@ -6,7 +6,7 @@
           <div class="slogan">
             <div class="slogan-message">
               <div class="slogan-message__image">
-                <lazy-img :src="sloganImage" />
+                <lazy-img :src="sloganImage" width="206px" hight="206px" />
               </div>
               <h6 class="slogan-message__text">
                 کارت پستال شما با موفقیت ایجاد شد.
@@ -319,7 +319,7 @@ export default defineComponent({
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 16px;
+      gap: $space-4;
       width: 100%;
 
       &__title {
@@ -360,7 +360,7 @@ export default defineComponent({
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 16px;
+      gap: $space-4;
       align-self: stretch;
 
       @include media-max-width('md') {
