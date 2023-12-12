@@ -12,7 +12,15 @@
                                           @invoke-edit-form="toggleForm" />
       </div>
     </div>
-    <q-dialog v-model="previewDialog">
+    <q-dialog v-model="previewDialog"
+              maximized>
+      <div class="top-toolbar">
+        <q-btn class="close-btn"
+               color="grey-1"
+               icon="ph:x"
+               flat
+               @click="togglePreview" />
+      </div>
       <postcard-preview :postcard-poem-title="postcardConfig.postcardPoemTitle"
                         :postcard-poem-body="postcardConfig.postcardPoemBody"
                         :postcard-message-text="postcardConfig.postcardMessageText"
@@ -112,5 +120,36 @@ export default defineComponent({
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.top-toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 56px;
+  padding: $spacing-none $space-8;
+  background: rgba(0, 0, 0, 0.40);
+
+  @include media-max-width('md') {
+    height: 40px;
+    padding: $spacing-none $space-7;
+  }
+  @include media-max-width('sm') {
+    padding: $spacing-none $space-5;
+  }
+  .close-btn {
+    z-index: 9999999;
+  }
 }
 </style>
