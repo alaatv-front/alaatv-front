@@ -61,36 +61,29 @@ export default defineComponent({
   props: {
     poemTitle: {
       type: String,
-      default: 'روزت مبارک مادر عزیزم'
+      default: ''
     },
     poemBody: {
       type: String,
-      default: '' +
-        '        مادر حضور نام تو در شعر های من\n' +
-        '<br>\n' +
-        '        لطف خداست شامل حال غزل شده است\n' +
-        '<br>\n' +
-        '        غیر از تو جای هیچ کسی نیست در دلم\n' +
-        '<br>\n' +
-        '        این مسأله میان من و عشق حل شده است...'
+      default: ''
     },
     messageText: {
       type: String,
-      default: '        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطر آنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا'
+      default: ''
     },
     messageFrom: {
       type: String,
-      default: 'بهزاد'
+      default: ''
     },
     backgrounds: {
       type: Object,
       default: () => {
         return {
-          size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/19201702280797.png',
-          size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/14401702280833.png',
-          size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/10241702280978.png',
-          size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/6001702280907.png',
-          size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3601702281026.png'
+          size1920: '',
+          size1440: '',
+          size1024: '',
+          size600: '',
+          size360: ''
         }
       }
     }
@@ -113,7 +106,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-//$backgrounds-size-1920: v-bind('backgrounds.size1920');
 $backgrounds-size-1920: v-bind('backgroundUrls.size1920');
 $backgrounds-size-1440: v-bind('backgroundUrls.size1440');
 $backgrounds-size-1024: v-bind('backgroundUrls.size1024');
