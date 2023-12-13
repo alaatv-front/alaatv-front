@@ -18,9 +18,14 @@
 
 <script>
 export default {
+  props: {
+    audioSource: {
+      type: String,
+      default: ''
+    }
+  },
   data () {
     return {
-      audioSource: '/music/MimMesleMadar.mp3',
       audioContext: null,
       analyser: null,
       canvasContext: null,

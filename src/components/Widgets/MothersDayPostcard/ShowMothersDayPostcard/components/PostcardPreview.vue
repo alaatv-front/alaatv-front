@@ -29,7 +29,8 @@
       </div>
     </div>
     <div class="soundEqualizer">
-      <sound ref="sound" />
+      <sound ref="sound"
+             :audio-source="audioSource" />
     </div>
   </div>
 </template>
@@ -109,6 +110,10 @@ export default defineComponent({
       default: ''
     },
     surpriseVideoPoster: {
+      type: String,
+      default: ''
+    },
+    audioSource: {
       type: String,
       default: ''
     },
