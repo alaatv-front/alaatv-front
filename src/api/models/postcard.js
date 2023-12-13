@@ -75,4 +75,19 @@ export default class PostcardAPI extends APIRepository {
       }
     })
   }
+
+  savePostalCardData (data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.postcard,
+      data,
+      resolveCallback: (response) => {
+        return new Postcard(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
 }
