@@ -23,9 +23,17 @@
           <div class="divider" />
           <div class="action-box">
             <q-icon name="ph:copy-simple"
-                    class="btn-copy" />
+                    class="btn-copy"
+                    @click="copyCode" />
             <q-icon name="ph:share-network"
-                    class="btn-share-network" />
+                    class="btn-share-network">
+              <q-popup-proxy :offset="[10, 10]"
+                             transition-show="flip-up"
+                             transition-hide="flip-down">
+                <share-network :url="pageUrl"
+                               @on-select="shareCode" />
+              </q-popup-proxy>
+            </q-icon>
           </div>
         </div>
       </div>
@@ -93,11 +101,14 @@
 
 <script>
 import { defineComponent } from 'vue'
+import BodyMovin from './BodyMovin.vue'
+import { copyToClipboard } from 'quasar'
 import LazyImg from 'src/components/lazyImg.vue'
-import BodyMovin from 'components/Widgets/MothersDayPostcard/ShowMothersDayPostcard/components/BodyMovin.vue'
+import ShareNetwork from 'components/ShareNetwork.vue'
+
 export default defineComponent({
   name: 'SurpriseBox',
-  components: { BodyMovin, LazyImg },
+  components: { ShareNetwork, BodyMovin, LazyImg },
   props: {
     discountCode: {
       type: String,
@@ -120,11 +131,34 @@ export default defineComponent({
     }
   },
   computed: {
-
+    pageUrl () {
+      if (typeof window === 'undefined') {
+        return '-'
+      }
+      return window.location.href
+    }
   },
   methods: {
     onComplete () {
       this.animateCompleted = true
+    },
+    shareCode ({ name, url }) {
+      window.open(url, '_blank')
+    },
+    copyCode () {
+      copyToClipboard(this.discountCode.toString())
+        .then(() => {
+          this.$q.notify({
+            message: 'کد تخفیف کپی شد',
+            type: 'positive'
+          })
+        })
+        .catch(() => {
+          this.$q.notify({
+            type: 'negative',
+            message: 'مشکلی در کپی کردن  رخ داده اس.'
+          })
+        })
     }
   }
 })
@@ -224,6 +258,7 @@ export default defineComponent({
           .q-icon {
             font-size: 24px;
             color: #616161;
+            cursor: pointer;
           }
         }
       }

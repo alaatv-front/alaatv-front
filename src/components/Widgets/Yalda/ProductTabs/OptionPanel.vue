@@ -7,15 +7,19 @@
              :key="index">
           <q-expansion-item expand-separator
                             icon="title"
-                            :label="'Title ' + (index + 1)"
-                            caption="Title">
+                            :label="'Title ' + (index + 1)">
             <text-widget-option-panel v-model:options="tab.title" />
           </q-expansion-item>
           <q-expansion-item expand-separator
                             icon="description"
-                            :label="'description ' + (index + 1)"
-                            caption="description">
+                            :label="'description ' + (index + 1)">
             <text-widget-option-panel v-model:options="tab.description" />
+          </q-expansion-item>
+          <q-expansion-item expand-separator
+                            icon="ph:scroll"
+                            label="scroll to">
+            <q-input v-model="tab.scrollTo"
+                     label="class name" />
           </q-expansion-item>
         </div>
       </div>
