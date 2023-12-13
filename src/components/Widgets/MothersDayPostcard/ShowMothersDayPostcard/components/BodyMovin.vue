@@ -34,6 +34,14 @@ export default defineComponent({
           }
         }
       }
+    },
+    autoplay: {
+      type: Boolean,
+      default: false
+    },
+    loop: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -73,8 +81,8 @@ export default defineComponent({
       this.animationData1 = lottie.loadAnimation({
         wrapper: this.$refs.bm,
         animType: 'svg',
-        loop: false,
-        autoplay: false,
+        loop: this.loop,
+        autoplay: this.autoplay,
         path: this.responsiveBmPath
       })
       this.animationData1.addEventListener('complete', () => {

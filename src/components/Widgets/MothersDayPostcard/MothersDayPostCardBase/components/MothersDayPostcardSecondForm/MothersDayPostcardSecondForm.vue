@@ -1,14 +1,14 @@
 <template>
   <div class="second-form-container">
-    <div class="row q-col-gutter-md-md q-col-gutter-lg-lg">
+    <div class="row q-col-gutter-x-lg-lg">
       <div class="col-12 col-md-6">
         <div class="slogan-inner-wrapper">
           <div class="slogan">
             <div class="slogan-message">
               <div class="slogan-message__image">
                 <lazy-img :src="sloganImage"
-                          width="206px"
-                          hight="206px" />
+                          width="212px"
+                          hight="212px" />
               </div>
               <h6 class="slogan-message__text">
                 کارت پستال شما با موفقیت ایجاد شد.
@@ -37,44 +37,46 @@
         </div>
       </div>
       <div class="col-12 col-md-6">
-        <div class="sharing">
-          <div class="sharing-link">
-            <div class="sharing-link__title">
-              لینک زیر را کپی کنید و برای مادر خود ارسال کنید.
-            </div>
-            <div class="sharing-link__copy"
-                 @click="copyCode()">
-              <div class="sharing-link__copy--action">
-                <div class="action-icon">
-                  <q-icon name="ph:copy-simple"
-                          size="sm" />
+        <div class="sharing-outer-wrapper">
+          <div class="sharing">
+            <div class="sharing-link">
+              <div class="sharing-link__title">
+                لینک زیر را کپی کنید و برای مادر خود ارسال کنید.
+              </div>
+              <div class="sharing-link__copy"
+                   @click="copyCode()">
+                <div class="sharing-link__copy--action">
+                  <div class="action-icon">
+                    <q-icon name="ph:copy-simple"
+                            size="sm" />
+                  </div>
+                  <div class="action-text">
+                    کپی
+                  </div>
                 </div>
-                <div class="action-text">
-                  کپی
+                <div class="sharing-link__copy--url ellipsis">
+                  {{ url }}
                 </div>
               </div>
-              <div class="sharing-link__copy--url">
-                {{ url }}
+            </div>
+            <div class="sharing-mobile">
+              <div class="sharing-mobile__title">
+                همچنین میتونید شماره موبایل مورد نظر رو وارد کنید تا در روز مادر، ما لینک کارت تبریک رو براش پیامک کنیم.
+              </div>
+              <div class="sharing-mobile__input">
+                <q-input v-model="mobile"
+                         type="text"
+                         placeholder="شماره مورد نظر را وارد کنید"
+                         label="شماره موبایل" />
               </div>
             </div>
-          </div>
-          <div class="sharing-mobile">
-            <div class="sharing-mobile__title">
-              همچنین میتونید شماره موبایل مورد نظر رو وارد کنید تا در روز مادر، ما لینک کارت تبریک رو براش پیامک کنیم.
+            <div class="sharing-action">
+              <q-btn color="primary"
+                     class="size-md"
+                     label="تایید"
+                     :loading="loading"
+                     @click="saveNumber" />
             </div>
-            <div class="sharing-mobile__input">
-              <q-input v-model="mobile"
-                       type="text"
-                       placeholder="شماره مورد نظر را وارد کنید"
-                       label="شماره موبایل" />
-            </div>
-          </div>
-          <div class="sharing-action">
-            <q-btn color="primary"
-                   class="size-md"
-                   label="تایید"
-                   :loading="loading"
-                   @click="saveNumber" />
           </div>
         </div>
       </div>
@@ -210,18 +212,15 @@ export default defineComponent({
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 712px;
-    padding: $spacing-none $space-12;
+    padding: $space-13 $space-12;
     background:#E1E4EA;
     border-radius:  $radius-4 $radius-none $radius-none $radius-4;
 
     @include media-max-width('lg') {
-      height: 502px;
-      padding: $spacing-none $space-9;
+      padding: $space-9;
     }
 
     @include media-max-width('md') {
-      height: auto;
       padding: $space-7 $space-12;
       border-radius: $radius-3 $radius-3 $radius-none $radius-none !important;
     }
@@ -236,16 +235,16 @@ export default defineComponent({
       align-items: center;
       height: 100%;
       width: 100%;
-      padding: $spacing-none $space-8;
+      padding: $space-13 $space-8;
       gap: $space-7;
 
       @include media-max-width('lg') {
-        padding: $spacing-none $space-2;
+        padding: $space-8 $spacing-none ;
       }
       @include media-max-width('md') {
-        padding: $spacing-none $space-6;
+        padding: $spacing-none  $space-8 ;
       }
-      @include media-max-width('md') {
+      @include media-max-width('sm') {
         padding: $spacing-none;
       }
 
@@ -254,18 +253,25 @@ export default defineComponent({
         flex-direction: column;
         align-items: center;
         gap: $space-7;
+        width: 100%;
 
         @include media-max-width('lg') {
-          gap: $space-6;
+          gap: $space-4;
         }
 
         &__image {
-          width: 206px;
-          height: 206px;
+          padding: $spacing-none $space-12;
+          width: 100%;
+          height: 100%;
 
+          @include media-max-width('lg') {
+            padding: $spacing-none $space-8;
+          }
           @include media-max-width('md') {
-            width: 164px;
-            height: 164px;
+            padding: $spacing-none $space-12;
+          }
+          @include media-max-width('sm') {
+            padding: $space-9;
           }
 
           :deep(.lazy-img) {
@@ -283,10 +289,10 @@ export default defineComponent({
         padding: $spacing-none $space-7;
 
         @include media-max-width('lg') {
-          padding: $spacing-none;
+          padding: $spacing-none $space-2;
         }
         @include media-max-width('md') {
-          padding: $spacing-none $space-7;
+          padding: $spacing-none $space-4;
         }
         @include media-max-width('sm') {
           padding: $spacing-none;
@@ -295,96 +301,113 @@ export default defineComponent({
     }
   }
 
-  .sharing {
+  .sharing-outer-wrapper {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 712px;
     border-radius: $radius-none $radius-4 $radius-4 $radius-none;
-    padding: $spacing-none $space-12;
+    padding: $space-13 $space-12;
 
     @include media-max-width('lg') {
-      height: 502px;
-      padding: $spacing-none $space-8;
+      padding: $space-9 $space-8;
     }
     @include media-max-width('md') {
-      height: auto;
-      padding: $space-7;
+      padding: $space-7 $space-11;
     }
     @include media-max-width('sm') {
-      height: auto;
       padding: $space-7 $space-5;
     }
 
-    &-link {
+    .sharing {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      gap: $space-4;
-      width: 100%;
+      justify-content: center;
+      align-items: center;
+      padding: $space-13 $spacing-none $space-9;
 
-      &__title {
-        color: $grey-9;
-        @include body2;
+      @include media-max-width('lg') {
+        padding: $space-8 $spacing-none $space-6;
+      }
+      @include media-max-width('md') {
+        padding: $spacing-none
+      }
+      @include media-max-width('sm') {
+        padding: $spacing-none;
       }
 
-      &__copy {
-        width: 100%;
+      &-link {
         display: flex;
-        height: 48px;
-        padding: $space-3 $space-4;
-        justify-content: space-between;
-        align-items: center;
-        gap: $space-2;
-        align-self: stretch;
-        border-radius: $radius-4;
-        background: $blue-grey-1;
-        cursor: pointer;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $space-4;
+        width: 100%;
 
-        &--action {
+        &__title {
+          color: $grey-9;
+          @include body2;
+        }
+
+        &__copy {
+          width: 100%;
           display: flex;
-          justify-content: center;
+          padding: $space-3 $space-4;
+          justify-content: space-between;
           align-items: center;
-          gap: $space-1;
+          gap: $space-2;
+          align-self: stretch;
+          border-radius: $radius-4;
+          background: $blue-grey-1;
+          cursor: pointer;
 
-          .action-text {
-            color: $grey-9;
-            font-feature-settings: 'clig' off, 'liga' off;
-            @include subtitle2;
+          &--action {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: $space-1;
+
+            .action-text {
+
+              color: $grey-9;
+              font-feature-settings: 'clig' off, 'liga' off;
+              @include subtitle2;
+            }
           }
         }
       }
-    }
 
-    &-mobile {
-      margin-top: $space-11;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: $space-4;
-      align-self: stretch;
+      &-mobile {
+        margin-top: $space-11;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $space-4;
+        align-self: stretch;
 
-      @include media-max-width('md') {
-        margin-top: $space-8;
+        @include media-max-width('md') {
+          margin-top: $space-8;
+        }
+
+        &__title {
+          color: $grey-9;
+          @include body2;
+        }
+
+        &__input {
+          width: 100%;
+        }
       }
 
-      &__title {
-        color: $grey-9;
-        @include body2;
-      }
-
-      &__input {
+      &-action {
         width: 100%;
-      }
-    }
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: $space-7;
 
-    &-action {
-      width: 100%;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      margin-top: $space-6;
+        @include media-max-width('lg') {
+          margin-top: $space-6;
+        }
+      }
     }
   }
 }
