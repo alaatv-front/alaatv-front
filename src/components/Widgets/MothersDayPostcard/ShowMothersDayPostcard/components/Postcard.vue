@@ -11,7 +11,7 @@
         {{ poemTitle }}
       </div>
       <div class="poem-body"
-           v-html="poemBody" />
+           v-html="computedPoemBody" />
     </div>
     <div class="message">
       <div class="message-text"
@@ -108,6 +108,14 @@ export default defineComponent({
     }
   },
   computed: {
+    computedPoemBody () {
+      return [
+        this.poemBody?.verse1?.hemistich1,
+        this.poemBody?.verse1?.hemistich2,
+        this.poemBody?.verse2?.hemistich1,
+        this.poemBody?.verse2?.hemistich2
+      ].join('<br>')
+    },
     backgroundUrls () {
       const items = {}
       Object.keys(this.backgrounds).forEach(key => {
