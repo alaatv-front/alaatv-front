@@ -253,7 +253,7 @@ export default {
         },
         {
           verse1: {
-            hemistich1: 'اى مادر عزیز که جان داده‌اى مر',
+            hemistich1: 'اى مادر عزیز که جان داده‌اى مرا',
             hemistich2: 'سهل است اگر که جان دهم اکنون براى تو'
           },
           verse2: {
@@ -378,7 +378,6 @@ export default {
       padding-bottom: $space-6;
       .poem {
         display: flex;
-        justify-content: flex-end;
         align-items: flex-start;
         gap: $space-3;
         .verses {

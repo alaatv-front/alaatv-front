@@ -2,4 +2,14 @@
   &.disabled {
     opacity: 0.3 !important;
   }
+
+  .q-radio__inner {
+    font-size: 24px;
+    .q-radio__bg {
+      left: 4px;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+    }
+  }
 }
