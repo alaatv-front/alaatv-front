@@ -90,4 +90,19 @@ export default class PostcardAPI extends APIRepository {
       }
     })
   }
+
+  editPostalCard (data) {
+    return this.sendRequest({
+      apiMethod: 'put',
+      api: this.api,
+      request: this.APIAdresses.postcard,
+      data,
+      resolveCallback: (response) => {
+        return new Postcard(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
 }
