@@ -298,7 +298,6 @@ export default {
       this.$emit('togglePreviewDialog', this.selectedTheme.previewData)
     },
     fillPoemData () {
-      debugger
       this.selectedTheme = this.themes.filter(theme => theme.isSelected)[0]
       this.selectedTheme.previewData.postcardMessageText = this.message
       this.selectedTheme.previewData.postcardPoemBody = '' +
