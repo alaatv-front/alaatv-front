@@ -7,7 +7,9 @@
                   :poem-body="postcardPoemBody"
                   :message-text="postcardMessageText"
                   :message-from="postcardMessageFrom"
-                  :backgrounds="postcardBackgrounds" />
+                  :backgrounds="postcardBackgrounds"
+                  :surprise-video-poster="surpriseVideoPoster"
+                  :surprise-video-src="surpriseVideoSrc" />
         <div class="flower-element">
           <flower :src="flowerImage" />
         </div>
@@ -27,7 +29,8 @@
       </div>
     </div>
     <div class="soundEqualizer">
-      <sound ref="sound" />
+      <sound ref="sound"
+             :audio-source="audioSource" />
     </div>
   </div>
 </template>
@@ -101,6 +104,18 @@ export default defineComponent({
     surpriseBanners: {
       type: Array,
       default: () => []
+    },
+    surpriseVideoSrc: {
+      type: String,
+      default: ''
+    },
+    surpriseVideoPoster: {
+      type: String,
+      default: ''
+    },
+    audioSource: {
+      type: String,
+      default: ''
     },
     flowerImage: {
       type: String,
