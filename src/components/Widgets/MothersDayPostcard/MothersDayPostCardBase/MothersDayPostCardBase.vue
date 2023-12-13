@@ -4,7 +4,8 @@
     <div class="row full-width flex justify-center items-center">
       <div v-if="currentForm === 'first'"
            class="col-12">
-        <mothers-day-postcard-first-form />
+        <mothers-day-postcard-first-form @toggle-preview-dialog="togglePreview"
+                                         @toggle-form="toggleForm" />
       </div>
       <div v-if="currentForm === 'second'"
            class="col-12 col-md-10">
@@ -32,9 +33,9 @@
   </div>
   <div v-else
        class="loading">
-    <q-spinner-gears color="primary"
-                     size="3rem"
-                     :thickness="5" />
+    <q-spinner-grid color="primary"
+                    size="3rem"
+                    :thickness="5" />
   </div>
 </template>
 
@@ -45,6 +46,50 @@ import { Postcard, PostcardList } from 'src/models/Postcard.js'
 import MothersDayPostcardFirstForm from './components/MothersDayPostcardFirstForm/MothersDayPostcardFirstForm.vue'
 import MothersDayPostcardSecondForm from './components/MothersDayPostcardSecondForm/MothersDayPostcardSecondForm.vue'
 import PostcardPreview from 'src/components/Widgets/MothersDayPostcard/ShowMothersDayPostcard/components/PostcardPreview.vue'
+
+const defaultConfig = {
+  postcardPoemTitle: 'روزت مبارک مادر عزیزم',
+  postcardPoemBody: '' +
+        '        مادر حضور نام تو در شعر های من\n' +
+        '<br>\n' +
+        '        لطف خداست شامل حال غزل شده است\n' +
+        '<br>\n' +
+        '        غیر از تو جای هیچ کسی نیست در دلم\n' +
+        '<br>\n' +
+        '        این مسأله میان من و عشق حل شده است...',
+  postcardMessageText: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطر آنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا',
+  postcardMessageFrom: 'بهزاد',
+  postcardBackgrounds: {
+    size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/19201702280797.png',
+    size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/14401702280833.png',
+    size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/10241702280978.png',
+    size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/6001702280907.png',
+    size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3601702281026.png'
+  },
+  patternBackgrounds: {
+    size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back1440-19201702374213.png',
+    size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back1440-19201702374213.png',
+    size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back10241702374341.png',
+    size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back6001702374421.png',
+    size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back3601702374436.png'
+  },
+  surpriseDiscountCode: 'GFDfgkler0',
+  surpriseBanners: [
+    {
+      src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/11702373602.png',
+      link: ''
+    },
+    {
+      src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/21702373813.png',
+      link: ''
+    },
+    {
+      src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/31702373855.png',
+      link: ''
+    }
+  ],
+  flowerImage: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/object1702374033.png'
+}
 
 export default defineComponent({
   name: 'MothersDayPostCardBase',
@@ -60,15 +105,7 @@ export default defineComponent({
       currentForm: 'first',
       loading: false,
       previewDialog: false,
-      postcardConfig: {
-        postcardPoemTitle: null,
-        postcardPoemBody: null,
-        postcardMessageText: null,
-        postcardMessageFrom: null,
-        postcardBackgrounds: null,
-        patternBackgrounds: null,
-        flowerImage: null
-      }
+      postcardConfig: defaultConfig
     }
   },
   mounted () {
@@ -96,13 +133,13 @@ export default defineComponent({
       if (postcard && postcard.value) {
         const userPostcardConfig = JSON.parse(postcard.value)
         this.postcardConfig = {
-          postcardPoemTitle: userPostcardConfig.postcardPoemTitle || null,
-          postcardPoemBody: userPostcardConfig.postcardPoemBody || null,
-          postcardMessageText: userPostcardConfig.postcardMessageText || null,
-          postcardMessageFrom: userPostcardConfig.postcardMessageFrom || null,
-          postcardBackgrounds: userPostcardConfig.postcardBackgrounds || null,
-          patternBackgrounds: userPostcardConfig.patternBackgrounds || null,
-          flowerImage: userPostcardConfig.flowerImage || null
+          postcardPoemTitle: userPostcardConfig.postcardPoemTitle,
+          postcardPoemBody: userPostcardConfig.postcardPoemBody,
+          postcardMessageText: userPostcardConfig.postcardMessageText,
+          postcardMessageFrom: userPostcardConfig.postcardMessageFrom,
+          postcardBackgrounds: userPostcardConfig.postcardBackgrounds,
+          patternBackgrounds: userPostcardConfig.patternBackgrounds,
+          flowerImage: userPostcardConfig.flowerImage
         }
       }
       this.previewDialog = !this.previewDialog
@@ -135,6 +172,7 @@ export default defineComponent({
   left: 0;
   right: 0;
   display: flex;
+  z-index: 2;
   justify-content: flex-start;
   align-items: center;
   height: 56px;
@@ -147,9 +185,6 @@ export default defineComponent({
   }
   @include media-max-width('sm') {
     padding: $spacing-none $space-5;
-  }
-  .close-btn {
-    z-index: 9999999;
   }
 }
 </style>
