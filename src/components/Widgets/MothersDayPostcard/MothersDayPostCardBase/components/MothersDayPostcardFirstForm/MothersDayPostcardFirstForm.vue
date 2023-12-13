@@ -103,7 +103,7 @@ export default {
   name: 'MothersDayPostcardFirstForm',
   components: {
   },
-  emits: ['togglePreviewDialog'],
+  emits: ['togglePreviewDialog', 'toggleForm'],
 
   data () {
     return {
@@ -308,7 +308,7 @@ export default {
       })
       APIGateway.postcard.savePostalCardData(sendData)
         .then((Postcard) => {
-          this.$emit('togglePreviewDialog')
+          this.$emit('toggleForm')
         })
         .catch(() => {})
     },
