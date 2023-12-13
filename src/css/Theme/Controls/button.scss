@@ -82,6 +82,11 @@ $button-height: (
   padding: $square-padding !important;
 }
 
+@mixin btn-handle-square-width($size) {
+  $square-width: map.get($button-height, $size);
+  min-width: $square-width !important;
+}
+
 @mixin btn_handle_padding($size) {
   $target-padding-x: $space-1;
   $target-padding-y: $spacing-none;
@@ -119,6 +124,7 @@ $button-height: (
   &.q-btn--round {
     @include btn-handle-round-width($size);
 
+
     border-radius: $radius-round !important;
   }
 
@@ -134,7 +140,7 @@ $button-height: (
 body {
   .q-btn {
     min-height: auto;
-    min-width: auto;
+    min-width: 96px;
     color: $grey-1;
     display: inline-flex;
     align-items: center;
