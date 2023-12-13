@@ -180,6 +180,10 @@ const routes = [
                 redirect: { name: 'Public.Landing.DynamicName', params: { landing_name: '110' } }
               },
               {
+                path: 'silkroad',
+                redirect: { name: 'Public.Landing.DynamicName', params: { landing_name: 'rahabrisham' } }
+              },
+              {
                 path: ':landing_name',
                 meta: {
                   hasDynamicSettingWithParams: true
@@ -187,30 +191,6 @@ const routes = [
                 name: 'Public.Landing.DynamicName',
                 component: () => import('src/pages/Public/Landings/Landing.vue')
               }
-              // {
-              //   path: '36',
-              //   name: 'Public.Landing.FireDay',
-              //   meta: {
-              //     hasDynamicSetting: true
-              //   },
-              //   component: () => import('src/pages/Public/Landings/FireDay.vue')
-              // },
-              // {
-              //   path: '15',
-              //   name: 'Public.Landing.Arash',
-              //   meta: {
-              //     hasDynamicSetting: true
-              //   },
-              //   component: () => import('src/pages/Public/Landings/Arash.vue')
-              // },
-              // {
-              //   path: '9',
-              //   name: 'Public.Landing.Taftan',
-              //   meta: {
-              //     hasDynamicSetting: true
-              //   },
-              //   component: () => import('src/pages/Public/Landings/Taftan.vue')
-              // }
             ]
           },
           {
