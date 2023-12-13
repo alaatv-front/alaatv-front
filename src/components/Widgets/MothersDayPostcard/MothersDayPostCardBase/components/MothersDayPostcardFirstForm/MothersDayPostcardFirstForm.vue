@@ -123,18 +123,18 @@ export default {
             postcardPoemBody: '',
             postcardMessageText: '',
             patternBackgrounds: {
-              size1920: '',
-              size1440: '',
-              size1024: '',
-              size600: '',
-              size360: ''
+              size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back1440-19201702374213.png',
+              size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back1440-19201702374213.png',
+              size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back10241702374341.png',
+              size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back6001702374421.png',
+              size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back3601702374436.png'
             },
             postcardBackgrounds: {
-              size1920: '',
-              size1440: '',
-              size1024: '',
-              size600: '',
-              size360: ''
+              size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/19201702280797.png',
+              size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/14401702280833.png',
+              size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/10241702280978.png',
+              size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/6001702280907.png',
+              size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3601702281026.png'
             }
           },
           isSelected: true
@@ -173,18 +173,18 @@ export default {
             postcardPoemBody: '',
             postcardMessageText: '',
             patternBackgrounds: {
-              size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back1440-19201702374213.png',
-              size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back1440-19201702374213.png',
-              size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back10241702374341.png',
-              size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back6001702374421.png',
-              size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back3601702374436.png'
+              size1920: '',
+              size1440: '',
+              size1024: '',
+              size600: '',
+              size360: ''
             },
             postcardBackgrounds: {
-              size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/19201702280797.png',
-              size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/14401702280833.png',
-              size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/10241702280978.png',
-              size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/6001702280907.png',
-              size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3601702281026.png'
+              size1920: '',
+              size1440: '',
+              size1024: '',
+              size600: '',
+              size360: ''
             }
           },
           isSelected: false
@@ -331,13 +331,7 @@ export default {
     fillPoemData () {
       this.selectedTheme = this.themes.filter(theme => theme.isSelected)[0]
       this.selectedTheme.previewData.postcardMessageText = this.message
-      this.selectedTheme.previewData.postcardPoemBody = '' +
-        `\n${this.selectedPoem.verse1.hemistich1}` +
-        '<br>\n' +
-        `\n${this.selectedPoem.verse1.hemistich2}` +
-        '<br>\n' +
-        `\n${this.selectedPoem.verse2.hemistich1}` +
-        `<br>\n${this.selectedPoem.verse2.hemistich2}`
+      this.selectedTheme.previewData.postcardPoemBody = this.selectedPoem
     }
   }
 }
