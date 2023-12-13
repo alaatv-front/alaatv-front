@@ -7,7 +7,9 @@
                   :poem-body="postcardPoemBody"
                   :message-text="postcardMessageText"
                   :message-from="postcardMessageFrom"
-                  :backgrounds="postcardBackgrounds" />
+                  :backgrounds="postcardBackgrounds"
+                  :surprise-video-poster="surpriseVideoPoster"
+                  :surprise-video-src="surpriseVideoSrc" />
         <div class="flower-element">
           <flower :src="flowerImage" />
         </div>
@@ -19,14 +21,16 @@
       <div v-if="surpriseDiscountCode"
            class="SurpriseBox">
         <surprise-box :discount-code="surpriseDiscountCode"
-                      :banners="surpriseBanners" />
+                      :banners="surpriseBanners"
+                      :body-movin="surpriseBoxBodyMovin" />
         <div class="flower-element">
           <flower :src="flowerImage" />
         </div>
       </div>
     </div>
     <div class="soundEqualizer">
-      <sound ref="sound" />
+      <sound ref="sound"
+             :audio-source="audioSource" />
     </div>
   </div>
 </template>
@@ -91,9 +95,27 @@ export default defineComponent({
       type: String,
       default: null
     },
+    surpriseBoxBodyMovin: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    },
     surpriseBanners: {
       type: Array,
       default: () => []
+    },
+    surpriseVideoSrc: {
+      type: String,
+      default: ''
+    },
+    surpriseVideoPoster: {
+      type: String,
+      default: ''
+    },
+    audioSource: {
+      type: String,
+      default: ''
     },
     flowerImage: {
       type: String,

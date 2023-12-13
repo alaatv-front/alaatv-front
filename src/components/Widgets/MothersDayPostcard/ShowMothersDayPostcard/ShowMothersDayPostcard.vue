@@ -1,5 +1,10 @@
 <template>
   <div class="ShowMothersDayPostcard">
+    <div class="BodyMovin-container"
+         :class="{'animateCompleted': animateCompleted}">
+      <body-movin :responsive-bm="entranceBodyMovin"
+                  @complete="onComplete" />
+    </div>
     <postcard-preview v-if="!postcard.loading"
                       :postcard-backgrounds="postcardBackgrounds"
                       :postcard-message-from="postcardMessageFrom"
@@ -9,7 +14,11 @@
                       :pattern-backgrounds="patternBackgrounds"
                       :surprise-banners="surpriseBanners"
                       :surprise-discount-code="surpriseDiscountCode"
-                      :flower-image="flowerImage" />
+                      :flower-image="flowerImage"
+                      :surprise-box-body-movin="surpriseBoxBodyMovin"
+                      :surprise-video-poster="surpriseVideoPoster"
+                      :surprise-video-src="surpriseVideoSrc"
+                      :audio-source="audioSource" />
     <div v-else>
       <div v-if="postcardHasError">
         مشکلی رخ داده است.
@@ -23,15 +32,17 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { APIGateway } from 'src/api/APIGateway.js'
 import { Postcard } from 'src/models/Postcard.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+import BodyMovin from './components/BodyMovin.vue'
 import PostcardPreview from './components/PostcardPreview.vue'
 
 export default defineComponent({
   name: 'ShowMothersDayPostcard',
-  components: { PostcardPreview },
+  components: { PostcardPreview, BodyMovin },
   data () {
     return {
+      animateCompleted: false,
       postcardPoemTitle: 'روزت مبارک مادر عزیزم',
       postcardPoemBody: '' +
         '        مادر حضور نام تو در شعر های من\n' +
@@ -74,6 +85,43 @@ export default defineComponent({
       ],
       flowerImage: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/object1702374033.png',
       postcard: new Postcard(),
+      surpriseBoxBodyMovin: {
+        xs: {
+          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+        },
+        sm: {
+          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+        },
+        md: {
+          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+        },
+        lg: {
+          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+        },
+        xl: {
+          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+        }
+      },
+      entranceBodyMovin: {
+        xs: {
+          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+        },
+        sm: {
+          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+        },
+        md: {
+          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+        },
+        lg: {
+          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+        },
+        xl: {
+          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+        }
+      },
+      surpriseVideoSrc: 'https://nodes.alaatv.com/media/1042/240p/1042001ssss.mp4',
+      surpriseVideoPoster: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/VideoPlayer1702464332.png',
+      audioSource: 'https://nodes.alaatv.com/upload/landing/motherday1402/mother-postalcard-music.mp3',
       postcardHasError: false
     }
   },
@@ -87,6 +135,9 @@ export default defineComponent({
     this.getPostcard()
   },
   methods: {
+    onComplete () {
+      this.animateCompleted = true
+    },
     getPostcard () {
       this.postcard.loading = true
       APIGateway.postcard.getPostcard(this.postcardId)
@@ -129,6 +180,18 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  .BodyMovin-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    &.animateCompleted {
+      display: none;
+    }
+  }
   /* 1440 < page < 1920 */
   @include media-max-width('xl') {
 
