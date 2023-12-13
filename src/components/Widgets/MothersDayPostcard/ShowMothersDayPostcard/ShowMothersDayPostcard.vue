@@ -11,7 +11,11 @@
                       :surprise-discount-code="surpriseDiscountCode"
                       :flower-image="flowerImage" />
     <div v-else>
-      <q-spinner-cube color="orange"
+      <div v-if="postcardHasError">
+        مشکلی رخ داده است.
+      </div>
+      <q-spinner-cube v-else
+                      color="orange"
                       size="5.5em" />
     </div>
   </div>
@@ -69,7 +73,8 @@ export default defineComponent({
         }
       ],
       flowerImage: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/object1702374033.png',
-      postcard: new Postcard()
+      postcard: new Postcard(),
+      postcardHasError: false
     }
   },
   computed: {
@@ -99,6 +104,7 @@ export default defineComponent({
         })
         .catch(() => {
           this.postcard.loading = false
+          this.postcardHasError = true
         })
     },
     getCoupon (userId) {
@@ -110,6 +116,7 @@ export default defineComponent({
         })
         .catch(() => {
           this.postcard.loading = false
+          this.postcardHasError = true
         })
     }
   }
