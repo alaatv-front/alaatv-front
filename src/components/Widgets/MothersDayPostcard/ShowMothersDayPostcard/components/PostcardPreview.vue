@@ -19,7 +19,8 @@
       <div v-if="surpriseDiscountCode"
            class="SurpriseBox">
         <surprise-box :discount-code="surpriseDiscountCode"
-                      :banners="surpriseBanners" />
+                      :banners="surpriseBanners"
+                      :body-movin="surpriseBoxBodyMovin" />
         <div class="flower-element">
           <flower :src="flowerImage" />
         </div>
@@ -90,6 +91,12 @@ export default defineComponent({
     surpriseDiscountCode: {
       type: String,
       default: null
+    },
+    surpriseBoxBodyMovin: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     },
     surpriseBanners: {
       type: Array,
