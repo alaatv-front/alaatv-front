@@ -4,12 +4,14 @@
     <div class="row full-width flex justify-center items-center">
       <div v-if="currentForm === 'first'"
            class="col-12">
-        <mothers-day-postcard-first-form @toggle-preview-dialog="togglePreview"
+        <mothers-day-postcard-first-form :postcard="postcard"
+                                         @toggle-preview-dialog="togglePreview"
                                          @toggle-form="toggleForm" />
       </div>
       <div v-if="currentForm === 'second'"
            class="col-12 col-md-10">
-        <mothers-day-postcard-second-form @toggle-preview-dialog="togglePreview(this.postcard)"
+        <mothers-day-postcard-second-form :postcard="postcard"
+                                          @toggle-preview-dialog="togglePreview(this.postcard)"
                                           @invoke-edit-form="toggleForm" />
       </div>
     </div>
@@ -145,7 +147,11 @@ export default defineComponent({
       this.previewDialog = !this.previewDialog
     },
     toggleForm () {
-      this.currentForm = this.currentForm === 'second' ? 'first' : 'second'
+      if (this.currentForm === 'second') {
+        this.currentForm = 'first'
+      } else {
+        this.getPostcards()
+      }
     }
   }
 })
