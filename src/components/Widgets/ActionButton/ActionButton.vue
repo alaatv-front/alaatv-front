@@ -280,7 +280,7 @@ export default {
     this.loadConfig()
     this.checkAuth()
     this.mounted = true
-    this.$bus.on('allActionButtonsToggleDrawer', () => {
+    this.$bus.on('onActionButtonScrollTo', () => {
       this.drawer = false
     })
   },
@@ -322,7 +322,7 @@ export default {
       } else if (this.callBack) {
         this.callBack()
       } else if (this.localOptions.action && this.localOptions.action === 'scroll') {
-        this.$bus.emit('allActionButtonsToggleDrawer')
+        this.$bus.emit('onActionButtonScrollTo')
         this.$nextTick(() => {
           this.scrollToElement(this.localOptions.scrollTo)
         })
