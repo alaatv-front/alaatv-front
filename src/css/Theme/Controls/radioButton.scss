@@ -6,8 +6,8 @@
   .q-radio__inner {
     font-size: 24px;
     .q-radio__bg {
-      left: 4px;
-      top: 4px;
+      left: $spacing-base;
+      top: $spacing-base;
       width: 16px;
       height: 16px;
     }
