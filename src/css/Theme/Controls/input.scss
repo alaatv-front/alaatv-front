@@ -258,7 +258,7 @@ $q-field__label_margin_bottom: $space-2;
     .q-field__control {
       &::before {
         background: $field-background;
-        border-radius: $space-2;
+        border-radius: $radius-3;
         border: 1.5px solid $grey-4;
       }
       .q-field__control-container {
