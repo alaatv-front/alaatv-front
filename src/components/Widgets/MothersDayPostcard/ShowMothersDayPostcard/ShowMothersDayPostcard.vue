@@ -126,13 +126,14 @@ export default defineComponent({
     }
   },
   computed: {
-    postcardId () {
+    postcardUuid () {
       return this.$route.params.id
     }
   },
   mounted () {
     // this.surpriseDiscountCode = null
     this.getPostcard()
+    this.getCoupon()
   },
   methods: {
     onComplete () {
@@ -140,8 +141,9 @@ export default defineComponent({
     },
     getPostcard () {
       this.postcard.loading = true
-      APIGateway.postcard.getPostcard(this.postcardId)
+      APIGateway.postcard.getPostcard(this.postcardUuid)
         .then((postcard) => {
+          debugger
           this.postcard = new Postcard(postcard)
           const postcardData = this.postcard.getDecodedValue()
           this.postcardPoemBody = postcardData.postcardPoemBody
@@ -151,15 +153,14 @@ export default defineComponent({
           this.flowerImage = postcardData.flowerImage
           // this.postcardMessageFrom = this.postcard.user.first_name + ' ' + this.postcard.user.last_name
           this.postcardMessageFrom = this.postcard.user.first_name
-          this.getCoupon(this.postcard.user.id)
         })
         .catch(() => {
           this.postcard.loading = false
           this.postcardHasError = true
         })
     },
-    getCoupon (userId) {
-      APIGateway.postcard.getData(userId)
+    getCoupon () {
+      APIGateway.postcard.getMetaData(this.postcardUuid)
         .then((data) => {
           this.surpriseDiscountCode = data.coupon.code
           this.surpriseBanners = data.banners
