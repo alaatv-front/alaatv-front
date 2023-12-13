@@ -28,6 +28,7 @@ class Postcard extends Model {
         key: 'study_event',
         relatedModel: StudyEvent
       },
+      { key: 'uuid' },
       { key: 'value' }
     ])
   }
