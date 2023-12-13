@@ -89,7 +89,7 @@
       <q-btn label="ذخیره و ثبت"
              color="primary"
              icon="ph:check"
-             @click="savePostalCard" />
+             @click="takeAction" />
     </div>
   </div>
 </template>
@@ -103,8 +103,13 @@ export default {
   name: 'MothersDayPostcardFirstForm',
   components: {
   },
+  props: {
+    postCard: {
+      type: Postcard,
+      default: new Postcard()
+    }
+  },
   emits: ['togglePreviewDialog', 'toggleForm'],
-
   data () {
     return {
       message: '',
@@ -300,13 +305,20 @@ export default {
         theme.isSelected = themeIndex === index
       })
     },
-    savePostalCard () {
+    takeAction () {
       this.fillPoemData()
       const sendData = new Postcard({
         value: JSON.stringify(this.selectedTheme.previewData),
         study_event_id: 28
       })
-      APIGateway.postcard.savePostalCardData(sendData)
+      if (this.postCard.getDecodedValue()) {
+        this.requestPostalCard(sendData, 'editPostalCard')
+      } else {
+        this.requestPostalCard(sendData, 'savePostalCardData')
+      }
+    },
+    requestPostalCard (sendData, ApiMethod) {
+      APIGateway.postcard[ApiMethod](sendData)
         .then((Postcard) => {
           this.$emit('toggleForm')
         })
