@@ -153,7 +153,7 @@ export default defineComponent({
             type: 'positive'
           })
         })
-        .catch((error) => {
+        .catch(() => {
           this.$q.notify({
             type: 'negative',
             message: 'مشکلی در کپی کردن  رخ داده اس.'
