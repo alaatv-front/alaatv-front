@@ -281,7 +281,7 @@ export default {
     this.checkAuth()
     this.mounted = true
     this.$bus.on('allActionButtonsToggleDrawer', () => {
-      this.drawer = !this.drawer
+      this.drawer = false
     })
   },
   methods: {
