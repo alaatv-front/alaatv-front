@@ -154,7 +154,6 @@ export default defineComponent({
           })
         })
         .catch((error) => {
-          console.log('error', error)
           this.$q.notify({
             type: 'negative',
             message: 'مشکلی در کپی کردن  رخ داده اس.'
