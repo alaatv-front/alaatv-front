@@ -28,10 +28,15 @@ class Postcard extends Model {
         key: 'study_event',
         relatedModel: StudyEvent
       },
-      {
-        key: 'value'
-      }
+      { key: 'value' }
     ])
+  }
+
+  getDecodedValue () {
+    if (!this.value) {
+      return null
+    }
+    return JSON.parse(this.value)
   }
 }
 

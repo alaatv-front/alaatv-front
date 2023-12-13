@@ -23,16 +23,11 @@ export default defineComponent({
                   {
                     widgets: [
                       {
-                        name: 'ShowMothersDayPostcard',
-                        options: {}
+                        name: 'ShowMothersDayPostcard'
                       }
                     ]
                   }
-                ],
-                options: {
-                  boxed: true,
-                  boxedWidth: 1362
-                }
+                ]
               }
             ]
           }
