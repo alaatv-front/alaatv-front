@@ -6,7 +6,9 @@
           <div class="slogan">
             <div class="slogan-message">
               <div class="slogan-message__image">
-                <lazy-img :src="sloganImage" width="206px" hight="206px" />
+                <lazy-img :src="sloganImage"
+                          width="206px"
+                          hight="206px" />
               </div>
               <h6 class="slogan-message__text">
                 کارت پستال شما با موفقیت ایجاد شد.

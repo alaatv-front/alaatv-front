@@ -1,5 +1,10 @@
 <template>
   <div class="SurpriseBox">
+    <div class="BodyMovin-container"
+         :class="{'animateCompleted': animateCompleted}">
+      <body-movin :responsive-bm="bodyMovin"
+                  @complete="onComplete" />
+    </div>
     <div class="main">
       <div class="title">
         عنوان سوپرایز شماره 2
@@ -89,9 +94,10 @@
 <script>
 import { defineComponent } from 'vue'
 import LazyImg from 'src/components/lazyImg.vue'
+import BodyMovin from 'components/Widgets/MothersDayPostcard/ShowMothersDayPostcard/components/BodyMovin.vue'
 export default defineComponent({
   name: 'SurpriseBox',
-  components: { LazyImg },
+  components: { BodyMovin, LazyImg },
   props: {
     discountCode: {
       type: String,
@@ -100,14 +106,26 @@ export default defineComponent({
     banners: {
       type: Array,
       default: () => []
+    },
+    bodyMovin: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     }
   },
   data () {
     return {
+      animateCompleted: false
     }
   },
   computed: {
 
+  },
+  methods: {
+    onComplete () {
+      this.animateCompleted = true
+    }
   }
 })
 </script>
@@ -125,6 +143,19 @@ export default defineComponent({
   justify-content: space-between;
   align-items: flex-end;
   flex-shrink: 0;
+  position: relative;
+  .BodyMovin-container {
+    $top-gap: 104px;
+    position: absolute;
+    left: 0;
+    top: $top-gap;
+    width: 100%;
+    height: calc( 100% - #{$top-gap} );
+    z-index: 5;
+    &.animateCompleted {
+      display: none;
+    }
+  }
   .main {
     width: 100%;
     .title {
@@ -240,6 +271,11 @@ export default defineComponent({
     width: 218px;
     height: 638px;
     padding: 24px;
+    .BodyMovin-container {
+      $top-gap: 56px;
+      top: $top-gap;
+      height: calc( 100% - #{$top-gap} );
+    }
     .main {
       .title {
         margin-bottom: 16px;
