@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     tryAutoplay () {
-      if (this.audioContext.state === 'suspended') {
+      if (this.audioContext?.state === 'suspended') {
         this.audioContext.resume()
       } else {
         this.$refs.audio.play()
@@ -83,9 +83,22 @@ export default {
 
         // this.canvasContext.fillStyle = 'rgb(' + (barHeight + 100) + ',50,50)'
         this.canvasContext.fillStyle = 'rgb(255, 255, 255)'
-        this.canvasContext.fillRect(x, this.canvasHeight - barHeight / 3, barWidth, barHeight)
+        // this.canvasContext.fillRect(x, this.canvasHeight - barHeight / 3, barWidth, barHeight)
+        drawRoundedRect(this.canvasContext, x, this.canvasHeight - barHeight / 2, barWidth, barHeight, 20)
 
         x += barWidth + 10
+      }
+      function drawRoundedRect (ctx, x, y, width, height, radius) {
+        if (width < 2 * radius) radius = width / 2
+        if (height < 2 * radius) radius = height / 2
+        ctx.beginPath()
+        ctx.moveTo(x + radius, y)
+        ctx.arcTo(x + width, y, x + width, y + height, radius)
+        ctx.arcTo(x + width, y + height, x, y + height, radius)
+        ctx.arcTo(x, y + height, x, y, radius)
+        ctx.arcTo(x, y, x + width, y, radius)
+        ctx.closePath()
+        ctx.fill()
       }
 
       this.animationFrameId = requestAnimationFrame(this.draw)

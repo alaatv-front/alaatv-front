@@ -253,6 +253,14 @@ const routes = [
               {
                 path: ':id',
                 name: 'Public.Postcard.Show',
+                layoutConfig: {
+                  layoutHeader: false,
+                  layoutLeftDrawer: false,
+                  layoutFooter: false
+                },
+                // meta: {
+                //   hasDynamicSetting: true
+                // },
                 component: () => import('pages/Public/Postcard/Show.vue')
               }
             ]

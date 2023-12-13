@@ -46,7 +46,7 @@ export default defineComponent({
   width: 100%;
   min-width: 100%;
   max-width: 100%;
-  animation: flowerAnimation 4s infinite ease;
+  animation: flowerAnimation 3s infinite ease;
   :deep(.lazy-img) {
     width: 100%;
     min-width: 100%;
