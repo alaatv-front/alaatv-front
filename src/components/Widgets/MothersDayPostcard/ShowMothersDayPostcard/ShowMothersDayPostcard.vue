@@ -15,7 +15,9 @@
                       :surprise-banners="surpriseBanners"
                       :surprise-discount-code="surpriseDiscountCode"
                       :flower-image="flowerImage"
-                      :surprise-box-body-movin="surpriseBoxBodyMovin" />
+                      :surprise-box-body-movin="surpriseBoxBodyMovin"
+                      :surprise-video-poster="surpriseVideoPoster"
+                      :surprise-video-src="surpriseVideoSrc" />
     <div v-else>
       <div v-if="postcardHasError">
         مشکلی رخ داده است.
@@ -116,6 +118,8 @@ export default defineComponent({
           jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
         }
       },
+      surpriseVideoSrc: 'https://nodes.alaatv.com/media/1042/240p/1042001ssss.mp4',
+      surpriseVideoPoster: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/VideoPlayer1702464332.png',
       postcardHasError: false
     }
   },
