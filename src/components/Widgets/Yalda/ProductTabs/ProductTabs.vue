@@ -5,7 +5,7 @@
     <div v-for="tab in localOptions.tabs"
          :key="tab"
          class="tab-content cursor-pointer"
-         @click="scrollToElement(tab.title.className)">
+         @click="scrollToElement(tab.scrollTo)">
       <div class="col-12">
         <text-widget class="text"
                      :options="tab.title" />
@@ -1269,7 +1269,7 @@ export default {
   methods: {
     scrollToElement (className) {
       const el = document.getElementsByClassName(className)[0]
-      const headerOffset = 0
+      const headerOffset = 80
       const elementPosition = el.getBoundingClientRect().top
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset
       window.scrollTo({

@@ -41,8 +41,9 @@
            alt="actionBtn">
     </q-btn>
 
-    <q-layout v-if="localOptions.action === 'hamburger_menu'">
-      <q-drawer v-model="drawer"
+    <q-layout v-if="localOptions.action === 'hamburger_menu' && mounted ">
+      <q-drawer ref="actionDrawer"
+                v-model="drawer"
                 :width="drawerWidth"
                 :overlay="localOptions.drawer.overlay"
                 :breakpoint="localOptions.drawer.breakpoint"
@@ -109,6 +110,7 @@ export default {
   data () {
     return {
       drawer: false,
+      mounted: false,
       defaultOptions: {
         showSeparator: false,
         color: null,
@@ -277,6 +279,10 @@ export default {
   mounted () {
     this.loadConfig()
     this.checkAuth()
+    this.mounted = true
+    this.$bus.on('onActionButtonScrollTo', () => {
+      this.drawer = false
+    })
   },
   methods: {
     checkAuth () {
@@ -312,11 +318,14 @@ export default {
     },
     takeAction () {
       if (!this.localOptions.hasAction) {
-        this.$emit('ActionButton')
+        this.$emit('ActionButton', this.localOptions.scrollTo)
       } else if (this.callBack) {
         this.callBack()
       } else if (this.localOptions.action && this.localOptions.action === 'scroll') {
-        this.scrollToElement(this.localOptions.scrollTo)
+        this.$bus.emit('onActionButtonScrollTo')
+        this.$nextTick(() => {
+          this.scrollToElement(this.localOptions.scrollTo)
+        })
       } else if (this.localOptions.action && this.localOptions.action === 'link') {
         this.redirectRoute(this.localOptions.route)
       } else if (this.localOptions.action && this.localOptions.action === 'event') {
