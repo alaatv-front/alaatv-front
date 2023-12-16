@@ -44,7 +44,7 @@
                 لینک زیر را کپی کنید و برای مادر خود ارسال کنید.
               </div>
               <div class="sharing-link__copy"
-                   @click="copyCode()">
+                   @click="copyCode(url)">
                 <div class="sharing-link__copy--action">
                   <div class="action-icon">
                     <q-icon name="ph:copy-simple"
@@ -76,6 +76,45 @@
                      label="تایید"
                      :loading="loading"
                      @click="saveNumber" />
+              <q-dialog v-model="confirm"
+                        persistent>
+                <q-card>
+                  <q-card-section class="dialog-header-section">
+                    <div class="row items-center justify-between">
+                      <div>
+                        <q-icon class="dialog-avatar"
+                                size="md"
+                                color="positive"
+                                name="check" />
+                        تایید
+                      </div>
+                      <q-btn flat
+                             square
+                             icon="ph:x"
+                             color="grey-6"
+                             @click="toggleConfirm" />
+                    </div>
+                  </q-card-section>
+                  <q-separator class="grey1" />
+                  <q-card-section class="dialog-body-section">
+                    <div class="body2">لینک کارت تبریک برای شماره وارد شده ارسال خواهد شد.</div>
+                  </q-card-section>
+                  <q-card-section class="dialog-action-section">
+                    <div class="row items-center justify-end">
+
+                      <div class="dialog-action-btn-box">
+
+                        <q-btn class="size-md"
+                               color="grey"
+                               outline
+                               @click="toggleConfirm">
+                          متوجه شدم
+                        </q-btn>
+                      </div>
+                    </div>
+                  </q-card-section>
+                </q-card>
+              </q-dialog>
             </div>
           </div>
         </div>
@@ -90,7 +129,7 @@ import { copyToClipboard } from 'quasar'
 import LazyImg from 'src/components/lazyImg.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { Contact } from 'src/models/Contact.js'
-import { Postcard } from 'src/models/Postcard'
+import { Postcard } from 'src/models/Postcard.js'
 
 export default defineComponent({
   name: 'MothersDayPostcardSecondForm',
@@ -113,6 +152,7 @@ export default defineComponent({
       sloganImage: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/frame201702281012.png',
       url: '',
       mobile: '',
+      confirm: false,
       loading: false,
       contact: new Contact()
     }
@@ -149,7 +189,7 @@ export default defineComponent({
         }
       )
         .then(contactList => {
-          this.contact = contactList.list.find(contact => contact.name === this.eventName)
+          this.contact = new Contact(contactList.list.find(contact => contact.name === this.eventName))
           this.mobile = this.contact.phones.list[0].phone_number
         })
         .catch(() => {})
@@ -165,7 +205,7 @@ export default defineComponent({
       const data = {
         phone: {
           number: this.mobile,
-          phone_id: 1
+          phone_id: this.contact.phones.list[0].id
         },
         contactId: this.contact.id
       }
@@ -174,6 +214,7 @@ export default defineComponent({
         .then(contact => {
           this.contact = new Contact(contact)
           this.loading = false
+          this.confirm = true
         })
         .catch(() => {
           this.loading = false
@@ -192,6 +233,7 @@ export default defineComponent({
         .then(contact => {
           this.contact = new Contact(contact)
           this.loading = false
+          this.confirm = true
         })
         .catch(() => {
           this.loading = false
@@ -202,6 +244,9 @@ export default defineComponent({
     },
     togglePreviewDialog () {
       this.$emit('togglePreviewDialog')
+    },
+    toggleConfirm () {
+      this.confirm = !this.confirm
     }
   }
 })
@@ -381,6 +426,8 @@ export default defineComponent({
           }
 
           &--url {
+            @include body1;
+            color: $grey-9;
             direction: rtl;
             width: 100%;
           }

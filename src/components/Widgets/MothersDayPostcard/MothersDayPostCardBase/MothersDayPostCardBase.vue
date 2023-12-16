@@ -21,6 +21,7 @@
         <q-btn class="close-btn"
                color="grey-1"
                icon="ph:x"
+               square
                flat
                @click="togglePreview" />
       </div>
