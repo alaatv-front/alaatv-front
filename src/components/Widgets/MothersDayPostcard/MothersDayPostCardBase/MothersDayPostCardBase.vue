@@ -4,13 +4,13 @@
     <div class="row full-width flex justify-center items-center">
       <div v-if="currentForm === 'first'"
            class="col-12">
-        <mothers-day-postcard-first-form :postcard="postcard"
+        <mothers-day-postcard-first-form :postcard="computedPostcard"
                                          @toggle-preview-dialog="togglePreview"
                                          @toggle-form="toggleForm" />
       </div>
       <div v-if="currentForm === 'second'"
            class="col-12 col-md-10">
-        <mothers-day-postcard-second-form :postcard="postcard"
+        <mothers-day-postcard-second-form :postcard="computedPostcard"
                                           @toggle-preview-dialog="togglePreview(this.postcard)"
                                           @invoke-edit-form="toggleForm" />
       </div>
@@ -21,6 +21,7 @@
         <q-btn class="close-btn"
                color="grey-1"
                icon="ph:x"
+               square
                flat
                @click="togglePreview" />
       </div>
@@ -108,6 +109,11 @@ export default defineComponent({
       loading: false,
       previewDialog: false,
       postcardConfig: defaultConfig
+    }
+  },
+  computed: {
+    computedPostcard () {
+      return this.postcard
     }
   },
   mounted () {
