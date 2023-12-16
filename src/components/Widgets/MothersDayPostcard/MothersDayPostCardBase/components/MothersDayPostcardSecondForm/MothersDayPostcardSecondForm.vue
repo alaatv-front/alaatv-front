@@ -44,7 +44,7 @@
                 لینک زیر را کپی کنید و برای مادر خود ارسال کنید.
               </div>
               <div class="sharing-link__copy"
-                   @click="copyCode()">
+                   @click="copyCode(url)">
                 <div class="sharing-link__copy--action">
                   <div class="action-icon">
                     <q-icon name="ph:copy-simple"
@@ -76,6 +76,45 @@
                      label="تایید"
                      :loading="loading"
                      @click="saveNumber" />
+              <q-dialog v-model="confirm"
+                        persistent>
+                <q-card>
+                  <q-card-section class="dialog-header-section">
+                    <div class="row items-center justify-between">
+                      <div>
+                        <q-icon class="dialog-avatar"
+                                size="md"
+                                color="positive"
+                                name="check" />
+                        تایید
+                      </div>
+                      <q-btn flat
+                             square
+                             icon="ph:x"
+                             color="grey-6"
+                             @click="toggleConfirm" />
+                    </div>
+                  </q-card-section>
+                  <q-separator class="grey1" />
+                  <q-card-section class="dialog-body-section">
+                    <div class="body2">لینک کارت تبریک برای شماره وارد شده ارسال خواهد شد.</div>
+                  </q-card-section>
+                  <q-card-section class="dialog-action-section">
+                    <div class="row items-center justify-end">
+
+                      <div class="dialog-action-btn-box">
+
+                        <q-btn class="size-md"
+                               color="grey"
+                               outline
+                               @click="toggleConfirm">
+                          متوجه شدم
+                        </q-btn>
+                      </div>
+                    </div>
+                  </q-card-section>
+                </q-card>
+              </q-dialog>
             </div>
           </div>
         </div>
@@ -90,6 +129,7 @@ import { copyToClipboard } from 'quasar'
 import LazyImg from 'src/components/lazyImg.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { Contact } from 'src/models/Contact.js'
+import { Postcard } from 'src/models/Postcard.js'
 
 export default defineComponent({
   name: 'MothersDayPostcardSecondForm',
@@ -100,6 +140,10 @@ export default defineComponent({
     eventName: {
       type: String,
       default: 'mother_day_1402'
+    },
+    postcard: {
+      type: Postcard,
+      default: new Postcard()
     }
   },
   emits: ['togglePreviewDialog', 'invokeEditForm'],
@@ -108,6 +152,7 @@ export default defineComponent({
       sloganImage: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/frame201702281012.png',
       url: '',
       mobile: '',
+      confirm: false,
       loading: false,
       contact: new Contact()
     }
@@ -133,7 +178,7 @@ export default defineComponent({
         })
     },
     getUrl () {
-      const route = this.$router.resolve({ name: 'Public.Postcard.Show', params: { id: 11 } })
+      const route = this.$router.resolve({ name: 'Public.Postcard.Show', params: { id: this.postcard.uuid } })
       this.url = new URL(route.href, window.location.origin).href
     },
     getContact () {
@@ -144,7 +189,7 @@ export default defineComponent({
         }
       )
         .then(contactList => {
-          this.contact = contactList.list.find(contact => contact.name === this.eventName)
+          this.contact = new Contact(contactList.list.find(contact => contact.name === this.eventName))
           this.mobile = this.contact.phones.list[0].phone_number
         })
         .catch(() => {})
@@ -160,7 +205,7 @@ export default defineComponent({
       const data = {
         phone: {
           number: this.mobile,
-          phone_id: 1
+          phone_id: this.contact.phones.list[0].id
         },
         contactId: this.contact.id
       }
@@ -169,6 +214,7 @@ export default defineComponent({
         .then(contact => {
           this.contact = new Contact(contact)
           this.loading = false
+          this.confirm = true
         })
         .catch(() => {
           this.loading = false
@@ -187,6 +233,7 @@ export default defineComponent({
         .then(contact => {
           this.contact = new Contact(contact)
           this.loading = false
+          this.confirm = true
         })
         .catch(() => {
           this.loading = false
@@ -197,6 +244,9 @@ export default defineComponent({
     },
     togglePreviewDialog () {
       this.$emit('togglePreviewDialog')
+    },
+    toggleConfirm () {
+      this.confirm = !this.confirm
     }
   }
 })
@@ -271,7 +321,7 @@ export default defineComponent({
             padding: $spacing-none $space-12;
           }
           @include media-max-width('sm') {
-            padding: $space-9;
+            padding: $spacing-none $space-9;
           }
 
           :deep(.lazy-img) {
@@ -324,6 +374,7 @@ export default defineComponent({
       justify-content: center;
       align-items: center;
       padding: $space-13 $spacing-none $space-9;
+      max-width: 100%;
 
       @include media-max-width('lg') {
         padding: $space-8 $spacing-none $space-6;
@@ -340,7 +391,7 @@ export default defineComponent({
         flex-direction: column;
         align-items: flex-start;
         gap: $space-4;
-        width: 100%;
+        max-width: 100%;
 
         &__title {
           color: $grey-9;
@@ -349,6 +400,7 @@ export default defineComponent({
 
         &__copy {
           width: 100%;
+          max-width: 100%;
           display: flex;
           padding: $space-3 $space-4;
           justify-content: space-between;
@@ -371,6 +423,13 @@ export default defineComponent({
               font-feature-settings: 'clig' off, 'liga' off;
               @include subtitle2;
             }
+          }
+
+          &--url {
+            @include body1;
+            color: $grey-9;
+            direction: rtl;
+            width: 100%;
           }
         }
       }
