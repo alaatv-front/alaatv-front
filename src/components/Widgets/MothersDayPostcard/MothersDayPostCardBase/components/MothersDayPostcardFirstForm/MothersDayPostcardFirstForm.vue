@@ -159,11 +159,11 @@ export default {
       },
       postcardBackgrounds: {
         theme1: {
-          size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/19201702280797.png',
-          size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/14401702280833.png',
-          size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/10241702280978.png',
-          size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/6001702280907.png',
-          size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3601702281026.png'
+          size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main1440-19201702904779.png',
+          size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main1440-19201702904779.png',
+          size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main10241702904792.png',
+          size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main10241702904792.png',
+          size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main10241702904792.png'
         },
         theme2: {
           size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main1440-19201702901801.png',
@@ -173,9 +173,9 @@ export default {
           size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main6001702901910.png'
         },
         theme3: {
-          size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main6001702901910.png',
-          size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main6001702901910.png',
-          size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main6001702901910.png',
+          size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3main1440-19201702904904.png',
+          size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3main1440-19201702904904.png',
+          size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3main10241702904917.png',
           size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3main6001702901997.png',
           size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3main3601702902006.png'
         }
