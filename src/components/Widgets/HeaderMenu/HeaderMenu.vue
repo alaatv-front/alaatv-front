@@ -329,7 +329,6 @@ $backgrounds: (
   .right-section {
     cursor: pointer;
     display: flex;
-    height: 72px;
     align-items: center;
 
     @media screen and (width <= 1023px) {
