@@ -36,6 +36,7 @@
   & > .q-dialog__inner {
     & > .q-card {
       width: 544px;
+      border-radius: $radius-4 !important;
 
       @include media-max-width('md') {
         width: 320px;

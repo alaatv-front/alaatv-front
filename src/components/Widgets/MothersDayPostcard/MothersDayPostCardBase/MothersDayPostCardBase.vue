@@ -80,6 +80,12 @@ export default defineComponent({
   computed: {
     computedPostcard () {
       return this.postcard
+    },
+    headerSize () {
+      return this.$store.getters['AppLayout/headerSize']
+    },
+    headerHeight () {
+      return this.headerSize.height + 'px'
     }
   },
   mounted () {
@@ -130,11 +136,17 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+$headerHeight: v-bind('headerHeight');
 .postcard-base-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   width: 100%;
+  min-height: calc(100vh - $headerHeight);
+
+  @include media-max-width('md') {
+    min-height: auto;
+  }
 }
 
 .loading {
@@ -142,6 +154,11 @@ export default defineComponent({
   align-items: center;
   justify-content: center;
   width: 100%;
+  min-height: calc(100vh - 60px);
+
+  @include media-max-width('md') {
+    min-height: auto;
+  }
 }
 
 .top-toolbar {
