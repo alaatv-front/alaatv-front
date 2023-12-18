@@ -1,36 +1,43 @@
 <template>
-  <div class="BodyMovin">
-    <div ref="bm"
-         class="bm"
-         @click="onClickElement" />
+  <div class="WebmPlayer">
+    <video v-if="mounted"
+           ref="WebmPlayer"
+           :autoplay="autoplay"
+           :loop="loop"
+           muted
+           class="full-width"
+           @ended="onPlayerEnded"
+           @click="onClickElement">
+      <source :src="responsiveSrcPath">
+      Your browser does not support the video tag.
+    </video>
   </div>
 </template>
 
 <script>
-import lottie from 'lottie-web'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'BodyMovin',
+  name: 'WebmPlayer',
   props: {
-    responsiveBm: {
+    responsiveSrc: {
       type: Object,
       default: () => {
         return {
           xs: {
-            jsonPath: ''
+            src: ''
           },
           sm: {
-            jsonPath: ''
+            src: ''
           },
           md: {
-            jsonPath: ''
+            src: ''
           },
           lg: {
-            jsonPath: ''
+            src: ''
           },
           xl: {
-            jsonPath: ''
+            src: ''
           }
         }
       }
@@ -44,50 +51,27 @@ export default defineComponent({
       default: false
     }
   },
+  emits: ['complete'],
   data () {
     return {
-      windowWidth: 0
+      windowWidth: 0,
+      mounted: false
     }
   },
   computed: {
-    responsiveBmPath () {
-      return this.getFeatureFromSizeCheckByKey(this.responsiveBm, 'jsonPath')?.jsonPath
+    responsiveSrcPath () {
+      return this.getFeatureFromSizeCheckByKey(this.responsiveSrc, 'src')?.src
     }
   },
   mounted () {
-    this.windowWidth = window.innerWidth
-    this.reInitBodyMovin()
-    // window.addEventListener('resize', this.onResize)
+    this.mounted = true
   },
   methods: {
     onClickElement () {
-      this.animationData1.stop()
-      this.animationData1.play()
+      this.$refs.WebmPlayer.play()
     },
-    onResize () {
-      if (typeof window === 'undefined') {
-        return
-      }
-      this.windowWidth = window.innerWidth
-      this.loadBodyMovin()
-    },
-    reInitBodyMovin () {
-      if (this.animationData1) {
-        this.animationData1.destroy()
-      }
-      this.loadBodyMovin()
-    },
-    loadBodyMovin () {
-      this.animationData1 = lottie.loadAnimation({
-        wrapper: this.$refs.bm,
-        animType: 'svg',
-        loop: this.loop,
-        autoplay: this.autoplay,
-        path: this.responsiveBmPath
-      })
-      this.animationData1.addEventListener('complete', () => {
-        this.$emit('complete')
-      })
+    onPlayerEnded () {
+      this.$emit('complete')
     },
     getFeatureFromSizeCheckByKey (features, key) {
       const sizeToNumberMap = {

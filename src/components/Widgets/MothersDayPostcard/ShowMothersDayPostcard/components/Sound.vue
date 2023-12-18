@@ -1,6 +1,7 @@
 <template>
   <div class="Sound">
     <audio ref="audio"
+           crossorigin="anonymous"
            class="audio"
            controls
            autoplay

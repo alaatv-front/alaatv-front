@@ -2,9 +2,9 @@
   <div class="Postcard">
     <div class="action-area"
          @click="showSurpriseVideo">
-      <body-movin :loop="true"
-                  :autoplay="true"
-                  :responsive-bm="actionAreaBodyMovin" />
+      <webm-player :loop="true"
+                   :autoplay="true"
+                   :responsive-src="actionAreaBodyMovin" />
     </div>
     <div class="poem">
       <div class="poem-title">
@@ -32,13 +32,13 @@
 
 <script>
 import { defineComponent } from 'vue'
-import BodyMovin from './BodyMovin.vue'
+import WebmPlayer from './WebmPlayer.vue'
 import SurpriseVideo from './SurpriseVideo.vue'
 
 export default defineComponent({
   name: 'Postcard',
   components: {
-    BodyMovin,
+    WebmPlayer,
     SurpriseVideo
   },
   props: {
@@ -75,19 +75,19 @@ export default defineComponent({
       default: () => {
         return {
           xs: {
-            jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
           },
           sm: {
-            jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
           },
           md: {
-            jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
           },
           lg: {
-            jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
           },
           xl: {
-            jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
           }
         }
       }
@@ -180,6 +180,7 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
     position: absolute;
     width: max-content;
     height: 79px;
+    overflow: hidden;
     top: 56px;
     right: 56px;
     cursor: pointer;
