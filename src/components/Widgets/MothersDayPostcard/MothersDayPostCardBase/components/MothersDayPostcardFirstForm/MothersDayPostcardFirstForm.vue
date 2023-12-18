@@ -156,6 +156,59 @@ export default {
         theme2: {},
         theme3: {}
       },
+      entranceBodyMovin: {
+        theme1: {
+          xs: {
+            jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          },
+          sm: {
+            jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          },
+          md: {
+            jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          },
+          lg: {
+            jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          },
+          xl: {
+            jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          }
+        },
+        theme2: {
+          xs: {
+            jsonPath: ''
+          },
+          sm: {
+            jsonPath: ''
+          },
+          md: {
+            jsonPath: ''
+          },
+          lg: {
+            jsonPath: ''
+          },
+          xl: {
+            jsonPath: ''
+          }
+        },
+        theme3: {
+          xs: {
+            jsonPath: ''
+          },
+          sm: {
+            jsonPath: ''
+          },
+          md: {
+            jsonPath: ''
+          },
+          lg: {
+            jsonPath: ''
+          },
+          xl: {
+            jsonPath: ''
+          }
+        }
+      },
       flowerImages: {
         theme1: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/object1702374033.png',
         theme2: '',
@@ -268,6 +321,9 @@ export default {
     }
   },
   computed: {
+    computedSelectedPoem () {
+      return this.selectedPoem
+    },
     displayableProducts () {
       if (this.isPanelCollapsed) {
         return this.data.slice(0, this.options.showInCollapse)
@@ -277,7 +333,7 @@ export default {
     }
   },
   mounted () {
-    this.selectedPoem = this.poems[0]
+    this.selectedPoem = this.postcard.value.postcardPoemBody ? JSON.parse(JSON.stringify(this.postcard.value.postcardPoemBody)) : this.poems[0]
     this.message = this.postcard.value.postcardMessageText ? this.postcard.value.postcardMessageText : ''
   },
   methods: {
@@ -315,6 +371,7 @@ export default {
       this.localPostcard.value.patternBackgrounds = this.patternBackgrounds[theme]
       this.localPostcard.value.postcardBackgrounds = this.postcardBackgrounds[theme]
       this.localPostcard.value.flowerImage = this.flowerImages[theme]
+      this.localPostcard.value.entranceBodyMovin = this.entranceBodyMovin[theme]
       this.localPostcard.value.postcardMessageText = this.message
       this.localPostcard.value.postcardPoemBody = this.selectedPoem
       this.localPostcard.loadApiResource()
