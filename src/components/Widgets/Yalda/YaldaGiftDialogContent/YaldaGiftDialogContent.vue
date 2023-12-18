@@ -583,6 +583,9 @@ export default defineComponent({
         .then(codeAndAmount => {
           this.code = codeAndAmount.code
           this.amount = codeAndAmount.amount
+          if (codeAndAmount.total_amount) {
+            this.$store.commit('Auth/updateUserWalletBalance', codeAndAmount.total_amount)
+          }
           this.loading = false
         })
         .catch(() => {
