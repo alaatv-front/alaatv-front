@@ -95,7 +95,8 @@
         <div class="mobile-price-calculation-label">تومان</div>
       </div>
     </div>
-    <div class="mobile-installment-info">
+    <div v-if="paymentMode === 'installment' && hasInstallment"
+         class="mobile-installment-info">
       <q-badge color="accent"
                size="xs"
                text-color="white"
