@@ -243,6 +243,8 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
   @include media-max-width('md') {
     background-image: $backgrounds-size-600;
     .boxed-content {
+      padding-top: 24px;
+      padding-bottom: 40px;
       flex-wrap: wrap;
       gap: 20px;
       .Postcard {
@@ -267,6 +269,8 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
     background-image: $backgrounds-size-360;
     .boxed-content {
       gap: 16px;
+      padding-top: 20px;
+      padding-bottom: 32px;
       .Postcard {
         .flower-element {
           top: 426.24px;
