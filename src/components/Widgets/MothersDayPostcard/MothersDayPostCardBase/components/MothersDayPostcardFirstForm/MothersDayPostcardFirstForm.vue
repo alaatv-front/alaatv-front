@@ -183,53 +183,53 @@ export default {
       entranceBodyMovin: {
         theme1: {
           xs: {
-            jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/360-800-Blue.webm'
           },
           sm: {
-            jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/600-960-Blue.webm'
           },
           md: {
-            jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-745-Blue.webm'
           },
           lg: {
-            jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Blue.webm'
           },
           xl: {
-            jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Blue.webm'
           }
         },
         theme2: {
           xs: {
-            jsonPath: ''
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/360-800-Green.webm'
           },
           sm: {
-            jsonPath: ''
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/600-960-Green.webm'
           },
           md: {
-            jsonPath: ''
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-745-Green.webm'
           },
           lg: {
-            jsonPath: ''
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Green.webm'
           },
           xl: {
-            jsonPath: ''
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Green.webm'
           }
         },
         theme3: {
           xs: {
-            jsonPath: ''
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/360-800-Pink.webm'
           },
           sm: {
-            jsonPath: ''
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/600-960-Pink.webm'
           },
           md: {
-            jsonPath: ''
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-745-Pink.webm'
           },
           lg: {
-            jsonPath: ''
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Pink.webm'
           },
           xl: {
-            jsonPath: ''
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Pink.webm'
           }
         }
       },
