@@ -8,11 +8,11 @@ export default class PostcardAPI extends APIRepository {
     super('postcard', apiV2, '/user')
     this.APIAdresses = {
       postcard: '/postal-cards',
-      data: (userId) => '/postal-cards/data/' + userId,
+      metaData: (postcardUuid) => '/postal-cards/' + postcardUuid + '/meta-data',
       byId: (id) => '/postal-cards/' + id
     }
     this.CacheList = {
-      data: (userId) => this.name + this.APIAdresses.data(userId),
+      metaData: (postcardUuid) => this.name + this.APIAdresses.metaData(postcardUuid),
       postcard: this.name + this.APIAdresses.postcard,
       byId: (id) => this.name + this.APIAdresses.byId(id)
     }
@@ -41,12 +41,12 @@ export default class PostcardAPI extends APIRepository {
     })
   }
 
-  getPostcard (postcardId, cache = { TTL: 1000 }) {
+  getPostcard (postcardUuid, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.byId(postcardId),
-      cacheKey: this.CacheList.byId(postcardId),
+      request: this.APIAdresses.byId(postcardUuid),
+      cacheKey: this.CacheList.byId(postcardUuid),
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return new Postcard(response.data.data)
@@ -57,12 +57,12 @@ export default class PostcardAPI extends APIRepository {
     })
   }
 
-  getData (userId, cache = { TTL: 1000 }) {
+  getMetaData (postcardUuid, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.data(userId),
-      cacheKey: this.CacheList.data(userId),
+      request: this.APIAdresses.metaData(postcardUuid),
+      cacheKey: this.CacheList.metaData(postcardUuid),
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return {
