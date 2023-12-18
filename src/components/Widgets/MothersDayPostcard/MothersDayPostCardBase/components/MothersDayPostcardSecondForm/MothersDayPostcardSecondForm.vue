@@ -264,9 +264,11 @@ export default defineComponent({
   }
   @include media-max-width('md') {
     margin-top: $space-6;
+    margin-bottom: $space-8;
   }
   @include media-max-width('sm') {
     margin-top: $space-4;
+    margin-bottom: $space-12;
   }
 
   .slogan-inner-wrapper {
