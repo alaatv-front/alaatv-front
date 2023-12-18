@@ -95,8 +95,8 @@ export default class PostcardAPI extends APIRepository {
     return this.sendRequest({
       apiMethod: 'put',
       api: this.api,
-      request: this.APIAdresses.postcard,
-      data,
+      request: this.APIAdresses.byId(data.id),
+      data: data.data,
       resolveCallback: (response) => {
         return new Postcard(response.data.data)
       },
