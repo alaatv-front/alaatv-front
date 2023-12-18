@@ -2,8 +2,8 @@
   <div class="SurpriseBox">
     <div class="BodyMovin-container"
          :class="{'animateCompleted': animateCompleted}">
-      <body-movin :responsive-bm="bodyMovin"
-                  @complete="onComplete" />
+      <webm-player :responsive-src="bodyMovin"
+                   @complete="onComplete" />
     </div>
     <div class="main">
       <div class="title">
@@ -101,14 +101,14 @@
 
 <script>
 import { defineComponent } from 'vue'
-import BodyMovin from './BodyMovin.vue'
 import { copyToClipboard } from 'quasar'
+import WebmPlayer from './WebmPlayer.vue'
 import LazyImg from 'src/components/lazyImg.vue'
 import ShareNetwork from 'components/ShareNetwork.vue'
 
 export default defineComponent({
   name: 'SurpriseBox',
-  components: { ShareNetwork, BodyMovin, LazyImg },
+  components: { ShareNetwork, WebmPlayer, LazyImg },
   props: {
     discountCode: {
       type: String,

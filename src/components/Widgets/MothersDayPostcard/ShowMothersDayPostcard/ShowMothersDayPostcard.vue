@@ -2,8 +2,8 @@
   <div class="ShowMothersDayPostcard">
     <div class="BodyMovin-container"
          :class="{'animateCompleted': animateCompleted}">
-      <body-movin :responsive-bm="entranceBodyMovin"
-                  @complete="onComplete" />
+      <webm-player :responsive-src="entranceBodyMovin"
+                   @complete="onComplete" />
     </div>
     <postcard-preview v-if="!postcard.loading"
                       :postcard-backgrounds="postcardBackgrounds"
@@ -34,12 +34,12 @@
 import { defineComponent } from 'vue'
 import { Postcard } from 'src/models/Postcard.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import BodyMovin from './components/BodyMovin.vue'
+import WebmPlayer from './components/WebmPlayer.vue'
 import PostcardPreview from './components/PostcardPreview.vue'
 
 export default defineComponent({
   name: 'ShowMothersDayPostcard',
-  components: { PostcardPreview, BodyMovin },
+  components: { PostcardPreview, WebmPlayer },
   data () {
     return {
       animateCompleted: false,
@@ -71,36 +71,36 @@ export default defineComponent({
       postcard: new Postcard(),
       surpriseBoxBodyMovin: {
         xs: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         },
         sm: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         },
         md: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         },
         lg: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         },
         xl: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         }
       },
       entranceBodyMovin: {
         xs: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         },
         sm: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         },
         md: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         },
         lg: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         },
         xl: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         }
       },
       surpriseVideoSrc: 'https://nodes.alaatv.com/media/1042/240p/1042001ssss.mp4',
