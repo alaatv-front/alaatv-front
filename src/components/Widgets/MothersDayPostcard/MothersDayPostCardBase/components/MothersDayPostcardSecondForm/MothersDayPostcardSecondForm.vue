@@ -257,6 +257,18 @@ export default defineComponent({
   padding: $spacing-none;
   background:#FFF;
   border-radius: $radius-4;
+  margin-top: $space-12;
+
+  @include media-max-width('lg') {
+    margin-top: $space-8;
+  }
+  @include media-max-width('md') {
+    margin-top: $space-6;
+  }
+  @include media-max-width('sm') {
+    margin-top: $space-4;
+  }
+
   .slogan-inner-wrapper {
     display: flex;
     flex-direction: column;
