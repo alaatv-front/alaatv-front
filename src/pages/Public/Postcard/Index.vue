@@ -301,7 +301,7 @@ export default defineComponent({
             ]
           },
           options: {
-            fullHeight: true,
+            fullHeight: false,
             className: '',
             backgrounds: {
               xs: {
@@ -398,7 +398,7 @@ export default defineComponent({
               }
             },
             style: {
-              minHeight: '100vh'
+              minHeight: 'auto'
             },
             boxShadows: [],
             borderStyle: {
