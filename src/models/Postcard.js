@@ -16,6 +16,28 @@ class StudyEvent extends Model {
     ])
   }
 }
+
+class PostcardValue extends Model {
+  constructor (data) {
+    super(data, [
+      { key: 'postcardMessageText' },
+      { key: 'postcardPoemBody' },
+      { key: 'flowerImage' },
+      { key: 'patternBackgrounds' },
+      { key: 'postcardBackgrounds' }
+    ])
+    this.apiResource = {
+      fields: [
+        { key: 'postcardMessageText' },
+        { key: 'postcardPoemBody' },
+        { key: 'flowerImage' },
+        { key: 'patternBackgrounds' },
+        { key: 'postcardBackgrounds' }
+      ]
+    }
+  }
+}
+
 class Postcard extends Model {
   constructor (data) {
     super(data, [
@@ -29,8 +51,32 @@ class Postcard extends Model {
         relatedModel: StudyEvent
       },
       { key: 'uuid' },
-      { key: 'value' }
+      {
+        key: 'value',
+        value: (itemVal) => {
+          let postcardValueArg = itemVal
+          if (typeof postcardValueArg !== 'string') {
+            postcardValueArg = '{}'
+          }
+          return new PostcardValue(JSON.parse(postcardValueArg))
+        }
+      }
     ])
+    const that = this
+    this.apiResource = {
+      fields: [
+        { key: 'id' },
+        { key: 'user' },
+        { key: 'study_event' },
+        { key: 'uuid' },
+        {
+          key: 'value',
+          value: function () {
+            return JSON.stringify(that.value.loadApiResource())
+          }
+        }
+      ]
+    }
   }
 
   getDecodedValue () {
