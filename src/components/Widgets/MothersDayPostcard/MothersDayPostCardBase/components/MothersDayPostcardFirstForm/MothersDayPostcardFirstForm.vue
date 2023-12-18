@@ -142,24 +142,101 @@ export default {
           size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back6001702374421.png',
           size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back3601702374436.png'
         },
-        theme2: {},
-        theme3: {}
+        theme2: {
+          size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2back1440-19201702902151.png',
+          size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2back1440-19201702902151.png',
+          size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2back10241702902222.png',
+          size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2back10241702902222.png',
+          size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2back10241702902222.png'
+        },
+        theme3: {
+          size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3back1440-19201702902359.png',
+          size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3back1440-19201702902359.png',
+          size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3back10241702902374.png',
+          size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3back6001702902297.png',
+          size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3back3601702902326.png'
+        }
       },
       postcardBackgrounds: {
         theme1: {
-          size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/19201702280797.png',
-          size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/14401702280833.png',
-          size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/10241702280978.png',
-          size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/6001702280907.png',
-          size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3601702281026.png'
+          size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main1440-19201702904779.png',
+          size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main1440-19201702904779.png',
+          size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main10241702904792.png',
+          size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main10241702904792.png',
+          size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main10241702904792.png'
         },
-        theme2: {},
-        theme3: {}
+        theme2: {
+          size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main1440-19201702901801.png',
+          size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main1440-19201702901801.png',
+          size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main10241702901893.png',
+          size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main6001702901910.png',
+          size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main6001702901910.png'
+        },
+        theme3: {
+          size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3main1440-19201702904904.png',
+          size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3main1440-19201702904904.png',
+          size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3main10241702904917.png',
+          size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3main6001702901997.png',
+          size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3main3601702902006.png'
+        }
+      },
+      entranceBodyMovin: {
+        theme1: {
+          xs: {
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/360-800-Blue.webm'
+          },
+          sm: {
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/600-960-Blue.webm'
+          },
+          md: {
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-745-Blue.webm'
+          },
+          lg: {
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Blue.webm'
+          },
+          xl: {
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Blue.webm'
+          }
+        },
+        theme2: {
+          xs: {
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/360-800-Green.webm'
+          },
+          sm: {
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/600-960-Green.webm'
+          },
+          md: {
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-745-Green.webm'
+          },
+          lg: {
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Green.webm'
+          },
+          xl: {
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Green.webm'
+          }
+        },
+        theme3: {
+          xs: {
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/360-800-Pink.webm'
+          },
+          sm: {
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/600-960-Pink.webm'
+          },
+          md: {
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-745-Pink.webm'
+          },
+          lg: {
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Pink.webm'
+          },
+          xl: {
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Pink.webm'
+          }
+        }
       },
       flowerImages: {
         theme1: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/object1702374033.png',
-        theme2: '',
-        theme3: ''
+        theme2: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2object1702902432.png',
+        theme3: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3object1702902417.png'
       },
       poems: [
         {
@@ -277,10 +354,18 @@ export default {
     }
   },
   mounted () {
-    this.selectedPoem = this.poems[0]
+    this.setSelectedPoem()
     this.message = this.postcard.value.postcardMessageText ? this.postcard.value.postcardMessageText : ''
   },
   methods: {
+    setSelectedPoem () {
+      if (this.postcard.value.postcardPoemBody) {
+        const index = this.poems.findIndex(poem => JSON.parse(JSON.stringify(poem)) === JSON.parse(JSON.stringify(this.postcard.value.postcardPoemBody)))
+        this.selectedPoem = this.poems[index]
+      } else {
+        this.selectedPoem = this.poems[0]
+      }
+    },
     selectTheme (themeIndex) {
       this.themes.forEach((theme, index) => {
         theme.isSelected = themeIndex === index
@@ -288,13 +373,20 @@ export default {
     },
     takeAction () {
       this.fillPoemData()
-      const sendData = {
-        value: JSON.stringify(this.localPostcard.value.loadApiResource()),
-        study_event_id: 28
-      }
       if (this.postcard.value.postcardPoemBody) {
+        const sendData = {
+          data: {
+            value: JSON.stringify(this.localPostcard.value.loadApiResource()),
+            study_event_id: 28
+          },
+          id: this.postcard.id
+        }
         this.requestPostalCard(sendData, 'editPostalCard')
       } else {
+        const sendData = {
+          value: JSON.stringify(this.localPostcard.value.loadApiResource()),
+          study_event_id: 28
+        }
         this.requestPostalCard(sendData, 'savePostalCardData')
       }
     },
@@ -315,6 +407,7 @@ export default {
       this.localPostcard.value.patternBackgrounds = this.patternBackgrounds[theme]
       this.localPostcard.value.postcardBackgrounds = this.postcardBackgrounds[theme]
       this.localPostcard.value.flowerImage = this.flowerImages[theme]
+      this.localPostcard.value.entranceBodyMovin = this.entranceBodyMovin[theme]
       this.localPostcard.value.postcardMessageText = this.message
       this.localPostcard.value.postcardPoemBody = this.selectedPoem
       this.localPostcard.loadApiResource()

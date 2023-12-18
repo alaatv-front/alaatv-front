@@ -3,9 +3,11 @@
     <div class="BodyMovin-container"
          :class="{'animateCompleted': animateCompleted}">
       <webm-player :responsive-src="entranceBodyMovin"
+                   @loadedmetadata="onLoadedmetadata"
                    @complete="onComplete" />
     </div>
     <postcard-preview v-if="!postcard.loading"
+                      ref="PostcardPreview"
                       :postcard-backgrounds="postcardBackgrounds"
                       :postcard-message-from="postcardMessageFrom"
                       :postcard-message-text="postcardMessageText"
@@ -122,6 +124,7 @@ export default defineComponent({
   methods: {
     onComplete () {
       this.animateCompleted = true
+      this.$refs.PostcardPreview.playSound()
     },
     getPostcard () {
       this.postcard.loading = true
