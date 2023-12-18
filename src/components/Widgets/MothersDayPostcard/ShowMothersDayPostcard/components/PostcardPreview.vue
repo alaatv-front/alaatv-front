@@ -138,6 +138,9 @@ export default defineComponent({
   },
   methods: {
     onCardClicked () {
+      // this.$refs.sound.tryAutoplay()
+    },
+    playSound () {
       this.$refs.sound.tryAutoplay()
     }
   }
