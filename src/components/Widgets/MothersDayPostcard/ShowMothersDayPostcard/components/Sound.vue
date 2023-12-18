@@ -80,10 +80,11 @@ export default {
     draw () {
       this.analyser.getByteFrequencyData(this.dataArray)
       this.canvasContext.clearRect(0, 0, this.canvasWidth, this.canvasHeight)
-      const barWidth = (this.canvasWidth / this.bufferLength) * 2.5
+      const barWidth = (this.canvasWidth / this.bufferLength) * 1.5
       let barHeight
       let x = 0
 
+      // console.log('this.bufferLength', this.bufferLength)
       for (let i = 0; i < this.bufferLength; i++) {
         barHeight = this.dataArray[i] * 2
 
@@ -122,6 +123,9 @@ export default {
 <style lang="scss" scoped>
 .Sound {
   /* page > 1920 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   .audio {
     display: none;
@@ -130,6 +134,7 @@ export default {
     top: 0;
   }
   canvas {
+    margin: auto;
     width: 100%;
     height: 500px;
   }
