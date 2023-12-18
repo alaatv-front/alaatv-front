@@ -300,5 +300,12 @@ body {
         }
       }
     }
+
+    &.handout-btn {
+      background: $darken-7 !important;
+      &:hover {
+        background: $primary !important;
+      }
+    }
   }
 }
