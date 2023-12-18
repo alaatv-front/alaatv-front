@@ -3,7 +3,6 @@
     <div class="BodyMovin-container"
          :class="{'animateCompleted': animateCompleted}">
       <webm-player :responsive-src="entranceBodyMovin"
-                   @loadedmetadata="onLoadedmetadata"
                    @complete="onComplete" />
     </div>
     <postcard-preview v-if="!postcard.loading"
