@@ -1,5 +1,7 @@
 <template>
   <div class="WebmPlayer">
+    <q-inner-loading :showing="!loadedmetadata"
+                     label="کمی صبر کنید..." />
     <video v-if="mounted"
            ref="WebmPlayer"
            :autoplay="autoplay"
@@ -7,7 +9,8 @@
            muted
            class="full-width"
            @ended="onPlayerEnded"
-           @click="onClickElement">
+           @click="onClickElement"
+           @loadedmetadata="onLoadedmetadata">
       <source :src="responsiveSrcPath">
       Your browser does not support the video tag.
     </video>
@@ -51,11 +54,12 @@ export default defineComponent({
       default: false
     }
   },
-  emits: ['complete'],
+  emits: ['complete', 'loadedmetadata'],
   data () {
     return {
       windowWidth: 0,
-      mounted: false
+      mounted: false,
+      loadedmetadata: false
     }
   },
   computed: {
@@ -69,6 +73,10 @@ export default defineComponent({
   methods: {
     onClickElement () {
       this.$refs.WebmPlayer.play()
+    },
+    onLoadedmetadata () {
+      this.loadedmetadata = true
+      this.$emit('loadedmetadata')
     },
     onPlayerEnded () {
       this.$emit('complete')
