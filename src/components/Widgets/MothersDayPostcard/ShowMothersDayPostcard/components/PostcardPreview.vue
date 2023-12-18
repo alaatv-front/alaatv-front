@@ -189,11 +189,13 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
     }
     .SurpriseBox {
       position: relative;
+      z-index: 1;
       .flower-element {
         position: absolute;
         top: 115.7px;
         left: 289.7px;
         width: 116px;
+        z-index: 1;
       }
     }
   }
