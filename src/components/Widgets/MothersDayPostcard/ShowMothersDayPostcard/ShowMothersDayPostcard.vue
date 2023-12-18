@@ -127,13 +127,12 @@ export default defineComponent({
       this.postcard.loading = true
       APIGateway.postcard.getPostcard(this.postcardUuid)
         .then((postcard) => {
-          this.postcard = new Postcard(postcard)
-          const postcardData = this.postcard.getDecodedValue()
-          this.postcardPoemBody = postcardData.postcardPoemBody
-          this.postcardMessageText = postcardData.postcardMessageText
-          this.postcardBackgrounds = postcardData.postcardBackgrounds
-          this.patternBackgrounds = postcardData.patternBackgrounds
-          this.flowerImage = postcardData.flowerImage
+          this.postcard = postcard
+          this.postcardPoemBody = this.postcard.value.postcardPoemBody
+          this.postcardMessageText = this.postcard.value.postcardMessageText
+          this.postcardBackgrounds = this.postcard.value.postcardBackgrounds
+          this.patternBackgrounds = this.postcard.value.patternBackgrounds
+          this.flowerImage = this.postcard.value.flowerImage
           // this.postcardMessageFrom = this.postcard.user.first_name + ' ' + this.postcard.user.last_name
           this.postcardMessageFrom = this.postcard.user.first_name
         })
