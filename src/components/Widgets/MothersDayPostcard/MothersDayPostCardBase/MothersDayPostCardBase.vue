@@ -50,50 +50,6 @@ import MothersDayPostcardFirstForm from './components/MothersDayPostcardFirstFor
 import MothersDayPostcardSecondForm from './components/MothersDayPostcardSecondForm/MothersDayPostcardSecondForm.vue'
 import PostcardPreview from 'src/components/Widgets/MothersDayPostcard/ShowMothersDayPostcard/components/PostcardPreview.vue'
 
-const defaultConfig = {
-  postcardPoemTitle: 'روزت مبارک مادر عزیزم',
-  postcardPoemBody: '' +
-        '        مادر حضور نام تو در شعر های من\n' +
-        '<br>\n' +
-        '        لطف خداست شامل حال غزل شده است\n' +
-        '<br>\n' +
-        '        غیر از تو جای هیچ کسی نیست در دلم\n' +
-        '<br>\n' +
-        '        این مسأله میان من و عشق حل شده است...',
-  postcardMessageText: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطر آنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا',
-  postcardMessageFrom: 'بهزاد',
-  postcardBackgrounds: {
-    size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/19201702280797.png',
-    size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/14401702280833.png',
-    size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/10241702280978.png',
-    size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/6001702280907.png',
-    size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3601702281026.png'
-  },
-  patternBackgrounds: {
-    size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back1440-19201702374213.png',
-    size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back1440-19201702374213.png',
-    size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back10241702374341.png',
-    size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back6001702374421.png',
-    size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/back3601702374436.png'
-  },
-  surpriseDiscountCode: 'GFDfgkler0',
-  surpriseBanners: [
-    {
-      src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/11702373602.png',
-      link: ''
-    },
-    {
-      src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/21702373813.png',
-      link: ''
-    },
-    {
-      src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/31702373855.png',
-      link: ''
-    }
-  ],
-  flowerImage: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/object1702374033.png'
-}
-
 export default defineComponent({
   name: 'MothersDayPostCardBase',
   components: {
@@ -108,7 +64,17 @@ export default defineComponent({
       currentForm: 'first',
       loading: false,
       previewDialog: false,
-      postcardConfig: defaultConfig
+      postcardConfig: {
+        postcardPoemTitle: null,
+        postcardPoemBody: null,
+        postcardMessageText: null,
+        postcardMessageFrom: null,
+        patternBackgrounds: null,
+        surpriseDiscountCode: null,
+        surpriseBanners: null,
+        flowerImage: null
+
+      }
     }
   },
   computed: {
@@ -139,7 +105,7 @@ export default defineComponent({
     },
     togglePreview (postcard) {
       if (postcard && postcard.value) {
-        const userPostcardConfig = JSON.parse(postcard.value)
+        const userPostcardConfig = postcard.value
         this.postcardConfig = {
           postcardPoemTitle: userPostcardConfig.postcardPoemTitle,
           postcardPoemBody: userPostcardConfig.postcardPoemBody,

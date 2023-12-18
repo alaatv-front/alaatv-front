@@ -2,8 +2,8 @@
   <div class="ShowMothersDayPostcard">
     <div class="BodyMovin-container"
          :class="{'animateCompleted': animateCompleted}">
-      <body-movin :responsive-bm="entranceBodyMovin"
-                  @complete="onComplete" />
+      <webm-player :responsive-src="entranceBodyMovin"
+                   @complete="onComplete" />
     </div>
     <postcard-preview v-if="!postcard.loading"
                       :postcard-backgrounds="postcardBackgrounds"
@@ -34,12 +34,12 @@
 import { defineComponent } from 'vue'
 import { Postcard } from 'src/models/Postcard.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import BodyMovin from './components/BodyMovin.vue'
+import WebmPlayer from './components/WebmPlayer.vue'
 import PostcardPreview from './components/PostcardPreview.vue'
 
 export default defineComponent({
   name: 'ShowMothersDayPostcard',
-  components: { PostcardPreview, BodyMovin },
+  components: { PostcardPreview, WebmPlayer },
   data () {
     return {
       animateCompleted: false,
@@ -71,36 +71,36 @@ export default defineComponent({
       postcard: new Postcard(),
       surpriseBoxBodyMovin: {
         xs: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         },
         sm: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         },
         md: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         },
         lg: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         },
         xl: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         }
       },
       entranceBodyMovin: {
         xs: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         },
         sm: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         },
         md: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         },
         lg: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         },
         xl: {
-          jsonPath: 'https://nodes.alaatv.com/upload/landing/Abrisham2new/Shotor_1.json'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
         }
       },
       surpriseVideoSrc: 'https://nodes.alaatv.com/media/1042/240p/1042001ssss.mp4',
@@ -127,13 +127,12 @@ export default defineComponent({
       this.postcard.loading = true
       APIGateway.postcard.getPostcard(this.postcardUuid)
         .then((postcard) => {
-          this.postcard = new Postcard(postcard)
-          const postcardData = this.postcard.getDecodedValue()
-          this.postcardPoemBody = postcardData.postcardPoemBody
-          this.postcardMessageText = postcardData.postcardMessageText
-          this.postcardBackgrounds = postcardData.postcardBackgrounds
-          this.patternBackgrounds = postcardData.patternBackgrounds
-          this.flowerImage = postcardData.flowerImage
+          this.postcard = postcard
+          this.postcardPoemBody = this.postcard.value.postcardPoemBody
+          this.postcardMessageText = this.postcard.value.postcardMessageText
+          this.postcardBackgrounds = this.postcard.value.postcardBackgrounds
+          this.patternBackgrounds = this.postcard.value.patternBackgrounds
+          this.flowerImage = this.postcard.value.flowerImage
           // this.postcardMessageFrom = this.postcard.user.first_name + ' ' + this.postcard.user.last_name
           this.postcardMessageFrom = this.postcard.user.first_name
         })
