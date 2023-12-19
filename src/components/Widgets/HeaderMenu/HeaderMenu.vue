@@ -332,7 +332,7 @@ $backgrounds: (
     align-items: center;
 
     @media screen and (width <= 1023px) {
-      height: 56px;
+      //height: 56px;
     }
 
     .logo-pic-img {

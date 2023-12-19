@@ -442,7 +442,7 @@ export default defineComponent({
       loading: false,
       separatorImage: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/vector1701681190.png',
       headerImage: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/anar1701759403.png',
-      walletImage: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/wallet1701759600.png',
+      walletImage: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/wallet1702973479.png',
       defaultOptions: {
         poemAndOmenList: [],
         congratulationMessage: {
