@@ -1,33 +1,35 @@
 <template>
   <div class="ShowMothersDayPostcard">
-    <div class="BodyMovin-container"
-         :class="{'animateCompleted': animateCompleted}">
-      <webm-player :responsive-src="entranceBodyMovin"
-                   @complete="onComplete" />
-    </div>
-    <postcard-preview v-if="!postcard.loading"
-                      ref="PostcardPreview"
-                      :postcard-backgrounds="postcardBackgrounds"
-                      :postcard-message-from="postcardMessageFrom"
-                      :postcard-message-text="postcardMessageText"
-                      :postcard-poem-body="postcardPoemBody"
-                      :postcard-poem-title="postcardPoemTitle"
-                      :pattern-backgrounds="patternBackgrounds"
-                      :surprise-banners="surpriseBanners"
-                      :surprise-discount-code="surpriseDiscountCode"
-                      :flower-image="flowerImage"
-                      :surprise-box-body-movin="surpriseBoxBodyMovin"
-                      :surprise-video-poster="surpriseVideoPoster"
-                      :surprise-video-src="surpriseVideoSrc"
-                      :audio-source="audioSource" />
-    <div v-else>
-      <div v-if="postcardHasError">
-        مشکلی رخ داده است.
-      </div>
-      <q-spinner-cube v-else
-                      color="orange"
+    <template v-if="postcard.loading">
+      <q-spinner-cube color="orange"
                       size="5.5em" />
-    </div>
+    </template>
+    <template v-else-if="!postcardHasError">
+      <div class="BodyMovin-container"
+           :class="{'animateCompleted': animateCompleted}">
+        <webm-player :responsive-src="entranceBodyMovin"
+                     @complete="onComplete" />
+      </div>
+      <postcard-preview ref="PostcardPreview"
+                        :postcard-backgrounds="postcardBackgrounds"
+                        :postcard-message-from="postcardMessageFrom"
+                        :postcard-message-text="postcardMessageText"
+                        :postcard-poem-body="postcardPoemBody"
+                        :postcard-poem-title="postcardPoemTitle"
+                        :pattern-backgrounds="patternBackgrounds"
+                        :surprise-banners="surpriseBanners"
+                        :surprise-discount-code="surpriseDiscountCode"
+                        :flower-image="flowerImage"
+                        :surprise-box-body-movin="surpriseBoxBodyMovin"
+                        :surprise-video-poster="surpriseVideoPoster"
+                        :surprise-video-src="surpriseVideoSrc"
+                        :audio-source="audioSource" />
+    </template>
+    <template v-else-if="!postcard.loading && postcardHasError">
+      <q-banner>
+        مشکلی رخ داده است.
+      </q-banner>
+    </template>
   </div>
 </template>
 
@@ -89,19 +91,19 @@ export default defineComponent({
       },
       entranceBodyMovin: {
         xs: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: ''
         },
         sm: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: ''
         },
         md: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: ''
         },
         lg: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: ''
         },
         xl: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: ''
         }
       },
       surpriseVideoSrc: 'https://nodes.alaatv.com/media/1042/240p/1042001ssss.mp4',
@@ -116,7 +118,6 @@ export default defineComponent({
     }
   },
   mounted () {
-    // this.surpriseDiscountCode = null
     this.getPostcard()
     this.getCoupon()
   },
@@ -134,6 +135,7 @@ export default defineComponent({
           this.postcardMessageText = this.postcard.value.postcardMessageText
           this.postcardBackgrounds = this.postcard.value.postcardBackgrounds
           this.patternBackgrounds = this.postcard.value.patternBackgrounds
+          this.entranceBodyMovin = this.postcard.value.entranceBodyMovin
           this.flowerImage = this.postcard.value.flowerImage
           // this.postcardMessageFrom = this.postcard.user.first_name + ' ' + this.postcard.user.last_name
           this.postcardMessageFrom = this.postcard.user.first_name
