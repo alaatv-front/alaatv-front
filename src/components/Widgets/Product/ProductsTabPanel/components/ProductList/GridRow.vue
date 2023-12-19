@@ -13,7 +13,7 @@
            :key="index"
            :class="colClassName"
            class="product-item">
-        <product-item :options="{product: product, ...localOptions.productOptions}" />
+        <product-item :options="{product, ...localOptions.productOptions}" />
       </div>
     </div>
     <div v-if="options.hasExpand"
@@ -34,14 +34,14 @@
 import ProductRowSkeleton from '../ProductRowSkeleton.vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 import ProductItem from '../../../ProductItem/ProductItem.vue'
-import ActionButton from 'components/Widgets/ActionButton/ActionButton.vue'
+import ActionButton from 'src/components/Widgets/ActionButton/ActionButton.vue'
 
 export default {
   name: 'GridRow',
   components: {
     ProductItem,
-    ProductRowSkeleton,
-    ActionButton
+    ActionButton,
+    ProductRowSkeleton
   },
   mixins: [PageBuilderOptionPanel],
   props: {
