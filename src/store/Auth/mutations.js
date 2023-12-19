@@ -1,3 +1,5 @@
+import { User } from 'src/models/User.js'
+
 export function updateUser (state, newInfo) {
   state.user = newInfo
 }
@@ -18,6 +20,13 @@ export function updateAxiosAuthorization (state, accessToken) {
   if (this.$apiWeb) {
     this.$apiWeb.defaults.headers.common.Authorization = token
   }
+}
+
+export function updateUserWalletBalance (state, walletBalance) {
+  if (!state.user) {
+    state.user = new User()
+  }
+  state.user.wallet_balance = walletBalance
 }
 
 export function updateAccessToken (state, newInfo) {
