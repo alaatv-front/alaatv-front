@@ -34,7 +34,7 @@
 import ProductRowSkeleton from '../ProductRowSkeleton.vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 import ProductItem from '../../../ProductItem/ProductItem.vue'
-import ActionButton from 'components/Widgets/ActionButton/ActionButton.vue'
+import ActionButton from 'src/components/Widgets/ActionButton/ActionButton.vue'
 
 export default {
   name: 'GridRow',
