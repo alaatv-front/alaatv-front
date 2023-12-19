@@ -13,7 +13,7 @@
            :key="index"
            :class="colClassName"
            class="product-item">
-        <product-item :options="{product: product, ...localOptions.productOptions}" />
+        <product-item :options="{product, ...localOptions.productOptions}" />
       </div>
     </div>
     <div v-if="options.hasExpand"
@@ -40,8 +40,8 @@ export default {
   name: 'GridRow',
   components: {
     ProductItem,
-    ProductRowSkeleton,
-    ActionButton
+    ActionButton,
+    ProductRowSkeleton
   },
   mixins: [PageBuilderOptionPanel],
   props: {

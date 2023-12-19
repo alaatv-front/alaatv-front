@@ -83,11 +83,11 @@ import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import ThemeDefault from 'src/components/Product/ProductItem/Themes/ThemeDefault.vue'
+import ThemeProduct1 from 'src/components/Product/ProductItem/Themes/ThemeProduct1.vue'
+import ThemeProduct2 from 'src/components/Product/ProductItem/Themes/ThemeProduct2.vue'
+import ThemeProduct3 from 'src/components/Product/ProductItem/Themes/ThemeProduct3.vue'
 import ProductBottomSheet from 'src/components/Widgets/Product/ProductItem/components/ProductBottomSheet.vue'
-import ThemeDefault from 'components/Product/ProductItem/Themes/ThemeDefault.vue'
-import ThemeProduct1 from 'components/Product/ProductItem/Themes/ThemeProduct1.vue'
-import ThemeProduct2 from 'components/Product/ProductItem/Themes/ThemeProduct2.vue'
-import ThemeProduct3 from 'components/Product/ProductItem/Themes/ThemeProduct3.vue'
 
 const defaultTypography = {
   fontFamily: 'iranyekan',
@@ -339,6 +339,13 @@ export default defineComponent({
       }
       this.localOptions.product.is_favored = newVal
     }
+  },
+  created () {
+    // ToDo: check this for hydration mismatch
+    Object.assign(this.defaultOptions, this.options)
+    // console.log('this.options.product.id', this.options.product.id)
+    // console.log('Object.assign(this.defaultOptions, this.options).product.id', Object.assign(this.defaultOptions, this.options).product.id)
+    // console.log('this.localOptions.product.id', this.localOptions.product.id)
   },
   mounted () {
     this.productMounted = true
