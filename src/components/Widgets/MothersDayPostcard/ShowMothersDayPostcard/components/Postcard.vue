@@ -16,7 +16,7 @@
     </div>
     <div class="message">
       <div class="message-text"
-           v-html="messageText" />
+           v-html="messageTextWidthBrTags" />
       <div class="message-from">
         از طرف
         -
@@ -115,6 +115,12 @@ export default defineComponent({
     }
   },
   computed: {
+    messageTextWidthBrTags () {
+      if (!this.messageText) {
+        return ''
+      }
+      return this.messageText.toString().replace(/\n/g, '<br>')
+    },
     computedPoemBody () {
       return [
         this.poemBody?.verse1?.hemistich1,
