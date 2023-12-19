@@ -3,14 +3,16 @@
     <div class="BodyMovin-container"
          :class="{'animateCompleted': animateCompleted}">
       <webm-player :responsive-src="bodyMovin"
-                   @complete="onComplete" />
+                   autoplay
+                   loop
+                   @click="onComplete" />
     </div>
     <div class="main">
       <div class="title">
-        عنوان سوپرایز شماره 2
+        هدیه‌ای از مادر به فرزند
       </div>
       <div class="description">
-        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است
+        مادر نازنین، این هدیه‌ای برای ثمره زندگی شما، یعنی فرزندتونه. با این کد میتونه کاملا رایگان، یک درس از دوره‌ های ویژه امتحانات نهایی آلا رو ثبت نام کنه.
       </div>
       <div class="discount-box">
         <div class="discount-box-title">
