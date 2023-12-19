@@ -172,11 +172,23 @@ export default defineComponent({
     position: absolute;
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
+    min-width: 100%;
+    height: 100vh;
     z-index: 5;
     &.animateCompleted {
       display: none;
+    }
+    :deep(.WebmPlayer) {
+      position: relative;
+      video {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        height: 100vh;
+        min-width: 100%;
+        width: auto !important;
+        transform: translateX(-50%);
+      }
     }
   }
   /* 1440 < page < 1920 */
