@@ -134,6 +134,7 @@ export default {
   emits: ['togglePreviewDialog', 'toggleForm'],
   data () {
     return {
+      studyEventId: 28,
       localPostcard: new Postcard(),
       message: '',
       themes: [
@@ -437,7 +438,7 @@ export default {
         const sendData = {
           data: {
             value: JSON.stringify(this.localPostcard.value.loadApiResource()),
-            study_event_id: 28
+            study_event_id: this.studyEventId
           },
           id: this.postcard.id
         }
@@ -445,7 +446,7 @@ export default {
       } else {
         const sendData = {
           value: JSON.stringify(this.localPostcard.value.loadApiResource()),
-          study_event_id: 28
+          study_event_id: this.studyEventId
         }
         this.requestPostalCard(sendData, 'savePostalCardData')
       }
