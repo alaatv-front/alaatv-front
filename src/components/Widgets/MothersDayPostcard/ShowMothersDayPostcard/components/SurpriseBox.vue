@@ -2,10 +2,18 @@
   <div class="SurpriseBox">
     <div class="BodyMovin-container"
          :class="{'animateCompleted': animateCompleted}">
-      <webm-player :responsive-src="bodyMovin"
+      <webm-player ref="noiseBodyMovin"
+                   :responsive-src="bodyMovin"
                    autoplay
                    loop
-                   @click="onComplete" />
+                   class="noiseBodyMovin"
+                   @click="onClickBodyMovin" />
+      <webm-player v-if="clickBodyMovinShow"
+                   autoplay
+                   loop
+                   class="clickBodyMovin"
+                   :responsive-src="clickBodyMovin"
+                   @click="onClickBodyMovin" />
     </div>
     <div class="main">
       <div class="title">
@@ -129,7 +137,25 @@ export default defineComponent({
   },
   data () {
     return {
-      animateCompleted: false
+      animateCompleted: false,
+      clickBodyMovinShow: true,
+      clickBodyMovin: {
+        xs: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        },
+        sm: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        },
+        md: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        },
+        lg: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        },
+        xl: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        }
+      }
     }
   },
   computed: {
@@ -141,7 +167,7 @@ export default defineComponent({
     }
   },
   methods: {
-    onComplete () {
+    onClickBodyMovin () {
       this.animateCompleted = true
     },
     shareCode ({ name, url }) {
@@ -191,6 +217,15 @@ export default defineComponent({
     z-index: 5;
     &.animateCompleted {
       display: none;
+    }
+    .clickBodyMovin {
+      width: auto;
+      height: auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      z-index: 2;
     }
   }
   .main {

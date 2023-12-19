@@ -81,8 +81,11 @@ export default defineComponent({
     this.mounted = true
   },
   methods: {
-    onClickElement () {
+    play () {
       this.$refs.WebmPlayer.play()
+    },
+    onClickElement () {
+      this.play()
     },
     onLoadedmetadata () {
       this.loadedmetadata = true

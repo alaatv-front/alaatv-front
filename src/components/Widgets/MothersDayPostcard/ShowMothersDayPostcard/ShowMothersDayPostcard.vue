@@ -7,8 +7,17 @@
     <template v-else-if="!postcardHasError">
       <div class="BodyMovin-container"
            :class="{'animateCompleted': animateCompleted}">
-        <webm-player :responsive-src="entranceBodyMovin"
+        <webm-player ref="entranceBodyMovin"
+                     :responsive-src="entranceBodyMovin"
+                     class="entranceBodyMovin"
+                     @click="onClickBodyMovin"
                      @complete="onComplete" />
+        <webm-player v-if="clickBodyMovinShow"
+                     autoplay
+                     loop
+                     class="clickBodyMovin"
+                     :responsive-src="clickBodyMovin"
+                     @click="onClickBodyMovin" />
       </div>
       <postcard-preview ref="PostcardPreview"
                         :postcard-backgrounds="postcardBackgrounds"
@@ -72,6 +81,24 @@ export default defineComponent({
       // hard codes variables
       postcardPoemTitle: 'روزت مبارک مادر عزیزم',
       postcard: new Postcard(),
+      clickBodyMovinShow: true,
+      clickBodyMovin: {
+        xs: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        },
+        sm: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        },
+        md: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        },
+        lg: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        },
+        xl: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        }
+      },
       surpriseBoxBodyMovin: {
         xs: {
           src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/360-Noise1702977340.webm'
@@ -122,6 +149,10 @@ export default defineComponent({
     this.getCoupon()
   },
   methods: {
+    onClickBodyMovin () {
+      this.$refs.entranceBodyMovin.play()
+      this.clickBodyMovinShow = false
+    },
     onComplete () {
       this.animateCompleted = true
       this.$refs.PostcardPreview.playSound()
@@ -175,11 +206,11 @@ export default defineComponent({
     min-width: 100%;
     height: 100vh;
     z-index: 5;
-    &.animateCompleted {
-      display: none;
-    }
-    :deep(.WebmPlayer) {
-      position: relative;
+    :deep(.WebmPlayer.entranceBodyMovin) {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
       min-width: 100%;
       height: 100vh;
       video {
@@ -191,6 +222,18 @@ export default defineComponent({
         width: auto !important;
         transform: translateX(-50%) translateY(-50%);
       }
+    }
+    .clickBodyMovin {
+      width: auto;
+      height: auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      z-index: 2;
+    }
+    &.animateCompleted {
+      display: none;
     }
   }
   /* 1440 < page < 1920 */
