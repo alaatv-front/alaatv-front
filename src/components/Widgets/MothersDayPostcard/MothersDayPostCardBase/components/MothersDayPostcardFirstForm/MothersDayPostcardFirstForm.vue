@@ -17,7 +17,7 @@
     </div>
     <div class="col-12 theme-description body1">از میان تم های زیر، یک تم را برای کارت پستال خود انتخاب کنید.</div>
     <div class="col-12">
-      <div class="row theme-banner-container q-col-gutter-lg">
+      <div class="row theme-banner-container">
         <div v-for="(theme, index) in themes"
              :key="index"
              class="col-md-4 col-xs-12">
@@ -38,7 +38,7 @@
     <div class="col-12 poem-description body1">از میان ابیات زیر، یک بیت را برای کارت پستال خود انتخاب کنید.</div>
     <div class="col-12">
       <div class="row poem-cards">
-        <div v-for="poem in poems"
+        <div v-for="poem in displayablePoems"
              :key="poem"
              class="col-md-6 col-xs-12 poem-container">
           <q-card class="card-2 outline-card"
@@ -49,16 +49,16 @@
                          color="secondary"
                          :val="poem" />
                 <div class="row verses">
-                  <div class="subtitle2 col-sm-6 col-xs-12 verse-1 hemistich-1">
+                  <div class="subtitle2 col-sm-6 col-xs-12 verse-1 hemistich-1 ellipsis">
                     {{poem.verse1.hemistich1}}
                   </div>
-                  <div class="subtitle2 col-sm-6 col-xs-12 verse-1 hemistich-2">
+                  <div class="subtitle2 col-sm-6 col-xs-12 verse-1 hemistich-2 ellipsis">
                     {{poem.verse1.hemistich2}}
                   </div>
-                  <div class="subtitle2 col-sm-6 col-xs-12 verse-2 hemistich-1">
+                  <div class="subtitle2 col-sm-6 col-xs-12 verse-2 hemistich-1 ellipsis">
                     {{poem.verse2.hemistich1}}
                   </div>
-                  <div class="subtitle2 col-sm-6 col-xs-12 verse-2 hemistich-2">
+                  <div class="subtitle2 col-sm-6 col-xs-12 verse-2 hemistich-2 ellipsis">
                     {{poem.verse2.hemistich2}}
                   </div>
                 </div>
@@ -67,6 +67,25 @@
             <q-card-section />
           </q-card>
         </div>
+      </div>
+      <div v-if="showMoreBtn"
+           class="col-12 more-btns text-center">
+        <q-btn v-if="isPoemsCollapsed"
+               flat
+               class="size-xs action-btn"
+               icon="ph:caret-down"
+               text-color="secondary"
+               color="grey-9"
+               label="مشاهده بیشتر"
+               @click="expandPanel" />
+        <q-btn v-else
+               flat
+               class="size-xs action-btn"
+               icon="ph:caret-up"
+               text-color="secondary"
+               color="grey-9"
+               label="بستن"
+               @click="collapsePanel" />
       </div>
     </div>
     <div class="col-12 message-title">
@@ -83,10 +102,11 @@
       <q-btn label="پیش نمایش"
              outline
              color="grey"
-             class="preview-btn"
+             class="preview-btn size-md"
              icon="ph:eye"
              @click="showPreview" />
       <q-btn label="ذخیره و ثبت"
+             class="size-md"
              color="primary"
              icon="ph:check"
              @click="takeAction" />
@@ -341,23 +361,38 @@ export default {
         }
       ],
       selectedTheme: null,
-      selectedPoem: null
+      selectedPoem: null,
+      isPoemsCollapsed: true,
+      windowWidth: 0
     }
   },
   computed: {
-    displayableProducts () {
-      if (this.isPanelCollapsed) {
-        return this.data.slice(0, this.options.showInCollapse)
+    showMoreBtn () {
+      return this.windowWidth < 1024
+    },
+    displayablePoems () {
+      if (this.isPoemsCollapsed && this.windowWidth < 1024) {
+        return this.poems.slice(0, 3)
       } else {
-        return this.data
+        return this.poems
       }
     }
   },
   mounted () {
+    window.addEventListener('resize', this.onResize)
     this.setSelectedPoem()
     this.message = this.postcard.value.postcardMessageText ? this.postcard.value.postcardMessageText : ''
   },
   methods: {
+    expandPanel () {
+      this.isPoemsCollapsed = false
+    },
+    collapsePanel () {
+      this.isPoemsCollapsed = true
+    },
+    onResize () {
+      this.windowWidth = window.innerWidth
+    },
     setSelectedPoem () {
       if (this.postcard.value.postcardPoemBody) {
         const index = this.poems.findIndex(poem => JSON.parse(JSON.stringify(poem)) === JSON.parse(JSON.stringify(this.postcard.value.postcardPoemBody)))
@@ -419,7 +454,8 @@ export default {
 
 <style lang="scss" scoped>
 .postal-cart-container {
-  .theme-title, .poem-title, .message-title {
+  padding: $space-7 0;
+  .theme-title, .poem-title, {
     margin-top: $space-7;
     color: $grey-9;
   }
@@ -432,6 +468,22 @@ export default {
   }
   .theme-banner-container {
     .banner {
+      padding-left: $space-6;
+      @include media-max-width('lg') {
+        padding-left: $space-5;
+      }
+      @include media-max-width('md') {
+        padding-bottom: $space-4;
+      }
+    }
+  }
+  .message-title {
+    margin-top: $space-2;
+    @include media-max-width('lg') {
+      margin-top: $spacing-base;
+    }
+    @include media-max-width('md') {
+      margin-top: $space-6;
     }
   }
   .poem-cards {
@@ -448,7 +500,13 @@ export default {
       }
     }
     .poem-container {
-      padding-bottom: $space-6;
+      margin-bottom: $space-6;
+      @include media-max-width('lg') {
+        margin-bottom: $space-5;
+      }
+      @include media-max-width('md') {
+        margin-bottom: $space-3;
+      }
       .poem {
         display: flex;
         align-items: flex-start;
@@ -475,6 +533,9 @@ export default {
         }
       }
     }
+  }
+  .more-btns {
+    margin-top: $space-2;
   }
   .action-btns {
     .preview-btn {

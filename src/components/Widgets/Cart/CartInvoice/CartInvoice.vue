@@ -41,7 +41,7 @@
                      class="wallet-credit price-section">
                   <div class="title">{{localOptions.useWallet}}</div>
                   <div class="price">
-                    {{ amountUsingWallet }}
+                    {{ amountUsingWallet.toLocaleString('fa') }}
                     <span class="iran-money-unit">تومان</span>
                   </div>
                 </div>

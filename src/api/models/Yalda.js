@@ -20,7 +20,8 @@ export default class YaldaAPI extends APIRepository {
       resolveCallback: (response) => {
         return {
           code: response.data.data?.code,
-          amount: response.data.data?.amount
+          amount: response.data.data?.amount,
+          total_amount: response.data.data?.total_amount
         }
       },
       rejectCallback: (error) => {

@@ -115,6 +115,9 @@ export default {
       // if (!this.animationFrameId) {
       //   this.draw()
       // }
+    },
+    pause () {
+      this.$refs.audio.pause()
     }
   }
 }
