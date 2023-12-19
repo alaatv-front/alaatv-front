@@ -158,6 +158,9 @@ export default defineComponent({
     }
   },
   mounted () {
+    window.scrollTo({
+      top: 0
+    })
     this.getUrl()
     this.getContact()
   },
