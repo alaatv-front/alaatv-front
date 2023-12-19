@@ -145,10 +145,23 @@ export default defineComponent({
     }
   },
   mounted () {
-    this.getPostcard()
-    this.getCoupon()
+    this.getAllData()
   },
   methods: {
+    getAllData () {
+      this.postcard.loading = true
+      Promise.all([
+        this.getPostcard(),
+        this.getCoupon()
+      ])
+        .then(() => {
+          this.postcard.loading = false
+        })
+        .catch(() => {
+          this.postcard.loading = false
+          this.postcardHasError = true
+        })
+    },
     onClickBodyMovin () {
       this.$refs.entranceBodyMovin.play()
       this.clickBodyMovinShow = false
@@ -158,35 +171,38 @@ export default defineComponent({
       this.$refs.PostcardPreview.playSound()
     },
     getPostcard () {
-      this.postcard.loading = true
-      APIGateway.postcard.getPostcard(this.postcardUuid)
-        .then((postcard) => {
-          this.postcard = postcard
-          this.postcardPoemBody = this.postcard.value.postcardPoemBody
-          this.postcardMessageText = this.postcard.value.postcardMessageText
-          this.postcardBackgrounds = this.postcard.value.postcardBackgrounds
-          this.patternBackgrounds = this.postcard.value.patternBackgrounds
-          this.entranceBodyMovin = this.postcard.value.entranceBodyMovin
-          this.flowerImage = this.postcard.value.flowerImage
-          // this.postcardMessageFrom = this.postcard.user.first_name + ' ' + this.postcard.user.last_name
-          this.postcardMessageFrom = this.postcard.user.first_name
-        })
-        .catch(() => {
-          this.postcard.loading = false
-          this.postcardHasError = true
-        })
+      return new Promise((resolve, reject) => {
+        APIGateway.postcard.getPostcard(this.postcardUuid)
+          .then((postcard) => {
+            debugger
+            this.postcard = postcard
+            this.postcardPoemBody = this.postcard.value.postcardPoemBody
+            this.postcardMessageText = this.postcard.value.postcardMessageText
+            this.postcardBackgrounds = this.postcard.value.postcardBackgrounds
+            this.patternBackgrounds = this.postcard.value.patternBackgrounds
+            this.entranceBodyMovin = this.postcard.value.entranceBodyMovin
+            this.flowerImage = this.postcard.value.flowerImage
+            // this.postcardMessageFrom = this.postcard.user.first_name + ' ' + this.postcard.user.last_name
+            this.postcardMessageFrom = this.postcard.user.first_name
+            resolve()
+          })
+          .catch(() => {
+            reject()
+          })
+      })
     },
     getCoupon () {
-      APIGateway.postcard.getMetaData(this.postcardUuid)
-        .then((data) => {
-          this.surpriseDiscountCode = data.coupon.code
-          this.surpriseBanners = data.banners
-          this.postcard.loading = false
-        })
-        .catch(() => {
-          this.postcard.loading = false
-          this.postcardHasError = true
-        })
+      return new Promise((resolve, reject) => {
+        APIGateway.postcard.getMetaData(this.postcardUuid)
+          .then((data) => {
+            this.surpriseDiscountCode = data.coupon.code
+            this.surpriseBanners = data.banners
+            resolve()
+          })
+          .catch(() => {
+            reject()
+          })
+      })
     }
   }
 })
