@@ -8,6 +8,7 @@
                   :message-text="postcardMessageText"
                   :message-from="postcardMessageFrom"
                   :backgrounds="postcardBackgrounds"
+                  :surprise-discount-code="surpriseDiscountCode"
                   :surprise-video-poster="surpriseVideoPoster"
                   :surprise-video-src="surpriseVideoSrc"
                   @onShowSurpriseVideo="onShowSurpriseVideo" />

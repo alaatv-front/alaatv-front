@@ -1,6 +1,7 @@
 <template>
   <div class="Postcard">
-    <div class="action-area"
+    <div v-if="surpriseDiscountCode"
+         class="action-area"
          @click="showSurpriseVideo">
       <webm-player :loop="true"
                    :autoplay="true"
@@ -92,6 +93,10 @@ export default defineComponent({
           }
         }
       }
+    },
+    surpriseDiscountCode: {
+      type: String,
+      default: ''
     },
     surpriseVideoSrc: {
       type: String,
