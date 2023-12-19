@@ -261,6 +261,9 @@ $q-field__label_margin_bottom: $space-2;
         border-radius: $radius-3;
         border: 1.5px solid $grey-4;
       }
+      &::after {
+        display: none;
+      }
       .q-field__control-container {
         .q-field__native {
           padding: $space-2 $space-4;

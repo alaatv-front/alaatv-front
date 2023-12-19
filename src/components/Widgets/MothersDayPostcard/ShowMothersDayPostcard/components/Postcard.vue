@@ -18,9 +18,7 @@
       <div class="message-text"
            v-html="messageTextWidthBrTags" />
       <div class="message-from">
-        از طرف
-        -
-        {{ messageFrom }}
+        - از طرف {{messageFrom}}
       </div>
     </div>
     <q-dialog v-model="surpriseVideoDialog"

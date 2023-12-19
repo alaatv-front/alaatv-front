@@ -8,7 +8,8 @@
                   name="isax:arrow-right-3"
                   color="grey-6" />
         </template>
-        <q-breadcrumbs-el label="خانه" />
+        <q-breadcrumbs-el to="/"
+                          label="خانه" />
         <q-breadcrumbs-el label="صفحه اول" />
       </q-breadcrumbs>
     </div>
@@ -95,6 +96,7 @@
     <div class="col-12 message-input-container">
       <q-input v-model="message"
                type="textarea"
+               :maxLength="200"
                :hint="message.length + '/200'"
                placeholder="پیام خودتون رو بنویسید" />
     </div>
@@ -179,6 +181,7 @@ export default {
       },
       postcardBackgrounds: {
         theme1: {
+          themeType: 'theme1',
           size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main1440-19201702904779.png',
           size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main1440-19201702904779.png',
           size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main10241702904792.png',
@@ -186,6 +189,7 @@ export default {
           size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main10241702904792.png'
         },
         theme2: {
+          themeType: 'theme2',
           size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main1440-19201702901801.png',
           size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main1440-19201702901801.png',
           size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main10241702901893.png',
@@ -193,6 +197,7 @@ export default {
           size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main6001702901910.png'
         },
         theme3: {
+          themeType: 'theme3',
           size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3main1440-19201702904904.png',
           size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3main1440-19201702904904.png',
           size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3main10241702904917.png',
@@ -212,7 +217,7 @@ export default {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-745-Blue.webm'
           },
           lg: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Blue.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1440-920-Blue1702981773.webm'
           },
           xl: {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Blue.webm'
@@ -229,7 +234,7 @@ export default {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-745-Green.webm'
           },
           lg: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Green.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1440-920-Blue1702981773.webm'
           },
           xl: {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Green.webm'
@@ -246,7 +251,7 @@ export default {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-745-Pink.webm'
           },
           lg: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Pink.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1440-920-Blue1702981773.webm'
           },
           xl: {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Pink.webm'
@@ -260,6 +265,7 @@ export default {
       },
       poems: [
         {
+          poemId: 1,
           verse1: {
             hemistich1: 'در کوچه جان همیشه مادر بـــاقیست',
             hemistich2: ' دریـای مـحبـتـش چو کوثر باقیست'
@@ -270,6 +276,7 @@ export default {
           }
         },
         {
+          poemId: 2,
           verse1: {
             hemistich1: 'مادر‌ ای والاترین رویای عشق',
             hemistich2: 'مادر‌ ای دلواپس فردای عشق'
@@ -280,6 +287,7 @@ export default {
           }
         },
         {
+          poemId: 3,
           verse1: {
             hemistich1: 'مادر‌ ای پرواز نرم قاصدک',
             hemistich2: 'مادر‌ ای معنای عشق شاپرک‌'
@@ -290,6 +298,7 @@ export default {
           }
         },
         {
+          poemId: 4,
           verse1: {
             hemistich1: 'مادر! حضور نام تو در شعر های من',
             hemistich2: 'لطف خداست شامل حال غزل شده است'
@@ -300,6 +309,7 @@ export default {
           }
         },
         {
+          poemId: 5,
           verse1: {
             hemistich1: 'سایه لطف خدایی مادر',
             hemistich2: 'معنی عشق و وفایی مادر'
@@ -310,6 +320,7 @@ export default {
           }
         },
         {
+          poemId: 6,
           verse1: {
             hemistich1: 'بعد از خدا، خدای دل و جان من توئی',
             hemistich2: 'من، بنده‌ای که بار گنه می‌کشم به دوش'
@@ -320,6 +331,7 @@ export default {
           }
         },
         {
+          poemId: 7,
           verse1: {
             hemistich1: 'اى مادر عزیز که جان داده‌اى مرا',
             hemistich2: 'سهل است اگر که جان دهم اکنون براى تو'
@@ -330,6 +342,7 @@ export default {
           }
         },
         {
+          poemId: 8,
           verse1: {
             hemistich1: 'ای مادر عزیز که جانم فدای تو',
             hemistich2: 'قربان مهربانی و لطف و صفای تو'
@@ -340,6 +353,7 @@ export default {
           }
         },
         {
+          poemId: 9,
           verse1: {
             hemistich1: 'مادر تو بهشت جاودانی مادر',
             hemistich2: 'خورشید بلند آسمانی مادر'
@@ -350,6 +364,7 @@ export default {
           }
         },
         {
+          poemId: 10,
           verse1: {
             hemistich1: 'مادر قسم به تو که تویی نور کردگار',
             hemistich2: 'یزدان تو را ز نور وفا آفریده است'
@@ -380,7 +395,9 @@ export default {
   },
   mounted () {
     window.addEventListener('resize', this.onResize)
+    this.windowWidth = window.innerWidth
     this.setSelectedPoem()
+    this.setSelectedTheme()
     this.message = this.postcard.value.postcardMessageText ? this.postcard.value.postcardMessageText : ''
   },
   methods: {
@@ -393,10 +410,18 @@ export default {
     onResize () {
       this.windowWidth = window.innerWidth
     },
+    setSelectedTheme () {
+      const postcardThemeBackGrounds = this.postcard.value.postcardBackgrounds
+      if (!postcardThemeBackGrounds) {
+        return
+      }
+      const themeIndex = this.themes.findIndex(theme => theme.type === postcardThemeBackGrounds.themeType)
+      this.selectTheme(themeIndex)
+    },
     setSelectedPoem () {
-      if (this.postcard.value.postcardPoemBody) {
-        const index = this.poems.findIndex(poem => JSON.parse(JSON.stringify(poem)) === JSON.parse(JSON.stringify(this.postcard.value.postcardPoemBody)))
-        this.selectedPoem = this.poems[index]
+      const postcardPoem = this.postcard.value.postcardPoemBody
+      if (postcardPoem) {
+        this.selectedPoem = this.poems.filter(poem => poem.poemId === postcardPoem.poemId)[0]
       } else {
         this.selectedPoem = this.poems[0]
       }
