@@ -174,7 +174,6 @@ export default defineComponent({
       return new Promise((resolve, reject) => {
         APIGateway.postcard.getPostcard(this.postcardUuid)
           .then((postcard) => {
-            debugger
             this.postcard = postcard
             this.postcardPoemBody = this.postcard.value.postcardPoemBody
             this.postcardMessageText = this.postcard.value.postcardMessageText
