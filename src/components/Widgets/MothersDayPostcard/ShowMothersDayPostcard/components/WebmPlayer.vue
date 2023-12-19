@@ -1,7 +1,5 @@
 <template>
   <div class="WebmPlayer">
-    <q-inner-loading :showing="!loadedmetadata"
-                     label="کمی صبر کنید..." />
     <video v-if="mounted"
            ref="WebmPlayer"
            :autoplay="autoplay"
@@ -14,6 +12,8 @@
       <source :src="responsiveSrcPath">
       Your browser does not support the video tag.
     </video>
+    <q-inner-loading :showing="!loadedmetadata"
+                     label="کمی صبر کنید..." />
   </div>
 </template>
 
@@ -127,10 +127,19 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.BodyMovin {
+.WebmPlayer {
   /* page > 1920 */
   width: 100%;
   height: 100%;
+  :deep(.q-inner-loading) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    //background: #fff !important;
+    background: rgba(255, 255, 255, 1);
+  }
   .bm {
     width: 100%;
     height: 100%;

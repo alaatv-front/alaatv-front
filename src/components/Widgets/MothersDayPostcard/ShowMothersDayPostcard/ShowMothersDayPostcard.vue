@@ -180,6 +180,8 @@ export default defineComponent({
     }
     :deep(.WebmPlayer) {
       position: relative;
+      min-width: 100%;
+      height: 100vh;
       video {
         position: absolute;
         top: 0;
