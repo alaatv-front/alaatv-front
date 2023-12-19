@@ -8,7 +8,8 @@
                   name="isax:arrow-right-3"
                   color="grey-6" />
         </template>
-        <q-breadcrumbs-el label="خانه" />
+        <q-breadcrumbs-el to="/"
+                          label="خانه" />
         <q-breadcrumbs-el label="صفحه اول" />
       </q-breadcrumbs>
     </div>
@@ -95,6 +96,7 @@
     <div class="col-12 message-input-container">
       <q-input v-model="message"
                type="textarea"
+               :maxLength="200"
                :hint="message.length + '/200'"
                placeholder="پیام خودتون رو بنویسید" />
     </div>
@@ -212,7 +214,7 @@ export default {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-745-Blue.webm'
           },
           lg: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Blue.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1440-920-Blue1702981773.webm'
           },
           xl: {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Blue.webm'
@@ -229,7 +231,7 @@ export default {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-745-Green.webm'
           },
           lg: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Green.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1440-920-Blue1702981773.webm'
           },
           xl: {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Green.webm'
@@ -246,7 +248,7 @@ export default {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-745-Pink.webm'
           },
           lg: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Pink.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1440-920-Blue1702981773.webm'
           },
           xl: {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Pink.webm'
@@ -380,7 +382,9 @@ export default {
   },
   mounted () {
     window.addEventListener('resize', this.onResize)
+    this.windowWidth = window.innerWidth
     this.setSelectedPoem()
+    this.setTheme()
     this.message = this.postcard.value.postcardMessageText ? this.postcard.value.postcardMessageText : ''
   },
   methods: {
@@ -393,9 +397,21 @@ export default {
     onResize () {
       this.windowWidth = window.innerWidth
     },
+    setTheme () {
+      const postcardThemeBackGrounds = this.postcard.value.postcardBackgrounds
+      if (postcardThemeBackGrounds) {
+        for (const property in this.postcardBackgrounds) {
+          if (JSON.stringify(this.postcardBackgrounds[property]) === JSON.stringify(postcardThemeBackGrounds)) {
+            const themeIndex = this.themes.findIndex(theme => theme.type === property)
+            this.selectTheme(themeIndex)
+          }
+        }
+      }
+    },
     setSelectedPoem () {
-      if (this.postcard.value.postcardPoemBody) {
-        const index = this.poems.findIndex(poem => JSON.parse(JSON.stringify(poem)) === JSON.parse(JSON.stringify(this.postcard.value.postcardPoemBody)))
+      const postcardPoem = this.postcard.value.postcardPoemBody
+      if (postcardPoem) {
+        const index = this.poems.findIndex(poem => JSON.stringify(poem) === JSON.stringify(postcardPoem))
         this.selectedPoem = this.poems[index]
       } else {
         this.selectedPoem = this.poems[0]
