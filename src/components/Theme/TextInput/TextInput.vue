@@ -356,6 +356,39 @@
           <otp-input :input-length="6" />
         </div>
       </div>
+
+      <div class="row text-center q-col-gutter-md q-mb-lg q-mt-xl">
+        <div class="col-md-4">
+          default (fill-tag)
+          <br>
+          error
+        </div>
+        <div class="col-md-4">
+          default (fill-text)
+          <br>
+          active/focus
+        </div>
+        <div class="col-md-4">
+          default (empty)
+          <br>
+          disable
+        </div>
+      </div>
+      <div class="row q-my-md q-col-gutter-md">
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   type="textarea" />
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   type="textarea" />
+        </div>
+        <div class="col-md-4">
+          <q-input v-model="input1"
+                   disable
+                   type="textarea" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
