@@ -9,7 +9,8 @@
                   :message-from="postcardMessageFrom"
                   :backgrounds="postcardBackgrounds"
                   :surprise-video-poster="surpriseVideoPoster"
-                  :surprise-video-src="surpriseVideoSrc" />
+                  :surprise-video-src="surpriseVideoSrc"
+                  @onShowSurpriseVideo="onShowSurpriseVideo" />
         <div class="flower-element">
           <flower :src="flowerImage" />
         </div>
@@ -139,6 +140,9 @@ export default defineComponent({
   methods: {
     onCardClicked () {
       // this.$refs.sound.tryAutoplay()
+    },
+    onShowSurpriseVideo () {
+      this.$refs.sound.pause()
     },
     playSound () {
       this.$refs.sound.tryAutoplay()

@@ -102,6 +102,7 @@ export default defineComponent({
       default: ''
     }
   },
+  emits: ['onShowSurpriseVideo'],
   data () {
     return {
       surpriseVideoKey: Date.now(),
@@ -133,6 +134,7 @@ export default defineComponent({
   },
   methods: {
     showSurpriseVideo () {
+      this.$emit('onShowSurpriseVideo')
       this.surpriseVideoDialog = true
     }
   }
