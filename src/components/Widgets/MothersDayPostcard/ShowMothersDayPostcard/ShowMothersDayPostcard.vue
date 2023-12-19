@@ -72,19 +72,19 @@ export default defineComponent({
       postcard: new Postcard(),
       surpriseBoxBodyMovin: {
         xs: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/360-Noise1702977340.webm'
         },
         sm: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/600-noise1702977391.webm'
         },
         md: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-Noise1702977421.webm'
         },
         lg: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1440-1920-noise1702977478.webm'
         },
         xl: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1440-1920-noise1702977478.webm'
         }
       },
       entranceBodyMovin: {

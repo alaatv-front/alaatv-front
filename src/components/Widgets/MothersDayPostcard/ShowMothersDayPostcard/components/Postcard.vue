@@ -75,19 +75,19 @@ export default defineComponent({
       default: () => {
         return {
           xs: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/177-55-Dkm1702977635.webm'
           },
           sm: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/177-55-Dkm1702977635.webm'
           },
           md: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/177-55-Dkm1702977635.webm'
           },
           lg: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/239-79-Dkm1702977654.webm'
           },
           xl: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/239-79-Dkm1702977654.webm'
           }
         }
       }
