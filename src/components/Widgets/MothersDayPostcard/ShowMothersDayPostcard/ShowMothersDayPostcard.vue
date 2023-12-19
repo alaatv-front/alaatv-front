@@ -1,33 +1,44 @@
 <template>
   <div class="ShowMothersDayPostcard">
-    <div class="BodyMovin-container"
-         :class="{'animateCompleted': animateCompleted}">
-      <webm-player :responsive-src="entranceBodyMovin"
-                   @complete="onComplete" />
-    </div>
-    <postcard-preview v-if="!postcard.loading"
-                      ref="PostcardPreview"
-                      :postcard-backgrounds="postcardBackgrounds"
-                      :postcard-message-from="postcardMessageFrom"
-                      :postcard-message-text="postcardMessageText"
-                      :postcard-poem-body="postcardPoemBody"
-                      :postcard-poem-title="postcardPoemTitle"
-                      :pattern-backgrounds="patternBackgrounds"
-                      :surprise-banners="surpriseBanners"
-                      :surprise-discount-code="surpriseDiscountCode"
-                      :flower-image="flowerImage"
-                      :surprise-box-body-movin="surpriseBoxBodyMovin"
-                      :surprise-video-poster="surpriseVideoPoster"
-                      :surprise-video-src="surpriseVideoSrc"
-                      :audio-source="audioSource" />
-    <div v-else>
-      <div v-if="postcardHasError">
-        مشکلی رخ داده است.
-      </div>
-      <q-spinner-cube v-else
-                      color="orange"
+    <template v-if="postcard.loading">
+      <q-spinner-cube color="orange"
                       size="5.5em" />
-    </div>
+    </template>
+    <template v-else-if="!postcardHasError">
+      <div class="BodyMovin-container"
+           :class="{'animateCompleted': animateCompleted}">
+        <webm-player ref="entranceBodyMovin"
+                     :responsive-src="entranceBodyMovin"
+                     class="entranceBodyMovin"
+                     @click="onClickBodyMovin"
+                     @complete="onComplete" />
+        <webm-player v-if="clickBodyMovinShow"
+                     autoplay
+                     loop
+                     class="clickBodyMovin"
+                     :responsive-src="clickBodyMovin"
+                     @click="onClickBodyMovin" />
+      </div>
+      <postcard-preview ref="PostcardPreview"
+                        :postcard-backgrounds="postcardBackgrounds"
+                        :postcard-message-from="postcardMessageFrom"
+                        :postcard-message-text="postcardMessageText"
+                        :postcard-poem-body="postcardPoemBody"
+                        :postcard-poem-title="postcardPoemTitle"
+                        :pattern-backgrounds="patternBackgrounds"
+                        :surprise-banners="surpriseBanners"
+                        :surprise-discount-code="surpriseDiscountCode"
+                        :flower-image="flowerImage"
+                        :surprise-box-body-movin="surpriseBoxBodyMovin"
+                        :surprise-video-poster="surpriseVideoPoster"
+                        :surprise-video-src="surpriseVideoSrc"
+                        :audio-source="audioSource" />
+    </template>
+    <template v-else-if="!postcard.loading && postcardHasError">
+      <q-banner>
+        مشکلی رخ داده است.
+      </q-banner>
+    </template>
   </div>
 </template>
 
@@ -70,38 +81,56 @@ export default defineComponent({
       // hard codes variables
       postcardPoemTitle: 'روزت مبارک مادر عزیزم',
       postcard: new Postcard(),
-      surpriseBoxBodyMovin: {
+      clickBodyMovinShow: true,
+      clickBodyMovin: {
         xs: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
         },
         sm: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
         },
         md: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
         },
         lg: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
         },
         xl: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        }
+      },
+      surpriseBoxBodyMovin: {
+        xs: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/360-Noise1702977340.webm'
+        },
+        sm: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/600-noise1702977391.webm'
+        },
+        md: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-Noise1702977421.webm'
+        },
+        lg: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1440-1920-noise1702977478.webm'
+        },
+        xl: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1440-1920-noise1702977478.webm'
         }
       },
       entranceBodyMovin: {
         xs: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: ''
         },
         sm: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: ''
         },
         md: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: ''
         },
         lg: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: ''
         },
         xl: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+          src: ''
         }
       },
       surpriseVideoSrc: 'https://nodes.alaatv.com/media/1042/240p/1042001ssss.mp4',
@@ -116,11 +145,14 @@ export default defineComponent({
     }
   },
   mounted () {
-    // this.surpriseDiscountCode = null
     this.getPostcard()
     this.getCoupon()
   },
   methods: {
+    onClickBodyMovin () {
+      this.$refs.entranceBodyMovin.play()
+      this.clickBodyMovinShow = false
+    },
     onComplete () {
       this.animateCompleted = true
       this.$refs.PostcardPreview.playSound()
@@ -134,6 +166,7 @@ export default defineComponent({
           this.postcardMessageText = this.postcard.value.postcardMessageText
           this.postcardBackgrounds = this.postcard.value.postcardBackgrounds
           this.patternBackgrounds = this.postcard.value.patternBackgrounds
+          this.entranceBodyMovin = this.postcard.value.entranceBodyMovin
           this.flowerImage = this.postcard.value.flowerImage
           // this.postcardMessageFrom = this.postcard.user.first_name + ' ' + this.postcard.user.last_name
           this.postcardMessageFrom = this.postcard.user.first_name
@@ -170,9 +203,35 @@ export default defineComponent({
     position: absolute;
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
+    min-width: 100%;
+    height: 100vh;
     z-index: 5;
+    :deep(.WebmPlayer.entranceBodyMovin) {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+      min-width: 100%;
+      height: 100vh;
+      video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-height: 100vh;
+        min-width: 100%;
+        width: auto !important;
+        transform: translateX(-50%) translateY(-50%);
+      }
+    }
+    .clickBodyMovin {
+      width: auto;
+      height: auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      z-index: 2;
+    }
     &.animateCompleted {
       display: none;
     }

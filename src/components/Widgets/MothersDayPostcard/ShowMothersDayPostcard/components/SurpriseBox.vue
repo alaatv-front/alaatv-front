@@ -2,15 +2,25 @@
   <div class="SurpriseBox">
     <div class="BodyMovin-container"
          :class="{'animateCompleted': animateCompleted}">
-      <webm-player :responsive-src="bodyMovin"
-                   @complete="onComplete" />
+      <webm-player ref="noiseBodyMovin"
+                   :responsive-src="bodyMovin"
+                   autoplay
+                   loop
+                   class="noiseBodyMovin"
+                   @click="onClickBodyMovin" />
+      <webm-player v-if="clickBodyMovinShow"
+                   autoplay
+                   loop
+                   class="clickBodyMovin"
+                   :responsive-src="clickBodyMovin"
+                   @click="onClickBodyMovin" />
     </div>
     <div class="main">
       <div class="title">
-        عنوان سوپرایز شماره 2
+        هدیه‌ای از مادر به فرزند
       </div>
       <div class="description">
-        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است
+        مادر نازنین، این هدیه‌ای برای ثمره زندگی شما، یعنی فرزندتونه. با این کد میتونه کاملا رایگان، یک درس از دوره‌ های ویژه امتحانات نهایی آلا رو ثبت نام کنه.
       </div>
       <div class="discount-box">
         <div class="discount-box-title">
@@ -127,7 +137,25 @@ export default defineComponent({
   },
   data () {
     return {
-      animateCompleted: false
+      animateCompleted: false,
+      clickBodyMovinShow: true,
+      clickBodyMovin: {
+        xs: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        },
+        sm: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        },
+        md: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        },
+        lg: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        },
+        xl: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        }
+      }
     }
   },
   computed: {
@@ -139,7 +167,7 @@ export default defineComponent({
     }
   },
   methods: {
-    onComplete () {
+    onClickBodyMovin () {
       this.animateCompleted = true
     },
     shareCode ({ name, url }) {
@@ -178,6 +206,7 @@ export default defineComponent({
   align-items: flex-end;
   flex-shrink: 0;
   position: relative;
+  overflow: hidden;
   .BodyMovin-container {
     $top-gap: 104px;
     position: absolute;
@@ -188,6 +217,15 @@ export default defineComponent({
     z-index: 5;
     &.animateCompleted {
       display: none;
+    }
+    .clickBodyMovin {
+      width: auto;
+      height: auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      z-index: 2;
     }
   }
   .main {
@@ -307,7 +345,7 @@ export default defineComponent({
     height: 638px;
     padding: 24px;
     .BodyMovin-container {
-      $top-gap: 56px;
+      $top-gap: 68px;
       top: $top-gap;
       height: calc( 100% - #{$top-gap} );
     }
@@ -377,6 +415,11 @@ export default defineComponent({
     width: 536px;
     height: auto;
     padding: 24px 24px 20px 24px;
+    .BodyMovin-container {
+      $top-gap: 56px;
+      top: $top-gap;
+      height: calc( 100% - #{$top-gap} );
+    }
     .main {
       margin-bottom: 24px;
       .title {

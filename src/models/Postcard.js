@@ -24,7 +24,8 @@ class PostcardValue extends Model {
       { key: 'postcardPoemBody' },
       { key: 'flowerImage' },
       { key: 'patternBackgrounds' },
-      { key: 'postcardBackgrounds' }
+      { key: 'postcardBackgrounds' },
+      { key: 'entranceBodyMovin' }
     ])
     this.apiResource = {
       fields: [
