@@ -2,6 +2,7 @@
   <div class="WebmPlayer">
     <video v-if="mounted"
            ref="WebmPlayer"
+           :key="videoKey"
            :autoplay="autoplay"
            :loop="loop"
            muted
@@ -57,6 +58,7 @@ export default defineComponent({
   emits: ['complete', 'loadedmetadata'],
   data () {
     return {
+      videoKey: Date.now(),
       windowWidth: 0,
       mounted: false,
       loadedmetadata: false
@@ -65,6 +67,14 @@ export default defineComponent({
   computed: {
     responsiveSrcPath () {
       return this.getFeatureFromSizeCheckByKey(this.responsiveSrc, 'src')?.src
+    },
+    screenName () {
+      return this.$q.screen.name
+    }
+  },
+  watch: {
+    screenName () {
+      this.videoKey = Date.now()
     }
   },
   mounted () {

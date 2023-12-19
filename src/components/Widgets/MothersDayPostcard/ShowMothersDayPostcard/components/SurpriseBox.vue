@@ -180,6 +180,7 @@ export default defineComponent({
   align-items: flex-end;
   flex-shrink: 0;
   position: relative;
+  overflow: hidden;
   .BodyMovin-container {
     $top-gap: 104px;
     position: absolute;
@@ -309,7 +310,7 @@ export default defineComponent({
     height: 638px;
     padding: 24px;
     .BodyMovin-container {
-      $top-gap: 56px;
+      $top-gap: 68px;
       top: $top-gap;
       height: calc( 100% - #{$top-gap} );
     }
@@ -379,6 +380,11 @@ export default defineComponent({
     width: 536px;
     height: auto;
     padding: 24px 24px 20px 24px;
+    .BodyMovin-container {
+      $top-gap: 56px;
+      top: $top-gap;
+      height: calc( 100% - #{$top-gap} );
+    }
     .main {
       margin-bottom: 24px;
       .title {

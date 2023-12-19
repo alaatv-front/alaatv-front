@@ -184,12 +184,12 @@ export default defineComponent({
       height: 100vh;
       video {
         position: absolute;
-        top: 0;
+        top: 50%;
         left: 50%;
-        height: 100vh;
+        min-height: 100vh;
         min-width: 100%;
         width: auto !important;
-        transform: translateX(-50%);
+        transform: translateX(-50%) translateY(-50%);
       }
     }
   }
