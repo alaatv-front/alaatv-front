@@ -5,7 +5,7 @@
   line-height: normal;
   letter-spacing: -0.48px;
 
-  @include media-max-width('sm') {
+  @include media-max-width('md') {
     font-size: 14px;
     letter-spacing: -0.42px;
   }
@@ -18,7 +18,7 @@
   line-height: normal;
   letter-spacing: -0.42px;
 
-  @include media-max-width('sm') {
+  @include media-max-width('md') {
     font-size: 12px;
     letter-spacing: -0.36px;
   }
@@ -31,7 +31,7 @@
   line-height: normal;
   letter-spacing: -0.36px;
 
-  @include media-max-width('sm') {
+  @include media-max-width('md') {
     font-size: 12px;
     letter-spacing: -0.3px;
   }
@@ -44,7 +44,7 @@
   line-height: normal;
   letter-spacing: -0.3px;
 
-  @include media-max-width('sm') {
+  @include media-max-width('md') {
     font-size: 10px;
     letter-spacing: -0.3px;
   }
@@ -57,7 +57,7 @@
   line-height: normal;
   letter-spacing: -0.48px;
 
-  @include media-max-width('sm') {
+  @include media-max-width('md') {
     font-size: 14px;
     letter-spacing: -0.42px;
   }
@@ -70,7 +70,7 @@
   line-height: normal;
   letter-spacing: -0.42px;
 
-  @include media-max-width('sm') {
+  @include media-max-width('md') {
     font-size: 12px;
   }
 }
@@ -133,7 +133,7 @@ h2, .text-h2 {
   font-weight: 700;
   letter-spacing: -1.2px;
 
-  @include media-max-width('sm') {
+  @include media-max-width('md') {
     font-size: 32px;
     font-weight: 700;
     letter-spacing: -0.96px;
@@ -145,7 +145,7 @@ h3, .text-h3 {
   font-weight: 700;
   letter-spacing: -0.96px;
 
-  @include media-max-width('sm') {
+  @include media-max-width('md') {
     font-size: 24px;
     font-weight: 700;
     letter-spacing: -0.72px;
@@ -157,7 +157,7 @@ h4, .text-h4 {
   font-weight: 700;
   letter-spacing: -0.72px;
 
-  @include media-max-width('sm') {
+  @include media-max-width('md') {
     font-size: 20px;
     font-weight: 600;
     letter-spacing: -0.6px;
@@ -169,7 +169,7 @@ h5, .text-h5 {
   font-weight: 600;
   letter-spacing: -0.6px;
 
-  @include media-max-width('sm') {
+  @include media-max-width('md') {
     font-size: 18px;
     font-weight: 600;
     letter-spacing: -0.54px;
@@ -181,7 +181,7 @@ h6, .text-h6 {
   font-weight: 600;
   letter-spacing: -0.54px;
 
-  @include media-max-width('sm') {
+  @include media-max-width('md') {
     font-size: 16px;
     font-weight: 600;
     letter-spacing: -0.48px;
