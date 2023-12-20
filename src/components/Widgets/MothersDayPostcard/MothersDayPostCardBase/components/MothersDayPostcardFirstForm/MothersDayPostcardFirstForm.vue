@@ -235,7 +235,7 @@ export default {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-745-Green.webm'
           },
           lg: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1440-920-Blue1702981773.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1440-920-Green1702996563.webm'
           },
           xl: {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Green.webm'
@@ -252,7 +252,7 @@ export default {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-745-Pink.webm'
           },
           lg: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1440-920-Blue1702981773.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1440-920-Pink1702996586.webm'
           },
           xl: {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Pink.webm'
