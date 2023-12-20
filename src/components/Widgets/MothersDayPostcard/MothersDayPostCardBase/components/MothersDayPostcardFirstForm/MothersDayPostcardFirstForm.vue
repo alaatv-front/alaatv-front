@@ -400,7 +400,7 @@ export default {
       return this.windowWidth >= this.$q.screen.sizes.md
     },
     displayablePoems () {
-      if (this.isPoemsCollapsed && this.windowWidth < 1024) {
+      if (this.isPoemsCollapsed && this.windowWidth < this.$q.screen.sizes.md) {
         return this.poems.slice(0, 3)
       } else {
         return this.poems
