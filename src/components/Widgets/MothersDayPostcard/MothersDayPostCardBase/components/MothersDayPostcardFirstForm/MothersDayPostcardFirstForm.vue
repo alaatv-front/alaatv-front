@@ -1,6 +1,7 @@
 <template>
   <div class="row postal-cart-container">
-    <div class="col-12">
+    <div v-if="showBreadCrumbs"
+         class="col-12">
       <q-breadcrumbs class="text-grey-9"
                      active-color="grey-6">
         <template v-slot:separator>
@@ -18,18 +19,16 @@
     </div>
     <div class="col-12 theme-description body1">از میان تم های زیر، یک تم را برای کارت پستال خود انتخاب کنید.</div>
     <div class="col-12">
-      <div class="row theme-banner-container">
+      <div class="row theme-banner-container q-col-gutter-lg-x-lg q-col-gutter-md-x-md q-col-gutter-sm-y-md q-col-gutter-xs-y-sm">
         <div v-for="(theme, index) in themes"
              :key="index"
-             class="col-md-4 col-xs-12">
-          <div class="banner">
-            <q-img v-if="theme.isSelected"
-                   :src="theme.selectedModeImage" />
-            <q-img v-else
-                   :src="theme.image"
-                   class="cursor-pointer"
-                   @click="selectTheme(index)" />
-          </div>
+             class="col-md-4 col-xs-12 banner">
+          <q-img v-if="theme.isSelected"
+                 :src="theme.selectedModeImage" />
+          <q-img v-else
+                 :src="theme.image"
+                 class="cursor-pointer"
+                 @click="selectTheme(index)" />
         </div>
       </div>
     </div>
@@ -74,7 +73,7 @@
         <q-btn v-if="isPoemsCollapsed"
                flat
                class="size-xs action-btn"
-               icon="ph:caret-down"
+               icon-right="ph:caret-down"
                text-color="secondary"
                color="grey-9"
                label="مشاهده بیشتر"
@@ -82,7 +81,7 @@
         <q-btn v-else
                flat
                class="size-xs action-btn"
-               icon="ph:caret-up"
+               icon-right="ph:caret-up"
                text-color="secondary"
                color="grey-9"
                label="بستن"
@@ -96,23 +95,31 @@
     <div class="col-12 message-input-container">
       <q-input v-model="message"
                type="textarea"
-               :maxLength="200"
+               :maxlength="200"
                :hint="message.length + '/200'"
                placeholder="پیام خودتون رو بنویسید" />
     </div>
-    <div class="col-12 flex justify-end action-btns">
-      <q-btn label="پیش نمایش"
-             outline
-             color="grey"
-             class="preview-btn size-md"
-             icon="ph:eye"
-             @click="showPreview" />
-      <q-btn label="ذخیره و ثبت"
-             class="size-md"
-             color="primary"
-             icon="ph:check"
-             @click="takeAction" />
+    <div class="col-12 action-btns-container">
+      <div class="action-btns flex justify-sm-end justify-xs-center">
+        <div class="preview-btn">
+          <q-btn label="پیش نمایش"
+                 outline
+                 color="grey"
+                 class="size-md btn"
+                 icon="ph:eye"
+                 @click="showPreview" />
+        </div>
+        <div class="save-btn">
+          <q-btn label="ذخیره و ثبت"
+                 class="size-md btn"
+                 color="primary"
+                 icon="ph:check"
+                 @click="takeAction" />
+        </div>
+      </div>
     </div>
+    <auth-and-check-user-info v-if="showAuthCheckDialog"
+                              @completed="completeCheckUserInfo" />
   </div>
 </template>
 
@@ -120,10 +127,12 @@
 
 import { APIGateway } from 'src/api/APIGateway'
 import { Postcard } from 'src/models/Postcard'
+import AuthAndCheckUserInfo from 'src/components/Widgets/MothersDayPostcard/MothersDayPostCardBase/components/MothersDayPostcardFirstForm/AuthAndCheckUserInfo.vue'
 
 export default {
   name: 'MothersDayPostcardFirstForm',
   components: {
+    AuthAndCheckUserInfo
   },
   props: {
     postcard: {
@@ -134,6 +143,7 @@ export default {
   emits: ['togglePreviewDialog', 'toggleForm'],
   data () {
     return {
+      showAuthCheckDialog: false,
       studyEventId: 28,
       localPostcard: new Postcard(),
       message: '',
@@ -169,8 +179,8 @@ export default {
           size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2back1440-19201702902151.png',
           size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2back1440-19201702902151.png',
           size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2back10241702902222.png',
-          size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2back10241702902222.png',
-          size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2back10241702902222.png'
+          size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2back6001703073803.png',
+          size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2back3601703074392.png'
         },
         theme3: {
           size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3back1440-19201702902359.png',
@@ -186,8 +196,8 @@ export default {
           size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main1440-19201702904779.png',
           size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main1440-19201702904779.png',
           size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main10241702904792.png',
-          size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main10241702904792.png',
-          size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main10241702904792.png'
+          size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1main6001703073672.png',
+          size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1main3601703073709.png'
         },
         theme2: {
           themeType: 'theme2',
@@ -195,7 +205,7 @@ export default {
           size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main1440-19201702901801.png',
           size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main10241702901893.png',
           size600: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main6001702901910.png',
-          size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main6001702901910.png'
+          size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main3601703073754.png'
         },
         theme3: {
           themeType: 'theme3',
@@ -384,10 +394,13 @@ export default {
   },
   computed: {
     showMoreBtn () {
-      return this.windowWidth < 1024
+      return this.windowWidth < this.$q.screen.sizes.md
+    },
+    showBreadCrumbs () {
+      return this.windowWidth >= this.$q.screen.sizes.md
     },
     displayablePoems () {
-      if (this.isPoemsCollapsed && this.windowWidth < 1024) {
+      if (this.isPoemsCollapsed && this.windowWidth < this.$q.screen.sizes.md) {
         return this.poems.slice(0, 3)
       } else {
         return this.poems
@@ -432,8 +445,7 @@ export default {
         theme.isSelected = themeIndex === index
       })
     },
-    takeAction () {
-      this.fillPoemData()
+    completeCheckUserInfo () {
       if (this.postcard.value.postcardPoemBody) {
         const sendData = {
           data: {
@@ -450,6 +462,10 @@ export default {
         }
         this.requestPostalCard(sendData, 'savePostalCardData')
       }
+    },
+    takeAction () {
+      this.fillPoemData()
+      this.showAuthCheckDialog = true
     },
     requestPostalCard (sendData, ApiMethod) {
       APIGateway.postcard[ApiMethod](sendData)
@@ -481,9 +497,18 @@ export default {
 <style lang="scss" scoped>
 .postal-cart-container {
   padding: $space-7 0;
+  @include media-max-width('md') {
+    padding: 0 0 $space-8 ;
+  }
   .theme-title, .poem-title, {
+    color: $grey-9;
     margin-top: $space-7;
     color: $grey-9;
+  }
+  .theme-title {
+    @include media-max-width('md') {
+      margin-top: $space-4;
+    }
   }
   .theme-description, .poem-description, .message-description {
     margin-top: $space-3;
@@ -493,17 +518,9 @@ export default {
     margin-top: $space-6;
   }
   .theme-banner-container {
-    .banner {
-      padding-left: $space-6;
-      @include media-max-width('lg') {
-        padding-left: $space-5;
-      }
-      @include media-max-width('md') {
-        padding-bottom: $space-4;
-      }
-    }
   }
   .message-title {
+    color: $grey-9;
     margin-top: $space-2;
     @include media-max-width('lg') {
       margin-top: $spacing-base;
@@ -538,6 +555,7 @@ export default {
         align-items: flex-start;
         gap: $space-3;
         .verses {
+          color: $grey-8;
           @include media-max-width('lg') {
             text-align: center;
           }
@@ -563,9 +581,25 @@ export default {
   .more-btns {
     margin-top: $space-2;
   }
-  .action-btns {
-    .preview-btn {
-      margin-right: $space-4;
+  .action-btns-container {
+    margin-top: $spacing-base;
+    @include media-max-width('md') {
+      margin-top: $space-4;
+    }
+    .action-btns {
+      @include media-max-width('sm') {
+        flex-wrap: nowrap;
+        width: 100%;
+        .preview-btn, .save-btn {
+          width: inherit;
+          .btn {
+            width: inherit;
+          }
+        }
+      }
+      .preview-btn {
+        margin-right: $space-4;
+      }
     }
   }
 }

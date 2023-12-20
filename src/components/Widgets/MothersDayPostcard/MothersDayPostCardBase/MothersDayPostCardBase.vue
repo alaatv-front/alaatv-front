@@ -40,7 +40,6 @@
                     size="3rem"
                     :thickness="5" />
   </div>
-  <auth-and-check-user-info />
 </template>
 
 <script>
@@ -51,15 +50,13 @@ import { Postcard, PostcardList } from 'src/models/Postcard.js'
 import MothersDayPostcardFirstForm from './components/MothersDayPostcardFirstForm/MothersDayPostcardFirstForm.vue'
 import MothersDayPostcardSecondForm from './components/MothersDayPostcardSecondForm/MothersDayPostcardSecondForm.vue'
 import PostcardPreview from 'src/components/Widgets/MothersDayPostcard/ShowMothersDayPostcard/components/PostcardPreview.vue'
-import AuthAndCheckUserInfo from 'src/components/Widgets/MothersDayPostcard/MothersDayPostCardBase/components/MothersDayPostcardFirstForm/AuthAndCheckUserInfo.vue'
 
 export default defineComponent({
   name: 'MothersDayPostCardBase',
   components: {
     PostcardPreview,
     MothersDayPostcardFirstForm,
-    MothersDayPostcardSecondForm,
-    AuthAndCheckUserInfo
+    MothersDayPostcardSecondForm
   },
   mixins: [mixinAuth],
   data () {
