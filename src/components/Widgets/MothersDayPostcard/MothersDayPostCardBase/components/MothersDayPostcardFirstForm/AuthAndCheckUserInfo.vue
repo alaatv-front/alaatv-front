@@ -109,11 +109,15 @@ export default {
     },
     checkUserInfo () {
       this.getFormData()
-      const noGrade = (!this.user.grade || !this.user.grade.id)
-      const noMajor = (!this.user.major || !this.user.major.id)
-      if (noGrade || noMajor) {
+      const noGrade = isNaN(this.user.grade) || this.user.grade === null
+      const noMajor = isNaN(this.user.major) || this.user.major === null
+      if (noGrade) {
         this.user.grade = null
+      }
+      if (noMajor) {
         this.user.major = null
+      }
+      if (noGrade || noMajor || !this.user.first_name || !this.user.last_name) {
         this.showInfoDialog = true
         return
       }
@@ -122,6 +126,9 @@ export default {
       this.$emit('completed')
     },
     getFormData () {
+      if (this.majorOptions.length > 0) {
+        return
+      }
       APIGateway.user.formData()
         .then((formData) => {
           this.majorOptions = formData.majors
