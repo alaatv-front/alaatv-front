@@ -379,7 +379,8 @@ export default {
           displayName: 'اوانو',
           description: 'اوانو',
           order: 1,
-          photo: 'https://nodes.alaatv.com/upload/alaaPages/2023-11/ewano_logo.png'
+          // photo: 'https://nodes.alaatv.com/upload/alaaPages/2023-11/ewano_logo.png'
+          photo: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/Icons_Logo_Export-04.svg'
         }])
         this.selectedBank = this.gateways.list[0].name
         return

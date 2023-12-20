@@ -239,12 +239,12 @@ export default defineComponent({
       }
     }
     .clickBodyMovin {
-      width: auto;
+      width: 200px;
       height: auto;
       position: absolute;
-      top: 50%;
+      bottom: 165px;
       left: 50%;
-      transform: translateX(-50%) translateY(-50%);
+      transform: translateX(-50%);
       z-index: 2;
     }
     &.animateCompleted {
@@ -253,19 +253,31 @@ export default defineComponent({
   }
   /* 1440 < page < 1920 */
   @include media-max-width('xl') {
-
+    .clickBodyMovin {
+      width: 200px;
+      bottom: 160px;
+    }
   }
   /* 1024 < page < 1440 */
   @include media-max-width('lg') {
-
+    .clickBodyMovin {
+      width: 200px;
+      bottom: 112px;
+    }
   }
   /* 600 < page < 1024 */
   @include media-max-width('md') {
-
+    .clickBodyMovin {
+      width: 160px;
+      bottom: 240px;
+    }
   }
   /* 360 < page < 600 */
   @include media-max-width('sm') {
-
+    .clickBodyMovin {
+      width: 128px;
+      bottom: 240px;
+    }
   }
 }
 </style>

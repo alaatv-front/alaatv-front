@@ -247,7 +247,7 @@ const routes = [
               {
                 path: '',
                 name: 'Public.Postcard.Index',
-                meta: { middlewares: [Authenticated(false)] },
+                // meta: { middlewares: [Authenticated(false)] },
                 component: () => import('pages/Public/Postcard/Index.vue')
               },
               {
