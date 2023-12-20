@@ -394,10 +394,10 @@ export default {
   },
   computed: {
     showMoreBtn () {
-      return this.windowWidth < 1024
+      return this.windowWidth < this.$q.screen.sizes.md
     },
     showBreadCrumbs () {
-      return this.windowWidth > 1024
+      return this.windowWidth >= this.$q.screen.sizes.md
     },
     displayablePoems () {
       if (this.isPoemsCollapsed && this.windowWidth < 1024) {
