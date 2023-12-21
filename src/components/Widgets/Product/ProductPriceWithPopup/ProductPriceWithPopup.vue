@@ -113,7 +113,7 @@
              size="md"
              :label="hasInstallment ? 'ثبت نام نقدی' : 'ثبت نام'"
              @click="paymentAction('cash')" />
-      <q-btn v-if="paymentMode === 'installment' && hasInstallment"
+      <q-btn v-if="hasInstallment"
              color="accent"
              class="mobile-action-btn"
              :class="{'has-installment': hasInstallment}"
