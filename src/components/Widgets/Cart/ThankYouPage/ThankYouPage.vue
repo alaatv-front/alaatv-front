@@ -4,7 +4,7 @@
       <q-skeleton type="circle" />
     </template>
     <template v-else>
-      <template v-if="!isEwanoUser">
+      <template v-if="!loading && !isEwanoUser">
         <div class="cart-image">
           <q-img v-if="hasPaid"
                  src="https://nodes.alaatv.com/aaa/landing/Soalaa/States/thankyou_page.png" />
