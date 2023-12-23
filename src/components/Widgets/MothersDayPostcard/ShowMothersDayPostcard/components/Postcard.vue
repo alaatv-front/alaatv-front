@@ -1,6 +1,7 @@
 <template>
   <div class="Postcard">
-    <div class="action-area"
+    <div v-if="surpriseDiscountCode"
+         class="action-area"
          @click="showSurpriseVideo">
       <webm-player :loop="true"
                    :autoplay="true"
@@ -15,10 +16,9 @@
     </div>
     <div class="message">
       <div class="message-text"
-           v-html="messageText" />
+           v-html="messageTextWidthBrTags" />
       <div class="message-from">
-        {{ messageFrom }}
-        - از طرف
+        - از طرف {{messageFrom}}
       </div>
     </div>
     <q-dialog v-model="surpriseVideoDialog"
@@ -75,22 +75,26 @@ export default defineComponent({
       default: () => {
         return {
           xs: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/177-55-Dkm1702977635.webm'
           },
           sm: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/177-55-Dkm1702977635.webm'
           },
           md: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/177-55-Dkm1702977635.webm'
           },
           lg: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/239-79-Dkm1702977654.webm'
           },
           xl: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/gift_open_screen.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/239-79-Dkm1702977654.webm'
           }
         }
       }
+    },
+    surpriseDiscountCode: {
+      type: String,
+      default: ''
     },
     surpriseVideoSrc: {
       type: String,
@@ -101,6 +105,7 @@ export default defineComponent({
       default: ''
     }
   },
+  emits: ['onShowSurpriseVideo'],
   data () {
     return {
       surpriseVideoKey: Date.now(),
@@ -108,6 +113,12 @@ export default defineComponent({
     }
   },
   computed: {
+    messageTextWidthBrTags () {
+      if (!this.messageText) {
+        return ''
+      }
+      return this.messageText.toString().replace(/\n/g, '<br>')
+    },
     computedPoemBody () {
       return [
         this.poemBody?.verse1?.hemistich1,
@@ -132,6 +143,7 @@ export default defineComponent({
   },
   methods: {
     showSurpriseVideo () {
+      this.$emit('onShowSurpriseVideo')
       this.surpriseVideoDialog = true
     }
   }

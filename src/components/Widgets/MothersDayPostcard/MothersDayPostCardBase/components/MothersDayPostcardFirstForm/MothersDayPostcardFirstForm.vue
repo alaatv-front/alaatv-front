@@ -8,7 +8,8 @@
                   name="isax:arrow-right-3"
                   color="grey-6" />
         </template>
-        <q-breadcrumbs-el label="خانه" />
+        <q-breadcrumbs-el to="/"
+                          label="خانه" />
         <q-breadcrumbs-el label="صفحه اول" />
       </q-breadcrumbs>
     </div>
@@ -17,7 +18,7 @@
     </div>
     <div class="col-12 theme-description body1">از میان تم های زیر، یک تم را برای کارت پستال خود انتخاب کنید.</div>
     <div class="col-12">
-      <div class="row theme-banner-container q-col-gutter-lg">
+      <div class="row theme-banner-container">
         <div v-for="(theme, index) in themes"
              :key="index"
              class="col-md-4 col-xs-12">
@@ -38,7 +39,7 @@
     <div class="col-12 poem-description body1">از میان ابیات زیر، یک بیت را برای کارت پستال خود انتخاب کنید.</div>
     <div class="col-12">
       <div class="row poem-cards">
-        <div v-for="poem in poems"
+        <div v-for="poem in displayablePoems"
              :key="poem"
              class="col-md-6 col-xs-12 poem-container">
           <q-card class="card-2 outline-card"
@@ -49,16 +50,16 @@
                          color="secondary"
                          :val="poem" />
                 <div class="row verses">
-                  <div class="subtitle2 col-sm-6 col-xs-12 verse-1 hemistich-1">
+                  <div class="subtitle2 col-sm-6 col-xs-12 verse-1 hemistich-1 ellipsis">
                     {{poem.verse1.hemistich1}}
                   </div>
-                  <div class="subtitle2 col-sm-6 col-xs-12 verse-1 hemistich-2">
+                  <div class="subtitle2 col-sm-6 col-xs-12 verse-1 hemistich-2 ellipsis">
                     {{poem.verse1.hemistich2}}
                   </div>
-                  <div class="subtitle2 col-sm-6 col-xs-12 verse-2 hemistich-1">
+                  <div class="subtitle2 col-sm-6 col-xs-12 verse-2 hemistich-1 ellipsis">
                     {{poem.verse2.hemistich1}}
                   </div>
-                  <div class="subtitle2 col-sm-6 col-xs-12 verse-2 hemistich-2">
+                  <div class="subtitle2 col-sm-6 col-xs-12 verse-2 hemistich-2 ellipsis">
                     {{poem.verse2.hemistich2}}
                   </div>
                 </div>
@@ -68,6 +69,25 @@
           </q-card>
         </div>
       </div>
+      <div v-if="showMoreBtn"
+           class="col-12 more-btns text-center">
+        <q-btn v-if="isPoemsCollapsed"
+               flat
+               class="size-xs action-btn"
+               icon="ph:caret-down"
+               text-color="secondary"
+               color="grey-9"
+               label="مشاهده بیشتر"
+               @click="expandPanel" />
+        <q-btn v-else
+               flat
+               class="size-xs action-btn"
+               icon="ph:caret-up"
+               text-color="secondary"
+               color="grey-9"
+               label="بستن"
+               @click="collapsePanel" />
+      </div>
     </div>
     <div class="col-12 message-title">
       <h6>پیام شما</h6>
@@ -76,6 +96,7 @@
     <div class="col-12 message-input-container">
       <q-input v-model="message"
                type="textarea"
+               :maxLength="200"
                :hint="message.length + '/200'"
                placeholder="پیام خودتون رو بنویسید" />
     </div>
@@ -83,10 +104,11 @@
       <q-btn label="پیش نمایش"
              outline
              color="grey"
-             class="preview-btn"
+             class="preview-btn size-md"
              icon="ph:eye"
              @click="showPreview" />
       <q-btn label="ذخیره و ثبت"
+             class="size-md"
              color="primary"
              icon="ph:check"
              @click="takeAction" />
@@ -159,6 +181,7 @@ export default {
       },
       postcardBackgrounds: {
         theme1: {
+          themeType: 'theme1',
           size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main1440-19201702904779.png',
           size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main1440-19201702904779.png',
           size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main10241702904792.png',
@@ -166,6 +189,7 @@ export default {
           size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/main10241702904792.png'
         },
         theme2: {
+          themeType: 'theme2',
           size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main1440-19201702901801.png',
           size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main1440-19201702901801.png',
           size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main10241702901893.png',
@@ -173,6 +197,7 @@ export default {
           size360: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/2main6001702901910.png'
         },
         theme3: {
+          themeType: 'theme3',
           size1920: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3main1440-19201702904904.png',
           size1440: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3main1440-19201702904904.png',
           size1024: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/3main10241702904917.png',
@@ -192,7 +217,7 @@ export default {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-745-Blue.webm'
           },
           lg: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Blue.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1440-920-Blue1702981773.webm'
           },
           xl: {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Blue.webm'
@@ -209,7 +234,7 @@ export default {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-745-Green.webm'
           },
           lg: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Green.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1440-920-Blue1702981773.webm'
           },
           xl: {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Green.webm'
@@ -226,7 +251,7 @@ export default {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1024-745-Pink.webm'
           },
           lg: {
-            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Pink.webm'
+            src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1440-920-Blue1702981773.webm'
           },
           xl: {
             src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/1920-930-Pink.webm'
@@ -240,6 +265,7 @@ export default {
       },
       poems: [
         {
+          poemId: 1,
           verse1: {
             hemistich1: 'در کوچه جان همیشه مادر بـــاقیست',
             hemistich2: ' دریـای مـحبـتـش چو کوثر باقیست'
@@ -250,6 +276,7 @@ export default {
           }
         },
         {
+          poemId: 2,
           verse1: {
             hemistich1: 'مادر‌ ای والاترین رویای عشق',
             hemistich2: 'مادر‌ ای دلواپس فردای عشق'
@@ -260,6 +287,7 @@ export default {
           }
         },
         {
+          poemId: 3,
           verse1: {
             hemistich1: 'مادر‌ ای پرواز نرم قاصدک',
             hemistich2: 'مادر‌ ای معنای عشق شاپرک‌'
@@ -270,6 +298,7 @@ export default {
           }
         },
         {
+          poemId: 4,
           verse1: {
             hemistich1: 'مادر! حضور نام تو در شعر های من',
             hemistich2: 'لطف خداست شامل حال غزل شده است'
@@ -280,6 +309,7 @@ export default {
           }
         },
         {
+          poemId: 5,
           verse1: {
             hemistich1: 'سایه لطف خدایی مادر',
             hemistich2: 'معنی عشق و وفایی مادر'
@@ -290,6 +320,7 @@ export default {
           }
         },
         {
+          poemId: 6,
           verse1: {
             hemistich1: 'بعد از خدا، خدای دل و جان من توئی',
             hemistich2: 'من، بنده‌ای که بار گنه می‌کشم به دوش'
@@ -300,6 +331,7 @@ export default {
           }
         },
         {
+          poemId: 7,
           verse1: {
             hemistich1: 'اى مادر عزیز که جان داده‌اى مرا',
             hemistich2: 'سهل است اگر که جان دهم اکنون براى تو'
@@ -310,6 +342,7 @@ export default {
           }
         },
         {
+          poemId: 8,
           verse1: {
             hemistich1: 'ای مادر عزیز که جانم فدای تو',
             hemistich2: 'قربان مهربانی و لطف و صفای تو'
@@ -320,6 +353,7 @@ export default {
           }
         },
         {
+          poemId: 9,
           verse1: {
             hemistich1: 'مادر تو بهشت جاودانی مادر',
             hemistich2: 'خورشید بلند آسمانی مادر'
@@ -330,6 +364,7 @@ export default {
           }
         },
         {
+          poemId: 10,
           verse1: {
             hemistich1: 'مادر قسم به تو که تویی نور کردگار',
             hemistich2: 'یزدان تو را ز نور وفا آفریده است'
@@ -341,27 +376,52 @@ export default {
         }
       ],
       selectedTheme: null,
-      selectedPoem: null
+      selectedPoem: null,
+      isPoemsCollapsed: true,
+      windowWidth: 0
     }
   },
   computed: {
-    displayableProducts () {
-      if (this.isPanelCollapsed) {
-        return this.data.slice(0, this.options.showInCollapse)
+    showMoreBtn () {
+      return this.windowWidth < 1024
+    },
+    displayablePoems () {
+      if (this.isPoemsCollapsed && this.windowWidth < 1024) {
+        return this.poems.slice(0, 3)
       } else {
-        return this.data
+        return this.poems
       }
     }
   },
   mounted () {
+    window.addEventListener('resize', this.onResize)
+    this.windowWidth = window.innerWidth
     this.setSelectedPoem()
+    this.setSelectedTheme()
     this.message = this.postcard.value.postcardMessageText ? this.postcard.value.postcardMessageText : ''
   },
   methods: {
+    expandPanel () {
+      this.isPoemsCollapsed = false
+    },
+    collapsePanel () {
+      this.isPoemsCollapsed = true
+    },
+    onResize () {
+      this.windowWidth = window.innerWidth
+    },
+    setSelectedTheme () {
+      const postcardThemeBackGrounds = this.postcard.value.postcardBackgrounds
+      if (!postcardThemeBackGrounds) {
+        return
+      }
+      const themeIndex = this.themes.findIndex(theme => theme.type === postcardThemeBackGrounds.themeType)
+      this.selectTheme(themeIndex)
+    },
     setSelectedPoem () {
-      if (this.postcard.value.postcardPoemBody) {
-        const index = this.poems.findIndex(poem => JSON.parse(JSON.stringify(poem)) === JSON.parse(JSON.stringify(this.postcard.value.postcardPoemBody)))
-        this.selectedPoem = this.poems[index]
+      const postcardPoem = this.postcard.value.postcardPoemBody
+      if (postcardPoem) {
+        this.selectedPoem = this.poems.filter(poem => poem.poemId === postcardPoem.poemId)[0]
       } else {
         this.selectedPoem = this.poems[0]
       }
@@ -419,7 +479,8 @@ export default {
 
 <style lang="scss" scoped>
 .postal-cart-container {
-  .theme-title, .poem-title, .message-title {
+  padding: $space-7 0;
+  .theme-title, .poem-title, {
     margin-top: $space-7;
     color: $grey-9;
   }
@@ -432,6 +493,22 @@ export default {
   }
   .theme-banner-container {
     .banner {
+      padding-left: $space-6;
+      @include media-max-width('lg') {
+        padding-left: $space-5;
+      }
+      @include media-max-width('md') {
+        padding-bottom: $space-4;
+      }
+    }
+  }
+  .message-title {
+    margin-top: $space-2;
+    @include media-max-width('lg') {
+      margin-top: $spacing-base;
+    }
+    @include media-max-width('md') {
+      margin-top: $space-6;
     }
   }
   .poem-cards {
@@ -448,7 +525,13 @@ export default {
       }
     }
     .poem-container {
-      padding-bottom: $space-6;
+      margin-bottom: $space-6;
+      @include media-max-width('lg') {
+        margin-bottom: $space-5;
+      }
+      @include media-max-width('md') {
+        margin-bottom: $space-3;
+      }
       .poem {
         display: flex;
         align-items: flex-start;
@@ -475,6 +558,9 @@ export default {
         }
       }
     }
+  }
+  .more-btns {
+    margin-top: $space-2;
   }
   .action-btns {
     .preview-btn {

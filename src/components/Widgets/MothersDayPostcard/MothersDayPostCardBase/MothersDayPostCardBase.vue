@@ -112,11 +112,12 @@ export default defineComponent({
     togglePreview (postcard) {
       if (postcard && postcard.value) {
         const userPostcardConfig = postcard.value
+        const user = this.$store.getters['Auth/user']
         this.postcardConfig = {
           postcardPoemTitle: userPostcardConfig.postcardPoemTitle,
           postcardPoemBody: userPostcardConfig.postcardPoemBody,
           postcardMessageText: userPostcardConfig.postcardMessageText,
-          postcardMessageFrom: userPostcardConfig.postcardMessageFrom,
+          postcardMessageFrom: user.first_name,
           postcardBackgrounds: userPostcardConfig.postcardBackgrounds,
           patternBackgrounds: userPostcardConfig.patternBackgrounds,
           flowerImage: userPostcardConfig.flowerImage

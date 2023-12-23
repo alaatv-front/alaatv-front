@@ -41,7 +41,7 @@
            alt="actionBtn">
     </q-btn>
 
-    <q-layout v-if="localOptions.action === 'hamburger_menu' && mounted ">
+    <q-layout v-if="localOptions.action === 'hamburger_menu'">
       <q-drawer ref="actionDrawer"
                 v-model="drawer"
                 :width="drawerWidth"
@@ -110,7 +110,6 @@ export default {
   data () {
     return {
       drawer: false,
-      mounted: false,
       defaultOptions: {
         showSeparator: false,
         color: null,
@@ -279,9 +278,8 @@ export default {
   mounted () {
     this.loadConfig()
     this.checkAuth()
-    this.mounted = true
-    this.$bus.on('allActionButtonsToggleDrawer', () => {
-      this.drawer = !this.drawer
+    this.$bus.on('onActionButtonScrollTo', () => {
+      this.drawer = false
     })
   },
   methods: {
@@ -322,7 +320,7 @@ export default {
       } else if (this.callBack) {
         this.callBack()
       } else if (this.localOptions.action && this.localOptions.action === 'scroll') {
-        this.$bus.emit('allActionButtonsToggleDrawer')
+        this.$bus.emit('onActionButtonScrollTo')
         this.$nextTick(() => {
           this.scrollToElement(this.localOptions.scrollTo)
         })
@@ -407,6 +405,10 @@ $border: v-bind('localOptions.borderStyle.borderCssString');
 .action-btn-wrapper {
   display: flex;
   align-items: center;
+
+  &:deep(.q-layout) {
+    min-height: 0 !important;
+  }
 
   .action-btn {
     @include media-query-spacings($responsiveSpacing, $sizes);
