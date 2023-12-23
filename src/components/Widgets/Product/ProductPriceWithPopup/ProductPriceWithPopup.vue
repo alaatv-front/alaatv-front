@@ -71,7 +71,6 @@
                label="ثبت نام اقساطی"
                @click="paymentAction('installment')" />
       </div>
-
     </div>
   </div>
   <div v-if="showResponsive"
@@ -114,7 +113,8 @@
              size="md"
              :label="hasInstallment ? 'ثبت نام نقدی' : 'ثبت نام'"
              @click="paymentAction('cash')" />
-      <q-btn color="accent"
+      <q-btn v-if="hasInstallment"
+             color="accent"
              class="mobile-action-btn"
              :class="{'has-installment': hasInstallment}"
              size="md"

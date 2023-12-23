@@ -3,15 +3,29 @@
        :class="options.className"
        :style="options.style">
     <div v-if="contents.list && contents.list.length > 0"
-         class="demos-container col-md-12 q-mt-md">
+         class="demos-container col-md-12">
       <div ref="contentScroll"
            v-dragscroll
            class="contents-block">
-        <div v-for="content in contents.list"
-             :key="content.id">
-          <content-item class="q-mr-md"
-                        :options="{content,contentLinkTarget: '_blank'}" />
-        </div>
+        <router-link v-for="content in contents.list"
+                     :key="content.id"
+                     :to="{name: 'Public.Content.Show', params: {id: content.id}}"
+                     class="content-img-box">
+          <lazy-img :src="content.photo"
+                    :alt="content.title"
+                    class="img" />
+          <div class="play-btn">
+            <q-btn class="handout-btn"
+                   icon="ph:play"
+                   outline
+                   round
+                   @click="onClick" />
+          </div>
+          <div class="content-title ellipsis">
+            {{ content.title }}
+          </div>
+
+        </router-link>
         <div v-for="(pamphlet, index) in pamphlets"
              :key="pamphlet.id"
              class="pamphlet-image">
@@ -22,6 +36,9 @@
                  spinner-color="primary"
                  spinner-size="82px"
                  @click="zoomImage(index)" />
+          <div class="pamphlet-title ellipsis">
+            {{ pamphlet?.title }}
+          </div>
         </div>
       </div>
     </div>
@@ -33,13 +50,13 @@ import { dragscroll } from 'vue-dragscroll'
 import { Product } from 'src/models/Product.js'
 import { mixinPrefetchServerData, mixinWidget } from 'src/mixin/Mixins.js'
 import { ContentList } from 'src/models/Content.js'
-import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
+import LazyImg from 'components/lazyImg.vue'
 import { morph } from 'quasar'
 
 export default {
   name: 'productDemos',
   components: {
-    ContentItem
+    LazyImg
   },
   directives: {
     dragscroll
@@ -193,21 +210,53 @@ export default {
 
   .contents-block {
     display: flex;
-    overflow: auto;
-    padding: 10px 0 0;
+    padding-right: 24px;
+    min-height: 193px;
+    gap: 20px;
+    overflow-x: auto;
+
+    .content-img-box {
+      position: relative;
+      width: 248px;
+      height: 140px;
+
+      :deep(.img) {
+        width: 248px;
+        border-radius: $radius-3;
+      }
+
+      .play-btn {
+        position: absolute;
+        top: 50px;
+        left: 104px;
+      }
+
+      .content-title {
+        @include body2;
+        color: $grey-9;
+        margin-top: $space-2;
+        max-width: 100%;
+      }
+    }
 
     .pamphlet-image {
-      min-width: 157px;
-      height: 223px;
+      min-width: 100px;
+      height: 140px;
       background-color: #F2F2F2;
       color: #fdeded;
       box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(54 90 145 / 5%);
-      border-radius: 16px;
-      margin: 10px 8px 19px;
+      border-radius: $radius-3;
       cursor: pointer;
 
       &:deep(.q-img__image) {
-        border-radius: 10px;
+        border-radius: $radius-3;
+      }
+
+      .pamphlet-title {
+        @include body2;
+        color: $grey-9;
+        margin-top: $space-2;
+        max-width: 100%;
       }
     }
   }

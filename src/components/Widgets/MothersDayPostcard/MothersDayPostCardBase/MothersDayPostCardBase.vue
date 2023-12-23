@@ -44,6 +44,7 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { mixinAuth } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { Postcard, PostcardList } from 'src/models/Postcard.js'
 import MothersDayPostcardFirstForm from './components/MothersDayPostcardFirstForm/MothersDayPostcardFirstForm.vue'
@@ -57,6 +58,7 @@ export default defineComponent({
     MothersDayPostcardFirstForm,
     MothersDayPostcardSecondForm
   },
+  mixins: [mixinAuth],
   data () {
     return {
       postcards: new PostcardList(),
@@ -89,7 +91,9 @@ export default defineComponent({
     }
   },
   mounted () {
-    this.getPostcards()
+    if (this.isUserLogin) {
+      this.getPostcards()
+    }
   },
   methods: {
     getPostcards () {
