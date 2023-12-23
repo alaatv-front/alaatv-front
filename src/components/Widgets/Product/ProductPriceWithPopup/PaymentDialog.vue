@@ -578,7 +578,7 @@ $page-size-sm: map-get($sizes, "sm");
   border-radius: 12px;
   background:#FFF;
   box-shadow: 0 2px 4px -2px rgb(16 24 40 / 6%), 0 4px 8px -2px rgb(16 24 40 / 10%);
-  width: 800px;
+  width: 800px !important;
   max-width: 100%;
   margin: auto;
   //height: 649px;
