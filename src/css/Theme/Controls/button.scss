@@ -96,7 +96,7 @@ $button-height: (
   } @else if $size == "sm" {
     $target-padding-x: $space-1;
   } @else if $size == "md" {
-    $target-padding-x: $space-2;
+    $target-padding-x: $space-4;
   } @else if $size == "lg" {
     $target-padding-x: $space-3;
     $target-padding-y: $space-4;

@@ -1,48 +1,30 @@
 @mixin default-dialog {
-  background: #fff;
-  box-shadow:
-    0 4px 8px -2px rgb(16 24 40 / 10%),
-    0 2px 4px -2px rgb(16 24 40 / 6%);
-  border-radius: 12px !important;
+  background: $grey-1;
+  box-shadow: $shadow-8;
+  border-radius: $radius-4 !important;
 
   .dialog-header {
     align-items: center;
+    @include subtitle1;
 
     .dialog-close-icon {
       color: $grey-6;
       padding: 0;
-      width: 40px;
-      height: 28px;
-      border-radius: 8px;
-
-      .q-icon {
-        font-size: 14px;
-      }
+      width: 24px;
+      height: 24px;
+      border-radius: $radius-3;
     }
   }
 
   .dialog-body {
-    padding: 24px;
+    padding: $space-6;
+    @include body2;
   }
 
   .dialog-action {
-    padding: 0 24px 24px;
+    padding: $space-4 $space-6;
     display: grid;
     grid-template-columns: 104px 1fr;
-
-    .q-btn {
-      width: 104px;
-      height: 40px;
-      border-radius: 8px;
-    }
-
-    .q-btn--outline::before {
-      border: 0 solid $grey-5;
-    }
-
-    .dialog-action-default-btn {
-      color: $grey-6;
-    }
 
     .dialog-action-btn-box {
       justify-self: end;
@@ -53,22 +35,27 @@
 .q-dialog {
   & > .q-dialog__inner {
     & > .q-card {
+      width: 544px;
+      border-radius: $radius-4 !important;
+
+      @include media-max-width('md') {
+        width: 320px;
+      }
       .q-separator {
         background: $grey-3;
       }
 
+      .dialog-header-section {
+        padding: $space-4 $space-6 ;
+      }
       .dialog-action-section {
-        padding: 0 16px 24px;
+        padding: $spacing-none $space-6 $space-6;
       }
 
       .dialog-body-section {
-        padding: 24px;
+        padding: $space-6;
       }
 
-      .dialog-header-section,
-      .dialog-action-section {
-        height: 64px;
-      }
 
       .bottom-sheet-action-section {
         height: 146px;
@@ -77,77 +64,3 @@
   }
 }
 
-.new-theme {
-  .q-dialog {
-    .q-dialog__inner {
-      .q-card {
-        width: 544px;
-
-        .dialog-header-section,
-        .dialog-action-section {
-          height: 64px;
-        }
-      }
-    }
-  }
-
-  .dialog-xs {
-    width: 350px;
-
-    @include default-dialog;
-
-    .dialog-body {
-      padding: 24px 20px;
-    }
-
-    .dialog-action {
-      padding: 0 20px 20px;
-      grid-template-columns: 96px 1fr;
-
-      .q-btn {
-        width: 96px;
-        height: 32px;
-        font-size: 14px;
-      }
-    }
-  }
-
-  .dialog-sm {
-    width: 360px;
-
-    @include default-dialog;
-
-    .dialog-body {
-      padding: 24px 20px;
-    }
-
-    .dialog-action {
-      padding: 0 20px 20px;
-      grid-template-columns: 96px 1fr;
-
-      .q-btn {
-        width: 96px;
-        height: 32px;
-        font-size: 14px;
-      }
-    }
-  }
-
-  .dialog-md {
-    width: 544px;
-
-    @include default-dialog;
-  }
-
-  .dialog-lg {
-    width: 700px;
-
-    @include default-dialog;
-  }
-
-  .dialog-xl {
-    width: 900px;
-
-    @include default-dialog;
-  }
-}
