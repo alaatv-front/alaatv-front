@@ -53,7 +53,6 @@
       </div>
     </q-card>
     <component :is="localOptions.theme"
-               v-else
                :ref="productRef"
                class="product-item-box"
                :class="'productItem' + product.id"
@@ -84,14 +83,15 @@ import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import ThemeDefault from 'src/components/Product/ProductItem/Themes/ThemeDefault.vue'
+import ThemeProduct1 from 'src/components/Product/ProductItem/Themes/ThemeProduct1.vue'
+import ThemeProduct2 from 'src/components/Product/ProductItem/Themes/ThemeProduct2.vue'
+import ThemeProduct3 from 'src/components/Product/ProductItem/Themes/ThemeProduct3.vue'
 import ProductBottomSheet from 'src/components/Widgets/Product/ProductItem/components/ProductBottomSheet.vue'
-import ThemeDefault from 'components/Product/ProductItem/Themes/ThemeDefault.vue'
-import ThemeProduct1 from 'components/Product/ProductItem/Themes/ThemeProduct1.vue'
-import ThemeProduct2 from 'components/Product/ProductItem/Themes/ThemeProduct2.vue'
 
 const defaultTypography = {
   fontFamily: 'iranyekan',
-  titleColor: '#D1D1D1',
+  titleColor: '#424242',
   priceColor: '#9E9E9E',
   finalColor: '#009688',
   simpleTextColor: '#757575',
@@ -108,6 +108,7 @@ export default defineComponent({
     ThemeDefault,
     ThemeProduct1,
     ThemeProduct2,
+    ThemeProduct3,
     ProductBottomSheet
   },
   mixins: [mixinWidget, mixinPrefetchServerData],
@@ -338,6 +339,13 @@ export default defineComponent({
       }
       this.localOptions.product.is_favored = newVal
     }
+  },
+  created () {
+    // ToDo: check this for hydration mismatch
+    Object.assign(this.defaultOptions, this.options)
+    // console.log('this.options.product.id', this.options.product.id)
+    // console.log('Object.assign(this.defaultOptions, this.options).product.id', Object.assign(this.defaultOptions, this.options).product.id)
+    // console.log('this.localOptions.product.id', this.localOptions.product.id)
   },
   mounted () {
     this.productMounted = true

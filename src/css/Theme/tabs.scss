@@ -1,7 +1,21 @@
-@import "src/css/Theme/Typography/typography";
-
 .q-tab {
-  padding: 0 12px;
+  padding: 0 $space-3;
+
+  &.q-tab--active {
+    .q-tab__content {
+      .q-tab__label {
+        @include subtitle1;
+      }
+    }
+  }
+
+  &.q-tab--inactive {
+    .q-tab__content {
+      .q-tab__label {
+        @include body1;
+      }
+    }
+  }
 
   .q-tab__content {
     display: flex;
@@ -21,8 +35,6 @@
     }
 
     .q-tab__label {
-      @include body1;
-
       color: $grey-9;
     }
   }

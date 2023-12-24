@@ -84,7 +84,7 @@ module.exports = configure(function (ctx) {
       showProgress: true,
       // https://github.com/vitejs/vite/issues/2433
       // export NODE_OPTIONS=--max-old-space-size=32768
-      sourcemap: true,
+      sourcemap: false,
       gzip: true,
       analyze: false,
       // publicPath will redirect site
@@ -94,7 +94,7 @@ module.exports = configure(function (ctx) {
       env: process.env,
       extendViteConf (viteConf, { isServer, isClient }) {
         // console.log('viteConf.build', viteConf.build)
-        viteConf.build.sourcemap = true
+        viteConf.build.sourcemap = false
         // Set the base URL based on the environment
         if (process.env.ASSET_SERVE === 'remote') {
           viteConf.base = process.env.NODES_SERVER_URL_SSL || '/'

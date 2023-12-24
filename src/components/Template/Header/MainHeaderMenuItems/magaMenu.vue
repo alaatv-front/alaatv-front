@@ -17,73 +17,21 @@
       <div class="row justify-between"
            @mouseover="onMouseover"
            @mouseleave="onMouseleave">
-        <div class="col-lg-2 col-md-3 category-items">
+        <div class="col-lg-2 col-md-3 category-container">
           <q-scroll-area class="scroll">
-            <div class="q-mb-xs q-mr-md">
-              <q-list>
-                <div v-for="(item, index) in data.children"
-                     :key="index">
-                  <router-link v-if="isValidRoute(item.route)"
-                               :to="item.route">
-                    <q-item class="item"
-                            :class="{arrow: isSelectedItem(index) }"
-                            clickable
-                            @mouseover="showData(index)">
-                      <q-item-section>
-                        {{ item.title }}
-                        <!--                        <q-btn v-if="editable"-->
-                        <!--                               icon="edit"-->
-                        <!--                               flat-->
-                        <!--                               size="10px"-->
-                        <!--                               class="edit-btn"-->
-                        <!--                               @click="editItem($event, index)" />-->
-                      </q-item-section>
-                      <q-badge v-if="item.badge"
-                               color="blue"
-                               class="badge q-py-xs"
-                               align="middle">
-                        {{item.badge}}
-                      </q-badge>
-                      <div class="left-arrow" />
-                    </q-item>
-                  </router-link>
-                  <a v-else-if="item.externalLink"
-                     :href="item.externalLink">
-                    <q-item class="item"
-                            :class="{arrow: isSelectedItem(index) }"
-                            clickable
-                            @mouseover="showData(index)">
-                      <q-item-section>
-                        {{item.title}}
-                        <!--                        <q-btn v-if="editable"-->
-                        <!--                               icon="edit"-->
-                        <!--                               flat-->
-                        <!--                               size="10px"-->
-                        <!--                               class="edit-btn"-->
-                        <!--                               @click="editItem($event, index)" />-->
-                      </q-item-section>
-                      <q-badge v-if="item.badge"
-                               color="blue"
-                               class="badge q-py-xs"
-                               align="middle">
-                        {{item.badge}}
-                      </q-badge>
-                      <div class="left-arrow" />
-                    </q-item>
-                  </a>
-                  <q-item v-else
-                          class="item"
-                          :class="{arrow: isSelectedItem(index) }"
+            <q-list>
+              <div v-for="(item, index) in data.children"
+                   :key="index">
+                <router-link v-if="isValidRoute(item.route)"
+                             :to="item.route">
+                  <q-item class="item"
+                          :class="{selectedItem: isSelectedItem(index) }"
                           clickable
                           @mouseover="showData(index)">
                     <q-item-section>
-                      {{item.title}}
-                      <!--                      <q-btn v-if="editable"-->
-                      <!--                             icon="edit"-->
-                      <!--                             flat-->
-                      <!--                             size="10px"-->
-                      <!--                             class="edit-btn"-->
-                      <!--                             @click="editItem($event, index)" />-->
+                      <q-icon name="ph:book-open"
+                              class="size-lg" />
+                      <div class="item-title ellipsis">{{ item.title }}</div>
                     </q-item-section>
                     <q-badge v-if="item.badge"
                              color="blue"
@@ -91,22 +39,65 @@
                              align="middle">
                       {{item.badge}}
                     </q-badge>
-                    <div class="left-arrow" />
                   </q-item>
-                </div>
-                <q-item class="item"
-                        clickable>
+                </router-link>
+                <a v-else-if="item.externalLink"
+                   :href="item.externalLink">
+                  <q-item class="item"
+                          :class="{selectedItem: isSelectedItem(index) }"
+                          clickable
+                          @mouseover="showData(index)">
+                    <q-item-section>
+                      {{item.title}}
+                      <!--                        <q-btn v-if="editable"-->
+                      <!--                               icon="edit"-->
+                      <!--                               flat-->
+                      <!--                               size="10px"-->
+                      <!--                               class="edit-btn"-->
+                      <!--                               @click="editItem($event, index)" />-->
+                    </q-item-section>
+                    <q-badge v-if="item.badge"
+                             color="blue"
+                             class="badge q-py-xs"
+                             align="middle">
+                      {{item.badge}}
+                    </q-badge>
+                  </q-item>
+                </a>
+                <q-item v-else
+                        class="item"
+                        :class="{selectedItem: isSelectedItem(index) }"
+                        clickable
+                        @mouseover="showData(index)">
                   <q-item-section>
-                    <!--                    <q-btn v-if="editable"-->
-                    <!--                           icon="add"-->
-                    <!--                           flat-->
-                    <!--                           size="10px"-->
-                    <!--                           class="edit-btn"-->
-                    <!--                           @click="addItem" />-->
+                    {{item.title}}
+                    <!--                      <q-btn v-if="editable"-->
+                    <!--                             icon="edit"-->
+                    <!--                             flat-->
+                    <!--                             size="10px"-->
+                    <!--                             class="edit-btn"-->
+                    <!--                             @click="editItem($event, index)" />-->
                   </q-item-section>
+                  <q-badge v-if="item.badge"
+                           color="blue"
+                           class="badge q-py-xs"
+                           align="middle">
+                    {{item.badge}}
+                  </q-badge>
                 </q-item>
-              </q-list>
-            </div>
+              </div>
+              <q-item class="item"
+                      clickable>
+                <q-item-section>
+                  <!--                    <q-btn v-if="editable"-->
+                  <!--                           icon="add"-->
+                  <!--                           flat-->
+                  <!--                           size="10px"-->
+                  <!--                           class="edit-btn"-->
+                  <!--                           @click="addItem" />-->
+                </q-item-section>
+              </q-item>
+            </q-list>
           </q-scroll-area>
         </div>
         <div class="col-lg-10 col-md-9 sub-category-items">
@@ -136,10 +127,10 @@
               <div v-else-if="item.type === 'text'">
                 <div v-show="item.selected"
                      :style="{background: item.backgroundColor}">
-                  <div class="row">
+                  <div class="row list-container">
                     <div v-for="(col, colIndex) in item.children"
                          :key="colIndex"
-                         class="col-md-4 text-subtitle1 q-mb-xs">
+                         class="col-md-4 q-mb-xs">
                       <q-list>
                         <router-link v-if="isValidRoute(col.route)"
                                      :to="col.route">
@@ -160,14 +151,14 @@
                           <router-link v-if="isValidRoute(colItem.route)"
                                        :to="colItem.route">
                             <q-item clickable>
-                              <q-item-section>
+                              <q-item-section class="list-items">
                                 {{colItem.title}}
                               </q-item-section>
                             </q-item>
                           </router-link>
                           <q-item v-else
                                   clickable>
-                            <q-item-section>
+                            <q-item-section class="list-items">
                               {{colItem.title}}
                             </q-item-section>
                           </q-item>
@@ -259,7 +250,7 @@ export default {
         item.selected = subIndex === 0
       })
     },
-    editItem (event, childrenIndex) {
+    editItem (event) {
       event.preventDefault()
       event.stopPropagation()
       this.optionDialog = true
@@ -289,133 +280,148 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.category-items {
-  width: 175px;
 
-  .scroll {
-    height: 100%;
+.megaMenu{
+  transform: translateY(16px);
+  .category-container {
+    background:$blue-grey-2;
+    .scroll {
+      height: 100%;
+      padding: $space-8 0 $space-8 $space-7;
+      :deep(.scroll){
+        .absolute{
+          position: relative;
+        }
+      }
+      .item {
+        position: relative;
 
-    .item {
-      position: relative;
-
-      .edit-btn {
-        position: absolute;
-        left: 0;
-        top: -10px;
+        .edit-btn {
+          position: absolute;
+          left: 0;
+          top: -10px;
+        }
       }
     }
   }
 
-  @media screen and (width <= 1400px) {
-    width: 200px;
+  .sub-category-items {
+    place-self: center;
+  }
 
-    .scroll {
-      height: 200px;
+  .item {
+    margin-bottom: $space-2;
+    .q-item__section{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      .item-title{
+        @include subtitle1;
+        color: $blue-grey-8;
+        max-width: calc(100% - $space-7);
+      }
+      .q-icon{
+        color: $blue-grey-7;
+        margin-right: $space-2;
+      }
+    }
+
+    &.selectedItem{
+      border-radius: $radius-3 0 0 $radius-3;
+      background-color:  $grey-1;
+
+      .q-item__section{
+        .item-title{
+          color: $grey-9;
+        }
+        .q-icon{
+          color: $primary-5;
+        }
+      }
+    }
+
+    &:hover {
+      :deep(.q-focus-helper) {
+        background: transparent !important;
+      }
+    }
+
+    .badge{
+      align-self: center;
+      animation: badge 1s infinite;
+    }
+
+    @keyframes badge {
+      0% {
+        box-shadow:0 0 0 0 rgb(55 55 55 / 68%);
+      }
+
+      70% {
+        box-shadow:0 0 0 10px rgb(0 0 0 / 0%);
+      }
+
+      100% {
+        box-shadow:0 0 0 0 rgb(0 0 0 / 0%);
+      }
     }
   }
-}
 
-.sub-category-items {
-  place-self: center;
-}
+  .list-container{
+    padding: $space-6 0 $space-6 $space-6;
 
-.item {
-  .badge{
+    .q-list{
+      .q-item{
+        padding: $space-3 $space-4;
+        .list-title{
+          color: $grey-9;
+          display: flex;
+          align-items: center;
+          @include subtitle1;
+          flex-direction: row;
+          justify-content: flex-start;
+          &:before{
+            content: ' ';
+            width: 3px;
+            height: 18px;
+            margin-right: $space-2;
+            border-radius: $space-1;
+            background: $primary-5;
+          }
+        }
+
+        .list-items{
+          color: $grey-9;
+          @include body2;
+        }
+
+        &:hover {
+          background: $primary-1 ;
+          border-radius: $radius-3;
+          :deep(.q-focus-helper) {
+            background: unset ;
+          }
+        }
+      }
+    }
+  }
+
+  .magaMenu-photo-container{
     position: absolute;
-    top: 13px;
-    left: 115px;
-    z-index: 100;
-    animation: badge 1s infinite;
-  }
-
-  @keyframes badge {
-    0% {
-      box-shadow:0 0 0 0 rgb(55 55 55 / 68%);
-    }
-
-    70% {
-      box-shadow:0 0 0 10px rgb(0 0 0 / 0%);
-    }
-
-    100% {
-      box-shadow:0 0 0 0 rgb(0 0 0 / 0%);
-    }
-  }
-}
-
-.arrow{
-  margin-right: 14px;
-  transition: border-left 1s;
-  z-index: 2;
-  font-weight: bold;
-  background-color: orange;
-
-  &::after {
-    content:'';
-    position: absolute;
-    left: 145px;
-    right: 0;
-    bottom: 0;
-    margin: 0 auto;
-    width: 0;
-    height: 0;
-    border-left: 25px solid orange;
-    border-top: 24px solid transparent;
-    border-bottom: 24px solid transparent;
-
-    @media screen and (width <= 1400px){
-      left: 170px;
-    }
-  }
-
-  &:deep(.q-focus-helper) {
-    background-color: transparent !important;
-  }
-}
-
-.list-title{
-  font-weight: bold;
-}
-
-.magaMenu-photo-container{
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
-  width: 100px;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .megaMenu-svg-title{
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-    position: relative;
-    z-index: 1;
-    text-align: center;
-  }
-
-  .megaMenu-svg{
+    right: 20px;
+    bottom: 20px;
     width: 100px;
     height: 100px;
-    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .megaMenu-svg{
+      width: 100px;
+      height: 100px;
+      position: absolute;
+    }
   }
 }
-</style>
 
-<style lang="scss">
-.megaMenu {
-  width: 1060px;
-  max-width: 1060px !important;
-  left: 360px;
-  border-radius: 10px;
-  padding: 0;
-
-  @media screen and (width <= 1439px){
-    max-width: 850px !important;
-    width: 850px;
-    left: 140px;
-  }
-}
 </style>

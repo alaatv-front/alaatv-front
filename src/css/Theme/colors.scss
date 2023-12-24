@@ -1,106 +1,243 @@
-/* quasar variables */
-$primary: #ffca28;
-$primary-1: #fff8e1;
-$primary-2: #ffecb3;
-$primary-3: #ffe082;
-$primary-4: #ffd54f;
-$primary-5: #ffca28;
-$primary-6: #ffc107;
-$primary-7: #ffb300;
-$primary-8: #ffa000;
-$primary-9: #ff8f00;
-$primary-10: #ff6f00;
-$secondary: #26a69a;
-$secondary-1: #e0f2f1;
-$secondary-2: #b2dfdb;
-$secondary-3: #80cbc4;
-$secondary-4: #4db6ac;
-$secondary-5: #26a69a;
-$secondary-6: #009688;
-$secondary-7: #00897b;
-$secondary-8: #00796b;
-$secondary-9: #00695c;
-$secondary-10: #004d40;
-$accent: #5c6bc0;
-$accent-1: #e8eaf6;
-$accent-2: #c5cae9;
-$accent-3: #9fa8da;
-$accent-4: #7986cb;
-$accent-5: #5c6bc0;
-$accent-6: #3f51b5;
-$accent-7: #3949ab;
-$accent-8: #303f9f;
-$accent-9: #283593;
-$accent-10: #1a237e;
-$positive: #09ac73;
-$positive-1: #e6f7f1;
-$positive-3: #9ddec7;
-$positive-5: #09ac73;
-$positive-7: #078156;
-$warning: #ffb240;
-$warning-1: #fff7ec;
-$warning-3: #ffe0b3;
-$warning-5: #ffb240;
-$warning-7: #bf8630;
-$negative: #ef5350;
-$negative-1: #fdeeee;
-$negative-3: #f9bab9;
-$negative-5: #ef5350;
-$negative-7: #b33e3c;
-$info: #29b6f6;
-$info-1: #eaf8fe;
-$info-3: #a9e2fb;
-$info-5: #29b6f6;
-$info-7: #1f89b9;
-$grey-1: #fff;
-$grey-2: #f5f5f5;
-$grey-3: #eee;
-$grey-4: #e0e0e0;
-$grey-5: #bdbdbd;
-$grey-6: #9e9e9e;
-$grey-7: #757575;
-$grey-8: #616161;
-$grey-9: #424242;
-$grey-10: #303030;
-$blue-grey-1: #f5f7fa;
-$blue-grey-2: #eceff1;
-$blue-grey-3: #cfd8dc;
-$blue-grey-4: #b0bec5;
-$blue-grey-5: #90a4ae;
-$blue-grey-6: #78909c;
-$blue-grey-7: #607d8b;
-$blue-grey-8: #546e7a;
-$blue-grey-9: #455a64;
-$blue-grey-10: #37474f;
-$other1: #f5f7fa;
-$other2: #3f454f;
+$colors: (
+  "primary": #ffca28,
+  "primary-1": #fff8e1,
+  "primary-2": #ffecb3,
+  "primary-3": #ffe082,
+  "primary-4": #ffd54f,
+  "primary-5": #ffca28,
+  "primary-6": #ffc107,
+  "primary-7": #ffb300,
+  "primary-8": #ffa000,
+  "primary-9": #ff8f00,
+  "primary-10": #ff6f00,
+  "secondary": #26a69a,
+  "secondary-1": #e0f2f1,
+  "secondary-2": #b2dfdb,
+  "secondary-3": #80cbc4,
+  "secondary-4": #4db6ac,
+  "secondary-5": #26a69a,
+  "secondary-6": #009688,
+  "secondary-7": #00897b,
+  "secondary-8": #00796b,
+  "secondary-9": #00695c,
+  "secondary-10": #004d40,
+  "accent": #5c6bc0,
+  "accent-1": #e8eaf6,
+  "accent-2": #c5cae9,
+  "accent-3": #9fa8da,
+  "accent-4": #7986cb,
+  "accent-5": #5c6bc0,
+  "accent-6": #3f51b5,
+  "accent-7": #3949ab,
+  "accent-8": #303f9f,
+  "accent-9": #283593,
+  "accent-10": #1a237e,
+  "grey-1": #fff,
+  "grey-2": #f5f5f5,
+  "grey-3": #eee,
+  "grey-4": #e0e0e0,
+  "grey-5": #bdbdbd,
+  "grey-6": #9e9e9e,
+  "grey-7": #757575,
+  "grey-8": #616161,
+  "grey-9": #424242,
+  "grey-10": #303030,
+  "blue-grey-1": #F5F7FA,
+  "blue-grey-2": #EAECF1,
+  "blue-grey-3": #E1E4EA,
+  "blue-grey-4": #D8DCE3,
+  "blue-grey-5": #C0C6D3,
+  "blue-grey-6": #A0A9BB,
+  "blue-grey-7": #7C88A2,
+  "blue-grey-8": #546078,
+  "blue-grey-9": #3F485A,
+  "blue-grey-10": #2A303C,
 
-/* $accent    : #65677F; */
-$dark: #1d1d1d;
-$success: #4caf50;
+  "positive": #09ac73,
+  "positive-1": #e6f7f1,
+  "positive-3": #9ddec7,
+  "positive-5": #09ac73,
+  "positive-7": #078156,
+  "negative": #ef5350,
+  "negative-1": #fdeeee,
+  "negative-3": #f9bab9,
+  "negative-5": #ef5350,
+  "negative-7": #b33e3c,
+  "info": #29b6f6,
+  "info-1": #eaf8fe,
+  "info-3": #a9e2fb,
+  "info-5": #29b6f6,
+  "info-7": #1f89b9,
+  "warning": #ffb240,
+  "warning-1": #fff7ec,
+  "warning-3": #ffe0b3,
+  "warning-5": #ffb240,
+  "warning-7": #bf8630,
+
+  "other1": #f5f7fa,
+  "other2": #3f454f,
+  "dark": #1d1d1d,
+  "success": #4caf50,
+
+  "customGray": #f4f5f6,
+  "customBlack": #23263b,
+  "customGreen": #72bc75,
+
+  "grey1": #fff,
+  "grey2": #f5f5f5,
+  "grey3": #ebebeb,
+  "grey4": #e0e0e0,
+  "grey5": #bdbdbd,
+  "grey6": #9e9e9e,
+  "grey7": #444,
+  "grey8": #303030,
+  "grey9": #424242,
+
+/*
+Lighten
+  "lighten-1": rgba($grey-1, 0.04),
+  "lighten-3": rgba($grey-1, 0.12),
+  "lighten-5": rgba($grey-1, 0.2),
+  "lighten-7": rgba($grey-1, 0.8),
+
+
+Darken
+  "darken-1": rgba($grey-10, 0.04),
+  "darken-3": rgba($grey-10, 0.12),
+  "darken-5": rgba($grey-10, 0.2),
+  "darken-7": rgba($grey-10, 0.8),
+*/
+
+);
+
+
+/* quasar variables */
+$primary: map-get($colors, "primary");
+$primary-1: map-get($colors, "primary-1");
+$primary-2: map-get($colors, "primary-2");
+$primary-3: map-get($colors, "primary-3");
+$primary-4: map-get($colors, "primary-4");
+$primary-5: map-get($colors, "primary-5");
+$primary-6: map-get($colors, "primary-6");
+$primary-7: map-get($colors, "primary-7");
+$primary-8: map-get($colors, "primary-8");
+$primary-9: map-get($colors, "primary-9");
+$primary-10: map-get($colors, "primary-10");
+$secondary: map-get($colors, "secondary");
+$secondary-1: map-get($colors, "secondary-1");
+$secondary-2: map-get($colors, "secondary-2");
+$secondary-3: map-get($colors, "secondary-3");
+$secondary-4: map-get($colors, "secondary-4");
+$secondary-5: map-get($colors, "secondary-5");
+$secondary-6: map-get($colors, "secondary-6");
+$secondary-7: map-get($colors, "secondary-7");
+$secondary-8: map-get($colors, "secondary-8");
+$secondary-9: map-get($colors, "secondary-9");
+$secondary-10: map-get($colors, "secondary-10");
+$accent: map-get($colors, "accent");
+$accent-1: map-get($colors, "accent-1");
+$accent-2: map-get($colors, "accent-2");
+$accent-3: map-get($colors, "accent-3");
+$accent-4: map-get($colors, "accent-4");
+$accent-5: map-get($colors, "accent-5");
+$accent-6: map-get($colors, "accent-6");
+$accent-7: map-get($colors, "accent-7");
+$accent-8: map-get($colors, "accent-8");
+$accent-9: map-get($colors, "accent-9");
+$accent-10: map-get($colors, "accent-10");
+$grey-1: map-get($colors, "grey-1");
+$grey-2: map-get($colors, "grey-2");
+$grey-3: map-get($colors, "grey-3");
+$grey-4: map-get($colors, "grey-4");
+$grey-5: map-get($colors, "grey-5");
+$grey-6: map-get($colors, "grey-6");
+$grey-7: map-get($colors, "grey-7");
+$grey-8: map-get($colors, "grey-8");
+$grey-9: map-get($colors, "grey-9");
+$grey-10: map-get($colors, "grey-10");
+$blue-grey-1: map-get($colors, "blue-grey-1");
+$blue-grey-2: map-get($colors, "blue-grey-2");
+$blue-grey-3: map-get($colors, "blue-grey-3");
+$blue-grey-4: map-get($colors, "blue-grey-4");
+$blue-grey-5: map-get($colors, "blue-grey-5");
+$blue-grey-6: map-get($colors, "blue-grey-6");
+$blue-grey-7: map-get($colors, "blue-grey-7");
+$blue-grey-8: map-get($colors, "blue-grey-8");
+$blue-grey-9: map-get($colors, "blue-grey-9");
+$blue-grey-10: map-get($colors, "blue-grey-10");
+
+$positive: map-get($colors, "positive");
+$positive-1: map-get($colors, "positive-1");
+$positive-3: map-get($colors, "positive-3");
+$positive-5: map-get($colors, "positive-5");
+$positive-7: map-get($colors, "positive-7");
+$negative: map-get($colors, "negative");
+$negative-1: map-get($colors, "negative-1");
+$negative-3: map-get($colors, "negative-3");
+$negative-5: map-get($colors, "negative-5");
+$negative-7: map-get($colors, "negative-7");
+$info: map-get($colors, "info");
+$info-1: map-get($colors, "info-1");
+$info-3: map-get($colors, "info-3");
+$info-5: map-get($colors, "info-5");
+$info-7: map-get($colors, "info-7");
+$warning: map-get($colors, "warning");
+$warning-1: map-get($colors, "warning-1");
+$warning-3: map-get($colors, "warning-3");
+$warning-5: map-get($colors, "warning-5");
+$warning-7: map-get($colors, "warning-7");
+
+
+$other1: map-get($colors, "other1");
+$other2: map-get($colors, "other2");
+
+$dark: map-get($colors, "dark");
+$success: map-get($colors, "success");
 
 /* colors */
-$customGray: #f4f5f6;
-$customBlack: #23263b;
-$customGreen: #72bc75;
-$grey1: #fff;
-$grey2: #f5f5f5;
-$grey3: #ebebeb;
-$grey4: #e0e0e0;
-$grey5: #bdbdbd;
-$grey6: #9e9e9e;
-$grey7: #444;
-$grey8: #303030;
-$grey9: #424242;
+$customGray: map-get($colors, "customGray");
+$customBlack: map-get($colors, "customBlack");
+$customGreen: map-get($colors, "customGreen");
+$grey1: map-get($colors, "grey1");
+$grey2: map-get($colors, "grey2");
+$grey3: map-get($colors, "grey3");
+$grey4: map-get($colors, "grey4");
+$grey5: map-get($colors, "grey5");
+$grey6: map-get($colors, "grey6");
+$grey7: map-get($colors, "grey7");
+$grey8: map-get($colors, "grey8");
+$grey9: map-get($colors, "grey9");
 
 /* Lighten */
 $lighten-1: rgba($grey-1, 0.04);
 $lighten-3: rgba($grey-1, 0.12);
 $lighten-5: rgba($grey-1, 0.2);
 $lighten-7: rgba($grey-1, 0.8);
+//$lighten-1: map-get($colors, "lighten-1");
+//$lighten-3: map-get($colors, "lighten-3");
+//$lighten-5: map-get($colors, "lighten-5");
+//$lighten-7: map-get($colors, "lighten-7");
 
 /* Darken */
 $darken-1: rgba($grey-10, 0.04);
 $darken-3: rgba($grey-10, 0.12);
 $darken-5: rgba($grey-10, 0.2);
 $darken-7: rgba($grey-10, 0.8);
+//$darken-1: map-get($colors, "darken-1");
+//$darken-3: map-get($colors, "darken-3");
+//$darken-5: map-get($colors, "darken-5");
+//$darken-7: map-get($colors, "darken-7");
+
+
+
+
+/* border colors */
+@mixin generate-border-color-classes() {
+  @each $key, $value in $colors {
+    .border-#{$key} {
+      border-color: $value;
+    }
+  }
+}
+
+@include generate-border-color-classes();

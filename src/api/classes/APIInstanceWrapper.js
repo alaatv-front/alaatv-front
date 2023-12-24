@@ -1,4 +1,7 @@
 import axios from 'axios'
+import { Capacitor } from '@capacitor/core'
+
+const nativeApiV2Server = process.env.NATIVE_APP_BACKEND_ADDRESS
 
 const cache = []
 const timeout = 0
@@ -7,8 +10,10 @@ readable way */
 export default class APIInstanceWrapper {
   static createInstance (baseURL, serverURL) {
     const serverSide = typeof window === 'undefined'
+    const isNative = this.isNative()
+    const finalBaseURL = isNative ? nativeApiV2Server : baseURL
     if (!serverSide) {
-      const axiosInstance = axios.create({ baseURL })
+      const axiosInstance = axios.create({ baseURL: finalBaseURL })
       axiosInstance.defaults.serverURL = serverURL
 
       return axiosInstance
@@ -119,7 +124,7 @@ export default class APIInstanceWrapper {
       }
     }
 
-    return axiosInstance(baseURL, serverURL)
+    return axiosInstance(finalBaseURL, serverURL)
 
     // const fetchInstance = function (baseURL, serverURL) {
     //   const defaults = {
@@ -227,6 +232,10 @@ export default class APIInstanceWrapper {
     }
   }
 
+  static isNative () {
+    return Capacitor.isNativePlatform()
+  }
+
   static requestCache (method, option) {
     if (!!option.cache && !!option.cache.TTL) {
       if (option.cache.fresh) {
@@ -267,8 +276,7 @@ export default class APIInstanceWrapper {
           return cache[option.cacheKey].response
         } else {
           this.purgeRequest(option.cacheKey)
-          const response = this.getRequest(method, option)
-          return response
+          return this.getRequest(method, option)
         }
       } else {
         return this.getRequest(method, option)

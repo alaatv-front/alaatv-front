@@ -1,12 +1,15 @@
 <template>
   <div class="actionBtn">
     <q-btn icon="ph:arrow-counter-clockwise"
+           color="grey"
            class="reload-icon"
            outline
            square
            @click="onClick('reload')" />
-    <q-btn outline
-           label="اعمال"
+    <q-btn label="اعمال"
+           color="grey"
+           outline
+           square
            @click="onClick('filter')" />
   </div>
 </template>
@@ -24,12 +27,12 @@ export default {
 
 <style scoped lang="scss">
 .actionBtn {
-  //padding-top: 33px;
+  padding-top: 8px;
   display: flex;
   justify-content: flex-end;
 
   @media screen and (width <=599px ) {
-  padding-top: 0;
+    padding-top: 0;
   }
 
   .reload-icon{

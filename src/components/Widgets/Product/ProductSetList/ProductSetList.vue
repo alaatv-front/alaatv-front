@@ -2,8 +2,12 @@
   <div class="product-page">
     <q-list v-if="!setListLoading"
             class="rounded-borders">
-      <q-banner class="bg-light-blue-1">
+      <q-banner class="info-banner">
         سرفصل های زیر تاکنون مطابق برنامه مطالعاتی منتشر شده است.
+        <template v-slot:avatar>
+          <q-icon name="ph:info"
+                  size="xs" />
+        </template>
       </q-banner>
       <div v-if="setSections.length > 0"
            class="set-sections">
@@ -16,87 +20,90 @@
             </span>
             <q-separator />
           </div>
-          <q-expansion-item v-for="(set, index) in sectoin.sets"
-                            :key="index"
-                            v-model="set.expand"
-                            header-class="expanded-item-header"
-                            expand-icon-class="expanded-item-icon"
-                            @show="getSet(set.id)">
-            <template v-slot:header>
-              <q-item-section class="title-column flex column no-wrap">
-                <div class="ellipsis"><q-icon name="square"
-                                              class="set-title-icon"
-                                              size="16px" />
-                  <span class="set-title">{{ set.short_title.split('-')[2] }}</span>
-                </div>
-                <div class="lt-sm title-duration ellipsis">{{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}</div>
-              </q-item-section>
-
-              <!-- <q-item-section side
-                              class="steps-count-column">
-                {{set.contents_count}} گام
-              </q-item-section> -->
-              <q-item-section side
-                              class="duration-column gt-xs">
+          <expansion-item-component v-for="(set, index) in sectoin.sets"
+                                    :key="index"
+                                    :hasAction="true"
+                                    class="expansion-item"
+                                    icon="ph:book-open"
+                                    :label="set.short_title.split('-')[2]"
+                                    :grey="true"
+                                    @show="getSet(set.id)">
+            <template v-slot:action>
+              <div class="duration-column gt-xs body-2 ">
                 {{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}
-              </q-item-section>
+              </div>
             </template>
-            <q-separator inset />
-            <q-card class="set-card">
-              <q-card-section v-if="!setLoading || set.contents.list.length > 0">
-                <q-list class="set-list"
-                        separator>
-                  <q-item v-for="(content, index) in set.contents.list"
-                          :key="index"
-                          :to="content.isPamphlet() ? '' : { name: 'Public.Content.Show', params: {id: content.id} }"
-                          clickable
-                          @click="setSelectedData($event,content,set)">
-                    <q-item-section class="cursor-pointer ellipsis"
-                                    @click="download(content)">
-                      {{ content.title }}
-                      <q-tooltip>
-                        {{ content.title }}
-                      </q-tooltip>
-                    </q-item-section>
-                    <q-item-section v-if="!content.isPamphlet()"
-                                    avatar>
-                      <q-icon :name="content.can_see ? 'play_circle_outline' : 'lock_outline'" />
-                    </q-item-section>
-                    <q-item-section v-if="content.isPamphlet()"
-                                    class="side-section"
-                                    side>
-                      <q-btn color="primary"
-                             label="دانلود"
-                             @click="download(content)" />
-                    </q-item-section>
-                    <q-item-section v-else
-                                    class="side-section"
-                                    side>
-                      {{ content.duration === null || content.duration == 0 ? 'مدت ندارد' : humanizeDuration(content.duration) }}
-                    </q-item-section>
-                  </q-item>
-                </q-list>
-              </q-card-section>
-              <q-card-section v-else>
-                <q-list>
-                  <q-item v-for="item in 4"
-                          :key="item">
-                    <q-skeleton width="100%"
-                                bordered />
-                  </q-item>
-                </q-list>
-              </q-card-section>
-            </q-card>
-          </q-expansion-item>
+            <template v-slot:default>
+              <q-card class="set-card">
+                <q-card-section v-if="!setLoading || set.contents.list.length > 0">
+                  <q-list class="set-list"
+                          separator>
+                    <q-item v-for="(content, index) in set.contents.list"
+                            :key="index"
+                            :to="content.isPamphlet() ? '' : { name: 'Public.Content.Show', params: {id: content.id} }"
+                            clickable
+                            @click="setSelectedData($event,content,set)">
+                      <q-item-section class="cursor-pointer ellipsis body2"
+                                      @click="download(content)">
+                        <div class="row items-center">
+                          <q-icon v-if="content.isPamphlet()"
+                                  size="xs"
+                                  name="ph:file-pdf" />
+                          <q-icon v-else
+                                  size="xs"
+                                  name="ph:play-circle" />
+                          <div class="q-ml-xs">
+                            {{ content.title }}
+                          </div>
+                        </div>
+                      </q-item-section>
+                      <q-item-section class="side-section body2"
+                                      side>
+                        {{ content.duration === null || content.duration == 0 ? 'مدت ندارد' : humanizeDuration(content.duration) }}
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-card-section>
+                <q-card-section v-else>
+                  <q-list>
+                    <q-item v-for="item in 4"
+                            :key="item">
+                      <q-skeleton width="100%"
+                                  bordered />
+                    </q-item>
+                  </q-list>
+                </q-card-section>
+              </q-card>
+            </template>
+            <!--                        <template v-slot:header>-->
+            <!--                          <q-item-section class="title-column flex column no-wrap">-->
+            <!--                            <div class="ellipsis"><q-icon name="square"-->
+            <!--                                                          class="set-title-icon"-->
+            <!--                                                          size="16px" />-->
+            <!--                              <span class="set-title">{{ set.short_title.split('-')[2] }}</span>-->
+            <!--                            </div>-->
+            <!--                            <div class="lt-sm title-duration ellipsis">{{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}</div>-->
+            <!--                          </q-item-section>-->
+
+            <!--                          &lt;!&ndash; <q-item-section side-->
+            <!--                                          class="steps-count-column">-->
+            <!--                            {{set.contents_count}} گام-->
+            <!--                          </q-item-section> &ndash;&gt;-->
+            <!--                          <q-item-section side-->
+            <!--                                          class="duration-column gt-xs">-->
+            <!--                            {{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}-->
+            <!--                          </q-item-section>-->
+            <!--                        </template>-->
+            <!--            <q-separator inset />-->
+          </expansion-item-component>
         </div>
       </div>
       <template v-else>
-        <q-expansion-item v-for="(set, index) in setList"
-                          :key="index"
-                          v-model="set.expand"
-                          header-class="expanded-item-header"
-                          expand-icon-class="expanded-item-icon"
-                          @show="getSet(set.id)">
+        <expansion-item-component v-for="(set, index) in setList"
+                                  :key="index"
+                                  header-class="expanded-item-header"
+                                  expand-icon-class="expanded-item-icon"
+                                  @show="getSet(set.id)">
           <template v-slot:header>
             <q-item-section class="title-column ellipsis">
               {{ set.short_title.split('-')[2] }}
@@ -157,7 +164,7 @@
               </q-list>
             </q-card-section>
           </q-card>
-        </q-expansion-item>
+        </expansion-item-component>
       </template>
     </q-list>
     <q-list v-else>
@@ -195,16 +202,19 @@ import { openURL } from 'quasar'
 import { ContentList } from 'src/models/Content.js'
 import { Product } from 'src/models/Product.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
+import ExpansionItemComponent from 'src/components/Utils/ExpansionItem.vue'
 
 export default {
   name: 'ProductSetList',
   components: {
+    ExpansionItemComponent,
     ProductItem: defineAsyncComponent(() => import('src/components/Widgets/Product/ProductItem/ProductItem.vue'))
   },
   mixins: [mixinWidget],
   emits: ['updateSetList'],
   data () {
     return {
+      setLoading: false,
       defaultOptions: {
         product: new Product(),
         setList: []
@@ -328,21 +338,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$page-size-md: map-get($sizes, "md");
+
 .set-sections {
   .set-section {
     .separator-div{
-      margin-top: 24px;
-      padding-bottom: 8px;
+      margin-top: $space-6;
+      padding-bottom: $space-2;
 
       .separator-title {
         background: white;
-        padding-right: 8px;
+        padding-right: $space-2;
       }
 
       .q-separator {
-        margin-top: -10px;
+        margin-top: -$space-2;
       }
     }
+  .expansion-item {
+    margin: $space-5 0;
+
+    @media screen and (width <= $page-size-md){
+      margin: $space-4 0;
+    }
+  }
   }
 }
 
@@ -353,17 +372,6 @@ export default {
 
 .product-page {
   max-width: 100%;
-
-  &:deep(.q-expansion-item) {
-    border-radius: 8px;
-    background:#F5F7FA;
-    color:#424242;
-    margin: 8px 0;
-
-    @media screen and (width <= 1023px){
-      margin: 6px 0;
-    }
-  }
 
   &:deep(.q-item) {
     padding: 12px 24px;

@@ -180,6 +180,10 @@ const routes = [
                 redirect: { name: 'Public.Landing.DynamicName', params: { landing_name: '110' } }
               },
               {
+                path: 'silkroad',
+                redirect: { name: 'Public.Landing.DynamicName', params: { landing_name: 'rahabrisham' } }
+              },
+              {
                 path: ':landing_name',
                 meta: {
                   hasDynamicSettingWithParams: true
@@ -187,30 +191,6 @@ const routes = [
                 name: 'Public.Landing.DynamicName',
                 component: () => import('src/pages/Public/Landings/Landing.vue')
               }
-              // {
-              //   path: '36',
-              //   name: 'Public.Landing.FireDay',
-              //   meta: {
-              //     hasDynamicSetting: true
-              //   },
-              //   component: () => import('src/pages/Public/Landings/FireDay.vue')
-              // },
-              // {
-              //   path: '15',
-              //   name: 'Public.Landing.Arash',
-              //   meta: {
-              //     hasDynamicSetting: true
-              //   },
-              //   component: () => import('src/pages/Public/Landings/Arash.vue')
-              // },
-              // {
-              //   path: '9',
-              //   name: 'Public.Landing.Taftan',
-              //   meta: {
-              //     hasDynamicSetting: true
-              //   },
-              //   component: () => import('src/pages/Public/Landings/Taftan.vue')
-              // }
             ]
           },
           {
@@ -258,6 +238,32 @@ const routes = [
           {
             path: 'asset',
             redirect: { name: 'UserPanel.MyPurchases' }
+          },
+          {
+            path: 'postcard',
+            name: 'Public.Postcard',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                path: '',
+                name: 'Public.Postcard.Index',
+                // meta: { middlewares: [Authenticated(false)] },
+                component: () => import('pages/Public/Postcard/Index.vue')
+              },
+              {
+                path: ':id',
+                name: 'Public.Postcard.Show',
+                layoutConfig: {
+                  layoutHeader: false,
+                  layoutLeftDrawer: false,
+                  layoutFooter: false
+                },
+                // meta: {
+                //   hasDynamicSetting: true
+                // },
+                component: () => import('pages/Public/Postcard/Show.vue')
+              }
+            ]
           }
         ]
       },
@@ -270,6 +276,16 @@ const routes = [
         },
         component: () => import('layouts/bareLayout.vue'),
         children: [
+          {
+            path: '',
+            name: 'UserPanel.index',
+            redirect: { name: 'UserPanel.Profile' }
+          },
+          {
+            path: 'postcard',
+            name: 'UserPanel.Postcard',
+            redirect: { name: 'Public.Postcard.Index' }
+          },
           {
             // ToDo: check this to remove
             name: 'UserPanel.CompleteInfo',

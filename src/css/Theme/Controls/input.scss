@@ -1,7 +1,3 @@
-@import "src/css/Theme/colors";
-@import "src/css/Theme/spacing";
-@import "src/css/Theme/Typography/typography";
-
 $input-height: $space-8;
 $field-background: $grey-1;
 $field-disabled-background: $grey-2;
@@ -255,4 +251,34 @@ $q-field__label_margin_bottom: $space-2;
 
 .q-input {
   @include q-field-mixin;
+}
+
+.q-textarea {
+  .q-field__inner {
+    .q-field__control {
+      &::before {
+        background: $field-background;
+        border-radius: $radius-3;
+        border: 1.5px solid $grey-4;
+      }
+      &::after {
+        display: none;
+      }
+      .q-field__control-container {
+        .q-field__native {
+          padding: $space-2 $space-4;
+        }
+      }
+    }
+  }
+
+  &.q-field--focused {
+    .q-field__inner {
+      .q-field__control {
+        &::before {
+          border-color: $primary;
+        }
+      }
+    }
+  }
 }

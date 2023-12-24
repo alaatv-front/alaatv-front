@@ -1,18 +1,24 @@
 .q-badge {
-  border-radius: 8px;
+  border-radius: $radius-3;
   justify-content: center;
   align-items: center;
 
   &.badge-xs {
-    padding: 3px 8px 4px;
+    @include subtitle2;
+    padding: $spacing-base $space-2;
   }
 
   &.badge-sm {
-    padding: 5px 12px 6px;
+    @include subtitle1;
+    padding: $spacing-base $space-3;
+  }
+  &.badge-md {
+    @include caption1;
+    padding: $spacing-base $space-3;
   }
 
   &.q-badge--rounded {
-    padding: 4px 5px;
+    padding: $spacing-base $spacing-base;
 
     &.badge-xs {
       width: 16px;

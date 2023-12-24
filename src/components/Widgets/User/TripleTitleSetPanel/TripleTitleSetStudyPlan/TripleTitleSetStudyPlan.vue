@@ -6,7 +6,9 @@
       </h5>
     </div>
     <div class="col-md-6 col-12 body1">
-      برنامه مطالعاتی - رشته {{ major.title }}
+      برنامه مطالعاتی
+      <span v-if="major.title">/ رشته {{ major.title }}</span>
+      <span v-if="grade.title">/ مقطع {{grade.title}}</span>
     </div>
     <div class="col-md-6 col-12 text-right action-btns">
       <q-btn flat
@@ -24,20 +26,13 @@
     </div>
     <q-linear-progress v-if="loading"
                        indeterminate />
-    <div class="col-9 calendar">
+    <div class="col-12 calendar">
       <full-calendar ref="fullCalendar"
                      :study-event="studyEvent"
                      :events="studyPlanList"
                      :filtered-lesson="filteredLesson"
                      @edit-plan="editPlan"
                      @remove-plan="openRemovePlanWarning" />
-    </div>
-    <div class="col-3 content-selection">
-      <q-card class="custom-card">
-        <q-card-section>
-          <triple-title-set-content-selection v-model:selectedContentList="selectedContentList" />
-        </q-card-section>
-      </q-card>
     </div>
     <q-dialog v-model="newPlanDialog">
       <q-card class="new-theme">
@@ -56,26 +51,41 @@
         </q-card-section>
         <q-separator />
         <q-card-section>
-          <entity-create ref="entityCreate"
-                         v-model:value="inputs"
-                         :defaultLayout="false"
-                         :after-send-data="afterSendData"
-                         :api="api">
-            <template #after-form-builder>
-              <div class="text-right q-mt-md new-theme-btn">
-                <q-btn class="btn cancel q-mx-sm text-grey-9"
-                       size="md"
-                       outline
-                       label="لغو"
-                       @click="newPlanDialog = false" />
-                <q-btn class="btn q-mx-sm"
-                       label="تایید"
-                       size="md"
-                       color="positive"
-                       @click="acceptNewPlan" />
-              </div>
-            </template>
-          </entity-create>
+          <form-builder ref="formBuilder"
+                        v-model:value="inputs" />
+          <!--          <entity-create ref="entityCreate"-->
+          <!--                         v-model:value="inputs"-->
+          <!--                         :defaultLayout="false"-->
+          <!--                         :api="api">-->
+          <!--            <template #after-form-builder>-->
+          <!--              <div class="text-right q-mt-md new-theme-btn">-->
+          <!--                <q-btn class="btn cancel q-mx-sm text-grey-9"-->
+          <!--                       size="md"-->
+          <!--                       outline-->
+          <!--                       label="لغو"-->
+          <!--                       @click="newPlanDialog = false" />-->
+          <!--                <q-btn class="btn q-mx-sm"-->
+          <!--                       label="تایید"-->
+          <!--                       size="md"-->
+          <!--                       color="positive"-->
+          <!--                       @click="acceptNewPlan" />-->
+          <!--              </div>-->
+          <!--            </template>-->
+          <!--          </entity-create>-->
+        </q-card-section>
+        <q-card-section>
+          <div class="text-right q-mt-md new-theme-btn">
+            <q-btn class="btn cancel q-mx-sm text-grey-9"
+                   size="md"
+                   outline
+                   label="لغو"
+                   @click="newPlanDialog = false" />
+            <q-btn class="btn q-mx-sm"
+                   label="تایید"
+                   size="md"
+                   color="positive"
+                   @click="acceptNewPlan" />
+          </div>
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -141,33 +151,29 @@
         <q-card-section>
           <div class="row q-col-gutter-md">
             <div class="col-12">
-              <div class="outsideLabel">برنامه</div>
               <q-select v-model="planType"
-                        label="انتخاب کنید"
+                        label="برنامه"
                         option-label="display_name"
                         :options="planOptions"
                         @update:model-value="setFlagTrue" />
             </div>
             <div class="col-6">
-              <div class="outsideLabel">مقطع</div>
               <q-select v-model="grade"
-                        label="انتخاب کنید"
+                        label="مقطع"
                         option-label="title"
                         :options="gradeOptions"
                         @update:model-value="setFlagTrue" />
             </div>
             <div class="col-6">
-              <div class="outsideLabel">رشته</div>
               <q-select v-model="major"
-                        label="انتخاب کنید"
+                        label="رشته"
                         option-label="title"
                         :options="majorOptions"
                         @update:model-value="setFlagTrue" />
             </div>
             <div class="col-12">
-              <div class="outsideLabel">درس مورد نمایش</div>
               <q-select v-model="lesson"
-                        label="انتخاب کنید"
+                        label="درس مورد نمایش"
                         option-label="lesson_name"
                         :options="lessonOptions" />
             </div>
@@ -309,7 +315,7 @@
 <script>
 import { shallowRef } from 'vue'
 import { APIGateway } from 'src/api/APIGateway.js'
-import { EntityCreate, EntityEdit } from 'quasar-crud'
+import { EntityEdit } from 'quasar-crud'
 import { FormBuilderAssist } from 'quasar-form-builder'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
 import FullCalendar from './components/FullCalendar.vue'
@@ -317,7 +323,7 @@ import SessionInfo from 'src/components/Widgets/User/TripleTitleSetPanel/TripleT
 import ContentsComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/Contents.vue'
 import TextComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/TextComponent.vue'
 import LazyImg from 'components/lazyImg.vue'
-import TripleTitleSetContentSelection from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetContentSelection/TripleTitleSetContentSelection.vue'
+import FormBuilder from 'quasar-form-builder/src/FormBuilder.vue'
 
 const ContentsComponentComp = shallowRef(ContentsComponent)
 const TextComponentComp = shallowRef(TextComponent)
@@ -327,9 +333,9 @@ export default {
   components: {
     LazyImg,
     FullCalendar,
-    EntityCreate,
-    EntityEdit,
-    TripleTitleSetContentSelection
+    // EntityCreate,
+    FormBuilder,
+    EntityEdit
   },
   data () {
     return {
@@ -370,14 +376,14 @@ export default {
         {
           type: 'hidden',
           name: 'event_id',
-          value: null
+          value: []
         },
         {
           type: 'select',
           name: 'study_method_id',
           label: 'برنامه',
-          placeholder: 'انتخاب کنید',
           options: [],
+          multiple: true,
           optionLabel: 'display_name',
           optionValue: 'id',
           value: null,
@@ -388,7 +394,6 @@ export default {
           name: 'major_id',
           label: 'رشته',
           options: [],
-          placeholder: 'انتخاب کنید',
           optionLabel: 'title',
           optionValue: 'id',
           value: null,
@@ -399,17 +404,10 @@ export default {
           name: 'grade_id',
           label: 'مقطع',
           options: [],
-          placeholder: 'انتخاب کنید',
           optionLabel: 'title',
           optionValue: 'id',
           value: null,
           col: 'col-4'
-        },
-        {
-          type: TextComponentComp,
-          name: 'customComponent',
-          text: 'اطلاعات محتوای موردنظر برای نمایش رو وارد کنید.',
-          col: 'col-12'
         },
         {
           type: ContentsComponentComp,
@@ -427,7 +425,6 @@ export default {
           name: 'date',
           label: 'تاریخ',
           value: '',
-          placeholder: 'انتخاب کنید',
           calendarIcon: ' ',
           optionLabel: 'title',
           col: 'col-4'
@@ -437,7 +434,6 @@ export default {
           name: 'start',
           label: 'از ساعت',
           value: '',
-          placeholder: 'انتخاب کنید',
           optionLabel: 'title',
           col: 'col-4'
         },
@@ -446,7 +442,6 @@ export default {
           name: 'end',
           label: 'تا ساعت',
           value: '',
-          placeholder: 'انتخاب کنید',
           optionLabel: 'title',
           col: 'col-4'
         },
@@ -475,7 +470,6 @@ export default {
           type: 'select',
           name: 'study_method_id',
           label: 'برنامه',
-          placeholder: 'انتخاب کنید',
           options: [],
           optionLabel: 'display_name',
           optionValue: 'id',
@@ -488,7 +482,6 @@ export default {
           name: 'major_id',
           label: 'رشته',
           options: [],
-          placeholder: 'انتخاب کنید',
           optionLabel: 'title',
           optionValue: 'id',
           value: null,
@@ -500,18 +493,11 @@ export default {
           name: 'grade_id',
           label: 'مقطع',
           options: [],
-          placeholder: 'انتخاب کنید',
           optionLabel: 'title',
           optionValue: 'id',
           value: null,
           responseKey: 'data.grade.id',
           col: 'col-4'
-        },
-        {
-          type: TextComponentComp,
-          name: 'customComponent',
-          text: 'اطلاعات محتوای موردنظر برای نمایش رو وارد کنید.',
-          col: 'col-12'
         },
         {
           type: ContentsComponentComp,
@@ -573,9 +559,6 @@ export default {
       if (newVal) {
         this.isPlanChanged = false
       }
-    },
-    selectedContentList (val) {
-      FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'value', val)
     }
   },
   mounted () {
@@ -584,8 +567,8 @@ export default {
   methods: {
     afterAuthenticate () {
       const user = this.$store.getters['Auth/user']
-      this.grade = user.grade
-      this.major = user.major
+      this.grade = user.grade.id ? user.grade : { title: '', id: null }
+      this.major = user.major.id ? user.major : { title: '', id: null }
       this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
       this.getFilterLesson()
     },
@@ -594,12 +577,12 @@ export default {
       const data = {
         major_id: this.$refs.entityEdit.getInputsByName('major_id').value,
         grade_id: this.$refs.entityEdit.getInputsByName('grade_id').value,
-        study_method_id: this.$refs.entityEdit.getInputsByName('study_method_id').value
+        study_method_id: this.$refs.entityEdit.getInputsByName('study_method_id').value.id
       }
       this.selectedDate = this.$refs.entityEdit.getInputsByName('date').value
-      APIGateway.abrisham.findMyStudyPlan(data)
+      this.findStudyPlan(data)
         .then(studyPlan => {
-          this.$refs.entityEdit.setInputByName('event_id', studyPlan.id)
+          FormBuilderAssist.setAttributeByName(this.editInputs, 'event_id', 'value', studyPlan.id)
           if (this.studyEvent !== studyPlan.id) {
             this.studyEvent = studyPlan.id
             this.needToUpdatePlan = true
@@ -615,7 +598,7 @@ export default {
           })
           FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'value', newContents)
           this.$refs.entityEdit.editEntity(false)
-          this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
+          this.getMyStudyPlan()
           this.loading = false
           this.editPlanDialog = false
         })
@@ -644,41 +627,90 @@ export default {
           this.loading = false
         })
     },
+    getPlanPromise (majorId, gradeId, methodId) {
+      return new Promise((resolve, reject) => {
+        const data = {
+          major_id: majorId,
+          grade_id: gradeId,
+          study_method_id: methodId
+        }
+        this.findStudyPlan(data)
+          .then(studtPlan => {
+            this.createPlan(studtPlan)
+              .then((plan) => {
+                resolve(plan)
+              })
+              .catch(() => {
+                reject()
+              })
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    },
+    findStudyPlan (data) {
+      return new Promise((resolve, reject) => {
+        APIGateway.abrisham.findMyStudyPlan(data)
+          .then(studtPlan => {
+            resolve(studtPlan)
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    },
+    createPlan (studtPlan) {
+      return new Promise((resolve, reject) => {
+        const formData = this.$refs.formBuilder.getFormData()
+        formData.contents.forEach((content, index) => {
+          if (content.id) {
+            formData.contents[index] = content.id
+          }
+        })
+        formData.event_id = studtPlan.id
+        APIGateway.studyPlan.createPlan(formData)
+          .then((plan) => {
+            resolve(plan)
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    },
     acceptNewPlan () {
       this.loading = true
-      const data = {
-        major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id')?.value,
-        grade_id: FormBuilderAssist.getInputsByName(this.inputs, 'grade_id')?.value,
-        study_method_id: FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id')?.value
-      }
-      APIGateway.abrisham.findMyStudyPlan(data)
-        .then(studyPlan => {
-          this.needToUpdatePlan = false
-          FormBuilderAssist.setAttributeByName(this.inputs, 'event_id', 'value', studyPlan.id)
-          if (this.studyEvent !== studyPlan.id) {
-            this.studyEvent = studyPlan.id
-            this.needToUpdatePlan = true
+      const eventPromises = []
+      const majorId = FormBuilderAssist.getInputsByName(this.inputs, 'major_id')?.value
+      const gradeId = FormBuilderAssist.getInputsByName(this.inputs, 'grade_id')?.value
+      const methodIds = FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value
+      methodIds.forEach(methodId => {
+        eventPromises.push(this.getPlanPromise(majorId, gradeId, methodId))
+      })
+      Promise.all(eventPromises)
+        .then((plans) => {
+          FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'value', [])
+          const data = {
+            major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id').value,
+            grade_id: FormBuilderAssist.getInputsByName(this.inputs, 'grade_id').value,
+            study_method_id: FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value[0]
           }
-          this.$refs.entityCreate.createEntity(false)
-            .then(() => {
-              if (this.needToUpdatePlan) {
-                this.updateMyStudyPlan({
-                  major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id').value,
-                  grade_id: FormBuilderAssist.getInputsByName(this.inputs, 'grade_id').value,
-                  study_method_id: FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value
-                })
-                this.needToUpdatePlan = false
+          this.findStudyPlan(data)
+            .then(studtPlan => {
+              if (studtPlan.id !== this.studyEvent) {
+                this.updateMyStudyPlan(data)
               } else {
-                this.loading = false
-                this.$refs.fullCalendar.getStudyPlanData(null, FormBuilderAssist.getInputsByName(this.inputs, 'date')?.value)
+                this.$refs.fullCalendar.getStudyPlanData(studtPlan.id)
               }
-              this.newPlanDialog = false
+              this.loading = false
             })
             .catch(() => {
               this.loading = false
             })
+          this.newPlanDialog = false
         })
         .catch(() => {
+          this.newPlanDialog = false
           this.loading = false
         })
     },
@@ -687,7 +719,12 @@ export default {
       this.$apiGateway.studyPlan.storeSetting({ setting: { abrisham2_calender_default_lesson: this.lesson.id } })
         .then(() => {
           this.loading = false
-          this.updateMyStudyPlan()
+          this.filteredLesson = this.lesson.id
+          if (this.isPlanChanged) {
+            this.updateMyStudyPlan()
+          } else {
+            this.$refs.fullCalendar.getStudyPlanData(this.studyEvent)
+          }
         })
         .catch(() => {
           this.loading = false
@@ -787,11 +824,12 @@ export default {
     updateMyStudyPlan (data) {
       this.loading = true
       this.warning = false
-      APIGateway.studyPlan.updateMyStudyPlan({
-        study_method_id: data.study_method_id ? data.study_method_id : this.planType.id,
-        major_id: data.major_id ? data.major_id : this.major.id,
-        grade_id: data.grade_id ? data.grade_id : this.grade.id
-      })
+      const studyPlanData = {
+        study_method_id: data && data.study_method_id ? data.study_method_id : this.planType.id,
+        major_id: data && data.major_id ? data.major_id : this.major.id,
+        grade_id: data && data.grade_id ? data.grade_id : this.grade.id
+      }
+      APIGateway.studyPlan.updateMyStudyPlan(studyPlanData)
         .then(studyPlan => {
           this.studyEvent = studyPlan.id
           this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)

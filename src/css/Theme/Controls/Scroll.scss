@@ -1,15 +1,33 @@
-.new-theme {
   .q-scrollarea {
+    padding: 0 0 $space-4 $space-4;
     .q-scrollarea__bar {
+      opacity: 1;
       background: $grey-2;
+    }
+    .q-scrollarea__bar--v {
+      width: 10px;
+      &.absolute-right {
+        left: $space-2;
+      }
+    }
+    .q-scrollarea__bar--h {
+      height: 10px;
+      &.absolute-bottom {
+        bottom: $space-2;
+      }
     }
 
     .q-scrollarea__thumb {
-      border-radius: 12px;
+      border-radius: $space-3;
       background: $primary;
-      width: 4px;
-      height: 4px;
+      width: 8px;
+      height: 8px;
       opacity: 1;
+      &.q-scrollarea__thumb--h {
+        bottom: $space-2;
+      }
+      &.q-scrollarea__thumb--v {
+        left: $space-2;
+      }
     }
   }
-}

@@ -1,14 +1,11 @@
+@import "src/css/Theme/Controls/input";
 @import "src/css/Theme/FormBuilder/card";
 @import "src/css/Theme/FormBuilder/input";
 @import "src/css/Theme/FormBuilder/editor";
 @import "src/css/Theme/FormBuilder/dateTime";
-@import "src/css/Theme/FormBuilder/checkbox";
 @import "src/css/Theme/FormBuilder/separator";
 @import "src/css/Theme/FormBuilder/toggleButton";
 @import "src/css/Theme/FormBuilder/formBuilderCol";
-@import "src/css/Theme/colors";
-@import "src/css/Theme/Controls/input";
-@import "src/css/Theme/Typography/typography";
 
 [class^="form-builder"] {
   position: relative;

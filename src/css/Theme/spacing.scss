@@ -13,8 +13,8 @@ $space-8: $spacing-base * 10;
 $space-9: $spacing-base * 12;
 $space-10: $spacing-base * 14;
 $space-11: $spacing-base * 16;
-$space-12: $spacing-base * 20;
-$space-13: $spacing-base * 23;
+$space-12: $spacing-base * 18;
+$space-13: $spacing-base * 20;
 
 /* ------------------------------------ */
 $q-space-none: (
@@ -41,129 +41,61 @@ $q-space-xl: (
   x: $space-12,
   y: $space-12,
 );
-$all-q-spaces: (
-  "none": $q-space-none,
-  "xs": $q-space-xs,
-  "sm": $q-space-sm,
-  "md": $q-space-md,
-  "lg": $q-space-lg,
-  "xl": $q-space-xl,
+
+// Define your custom gutters here
+$custom-gutters : (
+  'xs': $space-2,
+  'sm': $space-4,
+  'md': $space-5,
+  'lg': $space-6,
+  'xl': $space-7
 );
 
-@each $space, $value in $all-q-spaces {
-  .new-theme {
-    .q-pa-#{$space} {
-      padding: map.get($value, "y") map.get($value, "x");
-    }
-    .q-pl-#{$space} {
-      padding-left: map.get($value, "x");
-    }
-    .q-pr-#{$space} {
-      padding-right: map.get($value, "x");
-    }
-    .q-pt-#{$space} {
-      padding-top: map.get($value, "y");
-    }
-    .q-pb-#{$space} {
-      padding-bottom: map.get($value, "y");
-    }
-    .q-px-#{$space} {
-      padding-left: map.get($value, "x");
-      padding-right: map.get($value, "x");
-    }
-    .q-py-#{$space} {
-      padding-top: map.get($value, "y");
-      padding-bottom: map.get($value, "y");
-    }
-    .q-ma-#{$space} {
-      margin: map.get($value, "y") map.get($value, "x");
-    }
-    .q-ml-#{$space} {
-      margin-left: map.get($value, "x");
-    }
-    .q-mr-#{$space} {
-      margin-right: map.get($value, "x");
-    }
-    .q-mt-#{$space} {
-      margin-top: map.get($value, "y");
-    }
-    .q-mb-#{$space} {
-      margin-bottom: map.get($value, "y");
-    }
-    .q-mx-#{$space} {
-      margin-left: map.get($value, "x");
-      margin-right: map.get($value, "x");
-    }
-    .q-my-#{$space} {
-      margin-top: map.get($value, "y");
-      margin-bottom: map.get($value, "y");
+
+// Generate all gutter configurations
+@mixin generate-gutters() {
+  @each $gutter-size, $gutter-width in $custom-gutters {
+    // Loop through breakpoints for media queries
+    @each $break-name, $break-width in $sizes {
+      @include media-min-width($break-name) {
+        // Apply margins on the container for specific breakpoint and gutter size
+        .q-col-gutter-#{$gutter-size}-#{$break-name} {
+          margin-left: -$gutter-width !important;
+          margin-top: -$gutter-width !important;
+
+          > * {
+            // Apply paddings on the columns inside for specific breakpoint and gutter size
+            padding-left: $gutter-width !important;
+            // Include the top padding as per your requirement
+            padding-top: $gutter-width !important;
+          }
+        }
+      }
     }
   }
 }
 
-$all-spaces: (
-  "none": $spacing-none,
-  "1": $space-1,
-  "2": $space-2,
-  "3": $space-3,
-  "4": $space-4,
-  "5": $space-5,
-  "6": $space-6,
-  "7": $space-7,
-  "8": $space-8,
-  "9": $space-9,
-  "10": $space-10,
-  "11": $space-11,
-  "12": $space-12,
-);
+// Include the mixin in your SCSS
+@include generate-gutters();
 
-@each $space, $value in $all-spaces {
-  .new-theme {
-    .q-pa-#{$space} {
-      padding: $value;
-    }
-    .q-pl-#{$space} {
-      padding-left: $value;
-    }
-    .q-pr-#{$space} {
-      padding-right: $value;
-    }
-    .q-pt-#{$space} {
-      padding-top: $value;
-    }
-    .q-pb-#{$space} {
-      padding-bottom: $value;
-    }
-    .q-px-#{$space} {
-      padding-left: $value;
-      padding-right: $value;
-    }
-    .q-py-#{$space} {
-      padding-top: $value;
-      padding-bottom: $value;
-    }
-    .q-ma-#{$space} {
-      margin: $value;
-    }
-    .q-ml-#{$space} {
-      margin-left: $value;
-    }
-    .q-mr-#{$space} {
-      margin-right: $value;
-    }
-    .q-mt-#{$space} {
-      margin-top: $value;
-    }
-    .q-mb-#{$space} {
-      margin-bottom: $value;
-    }
-    .q-mx-#{$space} {
-      margin-left: $value;
-      margin-right: $value;
-    }
-    .q-my-#{$space} {
-      margin-top: $value;
-      margin-bottom: $value;
+
+
+.q-col-gutter-x-lg-lg {
+  margin-left: -$space-6 !important;
+
+  @include media-max-width('md') {
+    margin-left: -$space-5 !important
+  }
+
+  > * {
+    padding-left: $space-6 !important;
+
+    @include media-max-width('md') {
+      padding-left: $space-5 !important;
     }
   }
 }
+
+
+
+
