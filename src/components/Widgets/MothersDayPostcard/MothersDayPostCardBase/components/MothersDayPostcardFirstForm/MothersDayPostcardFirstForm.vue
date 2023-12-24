@@ -19,7 +19,7 @@
     </div>
     <div class="col-12 theme-description body1">از میان تم های زیر، یک تم را برای کارت پستال خود انتخاب کنید.</div>
     <div class="col-12">
-      <div class="row theme-banner-container q-col-gutter-lg-x-lg q-col-gutter-md-x-md q-col-gutter-sm-y-md q-col-gutter-xs-y-sm">
+      <div class="row theme-banner-container q-col-gutter-lg-lg q-col-gutter-md-md q-col-gutter-sm-sm q-col-gutter-xs-xs">
         <div v-for="(theme, index) in themes"
              :key="index"
              class="col-md-4 col-xs-12 banner">
@@ -278,19 +278,19 @@ export default {
         {
           poemId: 1,
           verse1: {
-            hemistich1: 'در کوچه جان همیشه مادر بـــاقیست',
-            hemistich2: ' دریـای مـحبـتـش چو کوثر باقیست'
+            hemistich1: 'در کوچه جان همیشه مادر باقیست',
+            hemistich2: 'دریای محبتش چو کوثر باقیست'
           },
           verse2: {
-            hemistich1: 'در گـــویــش عـاشـقانـه ، نـام مــــادر',
-            hemistich2: 'شعریست کــه تا ابد به دفتر باقیست'
+            hemistich1: 'در گویش عاشقانه ، نام مادر',
+            hemistich2: 'شعریست که تا ابد به دفتر باقیست'
           }
         },
         {
           poemId: 2,
           verse1: {
             hemistich1: 'مادر‌ ای والاترین رویای عشق',
-            hemistich2: 'مادر‌ ای دلواپس فردای عشق'
+            hemistich2: 'مادر ای دلواپس فردای عشق'
           },
           verse2: {
             hemistich1: 'مادر‌ ای غمخوار بی همتای من',
@@ -311,12 +311,12 @@ export default {
         {
           poemId: 4,
           verse1: {
-            hemistich1: 'مادر! حضور نام تو در شعر های من',
+            hemistich1: 'مادر! حضور نام تو در شعرهای من',
             hemistich2: 'لطف خداست شامل حال غزل شده است'
           },
           verse2: {
             hemistich1: 'غیر از تو جای هیچ کسی نیست در دلم',
-            hemistich2: 'این مسأله میان من و عشق حل شده است..'
+            hemistich2: 'این مسأله میان من و عشق حل شده است'
           }
         },
         {
@@ -500,10 +500,9 @@ export default {
   @include media-max-width('md') {
     padding: 0 0 $space-8 ;
   }
-  .theme-title, .poem-title, {
+  .theme-title, .poem-title {
     color: $grey-9;
     margin-top: $space-7;
-    color: $grey-9;
   }
   .theme-title {
     @include media-max-width('md') {
@@ -514,10 +513,14 @@ export default {
     margin-top: $space-3;
     color: $grey-9;
   }
+  .theme-description {
+    margin-bottom: $space-6;
+    @include media-max-width('md') {
+      margin-top: $space-5;
+    }
+  }
   .theme-banner-container, .poem-cards, .message-input-container {
     margin-top: $space-6;
-  }
-  .theme-banner-container {
   }
   .message-title {
     color: $grey-9;
