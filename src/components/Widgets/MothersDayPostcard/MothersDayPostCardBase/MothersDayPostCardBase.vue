@@ -31,7 +31,9 @@
                         :postcard-message-from="postcardConfig.postcardMessageFrom"
                         :postcard-backgrounds="postcardConfig.postcardBackgrounds"
                         :pattern-backgrounds="postcardConfig.patternBackgrounds"
-                        :flower-image="postcardConfig.flowerImage" />
+                        :flower-image="postcardConfig.flowerImage"
+                        :audio-source="postcardConfig.audioSource"
+                        :entrance-body-movin="postcardConfig.entranceBodyMovin" />
     </q-dialog>
   </div>
   <div v-else
@@ -66,6 +68,7 @@ export default defineComponent({
       currentForm: 'first',
       loading: false,
       previewDialog: false,
+      audioSource: 'https://nodes.alaatv.com/upload/landing/motherday1402/mother-postalcard-music.mp3',
       postcardConfig: {
         postcardPoemTitle: null,
         postcardPoemBody: null,
@@ -75,7 +78,6 @@ export default defineComponent({
         surpriseDiscountCode: null,
         surpriseBanners: null,
         flowerImage: null
-
       }
     }
   },
@@ -116,6 +118,7 @@ export default defineComponent({
     togglePreview (postcard) {
       if (postcard && postcard.value) {
         const userPostcardConfig = postcard.value
+        userPostcardConfig.audioSource = this.audioSource
         const user = this.$store.getters['Auth/user']
         this.postcardConfig = {
           postcardPoemTitle: userPostcardConfig.postcardPoemTitle,
@@ -124,7 +127,9 @@ export default defineComponent({
           postcardMessageFrom: user.first_name,
           postcardBackgrounds: userPostcardConfig.postcardBackgrounds,
           patternBackgrounds: userPostcardConfig.patternBackgrounds,
-          flowerImage: userPostcardConfig.flowerImage
+          flowerImage: userPostcardConfig.flowerImage,
+          audioSource: userPostcardConfig.audioSource,
+          entranceBodyMovin: userPostcardConfig.entranceBodyMovin
         }
       }
       this.previewDialog = !this.previewDialog
