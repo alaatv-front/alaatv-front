@@ -42,7 +42,8 @@
     </q-btn>
 
     <q-layout v-if="localOptions.action === 'hamburger_menu'">
-      <q-drawer v-model="drawer"
+      <q-drawer ref="actionDrawer"
+                v-model="drawer"
                 :width="drawerWidth"
                 :overlay="localOptions.drawer.overlay"
                 :breakpoint="localOptions.drawer.breakpoint"
@@ -277,6 +278,9 @@ export default {
   mounted () {
     this.loadConfig()
     this.checkAuth()
+    this.$bus.on('onActionButtonScrollTo', () => {
+      this.drawer = false
+    })
   },
   methods: {
     checkAuth () {
@@ -312,11 +316,14 @@ export default {
     },
     takeAction () {
       if (!this.localOptions.hasAction) {
-        this.$emit('ActionButton')
+        this.$emit('ActionButton', this.localOptions.scrollTo)
       } else if (this.callBack) {
         this.callBack()
       } else if (this.localOptions.action && this.localOptions.action === 'scroll') {
-        this.scrollToElement(this.localOptions.scrollTo)
+        this.$bus.emit('onActionButtonScrollTo')
+        this.$nextTick(() => {
+          this.scrollToElement(this.localOptions.scrollTo)
+        })
       } else if (this.localOptions.action && this.localOptions.action === 'link') {
         this.redirectRoute(this.localOptions.route)
       } else if (this.localOptions.action && this.localOptions.action === 'event') {
@@ -398,6 +405,10 @@ $border: v-bind('localOptions.borderStyle.borderCssString');
 .action-btn-wrapper {
   display: flex;
   align-items: center;
+
+  &:deep(.q-layout) {
+    min-height: 0 !important;
+  }
 
   .action-btn {
     @include media-query-spacings($responsiveSpacing, $sizes);

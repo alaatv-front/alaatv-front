@@ -1,7 +1,5 @@
 <template>
-  <div id="q-app">
-    <router-view :key="$route.path" />
-  </div>
+  <router-view :key="$route.path" />
 </template>
 <script>
 import process from 'process'

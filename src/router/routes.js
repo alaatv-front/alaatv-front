@@ -238,6 +238,32 @@ const routes = [
           {
             path: 'asset',
             redirect: { name: 'UserPanel.MyPurchases' }
+          },
+          {
+            path: 'postcard',
+            name: 'Public.Postcard',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                path: '',
+                name: 'Public.Postcard.Index',
+                // meta: { middlewares: [Authenticated(false)] },
+                component: () => import('pages/Public/Postcard/Index.vue')
+              },
+              {
+                path: ':id',
+                name: 'Public.Postcard.Show',
+                layoutConfig: {
+                  layoutHeader: false,
+                  layoutLeftDrawer: false,
+                  layoutFooter: false
+                },
+                // meta: {
+                //   hasDynamicSetting: true
+                // },
+                component: () => import('pages/Public/Postcard/Show.vue')
+              }
+            ]
           }
         ]
       },
@@ -250,6 +276,16 @@ const routes = [
         },
         component: () => import('layouts/bareLayout.vue'),
         children: [
+          {
+            path: '',
+            name: 'UserPanel.index',
+            redirect: { name: 'UserPanel.Profile' }
+          },
+          {
+            path: 'postcard',
+            name: 'UserPanel.Postcard',
+            redirect: { name: 'Public.Postcard.Index' }
+          },
           {
             // ToDo: check this to remove
             name: 'UserPanel.CompleteInfo',
