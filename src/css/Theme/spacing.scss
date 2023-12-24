@@ -77,25 +77,3 @@ $custom-gutters : (
 
 // Include the mixin in your SCSS
 @include generate-gutters();
-
-
-
-.q-col-gutter-x-lg-lg {
-  margin-left: -$space-6 !important;
-
-  @include media-max-width('md') {
-    margin-left: -$space-5 !important
-  }
-
-  > * {
-    padding-left: $space-6 !important;
-
-    @include media-max-width('md') {
-      padding-left: $space-5 !important;
-    }
-  }
-}
-
-
-
-
