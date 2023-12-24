@@ -1,6 +1,6 @@
 <template>
   <div class="second-form-container">
-    <div class="row q-col-gutter-x-lg-lg">
+    <div class="row q-col-gutter-lg-lg q-col-gutter-md-md">
       <div class="col-12 col-md-6">
         <div class="slogan-inner-wrapper">
           <div class="slogan">
@@ -261,6 +261,7 @@ export default defineComponent({
   background:#FFF;
   border-radius: $radius-4;
   margin-top: $space-12;
+  display: flow-root;
 
   @include media-max-width('lg') {
     margin-top: $space-8;
