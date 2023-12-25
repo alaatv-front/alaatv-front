@@ -5,6 +5,7 @@
       <div v-if="currentForm === 'first'"
            class="col-12">
         <mothers-day-postcard-first-form :postcard="computedPostcard"
+                                         @postcard-request="postcardRequest"
                                          @toggle-preview-dialog="togglePreview"
                                          @toggle-form="toggleForm" />
       </div>
@@ -66,6 +67,7 @@ export default defineComponent({
       postcards: new PostcardList(),
       postcard: new Postcard(),
       currentForm: 'first',
+      apiMethod: 'savePostalCardData',
       loading: false,
       previewDialog: false,
       audioSource: 'https://nodes.alaatv.com/upload/landing/motherday1402/mother-postalcard-music.mp3',
@@ -98,7 +100,7 @@ export default defineComponent({
     }
   },
   methods: {
-    getPostcards () {
+    getPostcards (callback = () => {}) {
       this.loading = true
       APIGateway.postcard.getPostcards({
         study_event_id: 28
@@ -109,6 +111,7 @@ export default defineComponent({
           if (this.postcards.list.length > 0) {
             this.postcard = this.postcards.list[0]
           }
+          callback()
           this.loading = false
         })
         .catch(() => {
@@ -140,6 +143,36 @@ export default defineComponent({
       } else {
         this.getPostcards()
       }
+    },
+    postcardRequest (reqData) {
+      this.getPostcards(() => {
+        this.postcardRequestCallback(reqData)
+      })
+    },
+    getApiMethod () {
+      if (this.postcard.id) {
+        return 'editPostalCard'
+      } else {
+        return 'savePostalCardData'
+      }
+    },
+    postcardRequestCallback (reqData) {
+      this.apiMethod = this.getApiMethod()
+      let data = reqData
+      if (this.apiMethod === 'editPostalCard') {
+        data = {
+          data: reqData,
+          id: this.postcard.id
+        }
+      }
+      APIGateway.postcard[this.apiMethod](data)
+        .then((postcard) => {
+          this.postcard = postcard
+          this.currentForm = 'second'
+        })
+        .catch(() => {
+          this.currentForm = 'first'
+        })
     }
   }
 })
