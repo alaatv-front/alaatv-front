@@ -124,10 +124,8 @@
 </template>
 
 <script>
-
-import { APIGateway } from 'src/api/APIGateway'
 import { Postcard } from 'src/models/Postcard'
-import AuthAndCheckUserInfo from 'src/components/Widgets/MothersDayPostcard/MothersDayPostCardBase/components/MothersDayPostcardFirstForm/AuthAndCheckUserInfo.vue'
+import AuthAndCheckUserInfo from './AuthAndCheckUserInfo.vue'
 
 export default {
   name: 'MothersDayPostcardFirstForm',
@@ -140,7 +138,7 @@ export default {
       default: new Postcard()
     }
   },
-  emits: ['togglePreviewDialog', 'toggleForm'],
+  emits: ['togglePreviewDialog', 'toggleForm', 'postcardCompleted'],
   data () {
     return {
       showAuthCheckDialog: false,
@@ -446,33 +444,15 @@ export default {
       })
     },
     completeCheckUserInfo () {
-      if (this.postcard.value.postcardPoemBody) {
-        const sendData = {
-          data: {
-            value: JSON.stringify(this.localPostcard.value.loadApiResource()),
-            study_event_id: this.studyEventId
-          },
-          id: this.postcard.id
-        }
-        this.requestPostalCard(sendData, 'editPostalCard')
-      } else {
-        const sendData = {
-          value: JSON.stringify(this.localPostcard.value.loadApiResource()),
-          study_event_id: this.studyEventId
-        }
-        this.requestPostalCard(sendData, 'savePostalCardData')
+      const requestData = {
+        value: this.localPostcard.loadApiResource().value,
+        study_event_id: this.studyEventId
       }
+      this.$emit('postcardCompleted', requestData)
     },
     takeAction () {
       this.fillPoemData()
       this.showAuthCheckDialog = true
-    },
-    requestPostalCard (sendData, ApiMethod) {
-      APIGateway.postcard[ApiMethod](sendData)
-        .then((Postcard) => {
-          this.$emit('toggleForm')
-        })
-        .catch(() => {})
     },
     showPreview () {
       this.fillPoemData()
