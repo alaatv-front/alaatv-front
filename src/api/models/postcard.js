@@ -1,6 +1,6 @@
 import { apiV2 } from 'src/boot/axios.js'
 import APIRepository from '../classes/APIRepository.js'
-import { Postcard, PostcardList } from 'src/models/Postcard.js'
+import { Postcard, PostcardList, PostcardValue } from 'src/models/Postcard.js'
 import { Coupon } from 'src/models/Coupon'
 
 export default class PostcardAPI extends APIRepository {
@@ -81,7 +81,10 @@ export default class PostcardAPI extends APIRepository {
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.postcard,
-      data,
+      data: this.getNormalizedSendData({
+        value: new PostcardValue(),
+        study_event_id: null // number
+      }, data),
       resolveCallback: (response) => {
         return new Postcard(response.data.data)
       },
@@ -91,12 +94,15 @@ export default class PostcardAPI extends APIRepository {
     })
   }
 
-  editPostalCard (data) {
+  editPostalCard (data, postcardId) {
     return this.sendRequest({
       apiMethod: 'put',
       api: this.api,
-      request: this.APIAdresses.byId(data.id),
-      data: data.data,
+      request: this.APIAdresses.byId(postcardId),
+      data: this.getNormalizedSendData({
+        value: new PostcardValue(),
+        study_event_id: null // number
+      }, data),
       resolveCallback: (response) => {
         return new Postcard(response.data.data)
       },

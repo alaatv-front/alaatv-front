@@ -5,7 +5,7 @@
       <div v-if="currentForm === 'first'"
            class="col-12">
         <mothers-day-postcard-first-form :postcard="computedPostcard"
-                                         @postcard-request="postcardRequest"
+                                         @postcard-completed="onPostcardCompleted"
                                          @toggle-preview-dialog="togglePreview"
                                          @toggle-form="toggleForm" />
       </div>
@@ -19,12 +19,12 @@
     <q-dialog v-model="previewDialog"
               maximized>
       <div class="top-toolbar">
-        <q-btn class="close-btn"
+        <q-btn v-close-popup
+               class="close-btn"
                color="grey-1"
                icon="ph:x"
                square
-               flat
-               @click="togglePreview" />
+               flat />
       </div>
       <postcard-preview :postcard-poem-title="postcardConfig.postcardPoemTitle"
                         :postcard-poem-body="postcardConfig.postcardPoemBody"
@@ -67,7 +67,6 @@ export default defineComponent({
       postcards: new PostcardList(),
       postcard: new Postcard(),
       currentForm: 'first',
-      apiMethod: 'savePostalCardData',
       loading: false,
       previewDialog: false,
       audioSource: 'https://nodes.alaatv.com/upload/landing/motherday1402/mother-postalcard-music.mp3',
@@ -100,42 +99,46 @@ export default defineComponent({
     }
   },
   methods: {
-    getPostcards (callback = () => {}) {
-      this.loading = true
-      APIGateway.postcard.getPostcards({
-        study_event_id: 28
+    getPostcards () {
+      return new Promise((resolve, reject) => {
+        this.loading = true
+        APIGateway.postcard.getPostcards({
+          study_event_id: 28
+        })
+          .then(postcardList => {
+            this.postcards = postcardList
+            this.currentForm = this.postcards.list.length > 0 ? 'second' : 'first'
+            if (this.postcards.list.length > 0) {
+              this.postcard = this.postcards.list[0]
+            }
+            this.loading = false
+            resolve()
+          })
+          .catch(() => {
+            this.loading = false
+            reject()
+          })
       })
-        .then(postcardList => {
-          this.postcards = postcardList
-          this.currentForm = this.postcards.list.length > 0 ? 'second' : 'first'
-          if (this.postcards.list.length > 0) {
-            this.postcard = this.postcards.list[0]
-          }
-          callback()
-          this.loading = false
-        })
-        .catch(() => {
-          this.loading = false
-        })
     },
     togglePreview (postcard) {
-      if (postcard && postcard.value) {
-        const userPostcardConfig = postcard.value
-        userPostcardConfig.audioSource = this.audioSource
-        const user = this.$store.getters['Auth/user']
-        this.postcardConfig = {
-          postcardPoemTitle: userPostcardConfig.postcardPoemTitle,
-          postcardPoemBody: userPostcardConfig.postcardPoemBody,
-          postcardMessageText: userPostcardConfig.postcardMessageText,
-          postcardMessageFrom: user.first_name,
-          postcardBackgrounds: userPostcardConfig.postcardBackgrounds,
-          patternBackgrounds: userPostcardConfig.patternBackgrounds,
-          flowerImage: userPostcardConfig.flowerImage,
-          audioSource: userPostcardConfig.audioSource,
-          entranceBodyMovin: userPostcardConfig.entranceBodyMovin
-        }
+      if (!postcard || !postcard.value) {
+        return
       }
-      this.previewDialog = !this.previewDialog
+      const userPostcardConfig = postcard.value
+      userPostcardConfig.audioSource = this.audioSource
+      const user = this.$store.getters['Auth/user']
+      this.postcardConfig = {
+        postcardPoemTitle: userPostcardConfig.postcardPoemTitle,
+        postcardPoemBody: userPostcardConfig.postcardPoemBody,
+        postcardMessageText: userPostcardConfig.postcardMessageText,
+        postcardMessageFrom: user.first_name,
+        postcardBackgrounds: userPostcardConfig.postcardBackgrounds,
+        patternBackgrounds: userPostcardConfig.patternBackgrounds,
+        flowerImage: userPostcardConfig.flowerImage,
+        audioSource: userPostcardConfig.audioSource,
+        entranceBodyMovin: userPostcardConfig.entranceBodyMovin
+      }
+      this.previewDialog = true
     },
     toggleForm () {
       if (this.currentForm === 'second') {
@@ -144,28 +147,22 @@ export default defineComponent({
         this.getPostcards()
       }
     },
-    postcardRequest (reqData) {
-      this.getPostcards(() => {
-        this.postcardRequestCallback(reqData)
-      })
+    onPostcardCompleted (reqData) {
+      this.getPostcards()
+        .then(() => {
+          this.postcardRequest(reqData)
+        })
+        .catch(() => {})
     },
-    getApiMethod () {
+    getApiMethod (postcardData, postcardId) {
       if (this.postcard.id) {
-        return 'editPostalCard'
+        return APIGateway.postcard.editPostalCard(postcardData, postcardId)
       } else {
-        return 'savePostalCardData'
+        return APIGateway.postcard.savePostalCardData(postcardData)
       }
     },
-    postcardRequestCallback (reqData) {
-      this.apiMethod = this.getApiMethod()
-      let data = reqData
-      if (this.apiMethod === 'editPostalCard') {
-        data = {
-          data: reqData,
-          id: this.postcard.id
-        }
-      }
-      APIGateway.postcard[this.apiMethod](data)
+    postcardRequest (reqData) {
+      this.getApiMethod(reqData, this.postcard.id)
         .then((postcard) => {
           this.postcard = postcard
           this.currentForm = 'second'

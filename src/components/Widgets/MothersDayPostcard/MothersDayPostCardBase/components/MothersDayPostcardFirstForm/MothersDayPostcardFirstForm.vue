@@ -138,7 +138,7 @@ export default {
       default: new Postcard()
     }
   },
-  emits: ['togglePreviewDialog', 'toggleForm', 'postcardRequest'],
+  emits: ['togglePreviewDialog', 'toggleForm', 'postcardCompleted'],
   data () {
     return {
       showAuthCheckDialog: false,
@@ -445,10 +445,10 @@ export default {
     },
     completeCheckUserInfo () {
       const requestData = {
-        value: JSON.stringify(this.localPostcard.value.loadApiResource()),
+        value: this.localPostcard.loadApiResource().value,
         study_event_id: this.studyEventId
       }
-      this.$emit('postcardRequest', requestData)
+      this.$emit('postcardCompleted', requestData)
     },
     takeAction () {
       this.fillPoemData()
