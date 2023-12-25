@@ -53,6 +53,7 @@ export default defineComponent({
   /* page > 1920 */
   width: 960px;
   box-shadow: 0 2400px 4320px -720px rgba(21, 17, 51, 0.16);
+  max-height: max-content !important;
   .header {
     height: 40px;
     display: flex;
@@ -60,9 +61,6 @@ export default defineComponent({
     :deep(.q-btn) {
 
     }
-  }
-  .player-wrapper {
-    height: 580px;
   }
 
   /* 1440 < page < 1920 */
