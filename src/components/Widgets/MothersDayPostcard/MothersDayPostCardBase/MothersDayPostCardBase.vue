@@ -6,13 +6,13 @@
            class="col-12">
         <mothers-day-postcard-first-form :postcard="computedPostcard"
                                          @postcard-completed="onPostcardCompleted"
-                                         @toggle-preview-dialog="togglePreview"
+                                         @toggle-preview-dialog="showPreview"
                                          @toggle-form="toggleForm" />
       </div>
       <div v-if="currentForm === 'second'"
            class="col-12 col-md-10">
         <mothers-day-postcard-second-form :postcard="computedPostcard"
-                                          @toggle-preview-dialog="togglePreview(this.postcard)"
+                                          @toggle-preview-dialog="showPreview(this.postcard)"
                                           @invoke-edit-form="toggleForm" />
       </div>
     </div>
@@ -120,7 +120,7 @@ export default defineComponent({
           })
       })
     },
-    togglePreview (postcard) {
+    showPreview (postcard) {
       if (!postcard || !postcard.value) {
         return
       }
