@@ -52,7 +52,7 @@ import { APIGateway } from 'src/api/APIGateway.js'
 import { Postcard, PostcardList } from 'src/models/Postcard.js'
 import MothersDayPostcardFirstForm from './components/MothersDayPostcardFirstForm/MothersDayPostcardFirstForm.vue'
 import MothersDayPostcardSecondForm from './components/MothersDayPostcardSecondForm/MothersDayPostcardSecondForm.vue'
-import PostcardPreview from 'src/components/Widgets/MothersDayPostcard/ShowMothersDayPostcard/components/PostcardPreview.vue'
+import PostcardPreview from '../ShowMothersDayPostcard/components/PostcardPreview.vue'
 
 export default defineComponent({
   name: 'MothersDayPostCardBase',

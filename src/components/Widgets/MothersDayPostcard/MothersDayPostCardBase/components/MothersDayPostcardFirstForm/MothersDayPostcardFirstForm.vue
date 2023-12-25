@@ -125,7 +125,7 @@
 
 <script>
 import { Postcard } from 'src/models/Postcard'
-import AuthAndCheckUserInfo from 'src/components/Widgets/MothersDayPostcard/MothersDayPostCardBase/components/MothersDayPostcardFirstForm/AuthAndCheckUserInfo.vue'
+import AuthAndCheckUserInfo from './AuthAndCheckUserInfo.vue'
 
 export default {
   name: 'MothersDayPostcardFirstForm',
