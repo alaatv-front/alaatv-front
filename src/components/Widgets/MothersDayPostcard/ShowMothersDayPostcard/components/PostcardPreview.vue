@@ -194,7 +194,7 @@ export default defineComponent({
     },
     onComplete () {
       this.animateCompleted = true
-      this.$refs.PostcardPreview.playSound()
+      this.playSound()
     }
   }
 })
