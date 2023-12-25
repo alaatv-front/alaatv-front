@@ -223,7 +223,7 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
   overflow: hidden;
 
   .BodyMovin-container {
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     min-width: 100%;
