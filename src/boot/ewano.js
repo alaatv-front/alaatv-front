@@ -45,10 +45,12 @@ export default boot(({ app, router }) => {
       )
     }
 
-    if (isLoadedEwanoLibrary()) {
-      Ewano.overridePaymentResult()
-      Ewano.onWebAppReady()
-    }
+    setTimeout(() => {
+      if (isLoadedEwanoLibrary()) {
+        Ewano.overridePaymentResult()
+        Ewano.onWebAppReady()
+      }
+    }, 2000)
 
     if (!hasEwanoQuery(to) && hasEwanoQuery(from)) {
       to.query.ewano = 1

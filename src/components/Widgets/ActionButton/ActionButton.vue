@@ -41,7 +41,7 @@
            alt="actionBtn">
     </q-btn>
 
-    <q-layout v-if="localOptions.action === 'hamburger_menu' && mounted ">
+    <q-layout v-if="localOptions.action === 'hamburger_menu'">
       <q-drawer ref="actionDrawer"
                 v-model="drawer"
                 :width="drawerWidth"
@@ -110,7 +110,6 @@ export default {
   data () {
     return {
       drawer: false,
-      mounted: false,
       defaultOptions: {
         showSeparator: false,
         color: null,
@@ -279,7 +278,6 @@ export default {
   mounted () {
     this.loadConfig()
     this.checkAuth()
-    this.mounted = true
     this.$bus.on('onActionButtonScrollTo', () => {
       this.drawer = false
     })
@@ -407,6 +405,10 @@ $border: v-bind('localOptions.borderStyle.borderCssString');
 .action-btn-wrapper {
   display: flex;
   align-items: center;
+
+  &:deep(.q-layout) {
+    min-height: 0 !important;
+  }
 
   .action-btn {
     @include media-query-spacings($responsiveSpacing, $sizes);

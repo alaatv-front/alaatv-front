@@ -315,7 +315,7 @@ export default {
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: start;
+      justify-content: flex-start;
       .item-title{
         @include subtitle1;
         color: $blue-grey-8;
