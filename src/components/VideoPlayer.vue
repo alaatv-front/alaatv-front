@@ -35,9 +35,8 @@
          class="over-player-wrapper">
       <q-btn icon-right="isax:menu-1"
              square
-             size="sm"
              color="primary"
-             class="toggleSideBarBtn"
+             class="size-sm toggleSideBarBtn"
              @click="toggleSideBar" />
       <div class="over-player-slot"
            :class="{'show': localOverPlayer, 'hide': !localOverPlayer}"
@@ -923,6 +922,7 @@ export default {
           right: 2500px;
         }
       }
+
     }
   }
 
@@ -936,6 +936,10 @@ export default {
   .video-js {
     overflow: hidden;
     background-color: transparent;
+
+    .q-btn {
+      display: inline-flex;
+    }
 
     &.vjs-ad-playing {
       .vjs-resolution-button {
