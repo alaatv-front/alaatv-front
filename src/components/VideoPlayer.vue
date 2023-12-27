@@ -34,6 +34,7 @@
          ref="overPlayer"
          class="over-player-wrapper">
       <q-btn icon-right="isax:menu-1"
+             square
              size="sm"
              color="primary"
              class="toggleSideBarBtn"
