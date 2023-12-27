@@ -1,12 +1,10 @@
-@import "src/css/Theme/spacing";
-@import "src/css/Theme/colors";
-
 .q-card {
   border-radius: 12px;
   &.main-card {
     box-shadow: $shadow-1;
   }
   &.outline-card {
+    box-shadow: none;
     border: 2px solid $blue-grey-3;
   }
   .q-card__section--vert:first-child {

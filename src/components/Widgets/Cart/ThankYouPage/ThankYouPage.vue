@@ -4,7 +4,7 @@
       <q-skeleton type="circle" />
     </template>
     <template v-else>
-      <template v-if="!isEwanoUser">
+      <template v-if="!loading && !isEwanoUser">
         <div class="cart-image">
           <q-img v-if="hasPaid"
                  src="https://nodes.alaatv.com/aaa/landing/Soalaa/States/thankyou_page.png" />
@@ -48,14 +48,14 @@
 </template>
 
 <script>
-import mixinAuthData from 'src/mixin/AuthData.js'
+import { mixinAuth } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default {
   name: 'ThankYouPage',
-  mixins: [mixinAuthData, mixinEwano],
+  mixins: [mixinAuth, mixinEwano],
   data () {
     return {
       loading: false,

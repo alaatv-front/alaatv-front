@@ -6,6 +6,7 @@
            v-touch-pan.prevent.mouse="moveFab"
            :persistent="true"
            label-position="top"
+           square
            external-label
            color="primary"
            icon="ph:pencil"
@@ -13,12 +14,14 @@
       <template v-if="!pageBuilderEditable">
         <q-fab-action external-label
                       label-position="right"
+                      square
                       color="primary"
                       icon="ph:grid-nine"
                       label="ویرایش صفحه"
                       @click="togglePageBuilderEditable" />
         <q-fab-action external-label
                       label-position="right"
+                      square
                       color="primary"
                       icon="ph:planet"
                       label="ویرایش SEO"
@@ -27,48 +30,56 @@
       <template v-else>
         <q-fab-action external-label
                       label-position="right"
+                      square
                       color="info"
                       icon="ph:eye"
                       label="نمایش کانفیگ صفحه"
                       @click="showPageBuilderShowConfigs" />
         <q-fab-action external-label
                       label-position="right"
+                      square
                       color="info"
                       icon="ph:eye"
                       label="نمایش کانفیگ منو"
                       @click="showMenuItemsConfigsDialog" />
         <q-fab-action external-label
                       label-position="right"
+                      square
                       color="info"
                       icon="ph:eye"
                       label="وارد کردن کانفیگ صفحه"
                       @click="showPageBuilderImportConfigs" />
         <q-fab-action external-label
                       label-position="right"
+                      square
                       color="info"
                       icon="ph:eye"
                       label="وارد کردن کانفیگ منو"
                       @click="showMenuItemsImportConfigDialog" />
         <q-fab-action external-label
                       label-position="right"
+                      square
                       color="info"
                       icon="ph:eye"
                       label="پیشنمایش"
                       @click="togglePageBuilderEditable" />
         <q-fab-action external-label
                       label-position="right"
+                      square
                       color="positive"
                       icon="ph:copy"
                       label="ذخیره تنظیمات صفحه"
                       @click="acceptPageBuilderConfig" />
         <q-fab-action external-label
                       label-position="right"
+                      square
                       color="positive"
                       icon="ph:copy"
                       label="ذخیره تنظیمات منو"
                       @click="acceptMenuItemsConfig" />
         <q-fab-action external-label
                       label-position="right"
+                      square
                       color="negative"
                       icon="ph:x"
                       label="انصراف"
@@ -132,6 +143,7 @@
       <q-card-actions align="right">
         <q-btn v-close-popup
                label="save"
+               square
                color="primary"
                @click="updateSeo" />
         <q-btn v-close-popup

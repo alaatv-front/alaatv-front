@@ -1,6 +1,6 @@
 <template>
   <div class="action-btn-wrapper">
-    <q-btn v-if="!localOptions.rightIcon"
+    <q-btn v-if="!localOptions.rightIcon || (localOptions.profileMode && isUserLogin)"
            :label="localOptions.label"
            :flat="localOptions.flat"
            :disable="disable"
@@ -9,12 +9,22 @@
            :style="localOptions.style"
            class="action-btn"
            @click="takeAction">
-      <q-icon v-if="localOptions.icon"
-              :name="localOptions.icon" />
+      <template v-if=" (localOptions.profileMode && isUserLogin)">
+        <div class="info-name ellipsis">{{user.getFullNameOrPhoneNumber()}}</div>
+        <q-avatar class="user-avatar">
+          <lazy-img :src="user.photo"
+                    :alt="'user photo'"
+                    class="user-img" />
+        </q-avatar>
+      </template>
+      <template v-else>
+        <q-icon v-if="localOptions.icon"
+                :name="localOptions.icon" />
 
-      <img v-if="localOptions.imageSource"
-           :src="localOptions.imageSource"
-           alt="actionBtn">
+        <img v-if="localOptions.imageSource"
+             :src="localOptions.imageSource"
+             alt="actionBtn">
+      </template>
     </q-btn>
     <q-btn v-else
            :label="localOptions.label"
@@ -30,8 +40,10 @@
            :src="localOptions.imageSource"
            alt="actionBtn">
     </q-btn>
+
     <q-layout v-if="localOptions.action === 'hamburger_menu'">
-      <q-drawer v-model="drawer"
+      <q-drawer ref="actionDrawer"
+                v-model="drawer"
                 :width="drawerWidth"
                 :overlay="localOptions.drawer.overlay"
                 :breakpoint="localOptions.drawer.breakpoint"
@@ -76,10 +88,12 @@ import ImageWidget from 'components/Widgets/ImageWidget/ImageWidget.vue'
 import TextWidget from 'components/Widgets/TextWidget/TextWidget.vue'
 import separatorWidget from 'components/Widgets/Separator/Separator.vue'
 import { defineAsyncComponent } from 'vue'
+import LazyImg from 'components/lazyImg.vue'
 
 export default {
   name: 'ActionButton',
   components: {
+    LazyImg,
     ImageWidget,
     TextWidget,
     separatorWidget,
@@ -211,7 +225,11 @@ export default {
           breakpoint: 500
         },
         topSectionWidgets: [],
-        bottomSectionWidgets: []
+        bottomSectionWidgets: [],
+        borderStyle: {
+          borderCssString: '',
+          borderRadiusCssString: ''
+        }
       }
     }
   },
@@ -227,6 +245,9 @@ export default {
         return true
       }
       return this.localOptions.showInAuth ? this.isUserLogin : !this.isUserLogin
+    },
+    actionBtnDisplayAuth () {
+      return this.displayAuth ? 'flex' : 'none'
     },
     shadows () {
       const shadows = []
@@ -257,6 +278,9 @@ export default {
   mounted () {
     this.loadConfig()
     this.checkAuth()
+    this.$bus.on('onActionButtonScrollTo', () => {
+      this.drawer = false
+    })
   },
   methods: {
     checkAuth () {
@@ -292,11 +316,14 @@ export default {
     },
     takeAction () {
       if (!this.localOptions.hasAction) {
-        this.$emit('ActionButton')
+        this.$emit('ActionButton', this.localOptions.scrollTo)
       } else if (this.callBack) {
         this.callBack()
       } else if (this.localOptions.action && this.localOptions.action === 'scroll') {
-        this.scrollToElement(this.localOptions.scrollTo)
+        this.$bus.emit('onActionButtonScrollTo')
+        this.$nextTick(() => {
+          this.scrollToElement(this.localOptions.scrollTo)
+        })
       } else if (this.localOptions.action && this.localOptions.action === 'link') {
         this.redirectRoute(this.localOptions.route)
       } else if (this.localOptions.action && this.localOptions.action === 'event') {
@@ -310,9 +337,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "quasar-ui-q-page-builder/src/components/Component";
+@import "quasar-ui-q-page-builder/src/components/Component.scss";
 
 $shadows: v-bind('shadows');
+$displayAuth: v-bind('actionBtnDisplayAuth');
 $responsiveSpacing: (
   xs: (
     marginTop: v-bind('localOptions.responsiveSpacing.xs.marginTop'),
@@ -365,8 +393,7 @@ $responsiveSpacing: (
     paddingBottom: v-bind('localOptions.responsiveSpacing.xl.paddingBottom'),
   )
 );
-$displayAuth: v-bind('displayAuth ? "initial" :  "none"');
-
+$border: v-bind('localOptions.borderStyle.borderCssString');
 .drawer {
   z-index: 100;
   .drawer-sections {
@@ -379,11 +406,16 @@ $displayAuth: v-bind('displayAuth ? "initial" :  "none"');
   display: flex;
   align-items: center;
 
+  &:deep(.q-layout) {
+    min-height: 0 !important;
+  }
+
   .action-btn {
     @include media-query-spacings($responsiveSpacing, $sizes);
 
     box-shadow: $shadows;
     display: $displayAuth;
+    border: $border;
     border-radius: v-bind('localOptions.borderRadius');
 
     &.fixed-btn {
@@ -419,6 +451,21 @@ $displayAuth: v-bind('displayAuth ? "initial" :  "none"');
       &:deep(.q-focus-helper) {
         display: none;
       }
+    }
+
+    .user-avatar {
+      font-size: 40px;
+      :deep(.lazy-img){
+        border: 1.5px solid #FFC8C7;
+      }
+    }
+
+    .info-name {
+      width: 120px;
+      display: block;
+      vertical-align: middle;
+      margin-right: $space-2;
+      text-align: right;
     }
   }
 

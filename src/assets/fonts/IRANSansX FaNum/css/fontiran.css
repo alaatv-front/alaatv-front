@@ -22,9 +22,9 @@ This set of fonts are used in this project under the license: (.....)
 	font-family: IRANSansXFaNum;
 	font-style: normal;
 	font-weight: 100;
-  src: url('../svg/IRANSansXFaNum-Thin.svg#IRANSansXFaNum-Thin') format('svg');
-	src: url('../Woff/IRANSansXFaNum-Thin.woff') format('woff'),
-	url('../Woff2/IRANSansXFaNum-Thin.woff2') format('woff2');
+  src: url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/svg/IRANSansXFaNum-Thin.svg#IRANSansXFaNum-Thin') format('svg');
+	src: url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/Woff/IRANSansXFaNum-Thin.woff') format('woff'),
+	url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/Woff2/IRANSansXFaNum-Thin.woff2') format('woff2');
   font-display: swap;
 }
 
@@ -32,9 +32,9 @@ This set of fonts are used in this project under the license: (.....)
 	font-family: IRANSansXFaNum;
 	font-style: normal;
 	font-weight: 200;
-  src: url('../svg/IRANSansXFaNum-UltraLight.svg#IRANSansXFaNum-UltraLight') format('svg');
-	src: url('../Woff/IRANSansXFaNum-UltraLight.woff') format('woff'),
-	url('../Woff2/IRANSansXFaNum-UltraLight.woff2') format('woff2');
+  src: url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/svg/IRANSansXFaNum-UltraLight.svg#IRANSansXFaNum-UltraLight') format('svg');
+	src: url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/Woff/IRANSansXFaNum-UltraLight.woff') format('woff'),
+	url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/Woff2/IRANSansXFaNum-UltraLight.woff2') format('woff2');
   font-display: swap;
 }
 
@@ -42,9 +42,9 @@ This set of fonts are used in this project under the license: (.....)
 	font-family: IRANSansXFaNum;
 	font-style: normal;
 	font-weight: 300;
-  src: url('../svg/IRANSansXFaNum-Light.svg#IRANSansXFaNum-Light') format('svg');
-	src: url('../Woff/IRANSansXFaNum-Light.woff') format('woff'),
-	url('../Woff2/IRANSansXFaNum-Light.woff2') format('woff2');
+  src: url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/svg/IRANSansXFaNum-Light.svg#IRANSansXFaNum-Light') format('svg');
+	src: url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/Woff/IRANSansXFaNum-Light.woff') format('woff'),
+	url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/Woff2/IRANSansXFaNum-Light.woff2') format('woff2');
   font-display: swap;
 }
 
@@ -52,9 +52,9 @@ This set of fonts are used in this project under the license: (.....)
 	font-family: IRANSansXFaNum;
 	font-style: normal;
 	font-weight: 500;
-  src: url('../svg/IRANSansXFaNum-Medium.svg#IRANSansXFaNum-Medium') format('svg');
-	src: url('../Woff/IRANSansXFaNum-Medium.woff') format('woff'),
-	url('../Woff2/IRANSansXFaNum-Medium.woff2') format('woff2');
+  src: url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/svg/IRANSansXFaNum-Medium.svg#IRANSansXFaNum-Medium') format('svg');
+	src: url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/Woff/IRANSansXFaNum-Medium.woff') format('woff'),
+	url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/Woff2/IRANSansXFaNum-Medium.woff2') format('woff2');
   font-display: swap;
 }
 
@@ -62,9 +62,9 @@ This set of fonts are used in this project under the license: (.....)
 	font-family: IRANSansXFaNum;
 	font-style: normal;
 	font-weight: 600;
-  src: url('../svg/IRANSansXFaNum-DemiBold.svg#IRANSansXFaNum-DemiBold') format('svg');
-	src: url('../Woff/IRANSansXFaNum-DemiBold.woff') format('woff'),
-	url('../Woff2/IRANSansXFaNum-DemiBold.woff2') format('woff2');
+  src: url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/svg/IRANSansXFaNum-DemiBold.svg#IRANSansXFaNum-DemiBold') format('svg');
+	src: url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/Woff/IRANSansXFaNum-DemiBold.woff') format('woff'),
+	url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/Woff2/IRANSansXFaNum-DemiBold.woff2') format('woff2');
   font-display: swap;
 }
 
@@ -72,8 +72,8 @@ This set of fonts are used in this project under the license: (.....)
 	font-family: IRANSansXFaNum;
 	font-style: normal;
 	font-weight: 800;
-	src: url('../Woff/IRANSansXFaNum-ExtraBold.woff') format('woff'),
-	url('../Woff2/IRANSansXFaNum-ExtraBold.woff2') format('woff2');
+	src: url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/Woff/IRANSansXFaNum-ExtraBold.woff') format('woff'),
+	url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/Woff2/IRANSansXFaNum-ExtraBold.woff2') format('woff2');
   font-display: swap;
 }
 
@@ -81,9 +81,9 @@ This set of fonts are used in this project under the license: (.....)
 	font-family: IRANSansXFaNum;
 	font-style: normal;
 	font-weight: 900;
-  src: url('../svg/IRANSansXFaNum-Black.svg#IRANSansXFaNum-Black') format('svg');
-	src: url('../Woff/IRANSansXFaNum-Black.woff') format('woff'),
-	url('../Woff2/IRANSansXFaNum-Black.woff2') format('woff2');
+  src: url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/svg/IRANSansXFaNum-Black.svg#IRANSansXFaNum-Black') format('svg');
+	src: url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/Woff/IRANSansXFaNum-Black.woff') format('woff'),
+	url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/Woff2/IRANSansXFaNum-Black.woff2') format('woff2');
   font-display: swap;
 }
 
@@ -91,9 +91,9 @@ This set of fonts are used in this project under the license: (.....)
 	font-family: IRANSansXFaNum;
 	font-style: normal;
 	font-weight: bold;
-  src: url('../svg/IRANSansXFaNum-ExtraBold.svg#IRANSansXFaNum-ExtraBold') format('svg');
-	src: url('../Woff/IRANSansXFaNum-Bold.woff') format('woff'),
-	url('../Woff2/IRANSansXFaNum-Bold.woff2') format('woff2');
+  src: url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/svg/IRANSansXFaNum-ExtraBold.svg#IRANSansXFaNum-ExtraBold') format('svg');
+	src: url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/Woff/IRANSansXFaNum-Bold.woff') format('woff'),
+	url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/Woff2/IRANSansXFaNum-Bold.woff2') format('woff2');
   font-display: swap;
 }
 
@@ -101,9 +101,9 @@ This set of fonts are used in this project under the license: (.....)
 	font-family: IRANSansXFaNum;
 	font-style: normal;
 	font-weight: normal;
-  src: url('../svg/IRANSansXFaNum-Regular.svg#IRANSansXFaNum-Regular') format('svg');
-	src: url('../Woff/IRANSansXFaNum-Regular.woff') format('woff'),
-	url('../Woff2/IRANSansXFaNum-Regular.woff2') format('woff2');
+  src: url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/svg/IRANSansXFaNum-Regular.svg#IRANSansXFaNum-Regular') format('svg');
+	src: url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/Woff/IRANSansXFaNum-Regular.woff') format('woff'),
+	url('https://nodes.alaatv.com/upload/fonts/IRANSansX_FaNum/Woff2/IRANSansXFaNum-Regular.woff2') format('woff2');
   font-display: swap;
 }
 

@@ -1,5 +1,4 @@
-@import "src/css/Theme/spacing";
-@import "src/css/Theme/Controls/input";
+@import "src/css/Theme/Controls/input.scss";
 
 .q-select {
   @include q-field-mixin;

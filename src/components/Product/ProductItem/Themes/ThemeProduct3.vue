@@ -201,11 +201,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/radius";
-@import "src/css/Theme/spacing";
-@import "src/css/Theme/colors";
-@import "src/css/Theme/Typography/typography";
-
 $page-size-lg: map-get($sizes, "lg");
 $page-size-md: map-get($sizes, "md");
 $page-size-sm: map-get($sizes, "sm");

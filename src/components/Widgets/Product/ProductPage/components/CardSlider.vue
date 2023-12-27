@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="col-6">
-          <div class="carousel-btns text-right">
+          <div class="carousel-btns flex justify-end">
             <q-btn icon="ph:caret-right"
                    class="carousel-right"
                    text-color="grey-9"
@@ -126,8 +126,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "src/css/Theme/spacing";
-
 .card-slider-container {
   .carousel-btns {
     .carousel-right {

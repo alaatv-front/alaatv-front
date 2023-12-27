@@ -5,7 +5,7 @@
   line-height: normal;
   letter-spacing: -0.48px;
 
-  @media screen and (width <= #{$breakpoint-xs}){
+  @include media-max-width('md') {
     font-size: 14px;
     letter-spacing: -0.42px;
   }
@@ -18,7 +18,7 @@
   line-height: normal;
   letter-spacing: -0.42px;
 
-  @media screen and (width <= #{$breakpoint-xs}){
+  @include media-max-width('md') {
     font-size: 12px;
     letter-spacing: -0.36px;
   }
@@ -31,7 +31,7 @@
   line-height: normal;
   letter-spacing: -0.36px;
 
-  @media screen and (width <= #{$breakpoint-xs}){
+  @include media-max-width('md') {
     font-size: 12px;
     letter-spacing: -0.3px;
   }
@@ -44,7 +44,7 @@
   line-height: normal;
   letter-spacing: -0.3px;
 
-  @media screen and (width <= #{$breakpoint-xs}){
+  @include media-max-width('md') {
     font-size: 10px;
     letter-spacing: -0.3px;
   }
@@ -57,7 +57,7 @@
   line-height: normal;
   letter-spacing: -0.48px;
 
-  @media screen and (width <= #{$breakpoint-xs}){
+  @include media-max-width('md') {
     font-size: 14px;
     letter-spacing: -0.42px;
   }
@@ -70,9 +70,25 @@
   line-height: normal;
   letter-spacing: -0.42px;
 
-  @media screen and (width <= $breakpoint-xs){
+  @include media-max-width('md') {
     font-size: 12px;
   }
+}
+
+@mixin button1 {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.48px;
+}
+
+@mixin button2 {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.42px;
 }
 
 $katexFontSize: 1.2rem;
@@ -105,7 +121,7 @@ h1, .text-h1 {
   font-weight: 800;
   letter-spacing: -1.44px;
 
-  @media screen and (width <= #{$breakpoint-xs}){
+  @include media-max-width('md') {
     font-size: 40px;
     font-weight: 700;
     letter-spacing: -1.2px;
@@ -117,7 +133,7 @@ h2, .text-h2 {
   font-weight: 700;
   letter-spacing: -1.2px;
 
-  @media screen and (width <= #{$breakpoint-xs}){
+  @include media-max-width('md') {
     font-size: 32px;
     font-weight: 700;
     letter-spacing: -0.96px;
@@ -129,7 +145,7 @@ h3, .text-h3 {
   font-weight: 700;
   letter-spacing: -0.96px;
 
-  @media screen and (width <= #{$breakpoint-xs}){
+  @include media-max-width('md') {
     font-size: 24px;
     font-weight: 700;
     letter-spacing: -0.72px;
@@ -141,7 +157,7 @@ h4, .text-h4 {
   font-weight: 700;
   letter-spacing: -0.72px;
 
-  @media screen and (width <= #{$breakpoint-xs}){
+  @include media-max-width('md') {
     font-size: 20px;
     font-weight: 600;
     letter-spacing: -0.6px;
@@ -153,7 +169,7 @@ h5, .text-h5 {
   font-weight: 600;
   letter-spacing: -0.6px;
 
-  @media screen and (width <= #{$breakpoint-xs}){
+  @include media-max-width('md') {
     font-size: 18px;
     font-weight: 600;
     letter-spacing: -0.54px;
@@ -165,7 +181,7 @@ h6, .text-h6 {
   font-weight: 600;
   letter-spacing: -0.54px;
 
-  @media screen and (width <= #{$breakpoint-xs}){
+  @include media-max-width('md') {
     font-size: 16px;
     font-weight: 600;
     letter-spacing: -0.48px;

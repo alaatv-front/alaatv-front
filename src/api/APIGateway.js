@@ -13,6 +13,7 @@ import BlockAPI from 'src/api/models/block.js'
 import OrderAPI from 'src/api/models/order.js'
 import PagesAPI from 'src/api/models/pages.js'
 import EwanoAPI from 'src/api/models/Ewano.js'
+import YaldaAPI from 'src/api/models/Yalda.js'
 import TicketAPI from 'src/api/models/ticket.js'
 import CouponAPI from 'src/api/models/coupon.js'
 import EventsAPI from 'src/api/models/Events.js'
@@ -26,6 +27,8 @@ import VoucherAPI from 'src/api/models/voucher.js'
 import SectionAPI from 'src/api/models/section.js'
 import GatewayAPI from 'src/api/models/gateway.js'
 import VersionAPI from 'src/api/models/Version.js'
+import ContactAPI from 'src/api/models/contact.js'
+import PostcardAPI from 'src/api/models/postcard.js'
 import AbrishamAPI from 'src/api/models/Abrisham.js'
 import ConductorAPI from 'src/api/models/Conductor.js'
 import AttributeAPI from 'src/api/models/attribute.js'
@@ -56,6 +59,7 @@ export const APIGateway = {
   pages: new PagesAPI(),
   ewano: new EwanoAPI(),
   order: new OrderAPI(),
+  yalda: new YaldaAPI(),
   events: new EventsAPI(),
   source: new SourceAPI(),
   coupon: new CouponAPI(),
@@ -66,10 +70,12 @@ export const APIGateway = {
   section: new SectionAPI(),
   gateway: new GatewayAPI(),
   content: new ContentAPI(),
+  contact: new ContactAPI(),
   channel: new ChannelAPI(),
   product: new ProductAPI(),
   version: new VersionAPI(),
   abrisham: new AbrishamAPI(),
+  postcard: new PostcardAPI(),
   conductor: new ConductorAPI(),
   slideShow: new SlideShowAPI(),
   attribute: new AttributeAPI(),

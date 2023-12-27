@@ -193,6 +193,8 @@ export default {
     line-height: 37px;
     letter-spacing: -0.03em;
     color: #65677F;
+    display: flex;
+    justify-content: flex-start;
   }
 
   .label{

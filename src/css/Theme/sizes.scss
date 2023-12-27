@@ -1,3 +1,28 @@
-$radius-15: 15px;
-$radius-10: 10px;
+@import "quasar/src/css/variables.sass";
+
 $mobileFooterHeight: 72px;
+
+@mixin media-max-width($size) {
+  @if map-has-key($sizes, $size) {
+    $width: map-get($sizes, $size);
+    @media (width < #{$width}) {
+      @content;
+    }
+  } @else {
+    @warn "The key `#{$size}` is not in the \$sizes map.";
+  }
+}
+
+
+// Custom media query mixin using the above map
+@mixin media-min-width($size) {
+  @if map-has-key($sizes, $size) {
+    $min-width: map-get($sizes, $size);
+    @media (min-width: $min-width) {
+      @content;
+    }
+  }
+  @else {
+    @warn "No value found in \$breakpoints for '#{$size}'.";
+  }
+}

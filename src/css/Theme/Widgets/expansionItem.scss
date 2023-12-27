@@ -28,7 +28,7 @@ $header-separator-padding-md: $space-5;
     min-height: 64px;
     height: auto;
 
-    @media (max-width: $breakpoint-sm) {
+    @include media-max-width('sm'){
       padding: $space-3 $space-4;
     }
   }
@@ -52,7 +52,7 @@ $header-separator-padding-md: $space-5;
     left: $header-separator-padding-xl;
     width: calc(100% - (2*$header-separator-padding-xl));
 
-    @media screen and (width < #{$breakpoint-md}){
+    @include media-max-width('md'){
       left: $header-separator-padding-md;
       width: calc(100% - (2*$header-separator-padding-md));
     }
@@ -88,7 +88,7 @@ $header-separator-padding-md: $space-5;
   .header-action-section {
     display: flex;
 
-    @media (max-width: $breakpoint-sm) {
+    @include media-max-width('sm'){
       display: none;
     }
 
@@ -104,7 +104,7 @@ $header-separator-padding-md: $space-5;
     margin-left: 0;
     display: none;
 
-    @media (max-width: $breakpoint-sm) {
+    @include media-max-width('sm') {
       display: flex;
     }
     .action-wrapper {

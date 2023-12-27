@@ -604,8 +604,6 @@ export default {
 </style>
 
 <style scoped lang="scss">
-@import 'src/css/Theme/spacing';
-
 .imageModal {
   .imageModal-card {
     width: 320px;

@@ -123,8 +123,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'src/css/Theme/colors';
-
 .donate {
   border-radius: 10px;
   box-shadow: 0 6px 5px rgb(0 0 0 / 3%);

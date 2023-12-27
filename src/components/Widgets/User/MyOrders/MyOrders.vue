@@ -49,7 +49,7 @@
                       :show-search-button="false"
                       @onPageChanged="onPageChange">
           <template v-slot:before-index-table="">
-            <div class="row items-center search-box">
+            <div class="row items-center search-box q-pt-md">
               <div class="col-lg-4 col-xl-4 col-sm-6 col-xs-9 text-left">
                 <q-input v-model="searchInput"
                          placeholder="جستجو..."
@@ -164,7 +164,7 @@ export default {
           optionLabel: 'name',
           multiple: true,
           label: 'وضعیت پرداخت',
-          col: 'filter-option col-sm-6 col-lg-4 col-xs-12'
+          col: 'filter-option col-sm-6 col-lg-3 col-xs-12'
         },
         {
           type: 'date',
@@ -184,7 +184,7 @@ export default {
         {
           type: ActionBtn,
           name: 'ActionBtn',
-          col: 'col-lg-2 col-sm-6 col-xs-12 q-mt-lg'
+          col: 'col-lg-3 col-sm-6 col-xs-12 q-mt-lg'
         }
       ],
       searchInput: '',
@@ -332,44 +332,15 @@ export default {
     },
     async getPaymentStatus () {
       try {
-        const paymentStatus = await APIGateway.order.getPaymentStatus(this.user.id)
-        this.getInput('filterInputs', 'paymentStatuses').options = paymentStatus
+        this.getInput('filterInputs', 'paymentStatuses').options = await APIGateway.order.getPaymentStatus(this.user.id)
         this.loading = false
       } catch (e) {
         this.loading = false
       }
     },
-    filterTable () {
-      // if (!this.$refs.filterSlot) {
-      //   return
-      // }
-      // const inputsData = this.$refs.filterSlot.getValues()
-    },
-    resetData () {
-      if (!this.$refs.orderList) {
-        return
-      }
-
-      this.$refs.orderList.clearData()
-    },
     showDetailsDialog (rowData) {
       this.currentOrder = new Order(rowData)
       this.detailsDialog = true
-    },
-    toggleDetailsCard (rowData) {
-      if (!this.detailsCardToggle[rowData.id]) {
-        this.currentOrder = new Order(rowData)
-      }
-      this.detailsCardToggle[rowData.id] = !this.detailsCardToggle[rowData.id]
-    },
-    setHasUserOrderedValue (rowData) {
-      if (this.firstRowPassed) {
-        return
-      }
-      if (rowData.id) {
-        this.hasUserOrdered = true
-      }
-      this.firstRowPassed = false
     },
     getRemoveMessage (row) {
       const title = row.title
@@ -398,109 +369,6 @@ export default {
         .expand-filter{
           &:deep(.q-item-type){
             display: none;
-          }
-
-          .filter-items{
-            font-weight: 400!important;
-            font-size: 16px;
-            line-height: 25px;
-            letter-spacing: -0.03em;
-            color: #434765;
-            margin-bottom: 30px;
-            position: relative;
-
-            @media screen and (width <= 1439px){
-              margin-bottom: 24px;
-            }
-
-            @media screen and (width <= 599px){
-              margin-bottom: 20px;
-            }
-
-            &:deep(.filter-option){
-              .outsideLabel{
-                //padding-bottom: 8px;
-              }
-
-              @media screen and (width <= 1439px) {
-                order: 3;
-              }
-
-              @media screen and (width <= 599px) {
-                padding-left: 16px;
-                padding-right: 0;
-              }
-            }
-
-            &:deep(.till){
-              padding-top: 40px;
-
-              @media screen and (width <= 599px) {
-                padding: 1px;
-              }
-            }
-
-            &:deep(.since){
-              .outsideLabel{
-                padding-bottom: 8px;
-              }
-
-              &:deep(.q-icon){
-                &::before{
-                  content: '';
-                }
-              }
-
-              @media screen and (width <= 599px) {
-                padding: 1px 1px 8px;
-              }
-
-              @media screen and (width <= 1439px) {
-
-              }
-            }
-
-            &:deep(.formBuilder-actionBtn-ActionBtn){
-              @media screen and (width <= 1439px){
-                text-align: right;
-                order:3
-              }
-            }
-
-            .action-btn{
-              @media screen and (width <= 1439px) {
-                position: absolute;
-                bottom: 0;
-                margin-top:10px;
-              }
-
-              @media screen and (width <= 599px){
-                position: relative;
-              }
-            }
-
-            .select-input{
-
-            }
-
-            .filter-inputs{
-              @media screen and (width <= 1439px) {
-                order: 1;
-              }
-            }
-
-            .filter-btn{
-              font-weight: 600;
-              font-size: 14px;
-              line-height: 22px;
-              letter-spacing: -0.03em;
-              color: #FFF;
-            }
-
-            .reload-icon{
-              color: #6D708B;
-              margin-right: 16px;
-            }
           }
         }
 

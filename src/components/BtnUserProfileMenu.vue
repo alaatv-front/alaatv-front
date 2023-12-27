@@ -1,7 +1,7 @@
 <template>
   <q-btn v-if="isUserLogin"
-         flat
-         class="BtnUserProfileMenu">
+         round
+         class="BtnUserProfileMenu size-lg">
     <lazy-img :src="user.photo"
               :alt="'user photo'"
               width="48"
@@ -91,8 +91,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import 'src/css/Theme/spacing';
-
 .BtnUserProfileMenu {
   //margin-left: 18px;
   width: 48px;

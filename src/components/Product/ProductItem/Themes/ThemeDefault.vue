@@ -189,8 +189,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/Typography/typography";
-
 $productFontFamily: v-bind('localOptions.typography.fontFamily');
 $titleColor: v-bind('localOptions.typography.titleColor');
 $priceColor: v-bind('localOptions.typography.priceColor');
@@ -202,6 +200,7 @@ $actionColor: v-bind('localOptions.typography.actionColor');
 $actionHoverColor: v-bind('localOptions.typography.actionHoverColor');
 $installmentColor: v-bind('localOptions.typography.installmentColor');
 $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBackground');
+$page-size-md: map-get($sizes, "md");
 
 @mixin instalment-label() {
   display: flex;
@@ -225,9 +224,9 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
   height: inherit;
 
   // background-color: #ffffff;
-  border-radius: 20px;
-  padding-top: 20px;
-  margin-top: 45px;
+  border-radius: $radius-6;
+  padding-top: $space-5;
+  margin-top: $space-8;
   font-family: $productFontFamily;
 
   &.vertical {
@@ -286,13 +285,13 @@ $installmentBadgeBackground: v-bind('localOptions.typography.installmentBadgeBac
       }
     }
 
-    @media screen and (width <= 600px) {
+    @include media-max-width('md'){
       display: flex;
-      border-radius: 18px;
+      border-radius: $radius-6;
       padding-top: 0;
-      padding-left: 20px;
-      margin-top: 20px;
-      margin-left: 16px;
+      padding-left: $space-5;
+      margin-top: $space-5;
+      margin-left: $space-4;
 
       .product-discount-badge {
         &.vertical-mode {

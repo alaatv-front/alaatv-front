@@ -61,11 +61,8 @@
                     <q-popup-proxy :offset="[10, 10]"
                                    transition-show="flip-up"
                                    transition-hide="flip-down">
-                      <q-banner dense
-                                rounded>
-                        <share-network :url="pageUrl"
-                                       @on-select="shareGiftCard" />
-                      </q-banner>
+                      <share-network :url="pageUrl"
+                                     @on-select="shareGiftCard" />
                     </q-popup-proxy>
                   </q-btn>
                 </div>
@@ -327,11 +324,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "src/css/Theme/radius";
-@import "src/css/Theme/colors";
-@import "src/css/Theme/spacing";
-@import "src/css/Theme/Typography/typography";
-
 $background-height-xl: 367px;
 $background-height-lg: 454px;
 $background-height-md: auto;
@@ -343,8 +335,8 @@ $page-size-md: map-get($sizes, "md");
 $page-size-sm: map-get($sizes, "sm");
 $top-page-padding-xl: $space-7;
 $top-page-padding-lg: $space-7;
-$top-page-padding-md: $space-6;
-$top-page-padding-sm: $space-5;
+$top-page-padding-md: $space-13;
+$top-page-padding-sm: $space-13;
 $short-description-height-xl: 150px;
 $short-description-height-lg: 220px;
 $short-description-height-md: 144px;
@@ -359,7 +351,7 @@ $paddingTop: v-bind('paddingTop');
   justify-content: center;
   align-items: center;
 
-  @media screen and (width <= #{$page-size-sm}) {
+  @include media-max-width('sm'){
     margin-top: $paddingTop;
   }
 
@@ -375,15 +367,15 @@ $paddingTop: v-bind('paddingTop');
     padding-top: $top-page-padding-xl;
     overflow: hidden;
 
-    @media screen and (width <= #{$page-size-lg}) {
+    @include media-max-width('lg') {
       height: $background-height-lg;
       padding-top: $top-page-padding-lg;
     }
-    @media screen and (width <= #{$page-size-md}) {
+    @include media-max-width('md') {
       height: $background-height-md;
       padding-top: $top-page-padding-md;
     }
-    @media screen and (width <= #{$page-size-sm}) {
+    @include media-max-width('sm') {
       padding-top: $top-page-padding-sm;
     }
 
