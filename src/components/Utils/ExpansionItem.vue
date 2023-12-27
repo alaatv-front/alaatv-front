@@ -1,5 +1,15 @@
 <template>
-  <q-expansion-item :class="{'grey-mode': grey}">
+  <q-expansion-item ref="quasarExpansionItem"
+                    v-model="computedModelValue"
+                    :switch-toggle-side="switchToggleSide"
+                    :class="{'grey-mode': grey, 'separated': separated}"
+                    :duration="duration"
+                    @show="onShow"
+                    @before-show="onBeforeShow"
+                    @after-show="onAfterShow"
+                    @hide="onHide"
+                    @before-hide="onBeforeHide"
+                    @after-hide="onAfterHide">
 
     <template v-slot:header>
       <q-item-section>
@@ -53,6 +63,18 @@ export default defineComponent({
       type: String,
       default: null
     },
+    duration: {
+      type: Number,
+      default: 400
+    },
+    modelValue: {
+      type: Boolean,
+      default: false
+    },
+    switchToggleSide: {
+      type: Boolean,
+      default: false
+    },
     separated: {
       type: Boolean,
       default: true
@@ -70,6 +92,46 @@ export default defineComponent({
       default: false
     }
 
+  },
+  emits: ['Show', 'beforeShow', 'afterShow', 'hide', 'beforeHide', 'afterHide'],
+  computed: {
+    computedModelValue: {
+      get () {
+        return this.modelValue
+      },
+      set (value) {
+        this.$emit('update:modelValue', value)
+      }
+    }
+  },
+  methods: {
+    onShow () {
+      this.$emit('show')
+    },
+    onBeforeShow () {
+      this.$emit('beforeShow')
+    },
+    onAfterShow () {
+      this.$emit('afterShow')
+    },
+    onHide () {
+      this.$emit('hide')
+    },
+    onBeforeHide () {
+      this.$emit('beforeHide')
+    },
+    onAfterHide () {
+      this.$emit('afterHide')
+    },
+    hide () {
+      this.$refs.quasarExpansionItem.hide()
+    },
+    show () {
+      this.$refs.quasarExpansionItem.show()
+    },
+    toggle () {
+      this.$refs.quasarExpansionItem.toggle()
+    }
   }
 })
 </script>
