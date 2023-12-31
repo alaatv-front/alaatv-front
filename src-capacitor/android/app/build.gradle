@@ -1,6 +1,7 @@
 import groovy.json.JsonSlurper
 
 apply plugin: 'com.android.application'
+apply plugin: 'io.sentry.android.gradle'
 
 def configFile = file('../versionConfig.json')
 def config = new JsonSlurper().parseText(configFile.text)
@@ -23,6 +24,9 @@ android {
       // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
       ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
     }
+
+    // Access the SENTRY_DSN environment variable you've defined in the .env file
+    buildConfigField "String", "SENTRY_DSN", "\"${envVars['SENTRY_DSN'].toString()}\""
   }
 
   buildFeatures
@@ -55,8 +59,8 @@ dependencies {
   androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
   implementation project(':capacitor-cordova-android-plugins')
 
-  //lottie
   implementation 'com.airbnb.android:lottie:3.6.1'
+  implementation 'io.sentry:sentry-android:5.5.1'
 }
 
 apply from: 'capacitor.build.gradle'
