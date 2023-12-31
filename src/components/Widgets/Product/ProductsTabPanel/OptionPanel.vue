@@ -10,14 +10,17 @@
           </div>
         </div>
         <div v-for="(item, index) in localOptions.data"
-             :key="index">
-          <q-card class="custom-card">
-            <q-card-section>
-              <q-expansion-item expand-separator>
+             :key="index"
+             class="q-my-md">
+          <q-card class="custom-card option-panel-card">
+            <q-card-section class="option-panel-card-section">
+              <q-expansion-item expand-separator
+                                class="expansion-border">
                 <template v-slot:header>
                   <q-btn color="negative"
                          icon="close"
-                         class="q-mr-sm"
+                         square
+                         class="q-mr-sm size-xs"
                          @click="removeTabPanel(index)" />
                   <div class="expansion-label q-mt-sm full-width">
                     {{item.type}}
@@ -212,13 +215,20 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
+
+:deep(.q-expansion-item) {
+  border: 1px solid #eee;
+}
 :deep(.q-card.custom-card) {
   :not([class^="col"]) {
     box-shadow: none;
   }
 
-  .custom-card {
-    //width: 150px;
+  .option-panel-card {
+    &-section {
+      padding: 0;
+    }
   }
+
 }
 </style>

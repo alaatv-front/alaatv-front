@@ -6,8 +6,12 @@
   "webDir": "www",
   "plugins": {
     "DeepLinks": {
-      "schemes": ["https"],
-      "hosts": ["alaatv.com"],
+      "schemes": [
+        "https"
+      ],
+      "hosts": [
+        "alaatv.com"
+      ],
       "androidPathPrefix": "/",
       "customUrlScheme": "alaatvapp"
     }
