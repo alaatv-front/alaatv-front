@@ -15,23 +15,20 @@
                               :poster="product.intro?.photo"
                               :source="videoSource" />
               </q-card-section>
-              <q-card-section v-else-if="product.photo_wide"
-                              class="q-pa-none">
-                <div class="photo_wide-wrapper">
-                  <lazy-img :src="product.photo_wide"
-                            class="product-image"
-                            width="300"
-                            height="180" />
-                </div>
-              </q-card-section>
-              <q-card-section v-else-if="product.photo">
-                <div class="photo-wrapper">
-                  <lazy-img :src="product.photo"
-                            class="product-image"
-                            width="300"
-                            height="300" />
-                </div>
-              </q-card-section>
+              <div v-else-if="product.photo_wide"
+                   class="photo_wide-wrapper">
+                <lazy-img :src="product.photo_wide"
+                          class="product-image"
+                          width="300"
+                          height="180" />
+              </div>
+              <div v-else-if="product.photo"
+                   class="photo-wrapper">
+                <lazy-img :src="product.photo"
+                          class="product-image"
+                          width="300"
+                          height="300" />
+              </div>
             </q-card>
           </div>
           <div class="col-12 col-md-8 col-lg-9">
@@ -661,6 +658,7 @@ $paddingTop: v-bind('paddingTop');
 
         .video-card {
           border-radius: $radius-6;
+          background: transparent;
           .product-intro-video {
             overflow: hidden;
             border-radius: $radius-3;
