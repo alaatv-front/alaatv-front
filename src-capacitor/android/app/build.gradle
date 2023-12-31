@@ -60,7 +60,7 @@ dependencies {
   implementation project(':capacitor-cordova-android-plugins')
 
   implementation 'com.airbnb.android:lottie:3.6.1'
-  implementation 'io.sentry:sentry-android:5.5.1'
+  implementation 'io.sentry:sentry-android:7.1.0'
 }
 
 apply from: 'capacitor.build.gradle'
