@@ -1,6 +1,6 @@
 <template>
   <div class="option-panel-container">
-    <div class="row q-px-md q-col-gutter-md">
+    <div class="row q-col-gutter-md">
       <div class="col-3">
         <div class="outsideLabel">activeColor</div>
         <q-input v-model="localOptions.options.activeColor" />
@@ -57,7 +57,7 @@
         <q-input v-model="localOptions.options[selectedEvent]" />
       </div>
     </div>
-    <div class="space q-mx-md q-mt-md">
+    <div class="space q-mt-md">
       <q-expansion-item expand-separator
                         label="space">
         <q-card>
