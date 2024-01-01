@@ -685,11 +685,11 @@ const routes = [
             component: () => import('pages/Admin/Settings.vue'),
             breadcrumbs: { title: 'تنظیمات' }
           },
-          {
-            name: 'Admin.StudyPlan',
-            path: 'study-plan',
-            component: () => import('pages/Admin/StudyPlan/StudyPlan.vue')
-          },
+          // {
+          //   name: 'Admin.StudyPlan',
+          //   path: 'study-plan',
+          //   component: () => import('pages/Admin/StudyPlan/StudyPlan.vue')
+          // },
           {
             name: 'Admin.UploadCenter',
             path: 'upload-center',
