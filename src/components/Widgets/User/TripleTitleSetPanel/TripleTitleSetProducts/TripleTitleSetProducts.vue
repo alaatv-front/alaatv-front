@@ -59,10 +59,10 @@
         </div>
       </div>
       <div v-if="!productLoading"
-           class="row">
+           class="row q-col-gutter-md">
         <div v-for="(product,index) in products"
              :key="index"
-             class="col-lg-6 col-12 flex flex-center">
+             class="col-lg-6 col-12">
           <product-item-component :product="product" />
         </div>
       </div>
@@ -201,6 +201,12 @@ export default {
   }
 
   .products-container {
+    padding: 0 $space-4;
+
+    @include media-max-width('md') {
+      padding: 0 $space-2;
+    }
+
     .product-type-selection{
       display: flex;
       justify-content: flex-start;

@@ -4,6 +4,18 @@
 	"bundledWebRuntime": false,
 	"npmClient": "yarn",
 	"webDir": "www",
+	"plugins": {
+		"DeepLinks": {
+			"schemes": [
+				"https"
+			],
+			"hosts": [
+				"alaatv.com"
+			],
+			"androidPathPrefix": "/",
+			"customUrlScheme": "alaatvapp"
+		}
+	},
 	"server": {
 		"androidScheme": "https"
 	}
