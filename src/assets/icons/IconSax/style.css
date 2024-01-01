@@ -2,12 +2,12 @@
 
 @font-face {
   font-family: 'iconsax';
-  src: url('fonts/iconsax.eot');
-  src: url('fonts/iconsax.eot?#iefix') format('embedded-opentype'),
-  url('fonts/iconsax.woff2') format('woff2'),
-  url('fonts/iconsax.woff') format('woff'),
-  url('fonts/iconsax.ttf') format('truetype'),
-  url('fonts/iconsax.svg#iconsax') format('svg');
+  src: url('https://nodes.alaatv.com/upload/fonts/IconSax/fonts/iconsax.eot');
+  src: url('https://nodes.alaatv.com/upload/fonts/IconSax/fonts/iconsax.eot?#iefix') format('embedded-opentype'),
+  url('https://nodes.alaatv.com/upload/fonts/IconSax/fonts/iconsax.woff2') format('woff2'),
+  url('https://nodes.alaatv.com/upload/fonts/IconSax/fonts/iconsax.woff') format('woff'),
+  url('https://nodes.alaatv.com/upload/fonts/IconSax/fonts/iconsax.ttf') format('truetype'),
+  url('https://nodes.alaatv.com/upload/fonts/IconSax/fonts/iconsax.svg#iconsax') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
