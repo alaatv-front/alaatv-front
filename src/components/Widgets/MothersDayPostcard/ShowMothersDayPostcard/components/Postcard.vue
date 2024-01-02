@@ -449,7 +449,7 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
 }
 </style>
 
-<style>
+<style lang="scss">
 .surpriseVideoDialog {
   .q-dialog__inner--minimized > div {
     max-width: none !important;

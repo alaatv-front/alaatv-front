@@ -197,8 +197,9 @@
 </template>
 
 <script>
-import Addresses from 'src/api/Addresses.js'
+// import Addresses from 'src/api/Addresses.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'CartInvoice',
@@ -354,7 +355,8 @@ export default {
     },
 
     submitCode (code) {
-      return this.$axios.post(Addresses.cart.discount.submit, { params: { code } })
+      return APIGateway.cart.discountSubmit({ params: { code } })
+      // return this.$axios.post(Addresses.cart.discount.submit, { params: { code } })
     },
 
     async removeDiscountCode () {
@@ -372,7 +374,8 @@ export default {
     },
 
     removeCode () {
-      return this.$axios.get(Addresses.cart.discount.remove)
+      return APIGateway.cart.discountRemove()
+      // return this.$axios.get(Addresses.cart.discount.remove)
     },
 
     cartReview () {

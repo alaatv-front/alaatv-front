@@ -62,33 +62,34 @@
                               class="invoice-coupon-section invoice-cart-section">
                 <div v-if="localOptions.hasDiscountPercent && !localOptions.dense"
                      class="enter-coupon-code">
-                  <div class="title">{{localOptions.discountPercent}}</div>
-
                   <q-input v-model="couponValue"
                            type="text"
+                           :label="localOptions.discountPercent"
                            placeholder="کد تخفیف خود را وارد کنید"
-                           class="no-title coupon-input"
+                           class="coupon-input"
                            :loading="couponLoading">
                     <template v-slot:append>
                       <q-btn v-if="!isCouponSet"
                              label="ثبت"
                              flat
+                             square
                              :loading="couponLoading"
                              @click="setCoupon" />
                       <q-btn v-else
                              label="حذف"
                              flat
+                             square
                              @click="cancelCoupon" />
                     </template>
                   </q-input>
                 </div>
                 <div v-if="localOptions.hasGiftcard && !localOptions.dense"
-                     class="enter-coupon-code">
-                  <div class="title">{{localOptions.giftcard}}</div>
+                     class="enter-coupon-code q-mt-md q-mb-lg">
                   <q-input v-model="giftCardValue"
                            dir="ltr"
+                           :label="localOptions.giftcard"
                            placeholder="کد کارت هدیه خود را وارد کنید"
-                           class="no-title coupon-input"
+                           class="coupon-input"
                            mask="##-######"
                            :loading="referralCodeLoading"
                            hint="مثال: AT84-27871">
@@ -98,11 +99,13 @@
                       <q-btn v-if="!isReferralSet"
                              label="ثبت"
                              flat
+                             square
                              :loading="referralCodeLoading"
                              @click="submitReferralCode" />
                       <q-btn v-else
                              label="حذف"
                              flat
+                             square
                              @click="cancelReferral" />
                     </template>
                   </q-input>
@@ -686,73 +689,6 @@ export default {
 
               .price {
                 letter-spacing: -0.05em;
-              }
-            }
-          }
-
-          &.invoice-coupon-section {
-            .enter-coupon-code {
-              display: flex;
-              align-items: center;
-              margin-bottom: 20px;
-              justify-content: space-between;
-
-              @media screen and (width <= 1439px) {
-                margin-bottom: 14px;
-              }
-
-              @media screen and (width <= 1023px) {
-                margin-bottom: 16px;
-              }
-
-              @media screen and (width <= 599px) {
-                margin-bottom: 12px;
-              }
-
-              $couponFieldTitle: 72px;
-
-              .title {
-                font-style: normal;
-                font-weight: 400;
-                font-size: 14px;
-                line-height: 25px;
-                letter-spacing: -0.03em;
-                color: #23263B;
-                margin-right: 16px;
-                width: $couponFieldTitle;
-
-                @media screen and (width <= 1439px) {
-                  margin-right: 4px;
-                }
-
-                @media screen and (width <= 1023px) {
-                  margin-right: 36px;
-                }
-
-                @media screen and (width <= 599px) {
-                  font-size: 14px;
-                  margin-right: 14px;
-                }
-              }
-
-              .coupon-input {
-                width: calc( 100% - #{$couponFieldTitle} );
-
-                @media screen and (width <= 1023px) {
-                  width: 100%;
-                }
-
-                &:deep(.q-btn .q-btn__content) {
-                  font-style: normal;
-                  font-weight: 400;
-                  font-size: 16px;
-                  line-height: 22px;
-                  color: #23263B;
-
-                  @media screen and (width <= 1439px) {
-                    font-size: 14px;
-                  }
-                }
               }
             }
           }

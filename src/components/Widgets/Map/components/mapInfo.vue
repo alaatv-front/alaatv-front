@@ -46,7 +46,8 @@
 </template>
 
 <script>
-import MapItemsResponse from 'src/components/Widgets/Map/MapItemsResponse.js'
+// import MapItemsResponse from 'src/components/Widgets/Map/MapItemsResponse.js'
+const MapItemsResponse = { data: [] }
 
 export default {
   name: 'mapInfo.vue',
