@@ -27,19 +27,12 @@ export default {
   mixins: [mixinAuth, mixinTripleTitleSet],
   data: () => ({
     user: new User(),
-    activePage: null
+    activePage: null,
+    logoImage: null
   }),
   computed: {
     hostName () {
       return this.domainSameWithAppDomain ? window.location.host : 'else'
-    },
-    logoImage () {
-      const logoImages = {
-        'alaatv.com': this.event.logo,
-        'ehsan.alaatv.com': 'https://nodes.alaatv.com/upload/alaaPages/2024-01/boniad-ehsan-logo1704111571.png',
-        else: null
-      }
-      return logoImages[this.hostName]
     }
   },
   mounted () {
@@ -47,6 +40,7 @@ export default {
     if (window.innerWidth < 1024) {
       this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
     }
+    this.setLogoImage()
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
@@ -54,6 +48,14 @@ export default {
     },
     logOut () {
       this.$store.dispatch('Auth/logOut')
+    },
+    setLogoImage () {
+      const logoImages = {
+        'alaatv.com': this.event.logo,
+        'ehsan.alaatv.com': 'https://nodes.alaatv.com/upload/alaaPages/2024-01/boniad-ehsan-logo1704111571.png',
+        else: null
+      }
+      return logoImages[this.hostName]
     }
   }
 }
