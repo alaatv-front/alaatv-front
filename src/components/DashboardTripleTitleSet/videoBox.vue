@@ -8,8 +8,7 @@
                                 paginate: false,
                                 urlParam: 'contentId',
                                 noRequestMode: true,
-                                content,
-                                set
+                                content
                               }"
                               @time-updated="updateTime" />
         <div v-else

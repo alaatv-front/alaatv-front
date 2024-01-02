@@ -106,10 +106,9 @@ export default {
   },
   watch: {
     content: {
-      handler (newVal, oldVal) {
+      handler (newVal) {
         this.playerKey = Date.now()
         this.currentContent = newVal
-
         if (!this.currentContent.can_user_use_timepoint) {
           this.currentContent.timepoints.removeAllTimes()
         }
