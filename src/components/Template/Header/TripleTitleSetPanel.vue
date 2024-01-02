@@ -7,7 +7,7 @@
       </router-link>
     </div>
     <div class="header-box full-height flex justify-center items-center">
-      <q-img :src="event.logo"
+      <q-img :src="logoImage"
              class="header-logo-img" />
     </div>
     <div class="profile-box flex items-center">
@@ -29,6 +29,19 @@ export default {
     user: new User(),
     activePage: null
   }),
+  computed: {
+    hostName () {
+      return this.domainSameWithAppDomain ? window.location.host : 'else'
+    },
+    logoImage () {
+      const logoImages = {
+        'alaatv.com': this.event.logo,
+        'ehsan.alaatv.com': 'https://nodes.alaatv.com/upload/alaaPages/2024-01/boniad-ehsan-logo1704111571.png',
+        else: null
+      }
+      return logoImages[this.hostName]
+    }
+  },
   mounted () {
     this.loadAuthData()
     if (window.innerWidth < 1024) {
