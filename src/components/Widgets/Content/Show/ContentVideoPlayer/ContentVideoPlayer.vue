@@ -59,10 +59,14 @@ export default {
     }
   },
   watch: {
-    options () {
+    options (newVal, oldVal) {
+      if (newVal.content.id === oldVal.content.id) {
+        this.getSetByRequest()
+        return
+      }
       this.loadContent()
     },
-    'data.id': function () {
+    'data.id': function (newVal, oldVal) {
       this.loadContent()
     }
   },

@@ -8,7 +8,8 @@
                                 paginate: false,
                                 urlParam: 'contentId',
                                 noRequestMode: true,
-                                content
+                                content,
+                                set
                               }"
                               @time-updated="updateTime" />
         <div v-else
@@ -102,43 +103,9 @@
         <div v-for="(item,index) in socialMediaList"
              :key="index">
           <q-btn flat
+                 square
                  :icon="item.icon || undefined"
-                 @click="share(item.name)">
-            <div v-if="item.name === 'whatsapp'"
-                 style="height:24px;">
-              <svg xmlns="http://www.w3.org/2000/svg"
-                   width="24"
-                   height="24"
-                   shape-rendering="geometricPrecision"
-                   text-rendering="geometricPrecision"
-                   image-rendering="optimizeQuality"
-                   fill-rule="evenodd"
-                   clip-rule="evenodd"
-                   viewBox="0 0 640 640"><path d="M546.704 91.89C486.526 31.584 406.482-1.582 321.229-1.582 145.609-1.583 2.67 141.368 2.67 317.118c0 56.139 14.705 111.05 42.567 159.297L.001 641.595l168.959-44.34c46.595 25.382 99.013 38.835 152.222 38.835h.13C496.944 636.09 640 493.14 640 317.401c0-85.182-33.166-165.179-93.344-225.463l.047-.047zM321.323 582.315c-47.599 0-94.218-12.827-134.895-36.957l-9.697-5.788-100.265 26.257 26.776-97.726-6.272-10.04C70.312 415.965 56.4 367.244 56.4 317.13c0-146.082 118.832-264.96 265.066-264.96 70.713 0 137.328 27.65 187.302 77.622 49.996 50.127 77.493 116.588 77.493 187.42-.118 146.187-118.95 265.066-264.96 265.066l.024.036zM466.541 383.85c-7.913-4.028-47.115-23.233-54.39-25.89-7.276-2.658-12.58-4.028-17.977 4.027-5.268 7.914-20.587 25.89-25.252 31.265-4.666 5.28-9.284 6.035-17.197 2.008-7.914-4.028-33.674-12.426-64.064-39.568-23.634-21.095-39.662-47.221-44.328-55.134-4.665-7.914-.52-12.308 3.532-16.193 3.661-3.544 7.925-9.284 11.941-13.95 4.028-4.665 5.28-7.925 7.925-13.31 2.658-5.28 1.359-9.946-.637-13.95-2.008-4.015-17.977-43.217-24.485-59.185-6.39-15.603-13.063-13.43-17.965-13.701-4.665-.237-9.945-.237-15.2-.237-5.257 0-13.95 1.996-21.225 9.933-7.276 7.914-27.898 27.26-27.898 66.45 0 39.201 28.512 77.009 32.516 82.407 4.027 5.267 56.162 85.784 136.029 120.238 18.98 8.161 33.803 13.063 45.355 16.854 19.098 6.024 36.425 5.15 50.126 3.13 15.32-2.256 47.115-19.229 53.788-37.831 6.662-18.615 6.662-34.536 4.666-37.831-1.89-3.544-7.158-5.504-15.201-9.58l-.06.048z" /></svg>
-            </div>
-            <div v-if="item.name === 'twitter'"
-                 style="height:24px;"><svg xmlns="http://www.w3.org/2000/svg"
-                                           viewBox="0 0 3333 3333"
-                                           width="24"
-                                           height="24"
-                                           shape-rendering="geometricPrecision"
-                                           text-rendering="geometricPrecision"
-                                           image-rendering="optimizeQuality"
-                                           fill-rule="evenodd"
-                                           clip-rule="evenodd"><path d="M1667 0c920 0 1667 746 1667 1667 0 920-746 1667-1667 1667C747 3334 0 2588 0 1667 0 747 746 0 1667 0zm900 1108c-66 30-137 49-212 58 76-46 135-118 162-204-71 42-151 73-234 90-68-72-163-116-270-116-204 0-369 165-369 369 0 29 3 57 9 84-307-16-579-162-761-386-33 56-50 120-50 186 0 128 65 241 164 307-61-2-117-19-167-46v5c0 179 127 328 296 362-31 8-64 13-97 13-24 0-47-2-70-7 47 147 183 253 345 257-127 99-285 158-459 158-30 0-59-2-88-5 164 105 358 166 566 166 679 0 1051-563 1051-1051 0-16 0-32-1-48 72-52 135-117 184-191z" /></svg></div>
-            <div v-if="item.name === 'linkedin'"
-                 style="height:24px;">
-              <svg xmlns="http://www.w3.org/2000/svg"
-                   width="24"
-                   height="24"
-                   viewBox="0 0 3333 3333"
-                   shape-rendering="geometricPrecision"
-                   text-rendering="geometricPrecision"
-                   image-rendering="optimizeQuality"
-                   fill-rule="evenodd"
-                   clip-rule="evenodd"><path d="M1667 0c920 0 1667 746 1667 1667 0 920-746 1667-1667 1667C747 3334 0 2588 0 1667 0 747 746 0 1667 0zm-215 1336h342v175h5c48-86 164-175 338-175 361 0 428 225 428 517v596h-357v-528c0-126-3-288-186-288-186 0-214 137-214 279v537h-357V1336zm-247-309c0 102-83 186-186 186-102 0-186-83-186-186 0-102 83-186 186-186 102 0 186 83 186 186zm-371 309h371v1113H834V1336z" /></svg>
-            </div>
-          </q-btn>
+                 @click="share(item.name)" />
         </div>
       </q-card-section>
     </q-card>
@@ -216,27 +183,27 @@ export default {
       downloadVideo: false,
       socialMediaList: [
         {
-          icon: '',
+          icon: 'ph:whatsapp-logo',
           name: 'whatsapp'
         },
         {
-          icon: 'mail',
+          icon: 'ph:envelope-simple',
           name: 'mail'
         },
         {
-          icon: '',
+          icon: 'ph:linkedin-logo',
           name: 'linkedin'
         },
         {
-          icon: '',
+          icon: 'ph:twitter-logo',
           name: 'twitter'
         },
         {
-          icon: 'facebook',
+          icon: 'ph:facebook-logo',
           name: 'facebook'
         },
         {
-          icon: 'telegram',
+          icon: 'ph:telegram-logo',
           name: 'telegram'
         }
       ],
