@@ -26,7 +26,7 @@ export default {
     },
     title: {
       type: String,
-      default: ''
+      default: null
     }
   },
   data () {
@@ -79,13 +79,13 @@ export default {
     },
     getShareLink (socialMedia) {
       if (socialMedia === 'telegram') {
-        return 'https://telegram.me/share/url?url=' + this.url + '&text=' + this.title
+        return 'https://telegram.me/share/url?url=' + this.url + (this.title ? ('&text=' + this.title) : '')
       } else if (socialMedia === 'whatsapp') {
         return 'https://web.whatsapp.com/send?l=en&text=' + this.url
       } else if (socialMedia === 'mail') {
-        return 'mailto:info@alaatv.com?&subject=' + this.title + '&body=' + this.url
+        return 'mailto:info@alaatv.com?' + (this.title ? ('&subject=' + this.title) : '') + '&body=' + this.url
       } else if (socialMedia === 'linkedin') {
-        return 'https://www.linkedin.com/shareArticle?mini=true&url=' + this.url + '&title=' + this.title + '&summary=&source=alaatv.com'
+        return 'https://www.linkedin.com/shareArticle?mini=true&url=' + this.url + (this.title ? ('&title=' + this.title) : '') + '&summary=&source=alaatv.com'
       } else if (socialMedia === 'pinterest') {
         return 'https://pinterest.com/pin/create/button/?url=' + this.url + '&media=&description=alaatv.com'
       } else if (socialMedia === 'twitter') {
