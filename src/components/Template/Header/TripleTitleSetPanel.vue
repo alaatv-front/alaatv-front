@@ -55,7 +55,7 @@ export default {
         'ehsan.alaatv.com': 'https://nodes.alaatv.com/upload/alaaPages/2024-01/boniad-ehsan-logo1704111571.png',
         else: null
       }
-      return logoImages[this.hostName]
+      this.logoImage = logoImages[this.hostName]
     }
   }
 }
