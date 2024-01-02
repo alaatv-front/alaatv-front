@@ -30,11 +30,6 @@ export default {
     activePage: null,
     logoImage: null
   }),
-  computed: {
-    hostName () {
-      return this.domainSameWithAppDomain ? window.location.host : 'else'
-    }
-  },
   mounted () {
     this.loadAuthData()
     if (window.innerWidth < 1024) {
@@ -50,12 +45,13 @@ export default {
       this.$store.dispatch('Auth/logOut')
     },
     setLogoImage () {
+      const hostName = this.domainSameWithAppDomain ? window.location.host : 'else'
       const logoImages = {
         'alaatv.com': this.event.logo,
         'ehsan.alaatv.com': 'https://nodes.alaatv.com/upload/alaaPages/2024-01/boniad-ehsan-logo1704111571.png',
         else: null
       }
-      this.logoImage = logoImages[this.hostName]
+      this.logoImage = logoImages[hostName]
     }
   }
 }
