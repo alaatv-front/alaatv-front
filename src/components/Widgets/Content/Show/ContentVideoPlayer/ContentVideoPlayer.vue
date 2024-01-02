@@ -66,7 +66,7 @@ export default {
       }
       this.loadContent()
     },
-    'data.id': function (newVal, oldVal) {
+    'data.id': function () {
       this.loadContent()
     }
   },

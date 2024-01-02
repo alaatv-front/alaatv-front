@@ -2,14 +2,14 @@
   <div>
     <q-btn v-for="network in networks"
            :key="network.name"
-           rounded
+           round
            dense
            flat
            color="grey-10"
            :icon="network.icon || undefined"
            class="size-sm q-mx-xs"
            @click="onClickItem(network)">
-      <q-tooltip>
+      <q-tooltip :offset="[10, 30]">
         {{ network.tooltip }}
       </q-tooltip>
     </q-btn>
@@ -21,6 +21,10 @@ export default {
   name: 'ShareNetwork',
   props: {
     url: {
+      type: String,
+      default: ''
+    },
+    title: {
       type: String,
       default: ''
     }
@@ -75,15 +79,15 @@ export default {
     },
     getShareLink (socialMedia) {
       if (socialMedia === 'telegram') {
-        return 'https://telegram.me/share/url?url=' + this.url
+        return 'https://telegram.me/share/url?url=' + this.url + '&text=' + this.title
       } else if (socialMedia === 'whatsapp') {
         return 'https://web.whatsapp.com/send?l=en&text=' + this.url
       } else if (socialMedia === 'mail') {
-        return 'mailto:info@alaatv.com?&subject=' + this.url
+        return 'mailto:info@alaatv.com?&subject=' + this.title + '&body=' + this.url
       } else if (socialMedia === 'linkedin') {
-        return 'https://www.linkedin.com/shareArticle?mini=true&url=' + this.url
+        return 'https://www.linkedin.com/shareArticle?mini=true&url=' + this.url + '&title=' + this.title + '&summary=&source=alaatv.com'
       } else if (socialMedia === 'pinterest') {
-        return 'https://pinterest.com/pin/create/button/?url=' + this.url
+        return 'https://pinterest.com/pin/create/button/?url=' + this.url + '&media=&description=alaatv.com'
       } else if (socialMedia === 'twitter') {
         return 'https://twitter.com/home?status=' + this.url
       } else if (socialMedia === 'facebook') {

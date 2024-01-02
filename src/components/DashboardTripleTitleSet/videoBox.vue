@@ -77,14 +77,22 @@
             </q-btn>
             <q-btn flat
                    square
-                   icon="ph:share-network"
-                   @click="socialMediaDialog = !socialMediaDialog">
+                   icon="ph:share-network">
               <q-tooltip anchor="top middle"
                          self="bottom middle"
                          :offset="[10, 10]">
-                اشتراک گذاری
+                اشتراک گزاری
               </q-tooltip>
-              <!--              <i class="fi fi-rr-share icon " />-->
+              <q-popup-proxy :offset="[10, 10]"
+                             transition-show="flip-up"
+                             transition-hide="flip-down">
+                <q-banner dense
+                          rounded>
+                  <share-network :url="content.url.web"
+                                 :title="content.title"
+                                 @on-select="shareVideo" />
+                </q-banner>
+              </q-popup-proxy>
             </q-btn>
             <bookmark :is-favored="contentFavored"
                       :flat="true"
@@ -95,20 +103,6 @@
       </div>
     </div>
   </div>
-  <q-dialog v-model="socialMediaDialog"
-            position="bottom">
-    <q-card style="width: 500px">
-      <q-card-section class="flex items-center justify-around">
-        <div v-for="(item,index) in socialMediaList"
-             :key="index">
-          <q-btn flat
-                 square
-                 :icon="item.icon || undefined"
-                 @click="share(item.name)" />
-        </div>
-      </q-card-section>
-    </q-card>
-  </q-dialog>
   <q-dialog v-model="downloadVideo"
             full-width
             position="bottom">
@@ -138,15 +132,14 @@
 import { Content } from 'src/models/Content.js'
 import { mixinAuth } from 'src/mixin/Mixins.js'
 import Bookmark from 'src/components/Bookmark.vue'
-import shareSocial from 'assets/js/shareSocialMedia.js'
+import ShareNetwork from 'src/components/ShareNetwork.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
-
 import ContentVideoPlayer from 'src/components/Widgets/Content/Show/ContentVideoPlayer/ContentVideoPlayer.vue'
 
 export default {
   name: 'VideoBox',
-  components: { ProductItem, Bookmark, ContentVideoPlayer },
+  components: { ProductItem, Bookmark, ContentVideoPlayer, ShareNetwork },
   mixins: [mixinAuth],
 
   props: {
@@ -178,34 +171,7 @@ export default {
       markedRatios: [
         { ratio: 90, hasSeen: false }
       ],
-      socialMediaDialog: false,
       downloadVideo: false,
-      socialMediaList: [
-        {
-          icon: 'ph:whatsapp-logo',
-          name: 'whatsapp'
-        },
-        {
-          icon: 'ph:envelope-simple',
-          name: 'mail'
-        },
-        {
-          icon: 'ph:linkedin-logo',
-          name: 'linkedin'
-        },
-        {
-          icon: 'ph:twitter-logo',
-          name: 'twitter'
-        },
-        {
-          icon: 'ph:facebook-logo',
-          name: 'facebook'
-        },
-        {
-          icon: 'ph:telegram-logo',
-          name: 'telegram'
-        }
-      ],
       videoDuration: null,
       lastSeenPercentage: 0
     }
@@ -276,18 +242,6 @@ export default {
     setVideoDuration (data) {
       this.videoDuration = data
     },
-    share (name) {
-      const url = shareSocial.getShareLink(
-        {
-          link: this.content.url.web,
-          title: this.content.title
-        }, name)
-      open(url)
-    },
-
-    show () {
-    },
-
     clickSeenButton () {
       this.$emit('toggle-video-status')
       this.markedRatios.forEach(markedRatio => {
@@ -296,34 +250,9 @@ export default {
         }
       })
     },
-
     toggleFavorite (val) {
       this.$emit('toggleFavorite', val)
     },
-
-    getShareLink (content, socialMedia) {
-      if (socialMedia === 'telegram') {
-        return 'https://telegram.me/share/url?url=' + content.url.web + '&text=' + content.title
-      } else if (socialMedia === 'whatsapp') {
-        return 'https://web.whatsapp.com/send?l=en&text=' + content.url.web
-      } else if (socialMedia === 'mail') {
-        return 'mailto:info@alaatv.com?&subject=' + content.title + '&body=' + content.url.web
-      } else if (socialMedia === 'linkedin') {
-        return 'https://www.linkedin.com/shareArticle?mini=true&url=' + content.url.web + '&title=' + content.title + '&summary=&source=alaatv.com'
-      } else if (socialMedia === 'pinterest') {
-        return 'https://pinterest.com/pin/create/button/?url=' + content.url.web + '&media=&description=alaatv.com'
-      } else if (socialMedia === 'twitter') {
-        return 'https://twitter.com/home?status=' + content.url.web
-      } else if (socialMedia === 'facebook') {
-        return 'https://www.facebook.com/sharer/sharer.php?u=' + content.url.web
-      }
-    },
-
-    openUrl (content, socialMedia) {
-      const url = this.getShareLink(content, socialMedia)
-      open(url)
-    },
-
     setContentSources (sources) {
       const customSources = []
       sources.forEach(source => {
@@ -352,11 +281,9 @@ export default {
       })
       this.timePoints = customTimePoints
     },
-
     changeVideoStatusToSeen (timeData) {
       this.saveProgress(timeData.watchedPercentage, timeData)
     },
-
     saveProgress (progressPercent) {
       let reachedProgressPercent = 0
       this.markedRatios.forEach(markedRatio => {
@@ -380,9 +307,11 @@ export default {
       //   }
       // }
     },
-
     bookmarkPostIsFavored (timeStampData) {
       this.$emit('bookmarkTimestamp', timeStampData)
+    },
+    shareVideo ({ name, url }) {
+      window.open(url, '_blank')
     }
   }
 
