@@ -11,8 +11,7 @@
             <q-card class="video-card">
               <q-card-section v-if="product.intro?.photo"
                               class="product-intro-video">
-                <video-player :key="playerKey"
-                              :poster="product.intro?.photo"
+                <video-player :poster="product.intro?.photo"
                               :source="videoSource" />
               </q-card-section>
               <div v-else-if="product.photo_wide"
