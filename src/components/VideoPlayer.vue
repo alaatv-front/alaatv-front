@@ -52,18 +52,16 @@ import videojs from 'video.js'
 import 'videojs-hls-quality-selector'
 import videojsBrand from 'videojs-brand'
 import fa from 'video.js/dist/lang/fa.json'
+import { Capacitor } from '@capacitor/core'
 import { APIGateway } from 'src/api/APIGateway.js'
-import { mixinAbrisham } from 'src/mixin/Mixins.js'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import Fullscreen from 'src/assets/js/AndroidPluginRegister.js'
 import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
-import { Capacitor } from '@capacitor/core'
 // https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8 (Live)
 // https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
 
 export default {
   name: 'VideoPlayer',
-  mixins: [mixinAbrisham],
   props: {
     hasVast: {
       type: Boolean,
