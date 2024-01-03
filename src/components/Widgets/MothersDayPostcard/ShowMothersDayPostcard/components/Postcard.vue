@@ -1,6 +1,6 @@
 <template>
   <div class="Postcard">
-    <div v-if="surpriseDiscountCode && false"
+    <div v-if="surpriseDiscountCode"
          class="action-area"
          @click="showSurpriseVideo">
       <webm-player :loop="true"
