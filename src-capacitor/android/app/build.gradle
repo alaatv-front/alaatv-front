@@ -1,7 +1,7 @@
 import groovy.json.JsonSlurper
 
 apply plugin: 'com.android.application'
-apply plugin: 'io.sentry.android.gradle'
+// apply plugin: 'io.sentry.android.gradle'
 
 def configFile = file('../versionConfig.json')
 def config = new JsonSlurper().parseText(configFile.text)
@@ -25,8 +25,8 @@ android {
       ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
     }
 
-    // Access the SENTRY_DSN environment variable you've defined in the .env file
-    buildConfigField "String", "SENTRY_DSN", "\"${envVars['SENTRY_DSN'].toString()}\""
+//     // Access the SENTRY_DSN environment variable you've defined in the .env file
+//     buildConfigField "String", "SENTRY_DSN", "\"${envVars['SENTRY_DSN'].toString()}\""
   }
 
   buildFeatures
@@ -60,7 +60,7 @@ dependencies {
   implementation project(':capacitor-cordova-android-plugins')
 
   implementation 'com.airbnb.android:lottie:3.6.1'
-  implementation 'io.sentry:sentry-android:7.1.0'
+//   implementation 'io.sentry:sentry-android:7.1.0'
 }
 
 apply from: 'capacitor.build.gradle'

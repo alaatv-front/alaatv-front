@@ -7,8 +7,8 @@ import androidx.core.content.ContextCompat;
 import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.community.database.sqlite.CapacitorSQLitePlugin;
 
-import io.sentry.Sentry;
-import io.sentry.android.core.SentryAndroid;
+// import io.sentry.Sentry;
+// import io.sentry.android.core.SentryAndroid;
 
 
 public class MainActivity extends BridgeActivity {
@@ -19,12 +19,12 @@ public class MainActivity extends BridgeActivity {
     registerPlugin(FullscreenPlugin.class);
     super.onCreate(savedInstanceState);
 
-    SentryAndroid.init(this, options -> {
-        options.setDsn(BuildConfig.SENTRY_DSN); // Retrieve the DSN from BuildConfig
-        // Here, you can set release name, environment, etc.
-        // options.setRelease("your release version here");
-        // options.setEnvironment("your environment here");
-    });
+//     SentryAndroid.init(this, options -> {
+//         options.setDsn(BuildConfig.SENTRY_DSN); // Retrieve the DSN from BuildConfig
+//         // Here, you can set release name, environment, etc.
+//         // options.setRelease("your release version here");
+//         // options.setEnvironment("your environment here");
+//     });
     setStatusBarColor();
   }
 
