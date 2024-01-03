@@ -7,7 +7,7 @@
       </router-link>
     </div>
     <div class="header-box full-height flex justify-center items-center">
-      <q-img :src="event.logo"
+      <q-img :src="logoImage"
              class="header-logo-img" />
     </div>
     <div class="profile-box flex items-center">
@@ -27,13 +27,15 @@ export default {
   mixins: [mixinAuth, mixinTripleTitleSet],
   data: () => ({
     user: new User(),
-    activePage: null
+    activePage: null,
+    logoImage: null
   }),
   mounted () {
     this.loadAuthData()
     if (window.innerWidth < 1024) {
       this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
     }
+    this.setLogoImage()
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
@@ -41,6 +43,15 @@ export default {
     },
     logOut () {
       this.$store.dispatch('Auth/logOut')
+    },
+    setLogoImage () {
+      const hostName = this.domainSameWithAppDomain ? window.location.host : 'else'
+      const logoImages = {
+        'alaatv.com': this.event.logo,
+        'ehsan.alaatv.com': 'https://nodes.alaatv.com/upload/alaaPages/2024-01/boniad-ehsan-logo1704111571.png',
+        else: null
+      }
+      this.logoImage = logoImages[hostName]
     }
   }
 }
