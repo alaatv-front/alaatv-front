@@ -275,6 +275,10 @@ export default defineComponent({
       })
     },
     handleScroll () {
+      if (!this.$refs.headerSticky) {
+        this.isSticky = false
+        return
+      }
       this.isSticky = this.$refs.headerSticky.offsetTop <= 88
     },
     scrollTo (refName) {
