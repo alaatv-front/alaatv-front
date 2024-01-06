@@ -228,7 +228,13 @@ export default {
     },
     addScrollEventListener () {
       window.addEventListener('scroll', () => {
-        if (!this.isInViewport() && !document.getElementsByClassName('header-menu')[0].classList.value.includes('fix-position')) {
+        if (
+          !this.isInViewport() &&
+          (
+            !document.getElementsByClassName('header-menu')[0] ||
+            !document.getElementsByClassName('header-menu')[0].classList.value.includes('fix-position')
+          )
+        ) {
           document.getElementsByClassName('header-menu')[0].classList.add('fix-position')
         } else if (this.isInViewport() && document.getElementsByClassName('header-menu')[0].classList.value.includes('fix-position')) {
           document.getElementsByClassName('header-menu')[0].classList.remove('fix-position')
