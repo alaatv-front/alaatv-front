@@ -748,6 +748,10 @@ export default {
       this.videoIsPlaying = val
     },
     toggleFullScreen () {
+      // Check if any element is in fullscreen mode
+      if (!document.fullscreenElement) {
+        return
+      }
       if (document.exitFullscreen) {
         document.exitFullscreen()
       } else if (document.webkitExitFullscreen) { /* Safari */
