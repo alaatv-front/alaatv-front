@@ -381,7 +381,9 @@ export default {
           selected: false
         }])
         const source = this.isPlayerSourceList() ? playerSourceList.list : this.vastSrc
-        this.player.src(source)
+        if (this.player) {
+          this.player.src(source)
+        }
       }, 100)
 
       this.player.one('play', () => {
