@@ -487,6 +487,9 @@ export default defineComponent({
       this.$emit('update:options', this.localOptions)
     },
     updateVideo (data) {
+      if (!this.localOptions.list[this.selectedBannerIndex].features[data.size]) {
+        this.localOptions.list[this.selectedBannerIndex].features[data.size] = {}
+      }
       this.localOptions.list[this.selectedBannerIndex].features[data.size].videoWidth = data.width
       this.localOptions.list[this.selectedBannerIndex].features[data.size].videoHeight = data.height
       if (data.size) {
