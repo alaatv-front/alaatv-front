@@ -471,6 +471,9 @@ export default defineComponent({
       })
     },
     updateImage (data) {
+      if (!this.localOptions.list[this.selectedBannerIndex].features[data.size]) {
+        this.localOptions.list[this.selectedBannerIndex].features[data.size] = {}
+      }
       this.localOptions.list[this.selectedBannerIndex].features[data.size].width = data.width
       this.localOptions.list[this.selectedBannerIndex].features[data.size].height = data.height
       if (data.size) {
