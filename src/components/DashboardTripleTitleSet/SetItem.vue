@@ -66,7 +66,9 @@
               <q-btn v-if="setItem.last_content_user_watched?.id"
                      flat
                      icon-right="chevron_left"
-                     :to="{ name: 'UserPanel.Asset.TripleTitleSet.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }">مشاهده</q-btn>
+                     @click="gotoAdvisorContent(setItem)">
+                مشاهده
+              </q-btn>
             </div>
           </div>
         </q-card-section>
@@ -92,7 +94,9 @@
               <q-btn v-if="setItem.last_content_user_watched?.id"
                      flat
                      icon-right="chevron_left"
-                     :to="{ name: 'UserPanel.Asset.TripleTitleSet.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }">مشاهده</q-btn>
+                     @click="gotoAdvisorContent(setItem)">
+                مشاهده
+              </q-btn>
             </div>
           </div>
         </div>
@@ -118,7 +122,8 @@ export default {
   },
   methods: {
     gotoAdvisorContent (set) {
-      this.$router.push({ name: 'UserPanel.Asset.TripleTitleSet.Adviser.Content', params: { setId: set.id, contentId: set.last_content_user_watched?.id } })
+      const contentId = set.last_content_user_watched?.id || set.contents.list[0].id
+      this.$router.push({ name: 'UserPanel.Asset.TripleTitleSet.Adviser.Content', params: { setId: set.id, contentId } })
     }
   }
 }
