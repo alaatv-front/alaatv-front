@@ -2,6 +2,22 @@
   <option-panel-tabs v-model:options="localOptions">
     <template #main-tab>
       <div class="row q-col-gutter-md q-my-md">
+        <div class="col-12">
+          <q-checkbox v-model="localOptions.transition.animated"
+                      label="animated" />
+          <q-checkbox v-model="localOptions.transition.infinite"
+                      label="infinite" />
+          <q-checkbox v-model="localOptions.transition.swipeable"
+                      label="swipeable" />
+        </div>
+        <div class="col-md-6 col-12">
+          <q-input v-model="localOptions.transition.autoplay"
+                   label="autoplay" />
+        </div>
+        <div class="col-md-6 col-12">
+          <q-input v-model="localOptions.transition.transitionDuration"
+                   label="transitionDuration" />
+        </div>
         <div class="col-md-6 col-12">
           <q-select v-model="localOptions.transition.transitionPrev"
                     label="transitionPrev"
