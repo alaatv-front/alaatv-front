@@ -1,32 +1,35 @@
 <template>
   <div class="scroll-row-container">
     <div class="row q-mb-md q-col-gutter-md">
-      <div class="col-3">
-        <q-checkbox v-model="localOptions.options.hasLabel"
-                    label="hasLabel" />
-      </div>
       <div v-if="layout === 'ProductShelf'"
-           class="col-md-9">
-        <div class="row q-col-gutter-md">
-          <div class="col-md-4">
-            <div class="outsideLabel">label color</div>
-            <q-input v-model="localOptions.options.labelStyle.color"
-                     label="label color" />
+           class="col-md-12 q-py-sm">
+        <q-expansion-item expand-separator
+                          label="Label settings">
+          <div class="row q-col-gutter-md">
+            <div class="col-2">
+              <q-checkbox v-model="localOptions.options.hasLabel"
+                          label="hasLabel" />
+            </div>
+            <div class="col-md-3">
+              <div class="outsideLabel">label color</div>
+              <q-input v-model="localOptions.options.labelStyle.color"
+                       label="label color" />
+            </div>
+            <div class="col-md-3">
+              <div class="outsideLabel">label font size</div>
+              <q-input v-model="localOptions.options.labelStyle.fontSize"
+                       label="label font size" />
+            </div>
+            <div class="col-md-4">
+              <div class="outsideLabel">label align</div>
+              <q-select v-model="localOptions.options.labelStyle.textAlign"
+                        :options="textAlignOptions"
+                        label="label align" />
+            </div>
           </div>
-          <div class="col-md-4">
-            <div class="outsideLabel">label font size</div>
-            <q-input v-model="localOptions.options.labelStyle.fontSize"
-                     label="label font size" />
-          </div>
-          <div class="col-md-4">
-            <div class="outsideLabel">label align</div>
-            <q-select v-model="localOptions.options.labelStyle.textAlign"
-                      :options="textAlignOptions"
-                      label="label align" />
-          </div>
-        </div>
+        </q-expansion-item>
       </div>
-      <div class="col-12 q-pa-md">
+      <div class="col-12 q-py-sm">
         <q-expansion-item v-if="localOptions.options.hasLabel"
                           label="Label Settings">
           <text-widget-option-panel v-model:options="localOptions.options.labelOptions" />
@@ -36,7 +39,7 @@
           <action-button-option-panel v-model:options="localOptions.options.actionButtonOptions" />
         </q-expansion-item>
       </div>
-      <div class="col-12 q-py-md">
+      <div class="col-12 q-py-sm">
         <q-expansion-item expand-separator
                           label="grid system">
           <q-card>
@@ -61,54 +64,60 @@
           </q-card>
         </q-expansion-item>
       </div>
-      <div class="col-12 q-py-md">
+      <div class="col-12 q-py-sm">
         <q-expansion-item expand-separator
                           label="تنظیمات محصول">
           <product-option-panel v-model:options="localOptions.options.productOptions" />
         </q-expansion-item>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 q-ml-md">
-        <div class="outsideLabel">اضافه کردن محصول</div>
-        <div class="flex items-center">
-          <q-input v-model="productId"
-                   class="q-mr-sm"
-                   dense
-                   label="id" />
-          <div>
-            <q-btn color="positive"
-                   icon="check"
-                   class="q-mr-sm"
-                   @click="openProduct(productId)" />
+      <div class="col-12">
+        <q-expansion-item expand-separator
+                          label="اضافه کردن محصول و layout">
+          <div class="row q-col-gutter-md">
+            <div class="col-md-6">
+              <div class="outsideLabel">اضافه کردن محصول</div>
+              <div class="flex items-center">
+                <q-input v-model="productId"
+                         class="q-mr-sm"
+                         dense
+                         label="id">
+                  <template v-slot:after>
+                    <q-btn color="positive"
+                           icon="check"
+                           square
+                           @click="openProduct(productId)" />
+                  </template>
+                </q-input>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <q-select v-model="localOptions.options.layout"
+                        label="layout"
+                        :options="layoutOptions" />
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="outsideLabel">layout</div>
-        <q-select v-model="localOptions.options.layout"
-                  :options="layoutOptions" />
+          <q-card class="custom-card q-py-sm bg-grey-1">
+            <q-list v-for="(productId, productIndex) in localOptions.data"
+                    :key="productIndex">
+              <q-item v-ripple
+                      class=" shadow-3"
+                      tag="label">
+                <q-item-section>
+                  <q-item-label>{{productId}}</q-item-label>
+                </q-item-section>
+                <q-item-section side>
+                  <q-btn color="negative"
+                         icon="close"
+                         class="size-sm"
+                         square
+                         @click="removeProduct(productIndex)" />
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-card>
+        </q-expansion-item>
       </div>
     </div>
-    <q-card class="custom-card bg-grey-1">
-      <q-list v-for="(productId, productIndex) in localOptions.data"
-              :key="productIndex">
-        <q-item v-ripple
-                class=" shadow-3"
-                tag="label">
-          <q-item-section>
-            <q-item-label>{{productId}}</q-item-label>
-          </q-item-section>
-          <q-item-section side>
-            <q-btn color="negative"
-                   icon="close"
-                   size="10px"
-                   class="q-mr-sm"
-                   @click="removeProduct(productIndex)" />
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </q-card>
     <q-dialog v-model="productDialog"
               persistent>
       <q-card class="custom-card q-ma-md">

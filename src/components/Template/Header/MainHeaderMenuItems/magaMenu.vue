@@ -280,19 +280,22 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 .megaMenu{
   transform: translateY(16px);
   .category-container {
     background:$blue-grey-2;
-    .scroll {
+    :deep(.scroll) {
       height: 100%;
-      padding: $space-8 0 $space-8 $space-7;
-      :deep(.scroll){
-        .absolute{
-          position: relative;
-        }
+      padding: $spacing-none;
+      //padding: $space-8 0 $space-8 $space-7;
+      .q-list {
+        margin: $space-8 0 $space-8 $space-7;
       }
+      //:deep(.scroll){
+      //  .absolute{
+      //    position: relative;
+      //  }
+      //}
       .item {
         position: relative;
 
@@ -423,5 +426,4 @@ export default {
     }
   }
 }
-
 </style>

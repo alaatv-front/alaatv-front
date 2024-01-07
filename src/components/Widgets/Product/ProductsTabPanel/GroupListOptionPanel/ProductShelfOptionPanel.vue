@@ -1,6 +1,6 @@
 <template>
   <div class="option-panel-container">
-    <div class="row q-px-md q-col-gutter-md items-center">
+    <div class="row q-col-gutter-md items-center">
       <div class="col-12">
         <q-select v-model="localOptions.options.layout"
                   label="type"
@@ -32,14 +32,16 @@
     </div>
 
     <div v-for="(item, index) in localOptions.data"
-         :key="item">
-      <q-card class="custom-card">
-        <q-card-section>
+         :key="item"
+         class="q-py-md">
+      <q-card class="custom-card option-panel-card">
+        <q-card-section class="option-panel-card-section">
           <q-expansion-item expand-separator>
             <template v-slot:header>
               <q-btn color="negative"
                      icon="close"
-                     class="q-mr-sm"
+                     square
+                     class="q-mr-sm size-xs"
                      @click="removeTabPanel(index)" />
               <div class="expansion-label q-mt-sm full-width">
                 {{item.type}}
@@ -100,3 +102,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.option-panel-card {
+  &-section {
+    padding: 0;
+  }
+}
+</style>

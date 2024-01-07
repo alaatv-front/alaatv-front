@@ -17,7 +17,8 @@
 <script>
 import { MapItem, MapItemList } from 'src/models/MapItem'
 import BaseMap from 'src/components/Widgets/Map/BaseMap.vue'
-import MapItemsResponse from 'src/components/Widgets/Map/MapItemsResponse.js'
+// import MapItemsResponse from 'src/components/Widgets/Map/MapItemsResponse.js'
+const MapItemsResponse = { data: [] }
 
 export default {
   name: 'MapWidget',
