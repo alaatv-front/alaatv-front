@@ -130,7 +130,7 @@
                 </div>
               </q-virtual-scroll>
             </div>
-            <div class="searchResult">
+            <div class="searchResult contentAndProductList">
               <div class="listType">
                 <q-infinite-scroll ref="contentAndProductList"
                                    :offset="2000"
@@ -236,6 +236,7 @@ export default {
   },
   mounted () {
     this.setContentSearch()
+    this.loadMobileModeValue()
     // if (!this.mobileMode) {
     //   this.setSideBarSticky()
     // }
@@ -618,8 +619,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content-search-vue{
-  .content-list{
+.content-search-vue {
+  .content-list {
     @media screen and  (width <= 599px){
       max-width: 100%;
     }
@@ -669,6 +670,15 @@ export default {
     }
   }
 
+  .contentAndProductList {
+    .listType {
+      @include media-max-width('md') {
+        padding: 0 $space-3;
+      }
+      @include media-max-width('sm') {
+        padding: 0 $space-1;
+      }
+    }
+  }
 }
-
 </style>
