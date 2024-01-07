@@ -199,6 +199,10 @@ export default {
 
   .product-set-item-header {
     margin-right: $space-7;
+
+    @include media-max-width('md') {
+      margin-right: $space-3;
+    }
   }
 
   .set-list-section {
