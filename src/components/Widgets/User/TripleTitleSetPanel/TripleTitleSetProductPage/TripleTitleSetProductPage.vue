@@ -12,7 +12,7 @@
                                 :grey="false"
                                 @show="getSet(set.id)">
         <template v-slot:action>
-          {{set.contents_count + ' گام '}} {{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}
+          <span class="product-set-item-header">{{set.contents_count + ' گام '}}</span> <span>{{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}</span>
         </template>
         <q-card>
           <q-card-section v-if="!setLoading || set.contents.list.length > 0"
@@ -28,7 +28,7 @@
                   <q-icon color="grey"
                           :name="content.isPamphlet() ? 'description' : content.has_watch ? 'check_circle' : 'play_circle_outline'" />
                 </q-item-section>
-                <q-item-section class="cursor-pointer ellipsis"
+                <q-item-section class="content-title ellipsis-2-lines"
                                 @click="download(content)">
                   {{ content.title }}
                 </q-item-section>
@@ -197,6 +197,14 @@ export default {
     padding: 5px;
   }
 
+  .product-set-item-header {
+    margin-right: $space-7;
+
+    @include media-max-width('md') {
+      margin-right: $space-3;
+    }
+  }
+
   .set-list-section {
     padding: $spacing-none;
   }
@@ -210,11 +218,7 @@ export default {
   }
 
   .content-title {
-    max-width: 80%;
 
-    .content-title-text {
-      max-width: 100%;
-    }
   }
 }
 </style>
