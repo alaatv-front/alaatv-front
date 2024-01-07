@@ -28,7 +28,7 @@
                   <q-icon color="grey"
                           :name="content.isPamphlet() ? 'description' : content.has_watch ? 'check_circle' : 'play_circle_outline'" />
                 </q-item-section>
-                <q-item-section class="content-title ellipsis"
+                <q-item-section class="content-title ellipsis-2-lines"
                                 @click="download(content)">
                   {{ content.title }}
                 </q-item-section>
@@ -214,9 +214,7 @@ export default {
   }
 
   .content-title {
-    @include media-max-width('md') {
-      width: 100px;
-    }
+
   }
 }
 </style>
