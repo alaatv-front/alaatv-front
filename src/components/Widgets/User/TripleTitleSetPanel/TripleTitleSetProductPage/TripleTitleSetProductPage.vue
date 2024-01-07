@@ -12,7 +12,7 @@
                                 :grey="false"
                                 @show="getSet(set.id)">
         <template v-slot:action>
-          {{set.contents_count + ' گام '}} {{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}
+          <span class="product-set-item-header">{{set.contents_count + ' گام '}}</span> <span>{{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}</span>
         </template>
         <q-card>
           <q-card-section v-if="!setLoading || set.contents.list.length > 0"
@@ -195,6 +195,10 @@ export default {
 
   @media only screen and (width <= 1450px) {
     padding: 5px;
+  }
+
+  .product-set-item-header {
+    margin-right: $space-7;
   }
 
   .set-list-section {
