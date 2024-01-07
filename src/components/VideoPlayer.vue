@@ -52,18 +52,16 @@ import videojs from 'video.js'
 import 'videojs-hls-quality-selector'
 import videojsBrand from 'videojs-brand'
 import fa from 'video.js/dist/lang/fa.json'
+import { Capacitor } from '@capacitor/core'
 import { APIGateway } from 'src/api/APIGateway.js'
-import { mixinAbrisham } from 'src/mixin/Mixins.js'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import Fullscreen from 'src/assets/js/AndroidPluginRegister.js'
 import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
-import { Capacitor } from '@capacitor/core'
 // https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8 (Live)
 // https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
 
 export default {
   name: 'VideoPlayer',
-  mixins: [mixinAbrisham],
   props: {
     hasVast: {
       type: Boolean,
@@ -321,10 +319,11 @@ export default {
         this.stopVastTimer()
         return
       }
-      this.updateVastTimer(seconds - Math.floor(this.player.currentTime()).toString())
+      const playerCurrentTime = this.player ? this.player.currentTime() : 0
+      this.updateVastTimer(seconds - Math.floor(playerCurrentTime).toString())
       this.vastTimerInterval = setInterval(() => {
-        this.updateVastTimer(seconds - Math.floor(this.player.currentTime()).toString())
-        if (seconds - Math.floor(this.player.currentTime()).toString() === 0) {
+        this.updateVastTimer(seconds - Math.floor(playerCurrentTime).toString())
+        if (seconds - Math.floor(playerCurrentTime).toString() === 0) {
           this.stopVastTimer()
           endTimerCallback()
         }
@@ -382,7 +381,9 @@ export default {
           selected: false
         }])
         const source = this.isPlayerSourceList() ? playerSourceList.list : this.vastSrc
-        this.player.src(source)
+        if (this.player) {
+          this.player.src(source)
+        }
       }, 100)
 
       this.player.one('play', () => {
@@ -750,6 +751,10 @@ export default {
       this.videoIsPlaying = val
     },
     toggleFullScreen () {
+      // Check if any element is in fullscreen mode
+      if (!document.fullscreenElement) {
+        return
+      }
       if (document.exitFullscreen) {
         document.exitFullscreen()
       } else if (document.webkitExitFullscreen) { /* Safari */
