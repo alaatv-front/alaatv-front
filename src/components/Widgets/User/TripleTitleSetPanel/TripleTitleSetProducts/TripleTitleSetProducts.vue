@@ -153,8 +153,6 @@ export default {
         eventId: this.event.id
       }).then(res => {
         this.advisor = res
-        console.log('res', res)
-        console.log('this.advisor', this.advisor)
         this.advisorLoading = false
       }).catch(() => {
         this.advisorLoading = false
