@@ -130,7 +130,7 @@
                 </div>
               </q-virtual-scroll>
             </div>
-            <div class="searchResult">
+            <div class="searchResult contentAndProductList">
               <div class="listType">
                 <q-infinite-scroll ref="contentAndProductList"
                                    :offset="2000"
@@ -181,36 +181,43 @@ export default {
       scrollInfo: computed(() => this.scrollInfo)
     }
   },
-  data: () => ({
-    scrollInfo: null,
-    setLoading: false,
-    advanceSearchModal: false,
-    slider: null,
-    stopReq: true,
-    sets: new SetList(),
-    products: new ProductList(),
-    contents: new ContentList(),
-    productAndContentList: [],
-    contentSearchFilterData: {},
-    canSendVideoReq: true,
-    canSendProductReq: true,
-    canSendSetsReq: true,
-    searchLoading: false,
-    new_url: '',
-    selectedTags: [],
-    q_param: [],
-    sizeOfScreen: null,
-    applyFilter: false,
-    backData: null,
-    contentSearchApi: null
-  }),
+  data () {
+    return {
+      scrollInfo: null,
+      mobileMode: false,
+      setLoading: false,
+      advanceSearchModal: false,
+      slider: null,
+      stopReq: true,
+      sets: new SetList(),
+      products: new ProductList(),
+      contents: new ContentList(),
+      productAndContentList: [],
+      contentSearchFilterData: {},
+      canSendVideoReq: true,
+      canSendProductReq: true,
+      canSendSetsReq: true,
+      searchLoading: false,
+      new_url: '',
+      selectedTags: [],
+      q_param: [],
+      sizeOfScreen: null,
+      applyFilter: false,
+      backData: null,
+      contentSearchApi: null
+    }
+  },
   computed: {
     noData () {
       return !this.canSendSetsReq && !this.canSendVideoReq && !this.canSendProductReq && this.sets.list.length === 0 && this.productAndContentList.length === 0
     },
-    mobileMode () {
-      return this.$store.getters['AppLayout/windowSize'].x <= 1024
+    screenName () {
+      return this.$q.screen.name
     }
+    // mobileMode () {
+    //   return this.$q.screen.lt.md
+    //   // return this.$store.getters['AppLayout/windowSize'].x <= 1024
+    // }
   },
   watch: {
     $route: {
@@ -218,6 +225,9 @@ export default {
         this.setContentSearch()
       },
       deep: true
+    },
+    screenName () {
+      this.loadMobileModeValue()
     }
   },
   created () {
@@ -226,19 +236,23 @@ export default {
   },
   mounted () {
     this.setContentSearch()
+    this.loadMobileModeValue()
     // if (!this.mobileMode) {
     //   this.setSideBarSticky()
     // }
   },
   methods: {
+    loadMobileModeValue () {
+      this.mobileMode = this.$q.screen.lt.md
+    },
     setContentSearch () {
       this.convertFilterData()
       this.getUrlParams()
       this.updateNewUrl()
       this.getPageData()
-      if (this.$refs.contentAndProductList) {
-        this.onFilterChange()
-      }
+      // if (this.$refs.contentAndProductList) {
+      //   this.onFilterChange()
+      // }
     },
 
     setInitData () {
@@ -462,7 +476,8 @@ export default {
         return
       }
       data.data.forEach(responseItem => {
-        this.sets.list.unshift(responseItem)
+        // this.sets.list.unshift(responseItem)
+        this.sets.list.push(responseItem)
         // const lastElementIndex = this.sets.list.length - 1
         // this.sets.list[lastElementIndex][type] = 'loading'
         this.$nextTick(() => {
@@ -604,8 +619,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content-search-vue{
-  .content-list{
+.content-search-vue {
+  .content-list {
     @media screen and  (width <= 599px){
       max-width: 100%;
     }
@@ -655,6 +670,15 @@ export default {
     }
   }
 
+  .contentAndProductList {
+    .listType {
+      @include media-max-width('md') {
+        padding: 0 $space-3;
+      }
+      @include media-max-width('sm') {
+        padding: 0 $space-1;
+      }
+    }
+  }
 }
-
 </style>

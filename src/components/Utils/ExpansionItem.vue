@@ -69,7 +69,7 @@ export default defineComponent({
     },
     modelValue: {
       type: Boolean,
-      default: false
+      default: null
     },
     switchToggleSide: {
       type: Boolean,
@@ -93,13 +93,19 @@ export default defineComponent({
     }
 
   },
-  emits: ['Show', 'beforeShow', 'afterShow', 'hide', 'beforeHide', 'afterHide'],
+  emits: ['Show', 'beforeShow', 'afterShow', 'hide', 'beforeHide', 'afterHide', 'update:modelValue'],
+  data () {
+    return {
+      localModel: false
+    }
+  },
   computed: {
     computedModelValue: {
       get () {
-        return this.modelValue
+        return this.modelValue ? this.modelValue : this.localModel
       },
       set (value) {
+        this.localModel = value
         this.$emit('update:modelValue', value)
       }
     }

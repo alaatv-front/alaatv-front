@@ -48,7 +48,9 @@
                           clickable
                           @mouseover="showData(index)">
                     <q-item-section>
-                      {{item.title}}
+                      <q-icon name="ph:book-open"
+                              class="size-lg" />
+                      <div class="item-title ellipsis">{{ item.title }}</div>
                       <!--                        <q-btn v-if="editable"-->
                       <!--                               icon="edit"-->
                       <!--                               flat-->
