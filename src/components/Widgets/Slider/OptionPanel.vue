@@ -551,6 +551,9 @@ export default defineComponent({
         const index = this.responsiveRows.findIndex(row => row.name === data.size)
         this.responsiveRows[index].videoSrc = data.src
       } else {
+        if (!this.localOptions.list[this.selectedBannerIndex].video) {
+          this.localOptions.list[this.selectedBannerIndex].video = {}
+        }
         this.localOptions.list[this.selectedBannerIndex].video.src = data.src
       }
 
