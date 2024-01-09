@@ -1,7 +1,9 @@
-import set from './set.js'
-import content from './content.js'
+import sets from './sets.js'
+import contents from './contents.js'
+import contentWatchTimes from './contentWatchTimes.js'
 
 export default {
-  set,
-  content
+  sets,
+  contents,
+  contentWatchTimes
 }
