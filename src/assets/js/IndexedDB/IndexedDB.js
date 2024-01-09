@@ -1,3 +1,5 @@
+import models from './models/models.js'
+
 const AppIndexedDB = (function () {
   const DBName = 'AlaaTV_DB',
     debugMode = false
@@ -26,15 +28,21 @@ const AppIndexedDB = (function () {
       //         // client had version 1
       //         // update
 
-      if (!db.objectStoreNames.contains('contents')) {
-        db.createObjectStore('contents', { keyPath: 'id' })// create unique index on keyPath === 'id'
-          .createIndex('id', 'id', { unique: true })
-          .createIndex('set_id', 'set_id', { unique: false })
-      }
-      if (!db.objectStoreNames.contains('sets')) {
-        db.createObjectStore('sets', { keyPath: 'id' })// create unique index on keyPath === 'id'
-          .createIndex('id', 'id', { unique: true })
-      }
+      Object.keys(models).forEach(modelKey => {
+        if (!db.objectStoreNames.contains(modelKey)) {
+          models[modelKey](db)
+        }
+      })
+
+      // if (!db.objectStoreNames.contains('contents')) {
+      //   db.createObjectStore('contents', { keyPath: 'id' })// create unique index on keyPath === 'id'
+      //     .createIndex('id', 'id', { unique: true })
+      //     .createIndex('set_id', 'set_id', { unique: false })
+      // }
+      // if (!db.objectStoreNames.contains('sets')) {
+      //   db.createObjectStore('sets', { keyPath: 'id' })// create unique index on keyPath === 'id'
+      //     .createIndex('id', 'id', { unique: true })
+      // }
     }
     openRequest.onsuccess = function (event) {
       // get database from event
