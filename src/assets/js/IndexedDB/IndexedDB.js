@@ -1,3 +1,5 @@
+import models from './models/models.js'
+
 const AppIndexedDB = (function () {
   const DBName = 'AlaaTV_DB',
     debugMode = false
@@ -26,15 +28,11 @@ const AppIndexedDB = (function () {
       //         // client had version 1
       //         // update
 
-      if (!db.objectStoreNames.contains('contents')) {
-        db.createObjectStore('contents', { keyPath: 'id' })// create unique index on keyPath === 'id'
-          .createIndex('id', 'id', { unique: true })
-          .createIndex('set_id', 'set_id', { unique: false })
-      }
-      if (!db.objectStoreNames.contains('sets')) {
-        db.createObjectStore('sets', { keyPath: 'id' })// create unique index on keyPath === 'id'
-          .createIndex('id', 'id', { unique: true })
-      }
+      Object.keys(models).forEach(modelKey => {
+        if (!db.objectStoreNames.contains(modelKey)) {
+          models[modelKey](db)
+        }
+      })
     }
     openRequest.onsuccess = function (event) {
       // get database from event
@@ -46,8 +44,8 @@ const AppIndexedDB = (function () {
     }
   }
 
-  function getTransaction (db, objectStoreName, readonly) {
-    const transaction = db.transaction(objectStoreName, (typeof readonly !== 'undefined' && readonly === true) ? 'readonly' : 'readwrite')// add success event handleer for transaction
+  function getTransaction (db, objectStoreName, readonly = false) {
+    const transaction = db.transaction(objectStoreName, readonly ? 'readonly' : 'readwrite')// add success event handleer for transaction
     // you should also add onerror, onabort event handlers
     transaction.onerror = function (event) {
       if (transaction.error === null) {
@@ -88,15 +86,14 @@ const AppIndexedDB = (function () {
 
   function putObjectStores (objectStoreList) {
     query(function (db) {
-      for (let i = 0; (typeof objectStoreList[i] !== 'undefined'); i++) {
-        const objectStoreItem = objectStoreList[i]
+      objectStoreList.forEach(objectStoreItem => {
         const objectStore = getObjectStore(db, objectStoreItem.objectStoreName)
-        objectStoreItem.objectStoreData.forEach(function (data) {
+        objectStoreItem.objectStoreData.forEach((data) => {
           // var db_op_req = contentsStore.add(content); // IDBRequest
           // const db_op_req = objectStore.put(data) // IDBRequest
           objectStore.put(data) // IDBRequest
         })
-      }
+      })
     })
   }
 
