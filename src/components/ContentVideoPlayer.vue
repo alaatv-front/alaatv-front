@@ -60,6 +60,7 @@ import { Content } from 'src/models/Content.js'
 import Bookmark from 'src/components/Bookmark.vue'
 import VideoPlayer from 'src/components/VideoPlayer.vue'
 import TimeElapsedSinceLastEvent from 'src/assets/js/TimeElapsedSinceLastEvent.js'
+import ContentManager from 'src/assets/js/ContentManager.js'
 
 export default {
   name: 'ContentVideoPlayer',
@@ -128,6 +129,14 @@ export default {
   methods: {
     updateTime (data) {
       this.$emit('timeUpdated', data)
+      ContentManager.storeContent({
+        id: this.content.id,
+        sent: 0,
+        set_id: this.content?.set?.id,
+        duration: data.duration,
+        watched_seconds: data.currentTime,
+        lastWatchedDate: Date.now()
+      })
     },
     adStarted () {
       TimeElapsedSinceLastEvent.setEventOccurrenceTime()

@@ -1,0 +1,69 @@
+// import { APIGateway } from 'src/api/APIGateway.js'
+import AppIndexedDB from 'src/assets/js/IndexedDB/IndexedDB.js'
+
+class ContentManager {
+  static get lastSentTime () {
+    const lastSentTime = localStorage.getItem('lastSentTime')
+    return lastSentTime
+  }
+
+  static set lastSentTime (value) {
+    localStorage.setItem('lastSentTime', value)
+  }
+
+  static get sendThreshold () {
+    const sendThreshold = localStorage.getItem('sendThreshold')
+    return sendThreshold || 30000
+  }
+
+  static set sendThreshold (value) {
+    localStorage.setItem('sendThreshold', value)
+  }
+
+  static storeContent (content) {
+    AppIndexedDB.putObjectStores([{ objectStoreName: 'contents', objectStoreData: [content] }])
+    ContentManager.checkAndSendContentToBackend()
+  }
+
+  static checkAndSendContentToBackend () {
+    const currentTime = Date.now()
+    if (currentTime - ContentManager.lastSentTime >= ContentManager.sendThreshold) {
+      ContentManager.sendUnsentContentToBackend(currentTime)
+    }
+  }
+
+  static sendUnsentContentToBackend (currentTime) {
+    AppIndexedDB.searchInObjectStore('contents', 'sent_index', 0, false, (unsentContents, objectStore) => {
+      if (unsentContents.length === 0) {
+        return
+      }
+      // APIGateway.post(unsentContents)
+      //   .then((response) => {
+      //     ContentManager.handleSendSuccess(response, unsentContents, objectStore)
+      //     ContentManager.lastSentTime = currentTime // Update last sent time upon successful send
+      //   })
+      //   .catch((error) => {
+      //     ContentManager.handleSendError(error)
+      //   })
+      ContentManager.lastSentTime = currentTime // Update last sent time upon successful send
+    })
+  }
+
+  static async handleSendSuccess (response, unsentContents, objectStore) {
+    for (const content of unsentContents) {
+      try {
+        // Update the indexedDB record with sent_index set to true
+        await AppIndexedDB.updateRecord({ ...content, sent: 1 }, objectStore)
+      } catch (error) {
+        // Handle the error if updating the record fails
+        console.error('Failed to update record:', error)
+      }
+    }
+  }
+
+  static handleSendError (error) {
+    console.error(error)
+  }
+}
+
+export default ContentManager
