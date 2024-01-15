@@ -123,9 +123,6 @@ export default {
     }
   },
   computed: {
-    isUserLogin () {
-      return this.$store.getters['Auth/isUserLogin']
-    },
     showHamburger () {
       return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.md
     },
