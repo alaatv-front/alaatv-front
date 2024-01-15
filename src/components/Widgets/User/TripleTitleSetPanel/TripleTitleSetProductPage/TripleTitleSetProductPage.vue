@@ -1,20 +1,103 @@
 <template>
   <div class="product-page">
-    hi
+    <q-list v-if="!setListLoading"
+            separator>
+      <expansion-item-component v-for="(set, index) in setList"
+                                :key="index"
+                                v-model:modelValue="set.expand"
+                                :switch-toggle-side="false"
+                                :hasAction="true"
+                                :separated="false"
+                                :label="set.short_title.split('-')[2]"
+                                :grey="false"
+                                @show="getSet(set.id)">
+        <template v-slot:action>
+          <span class="product-set-item-header">{{set.contents_count + ' گام '}}</span> <span>{{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}</span>
+        </template>
+        <q-card>
+          <q-card-section v-if="!setLoading || set.contents.list.length > 0"
+                          class="set-list-section">
+            <q-list class="set-list"
+                    separator>
+              <q-item v-for="(content, index) in set.contents.list"
+                      :key="index"
+                      :to="content.isPamphlet() ? '' : { name: 'UserPanel.Asset.TripleTitleSet.Content', params: {productId: this.$route.params.productId, setId: set.id, contentId: content.id} }"
+                      clickable
+                      @click="setSelectedData($event,content,set)">
+                <q-item-section avatar>
+                  <q-icon color="grey"
+                          :name="content.isPamphlet() ? 'description' : content.has_watch ? 'check_circle' : 'play_circle_outline'" />
+                </q-item-section>
+                <q-item-section class="content-title ellipsis-2-lines"
+                                @click="download(content)">
+                  {{ content.title }}
+                </q-item-section>
+                <q-item-section v-if="content.isPamphlet()"
+                                side>
+                  <q-btn color="primary"
+                         label="دانلود"
+                         @click="download(content)" />
+                </q-item-section>
+                <q-item-section v-else
+                                side>
+                  {{ content.duration === null || content.duration == 0 ? 'مدت ندارد' : humanizeDuration(content.duration) }}
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-card-section>
+          <q-card-section v-else>
+            <q-list>
+              <q-item v-for="item in 4"
+                      :key="item">
+                <q-skeleton width="100%"
+                            bordered />
+              </q-item>
+            </q-list>
+          </q-card-section>
+        </q-card>
+
+      </expansion-item-component>
+    </q-list>
+    <q-list v-else>
+      <q-item v-for="item in 10"
+              :key="item">
+        <q-skeleton width="100%"
+                    bordered />
+      </q-item>
+    </q-list>
+    <q-dialog v-model="productItemDialog">
+      <q-card class="custom-card">
+        <q-card-section class="flex justify-between items-center">
+          <div class="h1">
+            شما محصول را خریداری نکرده اید
+          </div>
+          <q-btn color="primary"
+                 icon="close"
+                 flat
+                 @click="toggleProductItemDialog" />
+        </q-card-section>
+        <q-card-section class="row items-center">
+          <product-item class="product-item"
+                        :options="{
+                          product: selectedProduct
+                        }" />
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
 <script>
 import { openURL } from 'quasar'
 import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
-// import ExpansionItemComponent from 'src/components/Utils/ExpansionItem.vue'
-// import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
+import ExpansionItemComponent from 'src/components/Utils/ExpansionItem.vue'
+import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 
 export default {
   name: 'TripleTitleSetProductPage',
   components: {
-    // ProductItem,
-    // ExpansionItemComponent
+    ProductItem,
+    ExpansionItemComponent
   },
   mixins: [mixinTripleTitleSet],
   data () {
@@ -24,33 +107,33 @@ export default {
   },
   computed: {
     selectedTopic () {
-      // return this.$store.getters['TripleTitleSet/selectedTopic']
-      return ''
+      return this.$store.getters['TripleTitleSet/selectedTopic']
+      // return ''
     },
     setList () {
-      // return this.$store.getters['TripleTitleSet/setList']
-      //   .filter(set => (new RegExp('\\-\\s*' + this.selectedTopic + '\\s*\\-')).test(set.short_title))
-      //   .map(set => {
-      //     set.expand = false
-      //     return set
-      //   })
-      return []
+      return this.$store.getters['TripleTitleSet/setList']
+        .filter(set => (new RegExp('\\-\\s*' + this.selectedTopic + '\\s*\\-')).test(set.short_title))
+        .map(set => {
+          set.expand = false
+          return set
+        })
+      // return []
     },
     setTopicList () {
-      // return this.$store.getters['TripleTitleSet/setTopicList']
-      return []
+      return this.$store.getters['TripleTitleSet/setTopicList']
+      // return []
     },
     setLoading () {
-      // return this.$store.getters['TripleTitleSet/setLoading']
-      return false
+      return this.$store.getters['TripleTitleSet/setLoading']
+      // return false
     },
     setListLoading () {
-      // return this.$store.getters['TripleTitleSet/setListLoading']
-      return false
+      return this.$store.getters['TripleTitleSet/setListLoading']
+      // return false
     },
     selectedProduct () {
-      // return this.$store.getters['TripleTitleSet/selectedProduct']
-      return {}
+      return this.$store.getters['TripleTitleSet/selectedProduct']
+      // return {}
     }
   },
   watch: {
