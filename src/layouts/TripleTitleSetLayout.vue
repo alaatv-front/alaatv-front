@@ -23,12 +23,12 @@
                  :to="{ name: 'UserPanel.Asset.TripleTitleSet.Products' }">بازگشت</q-btn>
         </div>
       </div>
-<!--      <layout-menu :menu-key="menuKey"-->
-<!--                   :topics-route-array="topicsRouteArray"-->
-<!--                   :topic-list="topicList"-->
-<!--                   :selected-topic="selectedTopic"-->
-<!--                   :product-items="productItems"-->
-<!--                   @item-selected="itemSelected" />-->
+      <!--      <layout-menu :menu-key="menuKey"-->
+      <!--                   :topics-route-array="topicsRouteArray"-->
+      <!--                   :topic-list="topicList"-->
+      <!--                   :selected-topic="selectedTopic"-->
+      <!--                   :product-items="productItems"-->
+      <!--                   @item-selected="itemSelected" />-->
     </div>
     <div class="container">
       <div class="header">
@@ -78,7 +78,7 @@ import KeepAliveComponents from 'src/assets/js/KeepAliveComponents.js'
 export default {
   name: 'TripleTitleSetLayout',
   components: {
-    Router,
+    Router
     // LayoutMenu
   },
   data () {
