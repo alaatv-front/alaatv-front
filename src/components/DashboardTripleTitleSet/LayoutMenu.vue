@@ -1,5 +1,41 @@
 <template>
   <div class="side-menu-body chatr-menu-body">
+    <!--    <q-list class="side-menu-list"-->
+    <!--            padding>-->
+    <!--      <div v-if="showHamburger"-->
+    <!--           class="drawer-btn hamburger">-->
+    <!--        <q-btn icon="ph:list"-->
+    <!--               flat-->
+    <!--               @click="toggleLeftDrawer" />-->
+    <!--      </div>-->
+    <!--      <q-input v-model="searchText"-->
+    <!--               class="gray-input search-input"-->
+    <!--               placeholder="جست و جو"-->
+    <!--               @update:model-value ="search(topicsRouteArray)">-->
+    <!--        <template v-slot:append>-->
+    <!--          <q-icon name="search" />-->
+    <!--        </template>-->
+    <!--      </q-input>-->
+    <!--      <menu-item :key="menuKey"-->
+    <!--                 :items="topicsRouteArray"-->
+    <!--                 :show-child-item-tooltip="true"-->
+    <!--                 :loading="topicList.length <= 0"-->
+    <!--                 @item-selected="itemSelected" />-->
+    <!--      <q-item v-for="(item, index) in productItems"-->
+    <!--              :key="index"-->
+    <!--              :active="item.routeName === $route.name"-->
+    <!--              class="menu-item">-->
+    <!--        <q-btn flat-->
+    <!--               class="full-width menu-item-btn"-->
+    <!--               color="background: #EAEAEA;"-->
+    <!--               :to="(item.routeName) ?{ name: item.routeName, params: item.params }: null"-->
+    <!--               :style="{background: item.name === selectedTopic? '#EAEAEA' : ''}"-->
+    <!--               @click="setSelectedTopic(item.name)">-->
+    <!--          <div class="label">{{item.label}}</div>-->
+    <!--          <div />-->
+    <!--        </q-btn>-->
+    <!--      </q-item>-->
+    <!--    </q-list>-->
     hi
   </div>
 </template>
