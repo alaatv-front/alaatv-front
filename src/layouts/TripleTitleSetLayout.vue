@@ -23,12 +23,6 @@
                  :to="{ name: 'UserPanel.Asset.TripleTitleSet.Products' }">بازگشت</q-btn>
         </div>
       </div>
-      <layout-menu :menu-key="menuKey"
-                   :topics-route-array="topicsRouteArray"
-                   :topic-list="topicList"
-                   :selected-topic="selectedTopic"
-                   :product-items="productItems"
-                   @item-selected="itemSelected" />
     </div>
     <div class="container">
       <div class="header">
@@ -71,12 +65,12 @@ import { mapMutations } from 'vuex'
 // import Router from 'src/router/Router.vue'
 import { Content } from 'src/models/Content.js'
 import KeepAliveComponents from 'src/assets/js/KeepAliveComponents.js'
-import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
+// import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
 
 export default {
   name: 'TripleTitleSetLayout',
   components: {
-    LayoutMenu
+    // LayoutMenu
     // Router
   },
   data () {
