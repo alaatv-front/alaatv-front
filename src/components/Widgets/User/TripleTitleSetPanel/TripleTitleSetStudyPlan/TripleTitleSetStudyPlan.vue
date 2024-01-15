@@ -683,7 +683,7 @@ export default {
       const eventPromises = []
       const majorId = FormBuilderAssist.getInputsByName(this.inputs, 'major_id')?.value
       const gradeId = FormBuilderAssist.getInputsByName(this.inputs, 'grade_id')?.value
-      const methodIds = FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value
+      const methodIds = FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value || []
       methodIds.forEach(methodId => {
         eventPromises.push(this.getPlanPromise(majorId, gradeId, methodId))
       })
