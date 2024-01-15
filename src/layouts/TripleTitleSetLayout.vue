@@ -23,12 +23,7 @@
                  :to="{ name: 'UserPanel.Asset.TripleTitleSet.Products' }">بازگشت</q-btn>
         </div>
       </div>
-      <layout-menu :menu-key="menuKey"
-                   :topics-route-array="topicsRouteArray"
-                   :topic-list="topicList"
-                   :selected-topic="selectedTopic"
-                   :product-items="productItems"
-                   @item-selected="itemSelected" />
+      <layout-menu />
     </div>
     <div class="container">
       <div class="header">
