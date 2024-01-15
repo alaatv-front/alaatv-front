@@ -1,83 +1,17 @@
 <template>
-  <div class="chatre-nejat-layout">
-    <div class="side-menu-main-layout bg-white">
-      <div class="header">
-        <div class="product-box">
-          <div class="photo">
-            <q-img v-if="!productLoading"
-                   :src="productImg"
-                   class="product-image" />
-            <q-skeleton v-else
-                        size="50px"
-                        class="q-pb-md" />
-          </div>
-          <div class="title">
-            <div class="hidden">{{topicList}}</div>
-            {{ productTitle }}
-            <q-skeleton v-if="productLoading" />
-          </div>
-        </div>
-        <div class="back-btn">
-          <q-btn flat
-                 icon-right="ph:caret-left"
-                 :to="{ name: 'UserPanel.Asset.TripleTitleSet.Products' }">بازگشت</q-btn>
-        </div>
-      </div>
-      <layout-menu :menu-key="menuKey"
-                   :topics-route-array="topicsRouteArray"
-                   :topic-list="topicList"
-                   :selected-topic="selectedTopic"
-                   :product-items="productItems"
-                   @item-selected="itemSelected" />
-    </div>
-    <div class="container">
-      <div class="header">
-        <div v-if="showHamburger"
-             class="drawer-btn hamburger">
-          <q-btn class="toolbar-button"
-                 icon="ph:list"
-                 square
-                 color="grey"
-                 @click="toggleLeftDrawer" />
-        </div>
-        <div class="breadcrumbs flex items-center">
-          <div class="product-title">
-            {{ productTitle }}
-            <q-skeleton v-if="productLoading"
-                        type="QBadge" />
-          </div>
-          <q-icon v-if="!!selectedTopic"
-                  name="chevron_left" />
-          <div v-if="!!selectedTopic"
-               class="set-title">{{ selectedTopic }}</div>
-          <q-icon v-if="!!selectedContentTitle"
-                  name="chevron_left" />
-          <div v-if="!!selectedContentTitle"
-               class="content-title">{{ selectedContentTitle }}</div>
-        </div>
-        <div class="back-btn">
-          <q-btn flat
-                 icon-right="chevron_left"
-                 @click="goBack">بازگشت</q-btn>
-        </div>
-      </div>
-      <div class="content">
-        <router :include="keepAliveComponents" />
-      </div>
-    </div>
-  </div>
+  hi
 </template>
 
 <script>
 import { mapMutations } from 'vuex'
-import Router from 'src/router/Router.vue'
+// import Router from 'src/router/Router.vue'
 import { Content } from 'src/models/Content.js'
 import KeepAliveComponents from 'src/assets/js/KeepAliveComponents.js'
-import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
+// import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
 
 export default {
   name: 'TripleTitleSetLayout',
-  components: { LayoutMenu, Router },
+  // components: { LayoutMenu, Router },
   data () {
     return {
       menuKey: 0,
