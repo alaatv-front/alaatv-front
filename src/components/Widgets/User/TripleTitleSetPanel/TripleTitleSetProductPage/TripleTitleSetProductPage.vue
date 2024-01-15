@@ -131,10 +131,10 @@ export default {
     }
   },
   watch: {
-    setTopicList (newVal, oldVal) {
-      if (!this.selectedTopic) {
-        this.$store.dispatch('TripleTitleSet/setSelectedTopic', this.setTopicList[0])
-      }
+    setTopicList () {
+      // if (!this.selectedTopic) {
+      //   this.$store.dispatch('TripleTitleSet/setSelectedTopic', this.setTopicList[0])
+      // }
     }
   },
   methods: {
