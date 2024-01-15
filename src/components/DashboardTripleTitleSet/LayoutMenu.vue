@@ -44,102 +44,102 @@
 // import menuItem from 'src/components/Menu/SideMenu/MenuItem.vue'
 
 export default {
-  name: 'LayoutMenu',
+  name: 'LayoutMenu'
   // components: { menuItem },
-  props: {
-    productItems: {
-      type: Array,
-      default: () => {
-        return []
-      }
-    },
-    topicsRouteArray: {
-      type: Array,
-      default: () => {
-        return []
-      }
-    },
-    topicList: {
-      type: Array,
-      default: () => {
-        return []
-      }
-    },
-    selectedTopic: {
-      type: String,
-      default: () => {
-        return ''
-      }
-    },
-    menuKey: {
-      type: Number,
-      default: () => {
-        return 0
-      }
-    }
-  },
-  emits: ['itemSelected'],
-  data () {
-    return {
-      searchText: '',
-      clickedProductItem: ''
-    }
-  },
-  computed: {
-    showHamburger () {
-      return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.md
-    },
-    layoutLeftDrawerVisible () {
-      return this.$store.getters['AppLayout/layoutLeftDrawerVisible']
-    }
-  },
-  methods: {
-    toggleLeftDrawer () {
-      this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', !this.layoutLeftDrawerVisible)
-    },
-    itemSelected (topic) {
-      if (this.$q.screen.lt.md) {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
-      }
-      if (!this.$route.params.productId) {
-        return
-      }
-      this.$emit('itemSelected', topic)
-      this.$router.push({
-        name: 'UserPanel.Asset.TripleTitleSet.ProductPage',
-        params: {
-          productId: this.$route.params.productId
-        }
-      })
-    },
-    setSelectedTopic (TopicName) {
-      this.clickedProductItem = TopicName
-    },
-    search (list, parentContain = false) {
-      if (!list || list.length === 0) {
-        return false
-      }
-      if (parentContain) {
-        return true
-      }
-      let flag = false
-      list.forEach(item => {
-        const contain = item.title.includes(this.searchText)
-        if (this.search(item.children, contain) || contain) {
-          flag = true
-          item.show = true
-          item.open = true
-        } else {
-          item.open = false
-          item.show = false
-        }
-      })
-      return flag
-    },
-    logOut () {
-      return this.$store.dispatch('Auth/logOut')
-    }
-  }
+  // props: {
+  //   productItems: {
+  //     type: Array,
+  //     default: () => {
+  //       return []
+  //     }
+  //   },
+  //   topicsRouteArray: {
+  //     type: Array,
+  //     default: () => {
+  //       return []
+  //     }
+  //   },
+  //   topicList: {
+  //     type: Array,
+  //     default: () => {
+  //       return []
+  //     }
+  //   },
+  //   selectedTopic: {
+  //     type: String,
+  //     default: () => {
+  //       return ''
+  //     }
+  //   },
+  //   menuKey: {
+  //     type: Number,
+  //     default: () => {
+  //       return 0
+  //     }
+  //   }
+  // },
+  // emits: ['itemSelected'],
+  // data () {
+  //   return {
+  //     searchText: '',
+  //     clickedProductItem: ''
+  //   }
+  // },
+  // computed: {
+  //   showHamburger () {
+  //     return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.md
+  //   },
+  //   layoutLeftDrawerVisible () {
+  //     return this.$store.getters['AppLayout/layoutLeftDrawerVisible']
+  //   }
+  // },
+  // methods: {
+  //   toggleLeftDrawer () {
+  //     this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', !this.layoutLeftDrawerVisible)
+  //   },
+  //   itemSelected (topic) {
+  //     if (this.$q.screen.lt.md) {
+  //       this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+  //     }
+  //     if (!this.$route.params.productId) {
+  //       return
+  //     }
+  //     this.$emit('itemSelected', topic)
+  //     this.$router.push({
+  //       name: 'UserPanel.Asset.TripleTitleSet.ProductPage',
+  //       params: {
+  //         productId: this.$route.params.productId
+  //       }
+  //     })
+  //   },
+  //   setSelectedTopic (TopicName) {
+  //     this.clickedProductItem = TopicName
+  //   },
+  //   search (list, parentContain = false) {
+  //     if (!list || list.length === 0) {
+  //       return false
+  //     }
+  //     if (parentContain) {
+  //       return true
+  //     }
+  //     let flag = false
+  //     list.forEach(item => {
+  //       const contain = item.title.includes(this.searchText)
+  //       if (this.search(item.children, contain) || contain) {
+  //         flag = true
+  //         item.show = true
+  //         item.open = true
+  //       } else {
+  //         item.open = false
+  //         item.show = false
+  //       }
+  //     })
+  //     return flag
+  //   },
+  //   logOut () {
+  //     return this.$store.dispatch('Auth/logOut')
+  //   }
+  // }
 }
 </script>
 
