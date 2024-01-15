@@ -89,9 +89,9 @@
 
 <script>
 import { openURL } from 'quasar'
-import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import ExpansionItemComponent from 'src/components/Utils/ExpansionItem.vue'
+import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 
 export default {
   name: 'TripleTitleSetProductPage',
