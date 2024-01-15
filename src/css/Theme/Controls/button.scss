@@ -132,11 +132,19 @@ $button-height: (
   }
 }
 
+@mixin btn-fill-text-color-default () {
+  color: $grey-1;
+}
+
+@mixin btn-fill-text-color-custom () {
+  color: $grey-9 !important;
+}
+
 body {
   .q-btn {
     min-height: auto;
     min-width: 96px;
-    color: $grey-1;
+    @include btn-fill-text-color-default();
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -231,11 +239,11 @@ body {
 
     /* custom style for fill */
     &.bg-primary {
-      color: $grey-9 !important;
+      @include btn-fill-text-color-custom();
     }
 
     &.bg-grey {
-      color: $grey-9 !important;
+      @include btn-fill-text-color-custom();
       background: $grey-2 !important;
 
       &.q-hoverable:hover {

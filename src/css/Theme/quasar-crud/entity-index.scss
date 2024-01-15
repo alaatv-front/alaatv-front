@@ -1,7 +1,38 @@
+@import "src/css/Theme/Controls/button.scss";
+
 .entity-index {
   & > .q-card {
     & > .q-card__section {
-      //padding: 0;
+      padding: 0;
+      & > .q-expansion-item {
+        & > .q-expansion-item__container {
+          & > .q-expansion-item__content {
+            & > .entity-crud-formBuilder {
+              display: flex;
+              flex-direction: column;
+              padding-top: $space-4;
+            }
+            .quasar-crud-index-table {
+              padding: $spacing-none;
+            }
+            .q-pagination {
+              .q-btn {
+                @include btn-fill-text-color-custom();
+                background: $grey-1 !important;
+              }
+              .q-pagination__middle {
+                &.justify-center {
+                  .q-btn {
+                    &.q-btn--standard {
+                      background: $primary !important;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
