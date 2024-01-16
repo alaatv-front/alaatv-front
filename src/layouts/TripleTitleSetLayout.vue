@@ -24,8 +24,7 @@
         </div>
       </div>
       <layout-menu :menu-key="menuKey"
-                   :topics-route-array="topicsRouteArray"
-                   :topic-list="topicList" />
+                   :topics-route-array="topicsRouteArray" />
     </div>
     <div class="container">
       <div class="header">
