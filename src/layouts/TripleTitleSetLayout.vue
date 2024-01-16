@@ -26,8 +26,7 @@
                  :to="{ name: 'UserPanel.Asset.TripleTitleSet.Products' }">بازگشت</q-btn>
         </div>
       </div>
-      <layout-menu :menu-key="menuKey"
-                   :topics-route-array="topicsRouteArray"
+      <layout-menu :topics-route-array="topicsRouteArray"
                    :topic-list="topicList"
                    :selected-topic="selectedTopic"
                    :product-items="productItems"
@@ -86,7 +85,6 @@ export default {
   },
   data () {
     return {
-      menuKey: 0,
       keepAliveComponents: KeepAliveComponents,
       productItems: [
         {
@@ -194,7 +192,6 @@ export default {
           open: false
         })
       })
-      // this.menuKey++
     },
     itemSelected (topic) {
       this.updateSelectedTopic(topic.title)

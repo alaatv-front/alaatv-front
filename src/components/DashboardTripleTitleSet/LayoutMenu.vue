@@ -69,17 +69,12 @@ export default {
       default: () => {
         return ''
       }
-    },
-    menuKey: {
-      type: Number,
-      default: () => {
-        return 0
-      }
     }
   },
   emits: ['itemSelected'],
   data () {
     return {
+      menuKey: 0,
       searchText: '',
       clickedProductItem: ''
     }
@@ -90,6 +85,11 @@ export default {
     },
     layoutLeftDrawerVisible () {
       return this.$store.getters['AppLayout/layoutLeftDrawerVisible']
+    }
+  },
+  watch: {
+    topicList () {
+      this.menuKey++
     }
   },
   methods: {
