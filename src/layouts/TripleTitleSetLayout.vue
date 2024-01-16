@@ -306,6 +306,8 @@ export default {
       display: grid;
       height: calc(100vh - 200px);
       grid-template-rows: 1fr 2fr;
+      overflow-x: hidden;
+      overflow-y: auto;
 
       .q-list {
         padding: 0;
@@ -449,5 +451,4 @@ export default {
     }
   }
 }
-
 </style>

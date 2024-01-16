@@ -1,5 +1,5 @@
 <template>
-  <div class="side-menu-body chatr-menu-body">
+  <div class="side-menu-body">
     <q-list class="side-menu-list"
             padding>
       <div v-if="showHamburger"
