@@ -185,6 +185,7 @@ export default {
     },
     fillTopicsRouteArray (topicList) {
       this.topicsRouteArray[0].children = []
+      console.log('topicList', topicList)
       // topicList.forEach(topic => {
       //   this.topicsRouteArray[0].children.push({
       //     title: topic,
