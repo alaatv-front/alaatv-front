@@ -19,7 +19,7 @@
       <menu-item :key="menuKey"
                  :items="topicsRouteArray"
                  :show-child-item-tooltip="true"
-                 :loading="topicList.length <= 0"
+                 :loading="topicList.length === 0"
                  @item-selected="itemSelected" />
       <q-item v-for="(item, index) in productItems"
               :key="index"

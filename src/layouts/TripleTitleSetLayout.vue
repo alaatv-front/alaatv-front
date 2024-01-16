@@ -28,6 +28,7 @@
       </div>
       <layout-menu :menu-key="menuKey"
                    :topics-route-array="topicsRouteArray"
+                   :topic-list="topicList"
                    :selected-topic="selectedTopic"
                    :product-items="productItems"
                    @item-selected="itemSelected" />
@@ -184,15 +185,15 @@ export default {
     },
     fillTopicsRouteArray (topicList) {
       this.topicsRouteArray[0].children = []
-      topicList.forEach(topic => {
-        this.topicsRouteArray[0].children.push({
-          title: topic,
-          value: topic,
-          active: false,
-          show: true,
-          open: false
-        })
-      })
+      // topicList.forEach(topic => {
+      //   this.topicsRouteArray[0].children.push({
+      //     title: topic,
+      //     value: topic,
+      //     active: false,
+      //     show: true,
+      //     open: false
+      //   })
+      // })
       this.menuKey++
     },
     itemSelected (topic) {
