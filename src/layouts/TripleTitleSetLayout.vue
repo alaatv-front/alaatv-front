@@ -12,9 +12,12 @@
                         class="q-pb-md" />
           </div>
           <div class="title">
-            <div class="hidden">{{topicList}}</div>
-            {{ productTitle }}
-            <q-skeleton v-if="productLoading" />
+            <template v-if="productLoading">
+              <q-skeleton />
+            </template>
+            <template v-else>
+              {{ productTitle }}
+            </template>
           </div>
         </div>
         <div class="back-btn">
@@ -24,7 +27,10 @@
         </div>
       </div>
       <layout-menu :menu-key="menuKey"
-                   :topics-route-array="topicsRouteArray" />
+                   :topics-route-array="topicsRouteArray"
+                   :selected-topic="selectedTopic"
+                   :product-items="productItems"
+                   @item-selected="itemSelected" />
     </div>
     <div class="container">
       <div class="header">
