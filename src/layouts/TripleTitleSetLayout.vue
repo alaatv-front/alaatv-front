@@ -185,17 +185,16 @@ export default {
     },
     fillTopicsRouteArray (topicList) {
       this.topicsRouteArray[0].children = []
-      console.log('topicList', topicList)
-      // topicList.forEach(topic => {
-      //   this.topicsRouteArray[0].children.push({
-      //     title: topic,
-      //     value: topic,
-      //     active: false,
-      //     show: true,
-      //     open: false
-      //   })
-      // })
-      this.menuKey++
+      topicList.forEach(topic => {
+        this.topicsRouteArray[0].children.push({
+          title: topic,
+          value: topic,
+          active: false,
+          show: true,
+          open: false
+        })
+      })
+      // this.menuKey++
     },
     itemSelected (topic) {
       this.updateSelectedTopic(topic.title)
