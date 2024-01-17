@@ -102,7 +102,8 @@ export default {
       this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', !this.layoutLeftDrawerVisible)
     },
     itemSelected (topic) {
-      if (this.$q.screen.lt.md) {
+      const isIframe = window.self !== window.top
+      if (this.$q.screen.lt.md || isIframe) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
       }
       if (!this.$route.params.productId) {

@@ -200,10 +200,12 @@ export default {
   methods: {
     updateLeftDrawer () {
       const isIframe = window.self !== window.top
+      console.warn('isIframe', isIframe)
       if (this.$q.screen.gt.md && !isIframe) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
       } else {
+        console.warn('else')
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
       }
