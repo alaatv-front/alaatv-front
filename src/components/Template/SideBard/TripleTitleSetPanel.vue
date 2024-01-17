@@ -185,16 +185,11 @@ export default {
   },
   watch: {
     screenName () {
-      if (this.$q.screen.lt.md) {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
-      } else {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
-      }
+      this.updateLeftDrawer()
     }
   },
   mounted () {
+    this.updateLeftDrawer()
     this.getEventInfoByName()
       .then(() => {
         this.updateMenuItemsFromEventInfo()
@@ -203,6 +198,15 @@ export default {
       })
   },
   methods: {
+    updateLeftDrawer () {
+      if (this.$q.screen.lt.md) {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+      } else {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
+      }
+    },
     getEventInfoByName () {
       return new Promise((resolve, reject) => {
         APIGateway.events.getEventInfoByName(this.$route.params.eventName)
