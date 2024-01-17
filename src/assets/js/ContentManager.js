@@ -20,9 +20,30 @@ class ContentManager {
     localStorage.setItem('sendThreshold', value)
   }
 
+  static checkContentSavedBefore (content) {
+    return new Promise((resolve, reject) => {
+      AppIndexedDB.searchInObjectStore('contents', 'id_index', content.id, true, (savedContent, objectStore) => {
+        const isSavedBefore = savedContent.length > 0 && savedContent[0].watched_seconds >= content.watched_seconds
+        if (isSavedBefore) {
+          reject(savedContent[0].watched_seconds)
+          return
+        }
+        resolve(savedContent[0].watched_seconds)
+      })
+    })
+  }
+
   static storeContent (content) {
     AppIndexedDB.putObjectStores([{ objectStoreName: 'contents', objectStoreData: [content] }])
     ContentManager.checkAndSendContentToBackend()
+  }
+
+  static checkAndStoreContent (content) {
+    ContentManager.checkContentSavedBefore(content)
+      .then(() => {
+        ContentManager.storeContent(content)
+      })
+      .catch(() => {})
   }
 
   static checkAndSendContentToBackend () {

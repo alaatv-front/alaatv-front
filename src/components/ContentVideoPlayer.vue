@@ -129,7 +129,7 @@ export default {
   methods: {
     updateTime (data) {
       this.$emit('timeUpdated', data)
-      ContentManager.storeContent({
+      ContentManager.checkAndStoreContent({
         id: this.content.id,
         sent: 0,
         set_id: this.content?.set?.id,
