@@ -5,7 +5,7 @@
          class="row">
       <div class="col-12">
         <carousel ref="vueCarousel"
-                  v-bind="localOptions.settings"
+                  v-bind="vueCarouselSettings"
                   :i18n="{
                     'ariaNextSlide': 'رفتن به اسلاید بعدی',
                     'ariaPreviousSlide': 'رفتن به اسلاید فبلی',
@@ -55,12 +55,10 @@
               </q-card-section>
             </q-card>
           </slide>
-
           <template #addons>
             <pagination v-if="localOptions.pagination" />
           </template>
         </carousel>
-
         <div class="arrow-left text-right">
           <q-btn :icon="localOptions.navigation.goToLeft.icon"
                  :round="localOptions.navigation.goToLeft.rounded"
@@ -75,13 +73,16 @@
                  :size="rightNavigationSize"
                  @click="$refs.vueCarousel.prev()" />
         </div>
-
       </div>
     </div>
     <div v-else
          class="loading">
       ...
     </div>
+  </div>
+  <div v-else
+       class="loading">
+    ...
   </div>
 </template>
 
@@ -95,8 +96,8 @@ import 'vue3-carousel/dist/carousel.css'
 export default defineComponent({
   name: 'PersonSlider',
   components: {
-    Carousel,
     Slide,
+    Carousel,
     Pagination
   },
   mixins: [mixinWidget],
@@ -108,7 +109,7 @@ export default defineComponent({
           autoplay: 3500,
           dir: 'rtl',
           itemsToShow: 6,
-          snapAlign: 'center',
+          snapAlign: 'center', // "start" | "end" | "center" | "center-even" | "center-odd"
           transition: 500,
           pauseAutoplayOnHover: false,
           itemsToScroll: 1,
@@ -180,6 +181,19 @@ export default defineComponent({
     }
   },
   computed: {
+    vueCarouselSettings () {
+      const settings = JSON.parse(JSON.stringify(this.localOptions.settings))
+      if (isNaN(settings.itemsToShow)) {
+        settings.itemsToShow = this.defaultOptions.settings.itemsToShow
+      } else {
+        settings.itemsToShow = parseInt(settings.itemsToShow)
+      }
+      if (!['start', 'end', 'center', 'center-even', 'center-odd'].includes(settings.snapAlign)) {
+        settings.snapAlign = 'center'
+      }
+
+      return settings
+    },
     leftNavigationSize () {
       return this.localOptions.navigation.goToLeft.size[this.$q.screen.name]
     },
@@ -188,7 +202,9 @@ export default defineComponent({
     }
   },
   mounted () {
-    this.loaded = true
+    this.$nextTick(() => {
+      this.loaded = true
+    })
   }
 })
 </script>
