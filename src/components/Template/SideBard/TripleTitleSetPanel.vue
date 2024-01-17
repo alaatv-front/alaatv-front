@@ -199,7 +199,10 @@ export default {
   },
   methods: {
     updateLeftDrawer () {
-      const isIframe = window.self !== window.top
+      console.warn('window.frameElement?.clientWidth', window.frameElement?.clientWidth)
+      console.warn('window.self !== window.top', window.self !== window.top)
+      console.warn('window.frameElement', window.frameElement)
+      const isIframe = window.self !== window.top || window.frameElement
       if (isIframe || this.$q.screen.lt.md) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
@@ -264,9 +267,8 @@ export default {
     },
     itemSelected (topic) {
       this.updateSelectedTopic(topic.title)
-      console.warn('window.screen.width', window.screen.width)
       this.$nextTick(() => {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+        this.updateLeftDrawer()
       })
     }
   }
