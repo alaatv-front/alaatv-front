@@ -103,7 +103,13 @@ export default {
     },
     itemSelected (topic) {
       const isIframe = window.self !== window.top
-      if (this.$q.screen.lt.md || isIframe) {
+      console.warn('itemSelected isIframe', isIframe)
+      if (this.$q.screen.gt.md && !isIframe) {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
+      } else {
+        console.warn('itemSelected else')
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
       }
       if (!this.$route.params.productId) {
