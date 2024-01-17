@@ -103,7 +103,7 @@ export default {
         //
         // return clonedOptions
 
-        const clonedOptions = Object.assign(this.defaultOptions, this.options)
+        const clonedOptions = JSON.parse(JSON.stringify(Object.assign(this.defaultOptions, this.options)))
 
         const dataAdapter = function (group) {
           const groupLength = group.length
@@ -178,9 +178,6 @@ export default {
     }
   },
   methods: {
-    getClonedData () {
-      return JSON.parse(JSON.stringify(this.localOptions.data))
-    },
     extractProducts (group) {
       const productIds = []
       for (let index = 0; index < group.length; index++) {
