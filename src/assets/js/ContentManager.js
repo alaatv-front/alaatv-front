@@ -21,8 +21,13 @@ class ContentManager {
   }
 
   static storeContent (content) {
-    AppIndexedDB.putObjectStores([{ objectStoreName: 'contents', objectStoreData: [content] }])
-    ContentManager.checkAndSendContentToBackend()
+    AppIndexedDB.searchInObjectStore('contents', 'id_index', content.id, true, (savedContent, objectStore) => {
+      if (savedContent.length > 0 && savedContent[0].watched_seconds >= content.watched_seconds) {
+        return
+      }
+      AppIndexedDB.putObjectStores([{ objectStoreName: 'contents', objectStoreData: [content] }])
+      ContentManager.checkAndSendContentToBackend()
+    })
   }
 
   static checkAndSendContentToBackend () {
