@@ -199,16 +199,13 @@ export default {
   },
   methods: {
     updateLeftDrawer () {
-      console.warn('window.frameElement?.clientWidth', window.frameElement?.clientWidth)
-      console.warn('window.self !== window.top', window.self !== window.top)
-      console.warn('window.frameElement', window.frameElement)
-      const isIframe = window.self !== window.top || window.frameElement
-      if (isIframe || this.$q.screen.lt.md) {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
-      } else {
+      const isIframe = window.self !== window.top
+      if (this.$q.screen.gt.md && !isIframe) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
+      } else {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
       }
     },
     getEventInfoByName () {
