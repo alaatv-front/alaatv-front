@@ -199,7 +199,8 @@ export default {
   },
   methods: {
     updateLeftDrawer () {
-      if (this.$q.screen.lt.md) {
+      const isIframe = window.self !== window.top
+      if (isIframe || this.$q.screen.lt.md) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
       } else {
@@ -263,6 +264,7 @@ export default {
     },
     itemSelected (topic) {
       this.updateSelectedTopic(topic.title)
+      console.warn('window.screen.width', window.screen.width)
       this.$nextTick(() => {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
       })
