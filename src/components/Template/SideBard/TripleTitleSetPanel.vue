@@ -263,7 +263,9 @@ export default {
     },
     itemSelected (topic) {
       this.updateSelectedTopic(topic.title)
-      this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+      this.$nextTick(() => {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+      })
     }
   }
 }
