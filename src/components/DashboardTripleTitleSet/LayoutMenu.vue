@@ -157,6 +157,7 @@ export default {
     &.side-menu-list {
       .top-search {
         .search-input {
+          width: 100%;
           margin-bottom: 30px;
         }
 
