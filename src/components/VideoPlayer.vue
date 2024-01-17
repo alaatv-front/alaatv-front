@@ -286,6 +286,9 @@ export default {
       vastElement.classList.remove(classValue)
     },
     vastElementExist (vastClassName) {
+      if (!this.$refs.videoPlayerWrapper) {
+        return false
+      }
       const vastElement = this.$refs.videoPlayerWrapper.getElementsByClassName(vastClassName)[0]
       if (!vastElement) {
         return false

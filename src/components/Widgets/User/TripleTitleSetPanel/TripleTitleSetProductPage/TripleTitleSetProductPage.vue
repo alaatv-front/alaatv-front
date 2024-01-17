@@ -89,9 +89,9 @@
 
 <script>
 import { openURL } from 'quasar'
-import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import ExpansionItemComponent from 'src/components/Utils/ExpansionItem.vue'
+import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 
 export default {
   name: 'TripleTitleSetProductPage',
@@ -108,6 +108,7 @@ export default {
   computed: {
     selectedTopic () {
       return this.$store.getters['TripleTitleSet/selectedTopic']
+      // return ''
     },
     setList () {
       return this.$store.getters['TripleTitleSet/setList']
@@ -116,24 +117,30 @@ export default {
           set.expand = false
           return set
         })
+      // return []
     },
     setTopicList () {
       return this.$store.getters['TripleTitleSet/setTopicList']
+      // return []
     },
     setLoading () {
       return this.$store.getters['TripleTitleSet/setLoading']
+      // return false
     },
     setListLoading () {
       return this.$store.getters['TripleTitleSet/setListLoading']
+      // return false
     },
     selectedProduct () {
       return this.$store.getters['TripleTitleSet/selectedProduct']
+      // return {}
     }
   },
   watch: {
-    setTopicList (newVal, oldVal) {
+    setTopicList () {
       if (!this.selectedTopic) {
-        this.$store.dispatch('TripleTitleSet/setSelectedTopic', this.setTopicList[0])
+        // this.$store.dispatch('TripleTitleSet/setSelectedTopic', this.setTopicList[0])
+        this.$store.commit('TripleTitleSet/updateSelectedTopic', this.setTopicList[0])
       }
     }
   },

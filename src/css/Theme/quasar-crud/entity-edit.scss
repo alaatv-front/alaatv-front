@@ -1,0 +1,18 @@
+.entity-edit {
+  &.q-card {
+    & > .q-card__section {
+      padding: 0;
+      & > .q-expansion-item {
+        & > .q-expansion-item__container {
+          & > .q-expansion-item__content {
+            & > .entity-crud-formBuilder {
+              display: flex;
+              flex-direction: column;
+              padding-top: $space-4;
+            }
+          }
+        }
+      }
+    }
+  }
+}

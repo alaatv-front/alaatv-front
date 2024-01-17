@@ -97,21 +97,31 @@ const AppIndexedDB = (function () {
     })
   }
 
-  function searchInObjectStore (objectStoreName, index, indexValue, onsuccess) {
+  function searchInObjectStore (objectStoreName, index, indexValue, readonly, onsuccess) {
     query(function (db) {
-      const objectStore = getObjectStore(db, objectStoreName, true)
+      const objectStore = getObjectStore(db, objectStoreName, readonly)
       const objectStoreIndex = objectStore.index(index)
-      const indexGet = objectStoreIndex.getAll(indexValue)
-      indexGet.onsuccess = function (e) {
-        const match = e.target.result
-        if (match) {
-          onsuccess(match)
+      const request = objectStoreIndex.getAll(indexValue)
+      request.onsuccess = function (e) {
+        const result = e.target.result
+        if (result) {
+          onsuccess(result, objectStore)
         }
+      }
+
+      request.onerror = function (e) {
+        // Handle any errors here
+        console.error('Error accessing indexedDB', e.target.error)
       }
     })
   }
 
+  async function updateRecord (data, objectStore) {
+    await objectStore.put(data)
+  }
+
   return {
+    updateRecord,
     putObjectStores,
     searchInObjectStore
   }
