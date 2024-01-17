@@ -1,5 +1,5 @@
 <template>
-  <div class="chatr-side-menu">
+  <div class="TripleTitleSetPanel">
     <div v-if="isDesktop"
          class="side-menu">
       <div class="menu-logo">
@@ -176,13 +176,22 @@ export default {
     selectedTopic () {
       return this.$store.getters['TripleTitleSet/selectedTopic'] || ''
     },
+    screenName () {
+      return this.$q.screen.name
+    },
     isDesktop () {
+      return !this.$q.screen.lt.md
+    }
+  },
+  watch: {
+    screenName () {
       if (this.$q.screen.lt.md) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
       } else {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
       }
-      return !this.$q.screen.lt.md
     }
   },
   mounted () {
@@ -256,9 +265,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.chatr-side-menu {
+.TripleTitleSetPanel {
   background: white;
   height: 100%;
+  overflow: auto;
 }
 
 .side-menu{
@@ -380,7 +390,7 @@ export default {
 
 .side-menu-items{
   z-index: 99999;
-  padding: 20px;
+  //padding: 20px;
 }
 
 .logout-dialog-card {
