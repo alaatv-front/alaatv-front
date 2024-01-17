@@ -263,6 +263,7 @@ export default {
     },
     itemSelected (topic) {
       this.updateSelectedTopic(topic.title)
+      this.updateLeftDrawer()
     }
   }
 }
