@@ -1,5 +1,5 @@
 <template>
-  <div class="side-menu-body chatr-menu-body">
+  <div class="side-menu-body">
     <q-list class="side-menu-list"
             padding>
       <div v-if="showHamburger"
@@ -19,7 +19,7 @@
       <menu-item :key="menuKey"
                  :items="topicsRouteArray"
                  :show-child-item-tooltip="true"
-                 :loading="topicList.length <= 0"
+                 :loading="topicList.length === 0"
                  @item-selected="itemSelected" />
       <q-item v-for="(item, index) in productItems"
               :key="index"
@@ -40,7 +40,8 @@
 </template>
 
 <script>
-import menuItem from 'components/Menu/SideMenu/MenuItem.vue'
+import menuItem from 'src/components/Menu/SideMenu/MenuItem.vue'
+
 export default {
   name: 'LayoutMenu',
   components: { menuItem },
@@ -68,17 +69,12 @@ export default {
       default: () => {
         return ''
       }
-    },
-    menuKey: {
-      type: Number,
-      default: () => {
-        return 0
-      }
     }
   },
   emits: ['itemSelected'],
   data () {
     return {
+      menuKey: 0,
       searchText: '',
       clickedProductItem: ''
     }
@@ -89,6 +85,11 @@ export default {
     },
     layoutLeftDrawerVisible () {
       return this.$store.getters['AppLayout/layoutLeftDrawerVisible']
+    }
+  },
+  watch: {
+    topicList () {
+      this.menuKey++
     }
   },
   methods: {
@@ -114,25 +115,25 @@ export default {
       this.clickedProductItem = TopicName
     },
     search (list, parentContain = false) {
-      if (!list || list.length === 0) {
-        return false
-      }
-      if (parentContain) {
-        return true
-      }
-      let flag = false
-      list.forEach(item => {
-        const contain = item.title.includes(this.searchText)
-        if (this.search(item.children, contain) || contain) {
-          flag = true
-          item.show = true
-          item.open = true
-        } else {
-          item.open = false
-          item.show = false
-        }
-      })
-      return flag
+      // if (!list || list.length === 0) {
+      //   return false
+      // }
+      // if (parentContain) {
+      //   return true
+      // }
+      // let flag = false
+      // list.forEach(item => {
+      //   const contain = item.title.includes(this.searchText)
+      //   if (this.search(item.children, contain) || contain) {
+      //     flag = true
+      //     item.show = true
+      //     item.open = true
+      //   } else {
+      //     item.open = false
+      //     item.show = false
+      //   }
+      // })
+      // return flag
     },
     logOut () {
       return this.$store.dispatch('Auth/logOut')

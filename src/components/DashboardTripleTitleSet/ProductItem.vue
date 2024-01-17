@@ -68,9 +68,10 @@
               <q-btn flat
                      class="size-md"
                      icon-right="chevron_left"
-                     :to="{ name: 'UserPanel.Asset.TripleTitleSet.Content', params: {productId: product.id, setId: product.last_content_user_watched.set.id, contentId: product.last_content_user_watched?.id} }">مشاهده</q-btn>
+                     @click="gotoLastContent(product)">
+                مشاهده
+              </q-btn>
             </div>
-
           </div>
         </q-card-section>
       </q-card-section>
@@ -94,7 +95,9 @@
             <q-btn flat
                    class="size-md"
                    icon-right="chevron_left"
-                   :to="{ name: 'UserPanel.Asset.TripleTitleSet.Content', params: {productId: product.id, setId: product.last_content_user_watched.set.id, contentId: product.last_content_user_watched?.id} }">مشاهده</q-btn>
+                   @click="gotoLastContent(product)">
+              مشاهده
+            </q-btn>
           </div>
 
         </div>

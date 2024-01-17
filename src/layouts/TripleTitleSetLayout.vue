@@ -12,9 +12,12 @@
                         class="q-pb-md" />
           </div>
           <div class="title">
-            <div class="hidden">{{topicList}}</div>
-            {{ productTitle }}
-            <q-skeleton v-if="productLoading" />
+            <template v-if="productLoading">
+              <q-skeleton />
+            </template>
+            <template v-else>
+              {{ productTitle }}
+            </template>
           </div>
         </div>
         <div class="back-btn">
@@ -23,8 +26,7 @@
                  :to="{ name: 'UserPanel.Asset.TripleTitleSet.Products' }">بازگشت</q-btn>
         </div>
       </div>
-      <layout-menu :menu-key="menuKey"
-                   :topics-route-array="topicsRouteArray"
+      <layout-menu :topics-route-array="topicsRouteArray"
                    :topic-list="topicList"
                    :selected-topic="selectedTopic"
                    :product-items="productItems"
@@ -77,10 +79,12 @@ import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
 
 export default {
   name: 'TripleTitleSetLayout',
-  components: { LayoutMenu, Router },
+  components: {
+    Router,
+    LayoutMenu
+  },
   data () {
     return {
-      menuKey: 0,
       keepAliveComponents: KeepAliveComponents,
       productItems: [
         {
@@ -123,9 +127,6 @@ export default {
     }
   },
   computed: {
-    isUserLogin () {
-      return this.$store.getters['Auth/isUserLogin']
-    },
     showHamburger () {
       return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.md
     },
@@ -191,7 +192,6 @@ export default {
           open: false
         })
       })
-      this.menuKey++
     },
     itemSelected (topic) {
       this.updateSelectedTopic(topic.title)
@@ -306,6 +306,8 @@ export default {
       display: grid;
       height: calc(100vh - 200px);
       grid-template-rows: 1fr 2fr;
+      overflow-x: hidden;
+      overflow-y: auto;
 
       .q-list {
         padding: 0;
@@ -449,5 +451,4 @@ export default {
     }
   }
 }
-
 </style>
