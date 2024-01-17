@@ -105,34 +105,34 @@ export default {
 
         const clonedOptions = Object.assign(this.defaultOptions, this.options)
 
-        const dataAdapter = function (group) {
-          const groupLength = group.length
-          for (let index = 0; index < groupLength; index++) {
-            if (group[index].type === 'GroupList') {
-              dataAdapter(group[index].data)
-            } else {
-              group[index].data = group[index].data.map(item => isNaN(item) ? item.id : item)
-            }
-          }
-        }
-
-        dataAdapter(clonedOptions.data)
+        // const dataAdapter = function (group) {
+        //   const groupLength = group.length
+        //   for (let index = 0; index < groupLength; index++) {
+        //     if (group[index].type === 'GroupList') {
+        //       dataAdapter(group[index].data)
+        //     } else {
+        //       group[index].data = group[index].data.map(item => isNaN(item) ? item.id : item)
+        //     }
+        //   }
+        // }
+        //
+        // dataAdapter(clonedOptions.data)
 
         return clonedOptions
       },
       set (newValue) {
-        const dataAdapter = function (group) {
-          const groupLength = group.length
-          for (let index = 0; index < groupLength; index++) {
-            if (group[index].type === 'GroupList') {
-              dataAdapter(group[index].data)
-            } else {
-              group[index].data = group[index].data.map(item => isNaN(item) ? item.id : item)
-            }
-          }
-        }
-
-        dataAdapter(newValue.data)
+        // const dataAdapter = function (group) {
+        //   const groupLength = group.length
+        //   for (let index = 0; index < groupLength; index++) {
+        //     if (group[index].type === 'GroupList') {
+        //       dataAdapter(group[index].data)
+        //     } else {
+        //       group[index].data = group[index].data.map(item => isNaN(item) ? item.id : item)
+        //     }
+        //   }
+        // }
+        //
+        // dataAdapter(newValue.data)
 
         this.$emit('update:options', newValue)
       }
@@ -178,9 +178,6 @@ export default {
     }
   },
   methods: {
-    getClonedData () {
-      return JSON.parse(JSON.stringify(this.localOptions.data))
-    },
     extractProducts (group) {
       const productIds = []
       for (let index = 0; index < group.length; index++) {
