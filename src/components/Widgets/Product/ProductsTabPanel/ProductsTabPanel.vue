@@ -103,20 +103,20 @@ export default {
         //
         // return clonedOptions
 
-        const clonedOptions = Object.assign(this.defaultOptions, this.options)
+        const clonedOptions = JSON.parse(JSON.stringify(Object.assign(this.defaultOptions, this.options)))
 
-        // const dataAdapter = function (group) {
-        //   const groupLength = group.length
-        //   for (let index = 0; index < groupLength; index++) {
-        //     if (group[index].type === 'GroupList') {
-        //       dataAdapter(group[index].data)
-        //     } else {
-        //       group[index].data = group[index].data.map(item => isNaN(item) ? item.id : item)
-        //     }
-        //   }
-        // }
-        //
-        // dataAdapter(clonedOptions.data)
+        const dataAdapter = function (group) {
+          const groupLength = group.length
+          for (let index = 0; index < groupLength; index++) {
+            if (group[index].type === 'GroupList') {
+              dataAdapter(group[index].data)
+            } else {
+              group[index].data = group[index].data.map(item => isNaN(item) ? item.id : item)
+            }
+          }
+        }
+
+        dataAdapter(clonedOptions.data)
 
         return clonedOptions
       },
