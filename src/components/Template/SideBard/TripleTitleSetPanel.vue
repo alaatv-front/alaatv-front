@@ -86,14 +86,15 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
-import { APIGateway } from 'src/api/APIGateway'
 import { mixinAuth } from 'src/mixin/Mixins.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
+import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
 
 export default {
   name: 'TripleTitleSetPanel',
   components: { LayoutMenu },
-  mixins: [mixinAuth],
+  mixins: [mixinAuth, mixinEwano],
   data: () => ({
     isActive: null,
     isAdmin: false,
@@ -200,19 +201,18 @@ export default {
   methods: {
     updateLeftDrawer () {
       const isIframe = window.self !== window.top
-      console.warn('isIframe', isIframe)
       if (this.$q.screen.gt.md && !isIframe) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
       } else {
-        console.warn('else')
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
-        setTimeout(() => {
-          this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
-          this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
-          console.warn('updateLeftDrawer setTimeout 500')
-        }, 500)
+        if (this.isEwanoUser) {
+          setTimeout(() => {
+            this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+            this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+          }, 10)
+        }
       }
     },
     getEventInfoByName () {

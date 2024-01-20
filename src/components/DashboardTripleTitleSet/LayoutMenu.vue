@@ -46,10 +46,12 @@
 
 <script>
 import menuItem from 'src/components/Menu/SideMenu/MenuItem.vue'
+import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 
 export default {
   name: 'LayoutMenu',
   components: { menuItem },
+  mixins: [mixinEwano],
   props: {
     productItems: {
       type: Array,
@@ -103,19 +105,18 @@ export default {
     },
     itemSelected (topic) {
       const isIframe = window.self !== window.top
-      console.warn('itemSelected isIframe', isIframe)
       if (this.$q.screen.gt.md && !isIframe) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
       } else {
-        console.warn('itemSelected else')
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
-        setTimeout(() => {
-          this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
-          this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
-          console.warn('itemSelected setTimeout 500')
-        }, 500)
+        if (this.isEwanoUser) {
+          setTimeout(() => {
+            this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+            this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+          }, 100)
+        }
       }
       if (!this.$route.params.productId) {
         return
