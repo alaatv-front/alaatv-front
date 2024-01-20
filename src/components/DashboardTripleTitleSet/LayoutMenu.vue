@@ -111,6 +111,11 @@ export default {
         console.warn('itemSelected else')
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+        setTimeout(() => {
+          this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+          this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+          console.warn('itemSelected setTimeout 500')
+        }, 500)
       }
       if (!this.$route.params.productId) {
         return

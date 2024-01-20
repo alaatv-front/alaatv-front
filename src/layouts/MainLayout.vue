@@ -158,9 +158,7 @@ export default {
     },
     resize (val) {
       this.$store.commit('AppLayout/updateWindowSize', val)
-      console.warn('this.getLeftDrawerType', this.getLeftDrawerType)
       if (this.getLeftDrawerType === 'abrisham') {
-        console.warn('updateLayoutLeftDrawerWidth 100 *')
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
         if (val.width < 1200) {
           this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 80)

@@ -208,6 +208,11 @@ export default {
         console.warn('else')
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+        setTimeout(() => {
+          this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+          this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+          console.warn('updateLeftDrawer setTimeout 500')
+        }, 500)
       }
     },
     getEventInfoByName () {
