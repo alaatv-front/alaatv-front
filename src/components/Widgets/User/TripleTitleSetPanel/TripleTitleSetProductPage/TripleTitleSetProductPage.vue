@@ -113,10 +113,10 @@ export default {
     setList () {
       return this.$store.getters['TripleTitleSet/setList']
         .filter(set => (new RegExp('\\-\\s*' + this.selectedTopic + '\\s*\\-')).test(set.short_title))
-        .map(set => {
-          set.expand = false
-          return set
-        })
+        // .map(set => {
+        //   set.expand = false
+        //   return set
+        // })
       // return []
     },
     setTopicList () {

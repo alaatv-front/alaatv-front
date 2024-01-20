@@ -1,5 +1,5 @@
 <template>
-  <div class="chatr-side-menu">
+  <div class="TripleTitleSetPanel">
     <div v-if="isDesktop"
          class="side-menu">
       <div class="menu-logo">
@@ -176,16 +176,20 @@ export default {
     selectedTopic () {
       return this.$store.getters['TripleTitleSet/selectedTopic'] || ''
     },
+    screenName () {
+      return this.$q.screen.name
+    },
     isDesktop () {
-      if (this.$q.screen.lt.md) {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
-      } else {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
-      }
       return !this.$q.screen.lt.md
     }
   },
+  watch: {
+    screenName () {
+      this.updateLeftDrawer()
+    }
+  },
   mounted () {
+    this.updateLeftDrawer()
     this.getEventInfoByName()
       .then(() => {
         this.updateMenuItemsFromEventInfo()
@@ -194,6 +198,18 @@ export default {
       })
   },
   methods: {
+    updateLeftDrawer () {
+      const isIframe = window.self !== window.top
+      console.warn('isIframe', isIframe)
+      if (this.$q.screen.gt.md && !isIframe) {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
+      } else {
+        console.warn('else')
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+      }
+    },
     getEventInfoByName () {
       return new Promise((resolve, reject) => {
         APIGateway.events.getEventInfoByName(this.$route.params.eventName)
@@ -250,15 +266,19 @@ export default {
     },
     itemSelected (topic) {
       this.updateSelectedTopic(topic.title)
+      this.$nextTick(() => {
+        this.updateLeftDrawer()
+      })
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.chatr-side-menu {
+.TripleTitleSetPanel {
   background: white;
   height: 100%;
+  overflow: auto;
 }
 
 .side-menu{
@@ -380,7 +400,7 @@ export default {
 
 .side-menu-items{
   z-index: 99999;
-  padding: 20px;
+  //padding: 20px;
 }
 
 .logout-dialog-card {

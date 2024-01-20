@@ -1,5 +1,5 @@
 <template>
-  <div class="chatre-nejat-layout">
+  <div class="TripleTitleSetLayout">
     <div class="side-menu-main-layout bg-white">
       <div class="header">
         <div class="product-box">
@@ -241,7 +241,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.chatre-nejat-layout {
+.TripleTitleSetLayout {
   display: grid;
   grid-template-columns: 350px auto;
 
@@ -303,9 +303,7 @@ export default {
     }
 
     .side-menu-body {
-      display: grid;
       height: calc(100vh - 200px);
-      grid-template-rows: 1fr 2fr;
       overflow-x: hidden;
       overflow-y: auto;
 

@@ -2,20 +2,25 @@
   <div class="side-menu-body">
     <q-list class="side-menu-list"
             padding>
-      <div v-if="showHamburger"
-           class="drawer-btn hamburger">
-        <q-btn icon="ph:list"
-               flat
-               @click="toggleLeftDrawer" />
-      </div>
-      <q-input v-model="searchText"
-               class="gray-input search-input"
-               placeholder="جست و جو"
-               @update:model-value ="search(topicsRouteArray)">
-        <template v-slot:append>
-          <q-icon name="search" />
-        </template>
-      </q-input>
+      <q-item class="menu-item top-search"
+              :class="{'show-hamburger': showHamburger}">
+        <div v-if="showHamburger"
+             class="drawer-btn hamburger">
+          <q-btn icon="ph:list"
+                 flat
+                 square
+                 @click="toggleLeftDrawer" />
+        </div>
+        <q-input v-model="searchText"
+                 class="gray-input search-input no-title"
+                 placeholder="جست و جو"
+                 @update:model-value ="search(topicsRouteArray)">
+          <template v-slot:append>
+            <q-icon name="search" />
+          </template>
+        </q-input>
+      </q-item>
+
       <menu-item :key="menuKey"
                  :items="topicsRouteArray"
                  :show-child-item-tooltip="true"
@@ -97,7 +102,14 @@ export default {
       this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', !this.layoutLeftDrawerVisible)
     },
     itemSelected (topic) {
-      if (this.$q.screen.lt.md) {
+      const isIframe = window.self !== window.top
+      console.warn('itemSelected isIframe', isIframe)
+      if (this.$q.screen.gt.md && !isIframe) {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
+      } else {
+        console.warn('itemSelected else')
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
       }
       if (!this.$route.params.productId) {
@@ -144,19 +156,38 @@ export default {
 
 <style scoped lang="scss">
 .side-menu-body {
-  display: grid;
   height: calc(100vh - 200px);
-  grid-template-rows: 1fr 2fr;
 
   .q-list {
     padding: 0;
 
     &.side-menu-list {
-      .search-input {
-        margin-bottom: 30px;
+      .top-search {
+        .search-input {
+          width: 100%;
+          margin-bottom: 30px;
+        }
+
+        &.show-hamburger {
+          $hamburger-width: 40px;
+          padding: $space-4 $spacing-none;
+          justify-content: center;
+          align-items: center;
+          .hamburger {
+            width: $hamburger-width;
+          }
+          .search-input {
+            justify-content: center;
+            align-items: center;
+            width: calc( 100% - #{$hamburger-width} );
+            margin-bottom: $spacing-none;
+          }
+        }
       }
 
-      margin: 0 24px 109px;
+      margin-bottom: 109px;
+      padding: 0 $space-4;
+      max-width: 100%;
 
       :deep(.menu-item) {
         .list-child-item {
@@ -183,15 +214,15 @@ export default {
       }
 
       @media screen and (width <= 1919px) {
-        margin: 0 24px 34px;
+        margin-bottom: $space-7;
       }
 
       @media screen and (width <= 1439px) {
-        margin: 0 21px 26px;
+        margin-bottom: $space-6;
       }
 
       @media screen and (width <= 599px) {
-        margin: 0 18px 8px;
+        margin-bottom: $space-2;
       }
 
       .top-separator {
