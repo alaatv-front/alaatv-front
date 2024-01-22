@@ -250,6 +250,47 @@ export default {
     }
   }
 
+  .side-menu-list {
+    :deep(.menu-item) {
+      .q-expansion-item {
+        margin-left: 0;
+        box-shadow: none;
+        .q-expansion-item__container {
+          & > .q-item {
+            height: 40px;
+            min-height: 40px;
+            padding: 0 $space-1;
+          }
+          .q-expansion-item__content {
+            padding-left: 0;
+            padding-right: 0;
+            .expansion-body {
+              & > .q-separator {
+                display: none;
+              }
+              & > .q-list {
+                .q-item {
+                  margin-left: $space-1;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    & > .q-item {
+      :deep(.q-btn) {
+        padding: 0;
+        .q-btn__content {
+          padding-left: $space-1;
+          padding-right: $space-1;
+          display: flex;
+        }
+      }
+    }
+  }
+
   .log-out {
     align-self: end;
     font-size: 16px;
