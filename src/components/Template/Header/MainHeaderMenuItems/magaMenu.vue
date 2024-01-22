@@ -2,6 +2,7 @@
   <q-btn-dropdown v-model="showMenu"
                   flat
                   content-class="megaMenu"
+                  :auto-close="false"
                   @mouseover="onMouseover"
                   @mouseleave="onMouseleave">
     <template #label>
@@ -217,8 +218,8 @@ export default {
   },
   data () {
     return {
-      optionDialog: false,
       showMenu: false,
+      optionDialog: false,
       onMouseleaveSetTimeout: null
     }
   },
@@ -267,7 +268,10 @@ export default {
         window.clearInterval(this.onMouseleaveSetTimeout)
       }
     },
-    onMouseleave () {
+    onMouseleave (event) {
+      if (event.relatedTarget.nodeName === 'HTML' || event.relatedTarget.nodeName === 'html') {
+        return
+      }
       this.onMouseleaveSetTimeout = setTimeout(() => {
         this.showMenu = false
       }, 50)
