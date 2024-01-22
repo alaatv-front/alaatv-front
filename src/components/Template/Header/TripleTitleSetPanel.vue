@@ -6,7 +6,7 @@
                class="logo-image" />
       </router-link>
     </div>
-    <div class="header-box full-height flex justify-center items-center">
+    <div class="header-box flex justify-center items-center">
       <q-img :src="logoImage"
              class="header-logo-img" />
     </div>
@@ -91,20 +91,17 @@ export default {
   }
 }
 
+$header-height: 64px;
 .chatre-nejat-header{
-  height: 64px;
+  height: $header-height;
   background: #fff;
   position: relative;
   display: grid;
   grid-template-columns: auto 1fr auto;
 
-  @media screen and (width <= 1023px) {
-
-  }
-
   .logo-box {
-    width: 44px;
-    height: 44px;
+    width: auto;
+    height: $header-height;
     align-self: center;
     margin-left: 25px;
     visibility: hidden;
@@ -119,8 +116,14 @@ export default {
   }
 
   .header-box {
+    height: $header-height;
     .header-logo-img {
       width: 142px;
+      max-height: $header-height;
+      :deep(.q-img) {
+        width: auto;
+        max-height: $header-height;
+      }
 
       @media screen and (width <= 990px) {
         width: 126px;
@@ -133,7 +136,7 @@ export default {
   }
 
   .profile-box {
-    height: 100%;
+    height: $header-height;
     padding-right: 18px;
   }
 
@@ -142,5 +145,4 @@ export default {
     box-shadow: 0 3px 5px 0 rgb(0 0 0 / 10%);
   }
 }
-
 </style>
