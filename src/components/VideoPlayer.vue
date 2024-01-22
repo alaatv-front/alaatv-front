@@ -322,15 +322,18 @@ export default {
         this.stopVastTimer()
         return
       }
-      const playerCurrentTime = this.player ? this.player.currentTime() : 0
-      this.updateVastTimer(seconds - Math.floor(playerCurrentTime).toString())
+      this.updateVastTimer(seconds - Math.floor(this.getPlayerCurrentTime()))
       this.vastTimerInterval = setInterval(() => {
-        this.updateVastTimer(seconds - Math.floor(playerCurrentTime).toString())
+        const playerCurrentTime = this.getPlayerCurrentTime()
+        this.updateVastTimer(seconds - Math.floor(playerCurrentTime))
         if (seconds - Math.floor(playerCurrentTime).toString() === 0) {
           this.stopVastTimer()
           endTimerCallback()
         }
       }, 1000)
+    },
+    getPlayerCurrentTime () {
+      return this.player ? this.player.currentTime() : 0
     },
     getVastTimerSeconds () {
       if (!this.vastSkipOffset) {
