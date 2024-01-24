@@ -123,10 +123,22 @@ export default {
   },
   methods: {
     gotoProductPage (product) {
-      this.$router.push({ name: 'UserPanel.Asset.TripleTitleSet.ProductPage', params: { productId: product.id } })
+      this.$router.push({
+        name: 'UserPanel.Asset.TripleTitleSet.ProductPage',
+        params: {
+          productId: product.id
+        }
+      })
     },
     gotoLastContent (product) {
-      this.$router.push({ name: 'UserPanel.Asset.TripleTitleSet.Content', params: { productId: product.id, setId: product.last_content_user_watched.set.id, contentId: product.last_content_user_watched?.id } })
+      this.$router.push({
+        name: 'UserPanel.Asset.TripleTitleSet.Content',
+        params: {
+          productId: product.id,
+          setId: product.last_content_user_watched.set.id,
+          contentId: product.last_content_user_watched?.id
+        }
+      })
     }
   }
 }
