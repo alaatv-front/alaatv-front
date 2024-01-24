@@ -148,17 +148,7 @@ export default {
     afterAuthenticate () {
       this.getProduct()
         .then(() => {
-          const newProductId = this.$route.params.productId
-          const oldSelectedProduct = this.$store.getters['TripleTitleSet/selectedProduct']
-          const setList = this.$store.getters['TripleTitleSet/setList']
-          const setTopicList = this.$store.getters['TripleTitleSet/setTopicList']
-          if (
-            (!Array.isArray(setList) || setList.length === 0) ||
-            (!Array.isArray(setTopicList) || setTopicList.length === 0) ||
-            (!oldSelectedProduct?.id || parseInt(oldSelectedProduct.id) !== parseInt(newProductId))
-          ) {
-            this.getProductSets(this.$route.params.productId)
-          }
+          this.getProductSets(this.$route.params.productId)
         })
         .catch(() => {})
     },

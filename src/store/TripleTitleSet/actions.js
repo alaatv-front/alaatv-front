@@ -8,6 +8,9 @@ const actions = {
     context.commit('toggleSetListLoading')
     APIGateway.product.getSets(productId)
       .then((setList) => {
+        const newProductId = productId
+        const oldSetList = context.getters.setList
+        const oldSetTopicList = context.getters.setTopicList
         const oldSelectedProduct = context.getters.selectedProduct
         const normalizedSets = setList.list.map(set => {
           if (set.short_title !== null) {
@@ -32,7 +35,11 @@ const actions = {
 
         context.commit('updateSetList', normalizedSets)
         context.commit('updateTopicList', topicList)
-        if (!oldSelectedProduct?.id || parseInt(oldSelectedProduct.id) !== parseInt(productId)) {
+        if (
+          (!Array.isArray(oldSetList) || oldSetList.length === 0) ||
+          (!Array.isArray(oldSetTopicList) || oldSetTopicList.length === 0) ||
+          (!oldSelectedProduct?.id || parseInt(oldSelectedProduct.id) !== parseInt(newProductId))
+        ) {
           context.commit('updateSelectedTopic', topicList[0])
         }
         context.commit('toggleSetListLoading')
