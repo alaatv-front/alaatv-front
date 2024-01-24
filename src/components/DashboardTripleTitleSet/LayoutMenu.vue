@@ -122,6 +122,7 @@ export default {
         return
       }
       this.$emit('itemSelected', topic)
+      this.$store.commit('TripleTitleSet/updateSelectedTopic', topic.title)
       this.$router.push({
         name: 'UserPanel.Asset.TripleTitleSet.ProductPage',
         params: {
