@@ -146,8 +146,11 @@ export default {
   },
   methods: {
     afterAuthenticate () {
-      this.getProductSets(this.$route.params.productId)
       this.getProduct()
+        .then(() => {
+          this.getProductSets(this.$route.params.productId)
+        })
+        .catch(() => {})
     },
     humanizeDuration (durationInSeconds) {
       const durationInMinutes = Math.floor(durationInSeconds / 60)
@@ -184,7 +187,7 @@ export default {
       this.$store.dispatch('TripleTitleSet/updateSet', setId)
     },
     getProduct () {
-      this.$store.dispatch('TripleTitleSet/getSelectedProduct', this.$route.params.productId)
+      return this.$store.dispatch('TripleTitleSet/getSelectedProduct', this.$route.params.productId)
     }
   }
 }
