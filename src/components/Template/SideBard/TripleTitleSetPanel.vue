@@ -1,5 +1,5 @@
 <template>
-  <div class="chatr-side-menu">
+  <div class="TripleTitleSetPanel">
     <div v-if="isDesktop"
          class="side-menu">
       <div class="menu-logo">
@@ -25,12 +25,11 @@
       </div>
       <div class="log-out menu-items">
         <q-list class="menu-items-list">
-          <q-item class="menu-item">
-            <q-btn square
-                   flat
-                   class="size-md"
-                   icon="ph:sign-out"
-                   @click="toggleLogoutDialog" />
+          <q-item class="menu-item"
+                  clickable
+                  @click="toggleLogoutDialog">
+            <q-icon class="icon"
+                    name="ph:sign-out" />
           </q-item>
         </q-list>
       </div>
@@ -87,14 +86,15 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
-import { APIGateway } from 'src/api/APIGateway'
 import { mixinAuth } from 'src/mixin/Mixins.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
+import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
 
 export default {
   name: 'TripleTitleSetPanel',
   components: { LayoutMenu },
-  mixins: [mixinAuth],
+  mixins: [mixinAuth, mixinEwano],
   data: () => ({
     isActive: null,
     isAdmin: false,
@@ -177,16 +177,20 @@ export default {
     selectedTopic () {
       return this.$store.getters['TripleTitleSet/selectedTopic'] || ''
     },
+    screenName () {
+      return this.$q.screen.name
+    },
     isDesktop () {
-      if (this.$q.screen.lt.md) {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
-      } else {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
-      }
       return !this.$q.screen.lt.md
     }
   },
+  watch: {
+    screenName () {
+      this.updateLeftDrawer()
+    }
+  },
   mounted () {
+    this.updateLeftDrawer()
     this.getEventInfoByName()
       .then(() => {
         this.updateMenuItemsFromEventInfo()
@@ -195,6 +199,22 @@ export default {
       })
   },
   methods: {
+    updateLeftDrawer () {
+      const isIframe = window.self !== window.top
+      if (this.$q.screen.gt.md && !isIframe) {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
+      } else {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+        if (this.isEwanoUser) {
+          setTimeout(() => {
+            this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+            this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+          }, 10)
+        }
+      }
+    },
     getEventInfoByName () {
       return new Promise((resolve, reject) => {
         APIGateway.events.getEventInfoByName(this.$route.params.eventName)
@@ -251,15 +271,19 @@ export default {
     },
     itemSelected (topic) {
       this.updateSelectedTopic(topic.title)
+      this.$nextTick(() => {
+        this.updateLeftDrawer()
+      })
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.chatr-side-menu {
+.TripleTitleSetPanel {
   background: white;
   height: 100%;
+  overflow: auto;
 }
 
 .side-menu{
@@ -381,7 +405,7 @@ export default {
 
 .side-menu-items{
   z-index: 99999;
-  padding: 20px;
+  //padding: 20px;
 }
 
 .logout-dialog-card {

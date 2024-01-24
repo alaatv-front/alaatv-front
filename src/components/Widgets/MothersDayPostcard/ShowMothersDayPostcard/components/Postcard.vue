@@ -1,6 +1,6 @@
 <template>
   <div class="Postcard">
-    <div v-if="surpriseDiscountCode"
+    <div v-if="surpriseDiscountCode && false"
          class="action-area"
          @click="showSurpriseVideo">
       <webm-player :loop="true"
@@ -360,7 +360,7 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
         font-size: 20px;
         font-style: normal;
         font-weight: 400;
-        line-height: 24px; /* 120% */
+        line-height: 36px; /* 120% */
       }
     }
     .action-area {
@@ -414,7 +414,7 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
         font-size: 18px;
         font-style: normal;
         font-weight: 400;
-        line-height: 24px; /* 133.333% */
+        line-height: 36px; /* 133.333% */
       }
     }
     .action-area {
@@ -449,7 +449,7 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
 }
 </style>
 
-<style>
+<style lang="scss">
 .surpriseVideoDialog {
   .q-dialog__inner--minimized > div {
     max-width: none !important;

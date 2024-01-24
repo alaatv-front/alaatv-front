@@ -68,9 +68,10 @@
               <q-btn flat
                      class="size-md"
                      icon-right="chevron_left"
-                     :to="{ name: 'UserPanel.Asset.TripleTitleSet.Content', params: {productId: product.id, setId: product.last_content_user_watched.set.id, contentId: product.last_content_user_watched?.id} }">مشاهده</q-btn>
+                     @click="gotoLastContent(product)">
+                مشاهده
+              </q-btn>
             </div>
-
           </div>
         </q-card-section>
       </q-card-section>
@@ -94,7 +95,9 @@
             <q-btn flat
                    class="size-md"
                    icon-right="chevron_left"
-                   :to="{ name: 'UserPanel.Asset.TripleTitleSet.Content', params: {productId: product.id, setId: product.last_content_user_watched.set.id, contentId: product.last_content_user_watched?.id} }">مشاهده</q-btn>
+                   @click="gotoLastContent(product)">
+              مشاهده
+            </q-btn>
           </div>
 
         </div>
@@ -133,8 +136,6 @@ export default {
   min-height: 148px;
   border-radius: 20px;
   background: #fff;
-  width: 90%;
-  margin: 10px;
   padding: 24px 5px 24px 30px;
   box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%);
   display: flex;
@@ -290,6 +291,9 @@ export default {
 
         @media only screen and (width <= 600px) {
           padding-left: 0;
+        }
+        @include media-max-width('md') {
+          width: calc( 100% - 34px );
         }
 
         .last-content-pre {

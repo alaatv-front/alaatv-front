@@ -47,7 +47,12 @@ const mixinTripleTitleSet = {
           this.event = JSON.parse(JSON.stringify(event))
         })
         .catch(() => {
-          this.$router.push({ name: 'NotFound' })
+          // this.$router.push({ name: 'NotFound' })
+          this.$q.notify({
+            type: 'negative',
+            message: 'رویداد یافت نشد'
+          })
+          this.$router.push({ name: 'Public.Home' })
         })
     },
     syncwatchingContentWithContentInList () {

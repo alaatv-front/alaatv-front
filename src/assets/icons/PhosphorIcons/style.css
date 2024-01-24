@@ -1,8 +1,8 @@
 @font-face {
   font-family: "Phosphor";
-  src: url("./Phosphor.woff") format("woff"),
-    url("./Phosphor.ttf") format("truetype"),
-    url("./Phosphor.svg#Phosphor") format("svg");
+  src: url("https://nodes.alaatv.com/upload/fonts/PhosphorIcons/Phosphor.woff") format("woff"),
+    url("https://nodes.alaatv.com/upload/fonts/PhosphorIcons/Phosphor.ttf") format("truetype"),
+    url("https://nodes.alaatv.com/upload/fonts/PhosphorIcons/Phosphor.svg#Phosphor") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;

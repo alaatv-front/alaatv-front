@@ -41,7 +41,7 @@
            alt="actionBtn">
     </q-btn>
 
-    <q-layout v-if="localOptions.action === 'hamburger_menu'">
+    <q-layout v-if="localOptions.action === 'hamburger_menu' && mounted">
       <q-drawer ref="actionDrawer"
                 v-model="drawer"
                 :width="drawerWidth"
@@ -83,12 +83,12 @@
 </template>
 
 <script>
-import { mixinWidget, mixinAuth } from 'src/mixin/Mixins.js'
-import ImageWidget from 'components/Widgets/ImageWidget/ImageWidget.vue'
-import TextWidget from 'components/Widgets/TextWidget/TextWidget.vue'
-import separatorWidget from 'components/Widgets/Separator/Separator.vue'
 import { defineAsyncComponent } from 'vue'
-import LazyImg from 'components/lazyImg.vue'
+import LazyImg from 'src/components/lazyImg.vue'
+import { mixinWidget, mixinAuth } from 'src/mixin/Mixins.js'
+import TextWidget from 'src/components/Widgets/TextWidget/TextWidget.vue'
+import ImageWidget from 'src/components/Widgets/ImageWidget/ImageWidget.vue'
+import separatorWidget from 'src/components/Widgets/Separator/Separator.vue'
 
 export default {
   name: 'ActionButton',
@@ -110,6 +110,7 @@ export default {
   data () {
     return {
       drawer: false,
+      mounted: false,
       defaultOptions: {
         showSeparator: false,
         color: null,
@@ -281,6 +282,7 @@ export default {
     this.$bus.on('onActionButtonScrollTo', () => {
       this.drawer = false
     })
+    this.mounted = true
   },
   methods: {
     checkAuth () {

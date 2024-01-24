@@ -193,12 +193,14 @@ import { APIGateway } from 'src/api/APIGateway'
 import mapInfo from './components/mapInfo.vue'
 import MapFilters from './components/MapFilters.vue'
 import Drawer from 'src/components/CustomDrawer.vue'
-import MapItemsResponse from './MapItemsResponse.js'
+// import MapItemsResponse from './MapItemsResponse.js'
 import { MapItem, MapItemList } from 'src/models/MapItem.js'
 import adminToolBox from 'components/Widgets/Map/AdminToolBox.vue'
 let LMap, LTileLayer, LMarker, LIcon, LControl, LPolyline, CRS, latLng
 // import { CRS, latLng } from 'leaflet'
 // import { LMap, LTileLayer, LMarker, LIcon, LControl, LPolyline } from '@vue-leaflet/vue-leaflet'
+
+const MapItemsResponse = { data: [] }
 
 if (typeof window !== 'undefined') {
   import('leaflet')

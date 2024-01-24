@@ -1,6 +1,20 @@
 <template>
   <div class="PostcardPreview"
        @click="onCardClicked">
+    <div class="BodyMovin-container"
+         :class="{'animateCompleted': animateCompleted}">
+      <webm-player ref="entranceBodyMovin"
+                   :responsive-src="entranceBodyMovin"
+                   class="entranceBodyMovin"
+                   @click="onClickBodyMovin"
+                   @complete="onComplete" />
+      <webm-player v-if="clickBodyMovinShow"
+                   autoplay
+                   loop
+                   class="clickBodyMovin"
+                   :responsive-src="clickBodyMovin"
+                   @click="onClickBodyMovin" />
+    </div>
     <div class="boxed-content">
       <div class="Postcard">
         <postcard :poem-title="postcardPoemTitle"
@@ -43,10 +57,12 @@ import Flower from './Flower.vue'
 import { defineComponent } from 'vue'
 import Postcard from './Postcard.vue'
 import SurpriseBox from './SurpriseBox.vue'
+import WebmPlayer from './WebmPlayer.vue'
 
 export default defineComponent({
   name: 'PostcardPreview',
   components: {
+    WebmPlayer,
     Sound,
     Flower,
     Postcard,
@@ -111,6 +127,10 @@ export default defineComponent({
       type: String,
       default: ''
     },
+    entranceBodyMovin: {
+      type: String,
+      default: ''
+    },
     surpriseVideoPoster: {
       type: String,
       default: ''
@@ -126,6 +146,25 @@ export default defineComponent({
   },
   data () {
     return {
+      clickBodyMovin: {
+        xs: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        },
+        sm: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        },
+        md: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        },
+        lg: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        },
+        xl: {
+          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
+        }
+      },
+      animateCompleted: false,
+      clickBodyMovinShow: true
     }
   },
   computed: {
@@ -147,6 +186,15 @@ export default defineComponent({
     },
     playSound () {
       this.$refs.sound.tryAutoplay()
+    },
+
+    onClickBodyMovin () {
+      this.$refs.entranceBodyMovin.play()
+      this.clickBodyMovinShow = false
+    },
+    onComplete () {
+      this.animateCompleted = true
+      this.playSound()
     }
   }
 })
@@ -173,6 +221,45 @@ $backgrounds-size-360: v-bind('backgroundUrls.size360');
   position: relative;
   z-index: 0;
   overflow: hidden;
+
+  .BodyMovin-container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    min-width: 100%;
+    height: 100vh;
+    z-index: 5;
+    :deep(.WebmPlayer.entranceBodyMovin) {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+      min-width: 100%;
+      height: 100vh;
+      video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-height: 100vh;
+        min-width: 100%;
+        width: auto !important;
+        transform: translateX(-50%) translateY(-50%);
+      }
+    }
+    .clickBodyMovin {
+      width: 200px;
+      height: auto;
+      position: absolute;
+      bottom: 165px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+    &.animateCompleted {
+      display: none;
+    }
+  }
+
   .boxed-content {
     display: flex;
     flex-wrap: nowrap;

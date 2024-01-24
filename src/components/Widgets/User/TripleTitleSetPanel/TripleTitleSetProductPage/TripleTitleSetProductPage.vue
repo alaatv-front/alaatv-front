@@ -1,33 +1,22 @@
 <template>
   <div class="product-page">
     <q-list v-if="!setListLoading"
-            class="rounded-borders">
-      <q-expansion-item v-for="(set, index) in setList"
-                        :key="index"
-                        v-model="set.expand"
-                        popup
-                        header-class="bg-white"
-                        separator
-                        switch-toggle-side
-                        expand-separator
-                        @show="getSet(set.id)">
-        <template v-slot:header>
-          <q-item-section class="title-column ellipsis">
-            {{ set.short_title.split('-')[2] }}
-          </q-item-section>
-
-          <q-item-section side
-                          class="steps-count-column">
-            {{set.contents_count}} گام
-          </q-item-section>
-          <q-item-section side
-                          class="duration-column">
-            {{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}
-          </q-item-section>
+            separator>
+      <expansion-item-component v-for="(set, index) in setList"
+                                :key="index"
+                                v-model:modelValue="set.expand"
+                                :switch-toggle-side="false"
+                                :hasAction="true"
+                                :separated="false"
+                                :label="set.short_title.split('-')[2]"
+                                :grey="false"
+                                @show="getSet(set.id)">
+        <template v-slot:action>
+          <span class="product-set-item-header">{{set.contents_count + ' گام '}}</span> <span>{{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}</span>
         </template>
-        <q-separator inset />
         <q-card>
-          <q-card-section v-if="!setLoading || set.contents.list.length > 0">
+          <q-card-section v-if="!setLoading || set.contents.list.length > 0"
+                          class="set-list-section">
             <q-list class="set-list"
                     separator>
               <q-item v-for="(content, index) in set.contents.list"
@@ -39,7 +28,7 @@
                   <q-icon color="grey"
                           :name="content.isPamphlet() ? 'description' : content.has_watch ? 'check_circle' : 'play_circle_outline'" />
                 </q-item-section>
-                <q-item-section class="cursor-pointer ellipsis"
+                <q-item-section class="content-title ellipsis-2-lines"
                                 @click="download(content)">
                   {{ content.title }}
                 </q-item-section>
@@ -66,7 +55,8 @@
             </q-list>
           </q-card-section>
         </q-card>
-      </q-expansion-item>
+
+      </expansion-item-component>
     </q-list>
     <q-list v-else>
       <q-item v-for="item in 10"
@@ -99,13 +89,15 @@
 
 <script>
 import { openURL } from 'quasar'
-import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
+import ExpansionItemComponent from 'src/components/Utils/ExpansionItem.vue'
+import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 
 export default {
   name: 'TripleTitleSetProductPage',
   components: {
-    ProductItem
+    ProductItem,
+    ExpansionItemComponent
   },
   mixins: [mixinTripleTitleSet],
   data () {
@@ -116,32 +108,39 @@ export default {
   computed: {
     selectedTopic () {
       return this.$store.getters['TripleTitleSet/selectedTopic']
+      // return ''
     },
     setList () {
       return this.$store.getters['TripleTitleSet/setList']
         .filter(set => (new RegExp('\\-\\s*' + this.selectedTopic + '\\s*\\-')).test(set.short_title))
-        .map(set => {
-          set.expand = false
-          return set
-        })
+        // .map(set => {
+        //   set.expand = false
+        //   return set
+        // })
+      // return []
     },
     setTopicList () {
       return this.$store.getters['TripleTitleSet/setTopicList']
+      // return []
     },
     setLoading () {
       return this.$store.getters['TripleTitleSet/setLoading']
+      // return false
     },
     setListLoading () {
       return this.$store.getters['TripleTitleSet/setListLoading']
+      // return false
     },
     selectedProduct () {
       return this.$store.getters['TripleTitleSet/selectedProduct']
+      // return {}
     }
   },
   watch: {
-    setTopicList (newVal, oldVal) {
+    setTopicList () {
       if (!this.selectedTopic) {
-        this.$store.dispatch('TripleTitleSet/setSelectedTopic', this.setTopicList[0])
+        // this.$store.dispatch('TripleTitleSet/setSelectedTopic', this.setTopicList[0])
+        this.$store.commit('TripleTitleSet/updateSelectedTopic', this.setTopicList[0])
       }
     }
   },
@@ -205,47 +204,17 @@ export default {
     padding: 5px;
   }
 
-  @media only screen and (width <= 400px) {
-    max-width: 350px;
-    margin: 30px auto;
-  }
+  .product-set-item-header {
+    margin-right: $space-7;
 
-  &:deep(.q-item) {
-    flex-wrap: wrap !important;
-    justify-content: flex-end;
-  }
-
-  .q-expansion-item {
-    @media only screen and (width <= 1440px) {
-      padding: 0;
-
-      .q-expansion-item__container {
-        .q-item {
-          .q-item__section {
-            &.title-column {
-              width: calc( 100% - 56px );
-              flex-basis: calc( 100% - 56px );
-            }
-          }
-        }
-      }
+    @include media-max-width('md') {
+      margin-right: $space-3;
     }
-
-    //background: red;
   }
 
-  // &:deep(.q-expansion-item--expanded) {
-  //   .set-title {
-  //     .set-title-text {
-  //       white-space: normal;
-  //     }
-  //   }
-  //   .content-title {
-  //     max-width: 80%;
-  //     .content-title-text {
-  //     }
-  //   }
-  // }
+  .set-list-section {
+    padding: $spacing-none;
+  }
 
   .set-title {
     max-width: 70%;
@@ -256,11 +225,7 @@ export default {
   }
 
   .content-title {
-    max-width: 80%;
 
-    .content-title-text {
-      max-width: 100%;
-    }
   }
 }
 </style>

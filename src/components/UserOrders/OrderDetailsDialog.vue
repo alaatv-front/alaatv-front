@@ -49,7 +49,8 @@
             </div>
           </div>
           <div class="col-md-6 col-12">
-            <q-btn color="primary"
+            <q-btn v-if="false"
+                   color="primary"
                    class="full-width"
                    @click="payOrder">
               پرداخت مبلغ سفارش

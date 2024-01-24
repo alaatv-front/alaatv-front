@@ -94,4 +94,4 @@ class PostcardList extends Collection {
     return Postcard
   }
 }
-export { Postcard, PostcardList }
+export { Postcard, PostcardList, PostcardValue }

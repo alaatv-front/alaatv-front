@@ -5,20 +5,6 @@
                       size="5.5em" />
     </template>
     <template v-else-if="!postcardHasError">
-      <div class="BodyMovin-container"
-           :class="{'animateCompleted': animateCompleted}">
-        <webm-player ref="entranceBodyMovin"
-                     :responsive-src="entranceBodyMovin"
-                     class="entranceBodyMovin"
-                     @click="onClickBodyMovin"
-                     @complete="onComplete" />
-        <webm-player v-if="clickBodyMovinShow"
-                     autoplay
-                     loop
-                     class="clickBodyMovin"
-                     :responsive-src="clickBodyMovin"
-                     @click="onClickBodyMovin" />
-      </div>
       <postcard-preview ref="PostcardPreview"
                         :postcard-backgrounds="postcardBackgrounds"
                         :postcard-message-from="postcardMessageFrom"
@@ -32,7 +18,8 @@
                         :surprise-box-body-movin="surpriseBoxBodyMovin"
                         :surprise-video-poster="surpriseVideoPoster"
                         :surprise-video-src="surpriseVideoSrc"
-                        :audio-source="audioSource" />
+                        :audio-source="audioSource"
+                        :entrance-body-movin="entranceBodyMovin" />
     </template>
     <template v-else-if="!postcard.loading && postcardHasError">
       <q-banner>
@@ -46,16 +33,13 @@
 import { defineComponent } from 'vue'
 import { Postcard } from 'src/models/Postcard.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import WebmPlayer from './components/WebmPlayer.vue'
 import PostcardPreview from './components/PostcardPreview.vue'
 
 export default defineComponent({
   name: 'ShowMothersDayPostcard',
-  components: { PostcardPreview, WebmPlayer },
+  components: { PostcardPreview },
   data () {
     return {
-      animateCompleted: false,
-
       // dynamic variables
       postcardPoemBody: '',
       postcardMessageText: '',
@@ -81,24 +65,6 @@ export default defineComponent({
       // hard codes variables
       postcardPoemTitle: 'روزت مبارک مادر عزیزم',
       postcard: new Postcard(),
-      clickBodyMovinShow: true,
-      clickBodyMovin: {
-        xs: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
-        },
-        sm: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
-        },
-        md: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
-        },
-        lg: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
-        },
-        xl: {
-          src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/click_to_start1702988151.webm'
-        }
-      },
       surpriseBoxBodyMovin: {
         xs: {
           src: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/360-Noise1702977340.webm'
@@ -133,8 +99,8 @@ export default defineComponent({
           src: ''
         }
       },
-      surpriseVideoSrc: 'https://nodes.alaatv.com/media/1042/240p/1042001ssss.mp4',
-      surpriseVideoPoster: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/VideoPlayer1702464332.png',
+      surpriseVideoSrc: 'https://nodes.alaatv.com/upload/landing/motherday1402/mother_fay_rotbe.mp4',
+      surpriseVideoPoster: 'https://nodes.alaatv.com/upload/landing/motherday1402/thumbnail.png',
       audioSource: 'https://nodes.alaatv.com/upload/landing/motherday1402/mother-postalcard-music.mp3',
       postcardHasError: false
     }
@@ -161,14 +127,6 @@ export default defineComponent({
           this.postcard.loading = false
           this.postcardHasError = true
         })
-    },
-    onClickBodyMovin () {
-      this.$refs.entranceBodyMovin.play()
-      this.clickBodyMovinShow = false
-    },
-    onComplete () {
-      this.animateCompleted = true
-      this.$refs.PostcardPreview.playSound()
     },
     getPostcard () {
       return new Promise((resolve, reject) => {
@@ -214,43 +172,6 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   position: relative;
-  .BodyMovin-container {
-    position: absolute;
-    left: 0;
-    top: 0;
-    min-width: 100%;
-    height: 100vh;
-    z-index: 5;
-    :deep(.WebmPlayer.entranceBodyMovin) {
-      position: absolute;
-      left: 0;
-      top: 0;
-      z-index: 1;
-      min-width: 100%;
-      height: 100vh;
-      video {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        min-height: 100vh;
-        min-width: 100%;
-        width: auto !important;
-        transform: translateX(-50%) translateY(-50%);
-      }
-    }
-    .clickBodyMovin {
-      width: 200px;
-      height: auto;
-      position: absolute;
-      bottom: 165px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-    }
-    &.animateCompleted {
-      display: none;
-    }
-  }
   /* 1440 < page < 1920 */
   @include media-max-width('xl') {
     .clickBodyMovin {

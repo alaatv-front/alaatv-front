@@ -5,25 +5,26 @@
       <div v-if="currentForm === 'first'"
            class="col-12">
         <mothers-day-postcard-first-form :postcard="computedPostcard"
-                                         @toggle-preview-dialog="togglePreview"
+                                         @postcard-completed="onPostcardCompleted"
+                                         @toggle-preview-dialog="showPreview"
                                          @toggle-form="toggleForm" />
       </div>
       <div v-if="currentForm === 'second'"
            class="col-12 col-md-10">
         <mothers-day-postcard-second-form :postcard="computedPostcard"
-                                          @toggle-preview-dialog="togglePreview(this.postcard)"
+                                          @toggle-preview-dialog="showPreview(this.postcard)"
                                           @invoke-edit-form="toggleForm" />
       </div>
     </div>
     <q-dialog v-model="previewDialog"
               maximized>
       <div class="top-toolbar">
-        <q-btn class="close-btn"
+        <q-btn v-close-popup
+               class="close-btn"
                color="grey-1"
                icon="ph:x"
                square
-               flat
-               @click="togglePreview" />
+               flat />
       </div>
       <postcard-preview :postcard-poem-title="postcardConfig.postcardPoemTitle"
                         :postcard-poem-body="postcardConfig.postcardPoemBody"
@@ -31,7 +32,9 @@
                         :postcard-message-from="postcardConfig.postcardMessageFrom"
                         :postcard-backgrounds="postcardConfig.postcardBackgrounds"
                         :pattern-backgrounds="postcardConfig.patternBackgrounds"
-                        :flower-image="postcardConfig.flowerImage" />
+                        :flower-image="postcardConfig.flowerImage"
+                        :audio-source="postcardConfig.audioSource"
+                        :entrance-body-movin="postcardConfig.entranceBodyMovin" />
     </q-dialog>
   </div>
   <div v-else
@@ -40,7 +43,6 @@
                     size="3rem"
                     :thickness="5" />
   </div>
-  <auth-and-check-user-info />
 </template>
 
 <script>
@@ -50,16 +52,14 @@ import { APIGateway } from 'src/api/APIGateway.js'
 import { Postcard, PostcardList } from 'src/models/Postcard.js'
 import MothersDayPostcardFirstForm from './components/MothersDayPostcardFirstForm/MothersDayPostcardFirstForm.vue'
 import MothersDayPostcardSecondForm from './components/MothersDayPostcardSecondForm/MothersDayPostcardSecondForm.vue'
-import PostcardPreview from 'src/components/Widgets/MothersDayPostcard/ShowMothersDayPostcard/components/PostcardPreview.vue'
-import AuthAndCheckUserInfo from 'src/components/Widgets/MothersDayPostcard/MothersDayPostCardBase/components/MothersDayPostcardFirstForm/AuthAndCheckUserInfo.vue'
+import PostcardPreview from '../ShowMothersDayPostcard/components/PostcardPreview.vue'
 
 export default defineComponent({
   name: 'MothersDayPostCardBase',
   components: {
     PostcardPreview,
     MothersDayPostcardFirstForm,
-    MothersDayPostcardSecondForm,
-    AuthAndCheckUserInfo
+    MothersDayPostcardSecondForm
   },
   mixins: [mixinAuth],
   data () {
@@ -69,6 +69,7 @@ export default defineComponent({
       currentForm: 'first',
       loading: false,
       previewDialog: false,
+      audioSource: 'https://nodes.alaatv.com/upload/landing/motherday1402/mother-postalcard-music.mp3',
       postcardConfig: {
         postcardPoemTitle: null,
         postcardPoemBody: null,
@@ -78,7 +79,6 @@ export default defineComponent({
         surpriseDiscountCode: null,
         surpriseBanners: null,
         flowerImage: null
-
       }
     }
   },
@@ -100,37 +100,45 @@ export default defineComponent({
   },
   methods: {
     getPostcards () {
-      this.loading = true
-      APIGateway.postcard.getPostcards({
-        study_event_id: 28
+      return new Promise((resolve, reject) => {
+        this.loading = true
+        APIGateway.postcard.getPostcards({
+          study_event_id: 28
+        })
+          .then(postcardList => {
+            this.postcards = postcardList
+            this.currentForm = this.postcards.list.length > 0 ? 'second' : 'first'
+            if (this.postcards.list.length > 0) {
+              this.postcard = this.postcards.list[0]
+            }
+            this.loading = false
+            resolve()
+          })
+          .catch(() => {
+            this.loading = false
+            reject()
+          })
       })
-        .then(postcardList => {
-          this.postcards = postcardList
-          this.currentForm = this.postcards.list.length > 0 ? 'second' : 'first'
-          if (this.postcards.list.length > 0) {
-            this.postcard = this.postcards.list[0]
-          }
-          this.loading = false
-        })
-        .catch(() => {
-          this.loading = false
-        })
     },
-    togglePreview (postcard) {
-      if (postcard && postcard.value) {
-        const userPostcardConfig = postcard.value
-        const user = this.$store.getters['Auth/user']
-        this.postcardConfig = {
-          postcardPoemTitle: userPostcardConfig.postcardPoemTitle,
-          postcardPoemBody: userPostcardConfig.postcardPoemBody,
-          postcardMessageText: userPostcardConfig.postcardMessageText,
-          postcardMessageFrom: user.first_name,
-          postcardBackgrounds: userPostcardConfig.postcardBackgrounds,
-          patternBackgrounds: userPostcardConfig.patternBackgrounds,
-          flowerImage: userPostcardConfig.flowerImage
-        }
+    showPreview (postcard) {
+      if (!postcard || !postcard.value) {
+        return
       }
-      this.previewDialog = !this.previewDialog
+      const userPostcardConfig = postcard.value
+      userPostcardConfig.audioSource = this.audioSource
+      const user = this.$store.getters['Auth/user']
+      this.postcardConfig = {
+        postcardPoemTitle: userPostcardConfig.postcardPoemTitle,
+        postcardPoemBody: userPostcardConfig.postcardPoemBody,
+        postcardMessageText: userPostcardConfig.postcardMessageText,
+        postcardMessageFrom: user.first_name,
+        postcardBackgrounds: userPostcardConfig.postcardBackgrounds,
+        patternBackgrounds: userPostcardConfig.patternBackgrounds,
+        flowerImage: userPostcardConfig.flowerImage,
+        audioSource: userPostcardConfig.audioSource,
+        entranceBodyMovin: userPostcardConfig.entranceBodyMovin
+      }
+      this.previewDialog = true
     },
     toggleForm () {
       if (this.currentForm === 'second') {
@@ -138,6 +146,30 @@ export default defineComponent({
       } else {
         this.getPostcards()
       }
+    },
+    onPostcardCompleted (reqData) {
+      this.getPostcards()
+        .then(() => {
+          this.postcardRequest(reqData)
+        })
+        .catch(() => {})
+    },
+    getApiMethod (postcardData, postcardId) {
+      if (this.postcard.id) {
+        return APIGateway.postcard.editPostalCard(postcardData, postcardId)
+      } else {
+        return APIGateway.postcard.savePostalCardData(postcardData)
+      }
+    },
+    postcardRequest (reqData) {
+      this.getApiMethod(reqData, this.postcard.id)
+        .then((postcard) => {
+          this.postcard = postcard
+          this.currentForm = 'second'
+        })
+        .catch(() => {
+          this.currentForm = 'first'
+        })
     }
   }
 })

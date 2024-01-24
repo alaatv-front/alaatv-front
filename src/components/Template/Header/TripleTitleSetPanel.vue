@@ -6,8 +6,8 @@
                class="logo-image" />
       </router-link>
     </div>
-    <div class="header-box full-height flex justify-center items-center">
-      <q-img :src="event.logo"
+    <div class="header-box flex justify-center items-center">
+      <q-img :src="logoImage"
              class="header-logo-img" />
     </div>
     <div class="profile-box flex items-center">
@@ -27,13 +27,15 @@ export default {
   mixins: [mixinAuth, mixinTripleTitleSet],
   data: () => ({
     user: new User(),
-    activePage: null
+    activePage: null,
+    logoImage: null
   }),
   mounted () {
     this.loadAuthData()
     if (window.innerWidth < 1024) {
       this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
     }
+    this.setLogoImage()
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
@@ -41,6 +43,15 @@ export default {
     },
     logOut () {
       this.$store.dispatch('Auth/logOut')
+    },
+    setLogoImage () {
+      const hostName = this.domainSameWithAppDomain ? window.location.host : 'else'
+      const logoImages = {
+        'alaatv.com': this.event.logo,
+        'ehsan.alaatv.com': 'https://nodes.alaatv.com/upload/alaaPages/2024-01/boniad-ehsan-logo1704111571.png',
+        else: null
+      }
+      this.logoImage = logoImages[hostName]
     }
   }
 }
@@ -80,20 +91,17 @@ export default {
   }
 }
 
+$header-height: 64px;
 .chatre-nejat-header{
-  height: 64px;
+  height: $header-height;
   background: #fff;
   position: relative;
   display: grid;
   grid-template-columns: auto 1fr auto;
 
-  @media screen and (width <= 1023px) {
-
-  }
-
   .logo-box {
-    width: 44px;
-    height: 44px;
+    width: auto;
+    height: $header-height;
     align-self: center;
     margin-left: 25px;
     visibility: hidden;
@@ -108,8 +116,14 @@ export default {
   }
 
   .header-box {
+    height: $header-height;
     .header-logo-img {
       width: 142px;
+      max-height: $header-height;
+      :deep(.q-img) {
+        width: auto;
+        max-height: $header-height;
+      }
 
       @media screen and (width <= 990px) {
         width: 126px;
@@ -122,7 +136,7 @@ export default {
   }
 
   .profile-box {
-    height: 100%;
+    height: $header-height;
     padding-right: 18px;
   }
 
@@ -131,5 +145,4 @@ export default {
     box-shadow: 0 3px 5px 0 rgb(0 0 0 / 10%);
   }
 }
-
 </style>
