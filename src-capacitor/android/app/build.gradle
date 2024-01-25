@@ -29,6 +29,8 @@ android {
       ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
     }
 
+//     // Access the SENTRY_DSN environment variable you've defined in the .env file
+//     buildConfigField "String", "SENTRY_DSN", "\"${envVars['SENTRY_DSN'].toString()}\""
   }
 
   buildFeatures
@@ -51,6 +53,13 @@ repositories {
 }
 
 dependencies {
+  // https://central.sonatype.com/artifact/io.sentry/sentry-android?smo=true
+  // https://docs.sentry.io/platforms/android/troubleshooting/#stackoverflowerror-during-sync-or-build
+//  implementation 'io.sentry:sentry-android:7.1.0' // or sentry-android-core if you don't use the ndk package
+
+  // https://mvnrepository.com/artifact/io.sentry/sentry-android
+//  runtimeOnly 'io.sentry:sentry-android:7.1.0'
+
 
   implementation fileTree(include: ['*.jar'], dir: 'libs')
   implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
