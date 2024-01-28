@@ -13,7 +13,7 @@
       <q-separator class="my-tickets-toolbar__separator" />
     </div>
     <div class="my-tickets-list">
-      <ticket-item v-for="(ticket, index) in tickets"
+      <ticket-item v-for="(ticket, index) in computedTickets"
                    :key="index"
                    :ticket="ticket" />
     </div>
@@ -22,39 +22,49 @@
 
 <script>
 import TicketItem from './components/TicketItem.vue'
-
+const fakeTickets = [
+  {
+    user: {
+      fullName: 'بهزاد آشفته',
+      image: 'https://nodes.alaatv.com/upload/alaaPages/2024-01/Avatar1706441404.png'
+    },
+    messages: 8
+  },
+  {
+    user: {
+      fullName: 'بهزاد آشفته',
+      image: 'https://nodes.alaatv.com/upload/alaaPages/2024-01/Avatar1706441404.png'
+    },
+    messages: 8
+  },
+  {
+    user: {
+      fullName: 'بهزاد آشفته',
+      image: 'https://nodes.alaatv.com/upload/alaaPages/2024-01/Avatar1706441404.png'
+    },
+    messages: 8
+  }
+]
 export default {
   name: 'MyOpenTickets',
   components: {
     TicketItem
   },
+  props: {
+    tickets: {
+      type: Object,
+      default: fakeTickets
+    }
+  },
   emits: ['updateList'],
   data () {
     return {
-      search: '',
-      tickets: [
-        {
-          user: {
-            fullName: 'بهزاد آشفته',
-            image: 'https://nodes.alaatv.com/upload/alaaPages/2024-01/Avatar1706441404.png'
-          },
-          messages: 8
-        },
-        {
-          user: {
-            fullName: 'بهزاد آشفته',
-            image: 'https://nodes.alaatv.com/upload/alaaPages/2024-01/Avatar1706441404.png'
-          },
-          messages: 8
-        },
-        {
-          user: {
-            fullName: 'بهزاد آشفته',
-            image: 'https://nodes.alaatv.com/upload/alaaPages/2024-01/Avatar1706441404.png'
-          },
-          messages: 8
-        }
-      ]
+      search: ''
+    }
+  },
+  computed: {
+    computedTickets () {
+      return this.tickets
     }
   },
   methods: {
