@@ -194,7 +194,6 @@ export default {
       })
     },
     itemSelected (topic) {
-      this.updateSelectedTopic(topic.title)
     },
     updateSetList (normalizedSets) {
       this.setList = normalizedSets
@@ -205,13 +204,9 @@ export default {
     ...mapMutations('AppLayout', [
       'updateLayoutLeftDrawerVisible'
     ]),
-    ...mapMutations('TripleTitleSet', [
-      'updateSelectedTopic'
-    ]),
     toggleLeftDrawer () {
       this.updateLayoutLeftDrawerVisible(!this.layoutLeftDrawerVisible)
     },
-    setSelectedTopic (TopicName) {},
     search (list, parentContain = false) {
       if (!list || list.length === 0) {
         return false

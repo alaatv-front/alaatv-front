@@ -20,26 +20,34 @@
           </template>
         </q-input>
       </q-item>
-
-      <menu-item :key="menuKey"
-                 :items="topicsRouteArray"
-                 :show-child-item-tooltip="true"
-                 :loading="topicList.length === 0"
-                 @item-selected="itemSelected" />
-      <q-item v-for="(item, index) in productItems"
-              :key="index"
-              :active="item.routeName === $route.name"
-              class="menu-item">
-        <q-btn flat
-               class="full-width menu-item-btn"
-               color="background: #EAEAEA;"
-               :to="(item.routeName) ?{ name: item.routeName, params: item.params }: null"
-               :style="{background: item.name === selectedTopic? '#EAEAEA' : ''}"
-               @click="setSelectedTopic(item.name)">
-          <div class="label">{{item.label}}</div>
-          <div />
-        </q-btn>
-      </q-item>
+      <template v-if="!productLoading && !setListLoading && topicList.length > 0">
+        <menu-item :key="menuKey"
+                   :items="topicsRouteArray"
+                   :show-child-item-tooltip="true"
+                   @item-selected="itemSelected" />
+        <q-item v-for="(item, index) in productItems"
+                :key="index"
+                :active="item.routeName === $route.name"
+                class="menu-item">
+          <q-btn flat
+                 class="full-width menu-item-btn"
+                 color="background: #EAEAEA;"
+                 :to="(item.routeName) ?{ name: item.routeName, params: item.params }: null"
+                 :style="{background: item.name === selectedTopic? '#EAEAEA' : ''}"
+                 @click="setSelectedTopic(item.name)">
+            <div class="label">{{item.label}}</div>
+            <div />
+          </q-btn>
+        </q-item>
+      </template>
+      <template v-else>
+        <q-item v-for="item in 4"
+                :key="item"
+                class="menu-item">
+          <q-skeleton type="text"
+                      class="full-width" />
+        </q-item>
+      </template>
     </q-list>
   </div>
 </template>
@@ -92,6 +100,12 @@ export default {
     },
     layoutLeftDrawerVisible () {
       return this.$store.getters['AppLayout/layoutLeftDrawerVisible']
+    },
+    setListLoading () {
+      return this.$store.getters['TripleTitleSet/setListLoading']
+    },
+    productLoading () {
+      return this.$store.getters['TripleTitleSet/productLoading']
     }
   },
   watch: {
@@ -122,6 +136,7 @@ export default {
         return
       }
       this.$emit('itemSelected', topic)
+      this.$store.commit('TripleTitleSet/updateSelectedTopic', topic.title)
       this.$router.push({
         name: 'UserPanel.Asset.TripleTitleSet.ProductPage',
         params: {
@@ -246,6 +261,47 @@ export default {
       .q-item {
         padding: 0;
         min-height: 0;
+      }
+    }
+  }
+
+  .side-menu-list {
+    :deep(.menu-item) {
+      .q-expansion-item {
+        margin-left: 0;
+        box-shadow: none;
+        .q-expansion-item__container {
+          & > .q-item {
+            height: 40px;
+            min-height: 40px;
+            padding: 0 $space-1;
+          }
+          .q-expansion-item__content {
+            padding-left: 0;
+            padding-right: 0;
+            .expansion-body {
+              & > .q-separator {
+                display: none;
+              }
+              & > .q-list {
+                .q-item {
+                  margin-left: $space-1;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    & > .q-item {
+      :deep(.q-btn) {
+        padding: 0;
+        .q-btn__content {
+          padding-left: $space-1;
+          padding-right: $space-1;
+          display: flex;
+        }
       }
     }
   }
