@@ -15,6 +15,9 @@
                       :message="message"
                       :sent="user.id === message.user.id" />
     </div>
+    <div class="TicketMessageList__send-input-area">
+      <ticket-send-message-input />
+    </div>
   </div>
 </template>
 
@@ -23,9 +26,10 @@ import { defineComponent } from 'vue'
 import { Ticket } from 'src/models/Ticket.js'
 import { mixinAuth } from 'src/mixin/Mixins.js'
 import TicketMessage from 'src/components/Ticket/TicketMessage/TicketMessage.vue'
+import TicketSendMessageInput from 'src/components/Ticket/TicketSendMessageInput/TicketSendMessageInput.vue'
 export default defineComponent({
   name: 'TicketMessageList',
-  components: { TicketMessage },
+  components: { TicketMessage, TicketSendMessageInput },
   mixins: [mixinAuth],
   props: {
     ticket: {
