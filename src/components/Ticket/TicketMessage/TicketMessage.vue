@@ -1,18 +1,19 @@
 <template>
   <div class="TicketMessage"
-       :class="{'TicketMessage--sent': message.sent, 'TicketMessage--received': !message.sent, 'TicketMessage--private': message.private}">
+       :class="{'TicketMessage--sent': sent, 'TicketMessage--received': !sent, 'TicketMessage--private': message.is_private}">
     <div class="TicketMessage__container"
-         :class="{'TicketMessage--sent': message.sent, 'TicketMessage--received': !message.sent, 'TicketMessage--private': message.private}">
-      <div v-if="message.user.avatar"
+         :class="{'TicketMessage--sent': sent, 'TicketMessage--received': !sent, 'TicketMessage--private': message.is_private}">
+      <div v-if="message.user.photo"
            class="TicketMessage__avatar">
-        <lazy-img :src="message.user.avatar"
+        <lazy-img :src="message.user.photo"
                   width="40"
                   height="40" />
       </div>
       <div class="TicketMessage__content">
-        <div v-if="message.user.fullname"
+        <div v-if="message.user.first_name || message.user.last_name"
              class="TicketMessage__user-fullname">
-          {{ message.user.fullname }}
+          {{ message.user.first_name }}
+          {{ message.user.last_name }}
         </div>
         <div v-if="Array.isArray(message.files) && message.files.length > 0"
              class="TicketMessage__files">
@@ -28,17 +29,17 @@
               </div>
             </div>
             <div class="TicketMessage__file-thumbnail">
-              <lazy-img :src="file.src"
+              <lazy-img :src="file.file || file.photo || file.voice"
                         width="50"
                         height="50" />
             </div>
           </div>
         </div>
         <div class="TicketMessage__body">
-          {{ message.text }}
+          {{ message.body }}
         </div>
         <div class="TicketMessage__time">
-          {{ message.time }}
+          {{ message.shamsiDate('created_at').dateTime }}
         </div>
       </div>
     </div>
@@ -47,23 +48,20 @@
 
 <script>
 import { defineComponent } from 'vue'
-import LazyImg from 'components/lazyImg.vue'
+import LazyImg from 'src/components/lazyImg.vue'
+import { TicketMessage } from 'src/models/TicketMessage.js'
 
 export default defineComponent({
   name: 'TicketMessage',
   components: { LazyImg },
   props: {
+    message: {
+      type: TicketMessage,
+      default: new TicketMessage()
+    },
     sent: {
       type: Boolean,
-      default: true
-    },
-    privateMode: {
-      type: Boolean,
       default: false
-    },
-    message: {
-      type: Object,
-      default: null
     }
   }
 })
