@@ -42,13 +42,10 @@ export default {
       align-items: center;
       gap: 8px;
       align-self: stretch;
-      transition: all ease-in-out .3s;
 
       &:hover {
         border-radius: 8px;
         background: $grey-2;
-        padding: $space-2;
-        transition: all ease-in-out .3s;
       }
     }
 
