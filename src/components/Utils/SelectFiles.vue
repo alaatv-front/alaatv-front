@@ -8,6 +8,7 @@
          @drop="drop">
       <input v-show="false"
              ref="FileInput"
+             multiple
              type="file"
              accept=".jpg,.jpeg,.png"
              @change="onChange">
@@ -29,11 +30,19 @@
       </div>
     </div>
     <div class="SelectFiles__selected-files">
-      <div v-for="(file, fileIndex) in files"
+      <div v-for="(file, fileIndex) in localFiles"
            :key="fileIndex"
            class="SelectFiles__selected-file">
         <div class="SelectFiles__selected-file-thumbnail">
-          ddd
+          <template v-if="isImage(file)">
+            <lazy-img :src="getImagePreviewUrl(file)" />
+          </template>
+          <template v-else>
+            <div class="SelectFiles__selected-file-thumbnail-icon">
+              <q-icon name="ph:file"
+                      color="grey" />
+            </div>
+          </template>
         </div>
         <div class="SelectFiles__selected-file-info">
           <div class="SelectFiles__selected-file-title">
@@ -49,7 +58,8 @@
                  square
                  flat
                  round
-                 color="grey" />
+                 color="grey"
+                 @click="removeFile(file)" />
         </div>
       </div>
     </div>
@@ -57,26 +67,32 @@
 </template>
 
 <script>
+import LazyImg from 'components/lazyImg.vue'
+
 export default {
   name: 'SelectFiles',
+  components: {
+    LazyImg
+  },
   props: {
-    icon: {
-      type: String,
-      default: null
-    },
-    color: {
-      type: String,
-      default: 'primary'
-    },
-    action: {
-      type: Boolean,
-      default: true
+    files: {
+      type: Array,
+      default: () => []
     }
   },
   data () {
     return {
-      files: false,
       bottomSheet: false
+    }
+  },
+  computed: {
+    localFiles: {
+      get () {
+        return this.files
+      },
+      set (newValue) {
+        return this.$emit('update:files', newValue)
+      }
     }
   },
   methods: {
@@ -93,9 +109,7 @@ export default {
       this.onChange() // Trigger the onChange event manually
     },
     onChange () {
-      this.files = [...this.$refs.FileInput.files]
-      console.log(this.files)
-      // this.nationalCardPicObjectURL = URL.createObjectURL(this.files)
+      this.localFiles = [...this.$refs.FileInput.files]
     },
     selectFile () {
       this.$refs.FileInput.click()
@@ -106,6 +120,25 @@ export default {
         return ((file.size / 1000000).toFixed(2)).toString() + ' MB'
       }
       return (file.size / 1000).toString() + ' KB'
+    },
+    getImagePreviewUrl (file) {
+      return URL.createObjectURL(file)
+    },
+    isImage (file) {
+      if (typeof file.type !== 'string') {
+        return false
+      }
+      return file.type.startsWith('image/')
+    },
+    removeFile (file) {
+      const targetIndex = this.localFiles.findIndex(fileItem => fileItem.name === file.name)
+      if (targetIndex === -1) {
+        return
+      }
+      this.localFiles.splice(targetIndex, 1)
+    },
+    updateFiles () {
+
     }
   }
 }
@@ -158,9 +191,29 @@ export default {
       border-radius: $radius-3;
       background: $blue-grey-1;
       .SelectFiles__selected-file-thumbnail {
-        width: 48px;
-        height: 48px;
+        $thumbnail-size: 48px;
+        width: $thumbnail-size;
+        height: $thumbnail-size;
         border-radius: $radius-1;
+        :deep(.lazy-img) {
+          border-radius: $radius-1;
+          width: 100%;
+          height: 100%;
+        }
+        .SelectFiles__selected-file-thumbnail-icon {
+          display: flex;
+          gap: $space-1;
+          padding: $space-1;
+          align-items: center;
+          justify-content: center;
+          border-radius: $radius-round;
+          background: $blue-grey-2;
+          width: $thumbnail-size;
+          height: $thumbnail-size;
+          .q-icon {
+            font-size: 30px;
+          }
+        }
       }
       .SelectFiles__selected-file-info {
         display: flex;
