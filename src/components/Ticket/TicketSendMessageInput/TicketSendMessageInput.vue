@@ -5,6 +5,7 @@
          'TicketSendMessageInput__recording': status === 'voice-recording',
          'TicketSendMessageInput__voice-recorded': status === 'voice-recorded',
        }">
+    {{ status }}
     <div v-if="hasStatus(['voice-recordingsss'])"
          class="TicketSendMessageInput__recording-areaaaa">
       voice-recordingsss
@@ -218,7 +219,7 @@ export default defineComponent({
       this.onStopRecordingVoice()
     },
     onMouseupBtnRecordingVoice () {
-      if (this.status === 'voice-recorded') {
+      if (this.status !== 'voice-recording') {
         return
       }
       this.onStopRecordingVoice()
@@ -264,8 +265,13 @@ export default defineComponent({
       }
 
       const onError = (err) => {
+        this.status = 'blur'
+        this.recordStop()
         console.error(err.name + ': ' + err.message)
-        document.write('مرورگر شما اجازه دسترسی به میکروفون را ندارد')
+        this.$q.notify({
+          type: 'negative',
+          message: 'مرورگر شما اجازه دسترسی به میکروفون را ندارد'
+        })
       }
 
       navigator.mediaDevices.getUserMedia(constraints)

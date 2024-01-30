@@ -10,13 +10,19 @@
       </template>
       <template #body>
         <select-files-component v-model:files="files" />
+        <q-input v-model="description"
+                 type="textarea"
+                 label="توضیحات"
+                 placeholder="وارد کنید" />
       </template>
       <template #action>
-        <q-btn outline
+        <q-btn v-close-popup
+               outline
                label="انصراف"
                color="grey" />
         <q-btn color="primary"
-               label="ارسال" />
+               label="ارسال"
+               @click="sendFiles" />
       </template>
     </inside-dialog>
   </div>
@@ -75,6 +81,7 @@ export default defineComponent({
         autoCenter: true,
         sampleRate: 8000
       },
+      description: null,
       wavesurfer: null,
       loading: true,
       loadedValue: 0,
@@ -87,6 +94,19 @@ export default defineComponent({
   methods: {
     onSelectItem (item) {
       this.$emit('select', item)
+    },
+    sendFiles () {
+      if (this.files.length === 0) {
+        this.$q.notify({
+          type: 'negative',
+          message: 'یک یا چند فایل را انتخاب کنید.'
+        })
+        return
+      }
+      this.$emit('send', {
+        files: this.files,
+        description: this.description
+      })
     }
   }
 })
