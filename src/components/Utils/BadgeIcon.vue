@@ -39,7 +39,7 @@ export default {
   gap: 10px;
   align-items: center;
   justify-content: center;
-  border-radius: 100px;
+  border-radius: $radius-round;
   .q-icon {
     font-size: 16px;
   }
