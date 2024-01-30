@@ -2,15 +2,16 @@
   <div class="TicketSendMessageInput"
        :class="{
          'TicketSendMessageInput__blur': status === 'blur',
-         'TicketSendMessageInput__recording': status === 'recording-voice',
+         'TicketSendMessageInput__recording': status === 'voice-recording',
          'TicketSendMessageInput__voice-recorded': status === 'voice-recorded',
        }">
-    {{ status }}
-    <div v-if="hasStatus(['recording-voicesss'])"
+    <select-files />
+    {{ preparedTextsMenu }}
+    <div v-if="hasStatus(['voice-recordingsss'])"
          class="TicketSendMessageInput__recording-areaaaa">
-      recording-voicesss
+      voice-recordingsss
     </div>
-    <q-input v-if="hasStatus(['blur', 'text-input-focus', 'typing', 'recording-voice', 'voice-recorded'])"
+    <q-input v-if="hasStatus(['blur', 'text-input-focus', 'typing', 'voice-recording', 'voice-recorded'])"
              v-model="textInput"
              class="no-title"
              autogrow
@@ -23,25 +24,25 @@
                  icon="ph:paper-plane-right"
                  class="TicketSendMessageInput__btn-send-message size-lg" />
         </template>
-        <template v-if="hasStatus(['blur', 'recording-voice', 'voice-recorded'])">
+        <template v-if="hasStatus(['blur', 'voice-recording', 'voice-recorded'])">
           <div class="TicketSendMessageInput__recording-area"
-               :class="{'TicketSendMessageInput__recording-area--no-recording': status !== 'recording-voice','TicketSendMessageInput__recording-area--recording': status === 'recording-voice'}">
-            <div v-if="hasStatus(['recording-voice'])"
+               :class="{'TicketSendMessageInput__recording-area--no-recording': status !== 'voice-recording','TicketSendMessageInput__recording-area--recording': status === 'voice-recording'}">
+            <div v-if="hasStatus(['voice-recording'])"
                  class="TicketSendMessageInput__recording-timer">
               <div class="TicketSendMessageInput__recording-sign" />
-              14:25
+              {{ recordedVoiceDurationInTimerFormat }}
             </div>
             <div class="TicketSendMessageInput__recording-action-area">
-              <div v-if="hasStatus(['recording-voice'])"
+              <div v-if="hasStatus(['voice-recording'])"
                    class="TicketSendMessageInput__recording-cancel-label">
                 <q-icon name="ph:caret-right" />
                 لغو کردن پیام صوتی
               </div>
-              <q-btn v-if="hasStatus(['recording-voice', 'blur'])"
+              <q-btn v-if="hasStatus(['voice-recording', 'blur'])"
                      ref="btnStartRecording"
                      v-touch-swipe.mouse="handleSwipeBtnStartRecording"
-                     :flat="status !== 'recording-voice'"
-                     :color="status === 'recording-voice' ? 'secondary' : undefined"
+                     :flat="status !== 'voice-recording'"
+                     :color="status === 'voice-recording' ? 'secondary' : undefined"
                      square
                      round
                      icon="ph:microphone"
@@ -54,8 +55,13 @@
                 <q-btn flat
                        square
                        icon="ph:trash"
-                       class="TicketSendMessageInput__btn-delete-voice size-lg" />
-                <div class="TicketSendMessageInput__preview-recorded-voice" />
+                       class="TicketSendMessageInput__btn-delete-voice size-lg"
+                       @click="removeRecordeVoice" />
+                <div class="TicketSendMessageInput__preview-recorded-voice">
+                  <voice-wave-surfer v-if="recordedVoiceAsBlob"
+                                     :source="recordedVoiceAsBlob"
+                                     :duration="recordedVoiceDurationInTimerFormat" />
+                </div>
                 <q-btn flat
                        square
                        icon="ph:paper-plane-right"
@@ -67,33 +73,74 @@
       </template>
       <template #prepend>
         <template v-if="hasStatus(['blur', 'text-input-focus', 'typing'])">
-          <q-btn ref="btnSelectFile"
+          <q-btn ref="btnToggleCustomMessages"
                  flat
                  square
                  icon="ph:chat-dots"
-                 class="TicketSendMessageInput__btn-select-file size-lg" />
-          <q-btn ref="btnToggleCustomMessages"
+                 class="TicketSendMessageInput__btn-select-file size-lg"
+                 @click="togglePreparedTextsMenu" />
+          <q-btn ref="btnSelectFile"
                  flat
                  square
                  icon="ph:paperclip"
                  class="TicketSendMessageInput__btn-toggle-custom-messages-list size-lg" />
         </template>
       </template>
+      <q-menu ref="preparedTextsMenu"
+              fit
+              no-parent-event
+              anchor="top start"
+              self="bottom right"
+              class="preparedTextsMenu">
+        <prepared-texts :list="preparedTextList"
+                        @select="onSelectPreparedText" />
+      </q-menu>
     </q-input>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
+import SelectFiles from './SelectFiles.vue'
+import PreparedTexts from './PreparedTexts.vue'
+import VoiceWaveSurfer from './VoiceWaveSurfer.vue'
 
 export default defineComponent({
   name: 'TicketMessage',
+  components: {
+    SelectFiles,
+    PreparedTexts,
+    VoiceWaveSurfer
+  },
   props: {
   },
   data () {
     return {
       textInput: null,
-      status: 'blur' // 'blur', 'text-input-focus', 'typing', 'recording-voice', 'voice-recorded
+      recordInterval: null,
+      recordedVoiceAsBlob: null,
+      recordedVoiceDurationInSeconds: 0,
+      mediaRecorder: null,
+      preparedTextsMenu: true,
+      preparedTextList: [
+        {
+          title: '/عنوان آماده 1',
+          text: 'لورم ایپسوم متنی ساختگی...'
+        },
+        {
+          title: '/عنوان آماده 2',
+          text: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم...'
+        },
+        {
+          title: '/عنوان آماده 3',
+          text: 'لورم ایپسوم متن ساختگی با تولید...'
+        },
+        {
+          title: '/عنوان آماده 4',
+          text: 'لورم ایپسوم...'
+        }
+      ],
+      status: 'blur' // 'blur', 'text-input-focus', 'typing', 'voice-recording', 'voice-recorded
     }
   },
   computed: {
@@ -105,18 +152,25 @@ export default defineComponent({
 
         return this.status === statuses
       }
+    },
+    recordedVoiceDurationInTimerFormat () {
+      const minutes = Math.floor(this.recordedVoiceDurationInSeconds / 60)
+      const remainingSeconds = Math.floor(this.recordedVoiceDurationInSeconds % 60)
+      return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`
     }
   },
   methods: {
     handleSwipeBtnStartRecording (event) {
-      if (event.direction !== 'right' || this.status !== 'recording-voice') {
+      if (event.direction !== 'right' || this.status !== 'voice-recording') {
         return
       }
-      this.onStopRecordingVoice()
+      this.recordStop()
+      this.removeRecordeVoice()
     },
     onFocusTextInput (event) {
       if (
-        this.status === 'recording-voice' ||
+        this.status === 'voice-recording' ||
+        this.status === 'voice-recorded' ||
         this.$refs.btnStartRecording?.$el === event.srcElement ||
         this.$refs.btnSelectFile?.$el === event.srcElement ||
         this.$refs.btnToggleCustomMessages?.$el === event.srcElement
@@ -138,7 +192,7 @@ export default defineComponent({
       ) {
         return
       }
-      if (this.status === 'recording-voice') {
+      if (this.status === 'voice-recording') {
         this.onStopRecordingVoice()
       } else if (this.textInput) {
         this.status = 'typing'
@@ -147,19 +201,95 @@ export default defineComponent({
       }
     },
     onStartRecordingVoice () {
-      this.status = 'recording-voice'
+      this.status = 'voice-recording'
+      this.recordStart()
     },
     onStopRecordingVoice () {
       this.status = 'voice-recorded'
+      this.recordStop()
     },
     onBlurBtnRecordingVoice () {
+      if (this.status === 'voice-recorded' || this.status === 'blur') {
+        return
+      }
       this.onStopRecordingVoice()
     },
     onMouseupBtnRecordingVoice () {
+      if (this.status === 'voice-recorded') {
+        return
+      }
       this.onStopRecordingVoice()
     },
     onMousedownBtnRecordingVoice () {
       this.onStartRecordingVoice()
+    },
+    removeRecordeVoice () {
+      this.status = 'blur'
+      this.recordedVoiceAsBlob = null
+    },
+
+    recordStart () {
+      if (!navigator.mediaDevices) {
+        this.$q.notify({
+          message: 'مرورگر شما ضبط صدا را پشتیبانی نمی کند.'
+        })
+        return
+      }
+
+      const constraints = { audio: true }
+      let chunks = []
+      this.recordedVoiceAsBlob = null
+
+      const onSuccess = (stream) => {
+        this.mediaRecorder = new MediaRecorder(stream)
+        this.mediaRecorder.start()
+
+        this.mediaRecorder.onstop = (e) => {
+          const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' })
+          chunks = []
+          this.recordedVoiceAsBlob = blob
+          // this.recordedVoice = window.URL.createObjectURL(blob)
+
+          stream.getTracks().forEach((track) => {
+            track.stop()
+          })
+        }
+
+        this.mediaRecorder.ondataavailable = (e) => {
+          chunks.push(e.data)
+        }
+      }
+
+      const onError = (err) => {
+        console.error(err.name + ': ' + err.message)
+        document.write('مرورگر شما اجازه دسترسی به میکروفون را ندارد')
+      }
+
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then(onSuccess, onError)
+
+      this.recordedVoiceDurationInSeconds = 0
+      console.trace('setInterval')
+      this.recordInterval = setInterval(() => {
+        this.recordedVoiceDurationInSeconds++
+      }, 1000)
+    },
+    recordStop () {
+      if (this.mediaRecorder) {
+        this.mediaRecorder.stop()
+      }
+      if (this.recordInterval) {
+        console.trace('clearInterval')
+        clearInterval(this.recordInterval)
+      }
+    },
+    togglePreparedTextsMenu () {
+      // this.preparedTextsMenu = !this.preparedTextsMenu
+      this.$refs.preparedTextsMenu.toggle()
+    },
+    onSelectPreparedText (item) {
+      this.textInput = item.text
+      this.$refs.preparedTextsMenu.hide()
     }
   }
 })
@@ -238,9 +368,6 @@ export default defineComponent({
       .TicketSendMessageInput__btn-delete-voice {}
       .TicketSendMessageInput__preview-recorded-voice {
         width: inherit;
-        border-radius: $radius-5;
-        background: $secondary-3;
-        height: 32px;
       }
       .TicketSendMessageInput__btn-send-voice-message {
         color: $secondary-6;
@@ -273,6 +400,15 @@ export default defineComponent({
         }
       }
     }
+  }
+}
+
+:global(.q-menu) {
+  &.preparedTextsMenu {
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
   }
 }
 </style>
