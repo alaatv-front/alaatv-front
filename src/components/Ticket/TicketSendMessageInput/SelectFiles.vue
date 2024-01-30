@@ -9,7 +9,7 @@
         آپلود عکس یا ویدئو
       </template>
       <template #body>
-        <select-files-component />
+        <select-files-component v-model:files="files" />
       </template>
       <template #action>
         <q-btn outline
@@ -24,9 +24,9 @@
 
 <script>
 import { defineComponent } from 'vue'
-import BadgeIcon from 'src/components/Theme/BadgeIcon.vue'
-import SelectFilesComponent from 'src/components/Theme/SelectFiles.vue'
-import InsideDialog from 'src/components/Theme/Dialog/InsideDialog.vue'
+import BadgeIcon from 'src/components/Utils/BadgeIcon.vue'
+import InsideDialog from 'src/components/Utils/InsideDialog.vue'
+import SelectFilesComponent from 'src/components/Utils/SelectFiles.vue'
 
 export default defineComponent({
   name: 'SelectFiles',
@@ -44,6 +44,7 @@ export default defineComponent({
   emits: ['select'],
   data () {
     return {
+      files: [],
       options: {
         container: 'body',
         height: 22,
