@@ -1,5 +1,5 @@
 <template>
-  <div class="SelectFiles">
+  <div class="TicketSelectFiles">
     <inside-dialog>
       <template #header-icon>
         <badge-icon icon="ph:cloud-arrow-up"
@@ -29,7 +29,7 @@ import InsideDialog from 'src/components/Utils/InsideDialog.vue'
 import SelectFilesComponent from 'src/components/Utils/SelectFiles.vue'
 
 export default defineComponent({
-  name: 'SelectFiles',
+  name: 'TicketSelectFiles',
   components: {
     BadgeIcon,
     InsideDialog,
@@ -93,7 +93,10 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.SelectFiles {
-
+.TicketSelectFiles {
+  width: 544px;
+  @include media-max-width('md') {
+    width: 320px;
+  }
 }
 </style>

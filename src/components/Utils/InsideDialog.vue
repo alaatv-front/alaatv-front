@@ -62,6 +62,7 @@ export default {
 
 <style scoped lang="scss">
 .InsideDialog {
+  width: 100%;
   .InsideDialog__header {
     display: flex;
     padding: $space-4 $space-6;

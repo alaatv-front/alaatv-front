@@ -5,8 +5,6 @@
          'TicketSendMessageInput__recording': status === 'voice-recording',
          'TicketSendMessageInput__voice-recorded': status === 'voice-recorded',
        }">
-    <select-files />
-    {{ preparedTextsMenu }}
     <div v-if="hasStatus(['voice-recordingsss'])"
          class="TicketSendMessageInput__recording-areaaaa">
       voice-recordingsss
@@ -83,7 +81,8 @@
                  flat
                  square
                  icon="ph:paperclip"
-                 class="TicketSendMessageInput__btn-toggle-custom-messages-list size-lg" />
+                 class="TicketSendMessageInput__btn-toggle-custom-messages-list size-lg"
+                 @click="showSelectFilesDialog" />
         </template>
       </template>
       <q-menu ref="preparedTextsMenu"
@@ -95,6 +94,9 @@
         <prepared-texts :list="preparedTextList"
                         @select="onSelectPreparedText" />
       </q-menu>
+      <q-dialog v-model="selectFilesDialog">
+        <select-files />
+      </q-dialog>
     </q-input>
   </div>
 </template>
@@ -121,6 +123,7 @@ export default defineComponent({
       recordedVoiceAsBlob: null,
       recordedVoiceDurationInSeconds: 0,
       mediaRecorder: null,
+      selectFilesDialog: false,
       preparedTextsMenu: true,
       preparedTextList: [
         {
@@ -290,6 +293,9 @@ export default defineComponent({
     onSelectPreparedText (item) {
       this.textInput = item.text
       this.$refs.preparedTextsMenu.hide()
+    },
+    showSelectFilesDialog () {
+      this.selectFilesDialog = true
     }
   }
 })
