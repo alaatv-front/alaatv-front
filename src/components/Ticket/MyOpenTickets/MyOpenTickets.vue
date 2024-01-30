@@ -2,6 +2,7 @@
   <div class="my-tickets-container">
     <div class="my-tickets-toolbar">
       <q-input v-model="search"
+               class="no-title"
                type="text"
                placeholder="جست و جو"
                @keyup.enter="updateList">
@@ -10,8 +11,8 @@
                   name="ph:magnifying-glass" />
         </template>
       </q-input>
-      <q-separator class="my-tickets-toolbar__separator" />
     </div>
+    <q-separator class="my-tickets__separator" />
     <div class="my-tickets-list">
       <ticket-item v-for="(ticket, index) in computedTickets"
                    :key="index"
@@ -78,19 +79,23 @@ export default {
 <style lang="scss" scoped>
 .my-tickets{
   &-container {
-    padding: $space-5 $spacing-none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: stretch;
+    gap: $space-4;
   }
   &-toolbar {
-    padding: $spacing-none $space-4;
-    &__separator {
-      margin: $space-3 $spacing-none;
-    }
+    width: 100%;
+  }
+  &__separator {
+    width: 100%;
   }
   &-list {
-    padding: $spacing-none $space-3;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    width: 100%;
     gap: $space-3;
     align-self: stretch;
   }
