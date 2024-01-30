@@ -33,7 +33,8 @@ $q-field__label_margin_bottom: $space-2;
 
   .q-field__inner {
     .q-field__control {
-      height: $input-height;
+      //height: $input-height;
+      height: max-content;
       min-height: $input-height;
       position: relative;
       align-items: flex-end;
@@ -49,7 +50,7 @@ $q-field__label_margin_bottom: $space-2;
         z-index: 1;
         position: absolute;
         background: $field-background;
-        height: $input-height;
+        height: 100%;
         border-radius: $space-2;
         border: $borderStyle;
       }
@@ -249,7 +250,7 @@ $q-field__label_margin_bottom: $space-2;
   }
 }
 
-.q-input {
+.q-field {
   @include q-field-mixin;
 }
 
