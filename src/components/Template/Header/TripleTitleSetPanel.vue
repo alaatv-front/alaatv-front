@@ -31,7 +31,7 @@
                   :key="item.id"
                   class="message-menu-item"
                   clickable>
-            <q-item-section class="ellipsis-3-line message-menu-item-section">{{ item.message }}</q-item-section>
+            <q-item-section class="message-menu-item-section">{{ item.message }}</q-item-section>
           </q-item>
           <q-separator />
           <q-item v-if="hasUnreadMessage"
