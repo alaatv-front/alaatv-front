@@ -71,11 +71,10 @@ export default {
       return !!this.unreadMessagesCount && this.unreadMessagesCount > 0
     },
     hostName () {
-      return 'ehsan.alaatv.com'
-      // if (typeof window === 'undefined') {
-      //   return 'else'
-      // }
-      // return this.domainSameWithAppDomain ? window.location.host : 'else'
+      if (typeof window === 'undefined') {
+        return 'else'
+      }
+      return this.domainSameWithAppDomain ? window.location.host : 'else'
     },
     logoImage () {
       const logoImages = {
