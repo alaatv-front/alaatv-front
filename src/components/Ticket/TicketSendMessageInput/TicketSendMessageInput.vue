@@ -5,8 +5,7 @@
          'TicketSendMessageInput__recording': status === 'voice-recording',
          'TicketSendMessageInput__voice-recorded': status === 'voice-recorded',
        }">
-    <select-files />
-    {{ preparedTextsMenu }}
+    {{ status }}
     <div v-if="hasStatus(['voice-recordingsss'])"
          class="TicketSendMessageInput__recording-areaaaa">
       voice-recordingsss
@@ -83,7 +82,8 @@
                  flat
                  square
                  icon="ph:paperclip"
-                 class="TicketSendMessageInput__btn-toggle-custom-messages-list size-lg" />
+                 class="TicketSendMessageInput__btn-toggle-custom-messages-list size-lg"
+                 @click="showSelectFilesDialog" />
         </template>
       </template>
       <q-menu ref="preparedTextsMenu"
@@ -95,6 +95,9 @@
         <prepared-texts :list="preparedTextList"
                         @select="onSelectPreparedText" />
       </q-menu>
+      <q-dialog v-model="selectFilesDialog">
+        <select-files />
+      </q-dialog>
     </q-input>
   </div>
 </template>
@@ -121,6 +124,7 @@ export default defineComponent({
       recordedVoiceAsBlob: null,
       recordedVoiceDurationInSeconds: 0,
       mediaRecorder: null,
+      selectFilesDialog: false,
       preparedTextsMenu: true,
       preparedTextList: [
         {
@@ -215,7 +219,7 @@ export default defineComponent({
       this.onStopRecordingVoice()
     },
     onMouseupBtnRecordingVoice () {
-      if (this.status === 'voice-recorded') {
+      if (this.status !== 'voice-recording') {
         return
       }
       this.onStopRecordingVoice()
@@ -261,8 +265,13 @@ export default defineComponent({
       }
 
       const onError = (err) => {
+        this.status = 'blur'
+        this.recordStop()
         console.error(err.name + ': ' + err.message)
-        document.write('مرورگر شما اجازه دسترسی به میکروفون را ندارد')
+        this.$q.notify({
+          type: 'negative',
+          message: 'مرورگر شما اجازه دسترسی به میکروفون را ندارد'
+        })
       }
 
       navigator.mediaDevices.getUserMedia(constraints)
@@ -290,6 +299,9 @@ export default defineComponent({
     onSelectPreparedText (item) {
       this.textInput = item.text
       this.$refs.preparedTextsMenu.hide()
+    },
+    showSelectFilesDialog () {
+      this.selectFilesDialog = true
     }
   }
 })

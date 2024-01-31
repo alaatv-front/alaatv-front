@@ -8,15 +8,15 @@
          @drop="drop">
       <input v-show="false"
              ref="FileInput"
-             multiple
              type="file"
-             accept=".jpg,.jpeg,.png"
+             :accept="accept"
+             :multiple="multiple"
              @change="onChange">
       <div class="SelectFiles__drop-zone-icon">
         <q-icon name="ph:cloud-arrow-up" />
       </div>
       <div class="SelectFiles__drop-zone-title">
-        فایل خود را اینجا رها کنید
+        {{ dropTitle }}
       </div>
       <div class="SelectFiles__drop-zone-title">
         یا
@@ -25,7 +25,7 @@
         <q-btn outline
                color="grey"
                class="size-sm"
-               label="افزودن فایل"
+               :label="actionLabel"
                @click="selectFile" />
       </div>
     </div>
@@ -78,6 +78,22 @@ export default {
     files: {
       type: Array,
       default: () => []
+    },
+    multiple: {
+      type: Boolean,
+      default: true
+    },
+    accept: {
+      type: String,
+      default: '*' // '.jpg,.jpeg,.png'
+    },
+    dropTitle: {
+      type: String,
+      default: 'فایل خود را اینجا رها کنید'
+    },
+    actionLabel: {
+      type: String,
+      default: 'افزودن فایل'
     }
   },
   data () {
@@ -190,6 +206,9 @@ export default {
       padding: $space-3 $space-4 $space-3 $space-3;
       border-radius: $radius-3;
       background: $blue-grey-1;
+      @include media-max-width('md') {
+        width: 100%;
+      }
       .SelectFiles__selected-file-thumbnail {
         $thumbnail-size: 48px;
         width: $thumbnail-size;
