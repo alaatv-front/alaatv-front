@@ -17,7 +17,7 @@
              square
              flat
              icon="ph:bell-simple"
-             :disable="hasUnreadMessage"
+             :disable="!hasUnreadMessage"
              size="md">
         <q-badge v-if="hasUnreadMessage"
                  :label="unreadMessagesCount"
@@ -25,17 +25,18 @@
                  floating
                  class="q-ml-lg q-mt-lg badge-xs"
                  color="secondary" />
-        <q-menu v-if="messages.length > 0"
-                anchor="center middle"
+        <q-menu anchor="center middle"
                 self="top left">
           <q-item v-for="item in messages"
                   :key="item.id"
+                  class="message-menu-item"
                   clickable>
-            <q-item-section>{{ item.message }}</q-item-section>
+            <q-item-section class="ellipsis-3-line message-menu-item-section">{{ item.message }}</q-item-section>
           </q-item>
           <q-separator />
           <q-item v-if="hasUnreadMessage"
                   v-close-popup
+                  class="message-menu-item"
                   clickable
                   @click="readAllMessages">
             <q-item-section>خواندن همه</q-item-section>
@@ -70,10 +71,11 @@ export default {
       return !!this.unreadMessagesCount && this.unreadMessagesCount > 0
     },
     hostName () {
-      if (typeof window === 'undefined') {
-        return 'else'
-      }
-      return this.domainSameWithAppDomain ? window.location.host : 'else'
+      return 'ehsan.alaatv.com'
+      // if (typeof window === 'undefined') {
+      //   return 'else'
+      // }
+      // return this.domainSameWithAppDomain ? window.location.host : 'else'
     },
     logoImage () {
       const logoImages = {
@@ -122,7 +124,7 @@ export default {
       })
         .then(messagesObject => {
           this.messages = messagesObject.messages
-          this.unreadMessagesCount = messagesObject.meta.total
+          this.unreadMessagesCount = 7
         })
         .catch(() => {})
     },
@@ -169,6 +171,14 @@ export default {
 
   .separator{
     width: 90%;
+  }
+}
+
+.message-menu-item {
+  width: 320px;
+
+  .message-menu-item-section {
+    width: 100%;
   }
 }
 
