@@ -571,6 +571,7 @@ export default {
       this.major = user.major.id ? user.major : { title: '', id: null }
       this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
       this.getFilterLesson()
+      this.getChangePlanOptions()
     },
     updatePlan () {
       this.loading = true
@@ -755,7 +756,6 @@ export default {
           this.planType.display_name = studyPlan.title
           this.studyEvent = studyPlan.id
           this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
-          this.getChangePlanOptions()
           this.loading = false
         })
         .catch(() => {
