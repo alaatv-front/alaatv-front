@@ -123,7 +123,7 @@ export default {
       })
         .then(messagesObject => {
           this.messages = messagesObject.messages
-          this.unreadMessagesCount = 7
+          this.unreadMessagesCount = messagesObject.meta.total
         })
         .catch(() => {})
     },
