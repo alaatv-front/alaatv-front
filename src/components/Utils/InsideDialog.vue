@@ -13,7 +13,7 @@
       </div>
       <q-btn v-close-popup
              flat
-             icon="ph:x"
+             :icon="closeButtonIcon"
              square
              color="grey"
              clase="size-xs" />
@@ -49,6 +49,10 @@ export default {
     action: {
       type: Boolean,
       default: true
+    },
+    closeButtonIcon: {
+      type: String,
+      default: 'ph:x'
     }
   },
   data () {

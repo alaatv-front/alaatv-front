@@ -27,21 +27,21 @@ const fakeTickets = [
   {
     user: {
       fullName: 'بهزاد آشفته',
-      image: 'https://nodes.alaatv.com/upload/alaaPages/2024-01/Avatar1706441404.png'
+      photo: 'https://nodes.alaatv.com/upload/alaaPages/2024-01/Avatar1706441404.png'
     },
     messages: 8
   },
   {
     user: {
       fullName: 'بهزاد آشفته',
-      image: 'https://nodes.alaatv.com/upload/alaaPages/2024-01/Avatar1706441404.png'
+      photo: 'https://nodes.alaatv.com/upload/alaaPages/2024-01/Avatar1706441404.png'
     },
     messages: 8
   },
   {
     user: {
       fullName: 'بهزاد آشفته',
-      image: 'https://nodes.alaatv.com/upload/alaaPages/2024-01/Avatar1706441404.png'
+      photo: 'https://nodes.alaatv.com/upload/alaaPages/2024-01/Avatar1706441404.png'
     },
     messages: 8
   }
@@ -83,7 +83,7 @@ export default {
     flex-direction: column;
     align-items: center;
     align-self: stretch;
-    gap: $space-4;
+    gap: $space-3;
   }
   &-toolbar {
     width: 100%;

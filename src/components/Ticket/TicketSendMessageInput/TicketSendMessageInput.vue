@@ -415,12 +415,10 @@ export default defineComponent({
   }
 }
 
-:global(.q-menu) {
-  &.preparedTextsMenu {
-    padding: 0;
-    border-radius: 0;
-    background: transparent;
-    box-shadow: none;
-  }
+:global(.q-menu.preparedTextsMenu) {
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 </style>
