@@ -387,27 +387,29 @@ export default {
           optionLabel: 'display_name',
           optionValue: 'id',
           value: null,
-          col: 'col-4'
+          col: 'col-12'
         },
         {
           type: 'select',
           name: 'major_id',
           label: 'رشته',
           options: [],
+          // multiple: true,
           optionLabel: 'title',
           optionValue: 'id',
           value: null,
-          col: 'col-4'
+          col: 'col-12'
         },
         {
           type: 'select',
           name: 'grade_id',
           label: 'مقطع',
           options: [],
+          // multiple: true,
           optionLabel: 'title',
           optionValue: 'id',
           value: null,
-          col: 'col-4'
+          col: 'col-12'
         },
         {
           type: ContentsComponentComp,
