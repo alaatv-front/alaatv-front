@@ -52,14 +52,16 @@ export default defineComponent({
 .TicketMessageList {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: stretch;
+  align-items: stretch;
+  height: 100%;
   .TicketMessageList__first-message {
     display: flex;
     padding: $space-2 $space-6;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 4px;
+    gap: $space-1;
     align-self: stretch;
     border-bottom: $blue-grey-3;
     background: $grey-1;
@@ -78,7 +80,7 @@ export default defineComponent({
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    gap: 16px;
+    gap: $space-4;
     flex: 1 0 0;
     align-self: stretch;
     background: $blue-grey-1;

@@ -5,7 +5,6 @@
          'TicketSendMessageInput__recording': status === 'voice-recording',
          'TicketSendMessageInput__voice-recorded': status === 'voice-recorded',
        }">
-    {{ status }}
     <div v-if="hasStatus(['voice-recordingsss'])"
          class="TicketSendMessageInput__recording-areaaaa">
       voice-recordingsss
