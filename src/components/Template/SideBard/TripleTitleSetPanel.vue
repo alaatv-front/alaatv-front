@@ -3,8 +3,7 @@
     <div v-if="isDesktop"
          class="side-menu">
       <div class="menu-logo">
-        <router-link v-if="domainSameWithAppDomain"
-                     :to="{name: 'Public.Home'}">
+        <router-link :to="{name: 'Public.Home'}">
           <lazy-img :src="logoImage"
                     class="logo-image" />
         </router-link>
