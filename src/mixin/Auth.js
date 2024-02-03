@@ -5,6 +5,7 @@ const mixinAuth = {
   data () {
     return {
       user: new User(),
+      hostName: 'else',
       isUserLogin: false,
       domainSameWithAppDomain: false,
       appDomain: this.$env?.VITE_APP_DOMAIN
@@ -12,12 +13,20 @@ const mixinAuth = {
   },
   mounted () {
     this.loadAuthData()
+    this.loadHostName()
     this.loadDomainSameWithAppDomain()
     this.$bus.on('onLoggedIn', () => {
       this.loadAuthData()
     })
   },
   methods: {
+    loadHostName () { // prevent Hydration node mismatch
+      if (typeof window === 'undefined') {
+        return
+      }
+      this.hostName = window.location.host
+      console.warn('loadHostName: ', this.hostName)
+    },
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']

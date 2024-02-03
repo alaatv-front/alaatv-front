@@ -11,7 +11,6 @@
              class="header-logo-img" />
     </div>
     <div class="profile-box flex items-center">
-      {{ hostName }}
       <q-btn v-if="hostName === 'ehsan.alaatv.com'"
              color="grey"
              class="size-lg q-mx-sm"
@@ -70,12 +69,6 @@ export default {
   computed: {
     hasUnreadMessage () {
       return !!this.unreadMessagesCount && this.unreadMessagesCount > 0
-    },
-    hostName () {
-      if (typeof window === 'undefined') {
-        return 'else'
-      }
-      return this.domainSameWithAppDomain ? window.location.host : 'else'
     },
     logoImage () {
       const logoImages = {
