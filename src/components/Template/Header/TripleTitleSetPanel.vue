@@ -1,13 +1,8 @@
 <template>
   <div class="chatre-nejat-header">
-    <div class="logo-box">
-      <router-link :to="{name: 'Public.Home'}">
-        <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
-               class="logo-image" />
-      </router-link>
-    </div>
+    <div class="logo-box" />
     <div class="header-box flex justify-center items-center">
-      <q-img :src="logoImage"
+      <q-img :src="event.logo"
              class="header-logo-img" />
     </div>
     <div class="profile-box flex items-center">
@@ -60,24 +55,17 @@ export default {
   name: 'TripleTitleSetPanel',
   components: { BtnUserProfileMenu },
   mixins: [mixinAuth, mixinTripleTitleSet],
-  data: () => ({
-    user: new User(),
-    activePage: null,
-    messages: [],
-    unreadMessagesCount: 0
-  }),
+  data () {
+    return {
+      user: new User(),
+      activePage: null,
+      messages: [],
+      unreadMessagesCount: 0
+    }
+  },
   computed: {
     hasUnreadMessage () {
       return !!this.unreadMessagesCount && this.unreadMessagesCount > 0
-    },
-    logoImage () {
-      const logoImages = {
-        'localhost:8083': this.event.logo,
-        'alaatv.com': this.event.logo,
-        'ehsan.alaatv.com': 'https://nodes.alaatv.com/upload/alaaPages/2024-01/boniad-ehsan-logo1704111571.png',
-        else: null
-      }
-      return logoImages[this.hostName]
     }
   },
   mounted () {

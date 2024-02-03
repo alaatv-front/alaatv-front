@@ -5,8 +5,8 @@
       <div class="menu-logo">
         <router-link v-if="domainSameWithAppDomain"
                      :to="{name: 'Public.Home'}">
-          <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
-                 class="logo-image" />
+          <lazy-img :src="logoImage"
+                    class="logo-image" />
         </router-link>
       </div>
       <div class="menu-items">
@@ -90,10 +90,11 @@ import { mixinAuth } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
+import LazyImg from 'components/lazyImg.vue'
 
 export default {
   name: 'TripleTitleSetPanel',
-  components: { LayoutMenu },
+  components: { LazyImg, LayoutMenu },
   mixins: [mixinAuth, mixinEwano],
   data: () => ({
     isActive: null,
@@ -182,6 +183,17 @@ export default {
     },
     isDesktop () {
       return !this.$q.screen.lt.md
+    },
+    logoImage () {
+      const alaaLogo = 'https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png'
+      const boniadEhsanLogo = 'https://nodes.alaatv.com/upload/alaaPages/2024-01/boniad-ehsan-logo1704111571.png'
+      const logoImages = {
+        'localhost:8083': alaaLogo,
+        'alaatv.com': alaaLogo,
+        'ehsan.alaatv.com': boniadEhsanLogo,
+        else: null
+      }
+      return logoImages[this.hostName]
     }
   },
   watch: {
@@ -310,7 +322,7 @@ export default {
       margin: 10px auto 266px !important;
     }
 
-    .logo-image{
+    :deep(.logo-image) {
       width: 60px;
       height: 60px;
 
