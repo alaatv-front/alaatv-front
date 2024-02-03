@@ -2,7 +2,7 @@
   <div class="ticket-item-container">
     <div class="ticket-item-avatar">
       <q-avatar size="40px">
-        <lazy-img :src="ticket.user.image"
+        <lazy-img :src="ticket.user.photo"
                   width="40px"
                   height="40px" /></q-avatar>
       <div class="ticket-item-avatar__badge">
@@ -18,19 +18,21 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
+import { Ticket } from 'src/models/Ticket.js'
 import LazyImg from 'src/components/lazyImg.vue'
-export default {
+export default defineComponent({
   name: 'TicketItem',
   components: {
     LazyImg
   },
   props: {
     ticket: {
-      type: Object,
-      default: () => {}
+      type: Ticket,
+      default: new Ticket()
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

@@ -20,10 +20,16 @@
         <div class="empty-order-list">
           <q-img class="image"
                  :src="'https://nodes.alaatv.com/aaa/landing/Soalaa/States/empty_orders.png'" />
-          <div class="list-text">
+          <div v-if="isAdminOrders"
+               class="list-text">
+            لیست سفارش‌های این کاربر خالی است!
+          </div>
+          <div v-else
+               class="list-text">
             لیست سفارش‌های شما خالی است!
           </div>
-          <div class="back-to-shop">
+          <div v-if="!isAdminOrders"
+               class="back-to-shop">
             <q-btn class="back-to-shop-btn"
                    color="secondary"
                    label="رفتن به فروشگاه"
@@ -33,7 +39,8 @@
       </div>
       <div v-else
            class="my-orders-list">
-        <div class="title">
+        <div v-if="showTitle"
+             class="title">
           سفارش های من
         </div>
         <entity-index ref="orderList"
@@ -117,8 +124,11 @@
           </template>
         </entity-index>
       </div>
-      <order-details-dialog v-model:dialogValue="detailsDialog"
-                            :order="currentOrder" />
+      <q-dialog v-model="detailsDialog"
+                class="order-details-dialog">
+        <order-details-dialog :is-admin-orders="isAdminOrders"
+                              :order="currentOrder" />
+      </q-dialog>
     </template>
   </div>
 </template>
@@ -145,6 +155,21 @@ export default {
     OrderDetailsDialog,
     EntityIndex
   },
+  props: {
+    isAdminOrders: {
+      type: Boolean,
+      default: false
+    },
+    ticketUser: {
+      type: Object,
+      default: () => {}
+    },
+    showTitle: {
+      type: Boolean,
+      default: true
+    }
+  },
+  emits: ['showDetails'],
   data () {
     return {
       loading: true,
@@ -211,6 +236,14 @@ export default {
             }
           },
           {
+            name: 'orderstatus',
+            required: true,
+            label: 'وضعیت سفارش',
+            align: 'left',
+            field: row => row.orderstatus.name,
+            classes: 'order-status'
+          },
+          {
             name: 'price',
             required: true,
             label: 'مبلغ',
@@ -249,6 +282,9 @@ export default {
   },
   computed: {
     user () {
+      // if (this.isAdminOrders && this.ticketUser?.id) {
+      //   return this.ticketUser
+      // }
       if (this.$store.getters['Auth/user']) {
         return this.$store.getters['Auth/user']
       }
@@ -339,6 +375,9 @@ export default {
       }
     },
     showDetailsDialog (rowData) {
+      if (this.isAdminOrders) {
+        this.$emit('showDetails', new Order(rowData))
+      }
       this.currentOrder = new Order(rowData)
       this.detailsDialog = true
     },
@@ -361,7 +400,6 @@ export default {
 
 <style scoped lang="scss">
 .my-orders-list{
-  margin-bottom: 200px;
 
   :deep(.entity-index) {
     .q-expansion-item {
@@ -424,16 +462,19 @@ export default {
 
   }
 
-  .payment-okay {
-    color: #4CAF50;
+  :deep(.payment-okay) {
+    color: $positive;
   }
 
-  .payment-not-okay {
-    color: #E86562;
+  :deep(.payment-not-okay) {
+    color: $negative
   }
 
-  .payment-installment {
-    color: #8ED6FF;
+  :deep(.payment-installment) {
+    color: $accent;
+  }
+  :deep(.order-status) {
+    color: $positive;
   }
 
   :deep(.quasar-crud-index-table) {

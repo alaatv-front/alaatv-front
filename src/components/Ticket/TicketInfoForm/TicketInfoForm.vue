@@ -34,7 +34,7 @@
           ایجاد شده در :
         </div>
         <div class="ticket-info-details__item__value">
-          {{ ticket.shamsiDate('created_at').dateTime }}
+          {{ ticket.shamsiDate('created_at').date }}
         </div>
       </div>
       <div class="ticket-info-details__item">
@@ -42,7 +42,7 @@
           آخرین به روز رسانی :
         </div>
         <div class="ticket-info-details__item__value">
-          {{ ticket.shamsiDate('updated_at').dateTime }}
+          {{ ticket.shamsiDate('updated_at').date }}
         </div>
       </div>
     </div>
@@ -84,7 +84,41 @@
              @click="openSmsDialog" />
     </div>
     <q-dialog v-model="smsDialog">
-      <sms-dialog-inner />
+      <div class="sms-dialog-wrapper">
+        <inside-dialog>
+          <template #header-icon>
+            <badge-icon icon="ph:chat-circle-text"
+                        color="primary" />
+          </template>
+          <template #header>
+            ارسال پیامک به سید مرتضی صحیح النسب
+          </template>
+          <template #body>
+            <q-select v-model="model"
+                      :options="options"
+                      label="نوع پیامک"
+                      outlined />
+            <q-input v-model="input1"
+                     class="smsTextarea"
+                     label="ارسال پیام متنی"
+                     placeholder="متن پیامک"
+                     type="textarea" />
+          </template>
+          <template #action>
+            <q-btn v-close-popup
+                   class="q-btn-md"
+                   color="grey"
+                   size="md"
+                   outline>
+              انصراف
+            </q-btn>
+            <q-btn class="q-btn-md keep-min-width"
+                   color="primary">
+              ارسال
+            </q-btn>
+          </template>
+        </inside-dialog>
+      </div>
     </q-dialog>
   </div>
 </template>
@@ -93,13 +127,15 @@
 import { EntityEdit } from 'quasar-crud'
 import { Ticket } from 'src/models/Ticket.js'
 import { mixinTicket } from 'src/mixin/Mixins.js'
-import SmsDialogInner from './components/SmsDialogInner.vue'
+import BadgeIcon from 'src/components/Utils/BadgeIcon.vue'
+import InsideDialog from 'src/components/Utils/InsideDialog.vue'
 
 export default {
   name: 'TicketInfoForm',
   components: {
     EntityEdit,
-    SmsDialogInner
+    BadgeIcon,
+    InsideDialog
   },
   mixins: [mixinTicket],
   props: {
@@ -119,6 +155,7 @@ export default {
           options: [],
           optionLabel: 'title',
           optionValue: 'id',
+          responseKey: 'department.id',
           label: 'گروه',
           disable: false,
           col: 'col-12'
@@ -126,10 +163,11 @@ export default {
         {
           type: 'select',
           name: 'status_id',
-          multiple: true,
+          // multiple: true,
           options: [],
           optionLabel: 'title',
           optionValue: 'id',
+          responseKey: 'status.id',
           label: 'وضعیت',
           disable: false,
           col: 'col-12'
@@ -172,6 +210,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.sms-dialog-wrapper {
+  width: 544px;
+  max-width: 544px;
+  min-height: 448px;
+  @include  media-max-width('md') {
+    width: 100%;
+  max-width: 100%;
+  }
+}
 .ticket-info {
   &-container {
     display: flex;

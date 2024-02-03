@@ -24,13 +24,13 @@
     </div>
     <div class="TicketShow__template">
       <div class="TicketShow__header">
-        TicketShow__header
+        <ticket-header :ticket="ticket" />
       </div>
       <div class="TicketShow__my-open-tickets">
-        TicketShow__my-open-tickets
+        <my-open-tickets />
       </div>
       <div class="TicketShow__ticket-info">
-        TicketShow__ticket-info
+        <ticket-info-form :ticket="ticket" />
       </div>
       <div class="TicketShow__messages">
         <ticket-message-list :ticket="ticket" />
@@ -43,11 +43,17 @@
 import { Ticket } from 'src/models/Ticket.js'
 // import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
+import TicketHeader from 'src/components/Ticket/TicketHeader/TicketHeader.vue'
+import MyOpenTickets from 'src/components/Ticket/MyOpenTickets/MyOpenTickets.vue'
+import TicketInfoForm from 'src/components/Ticket/TicketInfoForm/TicketInfoForm.vue'
 import TicketMessageList from 'src/components/Ticket/TicketMessageList/TicketMessageList.vue'
 
 export default {
   name: 'TicketShow',
   components: {
+    TicketHeader,
+    MyOpenTickets,
+    TicketInfoForm,
     TicketMessageList
   },
   mixins: [mixinTicket, mixinWidget],
@@ -264,6 +270,7 @@ export default {
       display: flex;
       padding: $space-3 $space-4;
       justify-content: space-between;
+      width: 100%;
       align-items: center;
       align-self: stretch;
       border-bottom: 1px solid $blue-grey-3;
@@ -273,7 +280,7 @@ export default {
     .TicketShow__my-open-tickets {
       grid-area: 1 / 1 / 3 / 2;
       display: flex;
-      padding: $space-5 $spacing-none;
+      padding: $space-5 $space-3;
       flex-direction: column;
       align-items: center;
       align-self: stretch;
@@ -294,6 +301,7 @@ export default {
       border-radius: $radius-none $radius-none $radius-4 $radius-none;
     }
     .TicketShow__messages {
+      height: 100%;
       grid-area: 2 / 2 / 3 / 3;
     }
   }
