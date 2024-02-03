@@ -95,79 +95,81 @@ export default {
   name: 'TripleTitleSetPanel',
   components: { LazyImg, LayoutMenu },
   mixins: [mixinAuth, mixinEwano],
-  data: () => ({
-    isActive: null,
-    isAdmin: false,
-    logoutDialog: false,
-    eventInfo: null,
-    menuItems: [
-      {
-        visible: false,
-        icon: 'home',
-        routeName: 'UserPanel.Asset.TripleTitleSet.Dashboard'
-      },
-      {
-        visible: true,
-        icon: 'playlist_play',
-        routeName: 'UserPanel.Asset.TripleTitleSet.Products'
-      },
-      {
-        visible: false,
-        icon: 'calendar_today',
-        routeName: 'UserPanel.Asset.TripleTitleSet.StudyPlan'
-      }
-      // {
-      //   icon: 'calendar_today',
-      //   routeName: 'UserPanel.Asset.TripleTitleSet.Products'
-      // }
-      // {
-      //   icon: 'list-check',
-      //   routeName: 'my-performance'
-      //
-      // },
-      // {
-      //   icon: 'stats',
-      //   routeName: 'assessment'
-      // },
-    ],
-    topicsRouteArray: [
-      {
-        title: 'سر فصل ها',
-        icon: 'ph:book-open-text',
-        routeName: '',
-        active: false,
-        show: true,
-        open: true,
-        children: [
-          {
-            title: 'تایتل ست',
-            routeName: 'UserPanel.Asset.TripleTitleSet.Products',
-            active: false,
-            show: true,
-            open: false
-          }
-        ]
-      }
-    ],
-    menuKey: 0,
-    productItems: [
-      {
-        name: 'pamphlet',
-        routeName: 'UserPanel.Asset.TripleTitleSet.ProductDocuments',
-        label: 'جزوات'
-      },
-      {
-        name: 'notes',
-        routeName: 'UserPanel.Asset.TripleTitleSet.ProductComments',
-        label: 'یادداشت ها'
-      },
-      {
-        name: 'favoredContents',
-        routeName: 'UserPanel.Asset.TripleTitleSet.ProductBookmarks',
-        label: 'نشان شده ها'
-      }
-    ]
-  }),
+  data () {
+    return {
+      isActive: null,
+      isAdmin: false,
+      logoutDialog: false,
+      eventInfo: null,
+      menuItems: [
+        {
+          visible: false,
+          icon: 'home',
+          routeName: 'UserPanel.Asset.TripleTitleSet.Dashboard'
+        },
+        {
+          visible: true,
+          icon: 'playlist_play',
+          routeName: 'UserPanel.Asset.TripleTitleSet.Products'
+        },
+        {
+          visible: false,
+          icon: 'calendar_today',
+          routeName: 'UserPanel.Asset.TripleTitleSet.StudyPlan'
+        }
+        // {
+        //   icon: 'calendar_today',
+        //   routeName: 'UserPanel.Asset.TripleTitleSet.Products'
+        // }
+        // {
+        //   icon: 'list-check',
+        //   routeName: 'my-performance'
+        //
+        // },
+        // {
+        //   icon: 'stats',
+        //   routeName: 'assessment'
+        // },
+      ],
+      topicsRouteArray: [
+        {
+          title: 'سر فصل ها',
+          icon: 'ph:book-open-text',
+          routeName: '',
+          active: false,
+          show: true,
+          open: true,
+          children: [
+            {
+              title: 'تایتل ست',
+              routeName: 'UserPanel.Asset.TripleTitleSet.Products',
+              active: false,
+              show: true,
+              open: false
+            }
+          ]
+        }
+      ],
+      menuKey: 0,
+      productItems: [
+        {
+          name: 'pamphlet',
+          routeName: 'UserPanel.Asset.TripleTitleSet.ProductDocuments',
+          label: 'جزوات'
+        },
+        {
+          name: 'notes',
+          routeName: 'UserPanel.Asset.TripleTitleSet.ProductComments',
+          label: 'یادداشت ها'
+        },
+        {
+          name: 'favoredContents',
+          routeName: 'UserPanel.Asset.TripleTitleSet.ProductBookmarks',
+          label: 'نشان شده ها'
+        }
+      ]
+    }
+  },
   computed: {
     topicList () {
       const topicList = this.$store.getters['TripleTitleSet/setTopicList']
@@ -212,7 +214,7 @@ export default {
   methods: {
     updateLeftDrawer () {
       const isIframe = window.self !== window.top
-      if (this.$q.screen.gt.md && !isIframe) {
+      if (this.$q.screen.gt.sm && !isIframe) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
       } else {
