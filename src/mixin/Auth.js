@@ -25,7 +25,6 @@ const mixinAuth = {
         return
       }
       this.hostName = window.location.host
-      console.warn('loadHostName: ', this.hostName)
     },
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
