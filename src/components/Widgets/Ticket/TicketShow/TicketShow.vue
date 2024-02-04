@@ -33,7 +33,9 @@
         <div class="row">
           <div class="col-12">
             <div class="TicketShow__header">
-              <ticket-header :ticket="ticket" />
+              <ticket-header :ticket="ticket"
+                             @openTickets="openMyOpenTicketDrawer"
+                             @openInfoForm="openTicketInfoFormDrawer" />
             </div>
           </div>
           <div class="col-lg-8 col-md-6 col-12">
