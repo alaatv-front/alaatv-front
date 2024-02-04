@@ -5,7 +5,8 @@
         <lazy-img :src="ticket.user.photo"
                   width="40px"
                   height="40px" /></q-avatar>
-      <div class="ticket-item-avatar__badge">
+      <div v-if="ticket.totalMessages > 0"
+           class="ticket-item-avatar__badge">
         {{ticket.totalMessages}}
       </div>
     </div>

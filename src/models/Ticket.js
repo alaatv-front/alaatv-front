@@ -20,6 +20,7 @@ class Ticket extends Model {
       },
       { key: 'rate' },
       { key: 'orderproduct' },
+      { key: 'totalMessages' },
       { key: 'logs' },
       {
         key: 'messages',
