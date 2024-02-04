@@ -214,6 +214,10 @@ export default {
 
     &.is-admin-orders {
       max-height: 500px;
+
+      @include media-max-width ('sm') {
+        max-height: 200px;
+      }
     }
   }
 

@@ -76,7 +76,8 @@
           <q-item clickable>
             <q-item-section>وضعیت</q-item-section>
             <q-item-section side>
-              <q-icon name="ph:caret-left" />
+              <q-icon name="ph:caret-left"
+                      size="xs" />
             </q-item-section>
 
             <q-menu anchor="top end"
@@ -207,6 +208,9 @@ export default defineComponent({
     },
     openInfoForm () {
       this.$emit('openInfoForm')
+    },
+    callUser () {
+      alert('calling ...')
     }
   }
 })
