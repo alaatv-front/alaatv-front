@@ -3,10 +3,9 @@
     <div v-if="isDesktop"
          class="side-menu">
       <div class="menu-logo">
-        <router-link v-if="domainSameWithAppDomain"
-                     :to="{name: 'Public.Home'}">
-          <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
-                 class="logo-image" />
+        <router-link :to="{name: 'Public.Home'}">
+          <lazy-img :src="logoImage"
+                    class="logo-image" />
         </router-link>
       </div>
       <div class="menu-items">
@@ -90,84 +89,87 @@ import { mixinAuth } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
+import LazyImg from 'components/lazyImg.vue'
 
 export default {
   name: 'TripleTitleSetPanel',
-  components: { LayoutMenu },
+  components: { LazyImg, LayoutMenu },
   mixins: [mixinAuth, mixinEwano],
-  data: () => ({
-    isActive: null,
-    isAdmin: false,
-    logoutDialog: false,
-    eventInfo: null,
-    menuItems: [
-      {
-        visible: false,
-        icon: 'home',
-        routeName: 'UserPanel.Asset.TripleTitleSet.Dashboard'
-      },
-      {
-        visible: true,
-        icon: 'playlist_play',
-        routeName: 'UserPanel.Asset.TripleTitleSet.Products'
-      },
-      {
-        visible: false,
-        icon: 'calendar_today',
-        routeName: 'UserPanel.Asset.TripleTitleSet.StudyPlan'
-      }
-      // {
-      //   icon: 'calendar_today',
-      //   routeName: 'UserPanel.Asset.TripleTitleSet.Products'
-      // }
-      // {
-      //   icon: 'list-check',
-      //   routeName: 'my-performance'
-      //
-      // },
-      // {
-      //   icon: 'stats',
-      //   routeName: 'assessment'
-      // },
-    ],
-    topicsRouteArray: [
-      {
-        title: 'سر فصل ها',
-        icon: 'ph:book-open-text',
-        routeName: '',
-        active: false,
-        show: true,
-        open: true,
-        children: [
-          {
-            title: 'تایتل ست',
-            routeName: 'UserPanel.Asset.TripleTitleSet.Products',
-            active: false,
-            show: true,
-            open: false
-          }
-        ]
-      }
-    ],
-    menuKey: 0,
-    productItems: [
-      {
-        name: 'pamphlet',
-        routeName: 'UserPanel.Asset.TripleTitleSet.ProductDocuments',
-        label: 'جزوات'
-      },
-      {
-        name: 'notes',
-        routeName: 'UserPanel.Asset.TripleTitleSet.ProductComments',
-        label: 'یادداشت ها'
-      },
-      {
-        name: 'favoredContents',
-        routeName: 'UserPanel.Asset.TripleTitleSet.ProductBookmarks',
-        label: 'نشان شده ها'
-      }
-    ]
-  }),
+  data () {
+    return {
+      isActive: null,
+      isAdmin: false,
+      logoutDialog: false,
+      eventInfo: null,
+      menuItems: [
+        {
+          visible: false,
+          icon: 'home',
+          routeName: 'UserPanel.Asset.TripleTitleSet.Dashboard'
+        },
+        {
+          visible: true,
+          icon: 'playlist_play',
+          routeName: 'UserPanel.Asset.TripleTitleSet.Products'
+        },
+        {
+          visible: false,
+          icon: 'calendar_today',
+          routeName: 'UserPanel.Asset.TripleTitleSet.StudyPlan'
+        }
+        // {
+        //   icon: 'calendar_today',
+        //   routeName: 'UserPanel.Asset.TripleTitleSet.Products'
+        // }
+        // {
+        //   icon: 'list-check',
+        //   routeName: 'my-performance'
+        //
+        // },
+        // {
+        //   icon: 'stats',
+        //   routeName: 'assessment'
+        // },
+      ],
+      topicsRouteArray: [
+        {
+          title: 'سر فصل ها',
+          icon: 'ph:book-open-text',
+          routeName: '',
+          active: false,
+          show: true,
+          open: true,
+          children: [
+            {
+              title: 'تایتل ست',
+              routeName: 'UserPanel.Asset.TripleTitleSet.Products',
+              active: false,
+              show: true,
+              open: false
+            }
+          ]
+        }
+      ],
+      menuKey: 0,
+      productItems: [
+        {
+          name: 'pamphlet',
+          routeName: 'UserPanel.Asset.TripleTitleSet.ProductDocuments',
+          label: 'جزوات'
+        },
+        {
+          name: 'notes',
+          routeName: 'UserPanel.Asset.TripleTitleSet.ProductComments',
+          label: 'یادداشت ها'
+        },
+        {
+          name: 'favoredContents',
+          routeName: 'UserPanel.Asset.TripleTitleSet.ProductBookmarks',
+          label: 'نشان شده ها'
+        }
+      ]
+    }
+  },
   computed: {
     topicList () {
       const topicList = this.$store.getters['TripleTitleSet/setTopicList']
@@ -182,6 +184,17 @@ export default {
     },
     isDesktop () {
       return !this.$q.screen.lt.md
+    },
+    logoImage () {
+      const alaaLogo = 'https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png'
+      const boniadEhsanLogo = 'https://nodes.alaatv.com/upload/alaaPages/2024-01/boniad-ehsan-logo1704111571.png'
+      const logoImages = {
+        'localhost:8083': alaaLogo,
+        'alaatv.com': alaaLogo,
+        'ehsan.alaatv.com': boniadEhsanLogo,
+        else: null
+      }
+      return logoImages[this.hostName]
     }
   },
   watch: {
@@ -201,7 +214,7 @@ export default {
   methods: {
     updateLeftDrawer () {
       const isIframe = window.self !== window.top
-      if (this.$q.screen.gt.md && !isIframe) {
+      if (this.$q.screen.gt.sm && !isIframe) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
       } else {
@@ -310,7 +323,7 @@ export default {
       margin: 10px auto 266px !important;
     }
 
-    .logo-image{
+    :deep(.logo-image) {
       width: 60px;
       height: 60px;
 

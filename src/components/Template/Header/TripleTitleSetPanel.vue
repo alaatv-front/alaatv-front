@@ -1,47 +1,42 @@
 <template>
   <div class="chatre-nejat-header">
-    <div class="logo-box">
-      <router-link :to="{name: 'Public.Home'}">
-        <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
-               class="logo-image" />
-      </router-link>
-    </div>
+    <div class="logo-box" />
     <div class="header-box flex justify-center items-center">
-      <q-img :src="logoImage"
+      <q-img :src="event.logo"
              class="header-logo-img" />
     </div>
     <div class="profile-box flex items-center">
       <q-btn v-if="hostName === 'ehsan.alaatv.com'"
-             :color="hasUnreadMessage ? 'primary' : 'grey'"
+             color="grey"
              class="size-lg q-mx-sm"
              square
              flat
              icon="ph:bell-simple"
              :disable="!hasUnreadMessage"
              size="md">
-        <q-badge v-if="hasUnreadMessage"
-                 :label="unreadMessagesCount"
-                 rounded
-                 floating
-                 class="q-ml-lg q-mt-lg badge-xs"
-                 color="secondary" />
-        <q-menu anchor="center middle"
-                self="top left">
-          <q-item v-for="item in messages"
-                  :key="item.id"
-                  class="message-menu-item"
-                  clickable>
-            <q-item-section class="message-menu-item-section">{{ item.message }}</q-item-section>
-          </q-item>
-          <q-separator />
-          <q-item v-if="hasUnreadMessage"
-                  v-close-popup
-                  class="message-menu-item"
-                  clickable
-                  @click="readAllMessages">
-            <q-item-section>خواندن همه</q-item-section>
-          </q-item>
-        </q-menu>
+        <template v-if="hasUnreadMessage">
+          <q-badge :label="unreadMessagesCount"
+                   rounded
+                   floating
+                   class="badge-xs"
+                   color="secondary" />
+          <q-menu anchor="center middle"
+                  self="top left">
+            <q-item v-for="item in messages"
+                    :key="item.id"
+                    class="message-menu-item"
+                    clickable>
+              <q-item-section class="message-menu-item-section">{{ item.message }}</q-item-section>
+            </q-item>
+            <q-separator />
+            <q-item v-close-popup
+                    class="message-menu-item"
+                    clickable
+                    @click="readAllMessages">
+              <q-item-section>خواندن همه</q-item-section>
+            </q-item>
+          </q-menu>
+        </template>
       </q-btn>
 
       <btn-user-profile-menu />
@@ -60,30 +55,17 @@ export default {
   name: 'TripleTitleSetPanel',
   components: { BtnUserProfileMenu },
   mixins: [mixinAuth, mixinTripleTitleSet],
-  data: () => ({
-    user: new User(),
-    activePage: null,
-    messages: [],
-    unreadMessagesCount: 0
-  }),
+  data () {
+    return {
+      user: new User(),
+      activePage: null,
+      messages: [],
+      unreadMessagesCount: 0
+    }
+  },
   computed: {
     hasUnreadMessage () {
       return !!this.unreadMessagesCount && this.unreadMessagesCount > 0
-    },
-    hostName () {
-      if (typeof window === 'undefined') {
-        return 'else'
-      }
-      return this.domainSameWithAppDomain ? window.location.host : 'else'
-    },
-    logoImage () {
-      const logoImages = {
-        'localhost:8083': this.event.logo,
-        'alaatv.com': this.event.logo,
-        'ehsan.alaatv.com': 'https://nodes.alaatv.com/upload/alaaPages/2024-01/boniad-ehsan-logo1704111571.png',
-        else: null
-      }
-      return logoImages[this.hostName]
     }
   },
   mounted () {
@@ -91,7 +73,7 @@ export default {
     if (window.innerWidth < 1024) {
       this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
     }
-    this.loadMessageData()
+    this.loadBonyadEhsanUnreadMessages()
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
@@ -100,23 +82,14 @@ export default {
     logOut () {
       this.$store.dispatch('Auth/logOut')
     },
-    loadMessageData () {
-      if (this.hostName === 'ehsan.alaatv.com') {
-        // this.getMessages()
-        this.countUnreadMessages()
+    loadBonyadEhsanUnreadMessages () {
+      if (this.hostName !== 'ehsan.alaatv.com') {
+        return
       }
+
+      this.getUnreadMessages()
     },
-    getMessages () {
-      APIGateway.bonyad.getMessages({
-        read: 'read',
-        owner_id: 1
-      })
-        .then(messagesObject => {
-          this.messages = messagesObject.messages
-        })
-        .catch(() => {})
-    },
-    countUnreadMessages () {
+    getUnreadMessages () {
       APIGateway.bonyad.getMessages({
         read: 'unread',
         owner_id: 1

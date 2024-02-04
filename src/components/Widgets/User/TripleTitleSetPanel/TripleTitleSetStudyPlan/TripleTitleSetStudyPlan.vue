@@ -387,27 +387,29 @@ export default {
           optionLabel: 'display_name',
           optionValue: 'id',
           value: null,
-          col: 'col-4'
+          col: 'col-12'
         },
         {
           type: 'select',
           name: 'major_id',
           label: 'رشته',
           options: [],
+          multiple: true,
           optionLabel: 'title',
           optionValue: 'id',
           value: null,
-          col: 'col-4'
+          col: 'col-12'
         },
         {
           type: 'select',
           name: 'grade_id',
           label: 'مقطع',
           options: [],
+          multiple: true,
           optionLabel: 'title',
           optionValue: 'id',
           value: null,
-          col: 'col-4'
+          col: 'col-12'
         },
         {
           type: ContentsComponentComp,
@@ -682,11 +684,15 @@ export default {
     acceptNewPlan () {
       this.loading = true
       const eventPromises = []
-      const majorId = FormBuilderAssist.getInputsByName(this.inputs, 'major_id')?.value
-      const gradeId = FormBuilderAssist.getInputsByName(this.inputs, 'grade_id')?.value
+      const majorIds = FormBuilderAssist.getInputsByName(this.inputs, 'major_id')?.value || []
+      const gradeIds = FormBuilderAssist.getInputsByName(this.inputs, 'grade_id')?.value || []
       const methodIds = FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value || []
       methodIds.forEach(methodId => {
-        eventPromises.push(this.getPlanPromise(majorId, gradeId, methodId))
+        majorIds.forEach(majorId => {
+          gradeIds.forEach(gradeId => {
+            eventPromises.push(this.getPlanPromise(majorId, gradeId, methodId))
+          })
+        })
       })
       Promise.all(eventPromises)
         .then((plans) => {
