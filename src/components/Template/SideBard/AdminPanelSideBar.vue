@@ -3,50 +3,72 @@
     <q-btn flat
            square
            icon="ph:x"
-           class="absolute-top-right"
+           class="absolute-top-right z-top"
            @click="closeDrawer" />
-    <div class="logo-image">
-      <router-link :to="{name: 'Public.Home'}">
-        <lazy-img src="https://nodes.alaatv.com/upload/alaa-logo.png"
-                  width="48"
-                  height="48" />
-      </router-link>
+    <div class="user-info-section">
+      <user-info-section />
     </div>
-    <profile-info />
-    <div class="side-menu-body">
-      <q-list class="side-menu-list"
-              padding>
-        <menu-item :items="titlesList" />
-        <q-item v-ripple
-                class="item-list"
-                clickable
-                @click="logOut">
-          <q-item-section avatar>
-            <q-icon name="ph:sign-out"
-                    size="30" />
-          </q-item-section>
-          <q-item-section class="list-section">
-            خروج
-          </q-item-section>
-        </q-item>
-      </q-list>
+    <div class="separator" />
+    <div class="items-section">
+      <items-section :items="items"
+                     @onClickItem="onClickItem" />
     </div>
   </div>
 </template>
 
 <script>
-import LazyImg from 'src/components/lazyImg.vue'
-import list from 'src/assets/js/AdminSidePanelConfig.js'
-import ProfileInfo from 'src/components/Utils/ProfileInfo.vue'
-import menuItem from 'src/components/Menu/SideMenu/MenuItem.vue'
+import ItemsSection from 'src/components/Template/SideBard/components/ItemsSection.vue'
+import UserInfoSection from 'src/components/Template/SideBard/components/UserInfoSection.vue'
 export default {
   name: 'AdminPanelSideBar',
-  components: { LazyImg, ProfileInfo, menuItem },
+  components: { ItemsSection, UserInfoSection },
   data () {
     return {
+      items: [
+        {
+          separator: true
+        },
+        {
+          title: 'آپلود سنتر',
+          icon: 'ph:cloud-arrow-up',
+          route: { name: 'Admin.UploadCenter.Contents' }
+        },
+        {
+          title: 'تیکت پشتیبانی',
+          icon: 'ph:ticket',
+          route: { name: 'Admin.Ticket.Index' }
+        },
+        {
+          title: 'برنامه مطالعاتی',
+          icon: 'ph:calendar',
+          route: { name: 'Admin.StudyPlan' }
+        },
+        {
+          title: 'مدیریت درخت های برچسب',
+          icon: 'ph:tree-structure',
+          route: { name: 'Admin.Forrest.Index' }
+        },
+        {
+          title: 'مدیریت مجموعه محتوا ها',
+          icon: 'ph:bounding-box',
+          route: { name: 'Admin.Set.Index' }
+        },
+        {
+          title: 'مدیریت محصولات',
+          icon: 'ph:codesandbox-logo',
+          route: { name: 'Admin.Product.Index' }
+        },
+        {
+          separator: true
+        },
+        {
+          title: 'چیدمان صفحه',
+          icon: 'ph:layout',
+          route: { name: 'Admin.Settings' }
+        }
+      ],
       clickedItem: null,
       searchText: '',
-      titlesList: list,
       examsPlan: [
         {
           divider: true
@@ -101,7 +123,22 @@ export default {
       return this.$store.getters['Auth/isUserLogin']
     }
   },
+  created () {
+    this.updateItemsActiveKey()
+  },
   methods: {
+    updateItemsActiveKey () {
+      const currentRoute = this.$route.name
+      this.items.forEach(item => {
+        item.selected = item.route?.name === currentRoute
+      })
+    },
+    onClickItem (item) {
+      if (!item.route || typeof item.route !== 'object') {
+        return
+      }
+      this.$router.push(item.route)
+    },
     logOut () {
       return this.$store.dispatch('Auth/logOut')
     },

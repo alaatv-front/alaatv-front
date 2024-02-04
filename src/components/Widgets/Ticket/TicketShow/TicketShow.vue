@@ -21,11 +21,6 @@
           </template>
         </q-breadcrumbs-el>
       </q-breadcrumbs>
-      <!--      <q-btn color="primary"-->
-      <!--             @click="onMorph">-->
-      <!--        morph-->
-      <!--      </q-btn>-->
-      <div ref="MyOpenTicketsDrawer" />
     </div>
     <div class="TicketShow__template row">
       <div class="col-lg-2 col-md-3 gt-sm">
@@ -54,11 +49,42 @@
         </div>
       </div>
     </div>
+    <q-layout v-if="$q.screen.lt.md">
+      <q-drawer ref="actionDrawer"
+                v-model="myOpenTicketDrawer"
+                overlay>
+        <div class="TicketShow__drawer-my-open-tickets">
+          <div class="TicketShow__drawer-my-open-tickets-top-action">
+            <q-btn flat
+                   square
+                   icon="ph:x"
+                   class="TicketShow__drawer-my-open-tickets-close-btn"
+                   @click="closeMyOpenTicketDrawer" />
+          </div>
+          <my-open-tickets />
+        </div>
+      </q-drawer>
+      <q-drawer ref="actionDrawer"
+                v-model="ticketInfoFormDrawer"
+                behavior="mobile"
+                side="right"
+                overlay>
+        <div class="TicketShow__drawer-ticket-info">
+          <div class="TicketShow__drawer-ticket-info-top-action">
+            <q-btn flat
+                   square
+                   icon="ph:x"
+                   class="TicketShow__drawer-ticket-info-close-btn"
+                   @click="closeTicketInfoFormDrawer" />
+          </div>
+          <ticket-info-form :ticket="ticket" />
+        </div>
+      </q-drawer>
+    </q-layout>
   </div>
 </template>
 
 <script>
-import { morph } from 'quasar'
 import { Ticket } from 'src/models/Ticket.js'
 // import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
@@ -88,6 +114,8 @@ export default {
   },
   data () {
     return {
+      myOpenTicketDrawer: false,
+      ticketInfoFormDrawer: false,
       ticket: new Ticket({
         id: 191163,
         title: 'قلم قرمز برای آقا یک ساعت.',
@@ -350,16 +378,17 @@ export default {
     }
   },
   methods: {
-    onMorph () {
-      // const cancel = void 0
-      morph({
-        from: this.$refs.MyOpenTickets,
-        to: this.$refs.MyOpenTicketsDrawer,
-        // onToggle: () => {
-        //   toggle.value = state
-        // },
-        duration: 500
-      })
+    openMyOpenTicketDrawer () {
+      this.myOpenTicketDrawer = true
+    },
+    openTicketInfoFormDrawer () {
+      this.ticketInfoFormDrawer = true
+    },
+    closeMyOpenTicketDrawer () {
+      this.myOpenTicketDrawer = false
+    },
+    closeTicketInfoFormDrawer () {
+      this.ticketInfoFormDrawer = false
     }
   }
 }
@@ -429,6 +458,26 @@ export default {
       @include media-max-width('md') {
         max-height: calc( 100vh - 194px);
       }
+    }
+  }
+  .TicketShow__drawer-my-open-tickets {
+    height: 100%;
+    background: $grey-1;
+    padding: $space-5;
+    .TicketShow__drawer-my-open-tickets-top-action {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: $space-4;
+    }
+  }
+  .TicketShow__drawer-ticket-info {
+    height: 100%;
+    background: $grey-1;
+    padding: $space-5;
+    .TicketShow__drawer-ticket-info-top-action {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: $space-4;
     }
   }
 }
