@@ -530,6 +530,7 @@ const routes = [
                 layoutConfig: {
                   layoutHeaderType: 'triple-title-set',
                   layoutLeftSideBarType: 'triple-title-set',
+                  layoutLeftDrawer: true,
                   layoutLeftDrawerOverlay: false,
                   layoutLeftDrawerWidth: 100,
                   layoutLeftDrawerVisible: true,
@@ -626,11 +627,17 @@ const routes = [
         path: 'admin',
         name: 'Admin',
         layoutConfig: {
-          layoutView: 'lHh LpR fFf',
+          layoutView: 'hHh Lpr ffr',
           layoutHeaderType: 'admin',
+          // showHamburgerBtn: false,
           layoutLeftDrawer: true,
-          layoutLeftDrawerVisible: true,
           layoutLeftSideBarType: 'admin',
+          layoutLeftDrawerVisible: true,
+          layoutLeftDrawerOverlay: false,
+          layoutLeftDrawerElevated: false,
+          layoutLeftDrawerBordered: false,
+          layoutLeftDrawerWidth: 360,
+          layoutLeftDrawerBehavior: 'default',
           layoutFooter: false
         },
         meta: { middlewares: [Authenticated(false)] },

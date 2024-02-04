@@ -24,7 +24,8 @@
     </div>
     <div class="TicketShow__template row">
       <div class="col-lg-2 col-md-3 gt-sm">
-        <div class="TicketShow__my-open-tickets">
+        <div ref="MyOpenTickets"
+             class="TicketShow__my-open-tickets">
           <my-open-tickets />
         </div>
       </div>
@@ -48,6 +49,38 @@
         </div>
       </div>
     </div>
+    <q-layout v-if="$q.screen.lt.md">
+      <q-drawer ref="actionDrawer"
+                v-model="myOpenTicketDrawer"
+                overlay>
+        <div class="TicketShow__drawer-my-open-tickets">
+          <div class="TicketShow__drawer-my-open-tickets-top-action">
+            <q-btn flat
+                   square
+                   icon="ph:x"
+                   class="TicketShow__drawer-my-open-tickets-close-btn"
+                   @click="closeMyOpenTicketDrawer" />
+          </div>
+          <my-open-tickets />
+        </div>
+      </q-drawer>
+      <q-drawer ref="actionDrawer"
+                v-model="ticketInfoFormDrawer"
+                behavior="mobile"
+                side="right"
+                overlay>
+        <div class="TicketShow__drawer-ticket-info">
+          <div class="TicketShow__drawer-ticket-info-top-action">
+            <q-btn flat
+                   square
+                   icon="ph:x"
+                   class="TicketShow__drawer-ticket-info-close-btn"
+                   @click="closeTicketInfoFormDrawer" />
+          </div>
+          <ticket-info-form :ticket="ticket" />
+        </div>
+      </q-drawer>
+    </q-layout>
   </div>
 </template>
 
@@ -81,6 +114,8 @@ export default {
   },
   data () {
     return {
+      myOpenTicketDrawer: false,
+      ticketInfoFormDrawer: false,
       ticket: new Ticket({
         id: 191163,
         title: 'قلم قرمز برای آقا یک ساعت.',
@@ -343,7 +378,18 @@ export default {
     }
   },
   methods: {
-
+    openMyOpenTicketDrawer () {
+      this.myOpenTicketDrawer = true
+    },
+    openTicketInfoFormDrawer () {
+      this.ticketInfoFormDrawer = true
+    },
+    closeMyOpenTicketDrawer () {
+      this.myOpenTicketDrawer = false
+    },
+    closeTicketInfoFormDrawer () {
+      this.ticketInfoFormDrawer = false
+    }
   }
 }
 </script>
@@ -407,7 +453,31 @@ export default {
     .TicketShow__messages {
       height: 100%;
       min-height: 100%;
-      max-height: 80vh;
+      max-height: calc( 100vh - 300px);
+      /* 600 < page < 1024 */
+      @include media-max-width('md') {
+        max-height: calc( 100vh - 194px);
+      }
+    }
+  }
+  .TicketShow__drawer-my-open-tickets {
+    height: 100%;
+    background: $grey-1;
+    padding: $space-5;
+    .TicketShow__drawer-my-open-tickets-top-action {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: $space-4;
+    }
+  }
+  .TicketShow__drawer-ticket-info {
+    height: 100%;
+    background: $grey-1;
+    padding: $space-5;
+    .TicketShow__drawer-ticket-info-top-action {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: $space-4;
     }
   }
 }
