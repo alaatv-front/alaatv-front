@@ -3,7 +3,7 @@
     <q-btn flat
            square
            icon="ph:x"
-           class="absolute-top-right z-top"
+           class="absolute-top-right z-top lt-md"
            @click="closeDrawer" />
     <div class="user-info-section">
       <user-info-section />

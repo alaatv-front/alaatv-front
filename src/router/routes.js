@@ -632,10 +632,11 @@ const routes = [
           // showHamburgerBtn: false,
           layoutLeftDrawer: true,
           layoutLeftSideBarType: 'admin',
-          layoutLeftDrawerVisible: true,
+          layoutLeftDrawerVisible: false,
           layoutLeftDrawerOverlay: false,
           layoutLeftDrawerElevated: false,
           layoutLeftDrawerBordered: false,
+          layoutLeftDrawerShowIfAbove: true,
           layoutLeftDrawerWidth: 360,
           layoutLeftDrawerBehavior: 'default',
           layoutFooter: false

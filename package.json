@@ -70,7 +70,7 @@
     "quasar-app-extension-q-page-builder": "^1.0.1",
     "quasar-crud": "^1.0.7",
     "quasar-form-builder": "^1.0.4",
-    "quasar-template-builder": "^1.1.1",
+    "quasar-template-builder": "^1.2.0",
     "quasar-ui-q-page-builder": "^1.0.1",
     "sticky-sidebar-v2": "^1.1.1",
     "stylelint": "^15.11.0",
