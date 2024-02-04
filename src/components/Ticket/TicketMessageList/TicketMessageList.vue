@@ -5,7 +5,8 @@
         <q-icon name="ph:push-pin" />
         تیکت اصلی
       </div>
-      <div class="TicketMessageList__first-message-body">
+      <div class="TicketMessageList__first-message-body ellipsis">
+        ellipsis
         {{ firstMessage.body }}
       </div>
     </div>
@@ -54,7 +55,10 @@ export default defineComponent({
   flex-direction: column;
   justify-content: stretch;
   align-items: stretch;
-  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
   .TicketMessageList__first-message {
     display: flex;
     padding: $space-2 $space-6;
@@ -65,6 +69,8 @@ export default defineComponent({
     align-self: stretch;
     border-bottom: $blue-grey-3;
     background: $grey-1;
+    position: sticky;
+    top: 0;
     .TicketMessageList__first-message-title {
       color: $secondary-7;
       @include caption1;
@@ -72,6 +78,7 @@ export default defineComponent({
     .TicketMessageList__first-message-body {
       color: $grey-9;
       @include caption1;
+      width: 100%;
     }
   }
   .TicketMessageList__scroll-area {
@@ -85,6 +92,10 @@ export default defineComponent({
     align-self: stretch;
     background: $blue-grey-1;
     height: 100%;
+  }
+  .TicketMessageList__send-input-area {
+    position: sticky;
+    bottom: 0;
   }
 }
 </style>

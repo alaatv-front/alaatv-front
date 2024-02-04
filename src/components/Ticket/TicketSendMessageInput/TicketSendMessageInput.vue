@@ -310,6 +310,13 @@ export default defineComponent({
 .TicketSendMessageInput {
   :deep(.q-field) {
     position: relative;
+    .q-field__control {
+      align-items: flex-end;
+      .q-field__prepend,
+      .q-field__append {
+        padding-bottom: 2px;
+      }
+    }
     .TicketSendMessageInput__recording-area {
       &.TicketSendMessageInput__recording-area--recording {
         display: flex;
