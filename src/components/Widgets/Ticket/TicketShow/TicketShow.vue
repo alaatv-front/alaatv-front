@@ -88,8 +88,10 @@
 
 <script>
 import { Ticket } from 'src/models/Ticket.js'
-// import { APIGateway } from 'src/api/APIGateway.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { TicketStatusList } from 'src/models/TicketStatus.js'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
+import { TicketDepartmentList } from 'src/models/TicketDepartment.js'
 import TicketHeader from 'src/components/Ticket/TicketHeader/TicketHeader.vue'
 import MyOpenTickets from 'src/components/Ticket/MyOpenTickets/MyOpenTickets.vue'
 import TicketInfoForm from 'src/components/Ticket/TicketInfoForm/TicketInfoForm.vue'
@@ -376,7 +378,9 @@ export default {
         rate: null,
         updated_at: '2024-01-28 04:57:27',
         created_at: '2024-01-28 04:57:27'
-      })
+      }),
+      ticketStatuses: new TicketStatusList(),
+      ticketDepartments: new TicketDepartmentList()
     }
   },
   methods: {
@@ -391,6 +395,50 @@ export default {
     },
     closeTicketInfoFormDrawer () {
       this.ticketInfoFormDrawer = false
+    },
+    getTicket (ticketId) {
+      this.ticket.loading = true
+      APIGateway.ticket.get({ data: { id: ticketId } })
+        .then((ticket) => {
+          this.ticket.loading = false
+          this.ticket = new Ticket(ticket)
+        })
+        .catch(() => {
+          this.ticket.loading = false
+        })
+    },
+    getSupporterList (ticketId) {
+      this.ticket.loading = true
+      APIGateway.ticket.get({ data: { id: ticketId } })
+        .then((ticket) => {
+          this.ticket.loading = false
+          this.ticket = new Ticket(ticket)
+        })
+        .catch(() => {
+          this.ticket.loading = false
+        })
+    },
+    getDepartmentsList (ticketId) {
+      this.ticketDepartments.loading = true
+      APIGateway.ticket.get({ data: { id: ticketId } })
+        .then((ticketDepartments) => {
+          this.ticketDepartments.loading = false
+          this.ticketDepartments = new TicketDepartmentList(ticketDepartments)
+        })
+        .catch(() => {
+          this.ticketDepartments.loading = false
+        })
+    },
+    getTicketStatusList (ticketId) {
+      this.ticketStatuses.loading = true
+      APIGateway.ticket.get({ data: { id: ticketId } })
+        .then((ticket) => {
+          this.ticketStatuses.loading = false
+          this.ticketStatuses = new TicketStatusList(ticket)
+        })
+        .catch(() => {
+          this.ticketStatuses.loading = false
+        })
     }
   }
 }
@@ -481,6 +529,9 @@ export default {
       justify-content: flex-start;
       margin-bottom: $space-4;
     }
+  }
+  &:deep(.q-layout) {
+    min-height: 0 !important;
   }
 }
 </style>
