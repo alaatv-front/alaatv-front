@@ -43,8 +43,7 @@ export default {
     text-align: left;
     color: #6D708B;
     border-radius: 20px;
-    padding: 16px;
-    margin-bottom: 16px;
+    padding: $space-1;
 
     .profile-detail {
       display: grid;

@@ -21,10 +21,16 @@
           </template>
         </q-breadcrumbs-el>
       </q-breadcrumbs>
+      <!--      <q-btn color="primary"-->
+      <!--             @click="onMorph">-->
+      <!--        morph-->
+      <!--      </q-btn>-->
+      <div ref="MyOpenTicketsDrawer" />
     </div>
     <div class="TicketShow__template row">
       <div class="col-lg-2 col-md-3 gt-sm">
-        <div class="TicketShow__my-open-tickets">
+        <div ref="MyOpenTickets"
+             class="TicketShow__my-open-tickets">
           <my-open-tickets />
         </div>
       </div>
@@ -52,6 +58,7 @@
 </template>
 
 <script>
+import { morph } from 'quasar'
 import { Ticket } from 'src/models/Ticket.js'
 // import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
@@ -343,7 +350,17 @@ export default {
     }
   },
   methods: {
-
+    onMorph () {
+      // const cancel = void 0
+      morph({
+        from: this.$refs.MyOpenTickets,
+        to: this.$refs.MyOpenTicketsDrawer,
+        // onToggle: () => {
+        //   toggle.value = state
+        // },
+        duration: 500
+      })
+    }
   }
 }
 </script>
