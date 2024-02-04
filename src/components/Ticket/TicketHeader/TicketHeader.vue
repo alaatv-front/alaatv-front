@@ -18,17 +18,18 @@
       <q-btn icon="ph:caret-down"
              color="grey"
              square
-             class="size-md"
+             class="size-md ticket-header__user-action"
              flat>
         <q-menu anchor="bottom left"
                 self="top left">
-          <q-item clickable>
+          <q-item clickable
+                  @click="openProfileDialog">
             <q-item-section>ویرایش پروفایل</q-item-section>
           </q-item>
         </q-menu>
       </q-btn>
     </div>
-    <div class="ticket-header-action">
+    <div class="ticket-header-action--desktop">
       <q-btn icon="ph:shopping-cart-simple"
              color="grey"
              square
@@ -41,6 +42,67 @@
              class="size-md"
              flat
              @click="openTicketListDialog" />
+    </div>
+    <div class="ticket-header-action--mobile">
+      <q-btn icon="ph:users"
+             color="grey"
+             square
+             class="size-md"
+             flat
+             @click="openTickets" />
+      <q-btn icon="ph:dots-three-vertical"
+             color="grey"
+             square
+             class="size-md"
+             flat>
+        <q-menu anchor="bottom left"
+                self="top left">
+          <q-item clickable
+                  @click="openProfileDialog">
+            <q-item-section>ویرایش پروفایل</q-item-section>
+          </q-item>
+          <q-item clickable
+                  @click="callUser">
+            <q-item-section>تماس با کاربر</q-item-section>
+          </q-item>
+          <q-item clickable
+                  @click="openMyOrderDialog">
+            <q-item-section>سفارش ها</q-item-section>
+          </q-item>
+          <q-item clickable
+                  @click="openTicketListDialog">
+            <q-item-section>تیکت‌های کاربر</q-item-section>
+          </q-item>
+          <q-item clickable>
+            <q-item-section>وضعیت</q-item-section>
+            <q-item-section side>
+              <q-icon name="ph:caret-left" />
+            </q-item-section>
+
+            <q-menu anchor="top end"
+                    self="top start">
+              <q-list>
+                <q-item dense
+                        clickable>
+                  <q-item-section>پاسخ داده شده</q-item-section>
+                </q-item>
+                <q-item dense
+                        clickable>
+                  <q-item-section>بسته شده</q-item-section>
+                </q-item>
+                <q-item dense
+                        clickable>
+                  <q-item-section>در حال بررسی</q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
+          </q-item>
+          <q-item clickable
+                  @click="openInfoForm">
+            <q-item-section>بیشتر</q-item-section>
+          </q-item>
+        </q-menu>
+      </q-btn>
     </div>
 
     <q-dialog v-model="myOrderDialog">
@@ -77,6 +139,22 @@
         </inside-dialog>
       </div>
     </q-dialog>
+    <q-dialog v-model="profileDialog">
+      <div class="ticket-list-dialog-wrapper">
+        <inside-dialog :action="false">
+          <template #header-icon>
+            <badge-icon icon="ph:ticket"
+                        color="primary" />
+          </template>
+          <template #header>
+            تیکت های دیگر کاربر
+          </template>
+          <template #body>
+            <profile-edit :ticket="ticket" />
+          </template>
+        </inside-dialog>
+      </div>
+    </q-dialog>
   </div>
 </template>
 
@@ -84,8 +162,9 @@
 import { defineComponent } from 'vue'
 import { Ticket } from 'src/models/Ticket.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import TicketItem from './components/TicketItem.vue'
+import ProfileEdit from './components/ProfileEdit.vue'
 import BadgeIcon from 'src/components/Utils/BadgeIcon.vue'
-import TicketItem from './components/TicketItem/TicketItem.vue'
 import InsideDialog from 'src/components/Utils/InsideDialog.vue'
 import MyOrders from 'src/components/Widgets/User/MyOrders/MyOrders.vue'
 
@@ -96,6 +175,7 @@ export default defineComponent({
     MyOrders,
     BadgeIcon,
     TicketItem,
+    ProfileEdit,
     InsideDialog
   },
   props: {
@@ -104,9 +184,11 @@ export default defineComponent({
       default: new Ticket()
     }
   },
+  emits: ['openTickets', 'openInfoForm'],
   data () {
     return {
       myOrderDialog: false,
+      profileDialog: false,
       ticketListDialog: false
     }
   },
@@ -114,8 +196,17 @@ export default defineComponent({
     openMyOrderDialog () {
       this.myOrderDialog = true
     },
+    openProfileDialog () {
+      this.profileDialog = true
+    },
     openTicketListDialog () {
       this.ticketListDialog = true
+    },
+    openTickets () {
+      this.$emit('openTickets')
+    },
+    openInfoForm () {
+      this.$emit('openInfoForm')
     }
   }
 })
@@ -159,6 +250,27 @@ export default defineComponent({
     justify-content: flex-start;
     align-items: center;
     gap: 12px;
+  }
+
+  &__user-action {
+    @include media-max-width ('sm') {
+      display: none;
+    }
+  }
+
+  &-action {
+
+    &--desktop {
+      @include media-max-width ('sm') {
+        display: none;
+      }
+    }
+
+    &--mobile {
+      @include media-min-width ('sm') {
+        display: none;
+      }
+    }
   }
 }
 </style>
