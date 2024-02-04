@@ -95,6 +95,7 @@
 <script>
 import { APIGateway } from 'src/api/APIGateway.js'
 import { Ticket, TicketList } from 'src/models/Ticket.js'
+import { TicketMessage } from 'src/models/TicketMessage.js'
 import { TicketStatusList } from 'src/models/TicketStatus.js'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
 import { TicketPriorityList } from 'src/models/TicketPriority.js'
@@ -455,6 +456,18 @@ export default {
           this.ticketStatuses.loading = false
           this.ticketPriorities.loading = false
           this.ticketDepartments.loading = false
+        })
+    },
+    sendTicketMessage (ticketMessage) {
+      ticketMessage.body = ticketMessage.body.replace(/\r?\n/g, '<br/>')
+      this.ticket.loading = true
+      APIGateway.ticket.sendTicketMessage(ticketMessage)
+        .then((ticketMessage) => {
+          this.ticket.loading = false
+          this.ticket.messages.list.push(new TicketMessage(ticketMessage))
+        })
+        .catch(() => {
+          this.ticket.loading = false
         })
     }
   }
