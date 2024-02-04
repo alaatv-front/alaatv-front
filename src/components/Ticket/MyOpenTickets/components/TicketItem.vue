@@ -5,13 +5,20 @@
         <lazy-img :src="ticket.user.photo"
                   width="40px"
                   height="40px" /></q-avatar>
-      <div class="ticket-item-avatar__badge">
-        {{ticket.messages}}
+      <div v-if="ticket.totalMessages > 0"
+           class="ticket-item-avatar__badge">
+        {{ticket.totalMessages}}
       </div>
     </div>
     <div class="ticket-item-description">
       <div class="ticket-item-description__user">
-        {{ticket.user.fullName}}
+        {{ticket.user.first_name + ' ' + ticket.user.last_name}}
+      </div>
+      <div class="ticket-item-description__title ellipsis">
+        {{ticket.title}}
+        <q-tooltip>
+          {{ticket.title}}
+        </q-tooltip>
       </div>
     </div>
   </div>
@@ -78,6 +85,12 @@ export default defineComponent({
       &__user {
         color: $grey-9;
         @include body2;
+      }
+
+      &__title {
+        color: $grey-7;
+        @include caption2;
+        max-width: 100%;
       }
     }
   }

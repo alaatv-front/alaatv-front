@@ -47,22 +47,40 @@
       </div>
     </div>
     <div class="ticket-info-form">
-      <entity-edit v-if="isEntityReady"
-                   ref="entityEdit"
-                   v-model:value="inputs"
-                   :show-save-button="false"
-                   :show-close-button="false"
-                   :defaultLayout="false"
-                   :loaded-data="ticket"
-                   :entity-id-key="entityIdKey">
-        <template #after-form-builder>
-          <q-btn color="secondary"
-                 icon="ph:pencil-simple"
-                 class="full-width q-mt-md"
-                 label="ویرایش"
-                 @click="onClick" />
-        </template>
-      </entity-edit>
+      <template v-if="isEntityReady">
+        <entity-edit ref="entityEditTicket"
+                     v-model:value="ticketInputs"
+                     :api="ticketApi"
+                     :show-save-button="false"
+                     :show-close-button="false"
+                     :defaultLayout="false"
+                     :loaded-data="ticket"
+                     :entity-id-key="entityIdKey">
+          <template #after-form-builder>
+            <q-btn color="secondary"
+                   icon="ph:pencil-simple"
+                   class="full-width q-my-md"
+                   label="ویرایش"
+                   @click="editTicket" />
+          </template>
+        </entity-edit>
+        <entity-edit ref="entityEditSupport"
+                     v-model:value="supportInputs"
+                     :show-save-button="false"
+                     :show-close-button="false"
+                     :defaultLayout="false"
+                     :loaded-data="ticket"
+                     :entity-id-key="entityIdKey">
+          <template #after-form-builder>
+            <q-btn color="secondary"
+                   icon="ph:pencil-simple"
+                   class="full-width q-mt-md"
+                   label="ویرایش"
+                   @click="editSupport" />
+          </template>
+        </entity-edit>
+      </template>
+
       <div v-else
            class="ticket-info-form--loading">
         <q-skeleton height="42px" />
@@ -127,6 +145,7 @@
 import { EntityEdit } from 'quasar-crud'
 import { Ticket } from 'src/models/Ticket.js'
 import { mixinTicket } from 'src/mixin/Mixins.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import BadgeIcon from 'src/components/Utils/BadgeIcon.vue'
 import InsideDialog from 'src/components/Utils/InsideDialog.vue'
 
@@ -148,13 +167,14 @@ export default {
     return {
       isEntityReady: false,
       smsDialog: false,
-      inputs: [
+      ticketInputs: [
         {
           type: 'select',
           name: 'department_id',
           options: [],
           optionLabel: 'title',
           optionValue: 'id',
+          clearable: false,
           responseKey: 'department.id',
           label: 'گروه',
           disable: false,
@@ -164,6 +184,7 @@ export default {
           type: 'select',
           name: 'status_id',
           // multiple: true,
+          clearable: false,
           options: [],
           optionLabel: 'title',
           optionValue: 'id',
@@ -171,11 +192,14 @@ export default {
           label: 'وضعیت',
           disable: false,
           col: 'col-12'
-        },
+        }
+      ],
+      supportInputs: [
         {
           type: 'select',
           name: 'status',
           options: [],
+          clearable: false,
           optionLabel: 'title',
           optionValue: 'id',
           responseKey: 'ticket.status.id',
@@ -188,11 +212,16 @@ export default {
       entityParamKey: 'id'
     }
   },
+  computed: {
+    ticketApi () {
+      return APIGateway.ticket.APIAdresses.updateTicketApi(this.ticket.id)
+    }
+  },
   methods: {
     async setInputs () {
       const ticketFields = await this.getTicketData()
-      this.getInput('department_id').options = ticketFields.departments.list
-      this.getInput('status_id').options = ticketFields.statuses.list
+      this.getInput('department_id', this.ticketInputs).options = ticketFields.departments.list
+      this.getInput('status_id', this.ticketInputs).options = ticketFields.statuses.list
     },
     async initTicket () {
       // this.setEntityValues()
@@ -204,6 +233,28 @@ export default {
     },
     callUser () {
       alert('calling ...')
+    },
+    editTicket () {
+      this.$store.commit('loading/loading', true)
+
+      this.$refs.entityEditTicket.editEntity(false)
+        .then(() => {
+          this.$store.commit('loading/loading', false)
+        })
+        .catch(() => {
+          this.$store.commit('loading/loading', false)
+        })
+    },
+    editSupport () {
+      this.$store.commit('loading/loading', true)
+
+      this.$refs.entityEditSupport.editEntity(false)
+        .then(() => {
+          this.$store.commit('loading/loading', false)
+        })
+        .catch(() => {
+          this.$store.commit('loading/loading', false)
+        })
     }
   }
 }
@@ -216,7 +267,7 @@ export default {
   min-height: 448px;
   @include  media-max-width('md') {
     width: 100%;
-  max-width: 100%;
+    max-width: 100%;
   }
 }
 .ticket-info {
