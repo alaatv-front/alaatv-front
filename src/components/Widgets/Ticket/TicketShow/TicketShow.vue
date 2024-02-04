@@ -26,7 +26,7 @@
       <div class="col-lg-2 col-md-3 gt-sm">
         <div ref="MyOpenTickets"
              class="TicketShow__my-open-tickets">
-          <my-open-tickets />
+          <my-open-tickets :tickets="pendingTickets" />
         </div>
       </div>
       <div class="col-lg-10 col-md-9 col-12">
@@ -45,7 +45,10 @@
           </div>
           <div class="col-lg-4 col-md-6 col-12 gt-sm">
             <div class="TicketShow__ticket-info">
-              <ticket-info-form :ticket="ticket" />
+              <ticket-info-form :ticket="ticket"
+                                :statuses="ticketStatuses"
+                                :priorities="ticketPriorities"
+                                :departments="ticketDepartments" />
             </div>
           </div>
         </div>
@@ -63,7 +66,7 @@
                    class="TicketShow__drawer-my-open-tickets-close-btn"
                    @click="closeMyOpenTicketDrawer" />
           </div>
-          <my-open-tickets />
+          <my-open-tickets :tickets="pendingTickets" />
         </div>
       </q-drawer>
       <q-drawer ref="actionDrawer"
@@ -79,7 +82,10 @@
                    class="TicketShow__drawer-ticket-info-close-btn"
                    @click="closeTicketInfoFormDrawer" />
           </div>
-          <ticket-info-form :ticket="ticket" />
+          <ticket-info-form :ticket="ticket"
+                            :statuses="ticketStatuses"
+                            :priorities="ticketPriorities"
+                            :departments="ticketDepartments" />
         </div>
       </q-drawer>
     </q-layout>
@@ -87,10 +93,11 @@
 </template>
 
 <script>
-import { Ticket } from 'src/models/Ticket.js'
 import { APIGateway } from 'src/api/APIGateway.js'
+import { Ticket, TicketList } from 'src/models/Ticket.js'
 import { TicketStatusList } from 'src/models/TicketStatus.js'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
+import { TicketPriorityList } from 'src/models/TicketPriority.js'
 import { TicketDepartmentList } from 'src/models/TicketDepartment.js'
 import TicketHeader from 'src/components/Ticket/TicketHeader/TicketHeader.vue'
 import MyOpenTickets from 'src/components/Ticket/MyOpenTickets/MyOpenTickets.vue'
@@ -379,9 +386,14 @@ export default {
         updated_at: '2024-01-28 04:57:27',
         created_at: '2024-01-28 04:57:27'
       }),
+      pendingTickets: new TicketList(),
       ticketStatuses: new TicketStatusList(),
+      ticketPriorities: new TicketPriorityList(),
       ticketDepartments: new TicketDepartmentList()
     }
+  },
+  mounted () {
+    this.getNeededDataForTicket()
   },
   methods: {
     openMyOpenTicketDrawer () {
@@ -418,26 +430,31 @@ export default {
           this.ticket.loading = false
         })
     },
-    getDepartmentsList (ticketId) {
-      this.ticketDepartments.loading = true
-      APIGateway.ticket.get({ data: { id: ticketId } })
-        .then((ticketDepartments) => {
-          this.ticketDepartments.loading = false
-          this.ticketDepartments = new TicketDepartmentList(ticketDepartments)
-        })
-        .catch(() => {
-          this.ticketDepartments.loading = false
-        })
-    },
-    getTicketStatusList (ticketId) {
-      this.ticketStatuses.loading = true
+    getPendingTickets (ticketId) {
+      this.pendingTickets.loading = true
       APIGateway.ticket.get({ data: { id: ticketId } })
         .then((ticket) => {
-          this.ticketStatuses.loading = false
-          this.ticketStatuses = new TicketStatusList(ticket)
+          this.pendingTickets.loading = false
+          this.pendingTickets = new Ticket(ticket)
+        })
+        .catch(() => {
+          this.pendingTickets.loading = false
+        })
+    },
+    getNeededDataForTicket () {
+      this.ticketStatuses.loading = true
+      this.ticketPriorities.loading = true
+      this.ticketDepartments.loading = true
+      APIGateway.ticket.getNeededDataToCreateTicket()
+        .then(({ departments, priorities, statuses }) => {
+          this.ticketStatuses = new TicketStatusList(statuses)
+          this.ticketPriorities = new TicketPriorityList(priorities)
+          this.ticketDepartments = new TicketDepartmentList(departments)
         })
         .catch(() => {
           this.ticketStatuses.loading = false
+          this.ticketPriorities.loading = false
+          this.ticketDepartments.loading = false
         })
     }
   }
