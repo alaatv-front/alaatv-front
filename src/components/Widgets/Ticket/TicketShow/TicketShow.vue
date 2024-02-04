@@ -407,7 +407,11 @@ export default {
     .TicketShow__messages {
       height: 100%;
       min-height: 100%;
-      max-height: 80vh;
+      max-height: calc( 100vh - 300px);
+      /* 600 < page < 1024 */
+      @include media-max-width('md') {
+        max-height: calc( 100vh - 194px);
+      }
     }
   }
 }
