@@ -44,6 +44,12 @@
              @click="openTicketListDialog" />
     </div>
     <div class="ticket-header-action--mobile">
+      <q-btn icon="ph:clock-counter-clockwise"
+             color="grey"
+             square
+             class="size-md"
+             flat
+             @click="openBottomSheet" />
       <q-btn icon="ph:users"
              color="grey"
              square
@@ -185,7 +191,7 @@ export default defineComponent({
       default: new Ticket()
     }
   },
-  emits: ['openTickets', 'openInfoForm'],
+  emits: ['openTickets', 'openInfoForm', 'openBottomSheet'],
   data () {
     return {
       myOrderDialog: false,
@@ -208,6 +214,9 @@ export default defineComponent({
     },
     openInfoForm () {
       this.$emit('openInfoForm')
+    },
+    openBottomSheet () {
+      this.$emit('openBottomSheet')
     },
     callUser () {
       alert('calling ...')

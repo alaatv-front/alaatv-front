@@ -34,6 +34,7 @@
           <div class="col-12">
             <div class="TicketShow__header">
               <ticket-header :ticket="ticket"
+                             @open-bottom-sheet="openBottomSheet"
                              @openTickets="openMyOpenTicketDrawer"
                              @openInfoForm="openTicketInfoFormDrawer" />
             </div>
@@ -56,8 +57,20 @@
       </div>
       <div class="col-12 TicketShow__logs-col">
         <div class="TicketShow__logs">
-          <ticket-logs />
+          <ticket-logs :logs="ticketLogs" />
         </div>
+        <q-dialog v-model="bottomSheet"
+                  position="bottom">
+          <div class="ticket-log-dialog-wrapper">
+            <inside-bottom-sheet :header="false"
+                                 :action="false"
+                                 @close-bottom-sheet="onCloseBottomSheet">
+              <template #body>
+                <ticket-logs :logs="ticketLogs" />
+              </template>
+            </inside-bottom-sheet>
+          </div>
+        </q-dialog>
       </div>
     </div>
     <q-layout v-if="mounted && $q.screen.lt.md">
@@ -103,9 +116,11 @@
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { SupporterList } from 'src/models/supporter.js'
+import { TicketLogList } from 'src/models/TicketLog.js'
 import { Ticket, TicketList } from 'src/models/Ticket.js'
 import { TicketMessage } from 'src/models/TicketMessage.js'
 import { TicketStatusList } from 'src/models/TicketStatus.js'
+import InsideBottomSheet from 'src/components/Utils/InsideBottomSheet.vue'
 import { TicketPriorityList } from 'src/models/TicketPriority.js'
 import { TicketDepartmentList } from 'src/models/TicketDepartment.js'
 import TicketLogs from 'src/components/Ticket/TicketLogs/TicketLogs.vue'
@@ -121,6 +136,7 @@ export default {
     TicketHeader,
     MyOpenTickets,
     TicketInfoForm,
+    InsideBottomSheet,
     TicketMessageList
   },
   mixins: [mixinWidget],
@@ -136,10 +152,12 @@ export default {
   },
   data () {
     return {
+      bottomSheet: false,
       myOpenTicketDrawer: false,
       ticketInfoFormDrawer: false,
       mounted: false,
       ticket: new Ticket(),
+      ticketLogs: new TicketLogList(),
       pendingTickets: new TicketList(),
       supporterList: new SupporterList(),
       ticketStatusList: new TicketStatusList(),
@@ -166,6 +184,7 @@ export default {
     this.getNeededDataForTicket()
     this.getPendingTickets()
     this.getSupporterList()
+    this.getTicketsLogs()
     this.mounted = true
   },
   methods: {
@@ -180,6 +199,13 @@ export default {
     },
     closeTicketInfoFormDrawer () {
       this.ticketInfoFormDrawer = false
+    },
+    openBottomSheet () {
+      this.bottomSheet = true
+    },
+    onCloseBottomSheet () {
+      console.log('swapppppp')
+      this.bottomSheet = false
     },
     getTicket () {
       this.ticket.loading = true
@@ -203,7 +229,7 @@ export default {
           this.supporterList.loading = false
         })
     },
-    getPendingTickets (ticketId) {
+    getPendingTickets () {
       this.pendingTickets.loading = true
       APIGateway.ticket.getPendingTickets()
         .then((ticketList) => {
@@ -212,6 +238,17 @@ export default {
         })
         .catch(() => {
           this.pendingTickets.loading = false
+        })
+    },
+    getTicketsLogs () {
+      this.ticketLogs.loading = true
+      APIGateway.ticket.getTicketsLogs(this.ticketId)
+        .then((ticketLogList) => {
+          this.ticketLogs.loading = false
+          this.ticketLogs = new TicketLogList(ticketLogList)
+        })
+        .catch(() => {
+          this.ticketLogs.loading = false
         })
     },
     getNeededDataForTicket () {
@@ -331,6 +368,10 @@ export default {
     padding: $space-6;
     border-radius: $radius-4;
     background: $grey-1;
+
+    @include media-max-width ('md') {
+      display: none;
+    }
   }
   .TicketShow__drawer-ticket-info {
     height: 100%;

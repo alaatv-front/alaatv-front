@@ -7,6 +7,7 @@ import { TicketMessage } from 'src/models/TicketMessage.js'
 import { TicketStatusList } from 'src/models/TicketStatus.js'
 import { TicketPriorityList } from 'src/models/TicketPriority.js'
 import { TicketDepartmentList } from 'src/models/TicketDepartment.js'
+import { TicketLogList } from 'src/models/TicketLog'
 
 export default class TicketAPI extends APIRepository {
   constructor () {
@@ -19,6 +20,7 @@ export default class TicketAPI extends APIRepository {
       getInfo: '/user/getInfo',
       ticketMessage: '/ticketMessage',
       pending: '/ticket/pending',
+      logs: (ticketId) => `/ticket/${ticketId}/logs`,
       supports: '/ticket/supports',
       assign: (ticketId) => `/ticket/${ticketId}/assign`,
       batchExtend: '/orderproduct/batchExtend',
@@ -44,6 +46,7 @@ export default class TicketAPI extends APIRepository {
     this.CacheList = {
       create: this.name + this.APIAdresses.create,
       ticket: (ticketId) => this.name + this.APIAdresses.ticket(ticketId),
+      logs: (ticketId) => this.name + this.APIAdresses.logs(ticketId),
       pending: this.name + this.APIAdresses.pending,
       supports: this.name + this.APIAdresses.supports
     }
@@ -141,6 +144,22 @@ export default class TicketAPI extends APIRepository {
         return error
       },
       ...(data !== undefined && { data })
+    })
+  }
+
+  getTicketsLogs (ticketId, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.logs(ticketId),
+      cacheKey: this.CacheList.logs(ticketId),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new TicketLogList(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
     })
   }
 

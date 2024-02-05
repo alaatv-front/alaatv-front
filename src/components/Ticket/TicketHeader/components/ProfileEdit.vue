@@ -95,10 +95,11 @@ export default defineComponent({
           type: 'select',
           name: 'status',
           label: 'وضعیت حساب',
-          responseKey: 'status.title',
+          responseKey: 'status.displayName',
           placeholder: ' ',
           clearable: false,
-          optionLabel: 'name',
+          optionLabel: 'status.displayName',
+          optionValue: 'status.id',
           outlined: true,
           multiple: false,
           col: 'col-sm-6 col-12',
@@ -194,6 +195,7 @@ export default defineComponent({
   },
   mounted () {
     this.getFormData()
+    this.getUserInfo()
   },
   methods: {
     getUserInfo () {
@@ -203,10 +205,11 @@ export default defineComponent({
         })
     },
     getFormData () {
-      APIGateway.user.formData()
+      APIGateway.events.formBuilder({ params: ['majors', 'grades', 'genders', 'provinces', 'cities', 'userStatuses'] })
         .then((formData) => {
           // edit entity
 
+          FormBuilderAssist.setAttributeByName(this.inputs, 'status', 'options', formData.userStatuses)
           FormBuilderAssist.setAttributeByName(this.inputs, 'grade', 'options', formData.grades)
           FormBuilderAssist.setAttributeByName(this.inputs, 'major', 'options', formData.majors)
           FormBuilderAssist.setAttributeByName(this.inputs, 'gender', 'options', formData.genders)
