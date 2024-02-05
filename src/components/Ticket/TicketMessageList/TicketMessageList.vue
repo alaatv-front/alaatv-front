@@ -1,5 +1,6 @@
 <template>
-  <div class="TicketMessageList">
+  <div ref="TicketMessageList"
+       class="TicketMessageList">
     <div class="TicketMessageList__first-message">
       <div class="TicketMessageList__first-message-title">
         <q-icon name="ph:push-pin" />
@@ -10,7 +11,8 @@
         {{ firstMessage.body }}
       </div>
     </div>
-    <div class="TicketMessageList__scroll-area">
+    <div ref="TicketMessageListScrollArea"
+         class="TicketMessageList__scroll-area">
       <ticket-message v-for="(message, messageIndex) in messageListExceptFirst"
                       :key="messageIndex"
                       :message="message"
@@ -44,6 +46,20 @@ export default defineComponent({
     },
     messageListExceptFirst () {
       return this.ticket.messages.list.slice(1)
+    }
+  },
+  mounted () {
+    this.scrollToBottom()
+  },
+  methods: {
+    scrollToBottom () {
+      if (!this.$refs.TicketMessageList) {
+        return
+      }
+
+      this.$nextTick(() => {
+        this.$refs.TicketMessageList.scrollTo(0, this.$refs.TicketMessageList.scrollHeight)
+      })
     }
   }
 })
