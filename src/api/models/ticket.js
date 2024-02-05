@@ -1,6 +1,7 @@
 import { apiV2 } from 'src/boot/axios.js'
 import { User } from 'src/models/User.js'
-import { TicketList } from 'src/models/Ticket.js'
+import { TicketList, Ticket } from 'src/models/Ticket.js'
+import { SupporterList } from 'src/models/supporter.js'
 import APIRepository from '../classes/APIRepository.js'
 import { TicketMessage } from 'src/models/TicketMessage.js'
 import { TicketStatusList } from 'src/models/TicketStatus.js'
@@ -13,9 +14,13 @@ export default class TicketAPI extends APIRepository {
     this.APIAdresses = {
       base: '/ticket',
       create: '/ticket/create',
+      ticket: (ticketId) => '/ticket/' + ticketId,
       updateTicketApi: (ticketId) => '/ticket/' + ticketId,
       getInfo: '/user/getInfo',
       ticketMessage: '/ticketMessage',
+      pending: '/ticket/pending',
+      supports: '/ticket/supports',
+      assign: (ticketId) => `/ticket/${ticketId}/assign`,
       batchExtend: '/orderproduct/batchExtend',
       statusNotice: (ticketId) => '/ticket/' + ticketId + '/sendTicketStatusNotice',
       editAssign: (ticketId) => '/ticket/' + ticketId + '/assign',
@@ -37,7 +42,10 @@ export default class TicketAPI extends APIRepository {
       }
     }
     this.CacheList = {
-      create: '/ticket/create'
+      create: this.name + this.APIAdresses.create,
+      ticket: (ticketId) => this.name + this.APIAdresses.ticket(ticketId),
+      pending: this.name + this.APIAdresses.pending,
+      supports: this.name + this.APIAdresses.supports
     }
     this.restUrl = (id) => this.url + '/' + id
   }
@@ -100,6 +108,56 @@ export default class TicketAPI extends APIRepository {
         return error
       },
       data
+    })
+  }
+
+  getTicket (ticketId, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.ticket(ticketId),
+      cacheKey: this.CacheList.ticket(ticketId),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new Ticket(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getPendingTickets (data, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.pending,
+      cacheKey: this.CacheList.pending,
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new TicketList(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      ...(data !== undefined && { data })
+    })
+  }
+
+  getSupporterList (data, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.supports,
+      cacheKey: this.CacheList.supports,
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new SupporterList(response.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      ...(data !== undefined && { data })
     })
   }
 

@@ -6,7 +6,7 @@
                :entity-param-key="entityParamKey"
                :show-close-button="false"
                :defaultLayout="false"
-               :loaded-data="ticket.user">
+               :loaded-data="ticketUser">
     <template #after-form-builder>
       <div class="col-12 q-my-md flex justify-end">
         <q-btn v-close-popup
@@ -29,7 +29,7 @@ import { EntityEdit } from 'quasar-crud'
 import { Ticket } from 'src/models/Ticket.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { FormBuilderAssist } from 'quasar-form-builder'
-
+import { User } from 'src/models/User'
 export default defineComponent({
   name: 'ProfileEdit',
   components: {
@@ -45,6 +45,9 @@ export default defineComponent({
     return {
       provinces: [],
       cities: [],
+      ticketUser: new User(),
+      entityIdKey: 'id',
+      entityParamKey: 'id',
       inputs: [
         {
           type: 'input',
@@ -175,6 +178,11 @@ export default defineComponent({
           multiple: false,
           col: 'col-12',
           value: null
+        },
+        {
+          type: 'hidden',
+          name: 'updateType',
+          value: 'total'
         }
       ]
     }
@@ -188,6 +196,12 @@ export default defineComponent({
     this.getFormData()
   },
   methods: {
+    getUserInfo () {
+      APIGateway.user.get({ data: { id: this.thicket.user.id } })
+        .then(user => {
+          this.ticketUser = new User(user)
+        })
+    },
     getFormData () {
       APIGateway.user.formData()
         .then((formData) => {

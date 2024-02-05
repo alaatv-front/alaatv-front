@@ -7,7 +7,7 @@
       </div>
       <div class="TicketMessageList__first-message-body ellipsis">
         ellipsis
-        {{ firstMessage.body }}
+        {{ firstMessage?.body }}
       </div>
     </div>
     <div class="TicketMessageList__scroll-area">

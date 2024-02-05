@@ -64,21 +64,13 @@
                    @click="editTicket" />
           </template>
         </entity-edit>
-        <entity-edit ref="entityEditSupport"
-                     v-model:value="supportInputs"
-                     :show-save-button="false"
-                     :show-close-button="false"
-                     :defaultLayout="false"
-                     :loaded-data="ticket"
-                     :entity-id-key="entityIdKey">
-          <template #after-form-builder>
-            <q-btn color="secondary"
-                   icon="ph:pencil-simple"
-                   class="full-width q-mt-md"
-                   label="ویرایش"
-                   @click="editSupport" />
-          </template>
-        </entity-edit>
+        <entity-create ref="entityCreateSupport"
+                       v-model:value="supportInputs"
+                       :api="supportApi"
+                       :show-save-button="false"
+                       :show-close-button="false"
+                       :defaultLayout="false"
+                       :entity-id-key="entityIdKey" />
       </template>
 
       <div v-else
@@ -142,31 +134,55 @@
 </template>
 
 <script>
-import { EntityEdit } from 'quasar-crud'
+import { EntityEdit, EntityCreate } from 'quasar-crud'
 import { Ticket } from 'src/models/Ticket.js'
-import { mixinTicket } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
+import { FormBuilderAssist } from 'quasar-form-builder'
+import { SupporterList } from 'src/models/supporter.js'
 import BadgeIcon from 'src/components/Utils/BadgeIcon.vue'
+import { TicketStatusList } from 'src/models/TicketStatus.js'
 import InsideDialog from 'src/components/Utils/InsideDialog.vue'
-
+import { TicketPriorityList } from 'src/models/TicketPriority.js'
+import { TicketDepartmentList } from 'src/models/TicketDepartment.js'
 export default {
   name: 'TicketInfoForm',
   components: {
-    EntityEdit,
     BadgeIcon,
+    EntityEdit,
+    EntityCreate,
     InsideDialog
   },
-  mixins: [mixinTicket],
   props: {
     ticket: {
       type: Ticket,
       default: new Ticket()
+    },
+    supporters: {
+      type: SupporterList,
+      default: new SupporterList()
+    },
+    statuses: {
+      type: TicketStatusList,
+      default: new TicketStatusList()
+    },
+    priorities: {
+      type: TicketPriorityList,
+      default: new TicketPriorityList()
+    },
+    departments: {
+      type: TicketDepartmentList,
+      default: new TicketDepartmentList()
     }
+
   },
   data () {
     return {
-      isEntityReady: false,
       smsDialog: false,
+      entityIdKey: 'id',
+      entityParamKey: 'id',
+      isStatusesReady: false,
+      isDepartmentReady: false,
+      isSupportersReady: false,
       ticketInputs: [
         {
           type: 'select',
@@ -197,36 +213,60 @@ export default {
       supportInputs: [
         {
           type: 'select',
-          name: 'status',
+          name: 'responsible_user',
           options: [],
           clearable: false,
-          optionLabel: 'title',
-          optionValue: 'id',
-          responseKey: 'ticket.status.id',
+          optionLabel: 'fullName',
+          optionValue: 'userId',
+          value: null,
           label: 'پشتیبان',
           disable: false,
           col: 'col-12'
         }
-      ],
-      entityIdKey: 'id',
-      entityParamKey: 'id'
+      ]
     }
   },
   computed: {
     ticketApi () {
       return APIGateway.ticket.APIAdresses.updateTicketApi(this.ticket.id)
+    },
+    supportApi () {
+      return APIGateway.ticket.APIAdresses.assign(this.ticket.id)
+    },
+    isEntityReady () {
+      return this.isDepartmentReady && this.isStatusesReady && this.isSupportersReady
+    },
+    supporterValue () {
+      return FormBuilderAssist.getInputsByName(this.supportInputs, 'responsible_user').value
+    }
+  },
+  watch: {
+    ticket () {
+      FormBuilderAssist.setAttributeByName(this.supportInputs, 'responsible_user', 'value', this.ticket.responsibleUser.id)
+    },
+    departments () {
+      this.getInput('department_id', this.ticketInputs).options = this.departments.list
+      this.isDepartmentReady = true
+    },
+    statuses () {
+      this.getInput('status_id', this.ticketInputs).options = this.statuses.list
+      this.isStatusesReady = true
+    },
+    supporters () {
+      this.getInput('responsible_user', this.supportInputs).options = this.supporters.list
+      this.isSupportersReady = true
+    },
+    supporterValue (newValue, oldValue) {
+      if (typeof newValue !== 'number' || !oldValue) {
+        return
+      }
+      this.editSupport()
     }
   },
   methods: {
-    async setInputs () {
-      const ticketFields = await this.getTicketData()
-      this.getInput('department_id', this.ticketInputs).options = ticketFields.departments.list
-      this.getInput('status_id', this.ticketInputs).options = ticketFields.statuses.list
-    },
-    async initTicket () {
-      // this.setEntityValues()
-      await this.setInputs()
-      this.isEntityReady = true
+    getInput (inputName, source) {
+      const srcFilter = source
+      return srcFilter.find(input => input.name === inputName)
     },
     openSmsDialog () {
       this.smsDialog = true
@@ -248,7 +288,7 @@ export default {
     editSupport () {
       this.$store.commit('loading/loading', true)
 
-      this.$refs.entityEditSupport.editEntity(false)
+      this.$refs.entityCreateSupport.createEntity(false)
         .then(() => {
           this.$store.commit('loading/loading', false)
         })

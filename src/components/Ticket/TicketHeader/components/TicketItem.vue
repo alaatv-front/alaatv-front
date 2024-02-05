@@ -92,7 +92,7 @@ export default defineComponent({
   max-width: 600px;
   @include  media-max-width('md') {
     width: 100%;
-  max-width: 100%;
+    max-width: 100%;
   }
 }
 

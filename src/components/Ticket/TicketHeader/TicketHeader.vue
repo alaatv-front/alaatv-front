@@ -222,7 +222,7 @@ export default defineComponent({
   max-width: 830px;
   @include  media-max-width('md') {
     width: 100%;
-  max-width: 100%;
+    max-width: 100%;
   }
 }
 .ticket-list-dialog-wrapper {
@@ -257,7 +257,7 @@ export default defineComponent({
   }
 
   &__user-action {
-    @include media-max-width ('sm') {
+    @include media-max-width ('md') {
       display: none;
     }
   }
@@ -265,13 +265,13 @@ export default defineComponent({
   &-action {
 
     &--desktop {
-      @include media-max-width ('sm') {
+      @include media-max-width ('md') {
         display: none;
       }
     }
 
     &--mobile {
-      @include media-min-width ('sm') {
+      @include media-min-width ('md') {
         display: none;
       }
     }
