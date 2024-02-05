@@ -506,15 +506,64 @@ export default {
         files
       }))
     },
-    getAllFilesPresignedUrl (files) {
+    getAllFilesPresignedUrlPromisses (message, files) {
       const promisses = []
       files.forEach((file) => {
-        promisses.push(APIGateway.ticket.presignedUrl(file.name))
+        promisses.push(new Promise((resolve, reject) => {
+          APIGateway.ticket.presignedUrl(file.name)
+            .then((url) => {
+              resolve({
+                file,
+                message,
+                presignedUrl: url
+              })
+            })
+            .catch(() => {
+              reject({
+                file
+              })
+            })
+        }))
       })
 
-      Promise.all(promisses)
-        .then((urls) => {
-
+      return promisses
+    },
+    getUploadAllFilesPromisses (presignedUrlPromisses) {
+      const promisses = []
+      Promise.all(presignedUrlPromisses)
+        .then((resolves) => {
+          resolves.forEach((resolveItem) => {
+            promisses.push(new Promise((resolve, reject) => {
+              APIGateway.fileUpload.uploadFile(resolveItem.presignedUrl, resolveItem.file, (data) => {
+                console.log('onUploadProgress data', data)
+                // {
+                //   loaded, // number,
+                //     total, // number,
+                //     progress, // number, // in range [0..1]
+                //     bytes, // number, // how many bytes have been transferred since the last trigger (delta)
+                //     estimated, // number; // estimated time in seconds
+                //     rate, // number; // upload speed in bytes
+                //     upload // true; // upload sign
+                // }
+                // https://www.npmjs.com/package/axios#-progress-capturing
+              })
+                .then((response) => {
+                  resolve({
+                    file: resolveItem.file,
+                    message: resolveItem.message,
+                    presignedUrl: resolveItem.presignedUrl,
+                    response
+                  })
+                })
+                .catch(() => {
+                  reject({
+                    file: resolveItem.file,
+                    message: resolveItem.message,
+                    presignedUrl: resolveItem.presignedUrl
+                  })
+                })
+            }))
+          })
         })
         .catch(() => {
 
