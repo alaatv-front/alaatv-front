@@ -2,6 +2,7 @@ import { apiV2 } from 'src/boot/axios.js'
 import { User } from 'src/models/User.js'
 import { TicketList } from 'src/models/Ticket.js'
 import APIRepository from '../classes/APIRepository.js'
+import { TicketMessage } from 'src/models/TicketMessage.js'
 import { TicketStatusList } from 'src/models/TicketStatus.js'
 import { TicketPriorityList } from 'src/models/TicketPriority.js'
 import { TicketDepartmentList } from 'src/models/TicketDepartment.js'
@@ -185,12 +186,17 @@ export default class TicketAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.ticketMessage,
       resolveCallback: (response) => {
-        return response
+        return new TicketMessage(response.data?.data?.ticketMessage)
       },
       rejectCallback: (error) => {
         return error
       },
-      data
+      data: this.getNormalizedSendData({
+        ticket_id: 0, // Number
+        is_private: false, // Boolean
+        files: [], // Array of String
+        body: '' // String
+      }, data)
     })
   }
 
