@@ -30,7 +30,19 @@ export default class FileUploadAPI extends APIRepository {
     })
   }
 
-  uploadFile (presignedUrl, file) {
+  uploadFile (presignedUrl, file, onUploadProgress = () => {}) {
+    // https://www.npmjs.com/package/axios#-progress-capturing
+    // onUploadProgress: function (axiosProgressEvent) {
+    //   /*{
+    //     loaded: number;
+    //     total?: number;
+    //     progress?: number; // in range [0..1]
+    //     bytes: number; // how many bytes have been transferred since the last trigger (delta)
+    //     estimated?: number; // estimated time in seconds
+    //     rate?: number; // upload speed in bytes
+    //     upload: true; // upload sign
+    //   }*/
+    // },
     return this.sendRequest({
       apiMethod: 'put',
       api: this.api,
@@ -49,7 +61,8 @@ export default class FileUploadAPI extends APIRepository {
           }
 
           return data
-        }
+        },
+        onUploadProgress
       },
       resolveCallback: (response) => {
         return response.data.data.url // String presigned URL of file
