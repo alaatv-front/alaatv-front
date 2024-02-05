@@ -54,7 +54,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12">
+      <div class="col-12 TicketShow__logs-col">
         <div class="TicketShow__logs">
           <ticket-logs />
         </div>
@@ -321,6 +321,10 @@ export default {
       justify-content: flex-start;
       margin-bottom: $space-4;
     }
+  }
+
+  &__logs-col {
+    margin-top: $space-6;
   }
 
   &__logs {
