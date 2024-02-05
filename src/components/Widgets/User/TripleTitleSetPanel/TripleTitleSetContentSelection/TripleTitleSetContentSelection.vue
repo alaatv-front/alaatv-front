@@ -110,13 +110,13 @@
 </template>
 
 <script>
+import { openURL } from 'quasar'
 import { defineComponent } from 'vue'
 import { Set } from 'src/models/Set.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import { ContentList } from 'src/models/Content.js'
+import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import { Product, ProductList } from 'src/models/Product'
-import { openURL } from 'quasar'
 
 export default defineComponent({
   name: 'TripleTitleSetContentSelection',

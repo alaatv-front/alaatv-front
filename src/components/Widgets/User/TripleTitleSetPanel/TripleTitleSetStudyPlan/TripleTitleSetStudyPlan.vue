@@ -314,19 +314,19 @@
 
 <script>
 import { shallowRef } from 'vue'
-import { APIGateway } from 'src/api/APIGateway.js'
 import { EntityEdit } from 'quasar-crud'
+import { APIGateway } from 'src/api/APIGateway.js'
+import LazyImg from 'src/components/lazyImg.vue'
 import { FormBuilderAssist } from 'quasar-form-builder'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
 import FullCalendar from './components/FullCalendar.vue'
+import FormBuilder from 'quasar-form-builder/src/FormBuilder.vue'
 import SessionInfo from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/SessionInfo.vue'
 import ContentsComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/Contents.vue'
 import TextComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/TextComponent.vue'
-import LazyImg from 'components/lazyImg.vue'
-import FormBuilder from 'quasar-form-builder/src/FormBuilder.vue'
 
-const ContentsComponentComp = shallowRef(ContentsComponent)
 const TextComponentComp = shallowRef(TextComponent)
+const ContentsComponentComp = shallowRef(ContentsComponent)
 
 export default {
   name: 'TripleTitleSetStudyPlan',
@@ -639,7 +639,7 @@ export default {
         }
         this.findStudyPlan(data)
           .then(studtPlan => {
-            this.createPlan(studtPlan)
+            this.createPlan(studtPlan, majorId, gradeId)
               .then((plan) => {
                 resolve(plan)
               })
@@ -663,15 +663,21 @@ export default {
           })
       })
     },
-    createPlan (studtPlan) {
+    createPlan (studtPlan, majorId, gradeId) {
       return new Promise((resolve, reject) => {
         const formData = this.$refs.formBuilder.getFormData()
+        formData.major_id = majorId
+        formData.grade_id = gradeId
+        formData.event_id = studtPlan.id
+        debugger
         formData.contents.forEach((content, index) => {
           if (content.id) {
-            formData.contents[index] = content.id
+            formData.contents[index] = {
+              content_id: content.id,
+              type_id: content.type
+            }
           }
         })
-        formData.event_id = studtPlan.id
         APIGateway.studyPlan.createPlan(formData)
           .then((plan) => {
             resolve(plan)
