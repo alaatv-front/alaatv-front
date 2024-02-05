@@ -54,6 +54,11 @@
           </div>
         </div>
       </div>
+      <div class="col-12">
+        <div class="TicketShow__logs">
+          <ticket-logs />
+        </div>
+      </div>
     </div>
     <q-layout v-if="mounted && $q.screen.lt.md">
       <q-drawer ref="actionDrawer"
@@ -95,22 +100,24 @@
 </template>
 
 <script>
+import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
+import { SupporterList } from 'src/models/supporter.js'
 import { Ticket, TicketList } from 'src/models/Ticket.js'
 import { TicketMessage } from 'src/models/TicketMessage.js'
 import { TicketStatusList } from 'src/models/TicketStatus.js'
-import { mixinWidget } from 'src/mixin/Mixins.js'
 import { TicketPriorityList } from 'src/models/TicketPriority.js'
 import { TicketDepartmentList } from 'src/models/TicketDepartment.js'
+import TicketLogs from 'src/components/Ticket/TicketLogs/TicketLogs.vue'
 import TicketHeader from 'src/components/Ticket/TicketHeader/TicketHeader.vue'
 import MyOpenTickets from 'src/components/Ticket/MyOpenTickets/MyOpenTickets.vue'
 import TicketInfoForm from 'src/components/Ticket/TicketInfoForm/TicketInfoForm.vue'
 import TicketMessageList from 'src/components/Ticket/TicketMessageList/TicketMessageList.vue'
-import { SupporterList } from 'src/models/supporter'
 
 export default {
   name: 'TicketShow',
   components: {
+    TicketLogs,
     TicketHeader,
     MyOpenTickets,
     TicketInfoForm,
@@ -314,6 +321,12 @@ export default {
       justify-content: flex-start;
       margin-bottom: $space-4;
     }
+  }
+
+  &__logs {
+    padding: $space-6;
+    border-radius: $radius-4;
+    background: $grey-1;
   }
   .TicketShow__drawer-ticket-info {
     height: 100%;
