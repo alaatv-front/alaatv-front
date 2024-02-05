@@ -669,7 +669,6 @@ export default {
         formData.major_id = majorId
         formData.grade_id = gradeId
         formData.event_id = studtPlan.id
-        debugger
         formData.contents.forEach((content, index) => {
           if (content.id) {
             formData.contents[index] = {
