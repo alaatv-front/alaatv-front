@@ -95,7 +95,7 @@
                         @select="onSelectPreparedText" />
       </q-menu>
       <q-dialog v-model="selectFilesDialog">
-        <select-files />
+        <select-files @send="onSendFiles" />
       </q-dialog>
     </q-input>
   </div>
@@ -116,6 +116,7 @@ export default defineComponent({
   },
   props: {
   },
+  emits: ['sendingMessage', 'sendingMessage'],
   data () {
     return {
       textInput: null,
@@ -301,6 +302,34 @@ export default defineComponent({
     },
     showSelectFilesDialog () {
       this.selectFilesDialog = true
+    },
+    hideSelectFilesDialog () {
+      this.selectFilesDialog = false
+    },
+
+    onSendText () {
+      this.sendMessage(this.textInput)
+    },
+    onSendVoice () {
+      this.sendMessage(null, [this.recordedVoiceAsBlob])
+    },
+    onSendFiles ({ files, description }) {
+      this.sendingMessage(description, files)
+    },
+    sendingMessage (body, files = [], isPrivate = false) {
+      this.hideSelectFilesDialog()
+      this.$emit('sendingMessage', {
+        body,
+        is_private: isPrivate,
+        files
+      })
+    },
+    sendMessage (body, files = [], isPrivate = false) {
+      this.$emit('sendingMessage', {
+        body,
+        is_private: isPrivate,
+        files: []
+      })
     }
   }
 })

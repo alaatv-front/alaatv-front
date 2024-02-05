@@ -29,4 +29,35 @@ export default class FileUploadAPI extends APIRepository {
       }, data)
     })
   }
+
+  uploadFile (presignedUrl, file) {
+    return this.sendRequest({
+      apiMethod: 'put',
+      api: this.api,
+      request: presignedUrl,
+      options: {
+        baseURL: '',
+        headers: {
+          'Content-Type': file.type
+        },
+        transformRequest: (data, headers) => {
+          if (headers.common && headers.common.Authorization) {
+            delete headers.common.Authorization
+          }
+          if (headers.Authorization) {
+            delete headers.Authorization
+          }
+
+          return data
+        }
+      },
+      resolveCallback: (response) => {
+        return response.data.data.url // String presigned URL of file
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data: file
+    })
+  }
 }

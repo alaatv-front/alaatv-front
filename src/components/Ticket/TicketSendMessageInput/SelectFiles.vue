@@ -47,7 +47,7 @@ export default defineComponent({
       default: () => []
     }
   },
-  emits: ['select'],
+  emits: ['send'],
   data () {
     return {
       files: [],
@@ -92,9 +92,6 @@ export default defineComponent({
   mounted () {
   },
   methods: {
-    onSelectItem (item) {
-      this.$emit('select', item)
-    },
     sendFiles () {
       if (this.files.length === 0) {
         this.$q.notify({

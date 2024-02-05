@@ -16,10 +16,11 @@
       <ticket-message v-for="(message, messageIndex) in messageListExceptFirst"
                       :key="messageIndex"
                       :message="message"
-                      :sent="user.id === message.user.id" />
+                      :sent="user.id === message.user.id"
+                      @cancelUpload="onCancelUploadFile" />
     </div>
     <div class="TicketMessageList__send-input-area">
-      <ticket-send-message-input />
+      <ticket-send-message-input @sendingMessage="onSendingMessage" />
     </div>
   </div>
 </template>
@@ -40,6 +41,7 @@ export default defineComponent({
       default: new Ticket()
     }
   },
+  emits: ['sendingMessage', 'sendingMessage', 'cancelUpload'],
   computed: {
     firstMessage () {
       return this.ticket.messages.list[0]
@@ -52,6 +54,12 @@ export default defineComponent({
     this.scrollToBottom()
   },
   methods: {
+    onSendingMessage (data) {
+      this.$emit('sendingMessage', data)
+      this.$nextTick(() => {
+        this.scrollToBottom()
+      })
+    },
     scrollToBottom () {
       if (!this.$refs.TicketMessageList) {
         return
@@ -60,6 +68,10 @@ export default defineComponent({
       this.$nextTick(() => {
         this.$refs.TicketMessageList.scrollTo(0, this.$refs.TicketMessageList.scrollHeight)
       })
+    },
+    onCancelUploadFile (data) {
+      data.messageIndex = this.ticket.messages.list.findIndex(message => message.id === data.message.id)
+      this.$emit('cancelUpload', data)
     }
   }
 })
