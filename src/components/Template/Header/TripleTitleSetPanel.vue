@@ -1,23 +1,53 @@
 <template>
   <div class="chatre-nejat-header">
-    <div class="logo-box">
-      <router-link :to="{name: 'Public.Home'}">
-        <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
-               class="logo-image" />
-      </router-link>
-    </div>
-    <div class="header-box full-height flex justify-center items-center">
-      <q-img :src="logoImage"
+    <div class="logo-box" />
+    <div class="header-box flex justify-center items-center">
+      <q-img :src="event.logo"
              class="header-logo-img" />
     </div>
     <div class="profile-box flex items-center">
+      <q-btn v-if="hostName === 'ehsan.alaatv.com'"
+             color="grey"
+             class="size-lg q-mx-sm"
+             square
+             flat
+             icon="ph:bell-simple"
+             :disable="!hasUnreadMessage"
+             size="md">
+        <template v-if="hasUnreadMessage">
+          <q-badge :label="unreadMessagesCount"
+                   rounded
+                   floating
+                   class="badge-xs"
+                   color="secondary" />
+          <q-menu anchor="center middle"
+                  self="top left">
+            <q-item v-for="item in messages"
+                    :key="item.id"
+                    class="message-menu-item"
+                    clickable>
+              <q-item-section class="message-menu-item-section">{{ item.message }}</q-item-section>
+            </q-item>
+            <q-separator />
+            <q-item v-close-popup
+                    class="message-menu-item"
+                    clickable
+                    @click="readAllMessages">
+              <q-item-section>خواندن همه</q-item-section>
+            </q-item>
+          </q-menu>
+        </template>
+      </q-btn>
+
       <btn-user-profile-menu />
+
     </div>
   </div>
 </template>
 
 <script>
 import { User } from 'src/models/User.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinAuth, mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import BtnUserProfileMenu from 'components/BtnUserProfileMenu.vue'
 
@@ -25,17 +55,25 @@ export default {
   name: 'TripleTitleSetPanel',
   components: { BtnUserProfileMenu },
   mixins: [mixinAuth, mixinTripleTitleSet],
-  data: () => ({
-    user: new User(),
-    activePage: null,
-    logoImage: null
-  }),
+  data () {
+    return {
+      user: new User(),
+      activePage: null,
+      messages: [],
+      unreadMessagesCount: 0
+    }
+  },
+  computed: {
+    hasUnreadMessage () {
+      return !!this.unreadMessagesCount && this.unreadMessagesCount > 0
+    }
+  },
   mounted () {
     this.loadAuthData()
     if (window.innerWidth < 1024) {
       this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
     }
-    this.setLogoImage()
+    this.loadBonyadEhsanUnreadMessages()
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
@@ -44,14 +82,31 @@ export default {
     logOut () {
       this.$store.dispatch('Auth/logOut')
     },
-    setLogoImage () {
-      const hostName = this.domainSameWithAppDomain ? window.location.host : 'else'
-      const logoImages = {
-        'alaatv.com': this.event.logo,
-        'ehsan.alaatv.com': 'https://nodes.alaatv.com/upload/alaaPages/2024-01/boniad-ehsan-logo1704111571.png',
-        else: null
+    loadBonyadEhsanUnreadMessages () {
+      if (this.hostName !== 'ehsan.alaatv.com') {
+        return
       }
-      this.logoImage = logoImages[hostName]
+
+      this.getUnreadMessages()
+    },
+    getUnreadMessages () {
+      APIGateway.bonyad.getMessages({
+        read: 'unread',
+        owner_id: 1
+      })
+        .then(messagesObject => {
+          this.messages = messagesObject.messages
+          this.unreadMessagesCount = messagesObject.meta.total
+        })
+        .catch(() => {})
+    },
+    readAllMessages () {
+      APIGateway.bonyad.readAllMessages()
+        .then(response => {
+          this.unreadMessages = []
+          this.unreadMessagesCount = 0
+        })
+        .catch(() => {})
     }
   }
 }
@@ -91,20 +146,25 @@ export default {
   }
 }
 
+.message-menu-item {
+  width: 320px;
+
+  .message-menu-item-section {
+    width: 100%;
+  }
+}
+
+$header-height: 64px;
 .chatre-nejat-header{
-  height: 64px;
+  height: $header-height;
   background: #fff;
   position: relative;
   display: grid;
   grid-template-columns: auto 1fr auto;
 
-  @media screen and (width <= 1023px) {
-
-  }
-
   .logo-box {
-    width: 44px;
-    height: 44px;
+    width: auto;
+    height: $header-height;
     align-self: center;
     margin-left: 25px;
     visibility: hidden;
@@ -119,8 +179,14 @@ export default {
   }
 
   .header-box {
+    height: $header-height;
     .header-logo-img {
       width: 142px;
+      max-height: $header-height;
+      :deep(.q-img) {
+        width: auto;
+        max-height: $header-height;
+      }
 
       @media screen and (width <= 990px) {
         width: 126px;
@@ -133,7 +199,7 @@ export default {
   }
 
   .profile-box {
-    height: 100%;
+    height: $header-height;
     padding-right: 18px;
   }
 
@@ -142,5 +208,4 @@ export default {
     box-shadow: 0 3px 5px 0 rgb(0 0 0 / 10%);
   }
 }
-
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="chatre-nejat-layout">
+  <div class="TripleTitleSetLayout">
     <div class="side-menu-main-layout bg-white">
       <div class="header">
         <div class="product-box">
@@ -194,7 +194,6 @@ export default {
       })
     },
     itemSelected (topic) {
-      this.updateSelectedTopic(topic.title)
     },
     updateSetList (normalizedSets) {
       this.setList = normalizedSets
@@ -205,13 +204,9 @@ export default {
     ...mapMutations('AppLayout', [
       'updateLayoutLeftDrawerVisible'
     ]),
-    ...mapMutations('TripleTitleSet', [
-      'updateSelectedTopic'
-    ]),
     toggleLeftDrawer () {
       this.updateLayoutLeftDrawerVisible(!this.layoutLeftDrawerVisible)
     },
-    setSelectedTopic (TopicName) {},
     search (list, parentContain = false) {
       if (!list || list.length === 0) {
         return false
@@ -241,7 +236,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.chatre-nejat-layout {
+.TripleTitleSetLayout {
   display: grid;
   grid-template-columns: 350px auto;
 
@@ -303,9 +298,7 @@ export default {
     }
 
     .side-menu-body {
-      display: grid;
       height: calc(100vh - 200px);
-      grid-template-rows: 1fr 2fr;
       overflow-x: hidden;
       overflow-y: auto;
 

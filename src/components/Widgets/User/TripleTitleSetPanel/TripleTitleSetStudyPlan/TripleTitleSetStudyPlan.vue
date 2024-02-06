@@ -6,9 +6,21 @@
       </h5>
     </div>
     <div class="col-md-6 col-12 body1">
-      برنامه مطالعاتی
-      <span v-if="major.title">/ رشته {{ major.title }}</span>
-      <span v-if="grade.title">/ مقطع {{grade.title}}</span>
+      <q-breadcrumbs class="text-grey-9"
+                     active-color="grey-6">
+        <q-breadcrumbs-el label="برنامه مطالعاتی" />
+        <template v-slot:separator>
+          <q-icon size="xs"
+                  name="isax:arrow-right-3"
+                  color="grey-6" />
+        </template>
+        <q-breadcrumbs-el v-if="selectedMajorInCreatePlanForm"
+                          :label="selectedMajorInCreatePlanForm.title" />
+        <q-breadcrumbs-el v-if="selectedGradeInCreatePlanForm"
+                          :label="selectedGradeInCreatePlanForm.title" />
+        <q-breadcrumbs-el v-if="planType?.display_name"
+                          :label="planType.display_name" />
+      </q-breadcrumbs>
     </div>
     <div class="col-md-6 col-12 text-right action-btns">
       <q-btn flat
@@ -53,25 +65,6 @@
         <q-card-section>
           <form-builder ref="formBuilder"
                         v-model:value="inputs" />
-          <!--          <entity-create ref="entityCreate"-->
-          <!--                         v-model:value="inputs"-->
-          <!--                         :defaultLayout="false"-->
-          <!--                         :api="api">-->
-          <!--            <template #after-form-builder>-->
-          <!--              <div class="text-right q-mt-md new-theme-btn">-->
-          <!--                <q-btn class="btn cancel q-mx-sm text-grey-9"-->
-          <!--                       size="md"-->
-          <!--                       outline-->
-          <!--                       label="لغو"-->
-          <!--                       @click="newPlanDialog = false" />-->
-          <!--                <q-btn class="btn q-mx-sm"-->
-          <!--                       label="تایید"-->
-          <!--                       size="md"-->
-          <!--                       color="positive"-->
-          <!--                       @click="acceptNewPlan" />-->
-          <!--              </div>-->
-          <!--            </template>-->
-          <!--          </entity-create>-->
         </q-card-section>
         <q-card-section>
           <div class="text-right q-mt-md new-theme-btn">
@@ -314,28 +307,29 @@
 
 <script>
 import { shallowRef } from 'vue'
-import { APIGateway } from 'src/api/APIGateway.js'
+import { Set } from 'src/models/Set.js'
 import { EntityEdit } from 'quasar-crud'
+import { Major } from 'src/models/Major.js'
+import { Product } from 'src/models/Product.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+import LazyImg from 'src/components/lazyImg.vue'
 import { FormBuilderAssist } from 'quasar-form-builder'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
 import FullCalendar from './components/FullCalendar.vue'
-import SessionInfo from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/SessionInfo.vue'
-import ContentsComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/Contents.vue'
-import TextComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/TextComponent.vue'
-import LazyImg from 'components/lazyImg.vue'
 import FormBuilder from 'quasar-form-builder/src/FormBuilder.vue'
+import SessionInfoComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/SessionInfo.vue'
+import FormBuilderInputStudyPlanContentsSelector from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/FormBuilderInputStudyPlanContentsSelector.vue'
 
-const ContentsComponentComp = shallowRef(ContentsComponent)
-const TextComponentComp = shallowRef(TextComponent)
+const SessionInfoComponentComp = shallowRef(SessionInfoComponent)
+const ContentsComponentComp = shallowRef(FormBuilderInputStudyPlanContentsSelector)
 
 export default {
   name: 'TripleTitleSetStudyPlan',
   components: {
     LazyImg,
-    FullCalendar,
-    // EntityCreate,
+    EntityEdit,
     FormBuilder,
-    EntityEdit
+    FullCalendar
   },
   data () {
     return {
@@ -368,9 +362,11 @@ export default {
       editApi: null,
       inputs: [
         {
-          type: TextComponentComp,
-          name: 'customComponent',
-          text: 'برنامه و درس موردنظر رو انتخاب کن و بعدش میتونی زنگ جدید رو اضافه کنی.',
+          type: 'separator',
+          name: 'separator-1',
+          size: '0px',
+          class: 'q-pt-md',
+          label: 'برنامه و درس موردنظر رو انتخاب کن و بعدش میتونی زنگ جدید رو اضافه کنی.',
           col: 'col-12'
         },
         {
@@ -387,35 +383,41 @@ export default {
           optionLabel: 'display_name',
           optionValue: 'id',
           value: null,
-          col: 'col-4'
+          col: 'col-12'
         },
         {
           type: 'select',
           name: 'major_id',
           label: 'رشته',
           options: [],
+          multiple: true,
           optionLabel: 'title',
           optionValue: 'id',
           value: null,
-          col: 'col-4'
+          col: 'col-12'
         },
         {
           type: 'select',
           name: 'grade_id',
           label: 'مقطع',
           options: [],
+          multiple: true,
           optionLabel: 'title',
           optionValue: 'id',
           value: null,
-          col: 'col-4'
+          col: 'col-12'
         },
         {
           type: ContentsComponentComp,
           name: 'contents',
+          major: new Major(),
+          product: new Product(),
+          topic: null,
+          set: new Set(),
           col: 'col-12'
         },
         {
-          type: SessionInfo,
+          type: SessionInfoComponentComp,
           name: 'SessionInfo',
           data: [],
           col: 'col-12'
@@ -456,9 +458,11 @@ export default {
       ],
       editInputs: [
         {
-          type: TextComponentComp,
-          name: 'customComponent',
-          text: 'برنامه و درس موردنظر رو انتخاب کن و بعدش میتونی زنگ جدید رو اضافه کنی.',
+          type: 'separator',
+          name: 'separator-1',
+          size: '0px',
+          class: 'q-pt-md',
+          label: 'برنامه و درس موردنظر رو انتخاب کن و بعدش میتونی زنگ جدید رو اضافه کنی.',
           col: 'col-12'
         },
         {
@@ -502,11 +506,15 @@ export default {
         {
           type: ContentsComponentComp,
           name: 'contents',
+          major: new Major(),
+          product: new Product(),
+          topic: null,
+          set: new Set(),
           responseKey: 'data.contents',
           col: 'col-12'
         },
         {
-          type: SessionInfo,
+          type: SessionInfoComponentComp,
           name: 'SessionInfo',
           data: [],
           col: 'col-12'
@@ -554,15 +562,52 @@ export default {
       ]
     }
   },
+  computed: {
+    selectedMajorInCreatePlanForm () {
+      const majors = FormBuilderAssist.getInputsByName(this.inputs, 'major_id').options
+      const selectedMajorIds = FormBuilderAssist.getInputsByName(this.inputs, 'major_id').value
+      const selectedMajorId = Array.isArray(selectedMajorIds) ? selectedMajorIds[0] : null
+
+      return majors.find(major => major.id === selectedMajorId)
+    },
+    selectedGradeInCreatePlanForm () {
+      const grades = FormBuilderAssist.getInputsByName(this.inputs, 'grade_id').options
+      const selectedGradeIds = FormBuilderAssist.getInputsByName(this.inputs, 'grade_id').value
+      const selectedGradeId = Array.isArray(selectedGradeIds) ? selectedGradeIds[0] : null
+
+      return grades.find(grade => grade.id === selectedGradeId)
+    }
+  },
   watch: {
     planSettings (newVal) {
       if (newVal) {
         this.isPlanChanged = false
       }
+    },
+    newPlanDialog (newVal) {
+      if (newVal) {
+        return
+      }
+      FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'set', null)
+      FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'value', [])
+      FormBuilderAssist.setAttributeByName(this.inputs, 'description', 'value', null)
     }
   },
   mounted () {
     this.afterAuthenticate()
+
+    this.$bus.on('FormBuilderInputStudyPlanContentsSelector-update:major', (newValue) => {
+      FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'major', newValue)
+    })
+    this.$bus.on('FormBuilderInputStudyPlanContentsSelector-update:product', (newValue) => {
+      FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'product', newValue)
+    })
+    this.$bus.on('FormBuilderInputStudyPlanContentsSelector-update:topic', (newValue) => {
+      FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'topic', newValue)
+    })
+    this.$bus.on('FormBuilderInputStudyPlanContentsSelector-update:set', (newValue) => {
+      FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'set', newValue)
+    })
   },
   methods: {
     afterAuthenticate () {
@@ -571,6 +616,7 @@ export default {
       this.major = user.major.id ? user.major : { title: '', id: null }
       this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
       this.getFilterLesson()
+      this.getChangePlanOptions()
     },
     updatePlan () {
       this.loading = true
@@ -636,7 +682,7 @@ export default {
         }
         this.findStudyPlan(data)
           .then(studtPlan => {
-            this.createPlan(studtPlan)
+            this.createPlan(studtPlan, majorId, gradeId)
               .then((plan) => {
                 resolve(plan)
               })
@@ -660,15 +706,28 @@ export default {
           })
       })
     },
-    createPlan (studtPlan) {
+    createPlan (studtPlan, majorId, gradeId) {
       return new Promise((resolve, reject) => {
         const formData = this.$refs.formBuilder.getFormData()
+        formData.major_id = majorId
+        formData.grade_id = gradeId
+        formData.event_id = studtPlan.id
         formData.contents.forEach((content, index) => {
           if (content.id) {
-            formData.contents[index] = content.id
+            formData.contents[index] = {
+              content_id: content.id,
+              type_id: 4
+            }
+            // type_id: [1, 2, 3, 4, 5]
+            // [
+            //    ویس مشاوره
+            //    فیلم مشاوره
+            //    متن مشاوره
+            //    فیلم درس
+            //    تستها
+            // ]
           }
         })
-        formData.event_id = studtPlan.id
         APIGateway.studyPlan.createPlan(formData)
           .then((plan) => {
             resolve(plan)
@@ -681,18 +740,22 @@ export default {
     acceptNewPlan () {
       this.loading = true
       const eventPromises = []
-      const majorId = FormBuilderAssist.getInputsByName(this.inputs, 'major_id')?.value
-      const gradeId = FormBuilderAssist.getInputsByName(this.inputs, 'grade_id')?.value
+      const majorIds = FormBuilderAssist.getInputsByName(this.inputs, 'major_id')?.value || []
+      const gradeIds = FormBuilderAssist.getInputsByName(this.inputs, 'grade_id')?.value || []
       const methodIds = FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value || []
       methodIds.forEach(methodId => {
-        eventPromises.push(this.getPlanPromise(majorId, gradeId, methodId))
+        majorIds.forEach(majorId => {
+          gradeIds.forEach(gradeId => {
+            eventPromises.push(this.getPlanPromise(majorId, gradeId, methodId))
+          })
+        })
       })
       Promise.all(eventPromises)
         .then((plans) => {
           FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'value', [])
           const data = {
-            major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id').value,
-            grade_id: FormBuilderAssist.getInputsByName(this.inputs, 'grade_id').value,
+            major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id').value[0],
+            grade_id: FormBuilderAssist.getInputsByName(this.inputs, 'grade_id').value[0],
             study_method_id: FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value[0]
           }
           this.findStudyPlan(data)
@@ -755,7 +818,6 @@ export default {
           this.planType.display_name = studyPlan.title
           this.studyEvent = studyPlan.id
           this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
-          this.getChangePlanOptions()
           this.loading = false
         })
         .catch(() => {
@@ -775,7 +837,7 @@ export default {
             lesson_name: 'همه',
             id: null
           })
-          this.planType = options.studyPlans.find(studyPlan => studyPlan.display_name === this.planType.display_name)
+          this.planType = options.studyPlans.find(studyPlan => studyPlan.display_name === this.planType.display_name) || {}
           this.setInputAttrByName(this.inputs, 'major_id', 'options', options.majors)
           this.setInputAttrByName(this.inputs, 'grade_id', 'options', options.grades)
           this.setInputAttrByName(this.inputs, 'study_method_id', 'options', options.studyPlans)

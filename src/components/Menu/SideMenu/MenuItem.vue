@@ -395,11 +395,11 @@ export default {
               }
 
               @media screen and (width <= 1439px) {
-                width: 148px;
+                width: 100%;
               }
 
               @media screen and (width <= 599px) {
-                width: 160px;
+                width: 100%;
                 margin-bottom: 5px;
                 padding: 0 10px 0 12px;
               }
