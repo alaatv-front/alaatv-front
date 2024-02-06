@@ -22,10 +22,6 @@ class ContentManager {
   static checkContentSavedBefore (content) {
     return new Promise((resolve, reject) => {
       AppIndexedDB.searchInObjectStore('contents', 'id_index', content.id, true, (savedContent, objectStore) => {
-        if (!savedContent || savedContent.length === 0) {
-          resolve()
-          return
-        }
         const isSavedBefore = savedContent.length > 0 && savedContent[0].watched_seconds >= content.watched_seconds
         if (isSavedBefore) {
           reject(savedContent[0].watched_seconds)
