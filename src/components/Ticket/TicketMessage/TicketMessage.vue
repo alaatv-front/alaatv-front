@@ -22,16 +22,45 @@
                class="TicketMessage__file">
             <div class="TicketMessage__file-info">
               <div class="TicketMessage__file-title ellipsis">
-                {{ file.title }}
+                <template v-if="!isFile(file)">
+                  {{ file }}
+                </template>
+                <template v-else>
+                  {{ file.name }}
+                </template>
               </div>
               <div class="TicketMessage__file-size">
-                {{ file.size }}
+                -
               </div>
             </div>
-            <div class="TicketMessage__file-thumbnail">
-              <lazy-img :src="file.file || file.photo || file.voice"
-                        width="50"
-                        height="50" />
+            <div class="TicketMessage__file-thumbnail"
+                 :class="{
+                   'TicketMessage__file-thumbnail--is-file': isFile(file),
+                   'TicketMessage__file-thumbnail--is-image-url': isImageUrl(file),
+                   'TicketMessage__file-thumbnail--is-image-file': isImageFile(file)
+                 }">
+              <template v-if="!isFile(file)">
+                <lazy-img v-if="isImageUrl(file)"
+                          :src="file"
+                          width="50"
+                          height="50" />
+              </template>
+              <template v-else>
+                <q-knob v-model="file.progress"
+                        show-value
+                        class="text-white"
+                        size="40px"
+                        :min="0"
+                        :max="100"
+                        readonly
+                        :thickness="0.15"
+                        color="grey-1"
+                        track-color="grey-4"
+                        @click="onCancelUpload(message, fileIndex, file)">
+                  <q-icon name="ph:x"
+                          size="13px" />
+                </q-knob>
+              </template>
             </div>
           </div>
         </div>
@@ -62,6 +91,30 @@ export default defineComponent({
     sent: {
       type: Boolean,
       default: false
+    }
+  },
+  emits: ['cancelUpload'],
+  methods: {
+    isFile (data) {
+      if (typeof window === 'undefined') {
+        return false
+      }
+      return 'File' in window && data instanceof File
+    },
+    isImageUrl (url) {
+      if (typeof url !== 'string') {
+        return false
+      }
+      return url.match(/\.(jpeg|jpg|gif|png)/) !== null
+    },
+    isImageFile (file) {
+      if (!this.isFile(file)) {
+        return false
+      }
+      return file.type.match(/\/(jpeg|jpg|gif|png)/) !== null
+    },
+    onCancelUpload (message, fileIndex, file) {
+      this.$emit('cancelUpload', { message, fileIndex, file })
     }
   }
 })
@@ -111,12 +164,15 @@ export default defineComponent({
         @include caption1;
       }
       .TicketMessage__files {
+        display: flex;
+        gap: $space-2;
+        flex-direction: column;
         .TicketMessage__file {
           display: flex;
-          padding-left: 32px;
+          padding-left: $space-4;
           justify-content: flex-end;
           align-items: center;
-          gap: 8px;
+          gap: $space-2;
           align-self: stretch;
           .TicketMessage__file-thumbnail {
             display: flex;
@@ -130,6 +186,29 @@ export default defineComponent({
               width: 100%;
               height: 100%;
               border-radius: 4px;
+            }
+            &.TicketMessage__file-thumbnail--is-file:not(.TicketMessage__file-thumbnail--is-image-file) {
+              display: flex;
+              width: 40px;
+              height: 40px;
+              justify-content: center;
+              align-items: center;
+              border-radius: $radius-round;
+              background: $secondary;
+            }
+            &.TicketMessage__file-thumbnail--is-image-file {
+              width: 56px;
+              height: 56px;
+              padding:$space-2 $space-3;
+              border-radius: $radius-1;
+              background: $darken-5;
+            }
+            &.TicketMessage__file-thumbnail--is-image-url {
+              width: 56px;
+              height: 56px;
+              padding:$space-2 $space-3;
+              border-radius: $radius-1;
+              background: $darken-5;
             }
           }
           .TicketMessage__file-info {

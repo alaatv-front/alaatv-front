@@ -16,6 +16,7 @@ export default class TicketAPI extends APIRepository {
       base: '/ticket',
       create: '/ticket/create',
       ticket: (ticketId) => '/ticket/' + ticketId,
+      presignedUrl: '/ticket/presigned-url',
       updateTicketApi: (ticketId) => '/ticket/' + ticketId,
       getInfo: '/user/getInfo',
       ticketMessage: '/ticketMessage',
@@ -324,6 +325,23 @@ export default class TicketAPI extends APIRepository {
         return error
       },
       ...(cache && { cache })
+    })
+  }
+
+  presignedUrl (key) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.presignedUrl,
+      resolveCallback: (response) => {
+        return response.data.data.url // String presigned URL of file
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data: this.getNormalizedSendData({
+        key: '' // String example: x.png
+      }, { key })
     })
   }
 }

@@ -19,14 +19,16 @@
              clase="size-xs" />
     </q-card-section>
     <q-separator v-if="header" />
-    <q-card-section v-if="body"
-                    class="InsideDialog__body">
-      <slot name="body" />
-    </q-card-section>
-    <q-card-section v-if="action"
-                    class="InsideDialog__action">
-      <slot name="action" />
-    </q-card-section>
+    <div class="InsideDialog__scroll-area">
+      <q-card-section v-if="body"
+                      class="InsideDialog__body">
+        <slot name="body" />
+      </q-card-section>
+      <q-card-actions v-if="action"
+                      class="InsideDialog__action">
+        <slot name="action" />
+      </q-card-actions>
+    </div>
   </q-card>
 </template>
 
@@ -87,15 +89,19 @@ export default {
       }
     }
   }
-  .InsideDialog__body {
-    padding: $space-6 !important;
-  }
-  .InsideDialog__action {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: $space-3;
-    padding: $spacing-none $space-6 $space-6 !important;
+  .InsideDialog__scroll-area {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    .InsideDialog__body {
+      padding: $space-6 !important;
+    }
+    .InsideDialog__action {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: $space-3;
+      padding: $spacing-none $space-6 $space-6 !important;
+    }
   }
 }
 </style>
