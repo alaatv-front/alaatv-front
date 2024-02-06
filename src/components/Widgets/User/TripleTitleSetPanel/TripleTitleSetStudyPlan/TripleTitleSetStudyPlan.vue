@@ -673,8 +673,16 @@ export default {
           if (content.id) {
             formData.contents[index] = {
               content_id: content.id,
-              type_id: content.type
+              type_id: 4
             }
+            // type_id: [1, 2, 3, 4, 5]
+            // [
+            //    ویس مشاوره
+            //    فیلم مشاوره
+            //    متن مشاوره
+            //    فیلم درس
+            //    تستها
+            // ]
           }
         })
         APIGateway.studyPlan.createPlan(formData)
