@@ -3,7 +3,7 @@ import AppIndexedDB from 'src/assets/js/IndexedDB/IndexedDB.js'
 
 class ContentManager {
   static get lastSentTime () {
-    return localStorage.getItem('lastContentsWatchedSecondsSentTime')
+    return localStorage.getItem('lastContentsWatchedSecondsSentTime') === null ? 0 : parseInt(localStorage.getItem('lastContentsWatchedSecondsSentTime'))
   }
 
   static set lastSentTime (value) {
@@ -24,9 +24,9 @@ class ContentManager {
       AppIndexedDB.searchInObjectStore('contents', 'id_index', content.id, true, (savedContent, objectStore) => {
         const isSavedBefore = savedContent.length > 0 && savedContent[0].watched_seconds >= content.watched_seconds
         if (isSavedBefore) {
-          reject(savedContent[0].watched_seconds)
+          reject(savedContent)
         } else {
-          resolve(savedContent[0].watched_seconds)
+          resolve(savedContent)
         }
       })
     })
