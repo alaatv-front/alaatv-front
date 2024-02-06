@@ -15,13 +15,20 @@
 </template>
 
 <script>
+import inputMixin from 'quasar-form-builder/src/mixins/inputMixin.js'
 export default {
   name: 'SessionInfo',
+  mixins: [inputMixin],
   props: {
+    value: {
+      default: () => [],
+      type: [Array, Object, String, Number, Boolean]
+    },
     data: {
       type: Array,
       default: () => []
     }
-  }
+  },
+  emits: ['onInputClick']
 }
 </script>
