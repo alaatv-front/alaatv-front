@@ -1,14 +1,13 @@
-// import { APIGateway } from 'src/api/APIGateway.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import AppIndexedDB from 'src/assets/js/IndexedDB/IndexedDB.js'
 
 class ContentManager {
   static get lastSentTime () {
-    const lastSentTime = localStorage.getItem('lastSentTime')
-    return lastSentTime
+    return localStorage.getItem('lastContentsWatchedSecondsSentTime')
   }
 
   static set lastSentTime (value) {
-    localStorage.setItem('lastSentTime', value)
+    localStorage.setItem('lastContentsWatchedSecondsSentTime', value)
   }
 
   static get sendThreshold () {
@@ -24,15 +23,15 @@ class ContentManager {
     return new Promise((resolve, reject) => {
       AppIndexedDB.searchInObjectStore('contents', 'id_index', content.id, true, (savedContent, objectStore) => {
         if (!savedContent || savedContent.length === 0) {
-          reject()
+          resolve()
           return
         }
         const isSavedBefore = savedContent.length > 0 && savedContent[0].watched_seconds >= content.watched_seconds
         if (isSavedBefore) {
           reject(savedContent[0].watched_seconds)
-          return
+        } else {
+          resolve(savedContent[0].watched_seconds)
         }
-        resolve(savedContent[0].watched_seconds)
       })
     })
   }
@@ -62,14 +61,21 @@ class ContentManager {
       if (unsentContents.length === 0) {
         return
       }
-      // APIGateway.post(unsentContents)
-      //   .then((response) => {
-      //     ContentManager.handleSendSuccess(response, unsentContents, objectStore)
-      //     ContentManager.lastSentTime = currentTime // Update last sent time upon successful send
-      //   })
-      //   .catch((error) => {
-      //     ContentManager.handleSendError(error)
-      //   })
+      APIGateway.content.watchedBulk({
+        data: unsentContents.map(item => {
+          return {
+            watchable_id: item.id,
+            seconds_watched: item.watched_seconds
+          }
+        })
+      })
+        .then((response) => {
+          ContentManager.handleSendSuccess(response, unsentContents, objectStore)
+          ContentManager.lastSentTime = currentTime // Update last sent time upon successful send
+        })
+        .catch((error) => {
+          ContentManager.handleSendError(error)
+        })
       ContentManager.lastSentTime = currentTime // Update last sent time upon successful send
     })
   }
