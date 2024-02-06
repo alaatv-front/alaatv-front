@@ -53,7 +53,8 @@ class ContentManager {
   }
 
   static sendUnsentContentToBackend (currentTime) {
-    AppIndexedDB.searchInObjectStore('contents', 'sent_index', 0, false, (unsentContents, objectStore) => {
+    AppIndexedDB.searchInObjectStore('contents', 'sent_index', 0, false, (result, objectStore) => {
+      const unsentContents = result
       if (unsentContents.length === 0) {
         return
       }
@@ -78,13 +79,11 @@ class ContentManager {
 
   static async handleSendSuccess (response, unsentContents, objectStore) {
     for (const content of unsentContents) {
-      try {
-        // Update the indexedDB record with sent_index set to true
-        await AppIndexedDB.updateRecord({ ...content, sent: 1 }, objectStore)
-      } catch (error) {
-        // Handle the error if updating the record fails
-        console.error('Failed to update record:', error)
-      }
+      AppIndexedDB.getItemInObjectStore('contents', 'id_index', content.id, false, (result, objectStore) => {
+        const finedContent = result
+        finedContent.sent = 1
+        objectStore.put(finedContent)
+      })
     }
   }
 
