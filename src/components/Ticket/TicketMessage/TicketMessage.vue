@@ -65,7 +65,7 @@
           </div>
         </div>
         <div class="TicketMessage__body">
-          {{ message.body }}
+          {{ getMessageBody(message.body) }}
         </div>
         <div class="TicketMessage__time">
           {{ message.shamsiDate('created_at').dateTime }}
@@ -95,6 +95,13 @@ export default defineComponent({
   },
   emits: ['cancelUpload'],
   methods: {
+    getMessageBody (messageBody) {
+      if (!messageBody) {
+        return ''
+      }
+
+      return messageBody.replace(/\r?\n/g, '<br/>')
+    },
     isFile (data) {
       if (typeof window === 'undefined') {
         return false

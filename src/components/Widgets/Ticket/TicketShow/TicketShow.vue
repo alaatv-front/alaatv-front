@@ -474,9 +474,25 @@ export default {
     },
     onSendingMessage (data) {
       this.createSendingMessage(data.body, data.files.map(file => {
-        file.progress = 58
+        file.progress = 0
         return file
       }))
+      const allFilesPresignedUrlPromisses = this.getAllFilesPresignedUrlPromisses(data.files)
+      const uploadAllFilesPromisses = this.getUploadAllFilesPromisses(allFilesPresignedUrlPromisses)
+
+      Promise.all(uploadAllFilesPromisses)
+        .then((resolvedItems) => {
+          // resolvedItem = { file, uploadedPath, presignedUrl, response }
+          debugger
+          this.sendTicketMessage({
+            body: data.body,
+            ticket_id: this.$route.params.id,
+            files: resolvedItems.map(item => item.uploadedPath)
+          })
+        })
+        .catch(() => {
+
+        })
     },
     deleteMessage (messageId) {
       const targetIndex = this.ticket.messages.list.findIndex(message => message.id === messageId)
@@ -493,28 +509,23 @@ export default {
       this.createSendingMessage(oldSendingMessage.body, oldSendingMessage.files)
     },
     createSendingMessage (body, files) {
-      APIGateway.ticket.presignedUrl(files[0].name)
-        .then((url) => {
-
-        })
-        .catch(() => {
-
-        })
-      this.ticket.messages.list.push(new TicketMessage({
+      const message = new TicketMessage({
         id: 'temp-message-' + Date.now(),
         body,
         files
-      }))
+      })
+      this.ticket.messages.list.push(message)
+
+      return message
     },
-    getAllFilesPresignedUrlPromisses (message, files) {
+    getAllFilesPresignedUrlPromisses (files) {
       const promisses = []
       files.forEach((file) => {
         promisses.push(new Promise((resolve, reject) => {
           APIGateway.ticket.presignedUrl(file.name)
-            .then((url) => {
+            .then(({ url /* , uploaded_file_name */ }) => {
               resolve({
                 file,
-                message,
                 presignedUrl: url
               })
             })
@@ -536,6 +547,7 @@ export default {
             promisses.push(new Promise((resolve, reject) => {
               APIGateway.fileUpload.uploadFile(resolveItem.presignedUrl, resolveItem.file, (data) => {
                 console.log('onUploadProgress data', data)
+                console.log('progress: ', data.progress) // in range [0..1]
                 // {
                 //   loaded, // number,
                 //     total, // number,
@@ -550,7 +562,7 @@ export default {
                 .then((response) => {
                   resolve({
                     file: resolveItem.file,
-                    message: resolveItem.message,
+                    uploadedPath: resolveItem.presignedUrl.split('?')[0],
                     presignedUrl: resolveItem.presignedUrl,
                     response
                   })
@@ -558,7 +570,6 @@ export default {
                 .catch(() => {
                   reject({
                     file: resolveItem.file,
-                    message: resolveItem.message,
                     presignedUrl: resolveItem.presignedUrl
                   })
                 })
@@ -568,6 +579,8 @@ export default {
         .catch(() => {
 
         })
+
+      return promisses
     }
   }
 }

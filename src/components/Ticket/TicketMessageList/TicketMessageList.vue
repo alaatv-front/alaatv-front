@@ -1,19 +1,19 @@
 <template>
   <div ref="TicketMessageList"
        class="TicketMessageList">
-    <div class="TicketMessageList__first-message">
+    <div class="TicketMessageList__first-message cursor-pointer"
+         @click="scrollToTop">
       <div class="TicketMessageList__first-message-title">
         <q-icon name="ph:push-pin" />
         تیکت اصلی
       </div>
       <div class="TicketMessageList__first-message-body ellipsis">
-        ellipsis
-        {{ firstMessage.body }}
+        {{ getMessageBody(firstMessage.body) }}
       </div>
     </div>
     <div ref="TicketMessageListScrollArea"
          class="TicketMessageList__scroll-area">
-      <ticket-message v-for="(message, messageIndex) in messageListExceptFirst"
+      <ticket-message v-for="(message, messageIndex) in ticket.messages.list"
                       :key="messageIndex"
                       :message="message"
                       :sent="user.id === message.user.id"
@@ -45,9 +45,6 @@ export default defineComponent({
   computed: {
     firstMessage () {
       return this.ticket.messages.list[0]
-    },
-    messageListExceptFirst () {
-      return this.ticket.messages.list.slice(1)
     }
   },
   mounted () {
@@ -58,6 +55,22 @@ export default defineComponent({
       this.$emit('sendingMessage', data)
       this.$nextTick(() => {
         this.scrollToBottom()
+      })
+    },
+    getMessageBody (messageBody) {
+      if (!messageBody) {
+        return ''
+      }
+
+      return messageBody.replace(/\r?\n/g, '<br/>')
+    },
+    scrollToTop () {
+      if (!this.$refs.TicketMessageList) {
+        return
+      }
+
+      this.$nextTick(() => {
+        this.$refs.TicketMessageList.scrollTo(0, 0)
       })
     },
     scrollToBottom () {
@@ -111,7 +124,7 @@ export default defineComponent({
   }
   .TicketMessageList__scroll-area {
     display: flex;
-    padding: 0 $space-6 $space-5 $space-6;
+    padding: $space-1 $space-6 $space-5 $space-6;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
