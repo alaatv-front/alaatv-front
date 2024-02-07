@@ -1,5 +1,7 @@
 <template>
-  <div class="ticket-item-container">
+  <div class="ticket-item-container"
+       :class="{'exact-ticket': isExactTicket}"
+       @click="gotoTicket">
     <div class="ticket-item-avatar">
       <q-avatar size="40px">
         <lazy-img :src="ticket.user.photo"
@@ -38,6 +40,16 @@ export default defineComponent({
       type: Ticket,
       default: new Ticket()
     }
+  },
+  computed: {
+    isExactTicket () {
+      return this.$route.params.id === this.ticket.id
+    }
+  },
+  methods: {
+    gotoTicket () {
+      this.$router.push({ name: 'UserPanel.Ticket.Show', params: { id: this.ticket.id } })
+    }
   }
 })
 </script>
@@ -53,6 +65,11 @@ export default defineComponent({
       align-self: stretch;
 
       &:hover {
+        border-radius: 8px;
+        background: $grey-2;
+      }
+
+      &.exact-ticket {
         border-radius: 8px;
         background: $grey-2;
       }

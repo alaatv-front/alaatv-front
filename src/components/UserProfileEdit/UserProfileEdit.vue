@@ -1,53 +1,98 @@
 <template>
-  <entity-edit ref="entityEdit"
-               v-model:value="inputs"
-               :api="api"
-               :entity-id-key="entityIdKey"
-               :entity-param-key="entityParamKey"
-               :show-close-button="false"
-               :defaultLayout="false"
-               :loaded-data="ticketUser">
-    <template #after-form-builder>
-      <div class="col-12 q-my-md flex justify-end">
-        <q-btn v-close-popup
-               label="انصراف"
-               color="grey"
-               outline
-               class="size-md q-mr-md" />
-        <q-btn label="ثبت تغییرات"
-               color="primary"
-               class="size-md"
-               @click="submit" />
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="profile-header__avatar">
+        <q-avatar v-if="computedUser.photo"
+                  size="64px">
+          <lazy-img :src="computedUser.photo"
+                    width="100%"
+                    height="100%" />
+        </q-avatar>
+        <q-avatar v-else
+                  size="64px"
+                  font-size="64px"
+                  color="grey"
+                  text-color="white"
+                  icon="ph:user" />
+        <q-btn icon="ph:pencil-simple"
+               round
+               color="secondary"
+               class="size-sm profile-header__avatar--edit"
+               @click="openAvatarDialog" />
       </div>
-    </template>
-  </entity-edit>
+      <div class="profile-header__info">
+        <div class="profile-header__info__id">
+          شناسه کاربر : {{ computedUser.id }}
+        </div>
+        <div class="profile-header__info__create-date">
+          تاریخ ثبت نام : {{ computedUser.shamsiDate('created_at').dateTime }}
+        </div>
+        <div class="profile-header__info__update-date">
+          تاریخ آخرین بروزرسانی : {{ computedUser.shamsiDate('updated_at').dateTime }}
+        </div>
+      </div>
+    </div>
+    <entity-edit ref="entityEdit"
+                 :key="entityEditKey"
+                 v-model:value="inputs"
+                 :api="api"
+                 :entity-id-key="entityIdKey"
+                 :entity-param-key="entityParamKey"
+                 :show-close-button="false"
+                 :loaded-data="computedUser"
+                 :defaultLayout="false">
+      <template #after-form-builder>
+        <div class="col-12 q-my-md flex justify-end">
+          <q-btn v-close-popup
+                 label="انصراف"
+                 color="grey"
+                 outline
+                 class="size-md q-mr-md" />
+          <q-btn label="ثبت تغییرات"
+                 color="primary"
+                 class="size-md"
+                 @click="submit" />
+        </div>
+      </template>
+    </entity-edit>
+    <q-dialog v-model="avatarDialog">
+      <avatar-form :user="user"
+                   @photo-updated="getUserInfo" />
+    </q-dialog>
+  </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
+import { User } from 'src/models/User'
 import { EntityEdit } from 'quasar-crud'
-import { Ticket } from 'src/models/Ticket.js'
+import LazyImg from 'src/components/lazyImg.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { FormBuilderAssist } from 'quasar-form-builder'
-import { User } from 'src/models/User'
+import AvatarForm from './AvatarForm.vue'
+
 export default defineComponent({
-  name: 'ProfileEdit',
+  name: 'UserProfileEdit',
   components: {
-    EntityEdit
+    LazyImg,
+    EntityEdit,
+    AvatarForm
   },
   props: {
-    ticket: {
-      type: Ticket,
-      default: new Ticket()
+    userId: {
+      type: Number,
+      default: 0
     }
   },
   data () {
     return {
-      provinces: [],
       cities: [],
-      ticketUser: new User(),
+      provinces: [],
+      entityEditKey: 0,
       entityIdKey: 'id',
+      avatarDialog: false,
       entityParamKey: 'id',
+      user: new User(),
       inputs: [
         {
           type: 'input',
@@ -64,6 +109,7 @@ export default defineComponent({
           name: 'last_name',
           responseKey: 'last_name',
           label: 'نام خانوادگی',
+          required: true,
           outlined: true,
           placeholder: ' ',
           col: 'col-sm-6 col-12',
@@ -71,25 +117,25 @@ export default defineComponent({
         },
         {
           type: 'input',
-          name: 'national_code',
+          name: 'nationalCode',
           responseKey: 'national_code',
           label: 'کد ملی',
+          required: true,
           outlined: true,
           placeholder: ' ',
           col: 'col-sm-6 col-12',
-          value: '',
-          readonly: true
+          value: ''
         },
         {
           type: 'input',
           name: 'mobile',
           responseKey: 'mobile',
           label: 'شماره موبایل',
+          required: true,
           outlined: true,
           placeholder: ' ',
           col: 'col-sm-6 col-12',
-          value: '09999999999',
-          readonly: true
+          value: '09999999999'
         },
         {
           type: 'select',
@@ -98,8 +144,8 @@ export default defineComponent({
           responseKey: 'status.displayName',
           placeholder: ' ',
           clearable: false,
-          optionLabel: 'status.displayName',
-          optionValue: 'status.id',
+          optionLabel: 'displayName',
+          optionValue: 'id',
           outlined: true,
           multiple: false,
           col: 'col-sm-6 col-12',
@@ -113,6 +159,7 @@ export default defineComponent({
           placeholder: ' ',
           clearable: false,
           optionLabel: 'name',
+          optionValue: 'id',
           outlined: true,
           multiple: false,
           col: 'col-sm-6 col-12',
@@ -149,7 +196,7 @@ export default defineComponent({
           type: 'select',
           name: 'shahr_id',
           label: 'شهر',
-          responseKey: 'shahr.id',
+          responseKey: 'shahr.title',
           placeholder: ' ',
           optionLabel: 'title',
           optionValue: 'id',
@@ -190,19 +237,24 @@ export default defineComponent({
   },
   computed: {
     api () {
-      return APIGateway.user.APIAdresses.base + '/' + this.ticket.user.id
+      return APIGateway.user.APIAdresses.admin.show.byId(this.userId)
+    },
+    computedUser () {
+      return this.user
     }
   },
   mounted () {
-    this.getFormData()
     this.getUserInfo()
+    this.getFormData()
   },
   methods: {
     getUserInfo () {
-      APIGateway.user.get({ data: { id: this.thicket.user.id } })
+      APIGateway.user.adminShowUser(this.userId)
         .then(user => {
-          this.ticketUser = new User(user)
+          this.user = new User(user)
+          this.entityEditKey++
         })
+        .catch(() => {})
     },
     getFormData () {
       APIGateway.events.formBuilder({ params: ['majors', 'grades', 'genders', 'provinces', 'cities', 'userStatuses'] })
@@ -215,12 +267,16 @@ export default defineComponent({
           FormBuilderAssist.setAttributeByName(this.inputs, 'gender', 'options', formData.genders)
           FormBuilderAssist.setAttributeByName(this.inputs, 'province', 'options', formData.provinces)
           FormBuilderAssist.setAttributeByName(this.inputs, 'shahr_id', 'options', formData.cities)
+          // FormBuilderAssist.setAttributeByName(this.inputs, 'shahr_id', 'options', formData.cities.map(city => city.id === FormBuilderAssist.getInputsByName(this.inputs, 'province').value))
 
           this.provinces = formData.provinces
           this.cities = formData.cities
         })
         .catch(() => {
         })
+    },
+    openAvatarDialog () {
+      this.avatarDialog = true
     },
     submit () {
       this.$store.commit('loading/loading', true)
@@ -238,5 +294,37 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.profile {
+  &-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-5;
+    align-self: stretch;
+  }
 
+  &-header {
+    display: flex;
+    padding-left: $space-5;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+
+    &__avatar {
+      position: relative;
+
+      &--edit {
+        position: absolute;
+        bottom: -4px;
+        right: -5px;
+      }
+    }
+
+    &__info {
+      color: $grey-7;
+      @include caption1;
+      text-align: right;
+    }
+  }
+}
 </style>

@@ -41,7 +41,7 @@
              square
              class="size-md"
              flat
-             @click="openTicketListDialog" />
+             @click="openOtherTicketListDialog" />
     </div>
     <div class="ticket-header-action--mobile">
       <q-btn icon="ph:clock-counter-clockwise"
@@ -49,13 +49,13 @@
              square
              class="size-md"
              flat
-             @click="openBottomSheet" />
+             @click="showTicketLogs" />
       <q-btn icon="ph:users"
              color="grey"
              square
              class="size-md"
              flat
-             @click="openTickets" />
+             @click="showTickets" />
       <q-btn icon="ph:dots-three-vertical"
              color="grey"
              square
@@ -63,20 +63,24 @@
              flat>
         <q-menu anchor="bottom left"
                 self="top left">
-          <q-item clickable
+          <q-item v-close-popup
+                  clickable
                   @click="openProfileDialog">
             <q-item-section>ویرایش پروفایل</q-item-section>
           </q-item>
-          <q-item clickable
+          <q-item v-close-popup
+                  clickable
                   @click="callUser">
             <q-item-section>تماس با کاربر</q-item-section>
           </q-item>
-          <q-item clickable
+          <q-item v-close-popup
+                  clickable
                   @click="openMyOrderDialog">
             <q-item-section>سفارش ها</q-item-section>
           </q-item>
-          <q-item clickable
-                  @click="openTicketListDialog">
+          <q-item v-close-popup
+                  clickable
+                  @click="openOtherTicketListDialog">
             <q-item-section>تیکت‌های کاربر</q-item-section>
           </q-item>
           <q-item clickable>
@@ -89,23 +93,20 @@
             <q-menu anchor="top end"
                     self="top start">
               <q-list>
-                <q-item dense
-                        clickable>
-                  <q-item-section>پاسخ داده شده</q-item-section>
-                </q-item>
-                <q-item dense
-                        clickable>
-                  <q-item-section>بسته شده</q-item-section>
-                </q-item>
-                <q-item dense
-                        clickable>
-                  <q-item-section>در حال بررسی</q-item-section>
+                <q-item v-for="(status, index) in statuses.list"
+                        :key="index"
+                        v-close-popup
+                        dense
+                        clickable
+                        @click="updateTicket(status.id)">
+                  <q-item-section>{{ status.title }}</q-item-section>
                 </q-item>
               </q-list>
             </q-menu>
           </q-item>
-          <q-item clickable
-                  @click="openInfoForm">
+          <q-item v-close-popup
+                  clickable
+                  @click="showInfoForm">
             <q-item-section>بیشتر</q-item-section>
           </q-item>
         </q-menu>
@@ -114,7 +115,7 @@
 
     <q-dialog v-model="myOrderDialog">
       <div class="my-order-dialog-wrapper">
-        <inside-dialog>
+        <inside-dialog :action="false">
           <template #header-icon>
             <badge-icon icon="ph:shopping-cart-simple"
                         color="primary" />
@@ -123,27 +124,21 @@
             سفارش های کاربر
           </template>
           <template #body>
-            <my-orders :is-admin-orders="true"
-                       :ticket-user="ticket.user"
-                       :show-title="false" />
+            <div class="my-order-component">
+              <my-orders :is-admin-orders="true"
+                         :ticket-user="ticket.user"
+                         :show-title="false" />
+            </div>
           </template>
         </inside-dialog>
       </div>
     </q-dialog>
-    <q-dialog v-model="ticketListDialog">
+    <q-dialog v-model="otherTicketListDialog">
       <div class="ticket-list-dialog-wrapper">
-        <inside-dialog>
-          <template #header-icon>
-            <badge-icon icon="ph:ticket"
-                        color="primary" />
-          </template>
-          <template #header>
-            تیکت های دیگر کاربر
-          </template>
-          <template #body>
-            <ticket-item :ticket="ticket" />
-          </template>
-        </inside-dialog>
+        <other-ticket :ticket="ticket"
+                      :filter="otherTicketFilter"
+                      :load-data="false"
+                      :department-list="departmentList" />
       </div>
     </q-dialog>
     <q-dialog v-model="profileDialog">
@@ -154,10 +149,10 @@
                         color="primary" />
           </template>
           <template #header>
-            تیکت های دیگر کاربر
+            ویرایش حساب کاربری
           </template>
           <template #body>
-            <profile-edit :ticket="ticket" />
+            <user-profile-edit :user-id="ticket.user.id" />
           </template>
         </inside-dialog>
       </div>
@@ -169,11 +164,14 @@
 import { defineComponent } from 'vue'
 import { Ticket } from 'src/models/Ticket.js'
 import LazyImg from 'src/components/lazyImg.vue'
-import TicketItem from './components/TicketItem.vue'
-import ProfileEdit from './components/ProfileEdit.vue'
 import BadgeIcon from 'src/components/Utils/BadgeIcon.vue'
+import { TicketStatusList } from 'src/models/TicketStatus.js'
 import InsideDialog from 'src/components/Utils/InsideDialog.vue'
+import { TicketDepartmentList } from 'src/models/TicketDepartment.js'
 import MyOrders from 'src/components/Widgets/User/MyOrders/MyOrders.vue'
+import OtherTicket from 'src/components/Ticket/OtherTicket/OtherTicket.vue'
+import UserProfileEdit from 'src/components/UserProfileEdit/UserProfileEdit.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default defineComponent({
   name: 'TicketHeader',
@@ -181,42 +179,69 @@ export default defineComponent({
     LazyImg,
     MyOrders,
     BadgeIcon,
-    TicketItem,
-    ProfileEdit,
-    InsideDialog
+    OtherTicket,
+    InsideDialog,
+    UserProfileEdit
   },
   props: {
     ticket: {
       type: Ticket,
       default: new Ticket()
+    },
+    statuses: {
+      type: TicketStatusList,
+      default: new TicketStatusList()
+    },
+    departmentList: {
+      type: TicketDepartmentList,
+      default: new TicketDepartmentList()
     }
   },
-  emits: ['openTickets', 'openInfoForm', 'openBottomSheet'],
+  emits: ['showTickets', 'showInfoForm', 'showTicketLogs', 'updateTicket'],
   data () {
     return {
       myOrderDialog: false,
       profileDialog: false,
-      ticketListDialog: false
+      otherTicketListDialog: false,
+      otherTicketFilter: {
+        status: false,
+        priority: false,
+        department: true,
+        button: false
+      }
     }
   },
   methods: {
+    updateTicket (statusId) {
+      APIGateway.ticket.updateTicket(this.ticket.id, {
+        status_id: statusId
+      })
+        .then(ticket => {
+          this.$emit('updateTicket', ticket)
+          this.$q.notify({
+            type: 'positive',
+            message: 'وضعیت کاربر با موفقیت تغییر داده شد',
+            position: 'top'
+          })
+        })
+    },
     openMyOrderDialog () {
       this.myOrderDialog = true
     },
     openProfileDialog () {
       this.profileDialog = true
     },
-    openTicketListDialog () {
-      this.ticketListDialog = true
+    openOtherTicketListDialog () {
+      this.otherTicketListDialog = true
     },
-    openTickets () {
-      this.$emit('openTickets')
+    showTickets () {
+      this.$emit('showTickets')
     },
-    openInfoForm () {
-      this.$emit('openInfoForm')
+    showInfoForm () {
+      this.$emit('showInfoForm')
     },
-    openBottomSheet () {
-      this.$emit('openBottomSheet')
+    showTicketLogs () {
+      this.$emit('showTicketLogs')
     },
     callUser () {
       alert('calling ...')
@@ -229,12 +254,29 @@ export default defineComponent({
 .my-order-dialog-wrapper {
   width: 830px;
   max-width: 830px;
+  overflow-y: hidden;
   @include  media-max-width('md') {
     width: 100%;
     max-width: 100%;
   }
+
+  :deep(.quasar-crud-index-table .q-table__container .q-table__middle table th ) {
+    padding: $space-5 $space-6;
+  }
+  :deep(.my-orders-list[data-v-bce2898a] .quasar-crud-index-table .q-table__container .q-table__middle table tr td  ) {
+    padding: $space-1 $space-7;
+  }
+  :deep(.q-expansion-item .q-expansion-item__content ) {
+    padding: $spacing-none $spacing-none $space-1;
+  }
+
+  .my-order-component {
+    overflow-y: auto;
+    max-height: 700px;
+  }
 }
 .ticket-list-dialog-wrapper {
+  overflow-y: hidden;
   width: 600px;
   max-width: 600px;
   @include  media-max-width('md') {

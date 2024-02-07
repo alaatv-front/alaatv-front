@@ -34,9 +34,12 @@
           <div class="col-12">
             <div class="TicketShow__header">
               <ticket-header :ticket="ticket"
-                             @open-bottom-sheet="openBottomSheet"
-                             @openTickets="openMyOpenTicketDrawer"
-                             @openInfoForm="openTicketInfoFormDrawer" />
+                             :department-list="ticketDepartmentList"
+                             :statuses="ticketStatusList"
+                             @update-ticket="onUpdateTicket"
+                             @show-ticket-logs="openTicketLogsBottomSheet"
+                             @show-tickets="openMyOpenTicketDrawer"
+                             @show-info-form="openTicketInfoFormDrawer" />
             </div>
           </div>
           <div class="col-lg-8 col-md-6 col-12">
@@ -66,7 +69,7 @@
           <div class="ticket-log-dialog-wrapper">
             <inside-bottom-sheet :header="false"
                                  :action="false"
-                                 @close-bottom-sheet="onCloseBottomSheet">
+                                 @close-bottom-sheet="onCloseTicketLogsBottomSheet">
               <template #body>
                 <ticket-logs :logs="ticketLogs" />
               </template>
@@ -160,6 +163,7 @@ export default {
       mounted: false,
       ticket: new Ticket(),
       ticketLogs: new TicketLogList(),
+      otherTickets: new TicketList(),
       pendingTickets: new TicketList(),
       supporterList: new SupporterList(),
       ticketStatusList: new TicketStatusList(),
@@ -182,14 +186,17 @@ export default {
     }
   },
   mounted () {
-    this.getTicket()
-    this.getNeededDataForTicket()
-    this.getPendingTickets()
-    this.getSupporterList()
-    this.getTicketsLogs()
+    this.loadData()
     this.mounted = true
   },
   methods: {
+    loadData () {
+      this.getTicket()
+      this.getNeededDataForTicket()
+      this.getPendingTickets()
+      this.getSupporterList()
+      this.getTicketsLogs()
+    },
     openMyOpenTicketDrawer () {
       this.myOpenTicketDrawer = true
     },
@@ -202,11 +209,10 @@ export default {
     closeTicketInfoFormDrawer () {
       this.ticketInfoFormDrawer = false
     },
-    openBottomSheet () {
+    openTicketLogsBottomSheet () {
       this.bottomSheet = true
     },
-    onCloseBottomSheet () {
-      console.log('swapppppp')
+    onCloseTicketLogsBottomSheet () {
       this.bottomSheet = false
     },
     getTicket () {
@@ -377,6 +383,9 @@ export default {
         .catch(() => {
 
         })
+    },
+    onUpdateTicket (ticket) {
+      this.ticket = new Ticket(ticket)
     }
   }
 }

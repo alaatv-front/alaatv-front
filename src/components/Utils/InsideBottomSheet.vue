@@ -18,7 +18,7 @@
              :icon="closeButtonIcon"
              square
              color="grey"
-             clase="size-xs" />
+             class="size-xs" />
     </q-card-section>
     <q-separator v-if="header" />
     <q-card-section v-if="body"

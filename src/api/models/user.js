@@ -49,13 +49,15 @@ export default class UserAPI extends APIRepository {
           base: '/admin/user'
         },
         edit: {
-          base: '/admin/user/'
+          base: '/admin/user/',
+          byId: (id) => `/admin/user/${id}`
         },
         index: {
           base: '/admin/user'
         },
         show: {
-          base: '/admin/user/'
+          base: '/admin/user/',
+          byId: (id) => `/admin/user/${id}`
         }
       },
       fixUnknownUsersCity: {
@@ -97,7 +99,8 @@ export default class UserAPI extends APIRepository {
       nationalCard: this.name + this.APIAdresses.nationalCard,
       nationalCardPhoto: this.name + this.APIAdresses.nationalCardPhoto,
       getUserRoleAndPermission: this.name + this.APIAdresses.getUserRoleAndPermission,
-      saveExam: this.name + this.APIAdresses.saveExam
+      saveExam: this.name + this.APIAdresses.saveExam,
+      adminShowUserById: (id) => this.name + this.APIAdresses.admin.show.byId(id)
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
     /* Setting the callback functions for the CRUD operations. */
@@ -337,6 +340,43 @@ export default class UserAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       }
+    })
+  }
+
+  adminShowUser (userId, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.admin.show.byId(userId),
+      cacheKey: this.CacheList.adminShowUserById(userId),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return new User(response.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  adminUpdateUser (data, cache = { TTL: 1000 }) {
+    const formData = new FormData()
+    formData.append('photo', data.photo)
+    formData.append('mobile', `${data.user.mobile}`)
+    formData.append('nationalCode', data.user.national_code)
+    formData.append('updateType', 'photo')
+    return this.sendRequest({
+      apiMethod: 'put',
+      api: this.api,
+      request: this.APIAdresses.admin.edit.byId(data.user.id),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return new User(response.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data: formData
     })
   }
 

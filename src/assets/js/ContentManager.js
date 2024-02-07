@@ -27,7 +27,7 @@ class ContentManager {
           reject()
           return
         }
-        const isSavedBefore = savedContent.length > 0 && savedContent[0].watched_seconds >= content.watched_seconds
+        const isSavedBefore = savedContent[0].watched_seconds >= content.watched_seconds
         if (isSavedBefore) {
           reject(savedContent[0].watched_seconds)
           return

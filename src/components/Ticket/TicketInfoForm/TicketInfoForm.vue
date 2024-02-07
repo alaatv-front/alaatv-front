@@ -304,7 +304,7 @@ export default {
 .sms-dialog-wrapper {
   width: 544px;
   max-width: 544px;
-  min-height: 448px;
+  min-height: 668px;
   @include  media-max-width('md') {
     width: 100%;
     max-width: 100%;

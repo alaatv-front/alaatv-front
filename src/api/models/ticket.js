@@ -22,6 +22,7 @@ export default class TicketAPI extends APIRepository {
       ticketMessage: '/ticketMessage',
       pending: '/ticket/pending',
       logs: (ticketId) => `/ticket/${ticketId}/logs`,
+      otherTickets: (ticketId) => `/ticket/${ticketId}/others`,
       supports: '/ticket/supports',
       assign: (ticketId) => `/ticket/${ticketId}/assign`,
       batchExtend: '/orderproduct/batchExtend',
@@ -48,6 +49,7 @@ export default class TicketAPI extends APIRepository {
       create: this.name + this.APIAdresses.create,
       ticket: (ticketId) => this.name + this.APIAdresses.ticket(ticketId),
       logs: (ticketId) => this.name + this.APIAdresses.logs(ticketId),
+      otherTickets: (ticketId) => this.name + this.APIAdresses.otherTickets(ticketId),
       pending: this.name + this.APIAdresses.pending,
       supports: this.name + this.APIAdresses.supports
     }
@@ -145,6 +147,27 @@ export default class TicketAPI extends APIRepository {
         return error
       },
       ...(data !== undefined && { data })
+    })
+  }
+
+  getOtherTickets (data, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.otherTickets(data.ticketId),
+      cacheKey: this.CacheList.otherTickets(data.ticketId),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return {
+          ticketList: new TicketList(response.data.data),
+          meta: response.data?.meta,
+          links: response.data?.links
+        }
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data: data.params
     })
   }
 
