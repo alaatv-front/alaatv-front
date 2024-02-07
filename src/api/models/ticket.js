@@ -1,13 +1,14 @@
 import { apiV2 } from 'src/boot/axios.js'
 import { User } from 'src/models/User.js'
-import { TicketList, Ticket } from 'src/models/Ticket.js'
+import { PatternList } from 'src/models/Pattern.js'
 import { SupporterList } from 'src/models/supporter.js'
 import APIRepository from '../classes/APIRepository.js'
+import { TicketLogList } from 'src/models/TicketLog.js'
+import { TicketList, Ticket } from 'src/models/Ticket.js'
 import { TicketMessage } from 'src/models/TicketMessage.js'
 import { TicketStatusList } from 'src/models/TicketStatus.js'
 import { TicketPriorityList } from 'src/models/TicketPriority.js'
 import { TicketDepartmentList } from 'src/models/TicketDepartment.js'
-import { TicketLogList } from 'src/models/TicketLog'
 
 export default class TicketAPI extends APIRepository {
   constructor () {
@@ -16,6 +17,7 @@ export default class TicketAPI extends APIRepository {
       base: '/ticket',
       create: '/ticket/create',
       ticket: (ticketId) => '/ticket/' + ticketId,
+      smsPatterns: '/ticket/sms/patterns',
       presignedUrl: '/ticket/presigned-url',
       updateTicketApi: (ticketId) => '/ticket/' + ticketId,
       getInfo: '/user/getInfo',
@@ -51,6 +53,7 @@ export default class TicketAPI extends APIRepository {
       logs: (ticketId) => this.name + this.APIAdresses.logs(ticketId),
       otherTickets: (ticketId) => this.name + this.APIAdresses.otherTickets(ticketId),
       pending: this.name + this.APIAdresses.pending,
+      smsPatterns: this.name + this.APIAdresses.smsPatterns,
       supports: this.name + this.APIAdresses.supports
     }
     this.restUrl = (id) => this.url + '/' + id
@@ -196,6 +199,23 @@ export default class TicketAPI extends APIRepository {
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return new SupporterList(response.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      ...(data !== undefined && { data })
+    })
+  }
+
+  getSmsPatterns (data, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.smsPatterns,
+      cacheKey: this.CacheList.smsPatterns,
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new PatternList(response.data)
       },
       rejectCallback: (error) => {
         return error

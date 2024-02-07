@@ -127,7 +127,8 @@
       <q-dialog v-model="detailsDialog"
                 class="order-details-dialog">
         <order-details-dialog :is-admin-orders="isAdminOrders"
-                              :order="currentOrder" />
+                              :order="currentOrder"
+                              @update-orders="onUpdateOrders" />
       </q-dialog>
     </template>
   </div>
@@ -282,9 +283,9 @@ export default {
   },
   computed: {
     user () {
-      // if (this.isAdminOrders && this.ticketUser?.id) {
-      //   return this.ticketUser
-      // }
+      if (this.isAdminOrders && this.ticketUser?.id) {
+        return this.ticketUser
+      }
       if (this.$store.getters['Auth/user']) {
         return this.$store.getters['Auth/user']
       }
@@ -393,6 +394,9 @@ export default {
         }
         return string
       }
+    },
+    onUpdateOrders () {
+      this.$refs.orderList.search()
     }
   }
 }

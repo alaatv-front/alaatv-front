@@ -58,6 +58,15 @@
                   {{ orderedItem.order_product.list[0].shamsiDate('expire_at').dateTime }}
                 </q-badge>
               </div>
+              <div v-if="isAdminOrders"
+                   class="action">
+                <q-btn icon="ph:trash"
+                       color="grey"
+                       square
+                       class="size-xs"
+                       flat
+                       @click="orderProductId(orderedItem.order_product.list[0].id)" />
+              </div>
             </div>
             <div class="price-container">
               <div v-if="orderedItem.order_product.list[0].price.discountInPercent()"
@@ -118,7 +127,8 @@
                                    color="grey"
                                    square
                                    class="size-xs"
-                                   flat />
+                                   flat
+                                   @click="orderProductId(item.id)" />
                           </span>
                         </div>
                       </template>
@@ -147,6 +157,7 @@
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { OrderItem } from 'src/models/OrderItem.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import { APIGateway } from 'src/api/APIGateway'
 export default {
   name: 'OrderedProducts',
   components: {
@@ -171,6 +182,7 @@ export default {
       default: false
     }
   },
+  emits: ['updateOrder'],
   data () {
     return {
       dialogState: false,
@@ -209,6 +221,13 @@ export default {
   },
 
   methods: {
+    orderProductId (id) {
+      APIGateway.order.AdminDeleteOrderProduct(id)
+        .then(() => {
+          this.$emit('updateOrder')
+        })
+        .catch(() => {})
+    }
   }
 }
 </script>

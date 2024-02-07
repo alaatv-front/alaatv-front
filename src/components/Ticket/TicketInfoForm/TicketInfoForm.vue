@@ -95,62 +95,31 @@
     </div>
     <q-dialog v-model="smsDialog">
       <div class="sms-dialog-wrapper">
-        <inside-dialog>
-          <template #header-icon>
-            <badge-icon icon="ph:chat-circle-text"
-                        color="primary" />
-          </template>
-          <template #header>
-            ارسال پیامک به سید مرتضی صحیح النسب
-          </template>
-          <template #body>
-            <q-select v-model="model"
-                      :options="options"
-                      label="نوع پیامک"
-                      outlined />
-            <q-input v-model="input1"
-                     class="smsTextarea"
-                     label="ارسال پیام متنی"
-                     placeholder="متن پیامک"
-                     type="textarea" />
-          </template>
-          <template #action>
-            <q-btn v-close-popup
-                   class="q-btn-md"
-                   color="grey"
-                   size="md"
-                   outline>
-              انصراف
-            </q-btn>
-            <q-btn class="q-btn-md keep-min-width"
-                   color="primary">
-              ارسال
-            </q-btn>
-          </template>
-        </inside-dialog>
+        <ticket-sms-pattern :ticket="ticket"
+                            @sms-sent="closeSmsDialog" />
       </div>
     </q-dialog>
   </div>
 </template>
 
 <script>
-import { EntityEdit, EntityCreate } from 'quasar-crud'
+import { defineComponent } from 'vue'
 import { Ticket } from 'src/models/Ticket.js'
 import { APIGateway } from 'src/api/APIGateway.js'
+import { EntityEdit, EntityCreate } from 'quasar-crud'
 import { FormBuilderAssist } from 'quasar-form-builder'
 import { SupporterList } from 'src/models/supporter.js'
-import BadgeIcon from 'src/components/Utils/BadgeIcon.vue'
 import { TicketStatusList } from 'src/models/TicketStatus.js'
-import InsideDialog from 'src/components/Utils/InsideDialog.vue'
 import { TicketPriorityList } from 'src/models/TicketPriority.js'
 import { TicketDepartmentList } from 'src/models/TicketDepartment.js'
-export default {
+import TicketSmsPattern from 'src/components/Ticket/TicketSmsPattern/TicketSmsPattern.vue'
+
+export default defineComponent({
   name: 'TicketInfoForm',
   components: {
-    BadgeIcon,
     EntityEdit,
     EntityCreate,
-    InsideDialog
+    TicketSmsPattern
   },
   props: {
     ticket: {
@@ -271,6 +240,9 @@ export default {
     openSmsDialog () {
       this.smsDialog = true
     },
+    closeSmsDialog () {
+      this.smsDialog = false
+    },
     callUser () {
       alert('calling ...')
     },
@@ -297,7 +269,7 @@ export default {
         })
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

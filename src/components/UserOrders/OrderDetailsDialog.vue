@@ -62,7 +62,8 @@
             <ordered-products v-for="(orderItem, index) in order.orderItems.list"
                               :key="index"
                               :is-admin-orders="isAdminOrders"
-                              :ordered-item="orderItem" />
+                              :ordered-item="orderItem"
+                              @update-order="onUpdateOrder" />
           </div>
         </q-card-section>
       </template>
@@ -92,6 +93,7 @@ export default {
       default: false
     }
   },
+  emits: ['updateOrders'],
   data () {
     return {}
   },
@@ -126,6 +128,9 @@ export default {
         string += ' تومان '
       }
       return string
+    },
+    onUpdateOrder () {
+      this.$emit('updateOrders')
     }
   }
 }
