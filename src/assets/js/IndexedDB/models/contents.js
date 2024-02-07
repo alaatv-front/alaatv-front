@@ -37,8 +37,8 @@ const contents = (event) => {
   assists.renameExistingProperty(existingObjectStore, 'lastWatchedDate', 'last_watched_date')
   assists.renameExistingProperty(existingObjectStore, 'length', 'duration')
 
-  // Removing a field from existing object store
-  existingObjectStore.deleteProperty('name')
+  // // Removing a field from existing object store
+  // existingObjectStore.deleteProperty('name')
 
   // // Deleting an existing index
   // if (existingObjectStore.indexNames.contains('id_index')) {
