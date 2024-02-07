@@ -5,7 +5,7 @@ const AppIndexedDB = (function () {
     debugMode = false
 
   function query (useDB) {
-    const openRequest = indexedDB.open(DBName, 1)
+    const openRequest = indexedDB.open(DBName, 2)
     openRequest.onupgradeneeded = function (event) {
       const db = event.target.result
 
