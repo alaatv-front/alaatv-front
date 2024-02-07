@@ -8,6 +8,7 @@ const APIAdresses = {
   base: '/c',
   search: '/search',
   admin: '/admin/contents',
+  watchedBulk: '/watched-bulk',
   timestampSet: '/timepoint',
   show: (id) => '/c/' + id,
   delete: '/admin/contents/destroy',
@@ -226,6 +227,23 @@ export default class ContentAPI extends APIRepository {
         return error
       },
       data
+    })
+  }
+
+  watchedBulk (data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.watchedBulk,
+      data: this.getNormalizedSendData({
+        data: [] // Array of Object { watchable_id: Number, seconds_watched: Number }
+      }, data),
+      resolveCallback: (response) => {
+        return response.data
+      },
+      rejectCallback: (error) => {
+        return error
+      }
     })
   }
 
