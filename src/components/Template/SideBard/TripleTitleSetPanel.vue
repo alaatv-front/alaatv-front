@@ -97,8 +97,8 @@ export default {
   mixins: [mixinAuth, mixinEwano],
   data () {
     return {
-      isActive: null,
-      isAdmin: false,
+      mounted: false,
+      isDesktop: false,
       logoutDialog: false,
       eventInfo: null,
       menuItems: [
@@ -180,10 +180,11 @@ export default {
       return this.$store.getters['TripleTitleSet/selectedTopic'] || ''
     },
     screenName () {
+      if (typeof window === 'undefined') {
+        return null
+      }
+
       return this.$q.screen.name
-    },
-    isDesktop () {
-      return !this.$q.screen.lt.md
     },
     logoImage () {
       const alaaLogo = 'https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png'
@@ -203,6 +204,7 @@ export default {
     }
   },
   mounted () {
+    this.mounted = true
     this.updateLeftDrawer()
     this.getEventInfoByName()
       .then(() => {
@@ -213,6 +215,11 @@ export default {
   },
   methods: {
     updateLeftDrawer () {
+      if (!this.mounted) {
+        return
+      }
+
+      this.isDesktop = !this.$q.screen.lt.md
       const isIframe = window.self !== window.top
       if (this.$q.screen.gt.sm && !isIframe) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
