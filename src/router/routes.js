@@ -531,12 +531,10 @@ const routes = [
                 layoutConfig: {
                   // layoutHeaderType: 'main',
                   layoutHeaderType: 'triple-title-set',
-                  layoutLeftSideBarType: 'main',
-                  // layoutLeftSideBarType: 'triple-title-set',
-                  layoutLeftDrawer: false,
+                  layoutLeftSideBarType: 'triple-title-set',
                   layoutLeftDrawerOverlay: false,
                   layoutLeftDrawerWidth: 100,
-                  layoutLeftDrawerVisible: false,
+                  layoutLeftDrawerVisible: true,
                   layoutLeftDrawerBehavior: 'default',
                   layoutFooter: true,
                   layoutFooterType: 'triple-title-set'

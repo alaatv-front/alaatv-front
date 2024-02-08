@@ -86,10 +86,10 @@
 <script>
 import { mapMutations } from 'vuex'
 import { mixinAuth } from 'src/mixin/Mixins.js'
+import LazyImg from 'src/components/lazyImg.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
-import LazyImg from 'components/lazyImg.vue'
 
 export default {
   name: 'TripleTitleSetPanel',
@@ -172,9 +172,7 @@ export default {
   },
   computed: {
     topicList () {
-      const topicList = this.$store.getters['TripleTitleSet/setTopicList']
-      this.fillTopicsRouteArray(topicList)
-      return topicList
+      return this.$store.getters['TripleTitleSet/setTopicList']
     },
     selectedTopic () {
       return this.$store.getters['TripleTitleSet/selectedTopic'] || ''
@@ -199,6 +197,9 @@ export default {
     }
   },
   watch: {
+    topicList () {
+      this.fillTopicsRouteArray(this.$store.getters['TripleTitleSet/setTopicList'])
+    },
     screenName () {
       this.updateLeftDrawer()
     }
