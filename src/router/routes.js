@@ -529,8 +529,10 @@ const routes = [
                   middlewares: [Authenticated(true)]
                 },
                 layoutConfig: {
-                  layoutHeaderType: 'triple-title-set',
-                  layoutLeftSideBarType: 'triple-title-set',
+                  layoutHeaderType: 'main',
+                  // layoutHeaderType: 'triple-title-set',
+                  layoutLeftSideBarType: 'main',
+                  // layoutLeftSideBarType: 'triple-title-set',
                   layoutLeftDrawerOverlay: false,
                   layoutLeftDrawerWidth: 100,
                   layoutLeftDrawerVisible: true,
