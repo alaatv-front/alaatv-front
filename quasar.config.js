@@ -257,7 +257,7 @@ module.exports = configure(function (ctx) {
       // extendSSRWebserverConf (esbuildConf) {},
       // extendPackageJson (json) {},
 
-      pwa: true,
+      pwa: false,
 
       // manualStoreHydration: true,
       // manualPostHydrationTrigger: true,
@@ -276,17 +276,17 @@ module.exports = configure(function (ctx) {
     },
 
     // https://v2.quasar.dev/quasar-cli/developing-pwa/configuring-pwa
-    pwa: {
-      workboxMode: 'injectManifest', // 'generateSW' or 'injectManifest'
-      injectPwaMetaTags: true,
-      swFilename: 'sw.js',
-      manifestFilename: 'manifest.json',
-      useCredentialsForManifestTag: false,
-      extendGenerateSWOptions (cfg) {
-        cfg.skipWaiting = false
-        cfg.clientsClaim = false
-      }
-    },
+    // pwa: {
+    //   workboxMode: 'injectManifest', // 'generateSW' or 'injectManifest'
+    //   injectPwaMetaTags: true,
+    //   swFilename: 'sw.js',
+    //   manifestFilename: 'manifest.json',
+    //   useCredentialsForManifestTag: false,
+    //   extendGenerateSWOptions (cfg) {
+    //     cfg.skipWaiting = false
+    //     cfg.clientsClaim = false
+    //   }
+    // },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova
     cordova: {
