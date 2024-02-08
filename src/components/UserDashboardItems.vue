@@ -44,7 +44,7 @@
           </q-item-section>
           <q-item-section class="list-section title-icon"
                           avatar>
-            <q-avatar icon="isax:logout"
+            <q-avatar icon="ph:sign-out"
                       size="30" />
           </q-item-section>
           <span class="indicator" />
@@ -55,21 +55,18 @@
 </template>
 
 <script>
-import { User } from 'src/models/User.js'
+import { mixinAuth } from 'src/mixin/Mixins.js'
 import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 
 export default {
   name: 'UserDashboardItems',
-  mixins: [mixinEwano],
+  mixins: [mixinAuth, mixinEwano],
   data () {
     return {
-      isAdmin: false,
-      user: new User(),
-      isUserLogin: false,
       profileTitlesList: [
         {
           title: 'پروفایل',
-          icon: 'isax:user',
+          icon: 'ph:user',
           routeName: 'UserPanel.Profile',
           permission: 'all',
           active: false,
@@ -77,7 +74,7 @@ export default {
         },
         {
           title: 'سفارش های من',
-          icon: 'isax:stickynote4',
+          icon: 'ph:article',
           routeName: 'UserPanel.MyOrders',
           permission: 'all',
           active: false,
@@ -85,7 +82,7 @@ export default {
         },
         {
           title: 'فیلم ها و جزوه های من',
-          icon: 'isax:task-square',
+          icon: 'ph:bag',
           routeName: 'UserPanel.MyPurchases',
           params: null,
           permission: 'all',
@@ -101,22 +98,22 @@ export default {
           active: false,
           children: []
         },
-        {
-          title: 'داشبورد راه ابریشم',
-          icon: 'ph:compass',
-          routeName: 'UserPanel.Asset.Abrisham.Progress',
-          permission: 'all',
-          active: false,
-          children: []
-        },
-        {
-          title: 'داشبورد راه ابریشم پرو',
-          icon: 'ph:compass',
-          routeName: 'UserPanel.Asset.AbrishamPro.Progress',
-          permission: 'all',
-          active: false,
-          children: []
-        },
+        // {
+        //   title: 'داشبورد راه ابریشم',
+        //   icon: 'ph:compass',
+        //   routeName: 'UserPanel.Asset.Abrisham.Progress',
+        //   permission: 'all',
+        //   active: false,
+        //   children: []
+        // },
+        // {
+        //   title: 'داشبورد راه ابریشم پرو',
+        //   icon: 'ph:compass',
+        //   routeName: 'UserPanel.Asset.AbrishamPro.Progress',
+        //   permission: 'all',
+        //   active: false,
+        //   children: []
+        // },
         {
           title: 'داشبورد راه ابریشم ۲',
           icon: 'ph:compass',
@@ -137,7 +134,7 @@ export default {
         },
         {
           title: 'داشبورد امتحان نهایی',
-          icon: 'isax:bill',
+          icon: 'ph:funnel-simple',
           routeName: 'UserPanel.Asset.TripleTitleSet.Products',
           params: { eventName: 'emtahan-nahaee' },
           permission: 'all',
@@ -172,15 +169,7 @@ export default {
       ]
     }
   },
-  mounted () {
-    this.loadAuthData()
-  },
   methods: {
-    loadAuthData () { // prevent Hydration node mismatch
-      this.user = this.$store.getters['Auth/user']
-      this.isAdmin = this.$store.getters['Auth/isAdmin']
-      this.isUserLogin = this.$store.getters['Auth/isUserLogin']
-    },
     logOut () {
       return this.$store.dispatch('Auth/logOut')
     },

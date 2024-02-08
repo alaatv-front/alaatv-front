@@ -4,6 +4,7 @@ import { APIGateway } from 'src/api/APIGateway.js'
 const mixinAuth = {
   data () {
     return {
+      isAdmin: false,
       user: new User(),
       hostName: 'else',
       isUserLogin: false,
@@ -28,6 +29,7 @@ const mixinAuth = {
     },
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
+      this.isAdmin = this.$store.getters['Auth/isAdmin']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
     },
     loadDomainSameWithAppDomain () { // prevent Hydration node mismatch
