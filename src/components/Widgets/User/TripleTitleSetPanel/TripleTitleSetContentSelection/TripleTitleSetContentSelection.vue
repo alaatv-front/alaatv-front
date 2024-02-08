@@ -247,22 +247,22 @@ export default defineComponent({
   mounted () {
     this.setEvent()
     this.$nextTick(() => {
-      if (!this.localMajor.id) {
+      if (!this.localMajor?.id) {
         this.getProductType()
       }
-      if (this.localMajor.id && !this.localProduct.id) {
+      if (this.localMajor?.id && !this.localProduct?.id) {
         this.getProducts(this.localMajor.id)
       }
-      if (this.localMajor.id && this.localProduct.id && !this.localTopic) {
+      if (this.localMajor?.id && this.localProduct?.id && !this.localTopic) {
         this.localTopic = null
         this.$store.commit('TripleTitleSet/updateSetList', [])
         this.$store.commit('TripleTitleSet/updateTopicList', [])
         this.$store.dispatch('TripleTitleSet/getSet', this.localProduct.id)
       }
-      if (this.localMajor.id && this.localProduct.id && this.localTopic && !this.localSet.id) {
+      if (this.localMajor?.id && this.localProduct?.id && this.localTopic && !this.localSet?.id) {
         this.contents = new ContentList()
       }
-      if (this.localMajor.id && this.localProduct.id && this.localTopic && this.localSet.id) {
+      if (this.localMajor?.id && this.localProduct?.id && this.localTopic && this.localSet?.id) {
         this.getSelectedSetContents(this.localSet.id)
       }
     })
