@@ -529,13 +529,14 @@ const routes = [
                   middlewares: [Authenticated(true)]
                 },
                 layoutConfig: {
-                  layoutHeaderType: 'main',
-                  // layoutHeaderType: 'triple-title-set',
+                  // layoutHeaderType: 'main',
+                  layoutHeaderType: 'triple-title-set',
                   layoutLeftSideBarType: 'main',
                   // layoutLeftSideBarType: 'triple-title-set',
+                  layoutLeftDrawer: false,
                   layoutLeftDrawerOverlay: false,
                   layoutLeftDrawerWidth: 100,
-                  layoutLeftDrawerVisible: true,
+                  layoutLeftDrawerVisible: false,
                   layoutLeftDrawerBehavior: 'default',
                   layoutFooter: true,
                   layoutFooterType: 'triple-title-set'
