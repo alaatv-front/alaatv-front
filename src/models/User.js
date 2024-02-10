@@ -47,7 +47,17 @@ class User extends Model {
         key: 'permissions',
         default: []
       },
+      { key: 'updated_at' },
+      { key: 'created_at' },
 
+      {
+        key: 'status',
+        default: {
+          id: null,
+          displayName: null,
+          name: null
+        }
+      },
       {
         key: 'gender',
         default: { id: null }

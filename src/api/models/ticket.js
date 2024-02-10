@@ -1,7 +1,10 @@
 import { apiV2 } from 'src/boot/axios.js'
 import { User } from 'src/models/User.js'
-import { TicketList } from 'src/models/Ticket.js'
+import { PatternList } from 'src/models/Pattern.js'
+import { SupporterList } from 'src/models/Supporter.js'
 import APIRepository from '../classes/APIRepository.js'
+import { TicketLogList } from 'src/models/TicketLog.js'
+import { TicketList, Ticket } from 'src/models/Ticket.js'
 import { TicketMessage } from 'src/models/TicketMessage.js'
 import { TicketStatusList } from 'src/models/TicketStatus.js'
 import { TicketPriorityList } from 'src/models/TicketPriority.js'
@@ -13,10 +16,17 @@ export default class TicketAPI extends APIRepository {
     this.APIAdresses = {
       base: '/ticket',
       create: '/ticket/create',
+      ticket: (ticketId) => '/ticket/' + ticketId,
+      smsPatterns: '/ticket/sms/patterns',
       presignedUrl: '/ticket/presigned-url',
       updateTicketApi: (ticketId) => '/ticket/' + ticketId,
       getInfo: '/user/getInfo',
       ticketMessage: '/ticketMessage',
+      pending: '/ticket/pending',
+      logs: (ticketId) => `/ticket/${ticketId}/logs`,
+      otherTickets: (ticketId) => `/ticket/${ticketId}/others`,
+      supports: '/ticket/supports',
+      assign: (ticketId) => `/ticket/${ticketId}/assign`,
       batchExtend: '/orderproduct/batchExtend',
       statusNotice: (ticketId) => '/ticket/' + ticketId + '/sendTicketStatusNotice',
       editAssign: (ticketId) => '/ticket/' + ticketId + '/assign',
@@ -38,7 +48,13 @@ export default class TicketAPI extends APIRepository {
       }
     }
     this.CacheList = {
-      create: '/ticket/create'
+      create: this.name + this.APIAdresses.create,
+      ticket: (ticketId) => this.name + this.APIAdresses.ticket(ticketId),
+      logs: (ticketId) => this.name + this.APIAdresses.logs(ticketId),
+      otherTickets: (ticketId) => this.name + this.APIAdresses.otherTickets(ticketId),
+      pending: this.name + this.APIAdresses.pending,
+      smsPatterns: this.name + this.APIAdresses.smsPatterns,
+      supports: this.name + this.APIAdresses.supports
     }
     this.restUrl = (id) => this.url + '/' + id
   }
@@ -101,6 +117,110 @@ export default class TicketAPI extends APIRepository {
         return error
       },
       data
+    })
+  }
+
+  getTicket (ticketId, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.ticket(ticketId),
+      cacheKey: this.CacheList.ticket(ticketId),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new Ticket(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getPendingTickets (data, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.pending,
+      cacheKey: this.CacheList.pending,
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new TicketList(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      ...(data !== undefined && { data })
+    })
+  }
+
+  getOtherTickets (data, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.otherTickets(data.ticketId),
+      cacheKey: this.CacheList.otherTickets(data.ticketId),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return {
+          ticketList: new TicketList(response.data.data),
+          meta: response.data?.meta,
+          links: response.data?.links
+        }
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data: data.params
+    })
+  }
+
+  getTicketsLogs (ticketId, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.logs(ticketId),
+      cacheKey: this.CacheList.logs(ticketId),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new TicketLogList(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getSupporterList (data, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.supports,
+      cacheKey: this.CacheList.supports,
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new SupporterList(response.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      ...(data !== undefined && { data })
+    })
+  }
+
+  getSmsPatterns (data, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.smsPatterns,
+      cacheKey: this.CacheList.smsPatterns,
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new PatternList(response.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      ...(data !== undefined && { data })
     })
   }
 

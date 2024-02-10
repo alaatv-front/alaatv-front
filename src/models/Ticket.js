@@ -1,4 +1,5 @@
 import { User } from 'src/models/User.js'
+import { Supporter } from 'src/models/Supporter.js'
 import { Model, Collection } from 'js-abstract-model'
 import { TicketStatus } from 'src/models/TicketStatus.js'
 import { TicketPriority } from 'src/models/TicketPriority.js'
@@ -30,6 +31,11 @@ class Ticket extends Model {
         key: 'user',
         relatedModel: User
       },
+      {
+        key: 'responsibleUser',
+        relatedModel: Supporter
+      },
+      { key: 'seenBefore' },
       {
         key: 'last_responder',
         relatedModel: User

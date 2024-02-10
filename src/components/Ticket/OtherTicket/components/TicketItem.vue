@@ -16,7 +16,7 @@
     </div>
     <div class="ticket-item-user">
       <div class="ticket-item-user__avatar">
-        <q-avatar v-if="ticket.user?.photo"
+        <q-avatar v-if="ticket.user.photo"
                   size="24px">
           <lazy-img :src="ticket.user.photo"
                     width="24px"
@@ -92,7 +92,7 @@ export default defineComponent({
   max-width: 600px;
   @include  media-max-width('md') {
     width: 100%;
-  max-width: 100%;
+    max-width: 100%;
   }
 }
 

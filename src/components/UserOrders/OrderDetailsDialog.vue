@@ -58,11 +58,12 @@
                         class="products">
           <div class="default-info paid">محصولات سفارش</div>
           <div class="order-product-list"
-               :class="{'is-admin-orders': isAdminOrders}">
+               :class="{'is-admin-orders': isAdmin}">
             <ordered-products v-for="(orderItem, index) in order.orderItems.list"
                               :key="index"
-                              :is-admin-orders="isAdminOrders"
-                              :ordered-item="orderItem" />
+                              :is-admin="isAdmin"
+                              :ordered-item="orderItem"
+                              @update-order="onUpdateOrder" />
           </div>
         </q-card-section>
       </template>
@@ -87,11 +88,12 @@ export default {
         return new Order()
       }
     },
-    isAdminOrders: {
+    isAdmin: {
       type: Boolean,
       default: false
     }
   },
+  emits: ['updateOrders'],
   data () {
     return {}
   },
@@ -126,6 +128,9 @@ export default {
         string += ' تومان '
       }
       return string
+    },
+    onUpdateOrder () {
+      this.$emit('updateOrders')
     }
   }
 }

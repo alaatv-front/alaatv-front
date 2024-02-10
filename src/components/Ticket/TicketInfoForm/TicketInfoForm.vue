@@ -47,10 +47,11 @@
       </div>
     </div>
     <div class="ticket-info-form">
-      <template v-if="isEntityReady">
+      <template v-if="mounted && isEntityReady">
         <entity-edit ref="entityEditTicket"
                      v-model:value="ticketInputs"
                      :api="ticketApi"
+                     :loading="ticketLoading"
                      :show-save-button="false"
                      :show-close-button="false"
                      :defaultLayout="false"
@@ -64,21 +65,14 @@
                    @click="editTicket" />
           </template>
         </entity-edit>
-        <entity-edit ref="entityEditSupport"
-                     v-model:value="supportInputs"
-                     :show-save-button="false"
-                     :show-close-button="false"
-                     :defaultLayout="false"
-                     :loaded-data="ticket"
-                     :entity-id-key="entityIdKey">
-          <template #after-form-builder>
-            <q-btn color="secondary"
-                   icon="ph:pencil-simple"
-                   class="full-width q-mt-md"
-                   label="ویرایش"
-                   @click="editSupport" />
-          </template>
-        </entity-edit>
+        <entity-create ref="entityCreateSupport"
+                       v-model:value="supportInputs"
+                       :api="supportApi"
+                       :loading="supportLoading"
+                       :show-save-button="false"
+                       :show-close-button="false"
+                       :defaultLayout="false"
+                       :entity-id-key="entityIdKey" />
       </template>
 
       <div v-else
@@ -103,70 +97,68 @@
     </div>
     <q-dialog v-model="smsDialog">
       <div class="sms-dialog-wrapper">
-        <inside-dialog>
-          <template #header-icon>
-            <badge-icon icon="ph:chat-circle-text"
-                        color="primary" />
-          </template>
-          <template #header>
-            ارسال پیامک به سید مرتضی صحیح النسب
-          </template>
-          <template #body>
-            <q-select v-model="model"
-                      :options="options"
-                      label="نوع پیامک"
-                      outlined />
-            <q-input v-model="input1"
-                     class="smsTextarea"
-                     label="ارسال پیام متنی"
-                     placeholder="متن پیامک"
-                     type="textarea" />
-          </template>
-          <template #action>
-            <q-btn v-close-popup
-                   class="q-btn-md"
-                   color="grey"
-                   size="md"
-                   outline>
-              انصراف
-            </q-btn>
-            <q-btn class="q-btn-md keep-min-width"
-                   color="primary">
-              ارسال
-            </q-btn>
-          </template>
-        </inside-dialog>
+        <ticket-sms-pattern :ticket="ticket"
+                            @sms-sent="closeSmsDialog" />
       </div>
     </q-dialog>
   </div>
 </template>
 
 <script>
-import { EntityEdit } from 'quasar-crud'
+import { defineComponent } from 'vue'
 import { Ticket } from 'src/models/Ticket.js'
-import { mixinTicket } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import BadgeIcon from 'src/components/Utils/BadgeIcon.vue'
-import InsideDialog from 'src/components/Utils/InsideDialog.vue'
+import { EntityEdit, EntityCreate } from 'quasar-crud'
+import { FormBuilderAssist } from 'quasar-form-builder'
+import { SupporterList } from 'src/models/Supporter.js'
+import { TicketStatusList } from 'src/models/TicketStatus.js'
+import { TicketPriorityList } from 'src/models/TicketPriority.js'
+import { TicketDepartmentList } from 'src/models/TicketDepartment.js'
+import TicketSmsPattern from 'src/components/Ticket/TicketSmsPattern/TicketSmsPattern.vue'
 
-export default {
+export default defineComponent({
   name: 'TicketInfoForm',
   components: {
     EntityEdit,
-    BadgeIcon,
-    InsideDialog
+    EntityCreate,
+    TicketSmsPattern
   },
-  mixins: [mixinTicket],
   props: {
     ticket: {
       type: Ticket,
       default: new Ticket()
+    },
+    supporters: {
+      type: SupporterList,
+      default: new SupporterList()
+    },
+    statuses: {
+      type: TicketStatusList,
+      default: new TicketStatusList()
+    },
+    priorities: {
+      type: TicketPriorityList,
+      default: new TicketPriorityList()
+    },
+    departments: {
+      type: TicketDepartmentList,
+      default: new TicketDepartmentList()
     }
+
   },
   data () {
     return {
-      isEntityReady: false,
+      ticketApi: '',
+      supportApi: '',
+      mounted: false,
       smsDialog: false,
+      entityIdKey: 'id',
+      entityParamKey: 'id',
+      ticketLoading: false,
+      supportLoading: false,
+      isStatusesReady: false,
+      isDepartmentReady: false,
+      isSupportersReady: false,
       ticketInputs: [
         {
           type: 'select',
@@ -197,74 +189,103 @@ export default {
       supportInputs: [
         {
           type: 'select',
-          name: 'status',
+          name: 'responsible_user',
           options: [],
           clearable: false,
-          optionLabel: 'title',
-          optionValue: 'id',
-          responseKey: 'ticket.status.id',
+          optionLabel: 'fullName',
+          optionValue: 'userId',
+          value: null,
           label: 'پشتیبان',
           disable: false,
           col: 'col-12'
         }
-      ],
-      entityIdKey: 'id',
-      entityParamKey: 'id'
+      ]
     }
   },
   computed: {
-    ticketApi () {
-      return APIGateway.ticket.APIAdresses.updateTicketApi(this.ticket.id)
+    isEntityReady () {
+      return this.isDepartmentReady && this.isStatusesReady && this.isSupportersReady
+    },
+    supporterValue () {
+      return FormBuilderAssist.getInputsByName(this.supportInputs, 'responsible_user').value
     }
   },
-  methods: {
-    async setInputs () {
-      const ticketFields = await this.getTicketData()
-      this.getInput('department_id', this.ticketInputs).options = ticketFields.departments.list
-      this.getInput('status_id', this.ticketInputs).options = ticketFields.statuses.list
+  watch: {
+    ticket () {
+      FormBuilderAssist.setAttributeByName(this.supportInputs, 'responsible_user', 'value', this.ticket.responsibleUser.id)
     },
-    async initTicket () {
-      // this.setEntityValues()
-      await this.setInputs()
-      this.isEntityReady = true
+    departments () {
+      this.getInput('department_id', this.ticketInputs).options = this.departments.list
+      this.isDepartmentReady = true
+    },
+    statuses () {
+      this.getInput('status_id', this.ticketInputs).options = this.statuses.list
+      this.isStatusesReady = true
+    },
+    supporters () {
+      this.getInput('responsible_user', this.supportInputs).options = this.supporters.list
+      this.isSupportersReady = true
+    },
+    supporterValue (newValue, oldValue) {
+      if (typeof newValue !== 'number' || !oldValue) {
+        return
+      }
+      this.editSupport()
+    }
+  },
+  mounted () {
+    this.loadApi()
+    this.mounted = true
+  },
+  methods: {
+    loadApi () {
+      this.ticketApi = APIGateway.ticket.APIAdresses.updateTicketApi(this.ticket.id)
+      this.supportApi = APIGateway.ticket.APIAdresses.assign(this.ticket.id)
+    },
+    getInput (inputName, source) {
+      const srcFilter = source
+      return srcFilter.find(input => input.name === inputName)
     },
     openSmsDialog () {
       this.smsDialog = true
+    },
+    closeSmsDialog () {
+      this.smsDialog = false
     },
     callUser () {
       alert('calling ...')
     },
     editTicket () {
-      this.$store.commit('loading/loading', true)
+      this.ticketLoading = true
 
       this.$refs.entityEditTicket.editEntity(false)
         .then(() => {
-          this.$store.commit('loading/loading', false)
+          this.ticketLoading = false
         })
         .catch(() => {
-          this.$store.commit('loading/loading', false)
+          this.ticketLoading = false
         })
     },
     editSupport () {
-      this.$store.commit('loading/loading', true)
+      this.supportLoading = false
 
-      this.$refs.entityEditSupport.editEntity(false)
+      this.$refs.entityCreateSupport.createEntity(false)
         .then(() => {
-          this.$store.commit('loading/loading', false)
+          this.supportLoading = false
         })
         .catch(() => {
-          this.$store.commit('loading/loading', false)
+          this.supportLoading = false
         })
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>
 .sms-dialog-wrapper {
   width: 544px;
   max-width: 544px;
-  min-height: 448px;
+  min-height: 668px;
   @include  media-max-width('md') {
     width: 100%;
     max-width: 100%;

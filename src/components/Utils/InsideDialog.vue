@@ -11,12 +11,18 @@
           <slot name="header" />
         </div>
       </div>
-      <q-btn v-close-popup
-             flat
-             :icon="closeButtonIcon"
-             square
-             color="grey"
-             clase="size-xs" />
+      <div class="headerAction">
+        <slot name="headerAction">
+          <q-btn v-close-popup
+                 flat
+                 :icon="closeButtonIcon"
+                 square
+                 color="grey"
+                 class="size-xs" />
+        </slot>
+
+      </div>
+
     </q-card-section>
     <q-separator v-if="header" />
     <div class="InsideDialog__scroll-area">

@@ -34,8 +34,12 @@
           <div class="col-12">
             <div class="TicketShow__header">
               <ticket-header :ticket="ticket"
-                             @openTickets="openMyOpenTicketDrawer"
-                             @openInfoForm="openTicketInfoFormDrawer" />
+                             :department-list="ticketDepartmentList"
+                             :statuses="ticketStatusList"
+                             @update-ticket="onUpdateTicket"
+                             @show-ticket-logs="openTicketLogsBottomSheet"
+                             @show-tickets="openMyOpenTicketDrawer"
+                             @show-info-form="openTicketInfoFormDrawer" />
             </div>
           </div>
           <div class="col-lg-8 col-md-6 col-12">
@@ -49,15 +53,33 @@
           <div class="col-lg-4 col-md-6 col-12 gt-sm">
             <div class="TicketShow__ticket-info">
               <ticket-info-form :ticket="ticket"
-                                :statuses="ticketStatuses"
-                                :priorities="ticketPriorities"
-                                :departments="ticketDepartments" />
+                                :supporters="supporterList"
+                                :statuses="ticketStatusList"
+                                :priorities="ticketPriorityList"
+                                :departments="ticketDepartmentList" />
             </div>
           </div>
         </div>
       </div>
+      <div class="col-12 TicketShow__logs-col">
+        <div class="TicketShow__logs">
+          <ticket-logs :logs="ticketLogs" />
+        </div>
+        <q-dialog v-model="bottomSheet"
+                  position="bottom">
+          <div class="ticket-log-dialog-wrapper">
+            <inside-bottom-sheet :header="false"
+                                 :action="false"
+                                 @close-bottom-sheet="onCloseTicketLogsBottomSheet">
+              <template #body>
+                <ticket-logs :logs="ticketLogs" />
+              </template>
+            </inside-bottom-sheet>
+          </div>
+        </q-dialog>
+      </div>
     </div>
-    <q-layout v-if="$q.screen.lt.md">
+    <q-layout v-if="mounted && $q.screen.lt.md">
       <q-drawer ref="actionDrawer"
                 v-model="myOpenTicketDrawer"
                 overlay>
@@ -86,9 +108,10 @@
                    @click="closeTicketInfoFormDrawer" />
           </div>
           <ticket-info-form :ticket="ticket"
-                            :statuses="ticketStatuses"
-                            :priorities="ticketPriorities"
-                            :departments="ticketDepartments" />
+                            :supporters="supporterList"
+                            :statuses="ticketStatusList"
+                            :priorities="ticketPriorityList"
+                            :departments="ticketDepartmentList" />
         </div>
       </q-drawer>
     </q-layout>
@@ -96,13 +119,17 @@
 </template>
 
 <script>
+import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
+import { SupporterList } from 'src/models/Supporter.js'
+import { TicketLogList } from 'src/models/TicketLog.js'
 import { Ticket, TicketList } from 'src/models/Ticket.js'
 import { TicketMessage } from 'src/models/TicketMessage.js'
 import { TicketStatusList } from 'src/models/TicketStatus.js'
-import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
 import { TicketPriorityList } from 'src/models/TicketPriority.js'
 import { TicketDepartmentList } from 'src/models/TicketDepartment.js'
+import TicketLogs from 'src/components/Ticket/TicketLogs/TicketLogs.vue'
+import InsideBottomSheet from 'src/components/Utils/InsideBottomSheet.vue'
 import TicketHeader from 'src/components/Ticket/TicketHeader/TicketHeader.vue'
 import MyOpenTickets from 'src/components/Ticket/MyOpenTickets/MyOpenTickets.vue'
 import TicketInfoForm from 'src/components/Ticket/TicketInfoForm/TicketInfoForm.vue'
@@ -111,12 +138,14 @@ import TicketMessageList from 'src/components/Ticket/TicketMessageList/TicketMes
 export default {
   name: 'TicketShow',
   components: {
+    TicketLogs,
     TicketHeader,
     MyOpenTickets,
     TicketInfoForm,
+    InsideBottomSheet,
     TicketMessageList
   },
-  mixins: [mixinTicket, mixinWidget],
+  mixins: [mixinWidget],
   props: {
     options: {
       type: Object,
@@ -129,282 +158,46 @@ export default {
   },
   data () {
     return {
+      mounted: false,
+      bottomSheet: false,
       myOpenTicketDrawer: false,
       ticketInfoFormDrawer: false,
-      ticket: new Ticket({
-        id: 191163,
-        title: 'قلم قرمز برای آقا یک ساعت.',
-        user: {
-          id: 2,
-          first_name: 'ویراف',
-          last_name: 'داور',
-          mobile: '09544659813',
-          national_code: '0000000000',
-          photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-          role: 'پشتیبان',
-          major: null
-        },
-        priority: {
-          id: 3,
-          title: 'فوری'
-        },
-        status: {
-          id: 1,
-          title: 'پاسخ داده نشده',
-          name: 'unanswered'
-        },
-        department: {
-          id: 23,
-          title: 'ابریشم پرو'
-        },
-        orderproduct: null,
-        order: null,
-        messages: [
-          {
-            id: 578122,
-            user: {
-              id: 2,
-              first_name: 'ویراف',
-              last_name: 'داور',
-              mobile: '09544659813',
-              national_code: '0000000000',
-              photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-              role: 'پشتیبان',
-              major: null
-            },
-            ticket_id: 191163,
-            body: 'این ته، دم در زندان قدم زدم و در دفتر بازرسی تصدیق کرد که این صدا را پای تخته سیاه خراب خواهد کرد. و گفتم: - این بازرسی تصدیق کرد که این صدا را پای تخته سیاه خراب خواهد کرد. و گفتم: - این بازرسی تصدیق کرد که این صدا را پای تخته سیاه خراب خواهد کرد. و گفتم: - این بازرسی تصدیق کرد که این صدا را پای تخته سیاه خراب خواهد کرد. و گفتم: - این.',
-            files: {
-              photo: null,
-              voice: null,
-              file: null
-            },
-            is_private: 0,
-            report: {
-              has_reported: 0,
-              report_description: null
-            },
-            created_at: '2024-01-28 04:57:27'
-          },
-          {
-            id: 578122,
-            user: {
-              id: 1,
-              first_name: 'رجاء',
-              last_name: 'همدانی',
-              mobile: '09544659813',
-              national_code: '0000000000',
-              photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-              role: 'پشتیبان',
-              major: null
-            },
-            ticket_id: 191163,
-            body: 'این ته، دم در زندان قدم زدم و در دفتر بازرسی تصدیق کرد که این صدا را پای تخته سیاه خراب خواهد کرد. و گفتم: - این.',
-            files: {
-              photo: null,
-              voice: null,
-              file: null
-            },
-            is_private: 0,
-            report: {
-              has_reported: 0,
-              report_description: null
-            },
-            created_at: '2024-01-28 04:57:27'
-          },
-          {
-            id: 578123,
-            user: {
-              id: 2,
-              first_name: 'آفاق',
-              last_name: 'کاشی',
-              mobile: '09999999999',
-              national_code: '0000000000',
-              photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-              role: 'پشتیبان فنی',
-              major: null
-            },
-            ticket_id: 191163,
-            body: 'به دستش دادم و موقع آن رسیده بود که چنین اهمیتی پیدا می‌کردم. این هم یک مزیت دیگر مدیری مدرسه بود! سی صد تومان.',
-            files: {
-              photo: null,
-              voice: null,
-              file: null
-            },
-            is_private: 0,
-            report: {
-              has_reported: 0,
-              report_description: null
-            },
-            created_at: '2024-01-28 04:57:27'
-          },
-          {
-            id: 578122,
-            user: {
-              id: 1,
-              first_name: 'رجاء',
-              last_name: 'همدانی',
-              mobile: '09544659813',
-              national_code: '0000000000',
-              photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-              role: 'پشتیبان',
-              major: null
-            },
-            ticket_id: 191163,
-            body: 'این ته، دم در زندان قدم زدم و در دفتر بازرسی تصدیق کرد که این صدا را پای تخته سیاه خراب خواهد کرد. و گفتم: - این.',
-            files: {
-              photo: null,
-              voice: null,
-              file: null
-            },
-            is_private: 0,
-            report: {
-              has_reported: 0,
-              report_description: null
-            },
-            created_at: '2024-01-28 04:57:27'
-          },
-          {
-            id: 578122,
-            user: {
-              id: 1,
-              first_name: 'رجاء',
-              last_name: 'همدانی',
-              mobile: '09544659813',
-              national_code: '0000000000',
-              photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-              role: 'پشتیبان',
-              major: null
-            },
-            ticket_id: 191163,
-            body: 'این ته، دم در زندان قدم زدم و در دفتر بازرسی تصدیق کرد که این صدا را پای تخته سیاه خراب خواهد کرد. و گفتم: - این.',
-            files: {
-              photo: null,
-              voice: null,
-              file: null
-            },
-            is_private: 0,
-            report: {
-              has_reported: 0,
-              report_description: null
-            },
-            created_at: '2024-01-28 04:57:27'
-          },
-          {
-            id: 578122,
-            user: {
-              id: 1,
-              first_name: 'رجاء',
-              last_name: 'همدانی',
-              mobile: '09544659813',
-              national_code: '0000000000',
-              photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-              role: 'پشتیبان',
-              major: null
-            },
-            ticket_id: 191163,
-            body: 'asdf<br/>dasfsdaf<br/><br/>asdf',
-            files: [
-              'https://stage-minio.alaatv.com/upload/tickets/2024-02/logo-1707561386.png',
-              'https://stage-minio.alaatv.com/upload/tickets/2024-02/evano_api-1707561386.pdf',
-              'https://stage-minio.alaatv.com/upload/tickets/2024-02/ewano-logo-1707561386.png'
-            ],
-            is_private: 0,
-            report: {
-              has_reported: 0,
-              report_description: null
-            },
-            created_at: '2024-01-28 04:57:27'
-          }
-        ],
-        logs: [
-          {
-            user: {
-              id: 2,
-              first_name: 'ویراف',
-              last_name: 'داور',
-              mobile: '09544659813',
-              national_code: '0000000000',
-              photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-              role: 'پشتیبان',
-              major: null
-            },
-            action: 'ثبت تیکت',
-            before: null,
-            after: null,
-            created_at: '2024-01-28 04:57:27'
-          },
-          {
-            user: {
-              id: 2,
-              first_name: 'ویراف',
-              last_name: 'داور',
-              mobile: '09544659813',
-              national_code: '0000000000',
-              photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-              role: 'پشتیبان',
-              major: null
-            },
-            action: 'ثبت پیام برای تیکت',
-            before: null,
-            after: null,
-            created_at: '2024-01-28 04:57:27'
-          },
-          {
-            user: {
-              id: 1,
-              first_name: 'آفاق',
-              last_name: 'کاشی',
-              mobile: '09999999999',
-              national_code: '0000000000',
-              photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-              role: 'پشتیبان فنی',
-              major: null
-            },
-            action: 'ثبت پیام برای تیکت',
-            before: null,
-            after: null,
-            created_at: '2024-01-28 04:57:27'
-          },
-          {
-            user: {
-              id: 1,
-              first_name: 'آفاق',
-              last_name: 'کاشی',
-              mobile: '09999999999',
-              national_code: '0000000000',
-              photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-              role: 'پشتیبان فنی',
-              major: null
-            },
-            action: 'تغییر وضعیت تیکت',
-            before: 'پاسخ داده نشده',
-            after: 'پاسخ داده شده',
-            created_at: '2024-01-28 04:57:27'
-          }
-        ],
-        tags: null,
-        ticket_form: null,
-        assignees: [],
-        rate: null,
-        updated_at: '2024-01-28 04:57:27',
-        created_at: '2024-01-28 04:57:27'
-      }),
+      ticket: new Ticket(),
+      otherTickets: new TicketList(),
+      ticketLogs: new TicketLogList(),
       pendingTickets: new TicketList(),
-      ticketStatuses: new TicketStatusList(),
-      ticketPriorities: new TicketPriorityList(),
-      ticketDepartments: new TicketDepartmentList()
+      supporterList: new SupporterList(),
+      ticketStatusList: new TicketStatusList(),
+      ticketPriorityList: new TicketPriorityList(),
+      ticketDepartmentList: new TicketDepartmentList()
     }
   },
   computed: {
     ticketId () {
-      return parseInt(this.$route.params.id)
+      if (typeof this.localOptions.ticketId !== 'undefined' && this.localOptions.ticketId !== null) {
+        return this.localOptions.ticketId
+      }
+      if (this.localOptions.urlParam && this.$route.params[this.localOptions.urlParam]) {
+        return this.$route.params[this.localOptions.urlParam]
+      }
+      if (this.$route.params.id) {
+        return this.$route.params.id
+      }
+      return this.ticket.id
     }
   },
   mounted () {
-    this.getNeededDataForTicket()
+    this.loadData()
+    this.mounted = true
   },
   methods: {
+    loadData () {
+      this.getTicket()
+      this.getNeededDataForTicket()
+      this.getPendingTickets()
+      this.getSupporterList()
+      this.getTicketsLogs()
+    },
     openMyOpenTicketDrawer () {
       this.myOpenTicketDrawer = true
     },
@@ -417,9 +210,15 @@ export default {
     closeTicketInfoFormDrawer () {
       this.ticketInfoFormDrawer = false
     },
-    getTicket (ticketId) {
+    openTicketLogsBottomSheet () {
+      this.bottomSheet = true
+    },
+    onCloseTicketLogsBottomSheet () {
+      this.bottomSheet = false
+    },
+    getTicket () {
       this.ticket.loading = true
-      APIGateway.ticket.get({ data: { id: ticketId } })
+      APIGateway.ticket.getTicket(this.ticketId)
         .then((ticket) => {
           this.ticket.loading = false
           this.ticket = new Ticket(ticket)
@@ -428,42 +227,53 @@ export default {
           this.ticket.loading = false
         })
     },
-    getSupporterList (ticketId) {
-      this.ticket.loading = true
-      APIGateway.ticket.get({ data: { id: ticketId } })
-        .then((ticket) => {
-          this.ticket.loading = false
-          this.ticket = new Ticket(ticket)
+    getSupporterList () {
+      this.supporterList.loading = true
+      APIGateway.ticket.getSupporterList()
+        .then((supporterList) => {
+          this.supporterList.loading = false
+          this.supporterList = new SupporterList(supporterList)
         })
         .catch(() => {
-          this.ticket.loading = false
+          this.supporterList.loading = false
         })
     },
-    getPendingTickets (ticketId) {
+    getPendingTickets () {
       this.pendingTickets.loading = true
-      APIGateway.ticket.get({ data: { id: ticketId } })
-        .then((ticket) => {
+      APIGateway.ticket.getPendingTickets()
+        .then((ticketList) => {
           this.pendingTickets.loading = false
-          this.pendingTickets = new Ticket(ticket)
+          this.pendingTickets = new TicketList(ticketList)
         })
         .catch(() => {
           this.pendingTickets.loading = false
+        })
+    },
+    getTicketsLogs () {
+      this.ticketLogs.loading = true
+      APIGateway.ticket.getTicketsLogs(this.ticketId)
+        .then((ticketLogList) => {
+          this.ticketLogs.loading = false
+          this.ticketLogs = new TicketLogList(ticketLogList)
+        })
+        .catch(() => {
+          this.ticketLogs.loading = false
         })
     },
     getNeededDataForTicket () {
-      this.ticketStatuses.loading = true
-      this.ticketPriorities.loading = true
-      this.ticketDepartments.loading = true
+      this.ticketStatusList.loading = true
+      this.ticketPriorityList.loading = true
+      this.ticketDepartmentList.loading = true
       APIGateway.ticket.getNeededDataToCreateTicket()
         .then(({ departments, priorities, statuses }) => {
-          this.ticketStatuses = new TicketStatusList(statuses)
-          this.ticketPriorities = new TicketPriorityList(priorities)
-          this.ticketDepartments = new TicketDepartmentList(departments)
+          this.ticketStatusList = new TicketStatusList(statuses)
+          this.ticketPriorityList = new TicketPriorityList(priorities)
+          this.ticketDepartmentList = new TicketDepartmentList(departments)
         })
         .catch(() => {
-          this.ticketStatuses.loading = false
-          this.ticketPriorities.loading = false
-          this.ticketDepartments.loading = false
+          this.ticketStatusList.loading = false
+          this.ticketPriorityList.loading = false
+          this.ticketDepartmentList.loading = false
         })
     },
     sendTicketMessage (ticketMessage) {
@@ -483,9 +293,9 @@ export default {
           })
       })
     },
-    prepateFilesForSendMessages (data) {
-      const allFilesPresignedUrlPromisses = this.getAllFilesPresignedUrlPromisses(data.files)
-      return this.getUploadAllFilesPromisses(allFilesPresignedUrlPromisses)
+    prepareFilesForSendMessages (data) {
+      const allFilesPresignedUrlPromises = this.getAllFilesPresignedUrlPromises(data.files)
+      return this.getUploadAllFilesPromises(allFilesPresignedUrlPromises)
     },
     onSendMessage (data) {
       if (Array.isArray(data.files) && data.files.length === 0) {
@@ -502,9 +312,9 @@ export default {
         file.progress = 0
         return file
       }))
-      this.prepateFilesForSendMessages(data)
-        .then((uploadAllFilesPromisses) => {
-          Promise.all(uploadAllFilesPromisses)
+      this.prepareFilesForSendMessages(data)
+        .then((uploadAllFilesPromises) => {
+          Promise.all(uploadAllFilesPromises)
             .then((resolvedItems) => {
               // resolvedItem = { file, uploadedPath, presignedUrl, response }
               this.sendTicketMessage({
@@ -552,10 +362,10 @@ export default {
 
       return message
     },
-    getAllFilesPresignedUrlPromisses (files) {
-      const promisses = []
+    getAllFilesPresignedUrlPromises (files) {
+      const promises = []
       files.forEach((file) => {
-        promisses.push(new Promise((resolve, reject) => {
+        promises.push(new Promise((resolve, reject) => {
           APIGateway.ticket.presignedUrl(file.name)
             .then(({ url /* , uploaded_file_name */ }) => {
               resolve({
@@ -571,15 +381,15 @@ export default {
         }))
       })
 
-      return promisses
+      return promises
     },
-    getUploadAllFilesPromisses (presignedUrlPromisses) {
+    getUploadAllFilesPromises (presignedUrlPromises) {
       return new Promise((resolve, reject) => {
-        const promisses = []
-        Promise.all(presignedUrlPromisses)
+        const promises = []
+        Promise.all(presignedUrlPromises)
           .then((resolves) => {
             resolves.forEach((resolveItem) => {
-              promisses.push(new Promise((resolve, reject) => {
+              promises.push(new Promise((resolve, reject) => {
                 APIGateway.fileUpload.uploadFile(resolveItem.presignedUrl, resolveItem.file, (data) => {
                   // console.log('onUploadProgress data', data)
                   // console.log('progress: ', data.progress) // in range [0..1]
@@ -611,7 +421,7 @@ export default {
                   })
               }))
             })
-            resolve(promisses)
+            resolve(promises)
           })
           .catch((e) => {
             reject(e)
@@ -705,6 +515,20 @@ export default {
       display: flex;
       justify-content: flex-start;
       margin-bottom: $space-4;
+    }
+  }
+
+  &__logs-col {
+    margin-top: $space-6;
+  }
+
+  &__logs {
+    padding: $space-6;
+    border-radius: $radius-4;
+    background: $grey-1;
+
+    @include media-max-width ('md') {
+      display: none;
     }
   }
   .TicketShow__drawer-ticket-info {

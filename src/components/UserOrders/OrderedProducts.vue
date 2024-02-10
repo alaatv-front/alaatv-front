@@ -58,6 +58,16 @@
                   {{ orderedItem.order_product.list[0].shamsiDate('expire_at').dateTime }}
                 </q-badge>
               </div>
+              <div v-if="isAdmin"
+                   class="action">
+                <q-btn icon="ph:trash"
+                       color="grey"
+                       square
+                       class="size-xs"
+                       :loading="deleteLoading"
+                       flat
+                       @click="orderProductId(orderedItem.order_product.list[0].id)" />
+              </div>
             </div>
             <div class="price-container">
               <div v-if="orderedItem.order_product.list[0].price.discountInPercent()"
@@ -112,13 +122,15 @@
                           <span class="price">
                             {{ item.price.toman('final', null) }} تومان
                           </span>
-                          <span v-if="isAdminOrders"
+                          <span v-if="isAdmin"
                                 class="action">
                             <q-btn icon="ph:trash"
                                    color="grey"
                                    square
                                    class="size-xs"
-                                   flat />
+                                   flat
+                                   :loading="deleteLoading"
+                                   @click="orderProductId(item.id)" />
                           </span>
                         </div>
                       </template>
@@ -147,6 +159,7 @@
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { OrderItem } from 'src/models/OrderItem.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import { APIGateway } from 'src/api/APIGateway'
 export default {
   name: 'OrderedProducts',
   components: {
@@ -166,15 +179,17 @@ export default {
         return new OrderItem()
       }
     },
-    isAdminOrders: {
+    isAdmin: {
       type: Boolean,
       default: false
     }
   },
+  emits: ['updateOrder'],
   data () {
     return {
-      dialogState: false,
       expanded: true,
+      deleteLoading: true,
+      dialogState: false,
       clickedItemToRemove: null
     }
   },
@@ -209,6 +224,22 @@ export default {
   },
 
   methods: {
+    orderProductId (id) {
+      this.deleteLoading = true
+      APIGateway.order.AdminDeleteOrderProduct(id)
+        .then((message) => {
+          this.$emit('updateOrder')
+          this.$q.notify({
+            type: 'positive',
+            message,
+            position: 'top'
+          })
+          this.deleteLoading = false
+        })
+        .catch(() => {
+          this.deleteLoading = false
+        })
+    }
   }
 }
 </script>
