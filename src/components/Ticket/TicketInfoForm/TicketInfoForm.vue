@@ -48,7 +48,8 @@
     </div>
     <div class="ticket-info-form">
       <template v-if="isEntityReady">
-        <entity-edit ref="entityEditTicket"
+        <entity-edit v-if="mounted"
+                     ref="entityEditTicket"
                      v-model:value="ticketInputs"
                      :api="ticketApi"
                      :loading="ticketLoading"
@@ -65,7 +66,8 @@
                    @click="editTicket" />
           </template>
         </entity-edit>
-        <entity-create ref="entityCreateSupport"
+        <entity-create v-if="mounted"
+                       ref="entityCreateSupport"
                        v-model:value="supportInputs"
                        :api="supportApi"
                        :loading="supportLoading"
@@ -150,6 +152,7 @@ export default defineComponent({
     return {
       ticketApi: '',
       supportApi: '',
+      mounted: false,
       smsDialog: false,
       entityIdKey: 'id',
       entityParamKey: 'id',
@@ -234,6 +237,7 @@ export default defineComponent({
   },
   mounted () {
     this.loadApi()
+    this.mounted = true
   },
   methods: {
     loadApi () {

@@ -32,9 +32,12 @@
         </div>
       </div>
     </div>
-    <entity-edit ref="entityEdit"
+    <entity-edit v-if="mounted"
+                 ref="entityEdit"
                  :key="entityEditKey"
                  v-model:value="inputs"
+                 :api="api"
+                 :loading="profileLoading"
                  :entity-id-key="entityIdKey"
                  :entity-param-key="entityParamKey"
                  :show-close-button="false"
@@ -86,12 +89,14 @@ export default defineComponent({
   data () {
     return {
       cities: [],
+      mounted: false,
       provinces: [],
+      user: new User(),
       entityEditKey: 0,
       entityIdKey: 'id',
       avatarDialog: false,
       entityParamKey: 'id',
-      user: new User(),
+      profileLoading: false,
       inputs: [
         {
           type: 'input',
@@ -231,7 +236,8 @@ export default defineComponent({
           name: 'updateType',
           value: 'total'
         }
-      ]
+      ],
+      api: ''
     }
   },
   computed: {
@@ -240,8 +246,10 @@ export default defineComponent({
     }
   },
   mounted () {
+    this.api = APIGateway.user.APIAdresses.admin.show.byId(this.userId)
     this.getUserInfo()
     this.getFormData()
+    this.mounted = true
   },
   methods: {
     getUserInfo () {
@@ -275,14 +283,14 @@ export default defineComponent({
       this.avatarDialog = true
     },
     submit () {
-      this.$store.commit('loading/loading', true)
+      this.profileLoading = true
 
       this.$refs.entityEdit.editEntity(false)
         .then(() => {
-          this.$store.commit('loading/loading', false)
+          this.profileLoading = false
         })
         .catch(() => {
-          this.$store.commit('loading/loading', false)
+          this.profileLoading = false
         })
     }
   }

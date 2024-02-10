@@ -43,7 +43,8 @@
              class="title">
           سفارش های من
         </div>
-        <entity-index ref="orderList"
+        <entity-index v-if="mounted"
+                      ref="orderList"
                       v-model:value="inputs"
                       class="orders-list-entity-index"
                       :api="getEntityApi"
@@ -173,6 +174,7 @@ export default {
   data () {
     return {
       loading: true,
+      mounted: false,
       isFirstReq: true,
       filterExpanded: false,
       inputs: [
@@ -326,6 +328,7 @@ export default {
   mounted () {
     this.loadApi()
     this.getPaymentStatus()
+    this.mounted = true
   },
   methods: {
     loadApi () {
