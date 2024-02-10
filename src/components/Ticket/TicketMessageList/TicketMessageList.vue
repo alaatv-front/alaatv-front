@@ -44,7 +44,9 @@ export default defineComponent({
   emits: ['sendingMessage', 'sendingMessage', 'cancelUpload'],
   computed: {
     firstMessage () {
-      return this.ticket.messages.list[0]
+      return this.ticket.messages.list[0] || {
+        body: ''
+      }
     }
   },
   mounted () {

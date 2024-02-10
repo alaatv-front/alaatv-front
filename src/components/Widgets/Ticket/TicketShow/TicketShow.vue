@@ -304,11 +304,11 @@ export default {
             },
             ticket_id: 191163,
             body: 'این ته، دم در زندان قدم زدم و در دفتر بازرسی تصدیق کرد که این صدا را پای تخته سیاه خراب خواهد کرد. و گفتم: - این.',
-            files: {
-              photo: null,
-              voice: null,
-              file: null
-            },
+            files: [
+              'https://stage-minio.alaatv.com/upload/tickets/2024-02/logo-1707561386.png',
+              'https://stage-minio.alaatv.com/upload/tickets/2024-02/evano_api-1707561386.pdf',
+              'https://stage-minio.alaatv.com/upload/tickets/2024-02/ewano-logo-1707561386.png'
+            ],
             is_private: 0,
             report: {
               has_reported: 0,
