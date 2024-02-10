@@ -303,6 +303,7 @@ export default defineComponent({
 
     cleaInput () {
       this.status = 'blur'
+      this.textInput = null
       this.recordStop()
       this.removeRecordeVoice()
       this.hideSelectFilesDialog()
