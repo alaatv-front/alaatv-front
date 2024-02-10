@@ -16,7 +16,7 @@
     </div>
     <div class="ticket-item-user">
       <div class="ticket-item-user__avatar">
-        <q-avatar v-if="ticket.user?.photo"
+        <q-avatar v-if="ticket.user.photo"
                   size="24px">
           <lazy-img :src="ticket.user.photo"
                     width="24px"

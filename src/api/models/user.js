@@ -343,7 +343,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  adminShowUser (userId, cache = { TTL: 1000 }) {
+  adminGetUser (userId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

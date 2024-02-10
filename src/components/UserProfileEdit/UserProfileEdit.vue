@@ -35,7 +35,6 @@
     <entity-edit ref="entityEdit"
                  :key="entityEditKey"
                  v-model:value="inputs"
-                 :api="api"
                  :entity-id-key="entityIdKey"
                  :entity-param-key="entityParamKey"
                  :show-close-button="false"
@@ -236,9 +235,6 @@ export default defineComponent({
     }
   },
   computed: {
-    api () {
-      return APIGateway.user.APIAdresses.admin.show.byId(this.userId)
-    },
     computedUser () {
       return this.user
     }
@@ -249,7 +245,7 @@ export default defineComponent({
   },
   methods: {
     getUserInfo () {
-      APIGateway.user.adminShowUser(this.userId)
+      APIGateway.user.adminGetUser(this.userId)
         .then(user => {
           this.user = new User(user)
           this.entityEditKey++
@@ -315,8 +311,8 @@ export default defineComponent({
 
       &--edit {
         position: absolute;
-        bottom: -4px;
-        right: -5px;
+        bottom: -$space-1;
+        right: -$space-2;
       }
     }
 

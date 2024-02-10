@@ -121,15 +121,15 @@
 <script>
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import { SupporterList } from 'src/models/supporter.js'
+import { SupporterList } from 'src/models/Supporter.js'
 import { TicketLogList } from 'src/models/TicketLog.js'
 import { Ticket, TicketList } from 'src/models/Ticket.js'
 import { TicketMessage } from 'src/models/TicketMessage.js'
 import { TicketStatusList } from 'src/models/TicketStatus.js'
-import InsideBottomSheet from 'src/components/Utils/InsideBottomSheet.vue'
 import { TicketPriorityList } from 'src/models/TicketPriority.js'
 import { TicketDepartmentList } from 'src/models/TicketDepartment.js'
 import TicketLogs from 'src/components/Ticket/TicketLogs/TicketLogs.vue'
+import InsideBottomSheet from 'src/components/Utils/InsideBottomSheet.vue'
 import TicketHeader from 'src/components/Ticket/TicketHeader/TicketHeader.vue'
 import MyOpenTickets from 'src/components/Ticket/MyOpenTickets/MyOpenTickets.vue'
 import TicketInfoForm from 'src/components/Ticket/TicketInfoForm/TicketInfoForm.vue'
@@ -293,9 +293,9 @@ export default {
           })
       })
     },
-    prepateFilesForSendMessages (data) {
-      const allFilesPresignedUrlPromisses = this.getAllFilesPresignedUrlPromisses(data.files)
-      return this.getUploadAllFilesPromisses(allFilesPresignedUrlPromisses)
+    prepareFilesForSendMessages (data) {
+      const allFilesPresignedUrlPromises = this.getAllFilesPresignedUrlPromises(data.files)
+      return this.getUploadAllFilesPromises(allFilesPresignedUrlPromises)
     },
     onSendMessage (data) {
       if (Array.isArray(data.files) && data.files.length === 0) {
@@ -312,9 +312,9 @@ export default {
         file.progress = 0
         return file
       }))
-      this.prepateFilesForSendMessages(data)
-        .then((uploadAllFilesPromisses) => {
-          Promise.all(uploadAllFilesPromisses)
+      this.prepareFilesForSendMessages(data)
+        .then((uploadAllFilesPromises) => {
+          Promise.all(uploadAllFilesPromises)
             .then((resolvedItems) => {
               // resolvedItem = { file, uploadedPath, presignedUrl, response }
               this.sendTicketMessage({
@@ -356,10 +356,10 @@ export default {
 
       return message
     },
-    getAllFilesPresignedUrlPromisses (files) {
-      const promisses = []
+    getAllFilesPresignedUrlPromises (files) {
+      const promises = []
       files.forEach((file) => {
-        promisses.push(new Promise((resolve, reject) => {
+        promises.push(new Promise((resolve, reject) => {
           APIGateway.ticket.presignedUrl(file.name)
             .then(({ url /* , uploaded_file_name */ }) => {
               resolve({
@@ -375,15 +375,15 @@ export default {
         }))
       })
 
-      return promisses
+      return promises
     },
-    getUploadAllFilesPromisses (presignedUrlPromisses) {
+    getUploadAllFilesPromises (presignedUrlPromises) {
       return new Promise((resolve, reject) => {
-        const promisses = []
-        Promise.all(presignedUrlPromisses)
+        const promises = []
+        Promise.all(presignedUrlPromises)
           .then((resolves) => {
             resolves.forEach((resolveItem) => {
-              promisses.push(new Promise((resolve, reject) => {
+              promises.push(new Promise((resolve, reject) => {
                 APIGateway.fileUpload.uploadFile(resolveItem.presignedUrl, resolveItem.file, (data) => {
                   // console.log('onUploadProgress data', data)
                   // console.log('progress: ', data.progress) // in range [0..1]
@@ -415,7 +415,7 @@ export default {
                   })
               }))
             })
-            resolve(promisses)
+            resolve(promises)
           })
           .catch((e) => {
             reject(e)

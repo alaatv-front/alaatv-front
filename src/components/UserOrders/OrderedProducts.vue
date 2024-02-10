@@ -58,12 +58,13 @@
                   {{ orderedItem.order_product.list[0].shamsiDate('expire_at').dateTime }}
                 </q-badge>
               </div>
-              <div v-if="isAdminOrders"
+              <div v-if="isAdmin"
                    class="action">
                 <q-btn icon="ph:trash"
                        color="grey"
                        square
                        class="size-xs"
+                       :loading="deleteLoading"
                        flat
                        @click="orderProductId(orderedItem.order_product.list[0].id)" />
               </div>
@@ -121,13 +122,14 @@
                           <span class="price">
                             {{ item.price.toman('final', null) }} تومان
                           </span>
-                          <span v-if="isAdminOrders"
+                          <span v-if="isAdmin"
                                 class="action">
                             <q-btn icon="ph:trash"
                                    color="grey"
                                    square
                                    class="size-xs"
                                    flat
+                                   :loading="deleteLoading"
                                    @click="orderProductId(item.id)" />
                           </span>
                         </div>
@@ -177,7 +179,7 @@ export default {
         return new OrderItem()
       }
     },
-    isAdminOrders: {
+    isAdmin: {
       type: Boolean,
       default: false
     }
@@ -185,8 +187,9 @@ export default {
   emits: ['updateOrder'],
   data () {
     return {
-      dialogState: false,
       expanded: true,
+      deleteLoading: true,
+      dialogState: false,
       clickedItemToRemove: null
     }
   },
@@ -222,11 +225,20 @@ export default {
 
   methods: {
     orderProductId (id) {
+      this.deleteLoading = true
       APIGateway.order.AdminDeleteOrderProduct(id)
-        .then(() => {
+        .then((message) => {
           this.$emit('updateOrder')
+          this.$q.notify({
+            type: 'positive',
+            message,
+            position: 'top'
+          })
+          this.deleteLoading = false
         })
-        .catch(() => {})
+        .catch(() => {
+          this.deleteLoading = false
+        })
     }
   }
 }

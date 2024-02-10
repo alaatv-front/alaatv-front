@@ -1,10 +1,10 @@
 import { User } from 'src/models/User.js'
+import { Supporter } from 'src/models/Supporter.js'
 import { Model, Collection } from 'js-abstract-model'
 import { TicketStatus } from 'src/models/TicketStatus.js'
 import { TicketPriority } from 'src/models/TicketPriority.js'
 import { TicketMessageList } from 'src/models/TicketMessage.js'
 import { TicketDepartment } from 'src/models/TicketDepartment.js'
-import { Supporter } from './supporter'
 
 class Ticket extends Model {
   constructor (data) {

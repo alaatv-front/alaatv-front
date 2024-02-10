@@ -51,6 +51,7 @@
         <entity-edit ref="entityEditTicket"
                      v-model:value="ticketInputs"
                      :api="ticketApi"
+                     :loading="ticketLoading"
                      :show-save-button="false"
                      :show-close-button="false"
                      :defaultLayout="false"
@@ -67,6 +68,7 @@
         <entity-create ref="entityCreateSupport"
                        v-model:value="supportInputs"
                        :api="supportApi"
+                       :loading="supportLoading"
                        :show-save-button="false"
                        :show-close-button="false"
                        :defaultLayout="false"
@@ -108,7 +110,7 @@ import { Ticket } from 'src/models/Ticket.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { EntityEdit, EntityCreate } from 'quasar-crud'
 import { FormBuilderAssist } from 'quasar-form-builder'
-import { SupporterList } from 'src/models/supporter.js'
+import { SupporterList } from 'src/models/Supporter.js'
 import { TicketStatusList } from 'src/models/TicketStatus.js'
 import { TicketPriorityList } from 'src/models/TicketPriority.js'
 import { TicketDepartmentList } from 'src/models/TicketDepartment.js'
@@ -146,9 +148,13 @@ export default defineComponent({
   },
   data () {
     return {
+      ticketApi: '',
+      supportApi: '',
       smsDialog: false,
       entityIdKey: 'id',
       entityParamKey: 'id',
+      ticketLoading: false,
+      supportLoading: false,
       isStatusesReady: false,
       isDepartmentReady: false,
       isSupportersReady: false,
@@ -196,12 +202,6 @@ export default defineComponent({
     }
   },
   computed: {
-    ticketApi () {
-      return APIGateway.ticket.APIAdresses.updateTicketApi(this.ticket.id)
-    },
-    supportApi () {
-      return APIGateway.ticket.APIAdresses.assign(this.ticket.id)
-    },
     isEntityReady () {
       return this.isDepartmentReady && this.isStatusesReady && this.isSupportersReady
     },
@@ -232,7 +232,14 @@ export default defineComponent({
       this.editSupport()
     }
   },
+  mounted () {
+    this.loadApi()
+  },
   methods: {
+    loadApi () {
+      this.ticketApi = APIGateway.ticket.APIAdresses.updateTicketApi(this.ticket.id)
+      this.supportApi = APIGateway.ticket.APIAdresses.assign(this.ticket.id)
+    },
     getInput (inputName, source) {
       const srcFilter = source
       return srcFilter.find(input => input.name === inputName)
@@ -247,25 +254,25 @@ export default defineComponent({
       alert('calling ...')
     },
     editTicket () {
-      this.$store.commit('loading/loading', true)
+      this.ticketLoading = true
 
       this.$refs.entityEditTicket.editEntity(false)
         .then(() => {
-          this.$store.commit('loading/loading', false)
+          this.ticketLoading = false
         })
         .catch(() => {
-          this.$store.commit('loading/loading', false)
+          this.ticketLoading = false
         })
     },
     editSupport () {
-      this.$store.commit('loading/loading', true)
+      this.supportLoading = false
 
       this.$refs.entityCreateSupport.createEntity(false)
         .then(() => {
-          this.$store.commit('loading/loading', false)
+          this.supportLoading = false
         })
         .catch(() => {
-          this.$store.commit('loading/loading', false)
+          this.supportLoading = false
         })
     }
   }

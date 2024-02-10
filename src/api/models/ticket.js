@@ -1,7 +1,7 @@
 import { apiV2 } from 'src/boot/axios.js'
 import { User } from 'src/models/User.js'
 import { PatternList } from 'src/models/Pattern.js'
-import { SupporterList } from 'src/models/supporter.js'
+import { SupporterList } from 'src/models/Supporter.js'
 import APIRepository from '../classes/APIRepository.js'
 import { TicketLogList } from 'src/models/TicketLog.js'
 import { TicketList, Ticket } from 'src/models/Ticket.js'

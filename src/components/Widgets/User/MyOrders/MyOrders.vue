@@ -20,7 +20,7 @@
         <div class="empty-order-list">
           <q-img class="image"
                  :src="'https://nodes.alaatv.com/aaa/landing/Soalaa/States/empty_orders.png'" />
-          <div v-if="isAdminOrders"
+          <div v-if="isAdmin"
                class="list-text">
             لیست سفارش‌های این کاربر خالی است!
           </div>
@@ -28,7 +28,7 @@
                class="list-text">
             لیست سفارش‌های شما خالی است!
           </div>
-          <div v-if="!isAdminOrders"
+          <div v-if="!isAdmin"
                class="back-to-shop">
             <q-btn class="back-to-shop-btn"
                    color="secondary"
@@ -126,7 +126,7 @@
       </div>
       <q-dialog v-model="detailsDialog"
                 class="order-details-dialog">
-        <order-details-dialog :is-admin-orders="isAdminOrders"
+        <order-details-dialog :is-admin="isAdmin"
                               :order="currentOrder"
                               @update-orders="onUpdateOrders" />
       </q-dialog>
@@ -137,7 +137,6 @@
 <script>
 import { shallowRef } from 'vue'
 import moment from 'moment-jalaali'
-import { User } from 'src/models/User.js'
 import { Order } from 'src/models/Order.js'
 import { APIGateway } from 'src/api/APIGateway'
 import FormBuilder from 'quasar-form-builder/src/FormBuilder.vue'
@@ -157,13 +156,13 @@ export default {
     EntityIndex
   },
   props: {
-    isAdminOrders: {
+    isAdmin: {
       type: Boolean,
       default: false
     },
-    ticketUser: {
-      type: Object,
-      default: () => {}
+    userId: {
+      type: Number,
+      default: null
     },
     showTitle: {
       type: Boolean,
@@ -278,18 +277,19 @@ export default {
       detailsDialog: false,
       detailsCardToggle: {},
       hasUserOrdered: true,
-      firstRowPassed: false
+      firstRowPassed: false,
+      getEntityApi: null
     }
   },
   computed: {
-    user () {
-      if (this.isAdminOrders && this.ticketUser?.id) {
-        return this.ticketUser
+    computedUserId () {
+      if (this.userId) {
+        return this.userId
       }
       if (this.$store.getters['Auth/user']) {
-        return this.$store.getters['Auth/user']
+        return this.$store.getters['Auth/user'].id
       }
-      return new User()
+      return null
     },
     paymentStatus () {
       return this.getInput('filterInputs', 'paymentStatuses').value
@@ -299,9 +299,6 @@ export default {
     },
     till () {
       return this.getInput('filterInputs', 'till').value
-    },
-    getEntityApi () {
-      return APIGateway.user.APIAdresses.ordersById(this.user.id)
     },
     windowSize () {
       return this.$store.getters['AppLayout/windowSize']
@@ -327,9 +324,13 @@ export default {
     }
   },
   mounted () {
+    this.loadApi()
     this.getPaymentStatus()
   },
   methods: {
+    loadApi () {
+      this.getEntityApi = APIGateway.user.APIAdresses.ordersById(this.computedUserId)
+    },
     onPageChange (response) {
       if (!this.isFirstReq) {
         return
@@ -369,14 +370,14 @@ export default {
     },
     async getPaymentStatus () {
       try {
-        this.getInput('filterInputs', 'paymentStatuses').options = await APIGateway.order.getPaymentStatus(this.user.id)
+        this.getInput('filterInputs', 'paymentStatuses').options = await APIGateway.order.getPaymentStatus(this.computedUserId)
         this.loading = false
       } catch (e) {
         this.loading = false
       }
     },
     showDetailsDialog (rowData) {
-      if (this.isAdminOrders) {
+      if (this.isAdmin) {
         this.$emit('showDetails', new Order(rowData))
       }
       this.currentOrder = new Order(rowData)

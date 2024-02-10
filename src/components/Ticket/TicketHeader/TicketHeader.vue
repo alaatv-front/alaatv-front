@@ -125,8 +125,8 @@
           </template>
           <template #body>
             <div class="my-order-component">
-              <my-orders :is-admin-orders="true"
-                         :ticket-user="ticket.user"
+              <my-orders :is-admin="true"
+                         :user-id="ticket.user.id"
                          :show-title="false" />
             </div>
           </template>
@@ -260,6 +260,10 @@ export default defineComponent({
     max-width: 100%;
   }
 
+  :deep(.empty-order-list) {
+    height: auto;
+  }
+
   :deep(.quasar-crud-index-table .q-table__container .q-table__middle table th ) {
     padding: $space-5 $space-6;
   }
@@ -281,7 +285,7 @@ export default defineComponent({
   max-width: 600px;
   @include  media-max-width('md') {
     width: 100%;
-  max-width: 100%;
+    max-width: 100%;
   }
 }
 .ticket-header {
@@ -304,7 +308,7 @@ export default defineComponent({
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 12px;
+    gap: $space-3;
   }
 
   &__user-action {

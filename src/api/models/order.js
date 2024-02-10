@@ -99,7 +99,7 @@ export default class OrderAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.orderProduct(orderProductId),
       resolveCallback: (response) => {
-        return response
+        return response.data.message // String
       },
       rejectCallback: (error) => {
         return error

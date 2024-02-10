@@ -61,16 +61,16 @@ export default defineComponent({
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      gap: 8px;
+      gap: $space-2;
       align-self: stretch;
 
       &:hover {
-        border-radius: 8px;
+        border-radius: $radius-3;
         background: $grey-2;
       }
 
       &.exact-ticket {
-        border-radius: 8px;
+        border-radius: $radius-3;
         background: $grey-2;
       }
     }
@@ -84,8 +84,8 @@ export default defineComponent({
         align-items: center;
         justify-content: center;
         position: absolute;
-        bottom: 0px;
-        right: 0px;
+        bottom: $spacing-none;
+        right: $spacing-none;
         border-radius: $radius-5;
         background: $secondary;
 
