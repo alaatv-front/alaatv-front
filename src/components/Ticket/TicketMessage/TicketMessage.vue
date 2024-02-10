@@ -19,7 +19,13 @@
              class="TicketMessage__files">
           <div v-for="(file, fileIndex) in message.files"
                :key="fileIndex"
-               class="TicketMessage__file">
+               class="TicketMessage__file"
+               :class="{
+                 'TicketMessage__file--is-file': isFile(file),
+                 'TicketMessage__file--is-image-file': isImageFile(file),
+                 'TicketMessage__file--is-file-url': !isFile(file) && !isImageUrl(file),
+                 'TicketMessage__file--is-image-url': isImageUrl(file)
+               }">
             <div class="TicketMessage__file-info">
               <div class="TicketMessage__file-title ellipsis">
                 <template v-if="!isFile(file)">
@@ -36,14 +42,19 @@
             <div class="TicketMessage__file-thumbnail"
                  :class="{
                    'TicketMessage__file-thumbnail--is-file': isFile(file),
-                   'TicketMessage__file-thumbnail--is-image-url': isImageUrl(file),
-                   'TicketMessage__file-thumbnail--is-image-file': isImageFile(file)
+                   'TicketMessage__file-thumbnail--is-image-file': isImageFile(file),
+                   'TicketMessage__file-thumbnail--is-file-url': !isFile(file) && !isImageUrl(file),
+                   'TicketMessage__file-thumbnail--is-image-url': isImageUrl(file)
                  }">
               <template v-if="!isFile(file)">
                 <lazy-img v-if="isImageUrl(file)"
                           :src="file"
                           width="50"
                           height="50" />
+                <q-icon v-else
+                        color="grey-1"
+                        size="20px"
+                        :name="getFileIcon(file)" />
               </template>
               <template v-else>
                 <q-knob v-model="file.progress"
@@ -65,7 +76,7 @@
           </div>
         </div>
         <div class="TicketMessage__body">
-          {{ message.body }}
+          {{ getMessageBody(message.body) }}
         </div>
         <div class="TicketMessage__time">
           {{ message.shamsiDate('created_at').dateTime }}
@@ -95,6 +106,13 @@ export default defineComponent({
   },
   emits: ['cancelUpload'],
   methods: {
+    getMessageBody (messageBody) {
+      if (!messageBody) {
+        return ''
+      }
+
+      return messageBody.replace(/\r?\n/g, '<br/>')
+    },
     isFile (data) {
       if (typeof window === 'undefined') {
         return false
@@ -115,6 +133,33 @@ export default defineComponent({
     },
     onCancelUpload (message, fileIndex, file) {
       this.$emit('cancelUpload', { message, fileIndex, file })
+    },
+    getFileIcon (fileUrl) {
+      if (typeof fileUrl !== 'string') {
+        return 'ph:file'
+      }
+
+      if (fileUrl.match(/\.(doc|docx)/) !== null) {
+        return 'ph:file-doc'
+      }
+
+      if (fileUrl.match(/\.(xls|xlsx)/) !== null) {
+        return 'ph:file-xls'
+      }
+
+      if (fileUrl.match(/\.pdf/) !== null) {
+        return 'ph:file-pdf'
+      }
+
+      if (fileUrl.match(/\.csv/) !== null) {
+        return 'ph:file-csv'
+      }
+
+      if (fileUrl.match(/\.zip/) !== null) {
+        return 'ph:file-zip'
+      }
+
+      return 'ph:file'
     }
   }
 })
@@ -125,15 +170,7 @@ export default defineComponent({
   display: flex;
   width: 100%;
   margin-bottom: $space-6;
-  &.TicketMessage--sent {
-    justify-content: flex-end;
-  }
-  &.TicketMessage--received {
-    justify-content: flex-start;
-  }
-  &.TicketMessage--private {
-
-  }
+  $trail-size: 10px;
   .TicketMessage__container {
     display: flex;
     width: 320px;
@@ -141,9 +178,10 @@ export default defineComponent({
     align-items: flex-end;
     gap: 12px;
     border-radius: 12px;
+    $avatar-size: 40px;
     .TicketMessage__avatar {
-      width: 40px;
-      height: 40px;
+      width: $avatar-size;
+      height: $avatar-size;
       flex-shrink: 0;
       :deep(.lazy-img) {
         width: 100%;
@@ -153,12 +191,22 @@ export default defineComponent({
     }
     .TicketMessage__content {
       display: flex;
-      padding: 8px 12px;
+      padding: $space-2 $space-3;
       flex-direction: column;
       justify-content: flex-end;
       align-items: flex-start;
       align-self: stretch;
-      border-radius: 12px 12px 0 12px;
+      width: calc( 100% - #{$avatar-size} );
+      border-radius: $space-3 $space-3 $spacing-none $space-3;
+      position: relative;
+      z-index: 1;
+      &:before {
+        content: ' ';
+        position: absolute;
+        bottom: 0;
+        width: $trail-size;
+        height: $trail-size;
+      }
       .TicketMessage__user-fullname {
         color: $secondary-7;
         @include caption1;
@@ -166,47 +214,48 @@ export default defineComponent({
       .TicketMessage__files {
         display: flex;
         gap: $space-2;
+        margin-bottom: $space-1;
+        max-width: 100%;
         flex-direction: column;
         .TicketMessage__file {
           display: flex;
+          max-width: 100%;
           padding-left: $space-4;
           justify-content: flex-end;
           align-items: center;
           gap: $space-2;
           align-self: stretch;
+          $thumbnail-file-size: 40px;
+          $thumbnail-photo-size: 56px;
+          @mixin thumbnail-size ($thumbnail-size) {
+            width: $thumbnail-size;
+            min-width: $thumbnail-size;
+            max-width: $thumbnail-size;
+            height: $thumbnail-size;
+          }
           .TicketMessage__file-thumbnail {
             display: flex;
-            width: 56px;
-            height: 56px;
-            padding: 8px 12px;
+            @include thumbnail-size($thumbnail-photo-size);
             flex-direction: column;
             justify-content: center;
             align-items: center;
             :deep(.lazy-img) {
               width: 100%;
               height: 100%;
-              border-radius: 4px;
+              border-radius: $radius-1;
             }
+            &.TicketMessage__file-thumbnail--is-file-url,
             &.TicketMessage__file-thumbnail--is-file:not(.TicketMessage__file-thumbnail--is-image-file) {
               display: flex;
-              width: 40px;
-              height: 40px;
+              @include thumbnail-size($thumbnail-file-size);
               justify-content: center;
               align-items: center;
               border-radius: $radius-round;
               background: $secondary;
             }
+            &.TicketMessage__file-thumbnail--is-image-url,
             &.TicketMessage__file-thumbnail--is-image-file {
-              width: 56px;
-              height: 56px;
-              padding:$space-2 $space-3;
-              border-radius: $radius-1;
-              background: $darken-5;
-            }
-            &.TicketMessage__file-thumbnail--is-image-url {
-              width: 56px;
-              height: 56px;
-              padding:$space-2 $space-3;
+              @include thumbnail-size($thumbnail-photo-size);
               border-radius: $radius-1;
               background: $darken-5;
             }
@@ -219,10 +268,23 @@ export default defineComponent({
             .TicketMessage__file-title {
               color: $grey-9;
               @include body2;
+              max-width: 100%;
             }
             .TicketMessage__file-size {
               color: $grey-7;
               @include caption1;
+            }
+          }
+          &.TicketMessage__file--is-file,
+          &.TicketMessage__file--is-file-url {
+            .TicketMessage__file-info {
+              width: calc( 100% - #{$thumbnail-file-size} );
+            }
+          }
+          &.TicketMessage__file--is-image-url,
+          &.TicketMessage__file--is-image-file {
+            .TicketMessage__file-info {
+              width: calc( 100% - #{$thumbnail-photo-size} );
             }
           }
         }
@@ -255,6 +317,27 @@ export default defineComponent({
     &.TicketMessage--private {
 
     }
+  }
+  &.TicketMessage--sent {
+    justify-content: flex-end;
+    .TicketMessage__content {
+      &:before {
+        background-image: url("https://nodes.alaatv.com/upload/alaaPages/2024-02/sent-ticket-message-tail1707563864.png");
+        right: -#{$trail-size};
+      }
+    }
+  }
+  &.TicketMessage--received {
+    justify-content: flex-start;
+    .TicketMessage__content {
+      &:before {
+        background-image: url("https://nodes.alaatv.com/upload/alaaPages/2024-02/received-ticket-message-tail1707563884.png");
+        left: -#{$trail-size};
+      }
+    }
+  }
+  &.TicketMessage--private {
+
   }
 }
 </style>

@@ -65,7 +65,7 @@ export default class FileUploadAPI extends APIRepository {
         onUploadProgress
       },
       resolveCallback: (response) => {
-        return response.data.data.url // String presigned URL of file
+        return response.data.url // String presigned URL of file
       },
       rejectCallback: (error) => {
         return error

@@ -377,7 +377,10 @@ export default class TicketAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.presignedUrl,
       resolveCallback: (response) => {
-        return response.data.data.url // String presigned URL of file
+        return {
+          url: response.data.url, // String presigned URL of file
+          uploaded_file_name: response.data.uploaded_file_name // String
+        }
       },
       rejectCallback: (error) => {
         return error
