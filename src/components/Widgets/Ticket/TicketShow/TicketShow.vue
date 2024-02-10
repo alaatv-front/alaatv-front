@@ -40,7 +40,8 @@
           </div>
           <div class="col-lg-8 col-md-6 col-12">
             <div class="TicketShow__messages">
-              <ticket-message-list :ticket="ticket"
+              <ticket-message-list ref="TicketMessageList"
+                                   :ticket="ticket"
                                    @cancelUpload="onCancelUploadFile"
                                    @sendingMessage="onSendingMessage" />
             </div>
@@ -395,6 +396,11 @@ export default {
       ticketDepartments: new TicketDepartmentList()
     }
   },
+  computed: {
+    ticketId () {
+      return parseInt(this.$route.params.id)
+    }
+  },
   mounted () {
     this.getNeededDataForTicket()
   },
@@ -461,37 +467,52 @@ export default {
         })
     },
     sendTicketMessage (ticketMessage) {
-      ticketMessage.body = ticketMessage.body.replace(/\r?\n/g, '<br/>')
-      this.ticket.loading = true
-      APIGateway.ticket.sendTicketMessage(ticketMessage)
-        .then((ticketMessage) => {
-          this.ticket.loading = false
-          this.ticket.messages.list.push(new TicketMessage(ticketMessage))
-        })
-        .catch(() => {
-          this.ticket.loading = false
-        })
+      return new Promise((resolve, reject) => {
+        ticketMessage.body = ticketMessage.body ? ticketMessage.body.replace(/\r?\n/g, '<br/>') : ''
+        this.ticket.loading = true
+        APIGateway.ticket.sendTicketMessage(ticketMessage)
+          .then((ticketMessage) => {
+            console.log('4-sendTicketMessage then')
+            this.ticket.loading = false
+            this.ticket.messages.list.push(new TicketMessage(ticketMessage))
+            this.scrollToLastMessage()
+            resolve(ticketMessage)
+          })
+          .catch((e) => {
+            this.ticket.loading = false
+            reject(e)
+          })
+      })
     },
     onSendingMessage (data) {
-      this.createSendingMessage(data.body, data.files.map(file => {
+      const sendingMessage = this.createSendingMessage(data.body, data.files.map(file => {
         file.progress = 0
         return file
       }))
       const allFilesPresignedUrlPromisses = this.getAllFilesPresignedUrlPromisses(data.files)
-      const uploadAllFilesPromisses = this.getUploadAllFilesPromisses(allFilesPresignedUrlPromisses)
-
-      Promise.all(uploadAllFilesPromisses)
-        .then((resolvedItems) => {
-          // resolvedItem = { file, uploadedPath, presignedUrl, response }
-          debugger
-          this.sendTicketMessage({
-            body: data.body,
-            ticket_id: this.$route.params.id,
-            files: resolvedItems.map(item => item.uploadedPath)
-          })
+      this.getUploadAllFilesPromisses(allFilesPresignedUrlPromisses)
+        .then((uploadAllFilesPromisses) => {
+          Promise.all(uploadAllFilesPromisses)
+            .then((resolvedItems) => {
+              console.log('3-AllFilesPromisses then')
+              // resolvedItem = { file, uploadedPath, presignedUrl, response }
+              this.sendTicketMessage({
+                body: data.body,
+                ticket_id: this.ticketId,
+                files: resolvedItems.map(item => item.uploadedPath)
+              })
+                .then(() => {
+                  console.log('5-sendTicketMessage then then')
+                  this.deleteMessage(sendingMessage.id)
+                  this.scrollToLastMessage()
+                })
+                .catch(() => {
+                })
+            })
+            .catch(() => {
+            })
         })
         .catch(() => {
-
         })
     },
     deleteMessage (messageId) {
@@ -524,6 +545,7 @@ export default {
         promisses.push(new Promise((resolve, reject) => {
           APIGateway.ticket.presignedUrl(file.name)
             .then(({ url /* , uploaded_file_name */ }) => {
+              console.log('1-FilesPresignedUrlPromisses then')
               resolve({
                 file,
                 presignedUrl: url
@@ -540,47 +562,59 @@ export default {
       return promisses
     },
     getUploadAllFilesPromisses (presignedUrlPromisses) {
-      const promisses = []
-      Promise.all(presignedUrlPromisses)
-        .then((resolves) => {
-          resolves.forEach((resolveItem) => {
-            promisses.push(new Promise((resolve, reject) => {
-              APIGateway.fileUpload.uploadFile(resolveItem.presignedUrl, resolveItem.file, (data) => {
-                console.log('onUploadProgress data', data)
-                console.log('progress: ', data.progress) // in range [0..1]
-                // {
-                //   loaded, // number,
-                //     total, // number,
-                //     progress, // number, // in range [0..1]
-                //     bytes, // number, // how many bytes have been transferred since the last trigger (delta)
-                //     estimated, // number; // estimated time in seconds
-                //     rate, // number; // upload speed in bytes
-                //     upload // true; // upload sign
-                // }
-                // https://www.npmjs.com/package/axios#-progress-capturing
-              })
-                .then((response) => {
-                  resolve({
-                    file: resolveItem.file,
-                    uploadedPath: resolveItem.presignedUrl.split('?')[0],
-                    presignedUrl: resolveItem.presignedUrl,
-                    response
-                  })
+      return new Promise((resolve, reject) => {
+        const promisses = []
+        Promise.all(presignedUrlPromisses)
+          .then((resolves) => {
+            resolves.forEach((resolveItem) => {
+              promisses.push(new Promise((resolve, reject) => {
+                APIGateway.fileUpload.uploadFile(resolveItem.presignedUrl, resolveItem.file, (data) => {
+                  // console.log('onUploadProgress data', data)
+                  // console.log('progress: ', data.progress) // in range [0..1]
+                  // {
+                  //   loaded, // number,
+                  //     total, // number,
+                  //     progress, // number, // in range [0..1]
+                  //     bytes, // number, // how many bytes have been transferred since the last trigger (delta)
+                  //     estimated, // number; // estimated time in seconds
+                  //     rate, // number; // upload speed in bytes
+                  //     upload // true; // upload sign
+                  // }
+                  // https://www.npmjs.com/package/axios#-progress-capturing
                 })
-                .catch(() => {
-                  reject({
-                    file: resolveItem.file,
-                    presignedUrl: resolveItem.presignedUrl
+                  .then((response) => {
+                    console.log('2-UploadAllFilesPromisses then')
+                    resolve({
+                      file: resolveItem.file,
+                      uploadedPath: resolveItem.presignedUrl.split('?')[0],
+                      presignedUrl: resolveItem.presignedUrl,
+                      response
+                    })
                   })
-                })
-            }))
+                  .catch((error) => {
+                    reject({
+                      error,
+                      file: resolveItem.file,
+                      presignedUrl: resolveItem.presignedUrl
+                    })
+                  })
+              }))
+            })
+            resolve(promisses)
           })
-        })
-        .catch(() => {
+          .catch((e) => {
+            reject(e)
+          })
+      })
+    },
+    scrollToLastMessage () {
+      if (!this.$refs.TicketMessageList) {
+        return
+      }
 
-        })
-
-      return promisses
+      this.$nextTick(() => {
+        this.$refs.TicketMessageList.scrollToBottom()
+      })
     }
   }
 }
