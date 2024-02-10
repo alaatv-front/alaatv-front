@@ -64,7 +64,8 @@
                 <q-btn flat
                        square
                        icon="ph:paper-plane-right"
-                       class="TicketSendMessageInput__btn-send-voice-message size-lg" />
+                       class="TicketSendMessageInput__btn-send-voice-message size-lg"
+                       @click="onSendVoice" />
               </div>
             </div>
           </div>
@@ -313,13 +314,15 @@ export default defineComponent({
       this.sendMessage(this.textInput)
     },
     onSendVoice () {
-      this.sendMessage(null, [this.recordedVoiceAsBlob])
+      const recordFile = new File([this.recordedVoiceAsBlob], 'recorded-voice.ogg', { type: this.recordedVoiceAsBlob.type })
+      this.sendMessage(null, [recordFile])
     },
     onSendFiles ({ files, description }) {
       this.hideSelectFilesDialog()
       this.sendMessage(description, files, false)
     },
     sendMessage (body, files = [], isPrivate = false) {
+      console.log('files', files)
       this.$emit('sendMessage', {
         body,
         is_private: isPrivate,
