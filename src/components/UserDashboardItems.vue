@@ -98,22 +98,22 @@ export default {
           active: false,
           children: []
         },
-        // {
-        //   title: 'داشبورد راه ابریشم',
-        //   icon: 'ph:compass',
-        //   routeName: 'UserPanel.Asset.Abrisham.Progress',
-        //   permission: 'all',
-        //   active: false,
-        //   children: []
-        // },
-        // {
-        //   title: 'داشبورد راه ابریشم پرو',
-        //   icon: 'ph:compass',
-        //   routeName: 'UserPanel.Asset.AbrishamPro.Progress',
-        //   permission: 'all',
-        //   active: false,
-        //   children: []
-        // },
+        {
+          title: 'داشبورد راه ابریشم',
+          icon: 'ph:compass',
+          routeName: 'UserPanel.Asset.Abrisham.Progress',
+          permission: 'all',
+          active: false,
+          children: []
+        },
+        {
+          title: 'داشبورد راه ابریشم پرو',
+          icon: 'ph:compass',
+          routeName: 'UserPanel.Asset.AbrishamPro.Progress',
+          permission: 'all',
+          active: false,
+          children: []
+        },
         {
           title: 'داشبورد راه ابریشم ۲',
           icon: 'ph:compass',
