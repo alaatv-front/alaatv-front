@@ -139,7 +139,8 @@
 import { shallowRef } from 'vue'
 import moment from 'moment-jalaali'
 import { Order } from 'src/models/Order.js'
-import { APIGateway } from 'src/api/APIGateway'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { mixinAuth } from 'src/mixin/Mixins.js'
 import FormBuilder from 'quasar-form-builder/src/FormBuilder.vue'
 import ActionBtnComponent from 'src/components/Utils/actionBtn.vue'
 // import OrderDetailsCard from 'src/components/UserOrders/OrderDetailsCard.vue'
@@ -156,6 +157,7 @@ export default {
     OrderDetailsDialog,
     EntityIndex
   },
+  mixins: [mixinAuth],
   props: {
     isAdmin: {
       type: Boolean,
@@ -288,8 +290,8 @@ export default {
       if (this.userId) {
         return this.userId
       }
-      if (this.$store.getters['Auth/user']) {
-        return this.$store.getters['Auth/user'].id
+      if (this.user.id) {
+        return this.user.id
       }
       return null
     },
