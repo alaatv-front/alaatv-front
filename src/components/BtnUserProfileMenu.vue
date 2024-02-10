@@ -57,23 +57,15 @@
 </template>
 
 <script>
-import { User } from 'src/models/User.js'
-import LazyImg from 'src/components/lazyImg.vue'
 import { mixinAuth } from 'src/mixin/Mixins.js'
+import LazyImg from 'src/components/lazyImg.vue'
 import UserDashboardItems from 'src/components/UserDashboardItems.vue'
 
 export default {
   name: 'MainHeaderTemplate',
   components: { UserDashboardItems, LazyImg },
   mixins: [mixinAuth],
-  data () {
-    return {
-      user: new User(),
-      isUserLogin: false
-    }
-  },
   mounted () {
-    this.loadAuthData()
     this.checkAuth()
   },
   methods: {
@@ -81,10 +73,6 @@ export default {
       this.$bus.on('onLoggedIn', () => {
         this.loadAuthData()
       })
-    },
-    loadAuthData () { // prevent Hydration node mismatch
-      this.user = this.$store.getters['Auth/user']
-      this.isUserLogin = this.$store.getters['Auth/isUserLogin']
     }
   }
 }

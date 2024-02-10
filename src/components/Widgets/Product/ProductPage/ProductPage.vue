@@ -337,7 +337,7 @@ $short-description-height-xl: 150px;
 $short-description-height-lg: 220px;
 $short-description-height-md: 144px;
 $short-description-height-sm: 216px;
-$paddingTop: v-bind('paddingTop');
+$page-margin-top-sm: v-bind('paddingTop');
 
 .product-page-container {
   width: 100%;
@@ -347,8 +347,12 @@ $paddingTop: v-bind('paddingTop');
   justify-content: center;
   align-items: center;
 
+  @include media-max-width('md'){
+    padding-bottom: 150px;
+  }
+
   @include media-max-width('sm'){
-    margin-top: $paddingTop;
+    margin-top: $page-margin-top-sm;
   }
 
   .product-background {

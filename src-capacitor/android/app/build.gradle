@@ -1,7 +1,11 @@
 import groovy.json.JsonSlurper
 
+plugins {
+  id "com.android.application"
+  id "io.sentry.android.gradle" version "4.2.0"
+}
+
 apply plugin: 'com.android.application'
-// apply plugin: 'io.sentry.android.gradle'
 
 def configFile = file('../versionConfig.json')
 def config = new JsonSlurper().parseText(configFile.text)
@@ -49,6 +53,14 @@ repositories {
 }
 
 dependencies {
+  // https://central.sonatype.com/artifact/io.sentry/sentry-android?smo=true
+  // https://docs.sentry.io/platforms/android/troubleshooting/#stackoverflowerror-during-sync-or-build
+//  implementation 'io.sentry:sentry-android:7.1.0' // or sentry-android-core if you don't use the ndk package
+
+  // https://mvnrepository.com/artifact/io.sentry/sentry-android
+//  runtimeOnly 'io.sentry:sentry-android:7.1.0'
+
+
   implementation fileTree(include: ['*.jar'], dir: 'libs')
   implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
   implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
@@ -60,7 +72,6 @@ dependencies {
   implementation project(':capacitor-cordova-android-plugins')
 
   implementation 'com.airbnb.android:lottie:3.6.1'
-//   implementation 'io.sentry:sentry-android:7.1.0'
 }
 
 apply from: 'capacitor.build.gradle'
