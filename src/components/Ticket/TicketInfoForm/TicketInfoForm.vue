@@ -47,9 +47,8 @@
       </div>
     </div>
     <div class="ticket-info-form">
-      <template v-if="isEntityReady">
-        <entity-edit v-if="mounted"
-                     ref="entityEditTicket"
+      <template v-if="mounted && isEntityReady">
+        <entity-edit ref="entityEditTicket"
                      v-model:value="ticketInputs"
                      :api="ticketApi"
                      :loading="ticketLoading"
@@ -66,8 +65,7 @@
                    @click="editTicket" />
           </template>
         </entity-edit>
-        <entity-create v-if="mounted"
-                       ref="entityCreateSupport"
+        <entity-create ref="entityCreateSupport"
                        v-model:value="supportInputs"
                        :api="supportApi"
                        :loading="supportLoading"
