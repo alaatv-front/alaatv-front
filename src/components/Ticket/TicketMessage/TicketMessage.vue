@@ -75,9 +75,8 @@
             </div>
           </div>
         </div>
-        <div class="TicketMessage__body">
-          {{ getMessageBody(message.body) }}
-        </div>
+        <div class="TicketMessage__body"
+             v-html="getMessageBody(message.body)" />
         <div class="TicketMessage__time">
           {{ message.shamsiDate('created_at').dateTime }}
         </div>

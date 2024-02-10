@@ -20,7 +20,8 @@
           <q-btn flat
                  square
                  icon="ph:paper-plane-right"
-                 class="TicketSendMessageInput__btn-send-message size-lg" />
+                 class="TicketSendMessageInput__btn-send-message size-lg"
+                 @click="onSendText" />
         </template>
         <template v-if="hasStatus(['blur', 'voice-recording', 'voice-recorded'])">
           <div class="TicketSendMessageInput__recording-area"
@@ -114,9 +115,7 @@ export default defineComponent({
     PreparedTexts,
     VoiceWaveSurfer
   },
-  props: {
-  },
-  emits: ['sendingMessage', 'sendingMessage'],
+  emits: ['sendMessage'],
   data () {
     return {
       textInput: null,
@@ -125,7 +124,6 @@ export default defineComponent({
       recordedVoiceDurationInSeconds: 0,
       mediaRecorder: null,
       selectFilesDialog: false,
-      preparedTextsMenu: true,
       preparedTextList: [
         {
           title: '/عنوان آماده 1',
@@ -264,10 +262,9 @@ export default defineComponent({
         }
       }
 
-      const onError = (err) => {
+      const onError = () => {
         this.status = 'blur'
         this.recordStop()
-        console.error(err.name + ': ' + err.message)
         this.$q.notify({
           type: 'negative',
           message: 'مرورگر شما اجازه دسترسی به میکروفون را ندارد'
@@ -278,7 +275,6 @@ export default defineComponent({
         .then(onSuccess, onError)
 
       this.recordedVoiceDurationInSeconds = 0
-      console.trace('setInterval')
       this.recordInterval = setInterval(() => {
         this.recordedVoiceDurationInSeconds++
       }, 1000)
@@ -288,12 +284,10 @@ export default defineComponent({
         this.mediaRecorder.stop()
       }
       if (this.recordInterval) {
-        console.trace('clearInterval')
         clearInterval(this.recordInterval)
       }
     },
     togglePreparedTextsMenu () {
-      // this.preparedTextsMenu = !this.preparedTextsMenu
       this.$refs.preparedTextsMenu.toggle()
     },
     onSelectPreparedText (item) {
@@ -307,6 +301,13 @@ export default defineComponent({
       this.selectFilesDialog = false
     },
 
+    cleaInput () {
+      this.status = 'blur'
+      this.recordStop()
+      this.removeRecordeVoice()
+      this.hideSelectFilesDialog()
+      this.$refs.preparedTextsMenu.hide()
+    },
     onSendText () {
       this.sendMessage(this.textInput)
     },
@@ -314,22 +315,16 @@ export default defineComponent({
       this.sendMessage(null, [this.recordedVoiceAsBlob])
     },
     onSendFiles ({ files, description }) {
-      this.sendingMessage(description, files)
-    },
-    sendingMessage (body, files = [], isPrivate = false) {
       this.hideSelectFilesDialog()
-      this.$emit('sendingMessage', {
+      this.sendMessage(description, files, false)
+    },
+    sendMessage (body, files = [], isPrivate = false) {
+      this.$emit('sendMessage', {
         body,
         is_private: isPrivate,
         files
       })
-    },
-    sendMessage (body, files = [], isPrivate = false) {
-      this.$emit('sendingMessage', {
-        body,
-        is_private: isPrivate,
-        files: []
-      })
+      this.cleaInput()
     }
   }
 })
