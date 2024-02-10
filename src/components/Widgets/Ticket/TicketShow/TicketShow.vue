@@ -358,6 +358,7 @@ export default {
         body,
         files
       })
+      message.showAsSent = true
       this.ticket.messages.list.push(message)
 
       return message

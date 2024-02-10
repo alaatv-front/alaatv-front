@@ -15,7 +15,7 @@
       <ticket-message v-for="(message, messageIndex) in ticket.messages.list"
                       :key="messageIndex"
                       :message="message"
-                      :sent="user.id === message.user.id"
+                      :sent="user.id === message.user.id || message.showAsSent"
                       @cancelUpload="onCancelUploadFile" />
     </div>
     <div class="TicketMessageList__send-input-area">
