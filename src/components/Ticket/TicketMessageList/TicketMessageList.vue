@@ -7,9 +7,8 @@
         <q-icon name="ph:push-pin" />
         تیکت اصلی
       </div>
-      <div class="TicketMessageList__first-message-body ellipsis">
-        {{ getMessageBody(firstMessage.body) }}
-      </div>
+      <div class="TicketMessageList__first-message-body ellipsis"
+           v-html="getMessageBody(firstMessage.body)" />
     </div>
     <div ref="TicketMessageListScrollArea"
          class="TicketMessageList__scroll-area">
@@ -20,7 +19,7 @@
                       @cancelUpload="onCancelUploadFile" />
     </div>
     <div class="TicketMessageList__send-input-area">
-      <ticket-send-message-input @sendingMessage="onSendingMessage" />
+      <ticket-send-message-input @sendMessage="onSendMessage" />
     </div>
   </div>
 </template>
@@ -41,7 +40,7 @@ export default defineComponent({
       default: new Ticket()
     }
   },
-  emits: ['sendingMessage', 'sendingMessage', 'cancelUpload'],
+  emits: ['sendMessage', 'cancelUpload'],
   computed: {
     firstMessage () {
       return this.ticket.messages.list[0] || {
@@ -53,8 +52,8 @@ export default defineComponent({
     this.scrollToBottom()
   },
   methods: {
-    onSendingMessage (data) {
-      this.$emit('sendingMessage', data)
+    onSendMessage (data) {
+      this.$emit('sendMessage', data)
       this.$nextTick(() => {
         this.scrollToBottom()
       })

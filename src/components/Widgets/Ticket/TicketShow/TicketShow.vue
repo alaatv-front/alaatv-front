@@ -46,8 +46,8 @@
             <div class="TicketShow__messages">
               <ticket-message-list ref="TicketMessageList"
                                    :ticket="ticket"
-                                   @cancelUpload="onCancelUploadFile"
-                                   @sendingMessage="onSendingMessage" />
+                                   @sendMessage="onSendMessage"
+                                   @cancelUpload="onCancelUploadFile" />
             </div>
           </div>
           <div class="col-lg-4 col-md-6 col-12 gt-sm">
@@ -158,13 +158,13 @@ export default {
   },
   data () {
     return {
+      mounted: false,
       bottomSheet: false,
       myOpenTicketDrawer: false,
       ticketInfoFormDrawer: false,
-      mounted: false,
       ticket: new Ticket(),
-      ticketLogs: new TicketLogList(),
       otherTickets: new TicketList(),
+      ticketLogs: new TicketLogList(),
       pendingTickets: new TicketList(),
       supporterList: new SupporterList(),
       ticketStatusList: new TicketStatusList(),
@@ -282,7 +282,6 @@ export default {
         this.ticket.loading = true
         APIGateway.ticket.sendTicketMessage(ticketMessage)
           .then((ticketMessage) => {
-            console.log('4-sendTicketMessage then')
             this.ticket.loading = false
             this.ticket.messages.list.push(new TicketMessage(ticketMessage))
             this.scrollToLastMessage()
@@ -294,17 +293,29 @@ export default {
           })
       })
     },
-    onSendingMessage (data) {
+    prepateFilesForSendMessages (data) {
+      const allFilesPresignedUrlPromisses = this.getAllFilesPresignedUrlPromisses(data.files)
+      return this.getUploadAllFilesPromisses(allFilesPresignedUrlPromisses)
+    },
+    onSendMessage (data) {
+      if (Array.isArray(data.files) && data.files.length === 0) {
+        data.ticket_id = this.ticketId
+        this.sendTicketMessage(data)
+          .then(() => {
+            this.scrollToLastMessage()
+          })
+          .catch(() => {})
+        return
+      }
+
       const sendingMessage = this.createSendingMessage(data.body, data.files.map(file => {
         file.progress = 0
         return file
       }))
-      const allFilesPresignedUrlPromisses = this.getAllFilesPresignedUrlPromisses(data.files)
-      this.getUploadAllFilesPromisses(allFilesPresignedUrlPromisses)
+      this.prepateFilesForSendMessages(data)
         .then((uploadAllFilesPromisses) => {
           Promise.all(uploadAllFilesPromisses)
             .then((resolvedItems) => {
-              console.log('3-AllFilesPromisses then')
               // resolvedItem = { file, uploadedPath, presignedUrl, response }
               this.sendTicketMessage({
                 body: data.body,
@@ -312,18 +323,14 @@ export default {
                 files: resolvedItems.map(item => item.uploadedPath)
               })
                 .then(() => {
-                  console.log('5-sendTicketMessage then then')
                   this.deleteMessage(sendingMessage.id)
                   this.scrollToLastMessage()
                 })
-                .catch(() => {
-                })
+                .catch(() => {})
             })
-            .catch(() => {
-            })
+            .catch(() => {})
         })
-        .catch(() => {
-        })
+        .catch(() => {})
     },
     deleteMessage (messageId) {
       const targetIndex = this.ticket.messages.list.findIndex(message => message.id === messageId)
@@ -355,7 +362,6 @@ export default {
         promisses.push(new Promise((resolve, reject) => {
           APIGateway.ticket.presignedUrl(file.name)
             .then(({ url /* , uploaded_file_name */ }) => {
-              console.log('1-FilesPresignedUrlPromisses then')
               resolve({
                 file,
                 presignedUrl: url
@@ -393,7 +399,6 @@ export default {
                   // https://www.npmjs.com/package/axios#-progress-capturing
                 })
                   .then((response) => {
-                    console.log('2-UploadAllFilesPromisses then')
                     resolve({
                       file: resolveItem.file,
                       uploadedPath: resolveItem.presignedUrl.split('?')[0],
