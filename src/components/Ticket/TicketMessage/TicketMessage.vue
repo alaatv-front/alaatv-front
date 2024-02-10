@@ -19,7 +19,13 @@
              class="TicketMessage__files">
           <div v-for="(file, fileIndex) in message.files"
                :key="fileIndex"
-               class="TicketMessage__file">
+               class="TicketMessage__file"
+               :class="{
+                 'TicketMessage__file--is-file': isFile(file),
+                 'TicketMessage__file--is-image-file': isImageFile(file),
+                 'TicketMessage__file--is-file-url': !isFile(file) && !isImageUrl(file),
+                 'TicketMessage__file--is-image-url': isImageUrl(file)
+               }">
             <div class="TicketMessage__file-info">
               <div class="TicketMessage__file-title ellipsis">
                 <template v-if="!isFile(file)">
@@ -164,15 +170,7 @@ export default defineComponent({
   display: flex;
   width: 100%;
   margin-bottom: $space-6;
-  &.TicketMessage--sent {
-    justify-content: flex-end;
-  }
-  &.TicketMessage--received {
-    justify-content: flex-start;
-  }
-  &.TicketMessage--private {
-
-  }
+  $trail-size: 10px;
   .TicketMessage__container {
     display: flex;
     width: 320px;
@@ -200,6 +198,15 @@ export default defineComponent({
       align-self: stretch;
       width: calc( 100% - #{$avatar-size} );
       border-radius: $space-3 $space-3 $spacing-none $space-3;
+      position: relative;
+      z-index: 1;
+      &:before {
+        content: ' ';
+        position: absolute;
+        bottom: 0;
+        width: $trail-size;
+        height: $trail-size;
+      }
       .TicketMessage__user-fullname {
         color: $secondary-7;
         @include caption1;
@@ -207,6 +214,7 @@ export default defineComponent({
       .TicketMessage__files {
         display: flex;
         gap: $space-2;
+        margin-bottom: $space-1;
         max-width: 100%;
         flex-direction: column;
         .TicketMessage__file {
@@ -228,7 +236,6 @@ export default defineComponent({
           .TicketMessage__file-thumbnail {
             display: flex;
             @include thumbnail-size($thumbnail-photo-size);
-            padding: $space-2 $space-3;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -249,7 +256,6 @@ export default defineComponent({
             &.TicketMessage__file-thumbnail--is-image-url,
             &.TicketMessage__file-thumbnail--is-image-file {
               @include thumbnail-size($thumbnail-photo-size);
-              padding:$space-2 $space-3;
               border-radius: $radius-1;
               background: $darken-5;
             }
@@ -262,10 +268,23 @@ export default defineComponent({
             .TicketMessage__file-title {
               color: $grey-9;
               @include body2;
+              max-width: 100%;
             }
             .TicketMessage__file-size {
               color: $grey-7;
               @include caption1;
+            }
+          }
+          &.TicketMessage__file--is-file,
+          &.TicketMessage__file--is-file-url {
+            .TicketMessage__file-info {
+              width: calc( 100% - #{$thumbnail-file-size} );
+            }
+          }
+          &.TicketMessage__file--is-image-url,
+          &.TicketMessage__file--is-image-file {
+            .TicketMessage__file-info {
+              width: calc( 100% - #{$thumbnail-photo-size} );
             }
           }
         }
@@ -298,6 +317,27 @@ export default defineComponent({
     &.TicketMessage--private {
 
     }
+  }
+  &.TicketMessage--sent {
+    justify-content: flex-end;
+    .TicketMessage__content {
+      &:before {
+        background-image: url("https://nodes.alaatv.com/upload/alaaPages/2024-02/sent-ticket-message-tail1707563864.png");
+        right: -#{$trail-size};
+      }
+    }
+  }
+  &.TicketMessage--received {
+    justify-content: flex-start;
+    .TicketMessage__content {
+      &:before {
+        background-image: url("https://nodes.alaatv.com/upload/alaaPages/2024-02/received-ticket-message-tail1707563884.png");
+        left: -#{$trail-size};
+      }
+    }
+  }
+  &.TicketMessage--private {
+
   }
 }
 </style>

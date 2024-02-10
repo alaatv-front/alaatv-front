@@ -113,6 +113,7 @@ export default defineComponent({
     border-bottom: $blue-grey-3;
     background: $grey-1;
     position: sticky;
+    z-index: 2;
     top: 0;
     .TicketMessageList__first-message-title {
       color: $secondary-7;
@@ -138,6 +139,7 @@ export default defineComponent({
   }
   .TicketMessageList__send-input-area {
     position: sticky;
+    z-index: 2;
     bottom: 0;
   }
 }
