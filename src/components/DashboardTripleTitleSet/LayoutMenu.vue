@@ -119,7 +119,7 @@ export default {
     },
     itemSelected (topic) {
       const isIframe = window.self !== window.top
-      if (this.$q.screen.gt.md && !isIframe) {
+      if (this.$q.screen.gt.sm && !isIframe) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
       } else {

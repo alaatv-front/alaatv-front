@@ -26,32 +26,14 @@
 
 <script>
 import LazyImg from 'src/components/lazyImg.vue'
-import { mixinWidget } from 'src/mixin/Mixins.js'
+import { mixinWidget, mixinAuth } from 'src/mixin/Mixins.js'
 import inputMixin from 'quasar-form-builder/src/mixins/inputMixin.js'
 import UserDashboardItems from 'src/components/UserDashboardItems.vue'
-import { User } from 'src/models/User'
 
 export default {
   name: 'Dashboard',
   components: { LazyImg, UserDashboardItems },
-  mixins: [mixinWidget, inputMixin],
-  data () {
-    return {
-      isAdmin: false,
-      user: new User(),
-      isUserLogin: false
-    }
-  },
-  mounted () {
-    this.loadAuthData()
-  },
-  methods: {
-    loadAuthData () { // prevent Hydration node mismatch
-      this.user = this.$store.getters['Auth/user']
-      this.isAdmin = this.$store.getters['Auth/isAdmin']
-      this.isUserLogin = this.$store.getters['Auth/isUserLogin']
-    }
-  }
+  mixins: [mixinAuth, mixinWidget, inputMixin]
 }
 </script>
 

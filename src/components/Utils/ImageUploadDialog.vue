@@ -111,7 +111,7 @@ export default {
               this.$axios({
                 method: 'put',
                 headers: {
-                  'Content-Type': 'image/png'
+                  'Content-Type': file.type
                 },
                 url,
                 body: file,

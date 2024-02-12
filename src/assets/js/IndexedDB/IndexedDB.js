@@ -5,10 +5,8 @@ const AppIndexedDB = (function () {
     debugMode = false
 
   function query (useDB) {
-    const openRequest = indexedDB.open(DBName, 1)
+    const openRequest = indexedDB.open(DBName, 3)
     openRequest.onupgradeneeded = function (event) {
-      const db = event.target.result
-
       /*
       // https://javascript.info/indexeddb
         IndexedDB has a built-in mechanism of “schema versioning”, absent in server-side databases.
@@ -29,9 +27,7 @@ const AppIndexedDB = (function () {
       //         // update
 
       Object.keys(models).forEach(modelKey => {
-        if (!db.objectStoreNames.contains(modelKey)) {
-          models[modelKey](db)
-        }
+        models[modelKey](event)
       })
     }
     openRequest.onsuccess = function (event) {
@@ -102,8 +98,27 @@ const AppIndexedDB = (function () {
       const objectStore = getObjectStore(db, objectStoreName, readonly)
       const objectStoreIndex = objectStore.index(index)
       const request = objectStoreIndex.getAll(indexValue)
-      request.onsuccess = function (e) {
-        const result = e.target.result
+      request.onsuccess = function () {
+        const result = request.result
+        if (result) {
+          onsuccess(result, objectStore)
+        }
+      }
+
+      request.onerror = function (e) {
+        // Handle any errors here
+        console.error('Error accessing indexedDB', e.target.error)
+      }
+    })
+  }
+
+  function getItemInObjectStore (objectStoreName, index, indexValue, readonly, onsuccess) {
+    query(function (db) {
+      const objectStore = getObjectStore(db, objectStoreName, readonly)
+      const objectStoreIndex = objectStore.index(index)
+      const request = objectStoreIndex.get(indexValue)
+      request.onsuccess = function () {
+        const result = request.result
         if (result) {
           onsuccess(result, objectStore)
         }
@@ -117,13 +132,23 @@ const AppIndexedDB = (function () {
   }
 
   async function updateRecord (data, objectStore) {
-    await objectStore.put(data)
+    return new Promise((resolve, reject) => {
+      const request = objectStore.put(data)
+      request.onerror = function (event) {
+        reject(event.target.error)
+      }
+
+      request.onsuccess = function () {
+        resolve()
+      }
+    })
   }
 
   return {
     updateRecord,
     putObjectStores,
-    searchInObjectStore
+    searchInObjectStore,
+    getItemInObjectStore
   }
 }())
 

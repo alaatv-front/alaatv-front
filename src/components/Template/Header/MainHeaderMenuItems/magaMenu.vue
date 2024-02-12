@@ -269,7 +269,7 @@ export default {
       }
     },
     onMouseleave (event) {
-      if (event.relatedTarget.nodeName === 'HTML' || event.relatedTarget.nodeName === 'html') {
+      if (event.relatedTarget?.nodeName === 'HTML' || event.relatedTarget?.nodeName === 'html') {
         return
       }
       this.onMouseleaveSetTimeout = setTimeout(() => {
