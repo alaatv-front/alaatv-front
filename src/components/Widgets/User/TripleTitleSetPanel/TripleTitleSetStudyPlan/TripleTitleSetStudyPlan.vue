@@ -481,7 +481,7 @@ export default {
           options: [],
           optionLabel: 'display_name',
           optionValue: 'id',
-          responseKey: 'data.study_method',
+          responseKey: 'data.study_method.id',
           value: null,
           col: 'col-12'
         },
@@ -631,7 +631,7 @@ export default {
       const data = {
         major_id: this.$refs.entityEdit.getInputsByName('major_id').value,
         grade_id: this.$refs.entityEdit.getInputsByName('grade_id').value,
-        study_method_id: this.$refs.entityEdit.getInputsByName('study_method_id').value.id
+        study_method_id: this.$refs.entityEdit.getInputsByName('study_method_id').value
       }
       this.selectedDate = this.$refs.entityEdit.getInputsByName('date').value
       this.findStudyPlan(data)
@@ -645,9 +645,15 @@ export default {
           const newContents = []
           contents.forEach(content => {
             if (typeof content === 'object') {
-              newContents.push(content.id)
+              newContents.push({
+                content_id: content.id,
+                type_id: 4
+              })
             } else {
-              newContents.push(content)
+              newContents.push({
+                content_id: content,
+                type_id: 4
+              })
             }
           })
           FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'value', newContents)
@@ -677,7 +683,12 @@ export default {
       this.selectedPlanId = event.id
       this.editApi = APIGateway.studyPlan.APIAdresses.editPlan(this.selectedPlanId)
       FormBuilderAssist.setAttributeByName(this.inputs, 'major_id', 'value', [event.major_id])
-      FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'value', event.contents.list.map(item => item.id))
+      FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'value', event.contents.list.map(item => {
+        return {
+          content_id: item.id,
+          type_id: 4
+        }
+      }))
       FormBuilderAssist.setAttributeByName(this.inputs, 'date', 'value', event.date)
       FormBuilderAssist.setAttributeByName(this.inputs, 'start', 'value', event.start)
       FormBuilderAssist.setAttributeByName(this.inputs, 'end', 'value', event.end)
