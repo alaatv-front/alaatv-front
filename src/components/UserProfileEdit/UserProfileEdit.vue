@@ -138,8 +138,18 @@ export default defineComponent({
           required: true,
           outlined: true,
           placeholder: ' ',
-          col: 'col-sm-6 col-12',
+          col: 'col-sm-4 col-8',
           value: '09999999999'
+        },
+        {
+          type: 'checkbox',
+          name: 'is_mobile_verified',
+          responseKey: 'is_mobile_verified',
+          label: 'تایید',
+          required: false,
+          outlined: false,
+          placeholder: ' ',
+          col: 'col-sm-2 col-4 flex items-end'
         },
         {
           type: 'select',
@@ -287,6 +297,7 @@ export default defineComponent({
 
       this.$refs.entityEdit.editEntity(false)
         .then(() => {
+          this.getUserInfo()
           this.profileLoading = false
         })
         .catch(() => {
@@ -325,6 +336,10 @@ export default defineComponent({
     }
 
     &__info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: $space-1;
       color: $grey-7;
       @include caption1;
       text-align: right;

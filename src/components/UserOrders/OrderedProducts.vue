@@ -188,8 +188,8 @@ export default {
   data () {
     return {
       expanded: true,
-      deleteLoading: true,
       dialogState: false,
+      deleteLoading: false,
       clickedItemToRemove: null
     }
   },

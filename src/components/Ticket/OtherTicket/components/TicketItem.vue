@@ -44,7 +44,10 @@
             تیکت های دیگر کاربر - {{ ticket.department.title }}
           </template>
           <template #body>
-            <ticket-message-list :ticket="ticket" />
+            <div class="ticket-messages-wrapper">
+              <ticket-message-list :readonly="true"
+                                   :ticket="ticket" />
+            </div>
           </template>
         </inside-dialog>
       </div>
@@ -93,6 +96,10 @@ export default defineComponent({
   @include  media-max-width('md') {
     width: 100%;
     max-width: 100%;
+  }
+
+  .ticket-messages-wrapper {
+    height: 70vh;
   }
 }
 

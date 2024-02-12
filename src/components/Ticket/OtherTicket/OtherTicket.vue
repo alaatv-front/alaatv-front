@@ -55,18 +55,21 @@
           </div>
         </div>
       </div>
-      <div id="scroll-target-id"
+      <div ref="scrollTargetId"
            class="other-ticket-list">
-        <q-infinite-scroll v-if="tickets.list.length > 0"
-                           ref="infiniteTicketList"
+        <q-infinite-scroll ref="infiniteTicketList"
                            :offset="500"
                            :initial-index="1"
-                           scroll-target="#scroll-target-id"
+                           :scroll-target="$refs.scrollTargetId"
                            @load="getOtherTickets">
           <ticket-item v-for="(ticket, index) in tickets.list"
                        :key="index"
                        class="other-ticket-item"
                        :ticket="ticket" />
+          <div v-if="tickets.list.length === 0"
+               class="no-item">
+            تیکتی وجود ندارد
+          </div>
           <template v-slot:loading>
             <div class="row justify-center q-my-md">
               <q-spinner-dots color="primary"
@@ -74,10 +77,6 @@
             </div>
           </template>
         </q-infinite-scroll>
-        <div v-else
-             class="no-item">
-          تیکتی وجود ندارد
-        </div>
       </div>
     </template>
   </inside-dialog>
@@ -139,11 +138,11 @@ export default defineComponent({
   },
   data () {
     return {
+      filterExpand: false,
+      tickets: new TicketList(),
       status: new TicketStatus(),
       priority: new TicketPriority(),
       department: new TicketDepartment(),
-      filterExpand: false,
-      tickets: new TicketList(),
       ticketStatusList: new TicketStatusList(),
       ticketPriorityList: new TicketPriorityList(),
       ticketDepartmentList: new TicketDepartmentList(),
@@ -158,7 +157,7 @@ export default defineComponent({
         from: null,
         last_page: 1,
         path: null,
-        per_page: null,
+        per_page: 10,
         to: null,
         total: 0,
         count: 0
@@ -200,34 +199,45 @@ export default defineComponent({
   },
   methods: {
     loadTicketData () {
-      this.getOtherTickets()
+      if (this.meta.current_page === 0) {
+        this.getOtherTickets(1)
+      }
       if (this.loadData) {
         this.getNeededDataForTicket()
       }
     },
     filterTickets () {
       this.tickets = new TicketList()
-      this.$refs.infiniteTicketList.reset()
+      this.meta.current_page = 0
       this.getOtherTickets()
     },
     getOtherTickets (index, done) {
+      if (index === 1) {
+        return
+      }
       this.tickets.loading = true
       APIGateway.ticket.getOtherTickets({
         ticketId: this.ticketId,
         params: {
-          page: index,
-          ...(this.department.id !== null && { department_id: this.department.id }),
+          page: this.meta.current_page + 1,
+          ...(this.status.id !== null && { status_id: this.status.id }),
           ...(this.priority.id !== null && { priority_id: this.priority.id }),
-          ...(this.status.id !== null && { status_id: this.status.id })
+          ...(this.department.id !== null && { department_id: this.department.id })
         }
       })
         .then((otherTicketResponse) => {
           this.tickets.loading = false
           const ticketList = new TicketList(otherTicketResponse.ticketList)
-          this.tickets.list.push(...ticketList.list)
+          const length = ticketList.list.length
+          for (let index = 0; index < length; index++) {
+            this.tickets.list.push(new Ticket(ticketList.list[index]))
+          }
 
-          this.links = otherTicketResponse.links
           this.meta = otherTicketResponse.meta
+          this.links = otherTicketResponse.links
+          if (this.meta.current_page >= this.meta.last_page) {
+            this.$refs.infiniteTicketList.stop()
+          }
           done()
         })
         .catch(() => {

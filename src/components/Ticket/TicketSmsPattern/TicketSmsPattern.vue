@@ -21,9 +21,9 @@
                label="ارسال پیام متنی"
                placeholder="متن پیامک"
                :readonly="!isSimplePattern"
-               :counter="!isSimplePattern"
+               :counter="isSimplePattern"
                :maxlength="64"
-               :hint="`هزینه پیامک (ریال) : ${smsMessage.length * 100}`"
+               :hint="`هزینه پیامک (ریال) : ${(smsMessage?.length ? smsMessage.length : 0) * 100}`"
                :hide-hint="!isSimplePattern"
                type="textarea" />
     </template>
@@ -107,9 +107,9 @@ export default defineComponent({
     sendTicketMessage () {
       this.pattern.loading = true
       APIGateway.sms.sendTicketMessage({
+        users_id: [this.ticket.user.is],
         pattern_id: this.pattern.patternId,
-        pattern_values: this.pattern.patternValues,
-        users_id: [this.ticket.user.is]
+        pattern_values: this.pattern.patternValues
       })
         .then(message => {
           this.pattern.loading = false

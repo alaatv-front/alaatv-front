@@ -56,17 +56,10 @@
                      :show-close-button="false"
                      :defaultLayout="false"
                      :loaded-data="ticket"
-                     :entity-id-key="entityIdKey">
-          <template #after-form-builder>
-            <q-btn color="secondary"
-                   icon="ph:pencil-simple"
-                   class="full-width q-my-md"
-                   label="ویرایش"
-                   @click="editTicket" />
-          </template>
-        </entity-edit>
+                     :entity-id-key="entityIdKey" />
         <entity-create ref="entityCreateSupport"
                        v-model:value="supportInputs"
+                       class="support-entity"
                        :api="supportApi"
                        :loading="supportLoading"
                        :show-save-button="false"
@@ -101,6 +94,13 @@
                             @sms-sent="closeSmsDialog" />
       </div>
     </q-dialog>
+    <q-dialog v-model="confirmDialog">
+      <div class="sms-dialog-wrapper">
+        <confirm-dialog :confirmation="confirmation"
+                        @confirm="onConfirm"
+                        @deny="onDeny" />
+      </div>
+    </q-dialog>
   </div>
 </template>
 
@@ -111,6 +111,7 @@ import { APIGateway } from 'src/api/APIGateway.js'
 import { EntityEdit, EntityCreate } from 'quasar-crud'
 import { FormBuilderAssist } from 'quasar-form-builder'
 import { SupporterList } from 'src/models/Supporter.js'
+import ConfirmDialog from './components/ConfirmDialog.vue'
 import { TicketStatusList } from 'src/models/TicketStatus.js'
 import { TicketPriorityList } from 'src/models/TicketPriority.js'
 import { TicketDepartmentList } from 'src/models/TicketDepartment.js'
@@ -121,6 +122,7 @@ export default defineComponent({
   components: {
     EntityEdit,
     EntityCreate,
+    ConfirmDialog,
     TicketSmsPattern
   },
   props: {
@@ -146,6 +148,7 @@ export default defineComponent({
     }
 
   },
+  emits: ['updateTicket'],
   data () {
     return {
       ticketApi: '',
@@ -154,11 +157,18 @@ export default defineComponent({
       smsDialog: false,
       entityIdKey: 'id',
       entityParamKey: 'id',
+      confirmDialog: false,
       ticketLoading: false,
       supportLoading: false,
       isStatusesReady: false,
       isDepartmentReady: false,
       isSupportersReady: false,
+      confirmation: {
+        title: '',
+        message: '',
+        icon: 'ph:ticket',
+        name: ''
+      },
       ticketInputs: [
         {
           type: 'select',
@@ -194,7 +204,6 @@ export default defineComponent({
           clearable: false,
           optionLabel: 'fullName',
           optionValue: 'userId',
-          value: null,
           label: 'پشتیبان',
           disable: false,
           col: 'col-12'
@@ -206,31 +215,56 @@ export default defineComponent({
     isEntityReady () {
       return this.isDepartmentReady && this.isStatusesReady && this.isSupportersReady
     },
+    statusValue () {
+      return FormBuilderAssist.getInputsByName(this.ticketInputs, 'status_id').value
+    },
+    departmentValue () {
+      return FormBuilderAssist.getInputsByName(this.ticketInputs, 'department_id').value
+    },
     supporterValue () {
       return FormBuilderAssist.getInputsByName(this.supportInputs, 'responsible_user').value
     }
   },
   watch: {
     ticket () {
-      FormBuilderAssist.setAttributeByName(this.supportInputs, 'responsible_user', 'value', this.ticket.responsibleUser.id)
+      this.loadApi()
+      FormBuilderAssist.setAttributeByName(this.supportInputs, 'responsible_user', 'value', this.ticket.assign.id)
     },
     departments () {
-      this.getInput('department_id', this.ticketInputs).options = this.departments.list
-      this.isDepartmentReady = true
+      this.setDepartmentOptions()
     },
     statuses () {
-      this.getInput('status_id', this.ticketInputs).options = this.statuses.list
-      this.isStatusesReady = true
+      this.setStatusOptions()
     },
     supporters () {
-      this.getInput('responsible_user', this.supportInputs).options = this.supporters.list
-      this.isSupportersReady = true
+      this.setSupportOptions()
     },
-    supporterValue (newValue, oldValue) {
-      if (typeof newValue !== 'number' || !oldValue) {
+    departmentValue (newValue, oldValue) {
+      if (typeof newValue !== 'number' || oldValue === undefined) {
         return
       }
-      this.editSupport()
+      this.confirmation.title = 'تغییر گروه تیکت'
+      this.confirmation.message = `آیا می‌خواهید گروه تیکت را به ${this.departments.list.find(dep => dep.id === newValue).title} تغییر دهید؟`
+      this.confirmation.name = 'department_id'
+      this.openConfirm()
+    },
+    supporterValue (newValue, oldValue) {
+      if (typeof newValue !== 'number' || oldValue === undefined) {
+        return
+      }
+      this.confirmation.title = 'تغییر پشتیبان تیکت'
+      this.confirmation.message = `آیا می‌خواهید تیکت را به ${this.supporters.list.find(sup => sup?.userId === newValue).fullName} ارجاع دهید؟`
+      this.confirmation.name = 'responsible_user'
+      this.openConfirm()
+    },
+    statusValue (newValue, oldValue) {
+      if (typeof newValue !== 'number' || oldValue === undefined) {
+        return
+      }
+      this.confirmation.title = 'تغییر وضعیت تیکت'
+      this.confirmation.message = `آیا می‌خواهید وضعیت تیکت را به ${this.statuses.list.find(status => status.id === newValue).title} تغییر دهید؟`
+      this.confirmation.name = 'status_id'
+      this.openConfirm()
     }
   },
   mounted () {
@@ -239,8 +273,20 @@ export default defineComponent({
   },
   methods: {
     loadApi () {
-      this.ticketApi = APIGateway.ticket.APIAdresses.updateTicketApi(this.ticket.id)
       this.supportApi = APIGateway.ticket.APIAdresses.assign(this.ticket.id)
+      this.ticketApi = APIGateway.ticket.APIAdresses.updateTicketApi(this.ticket.id)
+    },
+    setDepartmentOptions () {
+      this.getInput('department_id', this.ticketInputs).options = this.departments.list
+      this.isDepartmentReady = true
+    },
+    setStatusOptions () {
+      this.getInput('status_id', this.ticketInputs).options = this.statuses.list
+      this.isStatusesReady = true
+    },
+    setSupportOptions () {
+      this.getInput('responsible_user', this.supportInputs).options = this.supporters.list
+      this.isSupportersReady = true
     },
     getInput (inputName, source) {
       const srcFilter = source
@@ -255,12 +301,21 @@ export default defineComponent({
     callUser () {
       alert('calling ...')
     },
+    openConfirm () {
+      this.confirmDialog = true
+    },
     editTicket () {
       this.ticketLoading = true
 
       this.$refs.entityEditTicket.editEntity(false)
         .then(() => {
           this.ticketLoading = false
+          this.$emit('updateTicket')
+          this.$q.notify({
+            type: 'positive',
+            message: 'ویرایش تیکت با موفقیت انجام شد',
+            position: 'top'
+          })
         })
         .catch(() => {
           this.ticketLoading = false
@@ -272,10 +327,35 @@ export default defineComponent({
       this.$refs.entityCreateSupport.createEntity(false)
         .then(() => {
           this.supportLoading = false
+          this.$emit('updateTicket')
+          this.$q.notify({
+            type: 'positive',
+            message: 'ویرایش پشتیبان با موفقیت انجام شد',
+            position: 'top'
+          })
         })
         .catch(() => {
           this.supportLoading = false
         })
+    },
+    onConfirm () {
+      this.confirmDialog = false
+      switch (this.confirmation.name) {
+        case 'status_id':
+        case 'department_id':
+          this.editTicket()
+          break
+        case 'responsible_user':
+          this.editSupport()
+          break
+
+        default:
+          break
+      }
+    },
+    onDeny () {
+      this.confirmDialog = false
+      this.$emit('updateTicket')
     }
   }
 })
@@ -346,6 +426,9 @@ export default defineComponent({
 
   &-form {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
 
     &--loading {
       display: flex;

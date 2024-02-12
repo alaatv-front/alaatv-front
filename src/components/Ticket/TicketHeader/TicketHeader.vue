@@ -18,7 +18,7 @@
       <q-btn icon="ph:caret-down"
              color="grey"
              square
-             class="size-md ticket-header__user-action"
+             class="size-lg ticket-header__user-action"
              flat>
         <q-menu anchor="bottom left"
                 self="top left">
@@ -33,13 +33,13 @@
       <q-btn icon="ph:shopping-cart-simple"
              color="grey"
              square
-             class="size-md"
+             class="size-lg"
              flat
              @click="openMyOrderDialog" />
       <q-btn icon="ph:user-list"
              color="grey"
              square
-             class="size-md"
+             class="size-lg"
              flat
              @click="openOtherTicketListDialog" />
     </div>
@@ -142,7 +142,7 @@
       </div>
     </q-dialog>
     <q-dialog v-model="profileDialog">
-      <div class="ticket-list-dialog-wrapper">
+      <div class="profile-edit-dialog-wrapper">
         <inside-dialog :action="false">
           <template #header-icon>
             <badge-icon icon="ph:ticket"
@@ -280,6 +280,19 @@ export default defineComponent({
   }
 }
 .ticket-list-dialog-wrapper {
+  overflow-y: hidden;
+  width: 600px;
+  max-width: 600px;
+  @include  media-max-width('md') {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  :deep(.InsideDialog__scroll-area) {
+    overflow-y: hidden;
+  }
+}
+.profile-edit-dialog-wrapper {
   overflow-y: hidden;
   width: 600px;
   max-width: 600px;
