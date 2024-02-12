@@ -326,11 +326,17 @@ export default {
                   this.deleteMessage(sendingMessage.id)
                   this.scrollToLastMessage()
                 })
-                .catch(() => {})
+                .catch(() => {
+                  this.deleteMessage(sendingMessage.id)
+                })
             })
-            .catch(() => {})
+            .catch(() => {
+              this.deleteMessage(sendingMessage.id)
+            })
         })
-        .catch(() => {})
+        .catch(() => {
+          this.deleteMessage(sendingMessage.id)
+        })
     },
     deleteMessage (messageId) {
       const targetIndex = this.ticket.messages.list.findIndex(message => message.id === messageId)
@@ -352,6 +358,7 @@ export default {
         body,
         files
       })
+      message.showAsSent = true
       this.ticket.messages.list.push(message)
 
       return message
