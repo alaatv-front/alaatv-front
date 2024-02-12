@@ -18,7 +18,8 @@
                       :sent="user.id === message.user.id || message.showAsSent"
                       @cancelUpload="onCancelUploadFile" />
     </div>
-    <div class="TicketMessageList__send-input-area">
+    <div v-if="!readonly"
+         class="TicketMessageList__send-input-area">
       <ticket-send-message-input @sendMessage="onSendMessage" />
     </div>
   </div>
@@ -38,6 +39,10 @@ export default defineComponent({
     ticket: {
       type: Ticket,
       default: new Ticket()
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ['sendMessage', 'cancelUpload'],
