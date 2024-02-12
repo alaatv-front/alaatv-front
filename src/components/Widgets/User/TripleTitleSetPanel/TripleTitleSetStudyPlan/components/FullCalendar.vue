@@ -98,6 +98,7 @@
                       <div v-for="event in chartWeek[day - 1].events"
                            :key="event.id"
                            class="weekly-event cursor-pointer"
+                           :class="{'start-is-before-08': parseInt(event.start.split(':')[0]) < 8}"
                            :style="{ top: calculateTop(event), height: calculateHeight(event), background: getBackgroundColor(event.backgroundColor)}">
                         <div class="row q-px-md event-info"
                              @click="openEvent(event)">
@@ -1173,16 +1174,22 @@ export default defineComponent({
                   }
                 }
 
-                .caption2 {
-                  //max-width: 120px;
+                .more-btn {
+                  .more {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                  }
                 }
-              }
 
-              .more-btn {
-                .more {
-                  position: absolute;
-                  right: 0;
-                  top: 0;
+                &.start-is-before-08 {
+                  .event-info {
+                    align-content: flex-end;
+                  }
+                  .more {
+                    top: auto;
+                    bottom: 0;
+                  }
                 }
               }
             }

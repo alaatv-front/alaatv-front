@@ -59,6 +59,7 @@
             </div>
             <q-btn v-close-popup
                    flat
+                   square
                    icon="close"
                    color="grey-6" />
           </div>
@@ -89,12 +90,14 @@
         <q-card-section>
           <div class="row items-center justify-between">
             <div>
-              <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-CalendarCheck.png"
-                     width="24px" />
+              <q-icon name="ph:calendar-check"
+                      color="secondary"
+                      size="24px" />
               ویرایش زنگ
             </div>
             <q-btn v-close-popup
                    flat
+                   square
                    icon="close"
                    color="grey-6" />
           </div>
@@ -411,10 +414,10 @@ export default {
         {
           type: ContentsComponentComp,
           name: 'contents',
-          major: new Major(),
-          product: new Product(),
           topic: null,
           set: new Set(),
+          major: new Major(),
+          product: new Product(),
           col: 'col-12'
         },
         {
@@ -507,10 +510,10 @@ export default {
         {
           type: ContentsComponentComp,
           name: 'contents',
-          major: new Major(),
-          product: new Product(),
           topic: null,
           set: new Set(),
+          major: new Major(),
+          product: new Product(),
           responseKey: 'data.contents',
           col: 'col-12'
         },
@@ -599,15 +602,19 @@ export default {
 
     this.$bus.on('FormBuilderInputStudyPlanContentsSelector-update:major', (newValue) => {
       FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'major', newValue)
+      FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'major', newValue)
     })
     this.$bus.on('FormBuilderInputStudyPlanContentsSelector-update:product', (newValue) => {
       FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'product', newValue)
+      FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'product', newValue)
     })
     this.$bus.on('FormBuilderInputStudyPlanContentsSelector-update:topic', (newValue) => {
       FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'topic', newValue)
+      FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'topic', newValue)
     })
     this.$bus.on('FormBuilderInputStudyPlanContentsSelector-update:set', (newValue) => {
       FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'set', newValue)
+      FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'set', newValue)
     })
   },
   methods: {
@@ -658,7 +665,7 @@ export default {
     editPlan (event) {
       this.selectedPlanId = event.id
       this.editApi = APIGateway.studyPlan.APIAdresses.editPlan(this.selectedPlanId)
-      // FormBuilderAssist.setAttributeByName(this.editInputs, 'major_id', 'value', [event.major_id])
+      // FormBuilderAssist.setAttributeByName(this.editInputs, 'major_id', 'value', event.major_id)
       // FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'value', event.contents.list.map(item => item.id))
       // FormBuilderAssist.setAttributeByName(this.editInputs, 'date', 'value', event.date)
       // FormBuilderAssist.setAttributeByName(this.editInputs, 'start', 'value', event.start)
