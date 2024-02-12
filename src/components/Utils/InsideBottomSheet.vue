@@ -1,6 +1,6 @@
 <template>
   <q-card class="InsideBottomSheet">
-    <div v-touch-swipe.mouse.down="handleSwipe"
+    <div v-touch-swipe.mouse="handleSwipe"
          class="InsideBottomSheet__top-btn" />
     <q-card-section v-if="header"
                     class="InsideBottomSheet__header">
@@ -65,8 +65,10 @@ export default {
     }
   },
   methods: {
-    handleSwipe () {
-      this.$emit('closeBottomSheet')
+    handleSwipe (event) {
+      if (event.direction === 'down') {
+        this.$emit('closeBottomSheet')
+      }
     }
   }
 }
@@ -80,7 +82,7 @@ export default {
 
   &__top-btn {
     position: absolute;
-    top: 0%;
+    top: $space-1;
     left: 50%;
     transform: translate(-50%);
     width: 48px;

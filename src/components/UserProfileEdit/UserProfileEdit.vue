@@ -138,8 +138,18 @@ export default defineComponent({
           required: true,
           outlined: true,
           placeholder: ' ',
-          col: 'col-sm-6 col-12',
-          value: '09999999999'
+          col: 'col-sm-4 col-8',
+          value: ''
+        },
+        {
+          type: 'checkbox',
+          name: 'is_mobile_verified',
+          responseKey: 'is_mobile_verified',
+          label: 'تایید',
+          required: false,
+          outlined: false,
+          placeholder: ' ',
+          col: 'col-sm-2 col-4 flex items-end'
         },
         {
           type: 'select',
@@ -188,7 +198,7 @@ export default defineComponent({
           label: 'استان',
           responseKey: 'province(read_from_city)',
           placeholder: ' ',
-          clearable: false,
+          clearable: true,
           optionLabel: 'title',
           optionValue: 'id',
           outlined: true,
@@ -202,6 +212,7 @@ export default defineComponent({
           label: 'شهر',
           responseKey: 'shahr.title',
           placeholder: ' ',
+          clearable: true,
           optionLabel: 'title',
           optionValue: 'id',
           outlined: true,
@@ -243,6 +254,14 @@ export default defineComponent({
   computed: {
     computedUser () {
       return this.user
+    },
+    supporterValue () {
+      return FormBuilderAssist.getInputsByName(this.inputs, 'province').value
+    }
+  },
+  watch: {
+    supporterValue (value) {
+      FormBuilderAssist.setAttributeByName(this.inputs, 'shahr_id', 'options', this.cities.filter(city => city.ostan.id === value))
     }
   },
   mounted () {
@@ -270,8 +289,6 @@ export default defineComponent({
           FormBuilderAssist.setAttributeByName(this.inputs, 'major', 'options', formData.majors)
           FormBuilderAssist.setAttributeByName(this.inputs, 'gender', 'options', formData.genders)
           FormBuilderAssist.setAttributeByName(this.inputs, 'province', 'options', formData.provinces)
-          FormBuilderAssist.setAttributeByName(this.inputs, 'shahr_id', 'options', formData.cities)
-          // FormBuilderAssist.setAttributeByName(this.inputs, 'shahr_id', 'options', formData.cities.map(city => city.id === FormBuilderAssist.getInputsByName(this.inputs, 'province').value))
 
           this.provinces = formData.provinces
           this.cities = formData.cities
@@ -287,6 +304,7 @@ export default defineComponent({
 
       this.$refs.entityEdit.editEntity(false)
         .then(() => {
+          this.getUserInfo()
           this.profileLoading = false
         })
         .catch(() => {
@@ -325,6 +343,10 @@ export default defineComponent({
     }
 
     &__info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: $space-1;
       color: $grey-7;
       @include caption1;
       text-align: right;

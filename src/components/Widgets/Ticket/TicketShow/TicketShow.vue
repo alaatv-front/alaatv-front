@@ -36,7 +36,7 @@
               <ticket-header :ticket="ticket"
                              :department-list="ticketDepartmentList"
                              :statuses="ticketStatusList"
-                             @update-ticket="onUpdateTicket"
+                             @update-ticket="getTicket"
                              @show-ticket-logs="openTicketLogsBottomSheet"
                              @show-tickets="openMyOpenTicketDrawer"
                              @show-info-form="openTicketInfoFormDrawer" />
@@ -56,7 +56,8 @@
                                 :supporters="supporterList"
                                 :statuses="ticketStatusList"
                                 :priorities="ticketPriorityList"
-                                :departments="ticketDepartmentList" />
+                                :departments="ticketDepartmentList"
+                                @update-ticket="getTicket" />
             </div>
           </div>
         </div>
@@ -111,7 +112,8 @@
                             :supporters="supporterList"
                             :statuses="ticketStatusList"
                             :priorities="ticketPriorityList"
-                            :departments="ticketDepartmentList" />
+                            :departments="ticketDepartmentList"
+                            @update-ticket="getTicket" />
         </div>
       </q-drawer>
     </q-layout>

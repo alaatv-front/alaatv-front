@@ -10,8 +10,7 @@
       </template>
       <template #body>
         <div class="image-preview-wrapper">
-          <q-avatar v-if="user.photo"
-                    class="avatar-wrapper">
+          <q-avatar class="avatar-wrapper">
             <lazy-img :src="userImage" />
           </q-avatar>
         </div>
@@ -136,6 +135,7 @@ export default defineComponent({
   }
 
   .avatar-wrapper {
+    background: $grey;
     width: 432px;
     height: 432px;
 

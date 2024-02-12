@@ -32,7 +32,7 @@ class Ticket extends Model {
         relatedModel: User
       },
       {
-        key: 'responsibleUser',
+        key: 'assign',
         relatedModel: Supporter
       },
       { key: 'seenBefore' },

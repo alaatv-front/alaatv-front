@@ -48,7 +48,7 @@ export default defineComponent({
   },
   methods: {
     gotoTicket () {
-      this.$router.push({ name: 'UserPanel.Ticket.Show', params: { id: this.ticket.id } })
+      this.$router.push({ name: 'Admin.Ticket.Show', params: { id: this.ticket.id } })
     }
   }
 })
