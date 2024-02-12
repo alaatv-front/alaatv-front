@@ -3,13 +3,13 @@
        :key="index"
        class="row">
     <div class="col-1">
-      <q-icon name="isax:play-circle" />
+      <q-icon name="ph:play-circle" />
     </div>
     <div class="col-10">
       {{info.code}} - {{info.text}}
     </div>
     <div class="col-1">
-      <q-icon name="isax:trash" />
+      <q-icon name="ph:trash-simple" />
     </div>
   </div>
 </template>

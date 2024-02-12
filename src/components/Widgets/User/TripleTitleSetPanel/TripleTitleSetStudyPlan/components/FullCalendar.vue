@@ -45,60 +45,16 @@
                        @scroll="onScrollFirst">
           <div class="calendar-first-row"
                :class="{'weekly': tab === 'week'}">
-            <div class="col calendar-col"
+            <div v-for="dayOfWeekIndex in [0, 1, 2, 3, 4, 5, 6]"
+                 :key="dayOfWeekIndex"
+                 class="col calendar-col"
                  :class="{'weekly': tab === 'week'}">
-              <span class="day-name body1">شنبه</span>
-              <span v-if="tab === 'week' && chartWeek[0] && chartWeek[0].persianDate !== undefined"
-                    class="day-date body2">
-                {{ chartWeek[0].persianDate.toString().substring(7, 10) }} {{chartWeek[0].monthName || calendarMonth}}
+              <span class="day-name body1">
+                {{ getDayOfWeekTitle(dayOfWeekIndex) }}
               </span>
-            </div>
-            <div class="col calendar-col"
-                 :class="{'weekly': tab === 'week'}">
-              <span class="day-name body1">یکشنبه</span>
-              <span v-if="tab === 'week' && chartWeek[1] && chartWeek[1].persianDate !== undefined"
+              <span v-if="tab === 'week' && chartWeek[dayOfWeekIndex] && chartWeek[dayOfWeekIndex].persianDate !== undefined"
                     class="day-date body2">
-                {{ chartWeek[1].persianDate.toString().substring(7, 10) }} {{chartWeek[1].monthName || calendarMonth}}
-              </span>
-            </div>
-            <div class="col calendar-col"
-                 :class="{'weekly': tab === 'week'}">
-              <span class="day-name body1">دوشنبه</span>
-              <span v-if="tab === 'week' && chartWeek[2] && chartWeek[2].persianDate !== undefined"
-                    class="day-date body2">
-                {{ chartWeek[2].persianDate.toString().substring(7, 10) }} {{chartWeek[2].monthName || calendarMonth}}
-              </span>
-            </div>
-            <div class="col calendar-col"
-                 :class="{'weekly': tab === 'week'}">
-              <span class="day-name body1">سه‌شنبه</span>
-              <span v-if="tab === 'week' && chartWeek[3] && chartWeek[3].persianDate !== undefined"
-                    class="day-date body2">
-                {{ chartWeek[3].persianDate.toString().substring(7, 10) }} {{chartWeek[3].monthName || calendarMonth}}
-              </span>
-            </div>
-            <div class="col calendar-col"
-                 :class="{'weekly': tab === 'week'}">
-              <span class="day-name body1">چهارشنبه</span>
-              <span v-if="tab === 'week' && chartWeek[4] && chartWeek[4].persianDate !== undefined"
-                    class="day-date body2">
-                {{ chartWeek[4].persianDate.toString().substring(7, 10) }} {{chartWeek[4].monthName || calendarMonth}}
-              </span>
-            </div>
-            <div class="col calendar-col"
-                 :class="{'weekly': tab === 'week'}">
-              <span class="day-name body1">پنجشنبه</span>
-              <span v-if="tab === 'week' && chartWeek[5] && chartWeek[5].persianDate !== undefined"
-                    class="day-date body2">
-                {{ chartWeek[5].persianDate.toString().substring(7, 10) }} {{chartWeek[5].monthName || calendarMonth}}
-              </span>
-            </div>
-            <div class="col calendar-col"
-                 :class="{'weekly': tab === 'week'}">
-              <span class="day-name body1">جمعه</span>
-              <span v-if="tab === 'week' && chartWeek[6] && chartWeek[6].persianDate !== undefined"
-                    class="day-date body2">
-                {{ chartWeek[6].persianDate.toString().substring(7, 10) }} {{chartWeek[6].monthName || calendarMonth}}
+                {{ getDateForHeader(dayOfWeekIndex) }}
               </span>
             </div>
           </div>
@@ -145,38 +101,49 @@
                            :style="{ top: calculateTop(event), height: calculateHeight(event), background: getBackgroundColor(event.backgroundColor)}">
                         <div class="row q-px-md event-info"
                              @click="openEvent(event)">
-                          <div class="body1 col-12 q-mt-sm">{{ event.product.lesson_name }}</div>
+                          <div class="product_lesson_name col-12 q-mt-sm">{{ event.product.lesson_name }}</div>
                           <div v-for="event in event.contents.list"
                                :key="event.id"
-                               class="caption2 col-12 q-mt-xs">{{event.title}}
+                               class="event_title col-12 q-mt-xs">
+                            {{event.title}}
                           </div>
-                          <div class="caption2 col-12 q-mt-xs">{{event.start.substring(0, 5)}} الی {{event.end.substring(0, 5)}}</div>
+                          <div class="event_start col-12 q-mt-xs">{{event.start.substring(0, 5)}} الی {{event.end.substring(0, 5)}}</div>
                         </div>
                         <div class="more-btn">
-                          <q-btn icon="isax:more"
-                                 size="sm"
-                                 class="rotate-90 more">
+                          <q-btn icon="ph:dots-three-outline-vertical"
+                                 square
+                                 class="more size-ms">
                             <q-menu anchor="bottom right"
-                                    style="width: 120px"
                                     self="bottom left">
-                              <q-item clickable>
-                                <q-item-section @click="editPlan(event)">
-                                  <q-icon name="isax:edit" />
-                                  <span>ویرایش</span>
-                                </q-item-section>
-                              </q-item>
-                              <q-item clickable>
-                                <q-item-section @click="editPlan(event)">
-                                  <q-icon name="isax:copy" />
-                                  <span>کپی</span>
-                                </q-item-section>
-                              </q-item>
-                              <q-item clickable>
-                                <q-item-section @click="removePlan(event)">
-                                  <q-icon name="isax:trash" />
-                                  <span>حذف</span>
-                                </q-item-section>
-                              </q-item>
+                              <q-list>
+                                <q-item v-ripple
+                                        clickable
+                                        dense
+                                        @click="editPlan(event)">
+                                  <q-item-section>ویرایش</q-item-section>
+                                  <q-item-section avatar>
+                                    <q-icon name="ph:pencil" />
+                                  </q-item-section>
+                                </q-item>
+                                <q-item v-ripple
+                                        clickable
+                                        dense
+                                        @click="copyPlan(event)">
+                                  <q-item-section>کپی</q-item-section>
+                                  <q-item-section avatar>
+                                    <q-icon name="ph:copy" />
+                                  </q-item-section>
+                                </q-item>
+                                <q-item v-ripple
+                                        clickable
+                                        dense
+                                        @click="removePlan(event)">
+                                  <q-item-section>حذف</q-item-section>
+                                  <q-item-section avatar>
+                                    <q-icon name="ph:trash-simple" />
+                                  </q-item-section>
+                                </q-item>
+                              </q-list>
                             </q-menu>
                           </q-btn>
                         </div>
@@ -258,15 +225,14 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
-import moment from 'moment-jalaali'
-import Time from 'src/plugins/time'
-import { StudyPlanList } from 'src/models/StudyPlan'
-// import PlanItem from 'components/DashboardTripleTitleSet/Dashboard/PlanItem.vue'
-import { APIGateway } from 'src/api/APIGateway'
-import planContents
-  from 'components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/PlanContents.vue'
 import { colors } from 'quasar'
+import moment from 'moment-jalaali'
+import Time from 'src/plugins/time.js'
+import { defineComponent, ref } from 'vue'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { StudyPlanList } from 'src/models/StudyPlan.js'
+// import PlanItem from 'components/DashboardTripleTitleSet/Dashboard/PlanItem.vue'
+import planContents from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/PlanContents.vue'
 
 export default defineComponent({
   name: 'FullCalendar',
@@ -670,6 +636,10 @@ export default defineComponent({
     const editPlan = (event) => {
       emit('editPlan', event)
     }
+
+    const copyPlan = (event) => {
+      emit('copyPlan', event)
+    }
     const removePlan = (event) => {
       emit('removePlan', event)
     }
@@ -696,6 +666,7 @@ export default defineComponent({
       secondRef,
       loading,
       editPlan,
+      copyPlan,
       removePlan,
       calendarMonth,
       startOfMonth,
@@ -751,6 +722,31 @@ export default defineComponent({
     this.loadCalendar(Time.now(), true)
   },
   methods: {
+    getDayOfWeekTitle (dayOfWeekIndex) {
+      switch (dayOfWeekIndex) {
+        case 0:
+          return 'شنبه'
+        case 1:
+          return 'یکشنبه'
+        case 2:
+          return 'دوشنبه'
+        case 3:
+          return 'سه‌شنبه'
+        case 4:
+          return 'چهارشنبه'
+        case 5:
+          return 'پنجشنبه'
+        case 6:
+          return 'جمعه'
+        default:
+          return '-'
+      }
+    },
+    getDateForHeader (dayOfWeekIndex) {
+      return this.chartWeek[dayOfWeekIndex].persianDate.toString().split('/')[2] +
+        ' ' +
+        (this.chartWeek[dayOfWeekIndex].monthName || this.calendarMonth)
+    },
     getBackgroundColor (color) {
       return colors.lighten(color, 60)
     },
@@ -841,7 +837,7 @@ export default defineComponent({
 <style scoped lang="scss">
 .calender {
   height: 613px;
-
+  position: relative;
   @media screen and (width <= 1023px) {
     margin-bottom: 20px;
   }
@@ -883,7 +879,6 @@ export default defineComponent({
       padding: 16px 30px;
 
       @media screen and (width <= 600px) {
-        margin-top: 40px;
         padding: 16px 5px;
       }
 
@@ -956,14 +951,6 @@ export default defineComponent({
           border-radius: 20px;
         }
       }
-    }
-
-    @media screen and (width <= 600px) {
-      flex-direction: column;
-      align-items: flex-start;
-      height: 120px;
-      position: absolute;
-      top: 0;
     }
   }
 
@@ -1094,7 +1081,7 @@ export default defineComponent({
 
         .calendar-weekly-view {
           width: 100%;
-          height: 500px;
+          height: max-content;
 
           .time-line {
             width: 1980px;
@@ -1119,13 +1106,8 @@ export default defineComponent({
           }
 
           .calendar-weekly-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            overflow-y: auto;
             display: flex;
             padding-left: 126px;
-            overflow: hidden;
 
             .day-col {
               position: relative;
@@ -1176,18 +1158,31 @@ export default defineComponent({
                 .event-info {
                   overflow: auto;
                   height: inherit;
+                  display: flex;
+                  align-content: flex-start;
+                  align-items: flex-start;
+                  justify-content: flex-start;
+                  .product_lesson_name {
+                    @include body1;
+                  }
+                  .event_title {
+                    @include caption2;
+                  }
+                  .event_start {
+                    @include caption2;
+                  }
                 }
 
                 .caption2 {
-                  max-width: 120px;
+                  //max-width: 120px;
                 }
               }
 
               .more-btn {
                 .more {
                   position: absolute;
-                  right: -10px;
-                  top: 5px;
+                  right: 0;
+                  top: 0;
                 }
               }
             }
@@ -1214,9 +1209,6 @@ export default defineComponent({
       height: auto;
     }
 
-    @media screen and (width <= 600px) {
-      padding-top: 120px;
-    }
   }
 }
 

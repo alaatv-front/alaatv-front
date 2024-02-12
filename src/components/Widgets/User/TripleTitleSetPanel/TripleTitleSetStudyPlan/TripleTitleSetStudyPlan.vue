@@ -44,6 +44,7 @@
                      :events="studyPlanList"
                      :filtered-lesson="filteredLesson"
                      @edit-plan="editPlan"
+                     @copy-plan="copyPlan"
                      @remove-plan="openRemovePlanWarning" />
     </div>
     <q-dialog v-model="newPlanDialog">
@@ -51,14 +52,15 @@
         <q-card-section>
           <div class="row items-center justify-between">
             <div>
-              <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-CalendarCheck.png"
-                     width="24px" />
+              <q-icon name="ph:calendar-check"
+                      color="secondary"
+                      size="24px" />
               زنگ جدید
             </div>
-            <q-btn flat
+            <q-btn v-close-popup
+                   flat
                    icon="close"
-                   color="grey-6"
-                   @click="newPlanDialog = false" />
+                   color="grey-6" />
           </div>
         </q-card-section>
         <q-separator />
@@ -102,7 +104,6 @@
           <entity-edit ref="entityEdit"
                        v-model:value="editInputs"
                        :defaultLayout="false"
-                       :after-send-data="afterSendData"
                        :api="editApi">
             <template #after-form-builder>
               <div class="text-right q-mt-md new-theme-btn">
@@ -115,7 +116,7 @@
                        label="تایید"
                        size="md"
                        color="positive"
-                       @click="updatePlan()" />
+                       @click="updatePlan" />
               </div>
             </template>
           </entity-edit>
@@ -479,7 +480,7 @@ export default {
           optionValue: 'id',
           responseKey: 'data.study_method',
           value: null,
-          col: 'col-4'
+          col: 'col-12'
         },
         {
           type: 'select',
@@ -490,7 +491,7 @@ export default {
           optionValue: 'id',
           value: null,
           responseKey: 'data.major.id',
-          col: 'col-4'
+          col: 'col-12'
         },
         {
           type: 'select',
@@ -501,7 +502,7 @@ export default {
           optionValue: 'id',
           value: null,
           responseKey: 'data.grade.id',
-          col: 'col-4'
+          col: 'col-12'
         },
         {
           type: ContentsComponentComp,
@@ -644,9 +645,11 @@ export default {
           })
           FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'value', newContents)
           this.$refs.entityEdit.editEntity(false)
-          this.getMyStudyPlan()
-          this.loading = false
-          this.editPlanDialog = false
+            .finally(() => {
+              this.getMyStudyPlan()
+              this.loading = false
+              this.editPlanDialog = false
+            })
         })
         .catch(() => {
           this.loading = false
@@ -655,7 +658,24 @@ export default {
     editPlan (event) {
       this.selectedPlanId = event.id
       this.editApi = APIGateway.studyPlan.APIAdresses.editPlan(this.selectedPlanId)
+      // FormBuilderAssist.setAttributeByName(this.editInputs, 'major_id', 'value', [event.major_id])
+      // FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'value', event.contents.list.map(item => item.id))
+      // FormBuilderAssist.setAttributeByName(this.editInputs, 'date', 'value', event.date)
+      // FormBuilderAssist.setAttributeByName(this.editInputs, 'start', 'value', event.start)
+      // FormBuilderAssist.setAttributeByName(this.editInputs, 'end', 'value', event.end)
+      // FormBuilderAssist.setAttributeByName(this.editInputs, 'description', 'value', event.description)
       this.editPlanDialog = true
+    },
+    copyPlan (event) {
+      this.selectedPlanId = event.id
+      this.editApi = APIGateway.studyPlan.APIAdresses.editPlan(this.selectedPlanId)
+      FormBuilderAssist.setAttributeByName(this.inputs, 'major_id', 'value', [event.major_id])
+      FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'value', event.contents.list.map(item => item.id))
+      FormBuilderAssist.setAttributeByName(this.inputs, 'date', 'value', event.date)
+      FormBuilderAssist.setAttributeByName(this.inputs, 'start', 'value', event.start)
+      FormBuilderAssist.setAttributeByName(this.inputs, 'end', 'value', event.end)
+      FormBuilderAssist.setAttributeByName(this.inputs, 'description', 'value', event.description)
+      this.newPlanDialog = true
     },
     openRemovePlanWarning (event) {
       this.removePlanWarning = true
