@@ -10,6 +10,23 @@
     android:theme="@style/AppTheme.NoActionBar"
     android:usesCleartextTraffic="true">
 
+<!--    <meta-data android:name="io.sentry.auto-init" android:value="false" />-->
+<!--    -->
+<!--    &lt;!&ndash; Required: set your sentry.io project identifier (DSN) &ndash;&gt;-->
+<!--    <meta-data android:name="io.sentry.dsn" android:value="http://38212ccd900490677dcf90bd12447f30@sentry.alaa.tv/3" />-->
+
+<!--    &lt;!&ndash; enable automatic breadcrumbs for user interactions (clicks, swipes, scrolls) &ndash;&gt;-->
+<!--    <meta-data android:name="io.sentry.traces.user-interaction.enable" android:value="true" />-->
+<!--    &lt;!&ndash; enable screenshot for crashes &ndash;&gt;-->
+<!--    <meta-data android:name="io.sentry.attach-screenshot" android:value="true" />-->
+<!--    &lt;!&ndash; enable view hierarchy for crashes &ndash;&gt;-->
+<!--    <meta-data android:name="io.sentry.attach-view-hierarchy" android:value="true" />-->
+
+<!--    &lt;!&ndash; enable the performance API by setting a sample-rate, adjust in production env &ndash;&gt;-->
+<!--    <meta-data android:name="io.sentry.traces.sample-rate" android:value="1.0" />-->
+<!--    &lt;!&ndash; enable profiling when starting transactions, adjust in production env &ndash;&gt;-->
+<!--    <meta-data android:name="io.sentry.traces.profiling.sample-rate" android:value="1.0" />-->
+
     <activity
       android:name=".MainActivity"
       android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
@@ -18,6 +35,13 @@
       android:launchMode="singleTask"
       android:screenOrientation="portrait"
       android:theme="@style/AppTheme.NoActionBar">
+
+      <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="https" android:host="alaatv.com" />
+      </intent-filter>
 
     </activity>
 
@@ -40,7 +64,7 @@
       android:grantUriPermissions="true">
       <meta-data
         android:name="android.support.FILE_PROVIDER_PATHS"
-        android:resource="@xml/file_paths"></meta-data>
+        android:resource="@xml/file_paths"/>
     </provider>
   </application>
 
