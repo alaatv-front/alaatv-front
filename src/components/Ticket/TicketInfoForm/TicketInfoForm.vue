@@ -1,6 +1,7 @@
 <template>
   <div class="ticket-info-container">
-    <div class="ticket-info-header">
+    <div v-if="isAdmin"
+         class="ticket-info-header">
       <div class="ticket-info-header__title">
         عنوان :
       </div>
@@ -11,7 +12,8 @@
         </q-tooltip>
       </div>
     </div>
-    <q-separator class="ticket-info__separator" />
+    <q-separator v-if="isAdmin"
+                 class="ticket-info__separator" />
     <div class="ticket-info-details">
       <div class="ticket-info-details__item">
         <div class="ticket-info-details__ticket-id__title">
@@ -21,7 +23,8 @@
           {{ ticket.id}}
         </div>
       </div>
-      <div class="ticket-info-details__item">
+      <div v-if="isAdmin"
+           class="ticket-info-details__item">
         <div class="ticket-info-details__item__title">
           اولویت :
         </div>
@@ -46,7 +49,8 @@
         </div>
       </div>
     </div>
-    <div class="ticket-info-form">
+    <div v-if="isAdmin"
+         class="ticket-info-form">
       <template v-if="mounted && isEntityReady">
         <entity-edit ref="entityEditTicket"
                      v-model:value="ticketInputs"
@@ -76,7 +80,36 @@
         <q-skeleton height="40px" />
       </div>
     </div>
-    <div class="ticket-info-action">
+    <div v-else
+         class="ticket-info-details">
+      <q-separator class="ticket-info-details__separator" />
+      <div class="ticket-info-details__item">
+        <div class="ticket-info-details__ticket-id__title">
+          وضعیت :
+        </div>
+        <div class="ticket-info-details__item__value">
+          {{ ticket.status.title}}
+        </div>
+      </div>
+      <div class="ticket-info-details__item">
+        <div class="ticket-info-details__item__title">
+          اولویت :
+        </div>
+        <div class="ticket-info-details__item__value">
+          {{ ticket.priority.title }}
+        </div>
+      </div>
+      <div class="ticket-info-details__item">
+        <div class="ticket-info-details__item__title">
+          گروه :
+        </div>
+        <div class="ticket-info-details__item__value">
+          {{ ticket.department.title }}
+        </div>
+      </div>
+    </div>
+    <div v-if="isAdmin"
+         class="ticket-info-action">
       <q-btn color="primary"
              class="full-width"
              icon="ph:phone-outgoing"
@@ -126,6 +159,10 @@ export default defineComponent({
     TicketSmsPattern
   },
   props: {
+    isAdmin: {
+      type: Boolean,
+      default: false
+    },
     ticket: {
       type: Ticket,
       default: new Ticket()
@@ -405,6 +442,10 @@ export default defineComponent({
     align-items: center;
     gap: $space-4;
     align-self: stretch;
+
+    &__separator {
+      width: 100%;
+    }
 
     &__item{
       display: flex;

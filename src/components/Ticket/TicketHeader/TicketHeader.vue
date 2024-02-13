@@ -1,5 +1,6 @@
 <template>
-  <div class="ticket-header-container">
+  <div v-if="isAdmin"
+       class="ticket-header-container">
     <div class="ticket-header-base">
       <div class="ticket-header-back">
         <q-btn icon="ph:arrow-right"
@@ -158,6 +159,21 @@
       </div>
     </q-dialog>
   </div>
+  <div v-else
+       class="ticket-header-container">
+    <div class="ticket-header-base">
+      <div class="ticket-header-back">
+        <q-btn icon="ph:arrow-right"
+               color="grey"
+               square
+               class="size-md"
+               flat />
+      </div>
+      <div class="ticket-header__title ellipsis">
+        {{ ticket.title }}
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -184,6 +200,10 @@ export default defineComponent({
     UserProfileEdit
   },
   props: {
+    isAdmin: {
+      type: Boolean,
+      default: false
+    },
     ticket: {
       type: Ticket,
       default: new Ticket()
@@ -302,6 +322,8 @@ export default defineComponent({
   }
 }
 .ticket-header {
+  width: 100%;
+
   &-container {
     display: flex;
     justify-content: space-between;
@@ -315,6 +337,13 @@ export default defineComponent({
     justify-content: flex-start;
     align-items: center;
     flex: 1 0 0;
+    width: 100%;
+  }
+
+  &__title {
+    width: 100%;
+    color: $grey-9;
+    @include body1;
   }
 
   &__user {
@@ -322,6 +351,11 @@ export default defineComponent({
     justify-content: flex-start;
     align-items: center;
     gap: $space-3;
+
+    &--name {
+      color: $grey-9;
+      @include body1;
+    }
   }
 
   &__user-action {
