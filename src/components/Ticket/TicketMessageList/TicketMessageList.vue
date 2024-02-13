@@ -40,6 +40,10 @@ export default defineComponent({
       type: Ticket,
       default: new Ticket()
     },
+    isAdmin: {
+      type: Boolean,
+      default: false
+    },
     readonly: {
       type: Boolean,
       default: false
