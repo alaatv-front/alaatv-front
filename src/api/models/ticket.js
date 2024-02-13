@@ -329,7 +329,7 @@ export default class TicketAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.patternsSend,
       resolveCallback: (response) => {
-        return response.data.message
+        return response.data.message // String
       },
       rejectCallback: (error) => {
         return error
@@ -353,7 +353,7 @@ export default class TicketAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.smsBulk,
       resolveCallback: (response) => {
-        return response // not sure what is that (Number)
+        return response.data // not sure what is that (Number)
       },
       rejectCallback: (error) => {
         return error
