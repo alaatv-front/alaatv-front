@@ -3,36 +3,83 @@
     <div class="ticket-log-header">
       سابقه مکالمه
     </div>
-    <div v-if="!logs.loading"
-         class="ticket-log-list">
-      <ticket-log-item v-for="(log, index) in logs.list"
-                       :key="index"
-                       :log="log" />
-    </div>
-    <div v-else
-         class="ticket-log-list">
-      <q-skeleton v-for="item in 4"
-                  :key="item"
-                  height="48px"
-                  class="q-my-sm" />
+    <div class="ticket-log-list">
+
+      <entity-index v-if="loadEntity"
+                    ref="logList"
+                    class="log-list-entity-index"
+                    :api="api"
+                    :table-selection-mode="selectionMode"
+                    :item-indicator-key="'id'"
+                    :identifyKey="'id'"
+                    :table-keys="tableKeys"
+                    :show-search-button="false"
+                    :show-reload-button="false"
+                    :show-expand-button="false"
+                    :default-layout="false"
+                    :table-grid-size="true">
+        <template #entity-index-table-item-cell="{inputData}">
+          <ticket-log-item :log="getTicketLog(inputData.props.row)" />
+        </template>
+      </entity-index>
     </div>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-import { TicketLogList } from 'src/models/TicketLog.js'
+import { EntityIndex } from 'quasar-crud'
+import { Ticket } from 'src/models/Ticket.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { TicketLog } from 'src/models/TicketLog.js'
 import TicketLogItem from './components/TicketLogItem.vue'
 
 export default defineComponent({
   name: 'TicketLogs',
   components: {
+    EntityIndex,
     TicketLogItem
   },
   props: {
-    logs: {
-      type: TicketLogList,
-      default: new TicketLogList()
+    ticket: {
+      type: Ticket,
+      default: new Ticket()
+    }
+  },
+  data () {
+    return {
+      api: '',
+      mounted: false,
+      selectionMode: 'single',
+      tableGridSize: true,
+      tableKeys: {
+        data: 'data',
+        total: 'meta.total',
+        currentPage: 'meta.current_page',
+        perPage: 'meta.per_page',
+        pageKey: 'page'
+      }
+    }
+  },
+  computed: {
+    loadEntity () {
+      return this.mounted && this.ticket.id
+    }
+  },
+  watch: {
+    ticket () {
+      this.api = APIGateway.ticket.APIAdresses.logs(this.ticket.id)
+      if (this.$refs.logList) {
+        this.$refs.logList.search()
+      }
+    }
+  },
+  mounted () {
+    this.mounted = true
+  },
+  methods: {
+    getTicketLog (log) {
+      return new TicketLog(log)
     }
   }
 })
@@ -56,6 +103,23 @@ export default defineComponent({
 
   &-list {
     width: 100%;
+
+    :deep(.quasar-crud-index-table) {
+      padding: 0 !important;
+
+      .q-table__top {
+        display: none;
+      }
+    }
+
+    :deep(.q-expansion-item) {
+      box-shadow: none !important;
+      padding: 0 !important;
+
+      .q-expansion-item__content  {
+        padding: 0;
+      }
+    }
   }
 }
 </style>

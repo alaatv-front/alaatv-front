@@ -36,7 +36,7 @@
               <ticket-header :ticket="ticket"
                              :department-list="ticketDepartmentList"
                              :statuses="ticketStatusList"
-                             @update-ticket="getTicket"
+                             @update-ticket="onUpdateTicket"
                              @show-ticket-logs="openTicketLogsBottomSheet"
                              @show-tickets="openMyOpenTicketDrawer"
                              @show-info-form="openTicketInfoFormDrawer" />
@@ -57,14 +57,14 @@
                                 :statuses="ticketStatusList"
                                 :priorities="ticketPriorityList"
                                 :departments="ticketDepartmentList"
-                                @update-ticket="getTicket" />
+                                @update-ticket="onUpdateTicket" />
             </div>
           </div>
         </div>
       </div>
       <div class="col-12 TicketShow__logs-col">
         <div class="TicketShow__logs">
-          <ticket-logs :logs="ticketLogs" />
+          <ticket-logs :ticket="ticket" />
         </div>
         <q-dialog v-model="bottomSheet"
                   position="bottom">
@@ -73,7 +73,7 @@
                                  :action="false"
                                  @close-bottom-sheet="onCloseTicketLogsBottomSheet">
               <template #body>
-                <ticket-logs :logs="ticketLogs" />
+                <ticket-logs :ticket="ticket" />
               </template>
             </inside-bottom-sheet>
           </div>
@@ -113,7 +113,7 @@
                             :statuses="ticketStatusList"
                             :priorities="ticketPriorityList"
                             :departments="ticketDepartmentList"
-                            @update-ticket="getTicket" />
+                            @update-ticket="onUpdateTicket" />
         </div>
       </q-drawer>
     </q-layout>
@@ -198,7 +198,6 @@ export default {
       this.getNeededDataForTicket()
       this.getPendingTickets()
       this.getSupporterList()
-      this.getTicketsLogs()
     },
     openMyOpenTicketDrawer () {
       this.myOpenTicketDrawer = true
@@ -443,6 +442,10 @@ export default {
       this.$nextTick(() => {
         this.$refs.TicketMessageList.scrollToBottom()
       })
+    },
+    onUpdateTicket () {
+      this.getTicket()
+      this.getPendingTickets()
     }
   }
 }
