@@ -25,7 +25,8 @@
                  'TicketMessage__file--is-image-file': isImageFile(file),
                  'TicketMessage__file--is-file-url': !isFile(file) && !isImageUrl(file),
                  'TicketMessage__file--is-image-url': isImageUrl(file)
-               }">
+               }"
+               @click="showFile(file)">
             <div class="TicketMessage__file-info">
               <div class="TicketMessage__file-title ellipsis">
                 <template v-if="!isFile(file)">
@@ -159,6 +160,13 @@ export default defineComponent({
       }
 
       return 'ph:file'
+    },
+    showFile (file) {
+      if (typeof file !== 'string') {
+        return
+      }
+
+      window.open(file, '_blank')
     }
   }
 })
@@ -224,6 +232,7 @@ export default defineComponent({
           align-items: center;
           gap: $space-2;
           align-self: stretch;
+          cursor: pointer;
           $thumbnail-file-size: 40px;
           $thumbnail-photo-size: 56px;
           @mixin thumbnail-size ($thumbnail-size) {
@@ -273,6 +282,10 @@ export default defineComponent({
               color: $grey-7;
               @include caption1;
             }
+          }
+          &:hover {
+            background-color: $grey-2;
+            border-radius: $radius-1;
           }
           &.TicketMessage__file--is-file,
           &.TicketMessage__file--is-file-url {
