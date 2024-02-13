@@ -12,7 +12,7 @@
                 :options="patternList.list"
                 option-label="title"
                 option-value="patternId"
-                :loading="patternList.loading"
+                :loading="patternList.loading || this.pattern.loading"
                 label="نوع پیامک"
                 outlined
                 @update:model-value="fillPatternMessage" />
@@ -31,12 +31,14 @@
       <q-btn v-close-popup
              class="q-btn-md"
              color="grey"
+             :loading="this.pattern.loading"
              size="md"
              outline>
         انصراف
       </q-btn>
       <q-btn class="q-btn-md keep-min-width"
              color="primary"
+             :loading="this.pattern.loading"
              @click="sendTicketMessage">
         ارسال
       </q-btn>
@@ -69,7 +71,7 @@ export default defineComponent({
     return {
       pattern: new Pattern({
         title: 'پیامک متنی',
-        patternId: 1313,
+        patternId: 'thisIsSimpleTicketSms',
         text: ''
       }),
       smsMessage: '',
@@ -78,7 +80,7 @@ export default defineComponent({
   },
   computed: {
     isSimplePattern () {
-      return this.pattern.patternId === 1313
+      return this.pattern.patternId === 'thisIsSimpleTicketSms'
     }
   },
   mounted () {
@@ -92,7 +94,7 @@ export default defineComponent({
           this.patternList = new PatternList(patternList)
           const samplePattern = new Pattern({
             title: 'پیامک متنی',
-            patternId: 1313,
+            patternId: 'thisIsSimpleTicketSms',
             text: ''
           })
           this.patternList.list.unshift(samplePattern)
@@ -105,9 +107,16 @@ export default defineComponent({
       this.smsMessage = this.pattern.text
     },
     sendTicketMessage () {
+      if (this.isSimplePattern) {
+        this.sendTicketMessageSms()
+      } else {
+        this.sendTicketPattern()
+      }
+    },
+    sendTicketPattern () {
       this.pattern.loading = true
-      APIGateway.sms.sendTicketMessage({
-        users_id: [this.ticket.user.is],
+      APIGateway.ticket.sendTicketPattern({
+        users_id: [this.ticket.user.id],
         pattern_id: this.pattern.patternId,
         pattern_values: this.pattern.patternValues
       })
@@ -123,7 +132,27 @@ export default defineComponent({
         .catch(() => {
           this.pattern.loading = false
         })
+    },
+    sendTicketSms () {
+      this.pattern.loading = true
+      APIGateway.ticket.sendTicketSms({
+        user_id: [this.ticket.user.id],
+        message: this.smsMessage
+      })
+        .then(message => {
+          this.pattern.loading = false
+          this.$emit('smsSent')
+          this.$q.notify({
+            type: 'positive',
+            message: 'پیام با موفقیت ارسال شد',
+            position: 'top'
+          })
+        })
+        .catch(() => {
+          this.pattern.loading = false
+        })
     }
+
   }
 })
 </script>

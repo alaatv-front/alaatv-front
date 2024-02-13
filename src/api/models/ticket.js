@@ -18,6 +18,8 @@ export default class TicketAPI extends APIRepository {
       create: '/ticket/create',
       ticket: (ticketId) => '/ticket/' + ticketId,
       smsPatterns: '/ticket/sms/patterns',
+      patternsSend: 'sms/v2/patterns',
+      smsBulk: '/sms/sendBulk',
       presignedUrl: '/ticket/presigned-url',
       updateTicketApi: (ticketId) => '/ticket/' + ticketId,
       getInfo: '/user/getInfo',
@@ -317,6 +319,48 @@ export default class TicketAPI extends APIRepository {
         is_private: false, // Boolean
         files: [], // Array of String
         body: '' // String
+      }, data)
+    })
+  }
+
+  sendTicketPattern (data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.patternsSend,
+      resolveCallback: (response) => {
+        return response.data.message // String
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data: this.getNormalizedSendData({
+        pattern_values: [
+          {
+            key: null,
+            value: null
+          }
+        ], // Array of Objects(key, value)
+        pattern_id: null, // String
+        users_id: [] // Array of Numbers
+      }, data)
+    })
+  }
+
+  sendTicketSms (data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.smsBulk,
+      resolveCallback: (response) => {
+        return response.data // not sure what is that (Number)
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data: this.getNormalizedSendData({
+        message: null, // String
+        user_id: []
       }, data)
     })
   }
