@@ -24,55 +24,63 @@
                  'TicketMessage__file--is-file': isFile(file),
                  'TicketMessage__file--is-image-file': isImageFile(file),
                  'TicketMessage__file--is-file-url': !isFile(file) && !isImageUrl(file),
-                 'TicketMessage__file--is-image-url': isImageUrl(file)
-               }">
-            <div class="TicketMessage__file-info">
-              <div class="TicketMessage__file-title ellipsis">
+                 'TicketMessage__file--is-image-url': isImageUrl(file),
+                 'TicketMessage__file--is-voice-url': isVoiceUrl(file)
+               }"
+               @click="showFile(file)">
+            <div v-if="isVoiceUrl(file)"
+                 class="TicketMessage__file-voice-wave-surfer">
+              <voice-wave-surfer :source="file" />
+            </div>
+            <template v-else>
+              <div class="TicketMessage__file-info">
+                <div class="TicketMessage__file-title ellipsis">
+                  <template v-if="!isFile(file)">
+                    {{ file }}
+                  </template>
+                  <template v-else>
+                    {{ file.name }}
+                  </template>
+                </div>
+                <div class="TicketMessage__file-size">
+                  -
+                </div>
+              </div>
+              <div class="TicketMessage__file-thumbnail"
+                   :class="{
+                     'TicketMessage__file-thumbnail--is-file': isFile(file),
+                     'TicketMessage__file-thumbnail--is-image-file': isImageFile(file),
+                     'TicketMessage__file-thumbnail--is-file-url': !isFile(file) && !isImageUrl(file),
+                     'TicketMessage__file-thumbnail--is-image-url': isImageUrl(file)
+                   }">
                 <template v-if="!isFile(file)">
-                  {{ file }}
+                  <lazy-img v-if="isImageUrl(file)"
+                            :src="file"
+                            width="50"
+                            height="50" />
+                  <q-icon v-else
+                          color="grey-1"
+                          size="20px"
+                          :name="getFileIcon(file)" />
                 </template>
                 <template v-else>
-                  {{ file.name }}
+                  <q-knob v-model="file.progress"
+                          show-value
+                          class="text-white"
+                          size="40px"
+                          :min="0"
+                          :max="100"
+                          readonly
+                          :thickness="0.15"
+                          color="grey-1"
+                          track-color="grey-4"
+                          @click="onCancelUpload(message, fileIndex, file)">
+                    <q-icon name="ph:x"
+                            size="13px" />
+                  </q-knob>
                 </template>
               </div>
-              <div class="TicketMessage__file-size">
-                -
-              </div>
-            </div>
-            <div class="TicketMessage__file-thumbnail"
-                 :class="{
-                   'TicketMessage__file-thumbnail--is-file': isFile(file),
-                   'TicketMessage__file-thumbnail--is-image-file': isImageFile(file),
-                   'TicketMessage__file-thumbnail--is-file-url': !isFile(file) && !isImageUrl(file),
-                   'TicketMessage__file-thumbnail--is-image-url': isImageUrl(file)
-                 }">
-              <template v-if="!isFile(file)">
-                <lazy-img v-if="isImageUrl(file)"
-                          :src="file"
-                          width="50"
-                          height="50" />
-                <q-icon v-else
-                        color="grey-1"
-                        size="20px"
-                        :name="getFileIcon(file)" />
-              </template>
-              <template v-else>
-                <q-knob v-model="file.progress"
-                        show-value
-                        class="text-white"
-                        size="40px"
-                        :min="0"
-                        :max="100"
-                        readonly
-                        :thickness="0.15"
-                        color="grey-1"
-                        track-color="grey-4"
-                        @click="onCancelUpload(message, fileIndex, file)">
-                  <q-icon name="ph:x"
-                          size="13px" />
-                </q-knob>
-              </template>
-            </div>
+            </template>
           </div>
         </div>
         <div class="TicketMessage__body"
@@ -89,10 +97,11 @@
 import { defineComponent } from 'vue'
 import LazyImg from 'src/components/lazyImg.vue'
 import { TicketMessage } from 'src/models/TicketMessage.js'
+import VoiceWaveSurfer from './VoiceWaveSurfer.vue'
 
 export default defineComponent({
   name: 'TicketMessage',
-  components: { LazyImg },
+  components: { VoiceWaveSurfer, LazyImg },
   props: {
     message: {
       type: TicketMessage,
@@ -123,6 +132,12 @@ export default defineComponent({
         return false
       }
       return url.match(/\.(jpeg|jpg|gif|png)/) !== null
+    },
+    isVoiceUrl (url) {
+      if (typeof url !== 'string') {
+        return false
+      }
+      return url.match(/\.(ogg|mp3|wav)/) !== null
     },
     isImageFile (file) {
       if (!this.isFile(file)) {
@@ -159,6 +174,13 @@ export default defineComponent({
       }
 
       return 'ph:file'
+    },
+    showFile (file) {
+      if (typeof file !== 'string' || this.isVoiceUrl(file)) {
+        return
+      }
+
+      window.open(file, '_blank')
     }
   }
 })
@@ -224,6 +246,7 @@ export default defineComponent({
           align-items: center;
           gap: $space-2;
           align-self: stretch;
+          cursor: pointer;
           $thumbnail-file-size: 40px;
           $thumbnail-photo-size: 56px;
           @mixin thumbnail-size ($thumbnail-size) {
@@ -231,6 +254,9 @@ export default defineComponent({
             min-width: $thumbnail-size;
             max-width: $thumbnail-size;
             height: $thumbnail-size;
+          }
+          .TicketMessage__file-voice-wave-surfer {
+            width: 100%;
           }
           .TicketMessage__file-thumbnail {
             display: flex;
@@ -274,6 +300,10 @@ export default defineComponent({
               @include caption1;
             }
           }
+          &:hover {
+            background-color: $grey-2;
+            border-radius: $radius-1;
+          }
           &.TicketMessage__file--is-file,
           &.TicketMessage__file--is-file-url {
             .TicketMessage__file-info {
@@ -285,6 +315,10 @@ export default defineComponent({
             .TicketMessage__file-info {
               width: calc( 100% - #{$thumbnail-photo-size} );
             }
+          }
+          &.TicketMessage__file--is-voice-url {
+            display: block;
+            padding: $spacing-none;
           }
         }
       }

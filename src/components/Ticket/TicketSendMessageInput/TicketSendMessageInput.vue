@@ -45,7 +45,7 @@
                      square
                      round
                      icon="ph:microphone"
-                     class="TicketSendMessageInput__btn-recording size-lg"
+                     class="TicketSendMessageInput__btn-recording size-md"
                      @blur="onBlurBtnRecordingVoice"
                      @mouseup="onMouseupBtnRecordingVoice"
                      @mousedown="onMousedownBtnRecordingVoice" />
@@ -161,6 +161,11 @@ export default defineComponent({
       const remainingSeconds = Math.floor(this.recordedVoiceDurationInSeconds % 60)
       return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`
     }
+  },
+  mounted () {
+    // setTimeout(() => {
+    //   this.status = 'voice-recording'
+    // }, 5000)
   },
   methods: {
     handleSwipeBtnStartRecording (event) {
@@ -322,7 +327,6 @@ export default defineComponent({
       this.sendMessage(description, files, false)
     },
     sendMessage (body, files = [], isPrivate = false) {
-      console.log('files', files)
       this.$emit('sendMessage', {
         body,
         is_private: isPrivate,
@@ -389,9 +393,11 @@ export default defineComponent({
             margin-right: $space-6;
           }
           .TicketSendMessageInput__btn-recording {
-            //max-height: 100%;
-            //min-height: 100%;
-            //height: 100% !important;
+            $btn-size: 38px;
+            max-width: $btn-size !important;
+            min-width: $btn-size !important;
+            max-height: $btn-size !important;
+            min-height: $btn-size !important;
           }
         }
       }

@@ -12,7 +12,7 @@
     </div>
     <div ref="TicketMessageListScrollArea"
          class="TicketMessageList__scroll-area">
-      <ticket-message v-for="(message, messageIndex) in ticket.messages.list"
+      <ticket-message v-for="(message, messageIndex) in reverseMessageList"
                       :key="messageIndex"
                       :message="message"
                       :sent="user.id === message.user.id || message.showAsSent"
@@ -48,9 +48,12 @@ export default defineComponent({
   emits: ['sendMessage', 'cancelUpload'],
   computed: {
     firstMessage () {
-      return this.ticket.messages.list[0] || {
+      return this.ticket.messages.list[this.ticket.messages.list.length - 1] || {
         body: ''
       }
+    },
+    reverseMessageList () {
+      return this.ticket.messages.list.concat().reverse()
     }
   },
   mounted () {
