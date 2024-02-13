@@ -285,7 +285,7 @@ export default {
         APIGateway.ticket.sendTicketMessage(ticketMessage)
           .then((ticketMessage) => {
             this.ticket.loading = false
-            this.ticket.messages.list.push(new TicketMessage(ticketMessage))
+            this.addMessageToMessageList(new TicketMessage(ticketMessage))
             this.scrollToLastMessage()
             resolve(ticketMessage)
           })
@@ -294,6 +294,9 @@ export default {
             reject(e)
           })
       })
+    },
+    addMessageToMessageList (message) {
+      this.ticket.messages.list.unshift(message)
     },
     prepareFilesForSendMessages (data) {
       const allFilesPresignedUrlPromises = this.getAllFilesPresignedUrlPromises(data.files)
@@ -361,7 +364,8 @@ export default {
         files
       })
       message.showAsSent = true
-      this.ticket.messages.list.push(message)
+      this.ticket.messages.list.unshift(message)
+      this.addMessageToMessageList(message)
 
       return message
     },

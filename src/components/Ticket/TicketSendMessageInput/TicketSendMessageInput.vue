@@ -322,7 +322,6 @@ export default defineComponent({
       this.sendMessage(description, files, false)
     },
     sendMessage (body, files = [], isPrivate = false) {
-      console.log('files', files)
       this.$emit('sendMessage', {
         body,
         is_private: isPrivate,
