@@ -1,5 +1,6 @@
 <template>
-  <div class="TicketShow">
+  <div class="TicketShow"
+       :class="{ 'TicketShow--isAdmin': localOptions.isAdmin, 'TicketShow--isNotAdmin': !localOptions.isAdmin }">
     <div class="TicketShow__breadcrumbs">
       <q-breadcrumbs class="text-grey-9"
                      active-color="grey-6">
@@ -10,7 +11,7 @@
         </template>
         <q-breadcrumbs-el to="/"
                           label="صفحه اصلی" />
-        <q-breadcrumbs-el :to="{ name: 'UserPanel.Ticket.Index' }"
+        <q-breadcrumbs-el :to="{ name: localOptions.isAdmin ? 'Admin.Ticket.Index' : 'UserPanel.Ticket.Index' }"
                           label="تیکت پشتیبانی" />
         <q-breadcrumbs-el>
           <q-skeleton v-if="!ticket.id"
@@ -23,17 +24,21 @@
       </q-breadcrumbs>
     </div>
     <div class="TicketShow__template row">
-      <div class="col-lg-2 col-md-3 gt-sm">
+      <div v-if="localOptions.isAdmin"
+           class="col-lg-2 col-md-3 gt-sm">
         <div ref="MyOpenTickets"
              class="TicketShow__my-open-tickets">
-          <my-open-tickets :tickets="pendingTickets" />
+          <my-open-tickets :tickets="pendingTickets"
+                           :is-admin="localOptions.isAdmin" />
         </div>
       </div>
-      <div class="col-lg-10 col-md-9 col-12">
+      <div class="col-12"
+           :class="{ 'col-lg-10 col-md-9': localOptions.isAdmin }">
         <div class="row">
           <div class="col-12">
             <div class="TicketShow__header">
               <ticket-header :ticket="ticket"
+                             :is-admin="localOptions.isAdmin"
                              :department-list="ticketDepartmentList"
                              :statuses="ticketStatusList"
                              @update-ticket="onUpdateTicket"
@@ -46,6 +51,7 @@
             <div class="TicketShow__messages">
               <ticket-message-list ref="TicketMessageList"
                                    :ticket="ticket"
+                                   :is-admin="localOptions.isAdmin"
                                    @sendMessage="onSendMessage"
                                    @cancelUpload="onCancelUploadFile" />
             </div>
@@ -53,6 +59,7 @@
           <div class="col-lg-4 col-md-6 col-12 gt-sm">
             <div class="TicketShow__ticket-info">
               <ticket-info-form :ticket="ticket"
+                                :is-admin="localOptions.isAdmin"
                                 :supporters="supporterList"
                                 :statuses="ticketStatusList"
                                 :priorities="ticketPriorityList"
@@ -164,6 +171,9 @@ export default {
       bottomSheet: false,
       myOpenTicketDrawer: false,
       ticketInfoFormDrawer: false,
+      defaultOptions: {
+        isAdmin: false
+      },
       ticket: new Ticket(),
       otherTickets: new TicketList(),
       ticketLogs: new TicketLogList(),
@@ -553,6 +563,35 @@ export default {
   }
   &:deep(.q-layout) {
     min-height: 0 !important;
+  }
+  &.TicketShow--isNotAdmin {
+    .TicketShow__template {
+      .TicketShow__header {
+        display: flex;
+        padding: $space-3 $space-4;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+        align-self: stretch;
+        border-bottom: 1px solid $blue-grey-3;
+        border-radius: $radius-4 $radius-4 $radius-none $radius-none;
+        background: $grey-1;
+        /* 600 < page < 1024 */
+        @include media-max-width('md') {
+          border-radius: $radius-none !important;
+        }
+      }
+      .TicketShow__messages {
+        //background-color: $grey-1;
+        //padding-left: $space-6;
+        border-left: 1px solid $grey-4;
+        border-bottom-left-radius: $radius-4;
+        /* 600 < page < 1024 */
+        @include media-max-width('md') {
+          max-height: calc( 100vh - 194px);
+        }
+      }
+    }
   }
 }
 </style>
