@@ -1,17 +1,19 @@
 <template>
   <div class="ticket-info-container">
-    <div class="ticket-info-header">
-      <div class="ticket-info-header__title">
-        عنوان :
-      </div>
-      <div class="ticket-info-header__text ellipsis-3-lines">
-        {{ ticket.title}}
-        <q-tooltip>
+    <template v-if="isAdmin">
+      <div class="ticket-info-header">
+        <div class="ticket-info-header__title">
+          عنوان :
+        </div>
+        <div class="ticket-info-header__text ellipsis-3-lines">
           {{ ticket.title}}
-        </q-tooltip>
+          <q-tooltip>
+            {{ ticket.title}}
+          </q-tooltip>
+        </div>
       </div>
-    </div>
-    <q-separator class="ticket-info__separator" />
+      <q-separator class="ticket-info__separator" />
+    </template>
     <div class="ticket-info-details">
       <div class="ticket-info-details__item">
         <div class="ticket-info-details__ticket-id__title">
@@ -21,7 +23,8 @@
           {{ ticket.id}}
         </div>
       </div>
-      <div class="ticket-info-details__item">
+      <div v-if="isAdmin"
+           class="ticket-info-details__item">
         <div class="ticket-info-details__item__title">
           اولویت :
         </div>
@@ -46,7 +49,8 @@
         </div>
       </div>
     </div>
-    <div class="ticket-info-form">
+    <div v-if="isAdmin"
+         class="ticket-info-form">
       <template v-if="mounted && isEntityReady">
         <entity-edit ref="entityEditTicket"
                      v-model:value="ticketInputs"
@@ -76,31 +80,61 @@
         <q-skeleton height="40px" />
       </div>
     </div>
-    <div class="ticket-info-action">
-      <q-btn color="primary"
-             class="full-width"
-             icon="ph:phone-outgoing"
-             label="تماس با کاربر"
-             @click="callUser" />
-      <q-btn outline
-             color="grey"
-             class="full-width"
-             label="ارسال پیامک"
-             @click="openSmsDialog" />
+    <div v-else
+         class="ticket-info-details">
+      <q-separator class="ticket-info-details__separator" />
+      <div class="ticket-info-details__item">
+        <div class="ticket-info-details__ticket-id__title">
+          وضعیت :
+        </div>
+        <div class="ticket-info-details__item__value">
+          {{ ticket.status.title}}
+        </div>
+      </div>
+      <div class="ticket-info-details__item">
+        <div class="ticket-info-details__item__title">
+          اولویت :
+        </div>
+        <div class="ticket-info-details__item__value">
+          {{ ticket.priority.title }}
+        </div>
+      </div>
+      <div class="ticket-info-details__item">
+        <div class="ticket-info-details__item__title">
+          گروه :
+        </div>
+        <div class="ticket-info-details__item__value">
+          {{ ticket.department.title }}
+        </div>
+      </div>
     </div>
-    <q-dialog v-model="smsDialog">
-      <div class="sms-dialog-wrapper">
-        <ticket-sms-pattern :ticket="ticket"
-                            @sms-sent="closeSmsDialog" />
+    <template v-if="isAdmin">
+      <div class="ticket-info-action">
+        <q-btn color="primary"
+               class="full-width"
+               icon="ph:phone-outgoing"
+               label="تماس با کاربر"
+               @click="callUser" />
+        <q-btn outline
+               color="grey"
+               class="full-width"
+               label="ارسال پیامک"
+               @click="openSmsDialog" />
       </div>
-    </q-dialog>
-    <q-dialog v-model="confirmDialog">
-      <div class="sms-dialog-wrapper">
-        <confirm-dialog :confirmation="confirmation"
-                        @confirm="onConfirm"
-                        @deny="onDeny" />
-      </div>
-    </q-dialog>
+      <q-dialog v-model="smsDialog">
+        <div class="sms-dialog-wrapper">
+          <ticket-sms-pattern :ticket="ticket"
+                              @sms-sent="closeSmsDialog" />
+        </div>
+      </q-dialog>
+      <q-dialog v-model="confirmDialog">
+        <div class="sms-dialog-wrapper">
+          <confirm-dialog :confirmation="confirmation"
+                          @confirm="onConfirm"
+                          @deny="onDeny" />
+        </div>
+      </q-dialog>
+    </template>
   </div>
 </template>
 
@@ -126,6 +160,10 @@ export default defineComponent({
     TicketSmsPattern
   },
   props: {
+    isAdmin: {
+      type: Boolean,
+      default: false
+    },
     ticket: {
       type: Ticket,
       default: new Ticket()
@@ -405,6 +443,10 @@ export default defineComponent({
     align-items: center;
     gap: $space-4;
     align-self: stretch;
+
+    &__separator {
+      width: 100%;
+    }
 
     &__item{
       display: flex;
