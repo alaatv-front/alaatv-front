@@ -232,7 +232,6 @@ export default {
       this.ticket.loading = true
       APIGateway.ticket.getTicket(this.ticketId)
         .then((ticket) => {
-          this.ticket.loading = false
           this.ticket = new Ticket(ticket)
         })
         .catch(() => {
@@ -463,8 +462,6 @@ export default {
       APIGateway.ticket.acceptTicket(this.ticketId)
         .then(() => {
           this.getTicket()
-          // this.ticket.loading = false
-          // this.ticket = new Ticket(ticket)
         })
         .catch(() => {
           this.getTicket()

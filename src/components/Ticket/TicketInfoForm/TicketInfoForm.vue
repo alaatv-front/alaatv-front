@@ -51,7 +51,7 @@
     </div>
     <div v-if="asAdmin"
          class="ticket-info-form">
-      <template v-if="mounted && isEntityReady">
+      <template v-if="isTicketReady && isDependenciesDataReady">
         <entity-edit ref="entityEditTicket"
                      v-model:value="ticketInputs"
                      :api="ticketApi"
@@ -191,7 +191,6 @@ export default defineComponent({
     return {
       ticketApi: '',
       supportApi: '',
-      mounted: false,
       smsDialog: false,
       entityIdKey: 'id',
       entityParamKey: 'id',
@@ -205,7 +204,8 @@ export default defineComponent({
         title: '',
         message: '',
         icon: 'ph:ticket',
-        name: ''
+        name: '',
+        oldValue: null
       },
       ticketInputs: [
         {
@@ -246,12 +246,19 @@ export default defineComponent({
           disable: false,
           col: 'col-12'
         }
-      ]
+      ],
+      responsibleUserChangeFrom: null
     }
   },
   computed: {
-    isEntityReady () {
+    isTicketReady () {
+      return this.ticket.id !== null
+    },
+    isDependenciesDataReady () {
       return this.isDepartmentReady && this.isStatusesReady && this.isSupportersReady
+    },
+    ticketAssignedUserId () {
+      return this.ticket.assign.id
     },
     statusValue () {
       return FormBuilderAssist.getInputsByName(this.ticketInputs, 'status_id').value
@@ -264,9 +271,17 @@ export default defineComponent({
     }
   },
   watch: {
-    ticket () {
+    isTicketReady (newValue) {
+      if (!newValue) {
+        return
+      }
+
       this.loadApi()
       FormBuilderAssist.setAttributeByName(this.supportInputs, 'responsible_user', 'value', this.ticket.assign.id)
+    },
+    ticketAssignedUserId (newValue) {
+      this.responsibleUserChangeFrom = 'from-parent'
+      FormBuilderAssist.setAttributeByName(this.supportInputs, 'responsible_user', 'value', newValue)
     },
     departments () {
       this.setDepartmentOptions()
@@ -284,16 +299,19 @@ export default defineComponent({
       this.confirmation.title = 'تغییر گروه تیکت'
       this.confirmation.message = `آیا می‌خواهید گروه تیکت را به ${this.departments.list.find(dep => dep.id === newValue).title} تغییر دهید؟`
       this.confirmation.name = 'department_id'
+      this.confirmation.oldValue = oldValue
       this.openConfirm()
     },
     supporterValue (newValue, oldValue) {
-      if (typeof newValue !== 'number' || oldValue === undefined) {
+      if (typeof newValue !== 'number' || oldValue === undefined || this.responsibleUserChangeFrom === 'from-parent') {
+        this.responsibleUserChangeFrom = null
         return
       }
       this.confirmation.title = 'تغییر پشتیبان تیکت'
       this.confirmation.message = `آیا می‌خواهید تیکت را به ${this.supporters.list.find(sup => sup?.userId === newValue).fullName} ارجاع دهید؟`
       this.confirmation.name = 'responsible_user'
-      this.openConfirm()
+      this.confirmation.oldValue = oldValue
+      this.openConfirm(oldValue)
     },
     statusValue (newValue, oldValue) {
       if (typeof newValue !== 'number' || oldValue === undefined) {
@@ -302,12 +320,9 @@ export default defineComponent({
       this.confirmation.title = 'تغییر وضعیت تیکت'
       this.confirmation.message = `آیا می‌خواهید وضعیت تیکت را به ${this.statuses.list.find(status => status.id === newValue).title} تغییر دهید؟`
       this.confirmation.name = 'status_id'
+      this.confirmation.oldValue = oldValue
       this.openConfirm()
     }
-  },
-  mounted () {
-    this.loadApi()
-    this.mounted = true
   },
   methods: {
     loadApi () {
@@ -393,7 +408,10 @@ export default defineComponent({
     },
     onDeny () {
       this.confirmDialog = false
-      this.$emit('updateTicket')
+      FormBuilderAssist.setAttributeByName(this.confirmation.name === 'responsible_user' ? this.supportInputs : this.ticketInputs, this.confirmation.name, 'value', this.confirmation.oldValue)
+
+      this.confirmation.name = null
+      this.confirmation.oldValue = null
     }
   }
 })
