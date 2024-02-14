@@ -20,7 +20,10 @@
     </div>
     <div v-if="!readonly"
          class="TicketMessageList__send-input-area">
-      <ticket-send-message-input @sendMessage="onSendMessage" />
+      <ticket-send-message-input :ticket="ticket"
+                                 @openTicket="openTicket"
+                                 @sendMessage="onSendMessage"
+                                 @acceptTicket="acceptTicket" />
     </div>
   </div>
 </template>
@@ -31,6 +34,7 @@ import { Ticket } from 'src/models/Ticket.js'
 import { mixinAuth } from 'src/mixin/Mixins.js'
 import TicketMessage from 'src/components/Ticket/TicketMessage/TicketMessage.vue'
 import TicketSendMessageInput from 'src/components/Ticket/TicketSendMessageInput/TicketSendMessageInput.vue'
+
 export default defineComponent({
   name: 'TicketMessageList',
   components: { TicketMessage, TicketSendMessageInput },
@@ -40,7 +44,7 @@ export default defineComponent({
       type: Ticket,
       default: new Ticket()
     },
-    isAdmin: {
+    asAdmin: {
       type: Boolean,
       default: false
     },
@@ -49,7 +53,7 @@ export default defineComponent({
       default: false
     }
   },
-  emits: ['sendMessage', 'cancelUpload'],
+  emits: ['sendMessage', 'cancelUpload', 'acceptTicket', 'openTicket'],
   computed: {
     firstMessage () {
       return this.ticket.messages.list[this.ticket.messages.list.length - 1] || {
@@ -61,9 +65,17 @@ export default defineComponent({
     }
   },
   mounted () {
-    this.scrollToBottom()
+    setTimeout(() => {
+      this.scrollToBottom()
+    }, 1000)
   },
   methods: {
+    acceptTicket () {
+      this.$emit('acceptTicket')
+    },
+    openTicket () {
+      this.$emit('openTicket')
+    },
     onSendMessage (data) {
       this.$emit('sendMessage', data)
       this.$nextTick(() => {

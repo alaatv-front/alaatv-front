@@ -1,6 +1,6 @@
 <template>
   <div class="TicketShow"
-       :class="{ 'TicketShow--isAdmin': localOptions.isAdmin, 'TicketShow--isNotAdmin': !localOptions.isAdmin }">
+       :class="{ 'TicketShow--asAdmin': localOptions.asAdmin, 'TicketShow--isNotAdmin': !localOptions.asAdmin }">
     <div class="TicketShow__breadcrumbs">
       <q-breadcrumbs class="text-grey-9"
                      active-color="grey-6">
@@ -11,7 +11,7 @@
         </template>
         <q-breadcrumbs-el to="/"
                           label="صفحه اصلی" />
-        <q-breadcrumbs-el :to="{ name: localOptions.isAdmin ? 'Admin.Ticket.Index' : 'UserPanel.Ticket.Index' }"
+        <q-breadcrumbs-el :to="{ name: localOptions.asAdmin ? 'Admin.Ticket.Index' : 'UserPanel.Ticket.Index' }"
                           label="تیکت پشتیبانی" />
         <q-breadcrumbs-el>
           <q-skeleton v-if="!ticket.id"
@@ -24,21 +24,21 @@
       </q-breadcrumbs>
     </div>
     <div class="TicketShow__template row">
-      <div v-if="localOptions.isAdmin"
+      <div v-if="localOptions.asAdmin"
            class="col-lg-2 col-md-3 gt-sm">
         <div ref="MyOpenTickets"
              class="TicketShow__my-open-tickets">
           <my-open-tickets :tickets="pendingTickets"
-                           :is-admin="localOptions.isAdmin" />
+                           :as-admin="localOptions.asAdmin" />
         </div>
       </div>
       <div class="col-12"
-           :class="{ 'col-lg-10 col-md-9': localOptions.isAdmin }">
+           :class="{ 'col-lg-10 col-md-9': localOptions.asAdmin }">
         <div class="row">
           <div class="col-12">
             <div class="TicketShow__header">
               <ticket-header :ticket="ticket"
-                             :is-admin="localOptions.isAdmin"
+                             :as-admin="localOptions.asAdmin"
                              :department-list="ticketDepartmentList"
                              :statuses="ticketStatusList"
                              @update-ticket="onUpdateTicket"
@@ -51,7 +51,9 @@
             <div class="TicketShow__messages">
               <ticket-message-list ref="TicketMessageList"
                                    :ticket="ticket"
-                                   :is-admin="localOptions.isAdmin"
+                                   :as-admin="localOptions.asAdmin"
+                                   @openTicket="openTicket"
+                                   @acceptTicket="acceptTicket"
                                    @sendMessage="onSendMessage"
                                    @cancelUpload="onCancelUploadFile" />
             </div>
@@ -59,7 +61,7 @@
           <div class="col-lg-4 col-md-6 col-12 gt-sm">
             <div class="TicketShow__ticket-info">
               <ticket-info-form :ticket="ticket"
-                                :is-admin="localOptions.isAdmin"
+                                :as-admin="localOptions.asAdmin"
                                 :supporters="supporterList"
                                 :statuses="ticketStatusList"
                                 :priorities="ticketPriorityList"
@@ -172,7 +174,7 @@ export default {
       myOpenTicketDrawer: false,
       ticketInfoFormDrawer: false,
       defaultOptions: {
-        isAdmin: false
+        asAdmin: false
       },
       ticket: new Ticket(),
       otherTickets: new TicketList(),
@@ -305,6 +307,7 @@ export default {
       })
     },
     addMessageToMessageList (message) {
+      // this.ticket.messages.list.push(message)
       this.ticket.messages.list.unshift(message)
     },
     prepareFilesForSendMessages (data) {
@@ -373,7 +376,6 @@ export default {
         files
       })
       message.showAsSent = true
-      this.ticket.messages.list.unshift(message)
       this.addMessageToMessageList(message)
 
       return message
@@ -456,6 +458,21 @@ export default {
     onUpdateTicket () {
       this.getTicket()
       this.getPendingTickets()
+    },
+    acceptTicket () {
+      this.ticket.loading = true
+      APIGateway.ticket.acceptTicket(this.ticketId)
+        .then(() => {
+          this.getTicket()
+          // this.ticket.loading = false
+          // this.ticket = new Ticket(ticket)
+        })
+        .catch(() => {
+          this.getTicket()
+        })
+    },
+    openTicket () {
+
     }
   }
 }

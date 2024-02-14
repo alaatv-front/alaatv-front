@@ -3,8 +3,8 @@
     <template #main-tab>
       <div class="row q-col-gutter-md q-my-md">
         <div class="col-12">
-          <q-checkbox v-model="localOptions.isAdmin"
-                      label="isAdmin" />
+          <q-checkbox v-model="localOptions.asAdmin"
+                      label="asAdmin" />
         </div>
       </div>
     </template>
@@ -25,7 +25,7 @@ export default defineComponent({
   data () {
     return {
       defaultOptions: {
-        isAdmin: false
+        asAdmin: false
       }
     }
   }

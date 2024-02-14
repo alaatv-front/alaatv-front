@@ -685,9 +685,6 @@ const routes = [
               {
                 path: ':id',
                 name: 'Admin.Ticket.Show',
-                meta: {
-                  hasDynamicSetting: true
-                },
                 component: () => import('pages/Admin/Ticket/Show.vue')
               }
             ]
