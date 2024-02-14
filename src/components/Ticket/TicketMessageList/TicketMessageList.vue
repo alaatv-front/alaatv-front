@@ -53,7 +53,7 @@ export default defineComponent({
       default: false
     }
   },
-  emits: ['sendMessage', 'cancelUpload', 'acceptTicket', 'openTicket'],
+  emits: ['sendMessage', 'cancelUpload', 'acceptTicket'],
   computed: {
     firstMessage () {
       return this.ticket.messages.list[this.ticket.messages.list.length - 1] || {
@@ -72,9 +72,6 @@ export default defineComponent({
   methods: {
     acceptTicket () {
       this.$emit('acceptTicket')
-    },
-    openTicket () {
-      this.$emit('openTicket')
     },
     onSendMessage (data) {
       this.$emit('sendMessage', data)

@@ -9,36 +9,36 @@
          class="TicketSendMessageInput__status-closed">
       تیکت بسته شده است
     </div>
-    <!--    <div v-else-if="ticket.hasResponsibleUser"-->
-    <!--         class="TicketSendMessageInput__accept-ticket">-->
-    <!--      <div class="TicketSendMessageInput__accept-ticket-message">-->
-    <!--        <q-icon name="ph:lock"-->
-    <!--                size="16px" />-->
-    <!--        برای شروع ، ابتدا باید مکالمه را قبول کنید.-->
-    <!--      </div>-->
-    <!--      <div class="TicketSendMessageInput__accept-ticket-action">-->
-    <!--        <q-btn label="قبول مکالمه"-->
-    <!--               class="size-sm"-->
-    <!--               outline-->
-    <!--               color="secondary"-->
-    <!--               :loading="ticket.loading"-->
-    <!--               @click="acceptTicket" />-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!--    <div v-else-if="ticket.seenBefore"-->
-    <!--         class="TicketSendMessageInput__start-ticket">-->
-    <!--      <div class="TicketSendMessageInput__accept-ticket-message">-->
-    <!--        شخص دیگری مسئول این تیکت میباشد.-->
-    <!--      </div>-->
-    <!--      <div class="TicketSendMessageInput__accept-ticket-action">-->
-    <!--        <q-btn label="ورود به مکالمه"-->
-    <!--               class="size-sm"-->
-    <!--               outline-->
-    <!--               color="grey"-->
-    <!--               :loading="ticket.loading"-->
-    <!--               @click="openTicket" />-->
-    <!--      </div>-->
-    <!--    </div>-->
+    <div v-else-if="ticket.hasResponsibleUser"
+         class="TicketSendMessageInput__accept-ticket">
+      <div class="TicketSendMessageInput__accept-ticket-message">
+        <q-icon name="ph:lock"
+                size="16px" />
+        برای شروع ، ابتدا باید مکالمه را قبول کنید.
+      </div>
+      <div class="TicketSendMessageInput__accept-ticket-action">
+        <q-btn label="قبول مکالمه"
+               class="size-sm"
+               outline
+               color="secondary"
+               :loading="ticket.loading"
+               @click="acceptTicket" />
+      </div>
+    </div>
+    <div v-else-if="ticket.seenBefore"
+         class="TicketSendMessageInput__start-ticket">
+      <div class="TicketSendMessageInput__accept-ticket-message">
+        شخص دیگری مسئول این تیکت میباشد.
+      </div>
+      <div class="TicketSendMessageInput__accept-ticket-action">
+        <q-btn label="ورود به مکالمه"
+               class="size-sm"
+               outline
+               color="grey"
+               :loading="ticket.loading"
+               @click="acceptTicket" />
+      </div>
+    </div>
     <q-input v-else-if="hasStatus(['blur', 'text-input-focus', 'typing', 'voice-recording', 'voice-recorded'])"
              v-model="textInput"
              class="no-title"
@@ -153,7 +153,7 @@ export default defineComponent({
       default: new Ticket()
     }
   },
-  emits: ['sendMessage', 'acceptTicket', 'openTicket'],
+  emits: ['sendMessage', 'acceptTicket'],
   data () {
     return {
       textInput: null,
@@ -207,9 +207,6 @@ export default defineComponent({
   methods: {
     acceptTicket () {
       this.$emit('acceptTicket')
-    },
-    openTicket () {
-      this.$emit('openTicket')
     },
     handleSwipeBtnStartRecording (event) {
       if (event.direction !== 'right' || this.status !== 'voice-recording') {

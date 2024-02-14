@@ -52,7 +52,6 @@
               <ticket-message-list ref="TicketMessageList"
                                    :ticket="ticket"
                                    :as-admin="localOptions.asAdmin"
-                                   @openTicket="openTicket"
                                    @acceptTicket="acceptTicket"
                                    @sendMessage="onSendMessage"
                                    @cancelUpload="onCancelUploadFile" />
@@ -470,9 +469,6 @@ export default {
         .catch(() => {
           this.getTicket()
         })
-    },
-    openTicket () {
-
     }
   }
 }
