@@ -21,7 +21,6 @@
     <div v-if="!readonly"
          class="TicketMessageList__send-input-area">
       <ticket-send-message-input :ticket="ticket"
-                                 @openTicket="openTicket"
                                  @sendMessage="onSendMessage"
                                  @acceptTicket="acceptTicket" />
     </div>
@@ -62,12 +61,18 @@ export default defineComponent({
     },
     reverseMessageList () {
       return this.ticket.messages.list.concat().reverse()
+    },
+    countOfMessageList () {
+      return this.ticket.messages.list.concat().reverse()
+    }
+  },
+  watch: {
+    countOfMessageList () {
+      this.scrollToBottom()
     }
   },
   mounted () {
-    setTimeout(() => {
-      this.scrollToBottom()
-    }, 1000)
+    this.scrollToBottom()
   },
   methods: {
     acceptTicket () {
@@ -122,6 +127,7 @@ export default defineComponent({
   max-height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+  scroll-behavior: smooth;
   .TicketMessageList__first-message {
     display: flex;
     padding: $space-2 $space-6;
