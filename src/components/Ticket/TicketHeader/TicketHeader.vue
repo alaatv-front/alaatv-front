@@ -6,7 +6,7 @@
                color="grey"
                square
                class="size-md"
-               :to="{name:'Admin.Ticket.Index'}"
+               :to="{name: asAdmin ? 'Admin.Ticket.Index' : 'UserPanel.Ticket.Index'}"
                flat />
       </div>
       <template v-if="asAdmin">
