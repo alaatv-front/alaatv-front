@@ -65,7 +65,9 @@ export default defineComponent({
     }
   },
   mounted () {
-    this.scrollToBottom()
+    setTimeout(() => {
+      this.scrollToBottom()
+    }, 1000)
   },
   methods: {
     acceptTicket () {
