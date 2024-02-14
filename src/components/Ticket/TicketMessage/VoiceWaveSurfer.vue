@@ -5,15 +5,15 @@
                        :indeterminate="!options.url"
                        color="secondary"
                        class="q-mt-md" />
-    <div class="VoiceWaveSurfer__timer-and-element">
+    <div v-show="!loading"
+         class="VoiceWaveSurfer__timer-and-element">
       <div ref="WaveSurfer"
            class="VoiceWaveSurfer__element" />
       <div class="VoiceWaveSurfer__timer">
         {{ currentFormat }}/{{ durationFormat }}
       </div>
     </div>
-    <q-btn v-show="!loading"
-           rounded
+    <q-btn rounded
            color="secondary"
            :icon="playing ? 'ph:pause' : 'ph:play'"
            class="VoiceWaveSurfer__btn-play size-sm"
@@ -119,6 +119,10 @@ export default defineComponent({
       })
     },
     togglePlay () {
+      if (this.loading) {
+        return
+      }
+
       if (this.playing) {
         this.playing = false
         this.wavesurfer.pause()
