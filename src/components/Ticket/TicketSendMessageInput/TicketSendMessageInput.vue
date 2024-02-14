@@ -5,11 +5,41 @@
          'TicketSendMessageInput__recording': status === 'voice-recording',
          'TicketSendMessageInput__voice-recorded': status === 'voice-recorded',
        }">
-    <div v-if="hasStatus(['voice-recordingsss'])"
-         class="TicketSendMessageInput__recording-areaaaa">
-      voice-recordingsss
+    <div v-if="ticket.status.name === 'closed'"
+         class="TicketSendMessageInput__status-closed">
+      تیکت بسته شده است
     </div>
-    <q-input v-if="hasStatus(['blur', 'text-input-focus', 'typing', 'voice-recording', 'voice-recorded'])"
+    <!--    <div v-else-if="ticket.hasResponsibleUser"-->
+    <!--         class="TicketSendMessageInput__accept-ticket">-->
+    <!--      <div class="TicketSendMessageInput__accept-ticket-message">-->
+    <!--        <q-icon name="ph:lock"-->
+    <!--                size="16px" />-->
+    <!--        برای شروع ، ابتدا باید مکالمه را قبول کنید.-->
+    <!--      </div>-->
+    <!--      <div class="TicketSendMessageInput__accept-ticket-action">-->
+    <!--        <q-btn label="قبول مکالمه"-->
+    <!--               class="size-sm"-->
+    <!--               outline-->
+    <!--               color="secondary"-->
+    <!--               :loading="ticket.loading"-->
+    <!--               @click="acceptTicket" />-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <!--    <div v-else-if="ticket.seenBefore"-->
+    <!--         class="TicketSendMessageInput__start-ticket">-->
+    <!--      <div class="TicketSendMessageInput__accept-ticket-message">-->
+    <!--        شخص دیگری مسئول این تیکت میباشد.-->
+    <!--      </div>-->
+    <!--      <div class="TicketSendMessageInput__accept-ticket-action">-->
+    <!--        <q-btn label="ورود به مکالمه"-->
+    <!--               class="size-sm"-->
+    <!--               outline-->
+    <!--               color="grey"-->
+    <!--               :loading="ticket.loading"-->
+    <!--               @click="openTicket" />-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <q-input v-else-if="hasStatus(['blur', 'text-input-focus', 'typing', 'voice-recording', 'voice-recorded'])"
              v-model="textInput"
              class="no-title"
              autogrow
@@ -106,6 +136,7 @@
 <script>
 import { defineComponent } from 'vue'
 import SelectFiles from './SelectFiles.vue'
+import { Ticket } from 'src/models/Ticket.js'
 import PreparedTexts from './PreparedTexts.vue'
 import VoiceWaveSurfer from './VoiceWaveSurfer.vue'
 
@@ -116,7 +147,13 @@ export default defineComponent({
     PreparedTexts,
     VoiceWaveSurfer
   },
-  emits: ['sendMessage'],
+  props: {
+    ticket: {
+      type: Ticket,
+      default: new Ticket()
+    }
+  },
+  emits: ['sendMessage', 'acceptTicket', 'openTicket'],
   data () {
     return {
       textInput: null,
@@ -168,6 +205,12 @@ export default defineComponent({
     // }, 5000)
   },
   methods: {
+    acceptTicket () {
+      this.$emit('acceptTicket')
+    },
+    openTicket () {
+      this.$emit('openTicket')
+    },
     handleSwipeBtnStartRecording (event) {
       if (event.direction !== 'right' || this.status !== 'voice-recording') {
         return
@@ -340,6 +383,61 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .TicketSendMessageInput {
+  .TicketSendMessageInput__status-closed {
+    display: flex;
+    width: 100%;
+    height: 48px;
+    min-width: 100%;
+    max-width: 100%;
+    padding: $spacing-none $space-5;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-top: 1px solid $grey-4;
+    background: $grey-1;
+    @include body2;
+    color: $grey-6;
+  }
+  .TicketSendMessageInput__accept-ticket {
+    display: flex;
+    width: 100%;
+    height: 48px;
+    min-width: 100%;
+    max-width: 100%;
+    padding: $spacing-none $space-5;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    border-top: 1px solid $grey-4;
+    background: $grey-1;
+    &-message {
+      @include body2;
+      color: $grey-9;
+      .q-icon {
+        margin-right: $space-2;
+      }
+    }
+    &-action {
+    }
+  }
+  .TicketSendMessageInput__start-ticket {
+    display: flex;
+    width: 100%;
+    height: 48px;
+    min-width: 100%;
+    max-width: 100%;
+    padding: $spacing-none $space-5;
+    justify-content: space-between;
+    align-items: center;
+    gap: $space-4;
+    flex-shrink: 0;
+    border-top: 1px solid $grey-4;
+    background: $grey-1;
+    &-message {
+      @include body2;
+      color: $grey-9;
+    }
+  }
   :deep(.q-field) {
     position: relative;
     .q-field__control {

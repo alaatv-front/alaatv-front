@@ -52,6 +52,8 @@ class Ticket extends Model {
         key: 'department',
         relatedModel: TicketDepartment
       },
+      { key: 'seenBefore' },
+      { key: 'hasResponsibleUser' },
       { key: 'updated_at' },
       { key: 'created_at' }
     ])

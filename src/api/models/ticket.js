@@ -16,24 +16,26 @@ export default class TicketAPI extends APIRepository {
     this.APIAdresses = {
       base: '/ticket',
       create: '/ticket/create',
-      ticket: (ticketId) => '/ticket/' + ticketId,
-      smsPatterns: '/ticket/sms/patterns',
-      patternsSend: 'sms/v2/patterns',
-      smsBulk: '/sms/sendBulk',
-      presignedUrl: '/ticket/presigned-url',
-      updateTicketApi: (ticketId) => '/ticket/' + ticketId,
-      getInfo: '/user/getInfo',
-      ticketMessage: '/ticketMessage',
       pending: '/ticket/pending',
-      logs: (ticketId) => `/ticket/${ticketId}/logs`,
-      otherTickets: (ticketId) => `/ticket/${ticketId}/others`,
       supports: '/ticket/supports',
+      smsPatterns: '/ticket/sms/patterns',
+      presignedUrl: '/ticket/presigned-url',
+      ticket: (ticketId) => '/ticket/' + ticketId,
+      updateTicketApi: (ticketId) => '/ticket/' + ticketId,
+      logs: (ticketId) => `/ticket/${ticketId}/logs`,
+      accept: (ticketId) => `/ticket/${ticketId}/accept`,
       assign: (ticketId) => `/ticket/${ticketId}/assign`,
-      batchExtend: '/orderproduct/batchExtend',
-      statusNotice: (ticketId) => '/ticket/' + ticketId + '/sendTicketStatusNotice',
+      otherTickets: (ticketId) => `/ticket/${ticketId}/others`,
+      ticketRate: (ticketId) => 'ticket/' + ticketId + '/rate',
       editAssign: (ticketId) => '/ticket/' + ticketId + '/assign',
       reportMessage: (ticketId) => 'ticket/' + ticketId + '/report',
-      ticketRate: (ticketId) => 'ticket/' + ticketId + '/rate',
+      statusNotice: (ticketId) => '/ticket/' + ticketId + '/sendTicketStatusNotice',
+
+      smsBulk: '/sms/sendBulk',
+      getInfo: '/user/getInfo',
+      patternsSend: 'sms/v2/patterns',
+      ticketMessage: '/ticketMessage',
+      batchExtend: '/orderproduct/batchExtend',
       ticketDepartment: {
         create: {
           base: '/admin/user'
@@ -268,6 +270,20 @@ export default class TicketAPI extends APIRepository {
         return error
       },
       data
+    })
+  }
+
+  acceptTicket (id) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.accept(id),
+      resolveCallback: (response) => {
+        return response.data.message // String
+      },
+      rejectCallback: (error) => {
+        return error
+      }
     })
   }
 

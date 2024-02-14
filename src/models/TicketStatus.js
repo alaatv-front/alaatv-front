@@ -4,7 +4,7 @@ class TicketStatus extends Model {
   constructor (data) {
     super(data, [
       { key: 'id' },
-      { key: 'name' },
+      { key: 'name' }, // unanswered - answered - pending - closed
       { key: 'title' }
     ])
   }
