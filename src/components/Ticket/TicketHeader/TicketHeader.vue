@@ -6,9 +6,10 @@
                color="grey"
                square
                class="size-md"
+               :to="{name:'Admin.Ticket.Index'}"
                flat />
       </div>
-      <template v-if="isAdmin">
+      <template v-if="asAdmin">
         <div class="ticket-header__user">
           <q-avatar size="40px">
             <lazy-img :src="ticket.user.photo"
@@ -36,7 +37,7 @@
         </div>
       </template>
     </div>
-    <template v-if="isAdmin">
+    <template v-if="asAdmin">
       <div class="ticket-header-action--desktop">
         <q-btn icon="ph:shopping-cart-simple"
                color="grey"
@@ -191,7 +192,7 @@ export default defineComponent({
     UserProfileEdit
   },
   props: {
-    isAdmin: {
+    asAdmin: {
       type: Boolean,
       default: false
     },
