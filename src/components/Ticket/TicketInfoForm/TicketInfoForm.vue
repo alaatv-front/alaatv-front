@@ -1,6 +1,6 @@
 <template>
   <div class="ticket-info-container">
-    <template v-if="isAdmin">
+    <template v-if="asAdmin">
       <div class="ticket-info-header">
         <div class="ticket-info-header__title">
           عنوان :
@@ -23,7 +23,7 @@
           {{ ticket.id}}
         </div>
       </div>
-      <div v-if="isAdmin"
+      <div v-if="asAdmin"
            class="ticket-info-details__item">
         <div class="ticket-info-details__item__title">
           اولویت :
@@ -49,7 +49,7 @@
         </div>
       </div>
     </div>
-    <div v-if="isAdmin"
+    <div v-if="asAdmin"
          class="ticket-info-form">
       <template v-if="mounted && isEntityReady">
         <entity-edit ref="entityEditTicket"
@@ -108,7 +108,7 @@
         </div>
       </div>
     </div>
-    <template v-if="isAdmin">
+    <template v-if="asAdmin">
       <div class="ticket-info-action">
         <q-btn color="primary"
                class="full-width"
@@ -160,7 +160,7 @@ export default defineComponent({
     TicketSmsPattern
   },
   props: {
-    isAdmin: {
+    asAdmin: {
       type: Boolean,
       default: false
     },
