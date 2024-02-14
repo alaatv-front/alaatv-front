@@ -21,7 +21,6 @@
     <div v-if="!readonly"
          class="TicketMessageList__send-input-area">
       <ticket-send-message-input :ticket="ticket"
-                                 @openTicket="openTicket"
                                  @sendMessage="onSendMessage"
                                  @acceptTicket="acceptTicket" />
     </div>
@@ -53,7 +52,7 @@ export default defineComponent({
       default: false
     }
   },
-  emits: ['sendMessage', 'cancelUpload', 'acceptTicket', 'openTicket'],
+  emits: ['sendMessage', 'cancelUpload', 'acceptTicket'],
   computed: {
     firstMessage () {
       return this.ticket.messages.list[this.ticket.messages.list.length - 1] || {
@@ -62,19 +61,22 @@ export default defineComponent({
     },
     reverseMessageList () {
       return this.ticket.messages.list.concat().reverse()
+    },
+    countOfMessageList () {
+      return this.ticket.messages.list.concat().reverse()
+    }
+  },
+  watch: {
+    countOfMessageList () {
+      this.scrollToBottom()
     }
   },
   mounted () {
-    setTimeout(() => {
-      this.scrollToBottom()
-    }, 1000)
+    this.scrollToBottom()
   },
   methods: {
     acceptTicket () {
       this.$emit('acceptTicket')
-    },
-    openTicket () {
-      this.$emit('openTicket')
     },
     onSendMessage (data) {
       this.$emit('sendMessage', data)
@@ -125,6 +127,7 @@ export default defineComponent({
   max-height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+  scroll-behavior: smooth;
   .TicketMessageList__first-message {
     display: flex;
     padding: $space-2 $space-6;

@@ -236,6 +236,7 @@ export default defineComponent({
         display: flex;
         gap: $space-2;
         margin-bottom: $space-1;
+        min-width: 100%;
         max-width: 100%;
         flex-direction: column;
         .TicketMessage__file {
