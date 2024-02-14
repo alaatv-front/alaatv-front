@@ -412,9 +412,6 @@ export default defineComponent({
 
       this.confirmation.name = null
       this.confirmation.oldValue = null
-      // FormBuilderAssist.setAttributeByName(this.ticketInputs, 'status_id', 'value', oldValue)
-      // FormBuilderAssist.setAttributeByName(this.ticketInputs, 'department_id', 'value', oldValue)
-      // FormBuilderAssist.setAttributeByName(this.supportInputs, 'responsible_user', 'value', oldValue)
     }
   }
 })
