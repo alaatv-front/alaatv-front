@@ -121,6 +121,35 @@ export default {
   computed: {
     isUserLogin () {
       return this.$store.getters['Auth/isUserLogin']
+    },
+    screenName () {
+      if (typeof window === 'undefined') {
+        return null
+      }
+
+      return this.$q.screen.name
+    }
+  },
+  watch: {
+    screenName: {
+      immediate: true,
+      handler () {
+        if (this.screenName === 'xl') {
+          this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 360)
+        }
+        if (this.screenName === 'lg') {
+          this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 312)
+        }
+        if (this.screenName === 'md') {
+          this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 259)
+        }
+        if (this.screenName === 'sm') {
+          this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 259)
+        }
+        if (this.screenName === 'xs') {
+          this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 259)
+        }
+      }
     }
   },
   created () {
