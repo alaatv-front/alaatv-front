@@ -131,6 +131,7 @@ import moment from 'moment-jalaali'
 import { EntityIndex } from 'quasar-crud'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
+
 export default {
   name: 'TicketList',
   components: { EntityIndex },
@@ -315,7 +316,7 @@ export default {
         { type: 'input', name: 'has_user_nationalcode', label: 'کد ملی', col: 'col-md-3' },
         { type: 'input', name: 'has_user_firstname', label: 'نام', col: 'col-md-3' },
         { type: 'input', name: 'has_user_lastname', label: 'نام خانوادگی', col: 'col-md-3' },
-        { type: 'select', options: [], name: 'department_id', optionLabel: 'title', label: 'گروه', col: 'col-md-3' },
+        { type: 'select', options: [], name: 'department_id', multiple: true, optionLabel: 'title', optionValue: 'id', label: 'گروه', col: 'col-md-3' },
         { type: 'select', options: [], name: 'pirority_id', label: 'اولویت', col: 'col-md-3' },
         { type: 'select', options: [], name: 'status_id', multiple: true, label: 'وضعیت', optionLabel: 'title', optionValue: 'id', col: 'col-md-3' },
         { type: 'input', name: 'order_id', label: 'شماره سفارش', col: 'col-md-3' },
