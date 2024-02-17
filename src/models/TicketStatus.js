@@ -8,6 +8,21 @@ class TicketStatus extends Model {
       { key: 'title' }
     ])
   }
+
+  getStatusColor () {
+    switch (this.name) {
+      case 'answered':
+        return 'positive'
+      case 'unanswered':
+        return 'negative'
+      case 'pending':
+        return 'warning'
+      case 'closed':
+        return 'info'
+      default:
+        return 'info'
+    }
+  }
 }
 
 class TicketStatusList extends Collection {

@@ -38,9 +38,10 @@
           <div class="col-12">
             <div class="TicketShow__header">
               <ticket-header :ticket="ticket"
-                             :as-admin="localOptions.asAdmin"
-                             :department-list="ticketDepartmentList"
                              :statuses="ticketStatusList"
+                             :as-admin="localOptions.asAdmin"
+                             :priority-list="ticketPriorityList"
+                             :department-list="ticketDepartmentList"
                              @update-ticket="onUpdateTicket"
                              @show-ticket-logs="openTicketLogsBottomSheet"
                              @show-tickets="openMyOpenTicketDrawer"
