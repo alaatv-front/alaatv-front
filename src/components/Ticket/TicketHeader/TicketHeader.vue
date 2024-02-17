@@ -145,6 +145,8 @@
           <other-ticket :ticket="ticket"
                         :filter="otherTicketFilter"
                         :load-data="false"
+                        :status-list="statuses"
+                        :priority-list="priorityList"
                         :department-list="departmentList" />
         </div>
       </q-dialog>
@@ -180,6 +182,7 @@ import MyOrders from 'src/components/Widgets/User/MyOrders/MyOrders.vue'
 import OtherTicket from 'src/components/Ticket/OtherTicket/OtherTicket.vue'
 import UserProfileEdit from 'src/components/UserProfileEdit/UserProfileEdit.vue'
 import { APIGateway } from 'src/api/APIGateway'
+import { TicketPriorityList } from 'src/models/TicketPriority'
 
 export default defineComponent({
   name: 'TicketHeader',
@@ -204,6 +207,10 @@ export default defineComponent({
       type: TicketStatusList,
       default: new TicketStatusList()
     },
+    priorityList: {
+      type: TicketPriorityList,
+      default: new TicketPriorityList()
+    },
     departmentList: {
       type: TicketDepartmentList,
       default: new TicketDepartmentList()
@@ -216,8 +223,8 @@ export default defineComponent({
       profileDialog: false,
       otherTicketListDialog: false,
       otherTicketFilter: {
-        status: false,
-        priority: false,
+        status: true,
+        priority: true,
         department: true,
         button: false
       }
@@ -293,8 +300,8 @@ export default defineComponent({
 }
 .ticket-list-dialog-wrapper {
   overflow-y: hidden;
-  width: 600px;
-  max-width: 600px;
+  width: 800px;
+  max-width: 800px;
   @include  media-max-width('md') {
     width: 100%;
     max-width: 100%;

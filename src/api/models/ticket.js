@@ -174,7 +174,7 @@ export default class TicketAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       },
-      data: data.params
+      data
     })
   }
 

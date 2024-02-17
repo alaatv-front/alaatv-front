@@ -1,6 +1,8 @@
 <template>
   <div class="ticket-item-container"
        @click="openTicketDialog">
+    <q-linear-progress v-if="localTicket.loading"
+                       indeterminate />
     <div class="ticket-item-info">
       <div class="ticket-item-info__header">
         <div class="ticket-item-info__header--title">
@@ -8,6 +10,12 @@
         </div>
         <div class="ticket-item-info__header--date">
           {{ ticket.shamsiDate('created_at').dateTime }}
+        </div>
+        <div class="ticket-item-info__header--status">
+          <q-chip outline
+                  :color="ticket.status.getStatusColor()">
+            {{ ticket.status.title }}
+          </q-chip>
         </div>
       </div>
       <div class="ticket-item-info__body">
@@ -46,7 +54,7 @@
           <template #body>
             <div class="ticket-messages-wrapper">
               <ticket-message-list :readonly="true"
-                                   :ticket="ticket" />
+                                   :ticket="localTicket" />
             </div>
           </template>
         </inside-dialog>
@@ -62,6 +70,7 @@ import LazyImg from 'src/components/lazyImg.vue'
 import BadgeIcon from 'src/components/Utils/BadgeIcon.vue'
 import InsideDialog from 'src/components/Utils/InsideDialog.vue'
 import TicketMessageList from 'src/components/Ticket/TicketMessageList/TicketMessageList.vue'
+import { APIGateway } from 'src/api/APIGateway'
 export default defineComponent({
   name: 'TicketItem',
   components: {
@@ -78,12 +87,27 @@ export default defineComponent({
   },
   data () {
     return {
-      ticketDialog: false
+      ticketDialog: false,
+      localTicket: new Ticket()
     }
+  },
+  mounted () {
+    this.localTicket = this.ticket
   },
   methods: {
     openTicketDialog () {
-      this.ticketDialog = true
+      this.getTicket(this.ticket.id)
+    },
+    getTicket (ticketId) {
+      this.localTicket.loading = true
+      APIGateway.ticket.getTicket(ticketId)
+        .then((ticket) => {
+          this.localTicket = new Ticket(ticket)
+          this.ticketDialog = true
+        })
+        .catch(() => {
+          this.localTicket.loading = false
+        })
     }
   }
 })
