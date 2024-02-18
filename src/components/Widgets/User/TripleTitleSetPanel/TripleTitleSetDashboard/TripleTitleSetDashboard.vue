@@ -1,31 +1,34 @@
 <template>
   <div class="triple-title-set-dashboard-container new-theme">
-    <dashboard-header :studyPlanId="studyPlanId" />
+    <dashboard-header :event="event"
+                      :studyPlanId="studyPlanId" />
     <daily-plan :studyPlanId="studyPlanId" />
     <status-and-review :loading="loading"
                        :studyPlanInfo="studyPlanInfo" />
     <study-plan-selection-dialog :dialog="dialog"
+                                 @confirm="onConfirmChangeStudyPlan"
                                  @toggle-dialog="onToggleDialog" />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-import DashboardHeader from 'src/components/DashboardTripleTitleSet/Dashboard/DashboardHeader.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { mixinTripleTitleSet, mixinAuth } from 'src/mixin/Mixins.js'
 import DailyPlan from 'src/components/DashboardTripleTitleSet/Dashboard/DailyPlan.vue'
+import DashboardHeader from 'src/components/DashboardTripleTitleSet/Dashboard/DashboardHeader.vue'
 import StatusAndReview from 'src/components/DashboardTripleTitleSet/Dashboard/StatusAndReview.vue'
 import StudyPlanSelectionDialog from 'src/components/DashboardTripleTitleSet/Dashboard/StudyPlanSelectionDialog.vue'
-import { mixinAuth } from 'src/mixin/Mixins.js'
 
 export default defineComponent({
   name: 'TripleTitleSetDashboard',
   components: {
-    DashboardHeader,
     DailyPlan,
+    DashboardHeader,
     StatusAndReview,
     StudyPlanSelectionDialog
   },
-  mixins: [mixinAuth],
+  mixins: [mixinTripleTitleSet, mixinAuth],
   data () {
     return {
       loading: false,
@@ -50,7 +53,7 @@ export default defineComponent({
     },
     getMyStudyPlan () {
       this.loading = true
-      this.$apiGateway.studyPlan.getMyStudyPlan()
+      APIGateway.studyPlan.getMyStudyPlan()
         .then(studyPlanInfo => {
           if (!studyPlanInfo || !studyPlanInfo.id) {
             this.dialog = true
@@ -58,7 +61,7 @@ export default defineComponent({
           this.loading = false
         })
         .catch(() => {
-          this.$router.push({ name: 'Public.Home' })
+          // this.$router.push({ name: 'Public.Home' })
           this.$q.notify({
             message: 'بارگذاری داشبورد با مشکل روبرو شده است، لطفا دوباره تلاش کنید',
             color: 'warning',
@@ -69,6 +72,9 @@ export default defineComponent({
     },
     onToggleDialog () {
       this.dialog = !this.dialog
+    },
+    onConfirmChangeStudyPlan () {
+      this.getMyStudyPlan()
     }
   }
 })

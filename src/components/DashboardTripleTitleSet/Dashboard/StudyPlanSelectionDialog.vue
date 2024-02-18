@@ -16,7 +16,8 @@
           <q-btn v-close-popup
                  color="grey"
                  flat
-                 icon="close"
+                 square
+                 icon="ph:x"
                  @click="toggleDialog(true)" />
         </div>
       </q-card-section>
@@ -29,9 +30,6 @@
           <div class="form-inputs">
             <div class="row q-col-gutter-md">
               <div class="col-12 ">
-                <div class="input-label">
-                  برنامه
-                </div>
                 <q-select v-model="formData.study_method_id"
                           :options="inputsOptions.studyPlans"
                           :option-label="opt => opt.title"
@@ -39,29 +37,26 @@
                           placeholder="انتخاب کنید"
                           emit-value
                           map-options
+                          label="برنامه"
                           outlined />
               </div>
               <div class="col-12 col-md-6 form-col">
-                <div class="input-label">
-                  مقطع
-                </div>
                 <q-select v-model="formData.grade_id"
                           :options="inputsOptions.grades"
                           :option-label="opt => opt.title"
                           :option-value="opt => opt.id"
+                          label="مقطع"
                           placeholder="انتخاب کنید"
                           emit-value
                           map-options
                           outlined />
               </div>
               <div class="col-12 col-md-6">
-                <div class="input-label">
-                  رشته
-                </div>
                 <q-select v-model="formData.major_id"
                           :options="inputsOptions.majors"
                           :option-label="opt => opt.title"
                           :option-value="opt => opt.id"
+                          label="رشته"
                           placeholder="انتخاب کنید"
                           emit-value
                           map-options
@@ -96,7 +91,7 @@
         <q-btn v-close-popup
                label="متوجه شدم"
                color="positive"
-               @click="toggleDialog" />
+               @click="toggleDialog(false)" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -104,6 +99,8 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { APIGateway } from 'src/api/APIGateway.js'
+
 export default defineComponent({
   name: 'StudyPlanSelectionDialog',
   props: {
@@ -112,7 +109,7 @@ export default defineComponent({
       default: false
     }
   },
-  emits: ['toggleDialog'],
+  emits: ['toggleDialog', 'confirm'],
   data () {
     return {
       inputsOptions: {
@@ -140,7 +137,7 @@ export default defineComponent({
         .catch(() => {})
     },
     submitStudyPlan () {
-      this.$apiGateway.abrisham.submitStudyPlan(this.formData)
+      APIGateway.abrisham.submitStudyPlan(this.formData)
         .then(() => {
           this.studyPlanSelected = true
         })
@@ -151,6 +148,9 @@ export default defineComponent({
       if (rout) {
         this.$router.go(-1)
       }
+    },
+    onConfirm () {
+      this.$emit('confirm')
     }
   }
 })

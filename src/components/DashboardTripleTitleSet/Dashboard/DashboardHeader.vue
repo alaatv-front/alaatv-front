@@ -28,12 +28,15 @@
                    spinner-color="primary" />
           </q-avatar>
         </div>
-        <div class="user-intro">
+        <div v-if="event.title"
+             class="user-intro">
           <div class="intro-title">
             سلام {{ user.first_name }} عزیز
           </div>
           <div class="intro-subtitle">
-            به کاروانسرای راه ابریشم آلاء خوش اومدی!
+            به
+            {{ event.title }}
+            آلاء خوش اومدی!
           </div>
         </div>
       </div>
@@ -77,11 +80,17 @@
 </template>
 
 <script>
-import { User } from 'src/models/User'
 import { defineComponent } from 'vue'
+import { User } from 'src/models/User.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+
 export default defineComponent({
   name: 'DashboardHeader',
   props: {
+    event: {
+      type: Object,
+      default: null
+    },
     studyPlanId: {
       type: Number,
       default: null
@@ -118,7 +127,7 @@ export default defineComponent({
     },
     getCounterData () {
       this.loading = true
-      this.$apiGateway.abrisham.getCounter()
+      APIGateway.abrisham.getCounter()
         .then(counterData => {
           this.counterData = counterData
           this.persianDate = this.getPersianDate(counterData.now)
