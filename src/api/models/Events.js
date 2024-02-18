@@ -51,6 +51,7 @@ export default class EventsAPI extends APIRepository {
         id: 13,
         studyEventId: 6,
         name: 'abrisham2',
+        title: 'راه ابریشم ۲',
         logo: 'https://nodes.alaatv.com/upload/landing/RAHABRISHAM/logo-abrisham2.png',
         showDashboard: false,
         showStudyPlan: false

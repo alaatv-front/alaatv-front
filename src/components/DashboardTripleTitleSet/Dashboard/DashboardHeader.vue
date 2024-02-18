@@ -77,8 +77,10 @@
 </template>
 
 <script>
-import { User } from 'src/models/User'
 import { defineComponent } from 'vue'
+import { User } from 'src/models/User.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+
 export default defineComponent({
   name: 'DashboardHeader',
   props: {
@@ -118,7 +120,7 @@ export default defineComponent({
     },
     getCounterData () {
       this.loading = true
-      this.$apiGateway.abrisham.getCounter()
+      APIGateway.abrisham.getCounter()
         .then(counterData => {
           this.counterData = counterData
           this.persianDate = this.getPersianDate(counterData.now)
