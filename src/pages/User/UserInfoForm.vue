@@ -129,7 +129,7 @@
               @verified="verified" />
       <div class="row justify-end q-mt-lg">
         <!--        submit form ---------------------------------------------------------------------------------->
-        <q-btn :disabl="!this.user.mobile_verified_at"
+        <q-btn :disabl="!user.mobile_verified_at"
                color="blue"
                class="q-px-xl"
                rounded
