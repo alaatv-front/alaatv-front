@@ -336,7 +336,7 @@ export default {
               this.sendTicketMessage({
                 body: data.body,
                 ticket_id: this.ticketId,
-                files: resolvedItems.map(item => item.uploadedPath)
+                files: resolvedItems.map(item => item.uploadedFileName)
               })
                 .then(() => {
                   this.deleteMessage(sendingMessage.id)
@@ -384,10 +384,11 @@ export default {
       files.forEach((file) => {
         promises.push(new Promise((resolve, reject) => {
           APIGateway.ticket.presignedUrl(file.name)
-            .then(({ url /* , uploaded_file_name */ }) => {
+            .then(({ url, uploadedFileName }) => {
               resolve({
                 file,
-                presignedUrl: url
+                presignedUrl: url,
+                uploadedFileName
               })
             })
             .catch(() => {
@@ -423,10 +424,11 @@ export default {
                 })
                   .then((response) => {
                     resolve({
+                      response,
                       file: resolveItem.file,
-                      uploadedPath: resolveItem.presignedUrl.split('?')[0],
                       presignedUrl: resolveItem.presignedUrl,
-                      response
+                      uploadedFileName: resolveItem.uploadedFileName,
+                      uploadedPath: resolveItem.presignedUrl.split('?')[0]
                     })
                   })
                   .catch((error) => {
