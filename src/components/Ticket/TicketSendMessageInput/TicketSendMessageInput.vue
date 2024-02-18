@@ -25,7 +25,7 @@
                @click="acceptTicket" />
       </div>
     </div>
-    <div v-else-if="!ticket.seenBefore"
+    <div v-else-if="ticket.seenBefore"
          class="TicketSendMessageInput__start-ticket">
       <div class="TicketSendMessageInput__start-ticket-message">
         <span class="TicketSendMessageInput__assign-full-name">
