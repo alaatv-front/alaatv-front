@@ -17,6 +17,7 @@
                     :show-reload-button="false"
                     :show-expand-button="false"
                     :default-layout="false"
+                    :show-table-top="false"
                     :table-grid-size="true">
         <template #entity-index-table-item-cell="{inputData}">
           <ticket-log-item :log="getTicketLog(inputData.props.row)" />
@@ -103,23 +104,6 @@ export default defineComponent({
 
   &-list {
     width: 100%;
-
-    :deep(.quasar-crud-index-table) {
-      padding: 0 !important;
-
-      .q-table__top {
-        display: none;
-      }
-    }
-
-    :deep(.q-expansion-item) {
-      box-shadow: none !important;
-      padding: 0 !important;
-
-      .q-expansion-item__content  {
-        padding: 0;
-      }
-    }
   }
 }
 </style>

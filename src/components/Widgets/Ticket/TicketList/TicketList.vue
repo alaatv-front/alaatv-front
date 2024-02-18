@@ -14,112 +14,150 @@
                     :table="table"
                     :table-keys="tableKeys"
                     :create-route-name="options.createRouteName"
+                    :default-layout="false"
+                    :table-grid-size="true"
+                    :show-expand-button="false"
+                    :show-table-top="false"
                     @onPageChanged="filterInputs">
         <template v-slot:before-index-table>
           <p class="q-ma-lg">
             تعداد کل یافته ها: {{ totalTickets}}
           </p>
         </template>
-        <template v-slot:entity-index-table-cell="{inputData,showConfirmRemoveDialog}">
-          <template v-if="inputData.col.name === 'status'">
-            <div v-if="inputData.props.expand">
-              <q-select v-model="inputData.props.row.status"
-                        :options="ticketStatuses"
-                        option-label="title" />
-            </div>
-            <template v-else>
-              <q-chip :color="checkStatusColor(inputData.props.row.status.id)"
-                      :style="{color: '#FFF', height: '26px'}">
-                {{ inputData.props.row.status.title }}
-              </q-chip>
-            </template>
-          </template>
-          <template v-if="inputData.col.name === 'title'">
-            <div class="title-class ellipsis">
-              {{inputData.props.row.title}}
-            </div>
-          </template>
-          <template v-if="inputData.col.name === 'score'">
-            <q-img :src="rateImg(inputData.props.row.rate)"
-                   class="rate-img" />
-          </template>
-          <template v-if="inputData.col.name === 'department'">
-            <q-select v-if="inputData.props.expand"
-                      v-model="inputData.props.row.department"
-                      :options="departmentList.list"
-                      option-label="title" />
-            <p v-else>{{inputData.props.row.department.title}}</p>
-
-          </template>
-          <template v-if="inputData.col.name === 'actions'">
-            <div v-if="!isInAdminPage">
-              <q-btn flat
-                     square
-                     size="md"
-                     color="info"
-                     icon="ph:info"
-                     :to="{name:options.showRouteName, params: {id: inputData.props.row.id}}">
-                <q-tooltip>
-                  مشاهده
-                </q-tooltip>
-              </q-btn>
-            </div>
-            <div v-else>
-              <div v-if="inputData.props.expand">
-                <q-btn square
-                       flat
-                       color="green"
-                       icon="check"
-                       :loading="loading"
-                       class="q-mr-md"
-                       @click="updateTicket(inputData.props)" />
-                <q-btn flat
-                       square
-                       color="red"
-                       icon="close"
-                       @click="inputData.props.expand = false" />
-
+        <template #entity-index-table-item-cell="{inputData,showConfirmRemoveDialog}">
+          <div class="ticket-list-item-container">
+            <div class="ticket-list-item-header">
+              <div class="ticket-list-item-header__info-side">
+                <div class="ticket-list-item-header__info-side--status">
+                  <div v-if="inputData.props.expand">
+                    <q-select v-model="inputData.props.row.status"
+                              :options="ticketStatuses"
+                              option-label="title"
+                              class="no-title" />
+                  </div>
+                  <template v-else>
+                    <q-chip square
+                            :style="{background: checkStatusColor(inputData.props.row.status.id), color: checkStatusTextColor(inputData.props.row.status.id)}">
+                      {{ inputData.props.row.status.title }}
+                    </q-chip>
+                  </template>
+                </div>
+                <div class="ticket-list-item-header__info-side--ticket-id">
+                  تیکت: {{ inputData.props.row.id }}
+                </div>
+                <div class="ticket-list-item-header__info-side--priority">
+                  اولویت : {{ inputData.props.row.priority.title }}
+                </div>
+                <div class="ticket-list-item-header__info-side--department">
+                  <q-select v-if="inputData.props.expand"
+                            v-model="inputData.props.row.department"
+                            :options="departmentList.list"
+                            option-label="title"
+                            class="no-title" />
+                  <template v-else>
+                    <q-icon name="ph:tag"
+                            color="gery-8" />
+                    {{ inputData.props.row.department.title }}
+                  </template>
+                </div>
               </div>
-              <template v-else>
-                <q-btn flat
-                       square
-                       size="md"
-                       color="grey"
-                       icon="ph:info"
-                       :to="{name:options.showRouteName, params: {id: inputData.props.row.id}}">
-                  <q-tooltip>
-                    مشاهده
-                  </q-tooltip>
-                </q-btn>
-                <q-btn flat
-                       square
-                       size="md"
-                       color="amber-14"
-                       icon="ph:pencil-simple"
-                       class="q-ml-xs"
-                       @click="setEditMode(inputData.props)">
-                  <q-tooltip>
-                    ویرایش
-                  </q-tooltip>
-                </q-btn>
-                <q-btn flat
-                       square
-                       size="md"
-                       color="negative"
-                       icon="ph:trash-simple"
-                       :loading="loading"
-                       class="q-ml-md"
-                       @click="showConfirmRemoveDialog(inputData.props.row, 'id', 'آیا از حذف تیکت اطمینان دارید ؟')">
-                  <q-tooltip>
-                    حذف
-                  </q-tooltip>
-                </q-btn>
-              </template>
+              <div class="ticket-list-item-header__action-side">
+                <div class="ticket-list-item-header__action-side--update">
+                  آخرین به‌روزرسانی {{ getTicket(inputData.props.row).shamsiDate('updated_at').dateTime }}
+                </div>
+                <div class="ticket-list-item-header__action-side--action">
+                  <q-btn icon="ph:info"
+                         color="grey"
+                         square
+                         class="size-md"
+                         :to="{name:options.showRouteName, params: {id: inputData.props.row.id}}"
+                         flat>
+                    <q-tooltip>
+                      مشاهده
+                    </q-tooltip>
+                  </q-btn>
+                  <template v-if="localOptions.asAdmin">
+                    <template v-if="inputData.props.expand">
+                      <q-btn icon="ph:check"
+                             color="positive"
+                             square
+                             class="size-md"
+                             @click="updateTicket(inputData.props)">
+                        <q-tooltip>
+                          ثبت
+                        </q-tooltip>
+                      </q-btn>
+                      <q-btn icon="ph:x"
+                             color="negative"
+                             square
+                             class="size-md"
+                             @click="inputData.props.expand = false">
+                        <q-tooltip>
+                          انصراف
+                        </q-tooltip>
+                      </q-btn>
+                    </template>
+                    <template v-else>
+                      <q-btn icon="ph:pencil-simple"
+                             color="grey"
+                             square
+                             class="size-md"
+                             flat
+                             @click="setEditMode(inputData.props)">
+                        <q-tooltip>
+                          ویرایش
+                        </q-tooltip>
+                      </q-btn>
+                      <q-btn icon="ph:trash"
+                             color="grey"
+                             square
+                             class="size-md"
+                             flat
+                             @click="showConfirmRemoveDialog(inputData.props.row, 'id', 'آیا از حذف تیکت اطمینان دارید ؟')">
+                        <q-tooltip>
+                          حذف
+                        </q-tooltip>
+                      </q-btn>
+                    </template>
+                  </template>
+                </div>
+              </div>
             </div>
-          </template>
-          <template v-else>
-            {{ inputData.col.value }}
-          </template>
+            <div class="ticket-list-item-body">
+              <h6 class="ellipsis-2-lines">
+                {{inputData.props.row.title}}
+              </h6>
+            </div>
+            <div class="ticket-list-item-footer">
+              <div class="ticket-list-item-footer__info-side">
+                <div class="ticket-list-item-footer__info-side--user">
+                  <div class="ticket-user-avatar">
+                    <q-avatar size="32px">
+                      <lazy-img :src="inputData.props.row.user.photo"
+                                width="100%"
+                                height="100%" /></q-avatar>
+                  </div>
+                  <div class="ticket-user-name">
+                    {{ getTicket(inputData.props.row).user.full_name }}
+                  </div>
+                </div>
+                <div class="ticket-list-item-footer__info-side--messages">
+                  <q-icon name="ph:chats" />
+                  <div class="messages-count">
+                    {{ inputData.props.row.totalMessages }}
+                  </div>
+                </div>
+              </div>
+              <div class="ticket-list-item-footer__update-side">
+                <div class="ticket-list-item-footer__update-side--title">
+                  ایجاد شده در
+                </div>
+                <div class="ticket-list-item-footer__update-side--date">
+                  {{ getTicket(inputData.props.row).shamsiDate('created_at').dateTime }}
+                </div>
+              </div>
+            </div>
+          </div>
         </template>
       </entity-index>
     </div>
@@ -129,12 +167,17 @@
 <script>
 import moment from 'moment-jalaali'
 import { EntityIndex } from 'quasar-crud'
+import { Ticket } from 'src/models/Ticket.js'
+import LazyImg from 'src/components/lazyImg.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'TicketList',
-  components: { EntityIndex },
+  components: {
+    EntityIndex,
+    LazyImg
+  },
   mixins: [mixinTicket, mixinWidget],
   props: {
     options: {
@@ -149,6 +192,9 @@ export default {
   },
   data () {
     return {
+      defaultOptions: {
+        asAdmin: false
+      },
       isEntityReady: false,
       totalTickets: 0,
       api: APIGateway.ticket.APIAdresses.base,
@@ -649,15 +695,29 @@ export default {
       }
       return null
     },
+    getTicket (ticket) {
+      return new Ticket(ticket)
+    },
     checkStatusColor (id) {
       if (id === 1) {
-        return 'red'
+        return '#FDEEEE'
       } else if (id === 2) {
-        return 'primary'
+        return '#FFF8E1'
       } else if (id === 3) {
-        return 'green'
+        return '#E6F7F1'
       } else {
-        return 'blue'
+        return '#EAF8FE'
+      }
+    },
+    checkStatusTextColor (id) {
+      if (id === 1) {
+        return '#B33E3C'
+      } else if (id === 2) {
+        return '#FFB300'
+      } else if (id === 3) {
+        return '#078156'
+      } else {
+        return '#1F89B9'
       }
     }
   }
@@ -665,7 +725,142 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.ticket-list-item {
+  &-container {
+    display: flex;
+    padding: $space-6;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-6;
+    align-self: stretch;
+    width: 100%;
+    box-shadow: $shadow-1;
+    background: $grey-1;
+    border-radius: $radius-3;
+
+    &:not(:last-child) {
+      margin-bottom: $space-4;
+    }
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    @include media-max-width (lg) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &__info-side {
+      display: flex;
+      align-items: flex-start;
+      align-items: center;
+      gap: $space-6;
+
+      &--ticket-id {
+        color: $grey-8;
+        @include body2;
+      }
+
+       &--priority{
+        color: $grey-8;
+        @include body2;
+      }
+
+      &--department {
+        display: flex;
+        align-items: center;
+        gap: $space-2;
+        color: $grey-8;
+        @include body2;
+      }
+    }
+
+    &__action-side {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: $space-4;
+
+      &--update {
+        color: $grey-8;
+        @include body2;
+      }
+
+      &--action {
+        display: flex;
+        align-items: center;
+        gap: $space-2;
+      }
+    }
+  }
+
+  &-body {
+    width: 100%;
+    color: $grey-9;
+
+    h6 {
+      width: 100%;
+    }
+  }
+
+  &-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+
+    @include media-max-width (sm) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &__info-side {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: $space-7;
+
+      &--user {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: $space-2;
+
+        .ticket-user-name {
+          color: $grey-8;
+          @include body2;
+        }
+      }
+
+      &--messages {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: $grey-8;
+
+        .messages-count {
+          @include body2;
+        }
+      }
+    }
+    &__update-side {
+      display: flex;
+      align-items: flex-start;
+      gap: $space-2;
+      color: $grey-8;
+      @include body2;
+    }
+  }
+}
+
 .ticket-index{
+  padding: $space-6;
+
   @media screen and (width <= 1450px){
     padding: 10px;
   }
