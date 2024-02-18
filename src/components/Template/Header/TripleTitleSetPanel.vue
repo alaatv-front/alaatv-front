@@ -38,18 +38,15 @@
           </q-menu>
         </template>
       </q-btn>
-
       <btn-user-profile-menu />
-
     </div>
   </div>
 </template>
 
 <script>
-import { User } from 'src/models/User.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinAuth, mixinTripleTitleSet } from 'src/mixin/Mixins.js'
-import BtnUserProfileMenu from 'components/BtnUserProfileMenu.vue'
+import BtnUserProfileMenu from 'src/components/BtnUserProfileMenu.vue'
 
 export default {
   name: 'TripleTitleSetPanel',
@@ -57,9 +54,8 @@ export default {
   mixins: [mixinAuth, mixinTripleTitleSet],
   data () {
     return {
-      user: new User(),
-      activePage: null,
       messages: [],
+      activePage: null,
       unreadMessagesCount: 0
     }
   },
@@ -69,16 +65,12 @@ export default {
     }
   },
   mounted () {
-    this.loadAuthData()
     if (window.innerWidth < 1024) {
       this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
     }
     this.loadBonyadEhsanUnreadMessages()
   },
   methods: {
-    loadAuthData () { // prevent Hydration node mismatch
-      this.user = this.$store.getters['Auth/user']
-    },
     logOut () {
       this.$store.dispatch('Auth/logOut')
     },
@@ -102,7 +94,7 @@ export default {
     },
     readAllMessages () {
       APIGateway.bonyad.readAllMessages()
-        .then(response => {
+        .then(() => {
           this.unreadMessages = []
           this.unreadMessagesCount = 0
         })

@@ -86,10 +86,10 @@
 <script>
 import { mapMutations } from 'vuex'
 import { mixinAuth } from 'src/mixin/Mixins.js'
+import LazyImg from 'src/components/lazyImg.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
-import LazyImg from 'components/lazyImg.vue'
 
 export default {
   name: 'TripleTitleSetPanel',
@@ -97,8 +97,8 @@ export default {
   mixins: [mixinAuth, mixinEwano],
   data () {
     return {
-      isActive: null,
-      isAdmin: false,
+      mounted: false,
+      isDesktop: false,
       logoutDialog: false,
       eventInfo: null,
       menuItems: [
@@ -172,18 +172,17 @@ export default {
   },
   computed: {
     topicList () {
-      const topicList = this.$store.getters['TripleTitleSet/setTopicList']
-      this.fillTopicsRouteArray(topicList)
-      return topicList
+      return this.$store.getters['TripleTitleSet/setTopicList']
     },
     selectedTopic () {
       return this.$store.getters['TripleTitleSet/selectedTopic'] || ''
     },
     screenName () {
+      if (typeof window === 'undefined') {
+        return null
+      }
+
       return this.$q.screen.name
-    },
-    isDesktop () {
-      return !this.$q.screen.lt.md
     },
     logoImage () {
       const alaaLogo = 'https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png'
@@ -198,11 +197,15 @@ export default {
     }
   },
   watch: {
+    topicList () {
+      this.fillTopicsRouteArray(this.$store.getters['TripleTitleSet/setTopicList'])
+    },
     screenName () {
       this.updateLeftDrawer()
     }
   },
   mounted () {
+    this.mounted = true
     this.updateLeftDrawer()
     this.getEventInfoByName()
       .then(() => {
@@ -213,6 +216,11 @@ export default {
   },
   methods: {
     updateLeftDrawer () {
+      if (!this.mounted) {
+        return
+      }
+
+      this.isDesktop = !this.$q.screen.lt.md
       const isIframe = window.self !== window.top
       if (this.$q.screen.gt.sm && !isIframe) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)

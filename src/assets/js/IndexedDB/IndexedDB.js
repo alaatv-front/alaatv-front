@@ -5,10 +5,8 @@ const AppIndexedDB = (function () {
     debugMode = false
 
   function query (useDB) {
-    const openRequest = indexedDB.open(DBName, 1)
+    const openRequest = indexedDB.open(DBName, 3)
     openRequest.onupgradeneeded = function (event) {
-      const db = event.target.result
-
       /*
       // https://javascript.info/indexeddb
         IndexedDB has a built-in mechanism of “schema versioning”, absent in server-side databases.
@@ -29,9 +27,7 @@ const AppIndexedDB = (function () {
       //         // update
 
       Object.keys(models).forEach(modelKey => {
-        if (!db.objectStoreNames.contains(modelKey)) {
-          models[modelKey](db)
-        }
+        models[modelKey](event)
       })
     }
     openRequest.onsuccess = function (event) {
