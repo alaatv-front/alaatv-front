@@ -33,6 +33,10 @@ class Ticket extends Model {
       },
       {
         key: 'assign',
+        relatedModel: User
+      },
+      {
+        key: 'assign',
         relatedModel: Supporter
       },
       { key: 'seenBefore' },

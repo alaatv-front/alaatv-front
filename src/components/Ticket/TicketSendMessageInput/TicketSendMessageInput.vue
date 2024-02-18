@@ -25,10 +25,14 @@
                @click="acceptTicket" />
       </div>
     </div>
-    <div v-else-if="ticket.seenBefore"
+    <div v-else-if="!ticket.seenBefore"
          class="TicketSendMessageInput__start-ticket">
-      <div class="TicketSendMessageInput__accept-ticket-message">
-        شخص دیگری مسئول این تیکت میباشد.
+      <div class="TicketSendMessageInput__start-ticket-message">
+        <span class="TicketSendMessageInput__assign-full-name">
+          {{ ticket.assign.first_name }}
+          {{ ticket.assign.last_name }}
+        </span>
+        مسئول این تیکت میباشد.
       </div>
       <div class="TicketSendMessageInput__accept-ticket-action">
         <q-btn label="ورود به مکالمه"
@@ -433,6 +437,11 @@ export default defineComponent({
     &-message {
       @include body2;
       color: $grey-9;
+      .TicketSendMessageInput__assign-full-name {
+        @include subtitle2;
+        color: $secondary-5;
+        margin-right: $space-1;
+      }
     }
   }
   :deep(.q-field) {
