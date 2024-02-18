@@ -439,7 +439,7 @@ export default class TicketAPI extends APIRepository {
       resolveCallback: (response) => {
         return {
           url: response.data.url, // String presigned URL of file
-          uploaded_file_name: response.data.uploaded_file_name // String
+          uploadedFileName: response.data.uploaded_file_name // String
         }
       },
       rejectCallback: (error) => {
