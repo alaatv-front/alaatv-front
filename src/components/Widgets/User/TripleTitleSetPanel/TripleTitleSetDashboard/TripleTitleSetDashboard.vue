@@ -1,6 +1,7 @@
 <template>
   <div class="triple-title-set-dashboard-container new-theme">
-    <dashboard-header :studyPlanId="studyPlanId" />
+    <dashboard-header :event="event"
+                      :studyPlanId="studyPlanId" />
     <daily-plan :studyPlanId="studyPlanId" />
     <status-and-review :loading="loading"
                        :studyPlanInfo="studyPlanInfo" />

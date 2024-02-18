@@ -28,12 +28,15 @@
                    spinner-color="primary" />
           </q-avatar>
         </div>
-        <div class="user-intro">
+        <div v-if="event.title"
+             class="user-intro">
           <div class="intro-title">
             سلام {{ user.first_name }} عزیز
           </div>
           <div class="intro-subtitle">
-            به کاروانسرای راه ابریشم آلاء خوش اومدی!
+            به
+            {{ event.title }}
+            آلاء خوش اومدی!
           </div>
         </div>
       </div>
@@ -84,6 +87,10 @@ import { APIGateway } from 'src/api/APIGateway.js'
 export default defineComponent({
   name: 'DashboardHeader',
   props: {
+    event: {
+      type: Object,
+      default: null
+    },
     studyPlanId: {
       type: Number,
       default: null
