@@ -23,7 +23,8 @@
           <span>
             لیست تیکت ها
           </span>
-          <q-btn color="primary">
+          <q-btn color="primary"
+                 :to="{name: localOptions.asAdmin ? 'Admin.Ticket.Create' : 'UserPanel.Ticket.Create'}">
             تیکت جدید
           </q-btn>
         </template>
