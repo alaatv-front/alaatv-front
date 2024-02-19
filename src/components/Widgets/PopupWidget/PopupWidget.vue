@@ -83,6 +83,7 @@ export default defineComponent({
         eventName: 'openPopup',
         persistent: false,
         closeButton: false,
+        immediate: false,
         hasHeader: false,
         hasBody: false,
         hasAction: false,
@@ -122,6 +123,9 @@ export default defineComponent({
     this.$bus.on(this.localOptions.eventName, () => {
       this.openDialog()
     })
+    if (this.localOptions.immediate) {
+      this.openDialog()
+    }
   },
   methods: {
     openDialog () {
