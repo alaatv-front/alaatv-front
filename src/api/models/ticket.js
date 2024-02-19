@@ -4,7 +4,7 @@ import { PatternList } from 'src/models/Pattern.js'
 import { SupporterList } from 'src/models/Supporter.js'
 import APIRepository from '../classes/APIRepository.js'
 import { TicketLogList } from 'src/models/TicketLog.js'
-import { TicketList, Ticket } from 'src/models/Ticket.js'
+import { Ticket, TicketList } from 'src/models/Ticket.js'
 import { TicketMessage } from 'src/models/TicketMessage.js'
 import { TicketStatusList } from 'src/models/TicketStatus.js'
 import { TicketPriorityList } from 'src/models/TicketPriority.js'
@@ -282,7 +282,7 @@ export default class TicketAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.base,
       resolveCallback: (response) => {
-        return response
+        return new Ticket(response.data.data)
       },
       rejectCallback: (error) => {
         return error

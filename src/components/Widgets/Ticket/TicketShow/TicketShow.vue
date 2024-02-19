@@ -179,7 +179,7 @@ export default {
         asAdmin: false
       },
       reservedMessageList: [],
-      reservedMessageLoading: [],
+      reservedMessageLoading: false,
       ticket: new Ticket(),
       otherTickets: new TicketList(),
       ticketLogs: new TicketLogList(),
