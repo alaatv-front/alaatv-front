@@ -127,7 +127,8 @@
               anchor="top start"
               self="bottom right"
               class="preparedTextsMenu">
-        <prepared-texts :list="preparedTextList"
+        <prepared-texts :list="reservedMessageList"
+                        :loading="reservedMessageLoading"
                         @select="onSelectPreparedText" />
       </q-menu>
       <q-dialog v-model="selectFilesDialog">
@@ -155,6 +156,14 @@ export default defineComponent({
     ticket: {
       type: Ticket,
       default: new Ticket()
+    },
+    reservedMessageList: {
+      type: Array,
+      default: () => []
+    },
+    reservedMessageLoading: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ['sendMessage', 'acceptTicket'],
@@ -166,24 +175,6 @@ export default defineComponent({
       recordedVoiceDurationInSeconds: 0,
       mediaRecorder: null,
       selectFilesDialog: false,
-      preparedTextList: [
-        {
-          title: '/عنوان آماده 1',
-          text: 'لورم ایپسوم متنی ساختگی...'
-        },
-        {
-          title: '/عنوان آماده 2',
-          text: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم...'
-        },
-        {
-          title: '/عنوان آماده 3',
-          text: 'لورم ایپسوم متن ساختگی با تولید...'
-        },
-        {
-          title: '/عنوان آماده 4',
-          text: 'لورم ایپسوم...'
-        }
-      ],
       status: 'blur' // 'blur', 'text-input-focus', 'typing', 'voice-recording', 'voice-recorded
     }
   },

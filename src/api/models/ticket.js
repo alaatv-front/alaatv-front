@@ -18,6 +18,7 @@ export default class TicketAPI extends APIRepository {
       create: '/ticket/create',
       pending: '/ticket/pending',
       supports: '/ticket/supports',
+      reservedMessage: '/ticket/reserved-message',
       smsPatterns: (id) => `/ticket/${id}/sms/patterns`,
       presignedUrl: '/ticket/presigned-url',
       ticket: (ticketId) => '/ticket/' + ticketId,
@@ -58,7 +59,8 @@ export default class TicketAPI extends APIRepository {
       otherTickets: (ticketId) => this.name + this.APIAdresses.otherTickets(ticketId),
       pending: this.name + this.APIAdresses.pending,
       smsPatterns: (id) => this.name + this.APIAdresses.smsPatterns(id),
-      supports: this.name + this.APIAdresses.supports
+      supports: this.name + this.APIAdresses.supports,
+      reservedMessage: this.name + this.APIAdresses.reservedMessage
     }
     this.restUrl = (id) => this.url + '/' + id
   }
@@ -133,6 +135,22 @@ export default class TicketAPI extends APIRepository {
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return new Ticket(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getReservedMessage (cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.reservedMessage,
+      cacheKey: this.CacheList.reservedMessage,
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return Array(response.data) // Array of String
       },
       rejectCallback: (error) => {
         return error
