@@ -53,6 +53,8 @@
               <ticket-message-list ref="TicketMessageList"
                                    :ticket="ticket"
                                    :as-admin="localOptions.asAdmin"
+                                   :reserved-message-list="reservedMessageList"
+                                   :reserved-message-loading="reservedMessageLoading"
                                    @acceptTicket="acceptTicket"
                                    @sendMessage="onSendMessage"
                                    @cancelUpload="onCancelUploadFile" />
@@ -176,6 +178,8 @@ export default {
       defaultOptions: {
         asAdmin: false
       },
+      reservedMessageList: [],
+      reservedMessageLoading: [],
       ticket: new Ticket(),
       otherTickets: new TicketList(),
       ticketLogs: new TicketLogList(),
@@ -210,6 +214,7 @@ export default {
       this.getNeededDataForTicket()
       this.getPendingTickets()
       this.getSupporterList()
+      this.getReservedMessage()
     },
     openMyOpenTicketDrawer () {
       this.myOpenTicketDrawer = true
@@ -248,6 +253,17 @@ export default {
         })
         .catch(() => {
           this.supporterList.loading = false
+        })
+    },
+    getReservedMessage () {
+      this.reservedMessageLoading = true
+      APIGateway.ticket.getReservedMessage()
+        .then((reservedMessageList) => {
+          this.reservedMessageList = reservedMessageList
+          this.reservedMessageLoading = false
+        })
+        .catch(() => {
+          this.reservedMessageLoading = false
         })
     },
     getPendingTickets () {

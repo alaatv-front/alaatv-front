@@ -1,15 +1,17 @@
 <template>
   <div class="PreparedTexts">
-    <q-list>
+    <q-linear-progress v-if="loading"
+                       indeterminate />
+    <q-list v-else>
       <q-item v-for="(item, itemIndex) in list"
               :key="itemIndex"
               clickable
               @click="onSelectItem(item)">
-        <div class="PreparedTexts__item-title">
-          {{ item.title }}
-        </div>
+        <!--        <div class="PreparedTexts__item-title">-->
+        <!--          {{ item }}-->
+        <!--        </div>-->
         <div class="PreparedTexts__item-text">
-          {{ item.text }}
+          {{ item }}
         </div>
       </q-item>
     </q-list>
@@ -25,6 +27,10 @@ export default defineComponent({
     list: {
       type: Array,
       default: () => []
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ['select'],
@@ -61,7 +67,6 @@ export default defineComponent({
         sampleRate: 8000
       },
       wavesurfer: null,
-      loading: true,
       loadedValue: 0,
       playing: false,
       status: 'blur' // 'blur', 'text-input-focus', 'typing', 'voice-recording', 'voice-recorded

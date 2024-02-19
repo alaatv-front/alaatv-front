@@ -18,7 +18,8 @@ export default class TicketAPI extends APIRepository {
       create: '/ticket/create',
       pending: '/ticket/pending',
       supports: '/ticket/supports',
-      smsPatterns: '/ticket/sms/patterns',
+      reservedMessage: '/ticket/reserved-message',
+      smsPatterns: (id) => `/ticket/${id}/sms/patterns`,
       presignedUrl: '/ticket/presigned-url',
       ticket: (ticketId) => '/ticket/' + ticketId,
       updateTicketApi: (ticketId) => '/ticket/' + ticketId,
@@ -57,8 +58,9 @@ export default class TicketAPI extends APIRepository {
       logs: (ticketId) => this.name + this.APIAdresses.logs(ticketId),
       otherTickets: (ticketId) => this.name + this.APIAdresses.otherTickets(ticketId),
       pending: this.name + this.APIAdresses.pending,
-      smsPatterns: this.name + this.APIAdresses.smsPatterns,
-      supports: this.name + this.APIAdresses.supports
+      smsPatterns: (id) => this.name + this.APIAdresses.smsPatterns(id),
+      supports: this.name + this.APIAdresses.supports,
+      reservedMessage: this.name + this.APIAdresses.reservedMessage
     }
     this.restUrl = (id) => this.url + '/' + id
   }
@@ -133,6 +135,22 @@ export default class TicketAPI extends APIRepository {
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return new Ticket(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getReservedMessage (cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.reservedMessage,
+      cacheKey: this.CacheList.reservedMessage,
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return response.data // Array of String
       },
       rejectCallback: (error) => {
         return error
@@ -215,8 +233,8 @@ export default class TicketAPI extends APIRepository {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.smsPatterns,
-      cacheKey: this.CacheList.smsPatterns,
+      request: this.APIAdresses.smsPatterns(data.id),
+      cacheKey: this.CacheList.smsPatterns(data.id),
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return new PatternList(response.data)
@@ -224,7 +242,7 @@ export default class TicketAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       },
-      ...(data !== undefined && { data })
+      ...(data.params !== undefined && { data: data.params })
     })
   }
 

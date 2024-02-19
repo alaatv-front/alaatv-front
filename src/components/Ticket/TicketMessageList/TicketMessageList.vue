@@ -21,6 +21,8 @@
     <div v-if="!readonly"
          class="TicketMessageList__send-input-area">
       <ticket-send-message-input :ticket="ticket"
+                                 :reserved-message-list="reservedMessageList"
+                                 :reserved-message-loading="reservedMessageLoading"
                                  @sendMessage="onSendMessage"
                                  @acceptTicket="acceptTicket" />
     </div>
@@ -48,6 +50,14 @@ export default defineComponent({
       default: false
     },
     readonly: {
+      type: Boolean,
+      default: false
+    },
+    reservedMessageList: {
+      type: Array,
+      default: () => []
+    },
+    reservedMessageLoading: {
       type: Boolean,
       default: false
     }
