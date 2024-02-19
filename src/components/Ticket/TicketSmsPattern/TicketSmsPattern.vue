@@ -89,7 +89,9 @@ export default defineComponent({
   methods: {
     getSmsPatterns () {
       this.patternList.loading = true
-      APIGateway.ticket.getSmsPatterns()
+      APIGateway.ticket.getSmsPatterns({
+        id: this.ticket.id
+      })
         .then(patternList => {
           this.patternList = new PatternList(patternList)
           const samplePattern = new Pattern({
