@@ -332,7 +332,7 @@ export default defineComponent({
       this.$refs.preparedTextsMenu.toggle()
     },
     onSelectPreparedText (item) {
-      this.textInput = item.text
+      this.textInput = item
       this.$refs.preparedTextsMenu.hide()
     },
     showSelectFilesDialog () {

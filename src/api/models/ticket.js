@@ -150,7 +150,7 @@ export default class TicketAPI extends APIRepository {
       cacheKey: this.CacheList.reservedMessage,
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
-        return Array(response.data) // Array of String
+        return response.data // Array of String
       },
       rejectCallback: (error) => {
         return error
