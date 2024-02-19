@@ -8,8 +8,8 @@
              :to="{name: 'UserPanel.Dashboard'}" />
     </div>
     <div v-if="isEntityReady">
-      <entity-index v-model:value="inputs"
-                    title="لیست تیکت ها"
+      <entity-index ref="ticketEntityIndex"
+                    v-model:value="inputs"
                     :api="api"
                     :table="table"
                     :table-keys="tableKeys"
@@ -19,6 +19,14 @@
                     :show-expand-button="false"
                     :show-table-top="false"
                     @onPageChanged="filterInputs">
+        <template #toolbar>
+          <span>
+            لیست تیکت ها
+          </span>
+          <q-btn color="primary">
+            تیکت جدید
+          </q-btn>
+        </template>
         <template v-slot:before-index-table>
           <p class="q-ma-lg">
             تعداد کل یافته ها: {{ totalTickets}}
@@ -165,13 +173,16 @@
 </template>
 
 <script>
+import { shallowRef } from 'vue'
 import moment from 'moment-jalaali'
 import { EntityIndex } from 'quasar-crud'
 import { Ticket } from 'src/models/Ticket.js'
 import LazyImg from 'src/components/lazyImg.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
+import SubmitButton from 'src/components/FormBuilderCustumComponents/SubmitButton.vue'
 
+const SubmitButtonComp = shallowRef(SubmitButton)
 export default {
   name: 'TicketList',
   components: {
@@ -350,28 +361,136 @@ export default {
       },
       userInputs: [
         { type: 'hidden', options: [], name: 'department_id' },
-        { type: 'select', options: [], name: 'pirority_id', label: 'اولویت', optionLabel: 'title', col: 'col-md-4 col-sm-6 col-xs-12' },
-        { type: 'select', options: [], name: 'status_id', multiple: true, label: 'وضعیت', optionLabel: 'title', optionValue: 'id', col: 'col-md-4 col-sm-6 col-xs-12' },
-        { type: 'input', name: 'id', label: 'شماره تیکت', col: 'col-md-4 col-sm-6 col-xs-12' },
-        { type: 'input', name: 'title', label: 'عنوان', col: 'col-md-4 col-sm-6 col-xs-12' },
-        { type: 'date', name: 'created_at_since', calendarIcon: ' ', label: 'از تاریخ : ', responseKey: 'data.from', col: 'col-md-4 col-sm-6 col-xs-12' },
-        { type: 'date', name: 'created_at_till', calendarIcon: ' ', label: 'تا تاریخ : ', col: 'col-md-4 col-sm-6 col-xs-12' }
+        { type: 'select', options: [], name: 'status_id', multiple: true, label: 'وضعیت', optionLabel: 'title', optionValue: 'id', col: 'col-md-3 col-12' },
+        { type: 'select', options: [], name: 'pirority_id', label: 'اولویت', optionLabel: 'title', col: 'col-md-3 col-12' },
+        { type: 'date', name: 'created_at_since', calendarIcon: ' ', label: 'از تاریخ : ', responseKey: 'data.from', col: 'col-md-3 col-12' },
+        { type: 'date', name: 'created_at_till', calendarIcon: ' ', label: 'تا تاریخ : ', col: 'col-md-3 col-12' },
+        { type: 'input', name: 'title', label: 'عنوان', col: 'col-md-6 col-12' },
+        { type: 'input', name: 'id', label: 'شماره تیکت', col: 'col-md-3 col-12' },
+        {
+          type: SubmitButtonComp,
+          name: 'SubmitButtonComp',
+          label: 'جستجو',
+          icon: 'ph:magnifying-glass',
+          customClass: 'full-width',
+          atClick: () => {
+            this.filterTickets()
+          },
+          col: 'col-md-3 col-12'
+        }
       ],
       adminInputs: [
-        { type: 'input', name: 'has_user_mobile', label: 'شماره همراه', col: 'col-md-3' },
-        { type: 'input', name: 'has_user_nationalcode', label: 'کد ملی', col: 'col-md-3' },
-        { type: 'input', name: 'has_user_firstname', label: 'نام', col: 'col-md-3' },
-        { type: 'input', name: 'has_user_lastname', label: 'نام خانوادگی', col: 'col-md-3' },
-        { type: 'select', options: [], name: 'department_id', multiple: true, optionLabel: 'title', optionValue: 'id', label: 'گروه', col: 'col-md-3' },
-        { type: 'select', options: [], name: 'pirority_id', label: 'اولویت', col: 'col-md-3' },
-        { type: 'select', options: [], name: 'status_id', multiple: true, label: 'وضعیت', optionLabel: 'title', optionValue: 'id', col: 'col-md-3' },
-        { type: 'input', name: 'order_id', label: 'شماره سفارش', col: 'col-md-3' },
-        { type: 'input', name: 'id', label: 'شماره تیکت', col: 'col-md-3' },
-        { type: 'input', name: 'title', label: 'عنوان', col: 'col-md-3' },
-        { type: 'date', name: 'created_at_since', calendarIcon: ' ', label: 'از تاریخ : ', responseKey: 'data.from', col: 'col-md-3' },
-        { type: 'date', name: 'created_at_till', calendarIcon: ' ', label: 'تا تاریخ : ', col: 'col-md-3' },
-        { type: 'date', name: 'hasMessageFromDate', calendarIcon: ' ', placeholder: 'تاریخ پاسخ اپراتور از:', col: 'col-md-6' },
-        { type: 'date', name: 'hasMessageToDate', calendarIcon: ' ', placeholder: 'تاریخ پاسخ اپراتور تا:', col: 'col-md-6' },
+        { type: 'input', name: 'has_user_mobile', label: 'شماره همراه', col: 'col-md-3 col-12' },
+        { type: 'input', name: 'has_user_nationalcode', label: 'کد ملی', col: 'col-md-3 col-12' },
+        { type: 'input', name: 'has_user_firstname', label: 'نام', col: 'col-md-3 col-12' },
+        { type: 'input', name: 'has_user_lastname', label: 'نام خانوادگی', col: 'col-md-3 col-12' },
+        { type: 'select', options: [], name: 'department_id', multiple: true, optionLabel: 'title', optionValue: 'id', label: 'گروه', col: 'col-md-3 col-12' },
+        { type: 'select', options: [], name: 'pirority_id', label: 'اولویت', col: 'col-md-3 col-12' },
+        { type: 'select', options: [], name: 'status_id', multiple: true, label: 'وضعیت', optionLabel: 'title', optionValue: 'id', col: 'col-md-3 col-12' },
+        {
+          type: 'entity',
+          name: 'product',
+          selectionMode: 'multiple',
+          popUpButtonConfig: {
+            unelevated: true,
+            color: 'primary',
+            textColor: 'white',
+            badgeColor: 'secondary',
+            label: 'انتخاب محصول'
+          },
+          indexConfig: {
+            apiAddress: APIGateway.product.APIAdresses.base,
+            tableTitle: 'لیست محصولات',
+            showTableItemsRouteName: 'Admin.Product.Show',
+            tableKeys: {
+              data: 'data',
+              total: 'total',
+              currentPage: 'page',
+              perPage: 'per_page',
+              pageKey: 'page'
+            },
+            table: {
+              columns: [
+                {
+                  name: 'id',
+                  required: true,
+                  label: '#',
+                  align: 'left',
+                  field: row => row.id
+                },
+                {
+                  name: 'photo',
+                  required: true,
+                  label: 'تصویر',
+                  align: 'left',
+                  field: row => row.photo
+                },
+                {
+                  name: 'title',
+                  required: true,
+                  label: 'عنوان',
+                  align: 'left',
+                  field: row => row.title
+                },
+                {
+                  name: 'product_type',
+                  required: true,
+                  label: 'نوع',
+                  align: 'left',
+                  field: row => row.product_type.display_name
+                },
+                {
+                  name: 'attribute_set',
+                  required: true,
+                  label: 'دسته',
+                  align: 'left',
+                  field: row => row.attribute_set.name
+                },
+                {
+                  name: 'enable',
+                  required: true,
+                  label: 'فعال',
+                  align: 'left',
+                  field: row => (row.enable) ? 'فعال' : 'غیرفعال'
+                },
+                {
+                  name: 'is_free',
+                  required: true,
+                  label: 'رایگان/ غیر رایگان',
+                  align: 'left',
+                  field: row => (row.is_free) ? 'رایگان' : 'پولی'
+                }
+              ],
+              data: []
+            },
+            inputs: [
+              { type: 'input', name: 'id', value: null, placeholder: 'شناسه', col: 'col-md-3' },
+              { type: 'input', name: 'name', value: null, placeholder: 'نام', col: 'col-md-3' },
+              { type: 'input', name: 'short_description', value: null, placeholder: 'توضیحات کوتاه', col: 'col-md-3' },
+              { type: 'input', name: 'long_description', value: null, placeholder: 'توضیحات اجمالی', col: 'col-md-3' },
+              { type: 'select', name: 'product_type_id', value: null, options: [{ label: 'ساده', value: 1 }, { label: 'قابل پیکربندی', value: 2 }, { label: 'قابل انتخاب', value: 3 }, { label: 'اشتراک', value: 4 }], placeholder: 'نوع محصول', col: 'col-md-3' },
+              { type: 'select', name: 'is_free', value: null, options: [{ label: 'رایگان', value: 1 }, { label: 'غیر رایگان', value: 0 }], placeholder: 'وضعیت رایگان / غیر رایگان', col: 'col-md-3' },
+              { type: 'select', name: 'enable', value: null, options: [{ label: 'فعال', value: 1 }, { label: 'غیرفعال', value: 0 }], placeholder: 'وضعیت فعال / غیرفعال', col: 'col-md-3' },
+              { type: 'select', name: 'display', value: null, options: [{ label: 'نمایش', value: 1 }, { label: 'عدم نمایش', value: 0 }], placeholder: 'وضعیت نمایش / عدم نمایش', col: 'col-md-3' },
+              { type: 'input', name: 'name', value: null, placeholder: 'نام', col: 'col-md-4' },
+              { type: 'input', name: 'attribute_set_id', value: null, placeholder: 'کد دسته', col: 'col-md-4' },
+              { type: 'dateRange', calendarIcon: ' ', name: 'created_at_range', value: [], placeholder: 'بازه تاریخ ایجاد', col: 'col-md-4' }
+            ],
+            itemIdentifyKey: 'id',
+            itemIndicatorKey: 'name'
+          },
+          value: [],
+          responseKey: '',
+          selected: [],
+          col: 'q-mt-lg col-md-3 col-12'
+        },
+        { type: 'input', name: 'title', label: 'عنوان', col: 'col-md-6 col-12' },
+        { type: 'input', name: 'id', label: 'شماره تیکت', col: 'col-md-3 col-12' },
+        { type: 'input', name: 'order_id', label: 'شماره سفارش', col: 'col-md-3 col-12' },
+        { type: 'date', name: 'created_at_since', calendarIcon: ' ', label: 'از تاریخ : ', responseKey: 'data.from', col: 'col-md-3 col-12' },
+        { type: 'date', name: 'created_at_till', calendarIcon: ' ', label: 'تا تاریخ : ', col: 'col-md-3 col-12' },
+        { type: 'date', name: 'hasMessageFromDate', calendarIcon: ' ', label: 'تاریخ پاسخ اپراتور از:', col: 'col-md-3 col-12' },
+        { type: 'date', name: 'hasMessageToDate', calendarIcon: ' ', label: 'تاریخ پاسخ اپراتور تا:', col: 'col-md-3 col-12' },
         // {
         //   type: 'entity',
         //   name: 'hasAssignees',
@@ -510,104 +629,18 @@ export default {
         //   selected: [],
         //   col: 'col-md-3'
         // },
+        { type: 'Checkbox', name: 'hasReported', value: 0, trueValue: 1, falseValue: 0, label: 'مشاهده موارد گزارش شده', col: 'q-mt-lg col-md-9 col-12' },
         {
-          type: 'entity',
-          name: 'product',
-          selectionMode: 'multiple',
-          popUpButtonConfig: {
-            unelevated: true,
-            color: 'primary',
-            textColor: 'white',
-            badgeColor: 'secondary',
-            label: 'انتخاب محصول'
+          type: SubmitButtonComp,
+          name: 'SubmitButtonComp',
+          label: 'جستجو',
+          icon: 'ph:magnifying-glass',
+          customClass: 'full-width',
+          atClick: () => {
+            this.filterTickets()
           },
-          indexConfig: {
-            apiAddress: APIGateway.product.APIAdresses.base,
-            tableTitle: 'لیست محصولات',
-            showTableItemsRouteName: 'Admin.Product.Show',
-            tableKeys: {
-              data: 'data',
-              total: 'total',
-              currentPage: 'page',
-              perPage: 'per_page',
-              pageKey: 'page'
-            },
-            table: {
-              columns: [
-                {
-                  name: 'id',
-                  required: true,
-                  label: '#',
-                  align: 'left',
-                  field: row => row.id
-                },
-                {
-                  name: 'photo',
-                  required: true,
-                  label: 'تصویر',
-                  align: 'left',
-                  field: row => row.photo
-                },
-                {
-                  name: 'title',
-                  required: true,
-                  label: 'عنوان',
-                  align: 'left',
-                  field: row => row.title
-                },
-                {
-                  name: 'product_type',
-                  required: true,
-                  label: 'نوع',
-                  align: 'left',
-                  field: row => row.product_type.display_name
-                },
-                {
-                  name: 'attribute_set',
-                  required: true,
-                  label: 'دسته',
-                  align: 'left',
-                  field: row => row.attribute_set.name
-                },
-                {
-                  name: 'enable',
-                  required: true,
-                  label: 'فعال',
-                  align: 'left',
-                  field: row => (row.enable) ? 'فعال' : 'غیرفعال'
-                },
-                {
-                  name: 'is_free',
-                  required: true,
-                  label: 'رایگان/ غیر رایگان',
-                  align: 'left',
-                  field: row => (row.is_free) ? 'رایگان' : 'پولی'
-                }
-              ],
-              data: []
-            },
-            inputs: [
-              { type: 'input', name: 'id', value: null, placeholder: 'شناسه', col: 'col-md-3' },
-              { type: 'input', name: 'name', value: null, placeholder: 'نام', col: 'col-md-3' },
-              { type: 'input', name: 'short_description', value: null, placeholder: 'توضیحات کوتاه', col: 'col-md-3' },
-              { type: 'input', name: 'long_description', value: null, placeholder: 'توضیحات اجمالی', col: 'col-md-3' },
-              { type: 'select', name: 'product_type_id', value: null, options: [{ label: 'ساده', value: 1 }, { label: 'قابل پیکربندی', value: 2 }, { label: 'قابل انتخاب', value: 3 }, { label: 'اشتراک', value: 4 }], placeholder: 'نوع محصول', col: 'col-md-3' },
-              { type: 'select', name: 'is_free', value: null, options: [{ label: 'رایگان', value: 1 }, { label: 'غیر رایگان', value: 0 }], placeholder: 'وضعیت رایگان / غیر رایگان', col: 'col-md-3' },
-              { type: 'select', name: 'enable', value: null, options: [{ label: 'فعال', value: 1 }, { label: 'غیرفعال', value: 0 }], placeholder: 'وضعیت فعال / غیرفعال', col: 'col-md-3' },
-              { type: 'select', name: 'display', value: null, options: [{ label: 'نمایش', value: 1 }, { label: 'عدم نمایش', value: 0 }], placeholder: 'وضعیت نمایش / عدم نمایش', col: 'col-md-3' },
-              { type: 'input', name: 'name', value: null, placeholder: 'نام', col: 'col-md-4' },
-              { type: 'input', name: 'attribute_set_id', value: null, placeholder: 'کد دسته', col: 'col-md-4' },
-              { type: 'dateRange', calendarIcon: ' ', name: 'created_at_range', value: [], placeholder: 'بازه تاریخ ایجاد', col: 'col-md-4' }
-            ],
-            itemIdentifyKey: 'id',
-            itemIndicatorKey: 'name'
-          },
-          value: [],
-          responseKey: '',
-          selected: [],
-          col: 'col-md-3'
-        },
-        { type: 'Checkbox', name: 'hasReported', value: 0, trueValue: 1, falseValue: 0, label: 'مشاهده موارد گزارش شده', col: 'col-md-3' }
+          col: 'col-md-3 col-12'
+        }
       ],
       inputs: [],
       table: {}
@@ -635,6 +668,9 @@ export default {
     this.checkQueryParams()
   },
   methods: {
+    filterTickets () {
+      this.$refs.ticketEntityIndex.search()
+    },
     checkQueryParams () {
       const departmentId = this.$route.query.d
       if (departmentId) {
@@ -725,6 +761,38 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.ticket-index {
+  :deep(.entity-index) {
+    .portlet-toolbar {
+      @include body1;
+      color: $grey-9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: $space-2;
+      margin-bottom: $space-4;
+      border-bottom: solid 1px $grey-4;
+    }
+    .portlet-content {
+      .slot-wrapper {
+        p {
+          margin: $space-1 $spacing-none;
+        }
+      }
+      .quasar-crud-index-table {
+        padding: $spacing-none;
+        .q-table__container {
+          .q-table__top {
+            display: none;
+          }
+          .q-table__middle {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
 .ticket-list-item {
   &-container {
     display: flex;
