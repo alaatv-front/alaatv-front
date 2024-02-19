@@ -18,7 +18,7 @@ export default class TicketAPI extends APIRepository {
       create: '/ticket/create',
       pending: '/ticket/pending',
       supports: '/ticket/supports',
-      smsPatterns: '/ticket/sms/patterns',
+      smsPatterns: (id) => `/ticket/${id}/sms/patterns`,
       presignedUrl: '/ticket/presigned-url',
       ticket: (ticketId) => '/ticket/' + ticketId,
       updateTicketApi: (ticketId) => '/ticket/' + ticketId,
@@ -57,7 +57,7 @@ export default class TicketAPI extends APIRepository {
       logs: (ticketId) => this.name + this.APIAdresses.logs(ticketId),
       otherTickets: (ticketId) => this.name + this.APIAdresses.otherTickets(ticketId),
       pending: this.name + this.APIAdresses.pending,
-      smsPatterns: this.name + this.APIAdresses.smsPatterns,
+      smsPatterns: (id) => this.name + this.APIAdresses.smsPatterns(id),
       supports: this.name + this.APIAdresses.supports
     }
     this.restUrl = (id) => this.url + '/' + id
@@ -215,8 +215,8 @@ export default class TicketAPI extends APIRepository {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.smsPatterns,
-      cacheKey: this.CacheList.smsPatterns,
+      request: this.APIAdresses.smsPatterns(data.id),
+      cacheKey: this.CacheList.smsPatterns(data.id),
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return new PatternList(response.data)
@@ -224,7 +224,7 @@ export default class TicketAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       },
-      ...(data !== undefined && { data })
+      ...(data.params !== undefined && { data: data.params })
     })
   }
 
