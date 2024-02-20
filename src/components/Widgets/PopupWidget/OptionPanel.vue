@@ -25,6 +25,8 @@
             <div class="col-12 col-md-2">
               <q-checkbox v-model="localOptions.hasHeader"
                           label="has Header" />
+              <q-checkbox v-model="localOptions.immediate"
+                          label="immediate" />
               <q-checkbox v-model="localOptions.closeButton"
                           label="closeButton" />
             </div>
@@ -462,6 +464,7 @@ export default defineComponent({
         eventName: 'openPopup',
         persistent: false,
         closeButton: false,
+        immediate: false,
         hasHeader: false,
         hasBody: false,
         hasAction: false,
