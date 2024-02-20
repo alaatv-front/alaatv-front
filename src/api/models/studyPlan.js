@@ -13,19 +13,21 @@ export default class StudyPlanAPI extends APIRepository {
       getPlans: (id) => '/studyPlan/' + id + '/plans',
       studyEventReport: (id) => `/study-event-report/${id}/mark-as-read`,
       planOptions: '/abrisham/selectPlan/create',
-      myStudyPlan: '/abrisham/myStudyPlan',
       studyPlan: '/studyPlan',
+      myStudyPlan: '/myStudyPlan',
+      findStudyPlan: '/findStudyPlan',
       setting: 'website-setting/user',
       deletePlan: (id) => '/plan/' + id
     }
     this.CacheList = {
-      studyEvent: (id) => this.name + this.APIAdresses.studyEvent(id),
-      getPlans: (id) => this.name + this.APIAdresses.getPlans(id),
-      studyPlan: this.name + this.APIAdresses.studyPlan,
       setting: this.name + this.APIAdresses.setting,
-      studyEventReport: (id) => this.name + this.APIAdresses.studyEventReport(id),
+      studyPlan: this.name + this.APIAdresses.studyPlan,
+      myStudyPlan: this.name + this.APIAdresses.myStudyPlan,
       planOptions: this.name + this.APIAdresses.planOptions,
-      myStudyPlan: this.name + this.APIAdresses.myStudyPlan
+      findStudyPlan: this.name + this.APIAdresses.findStudyPlan,
+      getPlans: (id) => this.name + this.APIAdresses.getPlans(id),
+      studyEvent: (id) => this.name + this.APIAdresses.studyEvent(id),
+      studyEventReport: (id) => this.name + this.APIAdresses.studyEventReport(id)
     }
   }
 
@@ -81,13 +83,16 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getMyStudyPlan (cache = { TTL: 1000 }) {
+  getMyStudyPlan (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.myStudyPlan,
       cacheKey: this.CacheList.myStudyPlan,
       ...(cache && { cache }),
+      data: this.getNormalizedSendData({
+        category_id: null // Number
+      }, data),
       resolveCallback: (response) => {
         return {
           id: response.data.data?.id,
@@ -212,6 +217,27 @@ export default class StudyPlanAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.plan,
       data,
+      resolveCallback: (response) => {
+        return new StudyPlan(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  findStudyPlan (data = {}, cache) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.findStudyPlan,
+      cacheKey: this.CacheList.findStudyPlan,
+      ...(cache && { cache }),
+      data: this.getNormalizedSendData({
+        major_id: null, // Number
+        grade_id: null, // Number
+        study_method_id: null // Number
+      }, data),
       resolveCallback: (response) => {
         return new StudyPlan(response.data.data)
       },
