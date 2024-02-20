@@ -14,6 +14,7 @@ import OrderAPI from 'src/api/models/order.js'
 import PagesAPI from 'src/api/models/pages.js'
 import EwanoAPI from 'src/api/models/Ewano.js'
 import YaldaAPI from 'src/api/models/Yalda.js'
+import BonyadAPI from 'src/api/models/bonyad.js'
 import TicketAPI from 'src/api/models/ticket.js'
 import CouponAPI from 'src/api/models/coupon.js'
 import EventsAPI from 'src/api/models/Events.js'
@@ -64,6 +65,7 @@ export const APIGateway = {
   source: new SourceAPI(),
   coupon: new CouponAPI(),
   ticket: new TicketAPI(),
+  bonyad: new BonyadAPI(),
   forrest: new ForrestAPI(),
   comment: new CommentAPI(),
   voucher: new VoucherAPI(),

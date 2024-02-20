@@ -65,21 +65,22 @@ $button-height: (
 }
 
 @mixin btn-handle-square-padding($size) {
-  $square-padding: $space-1;
-
-  @if $size == "xs" {
-    $square-padding: $space-1;
-  } @else if $size == "sm" {
-    $square-padding: $space-2;
-  } @else if $size == "md" {
-    $square-padding: $space-3;
-  } @else if $size == "lg" {
-    $square-padding: $space-4;
-  } @else if $size == "xl" {
-    $square-padding: $space-5;
-  }
-
-  padding: $square-padding !important;
+  padding: 0 $space-1;
+  //$square-padding: $space-1;
+  //
+  //@if $size == "xs" {
+  //  $square-padding: $space-1;
+  //} @else if $size == "sm" {
+  //  $square-padding: $space-2;
+  //} @else if $size == "md" {
+  //  $square-padding: $space-3;
+  //} @else if $size == "lg" {
+  //  $square-padding: $space-4;
+  //} @else if $size == "xl" {
+  //  $square-padding: $space-5;
+  //}
+  //
+  //padding: $square-padding !important;
 }
 
 @mixin btn_handle_padding($size) {
@@ -107,20 +108,24 @@ $button-height: (
   height: map.get($button-height, $size) !important;
 }
 
+@mixin btn-handle-round-style($size) {
+  padding: 0 $space-1;
+  @include btn-handle-round-width($size);
+  border-radius: $radius-round !important;
+}
+
 @mixin btn-handle-sizes($size) {
   @include btn_handle_height($size);
   @include btn-handle-radius($size);
   @include btn_handle_padding($size);
 
   &.q-btn--square {
-    padding: 0 $space-1;
+    @include btn-handle-square-padding($size);
     @include btn-handle-square-min-width($size);
   }
 
   &.q-btn--round {
-    padding: 0 $space-1;
-    @include btn-handle-round-width($size);
-    border-radius: $radius-round !important;
+    @include btn-handle-round-style($size);
   }
 
   .q-btn__content {
