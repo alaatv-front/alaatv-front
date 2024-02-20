@@ -44,6 +44,7 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default defineComponent({
   name: 'PlanReviews',
@@ -75,7 +76,7 @@ export default defineComponent({
   methods: {
     getReviews () {
       this.reviewLoading = true
-      this.$apiGateway.abrisham.getReports()
+      APIGateway.studyPlan.getSystemReport()
         .then(reportList => {
           this.reviewList = reportList
           this.reviewLoading = false

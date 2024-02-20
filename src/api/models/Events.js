@@ -30,6 +30,9 @@ export default class EventsAPI extends APIRepository {
         id: 10,
         name: 'chatre-nejat',
         logo: 'https://nodes.alaatv.com/upload/landing/chatr/chatr%20logo.png',
+        study_plan: {
+          category_id: null
+        },
         showDashboard: false,
         showStudyPlan: false
       },
@@ -37,6 +40,9 @@ export default class EventsAPI extends APIRepository {
         id: 11,
         name: 'emtahan-nahaee',
         logo: 'https://nodes.alaatv.com/upload/landing/chatr/emtahan-nahaee-logo.png',
+        study_plan: {
+          category_id: null
+        },
         showDashboard: false,
         showStudyPlan: false
       },
@@ -44,6 +50,9 @@ export default class EventsAPI extends APIRepository {
         id: 12,
         name: 'emtahan-nahaee-9',
         logo: 'https://nodes.alaatv.com/upload/landing/41/emtehan-nahayi-nohom-logo.png',
+        study_plan: {
+          category_id: null
+        },
         showDashboard: false,
         showStudyPlan: false
       },
@@ -53,6 +62,9 @@ export default class EventsAPI extends APIRepository {
         name: 'abrisham2',
         title: 'راه ابریشم ۲',
         logo: 'https://nodes.alaatv.com/upload/landing/RAHABRISHAM/logo-abrisham2.png',
+        study_plan: {
+          category_id: 1
+        },
         showDashboard: false,
         showStudyPlan: false
       },
@@ -60,6 +72,9 @@ export default class EventsAPI extends APIRepository {
         id: 25,
         name: '110',
         logo: 'https://nodes.alaatv.com/upload/landing/panel/110-logo.png',
+        study_plan: {
+          category_id: null
+        },
         showDashboard: false,
         showStudyPlan: false
       },
@@ -68,6 +83,9 @@ export default class EventsAPI extends APIRepository {
         studyEventId: 6,
         name: 'ehsan-abrisham2',
         logo: 'https://nodes.alaatv.com/upload/landing/RAHABRISHAM/logo-abrisham2.png',
+        study_plan: {
+          category_id: null
+        },
         showDashboard: false,
         showStudyPlan: false
       }

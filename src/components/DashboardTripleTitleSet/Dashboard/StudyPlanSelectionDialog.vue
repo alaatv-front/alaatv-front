@@ -100,9 +100,11 @@
 <script>
 import { defineComponent } from 'vue'
 import { APIGateway } from 'src/api/APIGateway.js'
+import { mixinTripleTitleSet, mixinAuth } from 'src/mixin/Mixins.js'
 
 export default defineComponent({
   name: 'StudyPlanSelectionDialog',
+  mixins: [mixinTripleTitleSet, mixinAuth],
   props: {
     dialog: {
       type: Boolean,
@@ -125,19 +127,19 @@ export default defineComponent({
       studyPlanSelected: false
     }
   },
-  created () {
-    this.getOptions()
-  },
   methods: {
+    afterAuthenticate () {
+      this.getOptions()
+    },
     getOptions () {
-      this.$apiGateway.abrisham.getOptions()
+      APIGateway.studyPlan.getSelectPlanOptions({ category_id: this.event.study_plan.category_id })
         .then(options => {
           this.inputsOptions = options
         })
         .catch(() => {})
     },
     submitStudyPlan () {
-      APIGateway.abrisham.submitStudyPlan(this.formData)
+      APIGateway.studyPlan.updateMyStudyPlan(this.formData)
         .then(() => {
           this.studyPlanSelected = true
         })
