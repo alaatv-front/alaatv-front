@@ -133,7 +133,7 @@ export default {
     }
   },
   methods: {
-    afterAuthenticate () {
+    afterSetEvent () {
       this.loadData(this.$route.params.productId)
       this.updateSelectedTopic('...')
     },
