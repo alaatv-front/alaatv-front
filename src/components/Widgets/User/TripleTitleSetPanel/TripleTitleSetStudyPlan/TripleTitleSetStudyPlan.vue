@@ -863,7 +863,7 @@ export default {
     },
     getChangePlanOptions () {
       this.loading = true
-      APIGateway.studyPlan.getChangePlanOptions()
+      APIGateway.studyPlan.getSelectPlanOptions()
         .then(options => {
           this.loading = false
           this.majorOptions = options.majors

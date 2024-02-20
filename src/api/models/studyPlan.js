@@ -8,22 +8,24 @@ export default class StudyPlanAPI extends APIRepository {
     super('studyPlan', apiV2, '/plan', new StudyPlan())
     this.APIAdresses = {
       plan: '/plan',
-      editPlan: (id) => '/plan/' + id,
-      studyEvent: (id) => '/studyEvent/' + id + '/studyPlans',
-      getPlans: (id) => '/studyPlan/' + id + '/plans',
-      studyEventReport: (id) => `/study-event-report/${id}/mark-as-read`,
-      planOptions: '/abrisham/selectPlan/create',
       studyPlan: '/studyPlan',
       myStudyPlan: '/myStudyPlan',
+      systemReport: '/systemReport',
       findStudyPlan: '/findStudyPlan',
       setting: 'website-setting/user',
-      deletePlan: (id) => '/plan/' + id
+      editPlan: (id) => '/plan/' + id,
+      selectPlanOptions: '/selectPlan/create',
+      deletePlan: (id) => '/plan/' + id,
+      getPlans: (id) => '/studyPlan/' + id + '/plans',
+      studyEvent: (id) => '/studyEvent/' + id + '/studyPlans',
+      studyEventReport: (id) => `/study-event-report/${id}/mark-as-read`
     }
     this.CacheList = {
       setting: this.name + this.APIAdresses.setting,
       studyPlan: this.name + this.APIAdresses.studyPlan,
-      myStudyPlan: this.name + this.APIAdresses.myStudyPlan,
       planOptions: this.name + this.APIAdresses.planOptions,
+      myStudyPlan: this.name + this.APIAdresses.myStudyPlan,
+      systemReport: this.name + this.APIAdresses.systemReport,
       findStudyPlan: this.name + this.APIAdresses.findStudyPlan,
       getPlans: (id) => this.name + this.APIAdresses.getPlans(id),
       studyEvent: (id) => this.name + this.APIAdresses.studyEvent(id),
@@ -58,27 +60,6 @@ export default class StudyPlanAPI extends APIRepository {
       },
       rejectCallback: () => {
         return new StudyPlanList()
-      }
-    })
-  }
-
-  getChangePlanOptions (cache = { TTL: 1000 }) {
-    return this.sendRequest({
-      apiMethod: 'get',
-      api: this.api,
-      request: this.APIAdresses.planOptions,
-      cacheKey: this.CacheList.planOptions,
-      ...(cache && { cache }),
-      resolveCallback: (response) => {
-        return {
-          grades: response.data.data.grades ? response.data.data.grades : [],
-          majors: response.data.data.majors ? response.data.data.majors : [],
-          studyPlans: response.data.data.studyPlans ? response.data.data.studyPlans : [],
-          products: response.data.data.products ? response.data.data.products : []
-        }
-      },
-      rejectCallback: (error) => {
-        return error
       }
     })
   }
@@ -240,6 +221,45 @@ export default class StudyPlanAPI extends APIRepository {
       }, data),
       resolveCallback: (response) => {
         return new StudyPlan(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getSelectPlanOptions (data, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.selectPlanOptions,
+      cacheKey: this.CacheList.selectPlanOptions,
+      ...(cache && { cache }),
+      data: this.getNormalizedSendData({
+        category_id: null // Number
+      }, data),
+      resolveCallback: (response) => {
+        return {
+          grades: response.data?.data?.grades, // list of grades [{id,title}]
+          majors: response.data?.data?.majors, // list of majors [{id,title}]
+          studyPlans: response.data?.data?.studyPlans // List of studyPlans [{id,title}]
+        }
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getSystemReport (cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.systemReport,
+      cacheKey: this.CacheList.systemReport,
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return response.data.data // List of reviews(reports)
       },
       rejectCallback: (error) => {
         return error

@@ -7,9 +7,7 @@ const APIAdresses = {
   majors: '/abrisham/majors',
   lesson: '/abrisham/lessons',
   counter: '/konkur1403Countdown',
-  karvan: '/abrisham/whereIsKarvan',
-  systemReport: '/abrisham/systemReport',
-  getOptions: '/abrisham/selectPlan/create'
+  karvan: '/abrisham/whereIsKarvan'
 }
 export default class AbrishamAPI extends APIRepository {
   constructor () {
@@ -17,8 +15,7 @@ export default class AbrishamAPI extends APIRepository {
 
     this.CacheList = {
       counter: this.name + this.APIAdresses.counter,
-      getOptions: this.name + this.APIAdresses.getOptions,
-      systemReport: this.name + this.APIAdresses.systemReport
+      getOptions: this.name + this.APIAdresses.getOptions
     }
 
     this.restUrl = (id) => this.url + '/' + id
@@ -70,42 +67,6 @@ export default class AbrishamAPI extends APIRepository {
           now: response.data.data?.now,
           tillFirstTurn: response.data.data?.tillFirstTurn,
           tillSecondTurn: response.data.data?.tillSecondTurn
-        }
-      },
-      rejectCallback: (error) => {
-        return error
-      }
-    })
-  }
-
-  getReports (cache = { TTL: 1000 }) {
-    return this.sendRequest({
-      apiMethod: 'get',
-      api: this.api,
-      request: this.APIAdresses.systemReport,
-      cacheKey: this.CacheList.systemReport,
-      ...(cache && { cache }),
-      resolveCallback: (response) => {
-        return response.data.data // List of reviews(reports)
-      },
-      rejectCallback: (error) => {
-        return error
-      }
-    })
-  }
-
-  getOptions (cache = { TTL: 1000 }) {
-    return this.sendRequest({
-      apiMethod: 'get',
-      api: this.api,
-      request: this.APIAdresses.getOptions,
-      cacheKey: this.CacheList.getOptions,
-      ...(cache && { cache }),
-      resolveCallback: (response) => {
-        return {
-          grades: response.data?.data?.grades, // list of grades [{id,title}]
-          majors: response.data?.data?.majors, // list of majors [{id,title}]
-          studyPlans: response.data?.data?.studyPlans // List of studyPlans [{id,title}]
         }
       },
       rejectCallback: (error) => {
