@@ -618,7 +618,7 @@ export default {
     })
   },
   methods: {
-    afterAuthenticate () {
+    afterSetEvent () {
       this.grade = this.user.grade.id ? this.user.grade : { title: '', id: null }
       this.major = this.user.major.id ? this.user.major : { title: '', id: null }
       this.isAdmin = this.user.hasPermission('insertStudyPlan') || this.user.hasPermission('updateStudyPlan') || this.user.hasPermission('deleteStudyPlan')
@@ -863,7 +863,7 @@ export default {
     },
     getChangePlanOptions () {
       this.loading = true
-      APIGateway.studyPlan.getSelectPlanOptions()
+      APIGateway.studyPlan.getSelectPlanOptions({ category_id: this.event.study_plan.category_id })
         .then(options => {
           this.loading = false
           this.majorOptions = options.majors

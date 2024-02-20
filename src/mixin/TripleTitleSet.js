@@ -1,5 +1,6 @@
 import { User } from 'src/models/User.js'
 import { Content } from 'src/models/Content.js'
+import { Event } from 'src/models/Event.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 
 const mixinTripleTitleSet = {
@@ -8,47 +9,37 @@ const mixinTripleTitleSet = {
       isVideoWatched: false,
       user: new User(),
       isUserLogin: false,
-      event: {
-        id: null,
-        logo: null,
-        name: null,
-        title: null,
-        showDashboard: false,
-        showStudyPlan: false,
-        studyEventId: null
-      }
+      event: new Event()
     }
   },
   // mixins: [mixinAuth],
-  created () {
-    this.setEvent()
-  },
   mounted () {
     this.$bus.on('onLoggedIn', () => {
       this.$store.commit('AppLayout/updateLoginDialog', false)
-      this.afterAuthenticate()
+      this.setEvent()
     })
     this.loadAuthData()
     if (this.isUserLogin) {
-      this.$nextTick(() => {
-        this.afterAuthenticate()
-      })
+      // this.$nextTick(() => {
+      this.setEvent()
+      // })
     }
+    // this.setEvent()
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
     },
-    afterAuthenticate () {
-    },
+    afterSetEvent () {},
     setEvent () {
       if (!this.$route.params.eventName) {
         return
       }
       APIGateway.events.getEventInfoByName(this.$route.params.eventName)
         .then(event => {
-          this.event = JSON.parse(JSON.stringify(event))
+          this.event = new Event(JSON.parse(JSON.stringify(event)))
+          this.afterSetEvent()
         })
         .catch(() => {
           // this.$router.push({ name: 'NotFound' })
