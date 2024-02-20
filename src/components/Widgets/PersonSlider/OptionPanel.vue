@@ -133,9 +133,9 @@
             </div>
             <div class="col-12 col-md-3">
               <div class="text-title">snapAlign</div>
-              <q-input v-model="localOptions.settings.snapAlign"
-                       type="text"
-                       label="snapAlign" />
+              <q-select v-model="localOptions.settings.snapAlign"
+                        :options="snapAlignOptions"
+                        label="snapAlign" />
             </div>
           </div>
           <div class="row q-mb-sm q-col-gutter-md">
@@ -157,9 +157,9 @@
             </div>
             <div class="col-12 col-md-3">
               <div class="text-title">snapAlign-{{ size }}</div>
-              <q-input v-model="localOptions.breakpoints[size].snapAlign"
-                       type="text"
-                       :label="`snapAlign-${size}`" />
+              <q-select v-model="localOptions.breakpoints[size].snapAlign"
+                        :options="snapAlignOptions"
+                        :label="`snapAlign-${size}`" />
             </div>
           </div>
         </q-expansion-item>
@@ -373,6 +373,7 @@ export default defineComponent({
         }
       ],
       uploadType: '',
+      snapAlignOptions: ['start', 'end', 'center', 'center-even', 'center-odd'],
       navigationSize: 'xs',
       navigationSizeOptions: ['xs', 'sm', 'md', 'lg', 'xl'],
       rowId: null,
