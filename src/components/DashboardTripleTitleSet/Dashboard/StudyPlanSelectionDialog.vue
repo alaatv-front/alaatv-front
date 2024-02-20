@@ -137,7 +137,7 @@ export default defineComponent({
         .catch(() => {})
     },
     submitStudyPlan () {
-      APIGateway.abrisham.submitStudyPlan(this.formData)
+      APIGateway.studyPlan.updateMyStudyPlan(this.formData)
         .then(() => {
           this.studyPlanSelected = true
         })
