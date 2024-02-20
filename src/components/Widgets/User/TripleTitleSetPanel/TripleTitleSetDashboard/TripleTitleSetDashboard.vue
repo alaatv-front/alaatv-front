@@ -48,7 +48,7 @@ export default defineComponent({
     }
   },
   methods: {
-    afterAuthenticate () {
+    afterSetEvent () {
       this.getMyStudyPlan()
     },
     getMyStudyPlan () {
