@@ -251,13 +251,16 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getSystemReport (cache = { TTL: 1000 }) {
+  getSystemReport (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.systemReport,
       cacheKey: this.CacheList.systemReport,
       ...(cache && { cache }),
+      data: this.getNormalizedSendData({
+        category_id: null // Number
+      }, data),
       resolveCallback: (response) => {
         return response.data.data // List of reviews(reports)
       },
