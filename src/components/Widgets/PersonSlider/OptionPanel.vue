@@ -56,14 +56,14 @@
               </q-input>
             </div>
             <div class="col-12 col-md-3">
-              <q-input v-model="localOptions.slidItemBackgroundPosition"
-                       type="text"
-                       label="Background Position" />
+              <q-select v-model="localOptions.slidItemBackgroundPosition"
+                        :options="backgroundPositionOptions"
+                        label="Background Position" />
             </div>
             <div class="col-12 col-md-3">
-              <q-input v-model="localOptions.slidItemBackgroundRepeat"
-                       type="text"
-                       label="Background Repeat" />
+              <q-select v-model="localOptions.slidItemBackgroundRepeat"
+                        :options="backgroundRepeatOptions"
+                        label="Background Repeat" />
             </div>
             <div class="col-12 col-md-3">
               <q-input v-model="localOptions.slidItemBackgroundSize"
@@ -81,9 +81,9 @@
                        label="ImageHeight" />
             </div>
             <div class="col-12 col-md-3">
-              <q-input v-model="localOptions.settings.dir"
-                       type="text"
-                       label="direction" />
+              <q-select v-model="localOptions.settings.dir"
+                        :options="directionOptions"
+                        label="direction" />
             </div>
             <div class="col-12 col-md-3">
               <q-input v-model="localOptions.settings.autoplay"
@@ -354,6 +354,9 @@ export default defineComponent({
       ],
       uploadType: '',
       snapAlignOptions: ['start', 'end', 'center', 'center-even', 'center-odd'],
+      directionOptions: ['rtl', 'ltr'],
+      backgroundPositionOptions: ['top', 'bottom', 'left', 'right', 'center'],
+      backgroundRepeatOptions: ['no-repeat', 'repeat', 'space', 'round', 'repeat-x', 'repeat-y'],
       navigationSize: 'xs',
       navigationSizeOptions: ['xs', 'sm', 'md', 'lg', 'xl'],
       rowId: null,
