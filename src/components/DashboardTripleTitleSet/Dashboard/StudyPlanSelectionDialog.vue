@@ -128,7 +128,7 @@ export default defineComponent({
     }
   },
   methods: {
-    afterAuthenticate () {
+    afterSetEvent () {
       this.getOptions()
     },
     getOptions () {
