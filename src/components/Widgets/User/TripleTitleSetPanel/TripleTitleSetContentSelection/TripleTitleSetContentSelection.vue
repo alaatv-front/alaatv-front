@@ -2,7 +2,7 @@
   <div class="content-selection-container">
     <div class="row q-col-gutter-md">
       <div class="col-12 inout-col">
-        <q-select v-model="productType"
+        <q-select v-model="localMajor"
                   :options="productTypeOptions"
                   :loading="productTypeLoading"
                   option-label="title"
@@ -10,7 +10,7 @@
                   label="رشته" />
       </div>
       <div class="col-12 inout-col">
-        <q-select v-model="product"
+        <q-select v-model="localProduct"
                   :options="products.list"
                   :loading="productLoading"
                   :readOnly="products.list.length === 0"
@@ -19,14 +19,14 @@
                   option-value="id" />
       </div>
       <div class="col-12 inout-col">
-        <q-select v-model="topic"
+        <q-select v-model="localTopic"
                   :options="setTopicList"
                   :loading="setListLoading"
                   :readOnly="setTopicList.length === 0"
                   label="سرفصل" />
       </div>
       <div class="col-12 inout-col">
-        <q-select v-model="set"
+        <q-select v-model="localSet"
                   :options="setList"
                   :readOnly="setList.length === 0"
                   label="مجموعه"
@@ -77,12 +77,14 @@
                   <q-item-section side>
                     <q-btn color="secondary"
                            flat
-                           label="مشاهده"
+                           square
+                           icon="ph:eye"
                            @click="gotoContent(content.id)" />
                   </q-item-section>
                   <q-item-section side>
                     <q-btn color="secondary"
                            flat
+                           square
                            icon="ph:x"
                            @click="deleteContent(index)" />
                   </q-item-section>
@@ -110,37 +112,45 @@
 </template>
 
 <script>
+import { openURL } from 'quasar'
 import { defineComponent } from 'vue'
 import { Set } from 'src/models/Set.js'
+import { Major } from 'src/models/Major.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import { ContentList } from 'src/models/Content.js'
-import { Product, ProductList } from 'src/models/Product'
-import { openURL } from 'quasar'
+import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
+import { Product, ProductList } from 'src/models/Product.js'
 
 export default defineComponent({
   name: 'TripleTitleSetContentSelection',
   mixins: [mixinTripleTitleSet],
   props: {
+    major: {
+      type: [Major, Object],
+      default: new Major()
+    },
+    product: {
+      type: [Product, Object],
+      default: new Product()
+    },
+    set: {
+      type: [Set, Object],
+      default: new Set()
+    },
+    topic: {
+      type: String,
+      default: null
+    },
     selectedContentList: {
       type: Array,
       default: () => []
     }
   },
-  emits: ['selectedContentList'],
+  emits: ['update:major', 'update:product', 'update:topic', 'update:set', 'update:selectedContentList'],
   data () {
     return {
-      productType: {
-        id: null,
-        name: null,
-        selected: false,
-        title: null
-      },
       productTypeOptions: [],
       contents: new ContentList(),
-      topic: null,
-      set: new Set(),
-      product: new Product(),
       products: new ProductList(),
       contentDialog: false,
       productTypeLoading: false,
@@ -156,15 +166,47 @@ export default defineComponent({
     setList () {
       const setList = this.$store.getters['TripleTitleSet/setList']
       return setList.filter(set => {
-        return set.short_title.includes(this.topic)
+        return set.short_title.includes(this.localTopic)
       })
     },
     computedSelectedContentList: {
       get () {
-        return this.selectedContentList
+        return this.selectedContentList || []
       },
       set (value) {
         this.$emit('update:selectedContentList', value)
+      }
+    },
+    localMajor: {
+      get () {
+        return this.major
+      },
+      set (value) {
+        this.$emit('update:major', value)
+      }
+    },
+    localProduct: {
+      get () {
+        return this.product
+      },
+      set (value) {
+        this.$emit('update:product', value)
+      }
+    },
+    localSet: {
+      get () {
+        return this.set
+      },
+      set (value) {
+        this.$emit('update:set', value)
+      }
+    },
+    localTopic: {
+      get () {
+        return this.topic
+      },
+      set (value) {
+        this.$emit('update:topic', value)
       }
     },
     selectedSet () {
@@ -175,26 +217,26 @@ export default defineComponent({
     }
   },
   watch: {
-    productType (selectedMajor) {
-      this.product = new Product()
+    localMajor (selectedMajor) {
+      this.localProduct = new Product()
       this.productList = new ProductList()
-      this.$store.dispatch('TripleTitleSet/updateSelectedTopic', null)
+      this.$store.commit('TripleTitleSet/updateSelectedTopic', null)
       if (selectedMajor.id) {
         this.getProducts(selectedMajor.id)
       }
     },
-    product (selectedProduct) {
-      this.topic = null
+    localProduct (selectedProduct) {
+      this.localTopic = null
       this.$store.commit('TripleTitleSet/updateSetList', [])
       this.$store.commit('TripleTitleSet/updateTopicList', [])
       if (selectedProduct.id) {
         this.$store.dispatch('TripleTitleSet/getSet', selectedProduct.id)
       }
     },
-    topic () {
-      this.set = new Set()
+    localTopic () {
+      this.localSet = new Set()
     },
-    set (selectedSet) {
+    localSet (selectedSet) {
       this.contents = new ContentList()
       if (selectedSet.id) {
         this.getSelectedSetContents(selectedSet.id)
@@ -205,7 +247,27 @@ export default defineComponent({
     }
   },
   mounted () {
-    this.getProductType()
+    this.setEvent()
+    this.$nextTick(() => {
+      if (!this.localMajor?.id) {
+        this.getProductType()
+      }
+      if (this.localMajor?.id && !this.localProduct?.id) {
+        this.getProducts(this.localMajor.id)
+      }
+      if (this.localMajor?.id && this.localProduct?.id && !this.localTopic) {
+        this.localTopic = null
+        this.$store.commit('TripleTitleSet/updateSetList', [])
+        this.$store.commit('TripleTitleSet/updateTopicList', [])
+        this.$store.dispatch('TripleTitleSet/getSet', this.localProduct.id)
+      }
+      if (this.localMajor?.id && this.localProduct?.id && this.localTopic && !this.localSet?.id) {
+        this.contents = new ContentList()
+      }
+      if (this.localMajor?.id && this.localProduct?.id && this.localTopic && this.localSet?.id) {
+        this.getSelectedSetContents(this.localSet.id)
+      }
+    })
   },
   methods: {
     toggleDialog () {
@@ -227,7 +289,7 @@ export default defineComponent({
         params: ['majors']
       }).then(res => {
         this.productTypeOptions = res.majors
-        this.productType = res.majors[0]
+        this.localMajor = res.majors[0]
         this.productTypeLoading = false
       }).catch(() => {
         this.productTypeLoading = false

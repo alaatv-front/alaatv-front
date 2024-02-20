@@ -7,7 +7,10 @@ class Major extends Model {
       { key: 'name' },
       { key: 'lessons' },
       { key: 'title' },
-      { key: 'selected' }
+      {
+        key: 'selected',
+        default: false
+      }
     ])
   }
 

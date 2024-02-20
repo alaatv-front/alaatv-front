@@ -19,6 +19,9 @@ const mutations = {
   toggleSetListLoading: (state) => {
     state.setListLoading = !state.setListLoading
   },
+  updateProductLoading: (state, data) => {
+    state.productLoading = data
+  },
   toggleSetLoading: (state) => {
     state.setLoading = !state.setLoading
   },

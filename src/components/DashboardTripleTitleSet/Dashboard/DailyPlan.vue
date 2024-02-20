@@ -1,7 +1,8 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <div class="daily-plan-wrapper">
+      <div class="daily-plan-wrapper"
+           :class="{'daily-plan-wrapper--np-plans': planList.length === 0}">
         <div class="daily-plan-header">
           <div v-if="loading"
                class="plan-title">
@@ -12,7 +13,8 @@
                class="plan-title">
             برنامه امروز
           </div>
-          <div class="navigation">
+          <div v-if="planList.length > 0"
+               class="navigation">
             <q-btn class="navigation-btn"
                    round
                    icon="chevron_right"
@@ -33,16 +35,23 @@
         </div>
         <div v-else
              class="scroll-wrapper">
-          <q-virtual-scroll v-slot="{ item, index }"
-                            ref="virtualListRef"
-                            :items="planList"
-                            virtual-scroll-horizontal
-                            @virtual-scroll="onVirtualScroll">
-            <div :key="index"
-                 class="plan-item-wrapper">
-              <plan-item :plan="item" />
-            </div>
-          </q-virtual-scroll>
+          <template v-if="planList.length > 0">
+            <q-virtual-scroll v-slot="{ item, index }"
+                              ref="virtualListRef"
+                              :items="planList"
+                              virtual-scroll-horizontal
+                              @virtual-scroll="onVirtualScroll">
+              <div :key="index"
+                   class="plan-item-wrapper">
+                <plan-item :plan="item" />
+              </div>
+            </q-virtual-scroll>
+          </template>
+          <template v-else>
+            <q-banner class="bg-info text-white">
+              در حال حاضر برنامه ای وجود ندارد.
+            </q-banner>
+          </template>
         </div>
       </div>
     </div>
@@ -139,6 +148,10 @@ export default defineComponent({
   height: 280px;
   width: 100%;
   margin: 30px 0 10px;
+
+  &--np-plans {
+    height: auto;
+  }
 
   .daily-plan-header {
     display: flex;

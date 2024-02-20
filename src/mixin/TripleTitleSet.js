@@ -11,6 +11,10 @@ const mixinTripleTitleSet = {
       event: {
         id: null,
         logo: null,
+        name: null,
+        title: null,
+        showDashboard: false,
+        showStudyPlan: false,
         studyEventId: null
       }
     }

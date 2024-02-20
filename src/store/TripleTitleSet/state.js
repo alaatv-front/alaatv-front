@@ -6,6 +6,7 @@ const state = {
   setTopicList: [],
   selectedTopic: '',
   setListLoading: false,
+  productLoading: false,
   setLoading: false,
   selectedProduct: {},
   selectedContent: new Content(),

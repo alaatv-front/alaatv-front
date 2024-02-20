@@ -8,10 +8,7 @@ const actions = {
     context.commit('toggleSetListLoading')
     APIGateway.product.getSets(productId)
       .then((setList) => {
-        const newProductId = productId
-        const oldSetList = context.getters.setList
-        const oldSetTopicList = context.getters.setTopicList
-        const oldSelectedProduct = context.getters.selectedProduct
+        const oldSelectedTopic = context.getters.selectedTopic
         const normalizedSets = setList.list.map(set => {
           if (set.short_title !== null) {
             const splitted = set.short_title.split('-')
@@ -33,15 +30,12 @@ const actions = {
         })
           .filter((topic, topicIndex, topics) => topics.findIndex(topicItem => topicItem === topic) === topicIndex)
 
+        const selectedTopicIndex = topicList.findIndex(item => item === oldSelectedTopic)
+        const targetSelectedTopicIndex = selectedTopicIndex > -1 ? selectedTopicIndex : 0
+
         context.commit('updateSetList', normalizedSets)
         context.commit('updateTopicList', topicList)
-        if (
-          (!Array.isArray(oldSetList) || oldSetList.length === 0) ||
-          (!Array.isArray(oldSetTopicList) || oldSetTopicList.length === 0) ||
-          (!oldSelectedProduct?.id || parseInt(oldSelectedProduct.id) !== parseInt(newProductId))
-        ) {
-          context.commit('updateSelectedTopic', topicList[0])
-        }
+        context.commit('updateSelectedTopic', topicList[targetSelectedTopicIndex])
         context.commit('toggleSetListLoading')
       }).catch(() => {
         context.commit('toggleSetListLoading')
@@ -65,13 +59,16 @@ const actions = {
     context.commit('setSelectedProduct', product)
   },
   getSelectedProduct: (context, productId) => {
+    context.commit('updateProductLoading', true)
     return new Promise((resolve, reject) => {
       APIGateway.product.show(productId)
         .then(product => {
           context.commit('setSelectedProduct', product)
+          context.commit('updateProductLoading', false)
           resolve(product)
         })
         .catch((error) => {
+          context.commit('updateProductLoading', false)
           reject(error)
         })
     })
