@@ -1,3 +1,17 @@
+# [1.3.0](https://git.alaatv.com/web/alaatv_front/compare/v1.2.0...v1.3.0) (2024-02-21)
+
+
+### Bug Fixes
+
+* ttsp dashboard select plan ([432e14e](https://git.alaatv.com/web/alaatv_front/commit/432e14e4551fb7a6b337246bcf4ef501f0067882))
+* ttsp dashboard updateMyStudyPlan ([76a5369](https://git.alaatv.com/web/alaatv_front/commit/76a5369d8839c01dbf0494c5a61f5c52b054463b))
+* ttsp StudyPlan getChangePlanOptions ([07c2918](https://git.alaatv.com/web/alaatv_front/commit/07c2918caf769f8e366063aed1da62204d8604cb))
+
+
+### Features
+
+* add popupForFirstVideo for BlackFridayShowVideo widget ([4c26688](https://git.alaatv.com/web/alaatv_front/commit/4c266888bae10b8fec8068ef07afb5d95b310550))
+
 # [1.2.0](https://git.alaatv.com/web/alaatv_front/compare/v1.1.0...v1.2.0) (2024-02-21)
 
 
