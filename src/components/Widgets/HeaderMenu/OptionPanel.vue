@@ -2,293 +2,338 @@
   <div>
     <option-panel-tabs v-model:options="localOptions">
       <template #main-tab>
-        <div class="option-panel-container">
-          <div class="row items-center text-center q-my-sm">
-            <span>
-              کانفیگ مورد نظر برای سایز
-            </span>
-            <q-select v-model="size"
-                      class="col-3 q-mx-md"
-                      :options="sizeOptions" />
-            <span>
-              را تنظیم کنید.
-            </span>
-          </div>
-          <q-expansion-item :label="'rightWidgets - ' + size">
-            <q-card>
-              <q-card-section v-for="(widget, index) in localOptions[size].rightSectionWidgets"
-                              :key="index">
-                <q-expansion-item :label=widget.name
-                                  icon="build">
-                  <template v-slot:header>
-                    <q-item-section avatar>
-                      <q-icon name="build" />
-                    </q-item-section>
+        <div class="option-panel-container q-my-xs">
+          <q-expansion-item expand-separator
+                            icon="ph:cube"
+                            label="Widget Lists">
+            <div class="row items-center text-center q-my-sm">
+              <div class="col-12">
+                <q-tabs v-model="size">
+                  <q-tab v-for="(sizeItem, index) in sizeOptions"
+                         :key="index"
+                         :name="sizeItem"
+                         :label="sizeItem" />
+                </q-tabs>
+              </div>
+              <div class="col-12">
+                <q-tab-panels v-model="size"
+                              animated>
+                  <q-tab-panel v-for="(sizeItem, index) in sizeOptions"
+                               :key="index"
+                               :name="sizeItem.value">
+                    <div class="row q-col-gutter-md">
+                      <div class="col-12 col-md-6">
+                        <q-input v-model="localOptions.breakpoints[size].itemsToShow"
+                                 type="number"
+                                 :label="`itemsToShow-${sizeItem.label}`" />
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <q-select v-model="localOptions.breakpoints[size].snapAlign"
+                                  :options="snapAlignOptions"
+                                  :label="`snapAlign-${sizeItem.label}`" />
+                      </div>
+                    </div>
+                  </q-tab-panel>
+                </q-tab-panels>
+              </div>
+              <div class="col-12">
+                <q-tab-panels v-model="size"
+                              animated>
+                  <q-tab-panel v-for="(sizeItem, index) in sizeOptions"
+                               :key="index"
+                               :name="sizeItem">
+                    <div class="row q-col-gutter-md">
+                      <div class="col-12">
+                        <q-expansion-item :label="'rightWidgets'">
+                          <template v-if="localOptions[size].rightSectionWidgets.length > 0">
+                            <q-expansion-item v-for="(widget, index) in localOptions[size].rightSectionWidgets"
+                                              :key="index"
+                                              :label=widget.name
+                                              icon="build"
+                                              class="q-my-xs">
+                              <template v-slot:header>
+                                <q-item-section avatar>
+                                  <q-icon name="build" />
+                                </q-item-section>
 
-                    <q-item-section>
-                      {{ widget.name }}
-                    </q-item-section>
+                                <q-item-section>
+                                  {{ widget.name }}
+                                </q-item-section>
 
-                    <q-item-section side>
-                      <q-btn color="negative"
-                             flat
-                             icon="delete"
-                             @click="deleteWidget('rightSectionWidgets', index)" />
-                    </q-item-section>
-                  </template>
-                  <q-card>
-                    <q-card-section>
-                      <component :is="widget.name.concat('OptionPanel')"
-                                 v-model:options="widget.options" />
-                    </q-card-section>
-                  </q-card>
-                </q-expansion-item>
-              </q-card-section>
-              <q-card-section>
-                <div class="row q-col-gutter-md">
-                  <div class="col-3">
-                    <q-btn icon="isax:add"
-                           class="full-width"
-                           color="positive"
-                           label="text"
-                           @click="addTextWidget('rightSectionWidgets')" />
-                  </div>
-                  <div class="col-3">
-                    <q-btn icon="isax:add"
-                           class="full-width"
-                           color="positive"
-                           label="image"
-                           @click="addImageWidget('rightSectionWidgets')" />
-                  </div>
-                  <div class="col-3">
-                    <q-btn icon="isax:add"
-                           class="full-width"
-                           color="positive"
-                           label="action button"
-                           @click="addActionButtonWidget('rightSectionWidgets')" />
-                  </div>
-                  <div class="col-3">
-                    <q-btn icon="isax:add"
-                           class="full-width"
-                           color="positive"
-                           label="timer"
-                           @click="addTimerWidget('rightSectionWidgets')" />
-                  </div>
-                </div>
-              </q-card-section>
-            </q-card>
-          </q-expansion-item>
-          <q-expansion-item :label="'centerWidgets - ' + size">
-            <q-card>
-              <q-card-section v-for="(widget, index) in localOptions[size].centerSectionWidgets"
-                              :key="index">
-                <q-expansion-item :label=widget.name
-                                  icon="build">
-                  <template v-slot:header>
-                    <q-item-section avatar>
-                      <q-icon name="build" />
-                    </q-item-section>
+                                <q-item-section side>
+                                  <q-btn color="negative"
+                                         flat
+                                         square
+                                         icon="delete"
+                                         @click="deleteWidget('rightSectionWidgets', index)" />
+                                </q-item-section>
+                              </template>
+                              <component :is="widget.name.concat('OptionPanel')"
+                                         v-model:options="widget.options" />
+                            </q-expansion-item>
+                          </template>
+                          <div class="row q-my-sm q-col-gutter-md">
+                            <div class="col-3">
+                              <q-btn icon="isax:add"
+                                     class="full-width"
+                                     color="positive"
+                                     label="text"
+                                     @click="addTextWidget('rightSectionWidgets')" />
+                            </div>
+                            <div class="col-3">
+                              <q-btn icon="isax:add"
+                                     class="full-width"
+                                     color="positive"
+                                     label="image"
+                                     @click="addImageWidget('rightSectionWidgets')" />
+                            </div>
+                            <div class="col-3">
+                              <q-btn icon="isax:add"
+                                     class="full-width"
+                                     color="positive"
+                                     label="action button"
+                                     @click="addActionButtonWidget('rightSectionWidgets')" />
+                            </div>
+                            <div class="col-3">
+                              <q-btn icon="isax:add"
+                                     class="full-width"
+                                     color="positive"
+                                     label="timer"
+                                     @click="addTimerWidget('rightSectionWidgets')" />
+                            </div>
+                          </div>
+                        </q-expansion-item>
+                        <q-expansion-item :label="'centerWidgets'">
+                          <template v-if="localOptions[size].centerSectionWidgets.length > 0">
+                            <q-expansion-item v-for="(widget, index) in localOptions[size].centerSectionWidgets"
+                                              :key="index"
+                                              :label=widget.name
+                                              icon="build"
+                                              class="q-my-xs">
+                              <template v-slot:header>
+                                <q-item-section avatar>
+                                  <q-icon name="build" />
+                                </q-item-section>
 
-                    <q-item-section>
-                      {{ widget.name }}
-                    </q-item-section>
+                                <q-item-section>
+                                  {{ widget.name }}
+                                </q-item-section>
 
-                    <q-item-section side>
-                      <q-btn color="negative"
-                             flat
-                             icon="delete"
-                             @click="deleteWidget('centerSectionWidgets', index)" />
-                    </q-item-section>
-                  </template>
-                  <q-card>
-                    <q-card-section>
-                      <component :is="widget.name.concat('OptionPanel')"
-                                 v-model:options="widget.options" />
-                    </q-card-section>
-                  </q-card>
-                </q-expansion-item>
-              </q-card-section>
-              <q-card-section>
-                <div class="row q-col-gutter-md">
-                  <div class="col-3">
-                    <q-btn icon="isax:add"
-                           class="full-width"
-                           color="positive"
-                           label="text"
-                           @click="addTextWidget('centerSectionWidgets')" />
-                  </div>
-                  <div class="col-3">
-                    <q-btn icon="isax:add"
-                           class="full-width"
-                           color="positive"
-                           label="image"
-                           @click="addImageWidget('centerSectionWidgets')" />
-                  </div>
-                  <div class="col-3">
-                    <q-btn icon="isax:add"
-                           class="full-width"
-                           color="positive"
-                           label="action button"
-                           @click="addActionButtonWidget('centerSectionWidgets')" />
-                  </div>
-                  <div class="col-3">
-                    <q-btn icon="isax:add"
-                           class="full-width"
-                           color="positive"
-                           label="timer"
-                           @click="addTimerWidget('centerSectionWidgets')" />
-                  </div>
-                </div>
-              </q-card-section>
-            </q-card>
-          </q-expansion-item>
-          <q-expansion-item :label="'leftWidgets - ' + size">
-            <q-card>
-              <q-card-section v-for="(widget, index) in localOptions[size].leftSectionWidgets"
-                              :key="index">
-                <q-expansion-item :label=widget.name
-                                  icon="build">
-                  <template v-slot:header>
-                    <q-item-section avatar>
-                      <q-icon name="build" />
-                    </q-item-section>
+                                <q-item-section side>
+                                  <q-btn color="negative"
+                                         flat
+                                         icon="delete"
+                                         @click="deleteWidget('centerSectionWidgets', index)" />
+                                </q-item-section>
+                              </template>
+                              <q-card>
+                                <q-card-section>
+                                  <component :is="widget.name.concat('OptionPanel')"
+                                             v-model:options="widget.options" />
+                                </q-card-section>
+                              </q-card>
+                            </q-expansion-item>
+                          </template>
+                          <div class="row q-my-sm q-col-gutter-md">
+                            <div class="col-3">
+                              <q-btn icon="isax:add"
+                                     class="full-width"
+                                     color="positive"
+                                     label="text"
+                                     @click="addTextWidget('centerSectionWidgets')" />
+                            </div>
+                            <div class="col-3">
+                              <q-btn icon="isax:add"
+                                     class="full-width"
+                                     color="positive"
+                                     label="image"
+                                     @click="addImageWidget('centerSectionWidgets')" />
+                            </div>
+                            <div class="col-3">
+                              <q-btn icon="isax:add"
+                                     class="full-width"
+                                     color="positive"
+                                     label="action button"
+                                     @click="addActionButtonWidget('centerSectionWidgets')" />
+                            </div>
+                            <div class="col-3">
+                              <q-btn icon="isax:add"
+                                     class="full-width"
+                                     color="positive"
+                                     label="timer"
+                                     @click="addTimerWidget('centerSectionWidgets')" />
+                            </div>
+                          </div>
+                        </q-expansion-item>
+                        <q-expansion-item :label="'leftWidgets'">
+                          <template v-if="localOptions[size].leftSectionWidgets.length > 0">
+                            <q-expansion-item v-for="(widget, index) in localOptions[size].leftSectionWidgets"
+                                              :key="index"
+                                              :label=widget.name
+                                              icon="build"
+                                              class="q-my-xs">
+                              <template v-slot:header>
+                                <q-item-section avatar>
+                                  <q-icon name="build" />
+                                </q-item-section>
 
-                    <q-item-section>
-                      {{ widget.name }}
-                    </q-item-section>
+                                <q-item-section>
+                                  {{ widget.name }}
+                                </q-item-section>
 
-                    <q-item-section side>
-                      <q-btn color="negative"
-                             flat
-                             icon="delete"
-                             @click="deleteWidget('leftSectionWidgets', index)" />
-                    </q-item-section>
-                  </template>
-                  <q-card>
-                    <q-card-section>
-                      <component :is="widget.name.concat('OptionPanel')"
-                                 v-model:options="widget.options" />
-                    </q-card-section>
-                  </q-card>
-                </q-expansion-item>
-              </q-card-section>
-              <q-card-section>
-                <div class="row q-col-gutter-md">
-                  <div class="col-3">
-                    <q-btn icon="isax:add"
-                           class="full-width"
-                           color="positive"
-                           label="text"
-                           @click="addTextWidget('leftSectionWidgets')" />
-                  </div>
-                  <div class="col-3">
-                    <q-btn icon="isax:add"
-                           class="full-width"
-                           color="positive"
-                           label="image"
-                           @click="addImageWidget('leftSectionWidgets')" />
-                  </div>
-                  <div class="col-3">
-                    <q-btn icon="isax:add"
-                           class="full-width"
-                           color="positive"
-                           label="action button"
-                           @click="addActionButtonWidget('leftSectionWidgets')" />
-                  </div>
-                  <div class="col-3">
-                    <q-btn icon="isax:add"
-                           class="full-width"
-                           color="positive"
-                           label="timer"
-                           @click="addTimerWidget('leftSectionWidgets')" />
-                  </div>
-                </div>
-              </q-card-section>
-            </q-card>
+                                <q-item-section side>
+                                  <q-btn color="negative"
+                                         flat
+                                         icon="delete"
+                                         @click="deleteWidget('leftSectionWidgets', index)" />
+                                </q-item-section>
+                              </template>
+                              <q-card>
+                                <q-card-section>
+                                  <component :is="widget.name.concat('OptionPanel')"
+                                             v-model:options="widget.options" />
+                                </q-card-section>
+                              </q-card>
+                            </q-expansion-item>
+                          </template>
+                          <div class="row q-my-sm q-col-gutter-md">
+                            <div class="col-3">
+                              <q-btn icon="isax:add"
+                                     class="full-width"
+                                     color="positive"
+                                     label="text"
+                                     @click="addTextWidget('leftSectionWidgets')" />
+                            </div>
+                            <div class="col-3">
+                              <q-btn icon="isax:add"
+                                     class="full-width"
+                                     color="positive"
+                                     label="image"
+                                     @click="addImageWidget('leftSectionWidgets')" />
+                            </div>
+                            <div class="col-3">
+                              <q-btn icon="isax:add"
+                                     class="full-width"
+                                     color="positive"
+                                     label="action button"
+                                     @click="addActionButtonWidget('leftSectionWidgets')" />
+                            </div>
+                            <div class="col-3">
+                              <q-btn icon="isax:add"
+                                     class="full-width"
+                                     color="positive"
+                                     label="timer"
+                                     @click="addTimerWidget('leftSectionWidgets')" />
+                            </div>
+                          </div>
+                        </q-expansion-item>
+                      </div>
+                    </div>
+                  </q-tab-panel>
+                </q-tab-panels>
+              </div>
+            </div>
           </q-expansion-item>
           <q-expansion-item expand-separator
-                            icon="image"
+                            icon="ph:image-square"
                             label="backgrounds">
             <responsive-back-ground v-model:options="localOptions.backgrounds" />
           </q-expansion-item>
-          <div class="row">
-            <div class="col-2">
-              <q-checkbox v-model="localOptions.sticky"
-                          label="sticky" />
+          <q-expansion-item expand-separator
+                            icon="ph:align-top-simple"
+                            label="Sticky Settings">
+            <div class="row q-my-md">
+              <div class="col-2">
+                <q-checkbox v-model="localOptions.sticky"
+                            label="sticky" />
+              </div>
+              <div class="col-10">
+                <q-input v-model="localOptions.stickyClass"
+                         label="کلاس المان مورد نظر" />
+              </div>
             </div>
-            <div class="col-10">
-              <div class="outsidelabel">کلاس المان مورد نظر</div>
-              <q-input v-model="localOptions.stickyClass" />
+          </q-expansion-item>
+          <q-expansion-item expand-separator
+                            icon="ph:app-store-logo"
+                            label="Logo Settings">
+            <div class="input-container q-py-md">
+              <q-input v-model="localOptions.logoImage"
+                       label="لینک لوگو" />
             </div>
-          </div>
-          <div class="input-container q-py-md">
-            <div class="outsideLabel">لینک لوگو</div>
-            <q-input v-model="localOptions.logoImage"
-                     label="logoImage" />
-          </div>
-          <div class="input-container q-py-md">
-            <div class="outsideLabel">متن لوگو</div>
-            <q-input v-model="localOptions.logoSlogan"
-                     label="logoSlogan" />
-          </div>
-          <div class="row q-col-gutter-md">
-            <div class="input-container col-md-2">
-              <div class="outsideLabel">hasAction</div>
-              <q-checkbox v-model="localOptions.hasAction" />
+            <div class="input-container q-py-md">
+              <q-input v-model="localOptions.logoSlogan"
+                       label="logoSlogan" />
             </div>
-            <div v-if="localOptions.hasAction"
-                 class="col-md-10">
-              <div class="row q-col-gutter-md">
-                <div class="input-container col-md-3 q-py-md">
-                  <div class="outsideLabel">type</div>
-                  <q-select v-model="localOptions.actionObject.type"
-                            :options="actionObjectTypeOptions" />
-                </div>
-                <div class="input-container col-md-3 q-py-md">
-                  <div class="outsideLabel">buttonLabel</div>
-                  <q-input v-model="localOptions.actionObject.buttonLabel"
-                           label="buttonLabel" />
-                </div>
-                <div v-if="localOptions.actionObject.type === 'scroll'"
-                     class="input-container col-md-3 q-py-md">
-                  <div class="outsideLabel">scrollTo</div>
-                  <q-input v-model="localOptions.actionObject.scrollTo"
-                           label="scrollTo" />
-                </div>
-                <div v-if="localOptions.actionObject.type === 'link'"
-                     class="input-container col-md-3 q-py-md">
-                  <div class="outsideLabel">route</div>
-                  <q-input v-model="localOptions.actionObject.route"
-                           label="route" />
-                </div>
-                <div v-if="localOptions.actionObject.type === 'event'"
-                     class="input-container col-md-3 q-py-md">
-                  <div class="outsideLabel">eventName</div>
-                  <q-input v-model="localOptions.actionObject.eventName"
-                           label="eventName" />
-                </div>
-                <div v-if="localOptions.actionObject.type === 'event'"
-                     class="input-container col-md-3 q-py-md">
-                  <div class="outsideLabel">eventArgs</div>
-                  <q-input v-model="localOptions.actionObject.eventArgs"
-                           label="eventArgs" />
+          </q-expansion-item>
+          <q-expansion-item expand-separator
+                            icon="ph:mouse"
+                            label="Action Settings">
+            <div class="row q-col-gutter-md">
+              <div class="input-container col-md-2">
+                <q-checkbox v-model="localOptions.hasAction"
+                            label="hasAction" />
+              </div>
+              <div v-if="localOptions.hasAction"
+                   class="col-md-10">
+                <div class="row q-col-gutter-md">
+                  <div class="input-container col-md-3 q-py-md">
+                    <q-select v-model="localOptions.actionObject.type"
+                              label="type"
+                              :options="actionObjectTypeOptions" />
+                  </div>
+                  <div class="input-container col-md-3 q-py-md">
+                    <q-input v-model="localOptions.actionObject.buttonLabel"
+                             label="buttonLabel" />
+                  </div>
+                  <div v-if="localOptions.actionObject.type === 'scroll'"
+                       class="input-container col-md-3 q-py-md">
+                    <q-input v-model="localOptions.actionObject.scrollTo"
+                             label="scrollTo" />
+                  </div>
+                  <div v-if="localOptions.actionObject.type === 'link'"
+                       class="input-container col-md-3 q-py-md">
+                    <q-input v-model="localOptions.actionObject.route"
+                             label="route" />
+                  </div>
+                  <div v-if="localOptions.actionObject.type === 'event'"
+                       class="input-container col-md-3 q-py-md">
+                    <q-input v-model="localOptions.actionObject.eventName"
+                             label="eventName" />
+                  </div>
+                  <div v-if="localOptions.actionObject.type === 'event'"
+                       class="input-container col-md-3 q-py-md">
+                    <q-input v-model="localOptions.actionObject.eventArgs"
+                             label="eventArgs" />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <q-card class="custom-card">
-            <q-card-section>
+          </q-expansion-item>
+          <q-expansion-item expand-separator
+                            icon="perm_identity"
+                            label="Menu Items">
+            <template v-if="localOptions.menuLink.length > 0">
               <q-expansion-item v-for="(item, index) in localOptions.menuLink"
                                 :key="index"
                                 expand-separator>
                 <template v-slot:header>
-                  <q-btn color="negative"
-                         icon="close"
-                         size="14px"
-                         class="q-mr-sm"
-                         @click="removeItem(index)" />
-                  <q-input v-model="item.label"
-                           label="label" />
+                  <div class="row full-width">
+                    <div class="col-1 ">
+                      <q-btn color="negative"
+                             icon="close"
+                             square
+                             class=" size-md q-mr-sm"
+                             @click="removeItem(index)">
+                        <q-tooltip>
+                          حذف لینک
+                        </q-tooltip>
+                      </q-btn>
+                    </div>
+                    <div class="col-10">
+                      <q-input v-model="item.label"
+                               label="عنوان" />
+                    </div>
+                  </div>
                 </template>
                 <div class="text">
                   <div class="input-container q-py-md">
@@ -312,15 +357,14 @@
                   <q-input v-model="item.className" />
                 </div>
               </q-expansion-item>
-            </q-card-section>
-
-            <div class="row q-gutter-xs justify-center">
+            </template>
+            <div class="row q-mt-md q-gutter-xs justify-center">
               <q-btn color="positive"
                      class="full-width"
                      label="add Item"
                      @click="addItem" />
             </div>
-          </q-card>
+          </q-expansion-item>
         </div>
       </template>
     </option-panel-tabs>
