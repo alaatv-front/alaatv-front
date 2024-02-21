@@ -95,9 +95,10 @@ export default class StudyPlanAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.myStudyPlan,
       data: this.getNormalizedSendData({
-        study_method_id: null, // Number
         major_id: null, // Number
-        grade_id: null // Number
+        grade_id: null, // Number
+        category_id: null, // Number
+        study_method_id: null // Number
       }, data),
       resolveCallback: (response) => {
         return new StudyPlan(response.data.data)
