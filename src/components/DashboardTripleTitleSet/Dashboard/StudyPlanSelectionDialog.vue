@@ -32,7 +32,7 @@
               <div class="col-12 ">
                 <q-select v-model="formData.study_method_id"
                           :options="inputsOptions.studyPlans"
-                          :option-label="opt => opt.title"
+                          :option-label="opt => opt.display_name"
                           :option-value="opt => opt.id"
                           placeholder="انتخاب کنید"
                           emit-value
