@@ -88,6 +88,18 @@ export default class EventsAPI extends APIRepository {
         },
         showDashboard: false,
         showStudyPlan: false
+      },
+      {
+        id: 28,
+        studyEventId: 35,
+        name: 'sin8',
+        title: 'سین 8',
+        logo: 'https://nodes.alaatv.com/upload/landing/SIN8/logo_sin8_2.png',
+        study_plan: {
+          category_id: 2
+        },
+        showDashboard: true,
+        showStudyPlan: true
       }
     ]
     return new Promise((resolve, reject) => {
