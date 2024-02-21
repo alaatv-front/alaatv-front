@@ -95,9 +95,10 @@ export default class StudyPlanAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.myStudyPlan,
       data: this.getNormalizedSendData({
-        study_method_id: null, // Number
         major_id: null, // Number
-        grade_id: null // Number
+        grade_id: null, // Number
+        category_id: null, // Number
+        study_method_id: null // Number
       }, data),
       resolveCallback: (response) => {
         return new StudyPlan(response.data.data)
@@ -240,9 +241,10 @@ export default class StudyPlanAPI extends APIRepository {
       }, data),
       resolveCallback: (response) => {
         return {
-          grades: response.data?.data?.grades, // list of grades [{id,title}]
-          majors: response.data?.data?.majors, // list of majors [{id,title}]
-          studyPlans: response.data?.data?.studyPlans // List of studyPlans [{id,title}]
+          products: response.data?.data?.products || [], // list of product [{id,title}]
+          grades: response.data?.data?.grades || [], // list of grades [{id,title}]
+          majors: response.data?.data?.majors || [], // list of majors [{id,title}]
+          studyPlans: response.data?.data?.studyPlans || [] // List of studyPlans [{id,title}]
         }
       },
       rejectCallback: (error) => {

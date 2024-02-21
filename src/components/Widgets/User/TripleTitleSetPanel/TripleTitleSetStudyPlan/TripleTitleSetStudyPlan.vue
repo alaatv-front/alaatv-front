@@ -321,9 +321,11 @@ import { FormBuilderAssist } from 'quasar-form-builder'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
 import FullCalendar from './components/FullCalendar.vue'
 import FormBuilder from 'quasar-form-builder/src/FormBuilder.vue'
-import { mixinTripleTitleSet, mixinAuth } from 'src/mixin/Mixins.js'
-import SessionInfoComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/SessionInfo.vue'
-import FormBuilderInputStudyPlanContentsSelector from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/FormBuilderInputStudyPlanContentsSelector.vue'
+import { mixinAuth, mixinTripleTitleSet } from 'src/mixin/Mixins.js'
+import SessionInfoComponent
+  from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/SessionInfo.vue'
+import FormBuilderInputStudyPlanContentsSelector
+  from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/FormBuilderInputStudyPlanContentsSelector.vue'
 
 const SessionInfoComponentComp = shallowRef(SessionInfoComponent)
 const ContentsComponentComp = shallowRef(FormBuilderInputStudyPlanContentsSelector)
@@ -834,8 +836,7 @@ export default {
       return new Promise((resolve, reject) => {
         APIGateway.studyPlan.getSetting()
           .then(setting => {
-            const lessonId = setting?.setting?.abrisham2_calender_default_lesson
-            this.filteredLesson = lessonId
+            this.filteredLesson = setting?.setting?.abrisham2_calender_default_lesson // lessonId
             this.lesson = this.lessonOptions.find(lesson => lesson.id === this.filteredLesson)
             this.getMyStudyPlan()
             resolve()
