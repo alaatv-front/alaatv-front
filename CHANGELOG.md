@@ -1,3 +1,15 @@
+# [1.2.0](https://git.alaatv.com/web/alaatv_front/compare/v1.1.0...v1.2.0) (2024-02-21)
+
+
+### Bug Fixes
+
+* header menu widget option panel redesign ([#981](https://git.alaatv.com/web/alaatv_front/issues/981)) ([fe7c416](https://git.alaatv.com/web/alaatv_front/commit/fe7c416f472e4d8b479fce2c14ceb86ef62ef49d))
+
+
+### Features
+
+* add ttsp panel (sin 8) ([6fc0987](https://git.alaatv.com/web/alaatv_front/commit/6fc0987c45408a89d529d851cb7ea57d46cd10d7))
+
 # [1.1.0](https://git.alaatv.com/web/alaatv_front/compare/v1.0.0...v1.1.0) (2024-02-20)
 
 
