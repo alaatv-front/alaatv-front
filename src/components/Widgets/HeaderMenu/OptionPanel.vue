@@ -318,20 +318,17 @@
                                 expand-separator>
                 <template v-slot:header>
                   <div class="row full-width">
-                    <div class="col-1 ">
-                      <q-btn color="negative"
-                             icon="close"
-                             square
-                             class=" size-md q-mr-sm"
-                             @click="removeItem(index)">
-                        <q-tooltip>
-                          حذف لینک
-                        </q-tooltip>
-                      </q-btn>
-                    </div>
-                    <div class="col-10">
+                    <div class="col-11">
                       <q-input v-model="item.label"
-                               label="عنوان" />
+                               class="no-title">
+                        <template #before>
+                          <q-btn color="negative"
+                                 icon="close"
+                                 square
+                                 class=" size-md q-mr-sm"
+                                 @click="removeItem(index)" />
+                        </template>
+                      </q-input>
                     </div>
                   </div>
                 </template>
@@ -349,12 +346,12 @@
                   </div>
                 </div>
                 <div v-if="item.type && item.type === 'link'">
-                  <div class="outsideLabel">لینک صفحه</div>
-                  <q-input v-model="item.route" />
+                  <q-input v-model="item.route"
+                           label="لینک صفحه" />
                 </div>
                 <div v-if="item.type && item.type === 'scroll'">
-                  <div class="outsideLabel">کلاس المان مربوطه</div>
-                  <q-input v-model="item.className" />
+                  <q-input v-model="item.className"
+                           label="کلاس المان مربوطه" />
                 </div>
               </q-expansion-item>
             </template>
