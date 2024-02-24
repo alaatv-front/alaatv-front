@@ -1,3 +1,10 @@
+## [1.4.5](https://git.alaatv.com/web/alaatv_front/compare/v1.4.4...v1.4.5) (2024-02-24)
+
+
+### Bug Fixes
+
+* remove sin8 from TTSPPanelList ([fc9aa4a](https://git.alaatv.com/web/alaatv_front/commit/fc9aa4aee6f7aa9129f5340cba55aa3500cfc7b1))
+
 ## [1.4.4](https://git.alaatv.com/web/alaatv_front/compare/v1.4.3...v1.4.4) (2024-02-24)
 
 
