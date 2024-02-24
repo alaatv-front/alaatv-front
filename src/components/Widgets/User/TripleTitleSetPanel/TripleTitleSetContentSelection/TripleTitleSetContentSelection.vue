@@ -77,12 +77,14 @@
                   <q-item-section side>
                     <q-btn color="secondary"
                            flat
-                           label="مشاهده"
+                           square
+                           icon="ph:eye"
                            @click="gotoContent(content.id)" />
                   </q-item-section>
                   <q-item-section side>
                     <q-btn color="secondary"
                            flat
+                           square
                            icon="ph:x"
                            @click="deleteContent(index)" />
                   </q-item-section>

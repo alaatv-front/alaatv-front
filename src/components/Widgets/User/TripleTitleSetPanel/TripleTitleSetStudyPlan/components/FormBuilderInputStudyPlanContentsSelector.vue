@@ -38,7 +38,7 @@ export default {
       default: null
     }
   },
-  emits: ['update:major', 'update:product', 'update:topic', 'update:set'],
+  emits: ['update:major', 'update:product', 'update:topic', 'update:set', 'update:value'],
   data () {
     return {
       content: null,

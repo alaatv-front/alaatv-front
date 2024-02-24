@@ -119,7 +119,7 @@ export default {
     }
   },
   methods: {
-    afterAuthenticate () {
+    afterSetEvent () {
       this.loadData()
     },
     loadData () {

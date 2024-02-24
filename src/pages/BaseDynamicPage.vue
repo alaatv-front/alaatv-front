@@ -9,7 +9,7 @@
 import { mixinSEO, mixinPageOptions, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
-  name: 'CreatTicket',
+  name: 'BaseDynamicPage',
   mixins: [mixinPrefetchServerData, mixinPageOptions, mixinSEO]
 }
 </script>
