@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{name: 'UserPanel.Asset.TripleTitleSet', params: { eventName: item.name}}">
+  <router-link :to="getRouteObject(item)">
     <q-card class="ttsp-panel-item">
       <q-skeleton v-if="loading"
                   height="100px"
@@ -40,6 +40,15 @@ export default {
     loading: {
       type: Boolean,
       default: false
+    }
+  },
+  methods: {
+    getRouteObject (item) {
+      if (item.name) {
+        return { name: 'UserPanel.Asset.TripleTitleSet', params: { eventName: item.name } }
+      }
+
+      return item.route
     }
   }
 }

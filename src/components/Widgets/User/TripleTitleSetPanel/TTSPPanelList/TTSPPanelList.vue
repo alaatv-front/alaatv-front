@@ -77,6 +77,16 @@ export default {
     },
     prefetchServerDataPromiseThen (data) {
       this.panels = data
+      this.panels.push({
+        route: { name: 'UserPanel.Asset.Abrisham' },
+        title: 'راه ابریشم',
+        logo: 'https://nodes.alaatv.com/upload/abrisham-panel-logotype.png'
+      })
+      this.panels.push({
+        route: { name: 'UserPanel.Asset.AbrishamPro' },
+        title: 'راه ابریشم پرو',
+        logo: 'https://nodes.alaatv.com/upload/abrisham-panel-logotype.png'
+      })
       this.loading = false
     },
     prefetchServerDataPromiseCatch () {
