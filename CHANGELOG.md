@@ -1,3 +1,10 @@
+## [1.4.4](https://git.alaatv.com/web/alaatv_front/compare/v1.4.3...v1.4.4) (2024-02-24)
+
+
+### Bug Fixes
+
+* TTSPPanelList.vue responsive ([43de110](https://git.alaatv.com/web/alaatv_front/commit/43de110c22ae59b893ba428a4518a58fb4bcf282))
+
 ## [1.4.3](https://git.alaatv.com/web/alaatv_front/compare/v1.4.2...v1.4.3) (2024-02-24)
 
 
