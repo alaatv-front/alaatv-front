@@ -52,11 +52,17 @@
                @focus="onFocusTextInput">
         <template #append>
           <template v-if="hasStatus(['text-input-focus', 'typing'])">
+            <q-btn v-if="asAdmin"
+                   flat
+                   square
+                   icon="ph:paper-plane-right"
+                   class="TicketSendMessageInput__btn-send-private-message size-lg"
+                   @click="onSendText(true)" />
             <q-btn flat
                    square
                    icon="ph:paper-plane-right"
                    class="TicketSendMessageInput__btn-send-message size-lg"
-                   @click="onSendText" />
+                   @click="onSendText(false)" />
           </template>
           <template v-if="hasStatus(['blur', 'voice-recording', 'voice-recorded'])">
             <div class="TicketSendMessageInput__recording-area"
@@ -96,11 +102,17 @@
                                        :source="recordedVoiceAsBlob"
                                        :duration="recordedVoiceDurationInTimerFormat" />
                   </div>
+                  <q-btn v-if="asAdmin"
+                         flat
+                         square
+                         icon="ph:paper-plane-right"
+                         class="TicketSendMessageInput__btn-send-private-voice-message size-lg"
+                         @click="onSendVoice(true)" />
                   <q-btn flat
                          square
                          icon="ph:paper-plane-right"
                          class="TicketSendMessageInput__btn-send-voice-message size-lg"
-                         @click="onSendVoice" />
+                         @click="onSendVoice(false)" />
                 </div>
               </div>
             </div>
@@ -162,6 +174,10 @@ export default defineComponent({
       default: new Ticket()
     },
     loading: {
+      type: Boolean,
+      default: false
+    },
+    asAdmin: {
       type: Boolean,
       default: false
     },
@@ -358,10 +374,10 @@ export default defineComponent({
       this.hideSelectFilesDialog()
       this.$refs.preparedTextsMenu.hide()
     },
-    onSendText () {
-      this.sendMessage(this.textInput)
+    onSendText (isPrivate) {
+      this.sendMessage(this.textInput, [], isPrivate)
     },
-    onSendVoice () {
+    onSendVoice (isPrivate) {
       const recordFile = new File([this.recordedVoiceAsBlob], 'recorded-voice.ogg', { type: this.recordedVoiceAsBlob.type })
       this.sendMessage(null, [recordFile])
     },
@@ -524,10 +540,18 @@ export default defineComponent({
       .TicketSendMessageInput__preview-recorded-voice {
         width: inherit;
       }
+      .TicketSendMessageInput__btn-send-private-voice-message {
+        color: $warning;
+        transform: rotate(180deg);
+      }
       .TicketSendMessageInput__btn-send-voice-message {
         color: $secondary-6;
         transform: rotate(180deg);
       }
+    }
+    .TicketSendMessageInput__btn-send-private-message {
+      color: $warning;
+      transform: rotate(180deg);
     }
     .TicketSendMessageInput__btn-send-message {
       color: $secondary-6;

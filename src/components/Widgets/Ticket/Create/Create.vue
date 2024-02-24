@@ -147,7 +147,6 @@ export default {
       const priorityId = FormBuilderAssist.getInputsByName(this.inputs, 'priority_id').value
 
       APIGateway.ticket.creatTicket({
-        body: '1',
         title,
         is_private: false,
         priority_id: priorityId,
