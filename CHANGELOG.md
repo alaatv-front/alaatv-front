@@ -1,3 +1,10 @@
+## [1.4.2](https://git.alaatv.com/web/alaatv_front/compare/v1.4.1...v1.4.2) (2024-02-24)
+
+
+### Bug Fixes
+
+* ttsp panel study plan -> getMyStudyPlan ([dac18c2](https://git.alaatv.com/web/alaatv_front/commit/dac18c227768424054dea8b14f731db2e0eb26dc))
+
 ## [1.4.1](https://git.alaatv.com/web/alaatv_front/compare/v1.4.0...v1.4.1) (2024-02-24)
 
 
