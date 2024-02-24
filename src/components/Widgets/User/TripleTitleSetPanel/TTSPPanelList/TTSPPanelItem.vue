@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import LazyImg from 'components/lazyImg.vue'
+import LazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'TTSPPanel',
