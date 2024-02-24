@@ -845,6 +845,7 @@ export default {
           this.loading = false
         })
         .catch(() => {
+          this.changeStudyPlan()
           this.loading = false
         })
     },
