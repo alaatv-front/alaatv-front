@@ -45,7 +45,7 @@ export default {
   methods: {
     getRouteObject (item) {
       if (item.name) {
-        return { name: 'UserPanel.Asset.TripleTitleSet', params: { eventName: item.name } }
+        return { name: 'UserPanel.Asset.TripleTitleSet.Products', params: { eventName: item.name } }
       }
 
       return item.route
