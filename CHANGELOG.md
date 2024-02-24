@@ -1,3 +1,10 @@
+# [1.4.0](https://git.alaatv.com/web/alaatv_front/compare/v1.3.0...v1.4.0) (2024-02-24)
+
+
+### Features
+
+* ttsp panels list ([716eacf](https://git.alaatv.com/web/alaatv_front/commit/716eacfd367636da181452402bffd8b91ed98c5e))
+
 # [1.3.0](https://git.alaatv.com/web/alaatv_front/compare/v1.2.0...v1.3.0) (2024-02-21)
 
 
