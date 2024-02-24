@@ -96,8 +96,8 @@
 <script>
 import { defineComponent } from 'vue'
 import LazyImg from 'src/components/lazyImg.vue'
-import { TicketMessage } from 'src/models/TicketMessage.js'
 import VoiceWaveSurfer from './VoiceWaveSurfer.vue'
+import { TicketMessage } from 'src/models/TicketMessage.js'
 
 export default defineComponent({
   name: 'TicketMessage',
@@ -349,7 +349,12 @@ export default defineComponent({
       }
     }
     &.TicketMessage--private {
-
+      .TicketMessage__content {
+        background: $warning-1;
+        .TicketMessage__user-fullname {
+          color: $warning;
+        }
+      }
     }
   }
   &.TicketMessage--sent {
@@ -358,6 +363,14 @@ export default defineComponent({
       &:before {
         background-image: url("https://nodes.alaatv.com/upload/alaaPages/2024-02/sent-ticket-message-tail1707563864.png");
         right: -#{$trail-size};
+      }
+    }
+    &.TicketMessage--private {
+      .TicketMessage__content {
+        &:before {
+          transform: scaleX(-1);
+          background-image: url("https://nodes.alaatv.com/upload/alaaPages/2024-02/private-ticket-message-tail1708770237.png");
+        }
       }
     }
   }
@@ -369,9 +382,13 @@ export default defineComponent({
         left: -#{$trail-size};
       }
     }
-  }
-  &.TicketMessage--private {
-
+    &.TicketMessage--private {
+      .TicketMessage__content {
+        &:before {
+          background-image: url("https://nodes.alaatv.com/upload/alaaPages/2024-02/private-ticket-message-tail1708770237.png");
+        }
+      }
+    }
   }
 }
 </style>
