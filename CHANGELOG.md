@@ -1,3 +1,10 @@
+## [1.4.3](https://git.alaatv.com/web/alaatv_front/compare/v1.4.2...v1.4.3) (2024-02-24)
+
+
+### Bug Fixes
+
+* TTSPPanelItem.vue router link ([6368354](https://git.alaatv.com/web/alaatv_front/commit/6368354fd1d2d14fda1605d5112f9aaaf09e934e))
+
 ## [1.4.2](https://git.alaatv.com/web/alaatv_front/compare/v1.4.1...v1.4.2) (2024-02-24)
 
 
