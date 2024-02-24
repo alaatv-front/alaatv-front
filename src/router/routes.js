@@ -284,7 +284,11 @@ const routes = [
           {
             path: '',
             name: 'UserPanel.index',
-            redirect: { name: 'UserPanel.Profile' }
+            meta: {
+              hasDynamicSetting: true
+            },
+            component: () => import('src/pages/BaseDynamicPage.vue')
+            // redirect: { name: 'UserPanel.Profile' }
           },
           {
             name: 'UserPanel.Dashboard',
