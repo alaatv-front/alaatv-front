@@ -11,15 +11,15 @@
         <q-breadcrumbs-el label="برنامه مطالعاتی" />
         <template v-slot:separator>
           <q-icon size="xs"
-                  name="isax:arrow-right-3"
+                  name="ph:caret-right"
                   color="grey-6" />
         </template>
-        <q-breadcrumbs-el v-if="selectedMajorInCreatePlanForm"
-                          :label="selectedMajorInCreatePlanForm.title" />
-        <q-breadcrumbs-el v-if="selectedGradeInCreatePlanForm"
-                          :label="selectedGradeInCreatePlanForm.title" />
-        <q-breadcrumbs-el v-if="planType?.display_name"
-                          :label="planType.display_name" />
+        <q-breadcrumbs-el v-if="currentStudyPlan.major"
+                          :label="currentStudyPlan.major" />
+        <q-breadcrumbs-el v-if="currentStudyPlan.grade"
+                          :label="currentStudyPlan.grade" />
+        <q-breadcrumbs-el v-if="currentStudyPlan.title"
+                          :label="currentStudyPlan.title" />
       </q-breadcrumbs>
     </div>
     <div class="col-md-6 col-12 text-right action-btns">
@@ -567,23 +567,8 @@ export default {
           responseKey: 'data.description',
           col: 'col-12'
         }
-      ]
-    }
-  },
-  computed: {
-    selectedMajorInCreatePlanForm () {
-      const majors = FormBuilderAssist.getInputsByName(this.inputs, 'major_id').options
-      const selectedMajorIds = FormBuilderAssist.getInputsByName(this.inputs, 'major_id').value
-      const selectedMajorId = Array.isArray(selectedMajorIds) ? selectedMajorIds[0] : null
-
-      return majors.find(major => major.id === selectedMajorId)
-    },
-    selectedGradeInCreatePlanForm () {
-      const grades = FormBuilderAssist.getInputsByName(this.inputs, 'grade_id').options
-      const selectedGradeIds = FormBuilderAssist.getInputsByName(this.inputs, 'grade_id').value
-      const selectedGradeId = Array.isArray(selectedGradeIds) ? selectedGradeIds[0] : null
-
-      return grades.find(grade => grade.id === selectedGradeId)
+      ],
+      currentStudyPlan: {}
     }
   },
   watch: {
@@ -853,6 +838,7 @@ export default {
       this.loading = true
       APIGateway.studyPlan.getMyStudyPlan({ category_id: this.event.study_plan.category_id })
         .then(studyPlan => {
+          this.currentStudyPlan = studyPlan
           this.planType.display_name = studyPlan.title
           this.studyEvent = studyPlan.id
           this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
@@ -925,12 +911,14 @@ export default {
       this.loading = true
       this.warning = false
       const studyPlanData = {
-        study_method_id: data && data.study_method_id ? data.study_method_id : this.planType.id,
+        category_id: this.event.study_plan.category_id,
         major_id: data && data.major_id ? data.major_id : this.major.id,
-        grade_id: data && data.grade_id ? data.grade_id : this.grade.id
+        grade_id: data && data.grade_id ? data.grade_id : this.grade.id,
+        study_method_id: data && data.study_method_id ? data.study_method_id : this.planType.id
       }
       APIGateway.studyPlan.updateMyStudyPlan(studyPlanData)
         .then(studyPlan => {
+          this.getMyStudyPlan()
           this.studyEvent = studyPlan.id
           this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
           this.loading = false

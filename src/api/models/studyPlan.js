@@ -77,7 +77,9 @@ export default class StudyPlanAPI extends APIRepository {
       resolveCallback: (response) => {
         return {
           id: response.data.data?.id,
-          title: response.data.data?.title,
+          major: response.data.data?.major, // String
+          grade: response.data.data?.grade, // String
+          title: response.data.data?.title, // String
           passed_days: response.data.data?.passed_days,
           count_of_watched_sessions: response.data.data?.count_of_watched_sessions,
           count_of_remained_sessions: response.data.data?.count_of_remained_sessions
