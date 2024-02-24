@@ -352,6 +352,7 @@ export default {
               this.sendTicketMessage({
                 body: data.body,
                 ticket_id: this.ticketId,
+                is_private: data.is_private,
                 files: resolvedItems.map(item => item.uploadedFileName)
               })
                 .then(() => {

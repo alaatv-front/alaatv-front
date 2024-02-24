@@ -148,7 +148,6 @@ export default {
 
       APIGateway.ticket.creatTicket({
         title,
-        is_private: false,
         priority_id: priorityId,
         department_id: this.selectedDepartment.id
       })
