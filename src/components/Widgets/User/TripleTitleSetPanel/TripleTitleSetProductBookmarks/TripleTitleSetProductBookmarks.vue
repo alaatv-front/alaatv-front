@@ -125,7 +125,7 @@ export default {
     }
   },
   methods: {
-    afterAuthenticate () {
+    afterSetEvent () {
       const productId = this.$route.params.productId
       if (productId) {
         this.getProductSets(productId)

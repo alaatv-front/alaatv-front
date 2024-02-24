@@ -67,7 +67,7 @@ export default {
     }
   },
   methods: {
-    afterAuthenticate () {
+    afterSetEvent () {
       this.getComment()
       this.loadData(this.$route.params.productId)
     },

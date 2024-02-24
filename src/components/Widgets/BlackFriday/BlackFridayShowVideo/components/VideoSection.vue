@@ -7,6 +7,7 @@
          v-html="localVideo.description" />
     <div class="video-section">
       <q-btn icon="ph:caret-right"
+             square
              class="arrow arrow-right"
              @click="onPrev" />
       <div class="video-box"
@@ -68,6 +69,7 @@
                   height="9" />
       </div>
       <q-btn icon="ph:caret-left"
+             square
              class="arrow arrow-left"
              @click="onNext" />
     </div>

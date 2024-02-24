@@ -21,6 +21,7 @@
     <div v-if="!readonly"
          class="TicketMessageList__send-input-area">
       <ticket-send-message-input :ticket="ticket"
+                                 :as-admin="asAdmin"
                                  :reserved-message-list="reservedMessageList"
                                  :reserved-message-loading="reservedMessageLoading"
                                  @sendMessage="onSendMessage"

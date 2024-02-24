@@ -5,136 +5,152 @@
          'TicketSendMessageInput__recording': status === 'voice-recording',
          'TicketSendMessageInput__voice-recorded': status === 'voice-recorded',
        }">
-    <div v-if="ticket.status.name === 'closed'"
-         class="TicketSendMessageInput__status-closed">
-      تیکت بسته شده است
-    </div>
-    <div v-else-if="ticket.hasResponsibleUser"
-         class="TicketSendMessageInput__accept-ticket">
-      <div class="TicketSendMessageInput__accept-ticket-message">
-        <q-icon name="ph:lock"
-                size="16px" />
-        برای شروع ، ابتدا باید مکالمه را قبول کنید.
+    <template v-if="!loading">
+      <div v-if="ticket.status.name === 'closed'"
+           class="TicketSendMessageInput__status-closed">
+        تیکت بسته شده است
       </div>
-      <div class="TicketSendMessageInput__accept-ticket-action">
-        <q-btn label="قبول مکالمه"
-               class="size-sm"
-               outline
-               color="secondary"
-               :loading="ticket.loading"
-               @click="acceptTicket" />
+      <div v-else-if="ticket.hasResponsibleUser"
+           class="TicketSendMessageInput__accept-ticket">
+        <div class="TicketSendMessageInput__accept-ticket-message">
+          <q-icon name="ph:lock"
+                  size="16px" />
+          برای شروع ، ابتدا باید مکالمه را قبول کنید.
+        </div>
+        <div class="TicketSendMessageInput__accept-ticket-action">
+          <q-btn label="قبول مکالمه"
+                 class="size-sm"
+                 outline
+                 color="secondary"
+                 :loading="ticket.loading"
+                 @click="acceptTicket" />
+        </div>
       </div>
-    </div>
-    <div v-else-if="ticket.seenBefore"
-         class="TicketSendMessageInput__start-ticket">
-      <div class="TicketSendMessageInput__start-ticket-message">
-        <span class="TicketSendMessageInput__assign-full-name">
-          {{ ticket.assign.first_name }}
-          {{ ticket.assign.last_name }}
-        </span>
-        مسئول این تیکت میباشد.
+      <div v-else-if="ticket.seenBefore"
+           class="TicketSendMessageInput__start-ticket">
+        <div class="TicketSendMessageInput__start-ticket-message">
+          <span class="TicketSendMessageInput__assign-full-name">
+            {{ ticket.assign.first_name }}
+            {{ ticket.assign.last_name }}
+          </span>
+          مسئول این تیکت میباشد.
+        </div>
+        <div class="TicketSendMessageInput__accept-ticket-action">
+          <q-btn label="ورود به مکالمه"
+                 class="size-sm"
+                 outline
+                 color="grey"
+                 :loading="ticket.loading"
+                 @click="acceptTicket" />
+        </div>
       </div>
-      <div class="TicketSendMessageInput__accept-ticket-action">
-        <q-btn label="ورود به مکالمه"
-               class="size-sm"
-               outline
-               color="grey"
-               :loading="ticket.loading"
-               @click="acceptTicket" />
-      </div>
-    </div>
-    <q-input v-else-if="hasStatus(['blur', 'text-input-focus', 'typing', 'voice-recording', 'voice-recorded'])"
-             v-model="textInput"
-             class="no-title"
-             autogrow
-             @blur="onBlurTextInput"
-             @focus="onFocusTextInput">
-      <template #append>
-        <template v-if="hasStatus(['text-input-focus', 'typing'])">
-          <q-btn flat
-                 square
-                 icon="ph:paper-plane-right"
-                 class="TicketSendMessageInput__btn-send-message size-lg"
-                 @click="onSendText" />
-        </template>
-        <template v-if="hasStatus(['blur', 'voice-recording', 'voice-recorded'])">
-          <div class="TicketSendMessageInput__recording-area"
-               :class="{'TicketSendMessageInput__recording-area--no-recording': status !== 'voice-recording','TicketSendMessageInput__recording-area--recording': status === 'voice-recording'}">
-            <div v-if="hasStatus(['voice-recording'])"
-                 class="TicketSendMessageInput__recording-timer">
-              <div class="TicketSendMessageInput__recording-sign" />
-              {{ recordedVoiceDurationInTimerFormat }}
-            </div>
-            <div class="TicketSendMessageInput__recording-action-area">
+      <q-input v-else-if="hasStatus(['blur', 'text-input-focus', 'typing', 'voice-recording', 'voice-recorded'])"
+               v-model="textInput"
+               class="no-title"
+               autogrow
+               @blur="onBlurTextInput"
+               @focus="onFocusTextInput">
+        <template #append>
+          <template v-if="hasStatus(['text-input-focus', 'typing'])">
+            <q-btn v-if="asAdmin"
+                   flat
+                   square
+                   icon="ph:paper-plane-right"
+                   class="TicketSendMessageInput__btn-send-private-message size-lg"
+                   @click="onSendText(true)" />
+            <q-btn flat
+                   square
+                   icon="ph:paper-plane-right"
+                   class="TicketSendMessageInput__btn-send-message size-lg"
+                   @click="onSendText(false)" />
+          </template>
+          <template v-if="hasStatus(['blur', 'voice-recording', 'voice-recorded'])">
+            <div class="TicketSendMessageInput__recording-area"
+                 :class="{'TicketSendMessageInput__recording-area--no-recording': status !== 'voice-recording','TicketSendMessageInput__recording-area--recording': status === 'voice-recording'}">
               <div v-if="hasStatus(['voice-recording'])"
-                   class="TicketSendMessageInput__recording-cancel-label">
-                <q-icon name="ph:caret-right" />
-                لغو کردن پیام صوتی
+                   class="TicketSendMessageInput__recording-timer">
+                <div class="TicketSendMessageInput__recording-sign" />
+                {{ recordedVoiceDurationInTimerFormat }}
               </div>
-              <q-btn v-if="hasStatus(['voice-recording', 'blur'])"
-                     ref="btnStartRecording"
-                     v-touch-swipe.mouse="handleSwipeBtnStartRecording"
-                     :flat="status !== 'voice-recording'"
-                     :color="status === 'voice-recording' ? 'secondary' : undefined"
-                     square
-                     round
-                     icon="ph:microphone"
-                     class="TicketSendMessageInput__btn-recording size-md"
-                     @blur="onBlurBtnRecordingVoice"
-                     @mouseup="onMouseupBtnRecordingVoice"
-                     @mousedown="onMousedownBtnRecordingVoice" />
-              <div v-if="hasStatus(['voice-recorded'])"
-                   class="TicketSendMessageInput__voice-recorded-area">
-                <q-btn flat
-                       square
-                       icon="ph:trash"
-                       class="TicketSendMessageInput__btn-delete-voice size-lg"
-                       @click="removeRecordeVoice" />
-                <div class="TicketSendMessageInput__preview-recorded-voice">
-                  <voice-wave-surfer v-if="recordedVoiceAsBlob"
-                                     :source="recordedVoiceAsBlob"
-                                     :duration="recordedVoiceDurationInTimerFormat" />
+              <div class="TicketSendMessageInput__recording-action-area">
+                <div v-if="hasStatus(['voice-recording'])"
+                     class="TicketSendMessageInput__recording-cancel-label">
+                  <q-icon name="ph:caret-right" />
+                  لغو کردن پیام صوتی
                 </div>
-                <q-btn flat
+                <q-btn v-if="hasStatus(['voice-recording', 'blur'])"
+                       ref="btnStartRecording"
+                       v-touch-swipe.mouse="handleSwipeBtnStartRecording"
+                       :flat="status !== 'voice-recording'"
+                       :color="status === 'voice-recording' ? 'secondary' : undefined"
                        square
-                       icon="ph:paper-plane-right"
-                       class="TicketSendMessageInput__btn-send-voice-message size-lg"
-                       @click="onSendVoice" />
+                       round
+                       icon="ph:microphone"
+                       class="TicketSendMessageInput__btn-recording size-md"
+                       @blur="onBlurBtnRecordingVoice"
+                       @mouseup="onMouseupBtnRecordingVoice"
+                       @mousedown="onMousedownBtnRecordingVoice" />
+                <div v-if="hasStatus(['voice-recorded'])"
+                     class="TicketSendMessageInput__voice-recorded-area">
+                  <q-btn flat
+                         square
+                         icon="ph:trash"
+                         class="TicketSendMessageInput__btn-delete-voice size-lg"
+                         @click="removeRecordeVoice" />
+                  <div class="TicketSendMessageInput__preview-recorded-voice">
+                    <voice-wave-surfer v-if="recordedVoiceAsBlob"
+                                       :source="recordedVoiceAsBlob"
+                                       :duration="recordedVoiceDurationInTimerFormat" />
+                  </div>
+                  <q-btn v-if="asAdmin"
+                         flat
+                         square
+                         icon="ph:paper-plane-right"
+                         class="TicketSendMessageInput__btn-send-private-voice-message size-lg"
+                         @click="onSendVoice(true)" />
+                  <q-btn flat
+                         square
+                         icon="ph:paper-plane-right"
+                         class="TicketSendMessageInput__btn-send-voice-message size-lg"
+                         @click="onSendVoice(false)" />
+                </div>
               </div>
             </div>
-          </div>
+          </template>
         </template>
-      </template>
-      <template #prepend>
-        <template v-if="hasStatus(['blur', 'text-input-focus', 'typing'])">
-          <q-btn ref="btnToggleCustomMessages"
-                 flat
-                 square
-                 icon="ph:chat-dots"
-                 class="TicketSendMessageInput__btn-select-file size-lg"
-                 @click="togglePreparedTextsMenu" />
-          <q-btn ref="btnSelectFile"
-                 flat
-                 square
-                 icon="ph:paperclip"
-                 class="TicketSendMessageInput__btn-toggle-custom-messages-list size-lg"
-                 @click="showSelectFilesDialog" />
+        <template #prepend>
+          <template v-if="hasStatus(['blur', 'text-input-focus', 'typing'])">
+            <q-btn ref="btnToggleCustomMessages"
+                   flat
+                   square
+                   icon="ph:chat-dots"
+                   class="TicketSendMessageInput__btn-select-file size-lg"
+                   @click="togglePreparedTextsMenu" />
+            <q-btn ref="btnSelectFile"
+                   flat
+                   square
+                   icon="ph:paperclip"
+                   class="TicketSendMessageInput__btn-toggle-custom-messages-list size-lg"
+                   @click="showSelectFilesDialog" />
+          </template>
         </template>
-      </template>
-      <q-menu ref="preparedTextsMenu"
-              fit
-              no-parent-event
-              anchor="top start"
-              self="bottom right"
-              class="preparedTextsMenu">
-        <prepared-texts :list="reservedMessageList"
-                        :loading="reservedMessageLoading"
-                        @select="onSelectPreparedText" />
-      </q-menu>
-      <q-dialog v-model="selectFilesDialog">
-        <select-files @send="onSendFiles" />
-      </q-dialog>
-    </q-input>
+        <q-menu ref="preparedTextsMenu"
+                fit
+                no-parent-event
+                anchor="top start"
+                self="bottom right"
+                class="preparedTextsMenu">
+          <prepared-texts :list="reservedMessageList"
+                          :loading="reservedMessageLoading"
+                          @select="onSelectPreparedText" />
+        </q-menu>
+        <q-dialog v-model="selectFilesDialog">
+          <select-files @send="onSendFiles" />
+        </q-dialog>
+      </q-input>
+    </template>
+    <q-linear-progress v-else
+                       indeterminate />
   </div>
 </template>
 
@@ -156,6 +172,14 @@ export default defineComponent({
     ticket: {
       type: Ticket,
       default: new Ticket()
+    },
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    asAdmin: {
+      type: Boolean,
+      default: false
     },
     reservedMessageList: {
       type: Array,
@@ -350,10 +374,10 @@ export default defineComponent({
       this.hideSelectFilesDialog()
       this.$refs.preparedTextsMenu.hide()
     },
-    onSendText () {
-      this.sendMessage(this.textInput)
+    onSendText (isPrivate) {
+      this.sendMessage(this.textInput, [], isPrivate)
     },
-    onSendVoice () {
+    onSendVoice (isPrivate) {
       const recordFile = new File([this.recordedVoiceAsBlob], 'recorded-voice.ogg', { type: this.recordedVoiceAsBlob.type })
       this.sendMessage(null, [recordFile])
     },
@@ -516,10 +540,18 @@ export default defineComponent({
       .TicketSendMessageInput__preview-recorded-voice {
         width: inherit;
       }
+      .TicketSendMessageInput__btn-send-private-voice-message {
+        color: $warning;
+        transform: rotate(180deg);
+      }
       .TicketSendMessageInput__btn-send-voice-message {
         color: $secondary-6;
         transform: rotate(180deg);
       }
+    }
+    .TicketSendMessageInput__btn-send-private-message {
+      color: $warning;
+      transform: rotate(180deg);
     }
     .TicketSendMessageInput__btn-send-message {
       color: $secondary-6;

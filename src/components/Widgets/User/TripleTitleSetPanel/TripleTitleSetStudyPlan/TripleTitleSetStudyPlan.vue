@@ -315,14 +315,17 @@ import { Set } from 'src/models/Set.js'
 import { EntityEdit } from 'quasar-crud'
 import { Major } from 'src/models/Major.js'
 import { Product } from 'src/models/Product.js'
-import { APIGateway } from 'src/api/APIGateway.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
 import { FormBuilderAssist } from 'quasar-form-builder'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
 import FullCalendar from './components/FullCalendar.vue'
 import FormBuilder from 'quasar-form-builder/src/FormBuilder.vue'
-import SessionInfoComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/SessionInfo.vue'
-import FormBuilderInputStudyPlanContentsSelector from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/FormBuilderInputStudyPlanContentsSelector.vue'
+import { mixinAuth, mixinTripleTitleSet } from 'src/mixin/Mixins.js'
+import SessionInfoComponent
+  from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/SessionInfo.vue'
+import FormBuilderInputStudyPlanContentsSelector
+  from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/FormBuilderInputStudyPlanContentsSelector.vue'
 
 const SessionInfoComponentComp = shallowRef(SessionInfoComponent)
 const ContentsComponentComp = shallowRef(FormBuilderInputStudyPlanContentsSelector)
@@ -335,6 +338,7 @@ export default {
     FormBuilder,
     FullCalendar
   },
+  mixins: [mixinTripleTitleSet, mixinAuth],
   data () {
     return {
       loading: false,
@@ -598,8 +602,6 @@ export default {
     }
   },
   mounted () {
-    this.afterAuthenticate()
-
     this.$bus.on('FormBuilderInputStudyPlanContentsSelector-update:major', (newValue) => {
       FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'major', newValue)
       FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'major', newValue)
@@ -618,11 +620,10 @@ export default {
     })
   },
   methods: {
-    afterAuthenticate () {
-      const user = this.$store.getters['Auth/user']
-      this.grade = user.grade.id ? user.grade : { title: '', id: null }
-      this.major = user.major.id ? user.major : { title: '', id: null }
-      this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
+    afterSetEvent () {
+      this.grade = this.user.grade.id ? this.user.grade : { title: '', id: null }
+      this.major = this.user.major.id ? this.user.major : { title: '', id: null }
+      this.isAdmin = this.user.hasPermission('insertStudyPlan') || this.user.hasPermission('updateStudyPlan') || this.user.hasPermission('deleteStudyPlan')
       this.getFilterLesson()
       this.getChangePlanOptions()
     },
@@ -735,7 +736,7 @@ export default {
     },
     findStudyPlan (data) {
       return new Promise((resolve, reject) => {
-        APIGateway.abrisham.findMyStudyPlan(data)
+        APIGateway.studyPlan.findStudyPlan(data)
           .then(studtPlan => {
             resolve(studtPlan)
           })
@@ -835,8 +836,7 @@ export default {
       return new Promise((resolve, reject) => {
         APIGateway.studyPlan.getSetting()
           .then(setting => {
-            const lessonId = setting?.setting?.abrisham2_calender_default_lesson
-            this.filteredLesson = lessonId
+            this.filteredLesson = setting?.setting?.abrisham2_calender_default_lesson // lessonId
             this.lesson = this.lessonOptions.find(lesson => lesson.id === this.filteredLesson)
             this.getMyStudyPlan()
             resolve()
@@ -851,7 +851,7 @@ export default {
     },
     getMyStudyPlan () {
       this.loading = true
-      APIGateway.studyPlan.getMyStudyPlan()
+      APIGateway.studyPlan.getMyStudyPlan({ category_id: this.event.study_plan.category_id })
         .then(studyPlan => {
           this.planType.display_name = studyPlan.title
           this.studyEvent = studyPlan.id
@@ -864,7 +864,7 @@ export default {
     },
     getChangePlanOptions () {
       this.loading = true
-      APIGateway.studyPlan.getChangePlanOptions()
+      APIGateway.studyPlan.getSelectPlanOptions({ category_id: this.event.study_plan.category_id })
         .then(options => {
           this.loading = false
           this.majorOptions = options.majors

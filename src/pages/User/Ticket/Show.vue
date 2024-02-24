@@ -1,3 +1,4 @@
+
 <template>
   <q-page-builder v-model:sections="currenSections"
                   v-model:options="pageConfig"

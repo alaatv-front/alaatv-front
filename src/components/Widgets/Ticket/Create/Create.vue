@@ -1,5 +1,5 @@
 <template>
-  <div class="page-content">
+  <div class="ticket-create">
     <entity-create v-if="mounted"
                    ref="EntityCreate"
                    v-model:value="inputs"
@@ -9,6 +9,7 @@
                    show-route-param-key="id"
                    :index-route-name="options.indexRouteName"
                    :show-route-name="options.showRouteName"
+                   :show-expand-button="false"
                    :show-save-button="false">
       <template #before-form-builder>
         <q-dialog v-model="showDialog"
@@ -48,29 +49,28 @@
       </template>
     </entity-create>
     <q-separator class="q-my-md" />
-    <send-message-input v-if="mounted"
-                        ref="SendMessageInput"
-                        :role="userRole"
-                        :canChoseOrder="canChoseOrder"
-                        :canAssign-ticket="canAssignTicket"
-                        :send-loading="loading"
-                        :isAdmin="isInAdminPage"
-                        @creatTicket="sendTicket" />
+    <ticket-send-message-input v-if="mounted"
+                               :loading="ticket.loading"
+                               :reserved-message-list="reservedMessageList"
+                               :reserved-message-loading="reservedMessageLoading"
+                               @sendMessage="onSendMessage" />
   </div>
 </template>
 
 <script>
 import { EntityCreate } from 'quasar-crud'
+import { Ticket } from 'src/models/Ticket.js'
 import { APIGateway } from 'src/api/APIGateway.js'
+import { FormBuilderAssist } from 'quasar-form-builder'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
 import { TicketDepartment } from 'src/models/TicketDepartment.js'
-import SendMessageInput from 'src/components/Ticket/SendMessageInput.vue'
+import TicketSendMessageInput from 'src/components/Ticket/TicketSendMessageInput/TicketSendMessageInput.vue'
 
 export default {
-  name: 'Create',
+  name: 'TicketCreate',
   components: {
     EntityCreate,
-    SendMessageInput
+    TicketSendMessageInput
   },
   mixins: [mixinTicket, mixinWidget],
   props: {
@@ -88,6 +88,9 @@ export default {
     return {
       mounted: false,
       showDialog: true,
+      ticket: new Ticket(),
+      reservedMessageList: [],
+      reservedMessageLoading: false,
       api: APIGateway.ticket.APIAdresses.base,
       selectedDepartment: new TicketDepartment(),
       inputs: [
@@ -113,6 +116,9 @@ export default {
           size: '14px'
         }
       ],
+      defaultOptions: {
+        asAdmin: false
+      },
       userRole: '',
       canAssignTicket: false
     }
@@ -132,8 +138,165 @@ export default {
     this.initPageData()
   },
   mounted () {
+    this.getReservedMessage()
   },
   methods: {
+    onSendMessage (data) {
+      this.ticket.loading = true
+      const title = FormBuilderAssist.getInputsByName(this.inputs, 'title').value
+      const priorityId = FormBuilderAssist.getInputsByName(this.inputs, 'priority_id').value
+
+      APIGateway.ticket.creatTicket({
+        title,
+        is_private: false,
+        priority_id: priorityId,
+        department_id: this.selectedDepartment.id
+      })
+        .then((ticket) => {
+          const ticketId = ticket.id
+          if (Array.isArray(data.files) && data.files.length === 0) {
+            data.ticket_id = ticketId
+            this.sendTicketMessage(data)
+              .then(() => {
+                this.goToShowTicket(ticketId)
+              })
+              .catch(() => {
+                this.ticket.loading = false
+              })
+            return
+          }
+
+          this.prepareFilesForSendMessages(data)
+            .then((uploadAllFilesPromises) => {
+              Promise.all(uploadAllFilesPromises)
+                .then((resolvedItems) => {
+                  // resolvedItem = { file, uploadedPath, presignedUrl, response }
+                  this.sendTicketMessage({
+                    body: data.body,
+                    ticket_id: ticketId,
+                    files: resolvedItems.map(item => item.uploadedFileName)
+                  }, ticketId)
+                    .then(() => {
+                      this.goToShowTicket(ticketId)
+                    })
+                    .catch(() => {
+                      this.ticket.loading = false
+                    })
+                })
+                .catch(() => {
+                  this.ticket.loading = false
+                })
+            })
+            .catch(() => {
+              this.ticket.loading = false
+            })
+        })
+        .catch(() => {
+          this.ticket.loading = false
+        })
+    },
+    prepareFilesForSendMessages (data) {
+      const allFilesPresignedUrlPromises = this.getAllFilesPresignedUrlPromises(data.files)
+      return this.getUploadAllFilesPromises(allFilesPresignedUrlPromises)
+    },
+    getAllFilesPresignedUrlPromises (files) {
+      const promises = []
+      files.forEach((file) => {
+        promises.push(new Promise((resolve, reject) => {
+          APIGateway.ticket.presignedUrl(file.name)
+            .then(({ url, uploadedFileName }) => {
+              resolve({
+                file,
+                presignedUrl: url,
+                uploadedFileName
+              })
+            })
+            .catch(() => {
+              reject({
+                file
+              })
+            })
+        }))
+      })
+
+      return promises
+    },
+    getUploadAllFilesPromises (presignedUrlPromises) {
+      return new Promise((resolve, reject) => {
+        const promises = []
+        Promise.all(presignedUrlPromises)
+          .then((resolves) => {
+            resolves.forEach((resolveItem) => {
+              promises.push(new Promise((resolve, reject) => {
+                APIGateway.fileUpload.uploadFile(resolveItem.presignedUrl, resolveItem.file, (data) => {
+                  // console.log('onUploadProgress data', data)
+                  // console.log('progress: ', data.progress) // in range [0..1]
+                  // {
+                  //   loaded, // number,
+                  //     total, // number,
+                  //     progress, // number, // in range [0..1]
+                  //     bytes, // number, // how many bytes have been transferred since the last trigger (delta)
+                  //     estimated, // number; // estimated time in seconds
+                  //     rate, // number; // upload speed in bytes
+                  //     upload // true; // upload sign
+                  // }
+                  // https://www.npmjs.com/package/axios#-progress-capturing
+                })
+                  .then((response) => {
+                    resolve({
+                      response,
+                      file: resolveItem.file,
+                      presignedUrl: resolveItem.presignedUrl,
+                      uploadedFileName: resolveItem.uploadedFileName,
+                      uploadedPath: resolveItem.presignedUrl.split('?')[0]
+                    })
+                  })
+                  .catch((error) => {
+                    reject({
+                      error,
+                      file: resolveItem.file,
+                      presignedUrl: resolveItem.presignedUrl
+                    })
+                  })
+              }))
+            })
+            resolve(promises)
+          })
+          .catch((e) => {
+            reject(e)
+          })
+      })
+    },
+    sendTicketMessage (ticketMessage) {
+      return new Promise((resolve, reject) => {
+        ticketMessage.body = ticketMessage.body ? ticketMessage.body.replace(/\r?\n/g, '<br/>') : ''
+        this.ticket.loading = true
+        APIGateway.ticket.sendTicketMessage(ticketMessage)
+          .then((ticketMessage) => {
+            this.ticket.loading = false
+            resolve(ticketMessage)
+          })
+          .catch((e) => {
+            this.ticket.loading = false
+            reject(e)
+          })
+      })
+    },
+    goToShowTicket (ticketId) {
+      this.$router.push({ name: this.localOptions.asAdmin ? 'Admin.Ticket.Show' : 'UserPanel.Ticket.Show', params: { id: ticketId } })
+    },
+
+    getReservedMessage () {
+      this.reservedMessageLoading = true
+      APIGateway.ticket.getReservedMessage()
+        .then((reservedMessageList) => {
+          this.reservedMessageList = reservedMessageList
+          this.reservedMessageLoading = false
+        })
+        .catch(() => {
+          this.reservedMessageLoading = false
+        })
+    },
     afterGetAllPageData () {
       this.mounted = true
       this.$nextTick(() => {
@@ -201,8 +364,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.page-content{
+.ticket-create {
   margin: 30px;
+  position: relative;
 }
 
 :deep(.form-builder-separator-col) {
