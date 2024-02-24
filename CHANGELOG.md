@@ -1,3 +1,11 @@
+## [1.4.1](https://git.alaatv.com/web/alaatv_front/compare/v1.4.0...v1.4.1) (2024-02-24)
+
+
+### Bug Fixes
+
+* ttsp panel study plan -> MyStudyPlan in breadCrumbs ([b7b8f45](https://git.alaatv.com/web/alaatv_front/commit/b7b8f45aca5d1a0890bd391103f08065a4a7e1c2))
+* TTSPPanelList.vue API ([a65f41e](https://git.alaatv.com/web/alaatv_front/commit/a65f41e2bae8ed6349cd254cf3d1bc4e631a015f))
+
 # [1.4.0](https://git.alaatv.com/web/alaatv_front/compare/v1.3.0...v1.4.0) (2024-02-24)
 
 
