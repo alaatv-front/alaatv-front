@@ -379,7 +379,7 @@ export default defineComponent({
     },
     onSendVoice (isPrivate) {
       const recordFile = new File([this.recordedVoiceAsBlob], 'recorded-voice.ogg', { type: this.recordedVoiceAsBlob.type })
-      this.sendMessage(null, [recordFile])
+      this.sendMessage(null, [recordFile], isPrivate)
     },
     onSendFiles ({ files, description }) {
       this.hideSelectFilesDialog()
