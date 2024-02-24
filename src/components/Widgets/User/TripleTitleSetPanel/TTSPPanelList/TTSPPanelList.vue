@@ -3,7 +3,7 @@
        :style="localOptions.style">
     <div v-for="(item, index) in panels"
          :key="index"
-         class="col-md-3 col-xs-6">
+         class="col-md-3 col-sm-6 col-xs-12">
       <t-t-s-p-panel-item :item="item"
                           :loading="loading" />
     </div>
