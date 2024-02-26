@@ -712,8 +712,8 @@ export default defineComponent({
   },
   data () {
     return {
-      hourStart: 0,
-      hourEnd: 23
+      hourStart: 2,
+      hourEnd: 20
     }
   },
   computed: {
