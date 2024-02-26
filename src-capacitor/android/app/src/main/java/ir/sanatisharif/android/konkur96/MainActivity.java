@@ -32,12 +32,12 @@ public class MainActivity extends BridgeActivity {
       });
     });
 
-     SentryAndroid.init(this, options -> {
-         options.setDsn("https://0b04621e251a1d80bb8ea5f53f674101@sentry.alaatv.com/6"); // Retrieve the DSN from BuildConfig
-         // Here, you can set release name, environment, etc.
-         // options.setRelease("your release version here");
-         // options.setEnvironment("your environment here");
-     });
+//      SentryAndroid.init(this, options -> {
+//          options.setDsn("https://0b04621e251a1d80bb8ea5f53f674101@sentry.alaatv.com/6"); // Retrieve the DSN from BuildConfig
+//          // Here, you can set release name, environment, etc.
+//          // options.setRelease("your release version here");
+//          // options.setEnvironment("your environment here");
+//      });
     setStatusBarColor();
   }
 
