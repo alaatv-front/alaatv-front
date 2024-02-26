@@ -44,10 +44,12 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { APIGateway } from 'src/api/APIGateway'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { mixinTripleTitleSet, mixinAuth } from 'src/mixin/Mixins.js'
 
 export default defineComponent({
   name: 'PlanReviews',
+  mixins: [mixinTripleTitleSet, mixinAuth],
   props: {
     loading: {
       type: Boolean,
@@ -70,13 +72,13 @@ export default defineComponent({
       this.getReviews()
     }
   },
-  mounted () {
-    this.getReviews()
-  },
   methods: {
+    afterAuthenticate () {
+      this.getReviews()
+    },
     getReviews () {
       this.reviewLoading = true
-      APIGateway.studyPlan.getSystemReport()
+      APIGateway.studyPlan.getSystemReport({ category_id: this.event.study_plan.category_id })
         .then(reportList => {
           this.reviewList = reportList
           this.reviewLoading = false

@@ -21,7 +21,8 @@
               :key="index"
               class="item-list"
               :class="{ 'alone-item': !(item.children && item.children.length) }"
-              :to="{ name: item.routeName, params: item.params }">
+              :to="{ name: item.routeName, params: item.params }"
+              exact>
         <div class="section-title">
           <q-item-section class="list-section">
             {{ item.title }}
@@ -98,54 +99,28 @@ export default {
           active: false,
           children: []
         },
+
+        // {
+        //   title: 'داشبورد راه ابریشم',
+        //   icon: 'ph:compass',
+        //   routeName: 'UserPanel.Asset.Abrisham.Progress',
+        //   permission: 'all',
+        //   active: false,
+        //   children: []
+        // },
+        // {
+        //   title: 'داشبورد راه ابریشم پرو',
+        //   icon: 'ph:compass',
+        //   routeName: 'UserPanel.Asset.AbrishamPro.Progress',
+        //   permission: 'all',
+        //   active: false,
+        //   children: []
+        // },
+
         {
-          title: 'داشبورد راه ابریشم',
-          icon: 'ph:compass',
-          routeName: 'UserPanel.Asset.Abrisham.Progress',
-          permission: 'all',
-          active: false,
-          children: []
-        },
-        {
-          title: 'داشبورد راه ابریشم پرو',
-          icon: 'ph:compass',
-          routeName: 'UserPanel.Asset.AbrishamPro.Progress',
-          permission: 'all',
-          active: false,
-          children: []
-        },
-        {
-          title: 'داشبورد راه ابریشم ۲',
-          icon: 'ph:compass',
-          routeName: 'UserPanel.Asset.TripleTitleSet.Products',
-          params: { eventName: 'abrisham2' },
-          permission: 'all',
-          active: false,
-          children: []
-        },
-        {
-          title: 'داشبورد چترنجات',
-          icon: 'ph:umbrella',
-          routeName: 'UserPanel.Asset.TripleTitleSet.Products',
-          params: { eventName: 'chatre-nejat' },
-          permission: 'all',
-          active: false,
-          children: []
-        },
-        {
-          title: 'داشبورد امتحان نهایی',
-          icon: 'ph:funnel-simple',
-          routeName: 'UserPanel.Asset.TripleTitleSet.Products',
-          params: { eventName: 'emtahan-nahaee' },
-          permission: 'all',
-          active: false,
-          children: []
-        },
-        {
-          title: 'داشبورد 110',
-          icon: 'ph:fire',
-          routeName: 'UserPanel.Asset.TripleTitleSet.Products',
-          params: { eventName: '110' },
+          title: 'داشبورد دوره های آلاء',
+          icon: 'ph:chalkboard-simple',
+          routeName: 'UserPanel.index',
           permission: 'all',
           active: false,
           children: []

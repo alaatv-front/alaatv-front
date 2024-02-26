@@ -20,24 +20,24 @@ public class MainActivity extends BridgeActivity {
     super.onCreate(savedInstanceState);
 
 
-    SentryAndroid.init(this, options -> {
-      options.setDsn("https://0b04621e251a1d80bb8ea5f53f674101@sentry.alaatv.com/6");
-      // Add a callback that will be used before the event is sent to Sentry.
-      // With this callback, you can modify the event or, when returning null, also discard the event.
-      options.setBeforeSend((event, hint) -> {
-        if (SentryLevel.DEBUG.equals(event.getLevel()))
-          return null;
-        else
-          return event;
-      });
-    });
+//     SentryAndroid.init(this, options -> {
+//       options.setDsn("https://0b04621e251a1d80bb8ea5f53f674101@sentry.alaatv.com/6");
+//       // Add a callback that will be used before the event is sent to Sentry.
+//       // With this callback, you can modify the event or, when returning null, also discard the event.
+//       options.setBeforeSend((event, hint) -> {
+//         if (SentryLevel.DEBUG.equals(event.getLevel()))
+//           return null;
+//         else
+//           return event;
+//       });
+//     });
 
-     SentryAndroid.init(this, options -> {
-         options.setDsn("https://0b04621e251a1d80bb8ea5f53f674101@sentry.alaatv.com/6"); // Retrieve the DSN from BuildConfig
-         // Here, you can set release name, environment, etc.
-         // options.setRelease("your release version here");
-         // options.setEnvironment("your environment here");
-     });
+//      SentryAndroid.init(this, options -> {
+//          options.setDsn("https://0b04621e251a1d80bb8ea5f53f674101@sentry.alaatv.com/6"); // Retrieve the DSN from BuildConfig
+//          // Here, you can set release name, environment, etc.
+//          // options.setRelease("your release version here");
+//          // options.setEnvironment("your environment here");
+//      });
     setStatusBarColor();
   }
 
