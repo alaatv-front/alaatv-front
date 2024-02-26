@@ -7,9 +7,9 @@ import androidx.core.content.ContextCompat;
 import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.community.database.sqlite.CapacitorSQLitePlugin;
 
-import io.sentry.BuildConfig;
-import io.sentry.SentryLevel;
-import io.sentry.android.core.SentryAndroid;
+// import io.sentry.BuildConfig;
+// import io.sentry.SentryLevel;
+// import io.sentry.android.core.SentryAndroid;
 
 public class MainActivity extends BridgeActivity {
 

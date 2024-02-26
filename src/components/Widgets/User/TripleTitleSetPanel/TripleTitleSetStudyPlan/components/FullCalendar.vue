@@ -10,7 +10,7 @@
                  class="q-mx-sm q-btn-sm keep-min-width"
                  color="primary"
                  text-color="grey-9"
-                 @click="goToLastWeek" />
+                 @click="goToPrevWeek" />
           <q-btn label="هفته بعد"
                  class="q-mx-sm q-btn-sm keep-min-width"
                  color="primary"
@@ -228,7 +228,6 @@ import { colors } from 'quasar'
 import moment from 'moment-jalaali'
 import Time from 'src/plugins/time.js'
 import { defineComponent, ref } from 'vue'
-import { APIGateway } from 'src/api/APIGateway.js'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
 // import PlanItem from 'components/DashboardTripleTitleSet/Dashboard/PlanItem.vue'
 import planContents from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/PlanContents.vue'
@@ -258,6 +257,7 @@ export default defineComponent({
       default: 'calendar_month'
     }
   },
+  emits: ['changeDate', 'copyPlan', 'editPlan', 'removePlan'],
   setup (props, { emit }) {
     // const emit = defineEmits(['editPlan', 'removePlan'])
     const month = ref([
@@ -712,8 +712,8 @@ export default defineComponent({
   },
   data () {
     return {
-      hourStart: 0,
-      hourEnd: 23
+      hourStart: 2,
+      hourEnd: 20
     }
   },
   computed: {
@@ -730,6 +730,7 @@ export default defineComponent({
   },
   mounted () {
     this.loadCalendar(Time.now(), true)
+    this.loadStudyPlanData()
   },
   methods: {
     getDayOfWeekTitle (dayOfWeekIndex) {
@@ -804,54 +805,35 @@ export default defineComponent({
       this.eventDialog = true
       this.selectedEvent = event
     },
-    getStudyPlanData (eventId, date) {
-      if (date) {
-        this.loadCalendar(moment(date).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
-      }
-      this.loading = true
-      const data = {
-        study_event: eventId || this.studyEvent,
-        since_date: this.chartWeek[0].date,
-        till_date: this.chartWeek[6].date,
-        product_id: this.filteredLessonId ? this.filteredLessonId : null
-      }
-      APIGateway.studyPlan.getStudyPlanData(data)
-        .then(studyPlanList => {
-          this.loading = false
-          this.studyPlanList = studyPlanList
-          for (let w = 0; w < 6; w++) {
-            for (let col = 0; col < 7; col++) {
-              this.month[w][col].events = []
-              for (let e = 0; e < studyPlanList.list.length; e++) {
-                // console.log(res.data.data[e].start_at.substring(0, 10))
-                if (studyPlanList.list[e].plan_date === this.month[w][col].date.toString().split('/').join('-')) {
-                  studyPlanList.list[e].plans.list.forEach(plan => {
-                    this.month[w][col].events.push(plan)
-                  })
-                }
-              }
+    loadStudyPlanData () {
+      for (let w = 0; w < 6; w++) {
+        for (let col = 0; col < 7; col++) {
+          this.month[w][col].events = []
+          for (let e = 0; e < this.events.list.length; e++) {
+            if (this.events.list[e].plan_date === this.month[w][col].date.toString().split('/').join('-')) {
+              this.events.list[e].plans.list.forEach(plan => {
+                this.month[w][col].events.push(plan)
+              })
             }
           }
-        })
-        .catch(() => {
-          this.loading = false
-        })
+        }
+      }
     },
     goToSelectedDate (date) {
       this.loadCalendar(moment(date).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
-      this.getStudyPlanData()
+      this.$emit('changeDate', moment(date).format('YYYY-MM-DD HH:mm:ss'))
     },
     goToNextWeek () {
       // const today = new Date(this.chartWeek[0].date)
       const nextWeek = new Date(new Date(this.chartWeek[0].date).getTime() + 7 * 24 * 60 * 60 * 1000)
       this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
-      this.getStudyPlanData()
+      this.$emit('changeDate', moment(nextWeek).format('YYYY-MM-DD HH:mm:ss'))
     },
-    goToLastWeek () {
+    goToPrevWeek () {
       // const today = new Date(this.calendarDate._i)
-      const nextWeek = new Date(new Date(this.chartWeek[0].date).getTime() - 7 * 24 * 60 * 60 * 1000)
-      this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
-      this.getStudyPlanData()
+      const prevWeek = new Date(new Date(this.chartWeek[0].date).getTime() - 7 * 24 * 60 * 60 * 1000)
+      this.loadCalendar(moment(prevWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
+      this.$emit('changeDate', moment(prevWeek).format('YYYY-MM-DD HH:mm:ss'))
     },
     setCalendarMonth (selectedMonth) {
       const month = this.monthList.indexOf(selectedMonth)
@@ -859,11 +841,11 @@ export default defineComponent({
       moment.loadPersian()
       if (selectedMonth === this.thisMonth) {
         this.loadCalendar(Time.now(), false)
-        this.getStudyPlanData()
+        this.$emit('changeDate', moment(Time.now()).format('YYYY-MM-DD HH:mm:ss'))
       } else {
         const newDate = moment(shamsi, 'jYYYY/jM/jD').format('YYYY-M-D HH:MM:SS')
         this.loadCalendar(newDate, false)
-        this.getStudyPlanData()
+        this.$emit('changeDate', newDate)
       }
     }
   }

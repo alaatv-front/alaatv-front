@@ -1,9 +1,9 @@
 import groovy.json.JsonSlurper
 
-plugins {
-  id "com.android.application"
-  id "io.sentry.android.gradle" version "4.2.0"
-}
+// plugins {
+//   id "com.android.application"
+//   id "io.sentry.android.gradle" version "4.2.0"
+// }
 
 apply plugin: 'com.android.application'
 
