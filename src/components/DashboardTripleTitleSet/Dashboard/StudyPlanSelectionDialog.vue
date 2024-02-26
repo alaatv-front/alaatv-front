@@ -32,7 +32,7 @@
               <div class="col-12 ">
                 <q-select v-model="formData.study_method_id"
                           :options="inputsOptions.studyPlans"
-                          :option-label="opt => opt.title"
+                          :option-label="opt => opt.display_name"
                           :option-value="opt => opt.id"
                           placeholder="انتخاب کنید"
                           emit-value
@@ -120,16 +120,18 @@ export default defineComponent({
         studyPlans: []
       },
       formData: {
-        study_method_id: null,
         major_id: null,
-        grade_id: null
+        grade_id: null,
+        category_id: null,
+        study_method_id: null
       },
       studyPlanSelected: false
     }
   },
   methods: {
-    afterAuthenticate () {
+    afterSetEvent () {
       this.getOptions()
+      this.formData.category_id = this.event.study_plan.category_id
     },
     getOptions () {
       APIGateway.studyPlan.getSelectPlanOptions({ category_id: this.event.study_plan.category_id })

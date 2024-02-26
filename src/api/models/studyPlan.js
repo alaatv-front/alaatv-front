@@ -77,7 +77,9 @@ export default class StudyPlanAPI extends APIRepository {
       resolveCallback: (response) => {
         return {
           id: response.data.data?.id,
-          title: response.data.data?.title,
+          major: response.data.data?.major, // String
+          grade: response.data.data?.grade, // String
+          title: response.data.data?.title, // String
           passed_days: response.data.data?.passed_days,
           count_of_watched_sessions: response.data.data?.count_of_watched_sessions,
           count_of_remained_sessions: response.data.data?.count_of_remained_sessions
@@ -95,9 +97,10 @@ export default class StudyPlanAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.myStudyPlan,
       data: this.getNormalizedSendData({
-        study_method_id: null, // Number
         major_id: null, // Number
-        grade_id: null // Number
+        grade_id: null, // Number
+        category_id: null, // Number
+        study_method_id: null // Number
       }, data),
       resolveCallback: (response) => {
         return new StudyPlan(response.data.data)
@@ -240,9 +243,10 @@ export default class StudyPlanAPI extends APIRepository {
       }, data),
       resolveCallback: (response) => {
         return {
-          grades: response.data?.data?.grades, // list of grades [{id,title}]
-          majors: response.data?.data?.majors, // list of majors [{id,title}]
-          studyPlans: response.data?.data?.studyPlans // List of studyPlans [{id,title}]
+          products: response.data?.data?.products || [], // list of product [{id,title}]
+          grades: response.data?.data?.grades || [], // list of grades [{id,title}]
+          majors: response.data?.data?.majors || [], // list of majors [{id,title}]
+          studyPlans: response.data?.data?.studyPlans || [] // List of studyPlans [{id,title}]
         }
       },
       rejectCallback: (error) => {
@@ -251,13 +255,16 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getSystemReport (cache = { TTL: 1000 }) {
+  getSystemReport (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.systemReport,
       cacheKey: this.CacheList.systemReport,
       ...(cache && { cache }),
+      data: this.getNormalizedSendData({
+        category_id: null // Number
+      }, data),
       resolveCallback: (response) => {
         return response.data.data // List of reviews(reports)
       },
