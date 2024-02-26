@@ -21,7 +21,8 @@
               :key="index"
               class="item-list"
               :class="{ 'alone-item': !(item.children && item.children.length) }"
-              :to="{ name: item.routeName, params: item.params }">
+              :to="{ name: item.routeName, params: item.params }"
+              exact>
         <div class="section-title">
           <q-item-section class="list-section">
             {{ item.title }}
