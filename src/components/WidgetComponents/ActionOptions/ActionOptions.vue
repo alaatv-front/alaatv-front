@@ -1,103 +1,104 @@
 <template>
   <q-card>
     <q-card-section>
-      <div class="row q-col-gutter-md">
-        <div class="col-12">
-          <div class="row q-col-gutter-md">
-            <q-checkbox v-model="hasLink"
-                        label="لینک" />
-          </div>
-        </div>
-        <div v-if="hasLink"
-             class="col-12">
-          <div class="row q-col-gutter-md">
-            <div class="col-md-4 col-12">
-              <div>Route name</div>
-              <q-input v-model="localMenuItem.route.name" />
-            </div>
-            <div class="col-md-4 col-12">
-              <div>Route path</div>
-              <q-input v-model="localMenuItem.route.path" />
-            </div>
-            <div class="col-md-4 col-12">
-              <div>External link</div>
-              <q-input v-model="localMenuItem.externalLink" />
-            </div>
-            <div class="col-md-12 col-12">
-              <div>تگ ها</div>
-              <q-select v-model="localMenuItem.route.query['tags[]']"
-                        label="Mode: 'add'"
-                        filled
-                        use-input
-                        use-chips
-                        multiple
-                        hide-dropdown-icon
-                        input-debounce="0"
-                        new-value-mode="add"
-                        @update:model-value="onUpdateQuery" />
-              <div>
-                در صورت استفاده از تگ فقط به صفحه سرچ محتوا لینک می شود
-              </div>
-            </div>
-          </div>
-        </div>
+      <div>
+        <q-select v-model="localAction"
+                  :options="actionOptions" />
+      </div>
+      <div>
+        <q-tab-panels v-model="localAction"
+                      animated>
+          <q-tab-panel name="scroll">
+            <q-input v-model="localScrollTo"
+                     label="scrollTo" />
+          </q-tab-panel>
+
+          <q-tab-panel name="link">
+            <q-input v-model="localLink"
+                     label="Link" />
+          </q-tab-panel>
+
+          <q-tab-panel name="event">
+            <q-input v-model="localEventName"
+                     label="Event Name" />
+            <q-input v-model="localEventArgs"
+                     label="Event Args" />
+          </q-tab-panel>
+        </q-tab-panels>
       </div>
     </q-card-section>
   </q-card>
 </template>
 
 <script>
-
 export default {
-  name: 'LinkOptionPanel',
+  name: 'ActionOptions',
   props: {
-    menuItem: {
-      type: Object,
-      default: () => {
-        return {}
-      }
+    action: {
+      type: String,
+      default: null
+    },
+    scrollTo: {
+      type: String,
+      default: null
+    },
+    link: {
+      type: String,
+      default: null
+    },
+    eventName: {
+      type: String,
+      default: null
+    },
+    eventArgs: {
+      type: String,
+      default: null
+    }
+  },
+  data () {
+    return {
+      actionOptions: ['scroll', 'link', 'event']
     }
   },
   computed: {
-    hasLink: {
+    localAction: {
       set (newValue) {
-        if (!newValue) {
-          this.localMenuItem.route = {
-            name: '',
-            path: '',
-            query: {
-              'tags[]': []
-            }
-          }
-        } else {
-          delete this.localMenuItem.route
-        }
+        this.$emit('update:action', newValue)
       },
       get () {
-        return !!this.localMenuItem.route
+        return this.action
       }
     },
-    localMenuItem: {
+    localScrollTo: {
       set (newValue) {
-        this.$emit('update:menuItem', newValue)
+        this.$emit('update:scrollTo', newValue)
       },
       get () {
-        const result = this.menuItem
-
-        if (!this.menuItem.route) {
-          result.route = {
-            query: {
-              'tags[]': []
-            }
-          }
-        }
-        if (!this.menuItem.route.query) {
-          result.route.query = {
-            'tags[]': []
-          }
-        }
-
-        return result
+        return this.action
+      }
+    },
+    localLink: {
+      set (newValue) {
+        this.$emit('update:link', newValue)
+      },
+      get () {
+        return this.action
+      }
+    },
+    localEventName: {
+      set (newValue) {
+        this.$emit('update:eventName', newValue)
+      },
+      get () {
+        return this.action
+      }
+    },
+    localEventArgs: {
+      set (newValue) {
+        this.$emit('update:eventArgs', newValue)
+      },
+      get () {
+        return this.action
       }
     }
   },
