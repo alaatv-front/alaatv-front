@@ -79,24 +79,11 @@
             </div>
             <div v-if="localOptions.hasAction"
                  class="action-container">
-              <div>
-                <q-select v-model="localOptions.action.name"
-                          :options="actionTypes" />
-              </div>
-              <div v-if="localOptions.action.name === 'link'">
-                <q-input v-model="localOptions.action.route"
-                         label="route" />
-              </div>
-              <div v-if="localOptions.action.name === 'event'">
-                <q-input v-model="localOptions.action.eventName"
-                         label="event name" />
-                <q-input v-model="localOptions.action.eventArgs"
-                         label="event args" />
-              </div>
-              <div v-if="localOptions.action.name === 'scroll'">
-                <q-input v-model="localOptions.action.scrollTo"
-                         label="scrollTo class" />
-              </div>
+              <action-options v-model:action="localOptions.action.name"
+                              v-model:scroll-to="localOptions.action.scrollTo"
+                              v-model:link="localOptions.action.route"
+                              v-model:event-name="localOptions.action.eventName"
+                              v-model:event-args="localOptions.action.eventArgs" />
             </div>
           </div>
         </div>
@@ -108,12 +95,17 @@
 <script>
 import { defineComponent } from 'vue'
 import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
-import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 import ImageUploadInput from 'src/components/Utils/ImageUploadInput.vue'
+import ActionOptions from 'src/components/WidgetComponents/ActionOptions/ActionOptions.vue'
+import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
-  components: { OptionPanelTabs, ImageUploadInput },
+  components: {
+    ActionOptions,
+    OptionPanelTabs,
+    ImageUploadInput
+  },
   mixins: [mixinOptionPanel],
   data () {
     return {

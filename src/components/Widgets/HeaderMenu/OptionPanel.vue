@@ -8,40 +8,10 @@
                             label="Widget Lists">
             <div class="row items-center text-center q-my-sm">
               <div class="col-12">
-                <q-tabs v-model="size">
-                  <q-tab v-for="(sizeItem, index) in sizeOptions"
-                         :key="index"
-                         :name="sizeItem"
-                         :label="sizeItem" />
-                </q-tabs>
-              </div>
-              <div class="col-12">
-                <q-tab-panels v-model="size"
-                              animated>
-                  <q-tab-panel v-for="(sizeItem, index) in sizeOptions"
-                               :key="index"
-                               :name="sizeItem.value">
-                    <div class="row q-col-gutter-md">
-                      <div class="col-12 col-md-6">
-                        <q-input v-model="localOptions.breakpoints[size].itemsToShow"
-                                 type="number"
-                                 :label="`itemsToShow-${sizeItem.label}`" />
-                      </div>
-                      <div class="col-12 col-md-6">
-                        <q-select v-model="localOptions.breakpoints[size].snapAlign"
-                                  :options="snapAlignOptions"
-                                  :label="`snapAlign-${sizeItem.label}`" />
-                      </div>
-                    </div>
-                  </q-tab-panel>
-                </q-tab-panels>
-              </div>
-              <div class="col-12">
-                <q-tab-panels v-model="size"
-                              animated>
-                  <q-tab-panel v-for="(sizeItem, index) in sizeOptions"
-                               :key="index"
-                               :name="sizeItem">
+                <responsive-size-tab-panel v-model:size="size">
+                  <template v-for="sizeItem in sizeOptions"
+                            :key="sizeItem"
+                            v-slot:[sizeItem]>
                     <div class="row q-col-gutter-md">
                       <div class="col-12">
                         <q-expansion-item :label="'rightWidgets'">
@@ -229,8 +199,8 @@
                         </q-expansion-item>
                       </div>
                     </div>
-                  </q-tab-panel>
-                </q-tab-panels>
+                  </template>
+                </responsive-size-tab-panel>
               </div>
             </div>
           </q-expansion-item>
@@ -274,36 +244,18 @@
                             label="hasAction" />
               </div>
               <div v-if="localOptions.hasAction"
-                   class="col-md-10">
-                <div class="row q-col-gutter-md">
-                  <div class="input-container col-md-3 q-py-md">
-                    <q-select v-model="localOptions.actionObject.type"
-                              label="type"
-                              :options="actionObjectTypeOptions" />
-                  </div>
-                  <div class="input-container col-md-3 q-py-md">
+                   class="col-md-12">
+                <div class="row">
+                  <div class="input-container col-md-6">
                     <q-input v-model="localOptions.actionObject.buttonLabel"
                              label="buttonLabel" />
                   </div>
-                  <div v-if="localOptions.actionObject.type === 'scroll'"
-                       class="input-container col-md-3 q-py-md">
-                    <q-input v-model="localOptions.actionObject.scrollTo"
-                             label="scrollTo" />
-                  </div>
-                  <div v-if="localOptions.actionObject.type === 'link'"
-                       class="input-container col-md-3 q-py-md">
-                    <q-input v-model="localOptions.actionObject.route"
-                             label="route" />
-                  </div>
-                  <div v-if="localOptions.actionObject.type === 'event'"
-                       class="input-container col-md-3 q-py-md">
-                    <q-input v-model="localOptions.actionObject.eventName"
-                             label="eventName" />
-                  </div>
-                  <div v-if="localOptions.actionObject.type === 'event'"
-                       class="input-container col-md-3 q-py-md">
-                    <q-input v-model="localOptions.actionObject.eventArgs"
-                             label="eventArgs" />
+                  <div class="col-12">
+                    <action-options v-model:action="localOptions.actionObject.type"
+                                    v-model:scroll-to="localOptions.actionObject.scrollTo"
+                                    v-model:link="localOptions.actionObject.route"
+                                    v-model:event-name="localOptions.actionObject.eventName"
+                                    v-model:event-args="localOptions.actionObject.eventArgs" />
                   </div>
                 </div>
               </div>
@@ -378,22 +330,26 @@
 <script>
 import { defineComponent } from 'vue'
 import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
-import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
+import TimerOptionPanel from 'components/Widgets/Timer/OptionPanel.vue'
 import TextWidgetOptionPanel from 'components/Widgets/TextWidget/OptionPanel.vue'
 import ImageWidgetOptionPanel from 'components/Widgets/ImageWidget/OptionPanel.vue'
 import ActionButtonOptionPanel from 'components/Widgets/ActionButton/OptionPanel.vue'
-import TimerOptionPanel from 'components/Widgets/Timer/OptionPanel.vue'
+import ActionOptions from 'src/components/WidgetComponents/ActionOptions/ActionOptions.vue'
+import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
+import ResponsiveSizeTabPanel from 'src/components/WidgetComponents/ResponsiveSizeTabPanel/ResponsiveSizeTabPanel.vue'
 import ResponsiveBackGround from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/ResponsiveBackGround/ResponsiveBackGround.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
   components: {
+    ActionOptions,
     OptionPanelTabs,
+    TimerOptionPanel,
+    ResponsiveBackGround,
     TextWidgetOptionPanel,
     ImageWidgetOptionPanel,
-    ActionButtonOptionPanel,
-    TimerOptionPanel,
-    ResponsiveBackGround
+    ResponsiveSizeTabPanel,
+    ActionButtonOptionPanel
   },
   mixins: [mixinOptionPanel],
   props: {

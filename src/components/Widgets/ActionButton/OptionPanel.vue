@@ -301,13 +301,13 @@
 <script>
 import { defineComponent } from 'vue'
 import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
+import ImageUploadInput from 'components/Utils/ImageUploadInput.vue'
 import TimerOptionPanel from 'src/components/Widgets/Timer/OptionPanel.vue'
 import SeparatorOptionPanel from 'src/components/Widgets/Separator/OptionPanel.vue'
 import TextWidgetOptionPanel from 'src/components/Widgets/TextWidget/OptionPanel.vue'
 import ImageWidgetOptionPanel from 'src/components/Widgets/ImageWidget/OptionPanel.vue'
 import ActionOptions from 'src/components/WidgetComponents/ActionOptions/ActionOptions.vue'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
-import ImageUploadInput from 'components/Utils/ImageUploadInput.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
