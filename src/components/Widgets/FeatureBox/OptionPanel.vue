@@ -6,42 +6,47 @@
                      :show-border-style-tab="true">
     <template #main-tab>
       <div class="option-panel-container row q-col-gutter-md">
-        <div class="col-md-2">
-          <q-select v-model="size"
-                    :options="sizeOptions"
-                    label="سایز" />
-        </div>
-        <div class="col-md-2">
-          <q-checkbox v-model="localOptions.horizontal[size]"
-                      label="افقی" />
-        </div>
-        <div class="col-md-2">
-          <q-checkbox v-model="localOptions.horizontalTitle[size]"
-                      label="عنوان افقی" />
-        </div>
-        <div class="col-md-2">
-          <q-checkbox v-model="localOptions.hasImage"
-                      label="عکس" />
-        </div>
-        <div class="col-md-2">
-          <q-checkbox v-model="localOptions.hoverImage"
-                      label="hoverImage" />
-        </div>
+
         <div class="col-12">
           <q-expansion-item expand-separator
-                            icon="image"
+                            icon="ph:align-center-horizontal"
+                            label="horizontal">
+            <responsive-size-tab-panel v-model:size="size">
+              <template v-for="sizeItem in sizeOptions"
+                        :key="sizeItem"
+                        v-slot:[sizeItem]>
+                <q-checkbox v-model="localOptions.horizontal[sizeItem]"
+                            label="افقی" />
+                <q-checkbox v-model="localOptions.horizontalTitle[sizeItem]"
+                            label="عنوان افقی" />
+              </template>
+            </responsive-size-tab-panel>
+          </q-expansion-item>
+          <q-expansion-item expand-separator
+                            icon="ph:images"
                             label="backgrounds">
             <responsive-back-ground v-model:options="localOptions.backgrounds" />
           </q-expansion-item>
-        </div>
-        <div class="col-12">
           <q-expansion-item expand-separator
-                            icon="image"
+                            icon="ph:image"
                             label="image settings">
-            <image-widget-option-panel v-model:options="localOptions.imageWidgetOptions" />
+            <div class="row q-my-md q-col-gutter-md">
+              <div class="col-md-2">
+                <q-checkbox v-model="localOptions.hasImage"
+                            label="عکس" />
+              </div>
+              <div class="col-md-2">
+                <q-checkbox v-model="localOptions.hoverImage"
+                            label="hoverImage" />
+              </div>
+              <div class="col-12">
+                <q-separator space />
+              </div>
+            </div>
+
+            <image-widget-option-panel v-if="localOptions.hasImage"
+                                       v-model:options="localOptions.imageWidgetOptions" />
           </q-expansion-item>
-        </div>
-        <div class="input-container col-md-12">
           <q-expansion-item icon="title"
                             label="title">
             <q-card>
@@ -50,8 +55,6 @@
               </q-card-section>
             </q-card>
           </q-expansion-item>
-        </div>
-        <div class="input-container col-md-12">
           <q-expansion-item icon="description"
                             label="description">
             <q-card>
@@ -67,19 +70,21 @@
 </template>
 <script>
 import { defineComponent } from 'vue'
-import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
-import ResponsiveBackGround from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/ResponsiveBackGround/ResponsiveBackGround.vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 import textOptionPanel from 'src/components/Widgets/TextWidget/OptionPanel.vue'
 import ImageWidgetOptionPanel from 'src/components/Widgets/ImageWidget/OptionPanel.vue'
+import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
+import ResponsiveSizeTabPanel from 'src/components/WidgetComponents/ResponsiveSizeTabPanel/ResponsiveSizeTabPanel.vue'
+import ResponsiveBackGround from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/ResponsiveBackGround/ResponsiveBackGround.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
   components: {
     OptionPanelTabs,
     textOptionPanel,
+    ResponsiveBackGround,
     ImageWidgetOptionPanel,
-    ResponsiveBackGround
+    ResponsiveSizeTabPanel
   },
   mixins: [PageBuilderOptionPanel],
   data () {
