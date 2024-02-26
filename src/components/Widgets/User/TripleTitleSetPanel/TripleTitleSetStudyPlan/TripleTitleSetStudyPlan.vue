@@ -39,12 +39,14 @@
     <q-linear-progress v-if="loading"
                        indeterminate />
     <div class="col-12 calendar">
-      <full-calendar ref="fullCalendar"
+      <full-calendar v-if="studyPlanListLoaded"
+                     ref="fullCalendar"
                      :study-event="studyEvent"
                      :events="studyPlanList"
                      :filtered-lesson="filteredLesson"
                      @edit-plan="editPlan"
                      @copy-plan="copyPlan"
+                     @change-date="onChangeDateOfFullcalendar"
                      @remove-plan="openRemovePlanWarning" />
     </div>
     <q-dialog v-model="newPlanDialog">
@@ -311,6 +313,7 @@
 
 <script>
 import { shallowRef } from 'vue'
+import moment from 'moment-jalaali'
 import { Set } from 'src/models/Set.js'
 import { EntityEdit } from 'quasar-crud'
 import { Major } from 'src/models/Major.js'
@@ -326,9 +329,12 @@ import SessionInfoComponent
   from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/SessionInfo.vue'
 import FormBuilderInputStudyPlanContentsSelector
   from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/FormBuilderInputStudyPlanContentsSelector.vue'
+import Time from 'src/plugins/time.js'
 
 const SessionInfoComponentComp = shallowRef(SessionInfoComponent)
 const ContentsComponentComp = shallowRef(FormBuilderInputStudyPlanContentsSelector)
+
+moment.loadPersian()
 
 export default {
   name: 'TripleTitleSetStudyPlan',
@@ -351,13 +357,18 @@ export default {
       isAdmin: false,
       needToUpdatePlan: false,
       studyPlanList: new StudyPlanList(),
+      studyPlanListLoaded: false,
       selectedContentList: [],
       planSettings: false,
       acceptPlan: false,
       warning: false,
       successChangePlan: false,
       selectedDate: null,
-      planType: {},
+      planType: {
+        id: null,
+        title: null,
+        display_name: null
+      },
       studyEvent: null,
       planOptions: [],
       major: {},
@@ -681,6 +692,9 @@ export default {
       FormBuilderAssist.setAttributeByName(this.inputs, 'description', 'value', event.description)
       this.newPlanDialog = true
     },
+    onChangeDateOfFullcalendar (newDate) {
+      this.getStudyPlanData(newDate)
+    },
     openRemovePlanWarning (event) {
       this.removePlanWarning = true
       this.selectedPlanId = event.id
@@ -689,7 +703,7 @@ export default {
       this.loading = true
       APIGateway.studyPlan.removePlan(this.selectedPlanId)
         .then(() => {
-          this.$refs.fullCalendar.getStudyPlanData()
+          this.getStudyPlanData()
           this.removePlanWarning = false
           this.loading = false
         })
@@ -787,7 +801,7 @@ export default {
               if (studtPlan.id !== this.studyEvent) {
                 this.updateMyStudyPlan(data)
               } else {
-                this.$refs.fullCalendar.getStudyPlanData(studtPlan.id)
+                this.getStudyPlanData()
               }
               this.loading = false
             })
@@ -810,7 +824,7 @@ export default {
           if (this.isPlanChanged) {
             this.updateMyStudyPlan()
           } else {
-            this.$refs.fullCalendar.getStudyPlanData(this.studyEvent)
+            this.getStudyPlanData()
           }
         })
         .catch(() => {
@@ -841,7 +855,7 @@ export default {
           this.currentStudyPlan = studyPlan
           this.planType.display_name = studyPlan.title
           this.studyEvent = studyPlan.id
-          this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
+          this.getStudyPlanData()
           this.loading = false
         })
         .catch(() => {
@@ -862,7 +876,11 @@ export default {
             lesson_name: 'همه',
             id: null
           })
-          this.planType = options.studyPlans.find(studyPlan => studyPlan.display_name === this.planType.display_name) || {}
+          this.planType = options.studyPlans.find(studyPlan => studyPlan.display_name === this.planType.display_name) || {
+            id: null,
+            title: null,
+            display_name: null
+          }
           this.setInputAttrByName(this.inputs, 'major_id', 'options', options.majors)
           this.setInputAttrByName(this.inputs, 'grade_id', 'options', options.grades)
           this.setInputAttrByName(this.inputs, 'study_method_id', 'options', options.studyPlans)
@@ -921,12 +939,34 @@ export default {
         .then(studyPlan => {
           this.getMyStudyPlan()
           this.studyEvent = studyPlan.id
-          this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
+          this.getStudyPlanData()
           this.loading = false
           this.successChangePlan = true
         })
         .catch(() => {
           this.loading = false
+        })
+    },
+    getStudyPlanData (date) {
+      this.studyPlanListLoaded = false
+      this.studyPlanList.loading = true
+      const now = date || moment(Time.now())
+      const day0 = now.clone().weekday(0).format('YYYY/MM/DD')
+      const day6 = now.clone().weekday(6).format('YYYY/MM/DD')
+      APIGateway.studyPlan.getStudyPlanData({
+        study_event: this.studyEvent,
+        product_id: this.filteredLesson,
+        till_date: day6,
+        since_date: day0
+      })
+        .then(studyPlanList => {
+          this.studyPlanList.loading = false
+          this.studyPlanList = studyPlanList
+          this.studyPlanListLoaded = true
+        })
+        .catch(() => {
+          this.studyPlanList.loading = false
+          this.studyPlanListLoaded = false
         })
     }
   }
