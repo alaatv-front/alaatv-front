@@ -37,10 +37,13 @@
              @click="newPlanDialog = true" />
     </div>
     <q-linear-progress v-if="loading"
+                       class="q-mt-md"
                        indeterminate />
     <div class="col-12 calendar">
       <full-calendar v-if="studyPlanListLoaded"
                      ref="fullCalendar"
+                     :hour-start="firstStartTime"
+                     :hour-end="lastEndTime"
                      :study-event="studyEvent"
                      :events="studyPlanList"
                      :filtered-lesson="filteredLesson"
@@ -48,6 +51,14 @@
                      @copy-plan="copyPlan"
                      @change-date="onChangeDateOfFullcalendar"
                      @remove-plan="openRemovePlanWarning" />
+      <div v-else
+           class="text-center q-mt-xl">
+        <q-circular-progress size="100px"
+                             color="primary"
+                             :thickness="0.08"
+                             track-color="grey-3"
+                             indeterminate />
+      </div>
     </div>
     <q-dialog v-model="newPlanDialog">
       <q-card class="new-theme">
@@ -349,6 +360,8 @@ export default {
     return {
       loading: false,
       api: APIGateway.studyPlan.APIAdresses.plan,
+      firstStartTime: 23,
+      lastEndTime: 0,
       selectedPlanId: null,
       newPlanDialog: false,
       editPlanDialog: false,
@@ -960,6 +973,16 @@ export default {
         since_date: day0
       })
         .then(studyPlanList => {
+          studyPlanList.list.forEach(studyPlan => {
+            studyPlan.plans.list.forEach(plan => {
+              if (this.firstStartTime > moment(plan.start, 'HH:mm:ss').hours()) {
+                this.firstStartTime = moment(plan.start, 'HH:mm:ss').hours() - 1
+              }
+              if (this.lastEndTime < moment(plan.end, 'HH:mm:ss').hours()) {
+                this.lastEndTime = moment(plan.end, 'HH:mm:ss').hours() + 1
+              }
+            })
+          })
           this.studyPlanList.loading = false
           this.studyPlanList = studyPlanList
           this.studyPlanListLoaded = true
