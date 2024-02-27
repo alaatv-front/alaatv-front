@@ -4,6 +4,7 @@ import { Content } from 'src/models/Content'
 import { ProductList } from 'src/models/Product'
 import { Comment } from 'src/models/Comment'
 import { APIGateway } from 'src/api/APIGateway'
+
 const APIAdresses = {
   base: '/c',
   search: '/search',
@@ -139,9 +140,8 @@ export default class ContentAPI extends APIRepository {
       cacheKey: this.CacheList.showAdmin(contentId),
       ...(cache && { cache }),
       resolveCallback: (response) => {
-        const content = new Content(response.data.data)
         // fillFakeData(content)
-        return content
+        return new Content(response.data.data)
       },
       rejectCallback: (error) => {
         return error

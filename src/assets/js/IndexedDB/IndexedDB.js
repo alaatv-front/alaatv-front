@@ -43,7 +43,7 @@ const AppIndexedDB = (function () {
   function getTransaction (db, objectStoreName, readonly = false) {
     const transaction = db.transaction(objectStoreName, readonly ? 'readonly' : 'readwrite')// add success event handleer for transaction
     // you should also add onerror, onabort event handlers
-    transaction.onerror = function (event) {
+    transaction.onerror = function () {
       if (transaction.error === null) {
         return
       }
@@ -66,7 +66,7 @@ const AppIndexedDB = (function () {
         }
       }
     }
-    transaction.onsuccess = function (event) {
+    transaction.onsuccess = function () {
       if (debugMode) {
         // console.warn('[Transaction] ALL DONE!')
       }

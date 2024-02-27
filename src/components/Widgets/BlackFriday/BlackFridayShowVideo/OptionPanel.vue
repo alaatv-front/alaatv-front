@@ -16,6 +16,22 @@
         <q-checkbox v-model="localOptions.popupForFirstVideo"
                     label="popup for first video" />
       </div>
+      <div>
+        <q-checkbox v-model="localOptions.showBtn"
+                    label="show Btn" />
+      </div>
+      <div>
+        <q-checkbox v-model="localOptions.disablePlaybackRateMenuButton"
+                    label="disable Playback Rate Menu Button" />
+      </div>
+      <div>
+        <q-checkbox v-model="localOptions.disableProgressControl"
+                    label="disable Progress Control" />
+      </div>
+      <div>
+        <q-checkbox v-model="localOptions.fromFirstIndex"
+                    label="from First Index" />
+      </div>
     </template>
   </option-panel-tabs>
 </template>
@@ -41,9 +57,13 @@ export default defineComponent({
   data () {
     return {
       defaultOptions: {
+        showBtn: false,
+        fromFirstIndex: false,
         scrollToProducts: null,
         popupForFirstVideo: true,
-        scrollToParticipateSection: null
+        disableProgressControl: true,
+        scrollToParticipateSection: null,
+        disablePlaybackRateMenuButton: true
       }
     }
   }

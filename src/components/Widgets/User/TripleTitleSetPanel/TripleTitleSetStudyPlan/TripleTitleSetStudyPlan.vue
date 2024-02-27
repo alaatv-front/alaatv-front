@@ -789,7 +789,7 @@ export default {
         })
       })
       Promise.all(eventPromises)
-        .then((plans) => {
+        .then(() => {
           FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'value', [])
           const data = {
             major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id').value[0],

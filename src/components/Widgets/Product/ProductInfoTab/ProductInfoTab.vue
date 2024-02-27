@@ -321,7 +321,8 @@ export default defineComponent({
       this.loading = true
       this.$apiGateway.product.getSets(this.productId)
         .then((setList) => {
-          const normalizedSets = setList.list.map(set => {
+          // normalizedSets
+          this.setList = setList.list.map(set => {
             if (set.short_title !== null) {
               const splitted = set.short_title.split('-')
               const productName = splitted[0] ? splitted[0].trim() : 'متفرقه'
@@ -335,8 +336,6 @@ export default defineComponent({
               return set
             }
           })
-
-          this.setList = normalizedSets
           this.loading = false
         }).catch(() => {
           this.loading = false
