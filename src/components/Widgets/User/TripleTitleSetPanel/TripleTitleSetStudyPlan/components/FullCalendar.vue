@@ -605,12 +605,14 @@ export default defineComponent({
             month.value[w][col].date = today.format('YYYY/MM/DD')
             month.value[w][col].num = dayCounter - dayNum.value
             month.value[w][col].monthName = moment(today).locale('fa').format('jMMMM')
-            month.value[w][col].persianDate = new Date(today).toLocaleDateString('fa-IR')
+            const persianDate = new Date(today).toLocaleDateString('fa-IR')
+            month.value[w][col].persianDate = persianDate
             dayCounter++
           } else {
             month.value[w][col].num = dayCounter
             month.value[w][col].date = calendarDate.value.startOf('jMonth').add(dayCounter - 1, 'd').format('YYYY/MM/DD')
-            month.value[w][col].persianDate = new Intl.DateTimeFormat('fa-IR').format(calendarDate.value.startOf('jMonth').add(dayCounter - 1, 'd'))
+            const persianDate = new Intl.DateTimeFormat('fa-IR').format(calendarDate.value.startOf('jMonth').add(dayCounter - 1, 'd'))
+            month.value[w][col].persianDate = persianDate
             dayCounter++
           }
         }
@@ -626,7 +628,7 @@ export default defineComponent({
       }
     }
 
-    const setAttr = () => {
+    const setAttr = (event) => {
       // console.log(document.getSelection(), event)
     }
 
@@ -711,8 +713,8 @@ export default defineComponent({
   },
   data () {
     return {
-      hourStart: 2,
-      hourEnd: 20
+      hourStart: 0,
+      hourEnd: 23
     }
   },
   computed: {
