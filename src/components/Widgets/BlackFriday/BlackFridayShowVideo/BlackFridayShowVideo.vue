@@ -7,6 +7,9 @@
     <template v-else>
       <video-section class="show-video-section"
                      :video="selectedVideo"
+                     :show-btn="localOptions.showBtn"
+                     :disable-playback-rate-menu-button="localOptions.disablePlaybackRateMenuButton"
+                     :disable-progress-control="localOptions.disableProgressControl"
                      @clickOnLockedState="clickOnLockedState"
                      @watched="onWatched"
                      @play="onPlay"
@@ -52,9 +55,13 @@ export default defineComponent({
       videoDialogState: null,
       blackFridayCampaignData: new BlackFridayCampaignData(),
       defaultOptions: {
+        showBtn: false,
+        fromFirstIndex: false,
         scrollToProducts: null,
         popupForFirstVideo: true,
-        scrollToParticipateSection: null
+        disableProgressControl: true,
+        scrollToParticipateSection: null,
+        disablePlaybackRateMenuButton: true
       }
     }
   },
@@ -69,6 +76,10 @@ export default defineComponent({
     selectedVideoIndex () {
       if (this.blackFridayCampaignData.videos.list.length === 0) {
         return null
+      }
+
+      if (this.localOptions.fromFirstIndex) {
+        return 0
       }
 
       const selectedVideoIndex = this.blackFridayCampaignData.videos.list.findIndex(video => video.selected)

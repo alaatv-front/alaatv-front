@@ -164,7 +164,7 @@ export default {
     }
   },
   watch: {
-    productFlatListLength (vale) {
+    productFlatListLength () {
       this.loading = true
       this.getProductsPromise()
         .then(productList => {

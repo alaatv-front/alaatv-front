@@ -1,16 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-def getEnvProperties() {
-    def envProperties = new Properties()
-
-    file("../../.env").withInputStream {
-        stream -> envProperties.load(stream)
-    }
-
-    return envProperties
-}
-
-def envVars = getEnvProperties()
+//def getEnvProperties() {
+//    def envProperties = new Properties()
+//
+//    file("../../.env").withInputStream {
+//        stream -> envProperties.load(stream)
+//    }
+//
+//    return envProperties
+//}
+//
+//def envVars = getEnvProperties()
 
 buildscript {
 
