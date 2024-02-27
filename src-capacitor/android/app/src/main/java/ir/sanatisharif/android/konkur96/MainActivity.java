@@ -7,9 +7,10 @@ import androidx.core.content.ContextCompat;
 import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.community.database.sqlite.CapacitorSQLitePlugin;
 
-import io.sentry.BuildConfig;
-import io.sentry.SentryLevel;
-import io.sentry.android.core.SentryAndroid;
+// import android.util.Log;
+// import io.sentry.SentryLevel;
+// import io.sentry.android.core.BuildConfig;
+// import io.sentry.android.core.SentryAndroid;
 
 public class MainActivity extends BridgeActivity {
 
@@ -20,24 +21,35 @@ public class MainActivity extends BridgeActivity {
     super.onCreate(savedInstanceState);
 
 
-    SentryAndroid.init(this, options -> {
-      options.setDsn("http://38212ccd900490677dcf90bd12447f30@sentry.alaa.tv/3");
-      // Add a callback that will be used before the event is sent to Sentry.
-      // With this callback, you can modify the event or, when returning null, also discard the event.
-      options.setBeforeSend((event, hint) -> {
-        if (SentryLevel.DEBUG.equals(event.getLevel()))
-          return null;
-        else
-          return event;
-      });
-    });
 
-     SentryAndroid.init(this, options -> {
-         options.setDsn("http://38212ccd900490677dcf90bd12447f30@sentry.alaa.tv/3"); // Retrieve the DSN from BuildConfig
-         // Here, you can set release name, environment, etc.
-         // options.setRelease("your release version here");
-         // options.setEnvironment("your environment here");
-     });
+//    SentryAndroid.init(this, options -> {
+//      options.setDsn(BuildConfig.SENTRY_DSN); // Retrieve the DSN from BuildConfig
+//      // Here, you can set release name, environment, etc.
+//      // options.setRelease("your release version here");
+//      // options.setEnvironment("your environment here");
+//    });
+
+//     Log.i("BuildConfig:");
+//     Log.i(BuildConfig.ANDROID_SENTRY_DSN);
+//     SentryAndroid.init(this, options -> {
+//       options.setDsn(BuildConfig.ANDROID_SENTRY_DSN); // Retrieve the DSN from BuildConfig
+// //      options.setDsn("https://0b04621e251a1d80bb8ea5f53f674101@sentry.alaatv.com/6");
+//       // Add a callback that will be used before the event is sent to Sentry.
+//       // With this callback, you can modify the event or, when returning null, also discard the event.
+//       options.setBeforeSend((event, hint) -> {
+//         if (SentryLevel.DEBUG.equals(event.getLevel()))
+//           return null;
+//         else
+//           return event;
+//       });
+//     });
+
+//     SentryAndroid.init(this, options -> {
+//         options.setDsn("https://0b04621e251a1d80bb8ea5f53f674101@sentry.alaatv.com/6"); // Retrieve the DSN from BuildConfig
+//         // Here, you can set release name, environment, etc.
+//         // options.setRelease("your release version here");
+//         // options.setEnvironment("your environment here");
+//     });
     setStatusBarColor();
   }
 
