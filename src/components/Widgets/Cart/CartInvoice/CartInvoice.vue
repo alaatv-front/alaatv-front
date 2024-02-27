@@ -30,7 +30,7 @@
               <q-card-section class="invoice-total-price-section invoice-cart-section">
                 <div v-if="localOptions.hasTotalPrice"
                      class="total-shopping-cart price-section">
-                  <div class="title">{{localOptions.totalPrice}}{{ `(${cart.count})` }}</div>
+                  <div class="title">{{ localOptions.totalPrice }}{{ `(${cart.count})` }}</div>
                   <div class="price">
                     {{ totalBasePrice }}
                     <span class="iran-money-unit">تومان</span>
@@ -39,7 +39,7 @@
 
                 <div v-if="localOptions.hasUseWallet"
                      class="wallet-credit price-section">
-                  <div class="title">{{localOptions.useWallet}}</div>
+                  <div class="title">{{ localOptions.useWallet }}</div>
                   <div class="price">
                     {{ amountUsingWallet.toLocaleString('fa') }}
                     <span class="iran-money-unit">تومان</span>
@@ -48,7 +48,7 @@
 
                 <div v-if="discountInPercent && localOptions.hasPurchaseProfit"
                      class="purchase-profit price-section">
-                  <div class="title">{{localOptions.purchaseProfit}}</div>
+                  <div class="title">{{ localOptions.purchaseProfit }}</div>
                   <div class="price">
                     {{ `(${discountInPercent}٪) ` + totalDiscount }}
                     <span class="iran-money-unit">تومان</span>
@@ -118,7 +118,7 @@
               <q-card-section class="payment-section invoice-cart-section">
                 <div v-if="localOptions.hasFinalPrice"
                      class="final-price price-section">
-                  <div class="title">{{localOptions.finalPrice}}</div>
+                  <div class="title">{{ localOptions.finalPrice }}</div>
                   <div class="price">
                     {{ totalFinalPrice }}
                     <span class="iran-money-unit">تومان</span>
@@ -127,7 +127,7 @@
 
                 <div class="payment-gateway row">
                   <template v-if="localOptions.hasPaymentMethod && !localOptions.dense">
-                    <div class="payment-title col-12">{{localOptions.paymentMethod}}</div>
+                    <div class="payment-title col-12">{{ localOptions.paymentMethod }}</div>
                     <div class="banks-gateway-list col-12">
                       <div class="row q-col-gutter-sm">
                         <template v-if="gateways.loading">
@@ -175,7 +175,7 @@
                     <div class="payment-button payment-button-desktop-view"
                          :class="{ 'payment-button-disable': !selectedBank}"
                          @click="payment">
-                      {{localOptions.paymentBtn}}
+                      {{ localOptions.paymentBtn }}
                     </div>
                   </div>
                 </div>
@@ -204,8 +204,11 @@
               <div class="login-text bg-green-3 q-px-md q-mt-lg q-mx-md">
                 <div class="bg-grey-3 q-pa-md text-center text-grey-9">
                   <p>پیش از ثبت سفارش وارد حساب کاربری خود شوید</p>
-                  <p>اگر حساب کاربری در آلاء ندارید با وارد کردن شماره همراه و کد ملی خود میتوانید به سادگی حساب خود را ایجاد
-                    کنید</p>
+                  <p>
+                    اگر حساب کاربری در آلاء ندارید با وارد کردن شماره همراه و کد ملی خود میتوانید به سادگی حساب خود را
+                    ایجاد
+                    کنید
+                  </p>
                 </div>
               </div>
               <auth-login :default-layout="false"
@@ -525,24 +528,31 @@ export default {
         })
     },
 
+    ewanoPayment () {
+      this.$store.commit('loading/loading', true)
+      APIGateway.ewano.makeOrder()
+        .then(({ ewanoOrderId, alaaOrderId, amount }) => {
+          this.ewanoCallbackUrlRouteObject = {
+            name: 'UserPanel.ThankYouPage',
+            params: { orderId: alaaOrderId },
+            query: { ewano_order_id: ewanoOrderId, ewano: 1 }
+          }
+          const callbackUrl = this.$router.resolve(this.ewanoCallbackUrlRouteObject).fullPath
+          this.$store.commit('loading/loading', false)
+          Ewano.pay(amount, ewanoOrderId, callbackUrl)
+        })
+        .catch((e) => {
+          console.error('ewano error', e)
+          this.$q.notify({
+            type: 'negative',
+            message: 'لطفا مجدد تلاش کنید.'
+          })
+          this.$store.commit('loading/loading', false)
+        })
+    },
     payment () {
       if (this.isEwanoUser) {
-        this.$store.commit('loading/loading', true)
-        APIGateway.ewano.makeOrder()
-          .then(({ ewanoOrderId, alaaOrderId, amount }) => {
-            this.ewanoCallbackUrlRouteObject = { name: 'UserPanel.ThankYouPage', params: { orderId: alaaOrderId }, query: { ewano_order_id: ewanoOrderId, ewano: 1 } }
-            const callbackUrl = this.$router.resolve(this.ewanoCallbackUrlRouteObject).fullPath
-            this.$store.commit('loading/loading', false)
-            Ewano.pay(amount, ewanoOrderId, callbackUrl)
-          })
-          .catch((e) => {
-            console.error('ewano error', e)
-            this.$q.notify({
-              type: 'negative',
-              message: 'لطفا مجدد تلاش کنید.'
-            })
-            this.$store.commit('loading/loading', false)
-          })
+        this.ewanoPayment()
         return
       }
 
@@ -553,13 +563,14 @@ export default {
         })
         return
       }
-      this.$store.commit('loading/loading', true)
 
+      this.$store.commit('loading/loading', true)
       this.$store.dispatch('Cart/paymentCheckout', this.selectedBank)
         .then((encryptedPaymentRedirectLink) => {
           window.open(encryptedPaymentRedirectLink, '_self')
           this.$store.commit('loading/loading', false)
-        }).catch(() => {
+        })
+        .catch(() => {
           this.$store.commit('loading/loading', false)
         })
     },
@@ -800,7 +811,7 @@ export default {
                     }
 
                     .q-radio {
-                      width: calc( 100% - 64px );
+                      width: calc(100% - 64px);
                       justify-content: space-between;
                     }
 
