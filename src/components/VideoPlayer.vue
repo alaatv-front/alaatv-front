@@ -647,7 +647,9 @@ export default {
 
       this.player.on('play', () => {
         this.$emit('play')
-        this.$refs.videoPlayer.focus()
+        if (!this.disableProgressControl) {
+          this.$refs.videoPlayer.focus()
+        }
       })
       this.player.on('pause', () => {
         this.$emit('pause')
