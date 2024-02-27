@@ -176,7 +176,7 @@ export default {
     this.api = APIGateway.product.APIAdresses.getContents(this.$route.params.productId)
   },
   methods: {
-    afterAuthenticate () {
+    afterSetEvent () {
       this.loadData(this.$route.params.productId)
       this.updateSelectedTopic('...')
     },

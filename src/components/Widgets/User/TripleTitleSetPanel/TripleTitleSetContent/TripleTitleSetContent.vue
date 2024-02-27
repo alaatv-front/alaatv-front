@@ -81,28 +81,30 @@ export default {
     ContentVideoList
   },
   mixins: [mixinTripleTitleSet],
-  data: () => ({
-    commentLoading: false,
-    ContentVideoListKey: 0,
-    socialMediaDialog: false,
-    selectedLessonId: 0,
-    selectedLessonGroupId: null,
-    contentLoading: false,
-    videoListLoading: false,
-    lessonGroups: [],
-    lessons: [],
-    contents: new ContentList(),
-    currentContent: new Content(),
-    sets: new SetList(),
-    sections: new SetSectionList(),
-    currentSetId: null,
-    currentSectionId: 'all',
-    lessonGroupsLoading: false,
-    userLastState: {
-      setId: null,
-      contentId: null
+  data () {
+    return {
+      commentLoading: false,
+      ContentVideoListKey: 0,
+      socialMediaDialog: false,
+      selectedLessonId: 0,
+      selectedLessonGroupId: null,
+      contentLoading: false,
+      videoListLoading: false,
+      lessonGroups: [],
+      lessons: [],
+      contents: new ContentList(),
+      currentContent: new Content(),
+      sets: new SetList(),
+      sections: new SetSectionList(),
+      currentSetId: null,
+      currentSectionId: 'all',
+      lessonGroupsLoading: false,
+      userLastState: {
+        setId: null,
+        contentId: null
+      }
     }
-  }),
+  },
   computed: {
     isAdvisor () {
       return this.$route.name === 'UserPanel.Asset.TripleTitleSet.Adviser.Content'
@@ -169,7 +171,7 @@ export default {
     }
   },
   methods: {
-    afterAuthenticate () {
+    afterSetEvent () {
       if (this.$route.params.productId) {
         this.getProductSets(this.$route.params.productId)
         this.getProduct()

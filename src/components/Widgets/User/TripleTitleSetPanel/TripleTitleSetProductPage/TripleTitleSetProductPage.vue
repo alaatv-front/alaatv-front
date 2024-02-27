@@ -12,7 +12,7 @@
                                 :grey="false"
                                 @show="getSet(set.id)">
         <template v-slot:action>
-          {{set.contents_count + ' گام '}} {{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}
+          <span class="product-set-item-header">{{set.contents_count + ' گام '}}</span> <span>{{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}</span>
         </template>
         <q-card>
           <q-card-section v-if="!setLoading || set.contents.list.length > 0"
@@ -28,7 +28,7 @@
                   <q-icon color="grey"
                           :name="content.isPamphlet() ? 'description' : content.has_watch ? 'check_circle' : 'play_circle_outline'" />
                 </q-item-section>
-                <q-item-section class="cursor-pointer ellipsis"
+                <q-item-section class="content-title ellipsis-2-lines"
                                 @click="download(content)">
                   {{ content.title }}
                 </q-item-section>
@@ -89,9 +89,9 @@
 
 <script>
 import { openURL } from 'quasar'
-import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import ExpansionItemComponent from 'src/components/Utils/ExpansionItem.vue'
+import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 
 export default {
   name: 'TripleTitleSetProductPage',
@@ -108,39 +108,49 @@ export default {
   computed: {
     selectedTopic () {
       return this.$store.getters['TripleTitleSet/selectedTopic']
+      // return ''
     },
     setList () {
       return this.$store.getters['TripleTitleSet/setList']
         .filter(set => (new RegExp('\\-\\s*' + this.selectedTopic + '\\s*\\-')).test(set.short_title))
-        .map(set => {
-          set.expand = false
-          return set
-        })
+        // .map(set => {
+        //   set.expand = false
+        //   return set
+        // })
+      // return []
     },
     setTopicList () {
       return this.$store.getters['TripleTitleSet/setTopicList']
+      // return []
     },
     setLoading () {
       return this.$store.getters['TripleTitleSet/setLoading']
+      // return false
     },
     setListLoading () {
       return this.$store.getters['TripleTitleSet/setListLoading']
+      // return false
     },
     selectedProduct () {
       return this.$store.getters['TripleTitleSet/selectedProduct']
+      // return {}
     }
   },
   watch: {
-    setTopicList (newVal, oldVal) {
+    setTopicList () {
       if (!this.selectedTopic) {
-        this.$store.dispatch('TripleTitleSet/setSelectedTopic', this.setTopicList[0])
+        // this.$store.dispatch('TripleTitleSet/setSelectedTopic', this.setTopicList[0])
+        this.$store.commit('TripleTitleSet/updateSelectedTopic', this.setTopicList[0])
       }
     }
   },
   methods: {
-    afterAuthenticate () {
-      this.getProductSets(this.$route.params.productId)
+    afterSetEvent () {
       this.getProduct()
+        .then(() => {
+          this.getProductSets(this.$route.params.productId)
+        })
+        .catch(() => {})
     },
     humanizeDuration (durationInSeconds) {
       const durationInMinutes = Math.floor(durationInSeconds / 60)
@@ -177,7 +187,7 @@ export default {
       this.$store.dispatch('TripleTitleSet/updateSet', setId)
     },
     getProduct () {
-      this.$store.dispatch('TripleTitleSet/getSelectedProduct', this.$route.params.productId)
+      return this.$store.dispatch('TripleTitleSet/getSelectedProduct', this.$route.params.productId)
     }
   }
 }
@@ -197,6 +207,14 @@ export default {
     padding: 5px;
   }
 
+  .product-set-item-header {
+    margin-right: $space-7;
+
+    @include media-max-width('md') {
+      margin-right: $space-3;
+    }
+  }
+
   .set-list-section {
     padding: $spacing-none;
   }
@@ -210,11 +228,7 @@ export default {
   }
 
   .content-title {
-    max-width: 80%;
 
-    .content-title-text {
-      max-width: 100%;
-    }
   }
 }
 </style>

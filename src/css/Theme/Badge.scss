@@ -18,11 +18,17 @@
   }
 
   &.q-badge--rounded {
-    padding: $spacing-base $spacing-base;
+    padding: $spacing-none $spacing-base;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &.badge-xs {
-      width: 16px;
-      height: 16px;
+      @include caption1;
+      $badge-xs-size: $space-5;
+      height: $badge-xs-size;
+      min-width: $badge-xs-size;
+      border-radius: $badge-xs-size;
     }
 
     &.badge-sm {

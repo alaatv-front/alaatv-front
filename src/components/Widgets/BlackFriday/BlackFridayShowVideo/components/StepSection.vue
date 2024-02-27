@@ -203,13 +203,17 @@ export default defineComponent({
       }
 
       .q-btn {
-        width: 56px;
-        height: 56px;
+        width: 56px !important;
+        min-width: 56px !important;
+        height: 56px !important;
+        min-height: 56px !important;
         padding: 18px;
 
         @media screen and (width <= 1023px) {
-          width: 48px;
-          height: 48px;
+          width: 48px !important;
+          min-width: 48px !important;
+          height: 48px !important;
+          min-height: 48px !important;
           padding: 15px;
         }
 

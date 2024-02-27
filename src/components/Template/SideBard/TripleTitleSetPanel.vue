@@ -1,12 +1,11 @@
 <template>
-  <div class="chatr-side-menu">
+  <div class="TripleTitleSetPanel">
     <div v-if="isDesktop"
          class="side-menu">
       <div class="menu-logo">
-        <router-link v-if="domainSameWithAppDomain"
-                     :to="{name: 'Public.Home'}">
-          <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
-                 class="logo-image" />
+        <router-link :to="{name: 'Public.Home'}">
+          <lazy-img :src="logoImage"
+                    class="logo-image" />
         </router-link>
       </div>
       <div class="menu-items">
@@ -86,106 +85,128 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
-import { APIGateway } from 'src/api/APIGateway'
 import { mixinAuth } from 'src/mixin/Mixins.js'
+import LazyImg from 'src/components/lazyImg.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
+import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
+import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
 
 export default {
   name: 'TripleTitleSetPanel',
-  components: { LayoutMenu },
-  mixins: [mixinAuth],
-  data: () => ({
-    isActive: null,
-    isAdmin: false,
-    logoutDialog: false,
-    eventInfo: null,
-    menuItems: [
-      {
-        visible: false,
-        icon: 'home',
-        routeName: 'UserPanel.Asset.TripleTitleSet.Dashboard'
-      },
-      {
-        visible: true,
-        icon: 'playlist_play',
-        routeName: 'UserPanel.Asset.TripleTitleSet.Products'
-      },
-      {
-        visible: false,
-        icon: 'calendar_today',
-        routeName: 'UserPanel.Asset.TripleTitleSet.StudyPlan'
-      }
-      // {
-      //   icon: 'calendar_today',
-      //   routeName: 'UserPanel.Asset.TripleTitleSet.Products'
-      // }
-      // {
-      //   icon: 'list-check',
-      //   routeName: 'my-performance'
-      //
-      // },
-      // {
-      //   icon: 'stats',
-      //   routeName: 'assessment'
-      // },
-    ],
-    topicsRouteArray: [
-      {
-        title: 'سر فصل ها',
-        icon: 'ph:book-open-text',
-        routeName: '',
-        active: false,
-        show: true,
-        open: true,
-        children: [
-          {
-            title: 'تایتل ست',
-            routeName: 'UserPanel.Asset.TripleTitleSet.Products',
-            active: false,
-            show: true,
-            open: false
-          }
-        ]
-      }
-    ],
-    menuKey: 0,
-    productItems: [
-      {
-        name: 'pamphlet',
-        routeName: 'UserPanel.Asset.TripleTitleSet.ProductDocuments',
-        label: 'جزوات'
-      },
-      {
-        name: 'notes',
-        routeName: 'UserPanel.Asset.TripleTitleSet.ProductComments',
-        label: 'یادداشت ها'
-      },
-      {
-        name: 'favoredContents',
-        routeName: 'UserPanel.Asset.TripleTitleSet.ProductBookmarks',
-        label: 'نشان شده ها'
-      }
-    ]
-  }),
+  components: { LazyImg, LayoutMenu },
+  mixins: [mixinAuth, mixinEwano],
+  data () {
+    return {
+      mounted: false,
+      isDesktop: false,
+      logoutDialog: false,
+      eventInfo: null,
+      menuItems: [
+        {
+          visible: false,
+          icon: 'home',
+          routeName: 'UserPanel.Asset.TripleTitleSet.Dashboard'
+        },
+        {
+          visible: true,
+          icon: 'playlist_play',
+          routeName: 'UserPanel.Asset.TripleTitleSet.Products'
+        },
+        {
+          visible: false,
+          icon: 'calendar_today',
+          routeName: 'UserPanel.Asset.TripleTitleSet.StudyPlan'
+        }
+        // {
+        //   icon: 'calendar_today',
+        //   routeName: 'UserPanel.Asset.TripleTitleSet.Products'
+        // }
+        // {
+        //   icon: 'list-check',
+        //   routeName: 'my-performance'
+        //
+        // },
+        // {
+        //   icon: 'stats',
+        //   routeName: 'assessment'
+        // },
+      ],
+      topicsRouteArray: [
+        {
+          title: 'سر فصل ها',
+          icon: 'ph:book-open-text',
+          routeName: '',
+          active: false,
+          show: true,
+          open: true,
+          children: [
+            {
+              title: 'تایتل ست',
+              routeName: 'UserPanel.Asset.TripleTitleSet.Products',
+              active: false,
+              show: true,
+              open: false
+            }
+          ]
+        }
+      ],
+      menuKey: 0,
+      productItems: [
+        {
+          name: 'pamphlet',
+          routeName: 'UserPanel.Asset.TripleTitleSet.ProductDocuments',
+          label: 'جزوات'
+        },
+        {
+          name: 'notes',
+          routeName: 'UserPanel.Asset.TripleTitleSet.ProductComments',
+          label: 'یادداشت ها'
+        },
+        {
+          name: 'favoredContents',
+          routeName: 'UserPanel.Asset.TripleTitleSet.ProductBookmarks',
+          label: 'نشان شده ها'
+        }
+      ]
+    }
+  },
   computed: {
     topicList () {
-      const topicList = this.$store.getters['TripleTitleSet/setTopicList']
-      this.fillTopicsRouteArray(topicList)
-      return topicList
+      return this.$store.getters['TripleTitleSet/setTopicList']
     },
     selectedTopic () {
       return this.$store.getters['TripleTitleSet/selectedTopic'] || ''
     },
-    isDesktop () {
-      if (this.$q.screen.lt.md) {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
-      } else {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
+    screenName () {
+      if (typeof window === 'undefined') {
+        return null
       }
-      return !this.$q.screen.lt.md
+
+      return this.$q.screen.name
+    },
+    logoImage () {
+      const alaaLogo = 'https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png'
+      const boniadEhsanLogo = 'https://nodes.alaatv.com/upload/alaaPages/2024-01/boniad-ehsan-logo1704111571.png'
+      const logoImages = {
+        'localhost:8083': alaaLogo,
+        'alaatv.com': alaaLogo,
+        'ehsan.alaatv.com': boniadEhsanLogo,
+        else: null
+      }
+      return logoImages[this.hostName]
+    }
+  },
+  watch: {
+    topicList () {
+      this.fillTopicsRouteArray(this.$store.getters['TripleTitleSet/setTopicList'])
+    },
+    screenName () {
+      this.updateLeftDrawer()
     }
   },
   mounted () {
+    this.mounted = true
+    this.updateLeftDrawer()
     this.getEventInfoByName()
       .then(() => {
         this.updateMenuItemsFromEventInfo()
@@ -194,6 +215,27 @@ export default {
       })
   },
   methods: {
+    updateLeftDrawer () {
+      if (!this.mounted) {
+        return
+      }
+
+      this.isDesktop = !this.$q.screen.lt.md
+      const isIframe = window.self !== window.top
+      if (this.$q.screen.gt.sm && !isIframe) {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
+      } else {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+        if (this.isEwanoUser) {
+          setTimeout(() => {
+            this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+            this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+          }, 10)
+        }
+      }
+    },
     getEventInfoByName () {
       return new Promise((resolve, reject) => {
         APIGateway.events.getEventInfoByName(this.$route.params.eventName)
@@ -210,7 +252,7 @@ export default {
       const user = this.$store.getters['Auth/user']
       this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
 
-      this.updateMenuItemVisibility('UserPanel.Asset.TripleTitleSet.Dashboard', this.eventInfo.showDashboard)
+      this.updateMenuItemVisibility('UserPanel.Asset.TripleTitleSet.Dashboard', this.eventInfo.showDashboard || this.isAdmin)
       this.updateMenuItemVisibility('UserPanel.Asset.TripleTitleSet.StudyPlan', (this.eventInfo.showStudyPlan || this.isAdmin))
     },
     updateMenuItemVisibility (routeName, state) {
@@ -250,15 +292,19 @@ export default {
     },
     itemSelected (topic) {
       this.updateSelectedTopic(topic.title)
+      this.$nextTick(() => {
+        this.updateLeftDrawer()
+      })
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.chatr-side-menu {
+.TripleTitleSetPanel {
   background: white;
   height: 100%;
+  overflow: auto;
 }
 
 .side-menu{
@@ -285,7 +331,7 @@ export default {
       margin: 10px auto 266px !important;
     }
 
-    .logo-image{
+    :deep(.logo-image) {
       width: 60px;
       height: 60px;
 
@@ -380,7 +426,7 @@ export default {
 
 .side-menu-items{
   z-index: 99999;
-  padding: 20px;
+  //padding: 20px;
 }
 
 .logout-dialog-card {

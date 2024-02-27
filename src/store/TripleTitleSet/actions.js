@@ -8,6 +8,7 @@ const actions = {
     context.commit('toggleSetListLoading')
     APIGateway.product.getSets(productId)
       .then((setList) => {
+        const oldSelectedTopic = context.getters.selectedTopic
         const normalizedSets = setList.list.map(set => {
           if (set.short_title !== null) {
             const splitted = set.short_title.split('-')
@@ -28,8 +29,13 @@ const actions = {
           return topicName
         })
           .filter((topic, topicIndex, topics) => topics.findIndex(topicItem => topicItem === topic) === topicIndex)
+
+        const selectedTopicIndex = topicList.findIndex(item => item === oldSelectedTopic)
+        const targetSelectedTopicIndex = selectedTopicIndex > -1 ? selectedTopicIndex : 0
+
         context.commit('updateSetList', normalizedSets)
         context.commit('updateTopicList', topicList)
+        context.commit('updateSelectedTopic', topicList[targetSelectedTopicIndex])
         context.commit('toggleSetListLoading')
       }).catch(() => {
         context.commit('toggleSetListLoading')
@@ -53,9 +59,19 @@ const actions = {
     context.commit('setSelectedProduct', product)
   },
   getSelectedProduct: (context, productId) => {
-    APIGateway.product.show(productId).then(res => {
-      context.commit('setSelectedProduct', res)
-    }).catch(() => { })
+    context.commit('updateProductLoading', true)
+    return new Promise((resolve, reject) => {
+      APIGateway.product.show(productId)
+        .then(product => {
+          context.commit('setSelectedProduct', product)
+          context.commit('updateProductLoading', false)
+          resolve(product)
+        })
+        .catch((error) => {
+          context.commit('updateProductLoading', false)
+          reject(error)
+        })
+    })
   },
   getSelectedContent: (context, contentId) => {
     APIGateway.content.show(contentId).then(res => {

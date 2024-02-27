@@ -1,5 +1,17 @@
 @import "src/css/Theme/Controls/input.scss";
 
+@mixin btn-date-picket-btn-style ($size, $shouldRound: true, $shouldSquare: true) {
+  @include btn-handle-sizes($size);
+
+  @if $shouldRound {
+    @include btn-handle-round-width($size);
+  }
+  @if $shouldSquare {
+    @include btn-handle-square-padding($size);
+    @include btn-handle-square-min-width($size);
+  }
+}
+
 .form-builder-dateTime {
   .dateTime-input {
     .q-field {
@@ -21,6 +33,42 @@
 
               &::before {
                 content: "\ea42";
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.q-menu {
+  .q-date {
+    .q-date__main {
+      .q-date__content {
+        .q-date__view {
+          .q-date__navigation {
+            .q-date__arrow {
+              .q-btn {
+                @include btn-date-picket-btn-style('sm');
+              }
+            }
+            .relative-position {
+              div {
+                width: 100%;
+                .q-btn {
+                  @include btn-date-picket-btn-style('sm', false, false);
+                  width: 100%;
+                  min-width: auto;
+                }
+              }
+            }
+          }
+          .q-date__calendar-days-container {
+            .q-date__calendar-days {
+              .q-btn {
+                @include btn-date-picket-btn-style('sm');
+                //@include btn-handle-round-style('md');
               }
             }
           }

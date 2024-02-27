@@ -1,0 +1,14 @@
+.quasar-page-builder-dialog-card {
+  .header {
+    margin-bottom: $space-3;
+    .title {
+      display: flex;
+      align-items: center;
+    }
+    .close {
+      .q-btn {
+        min-width: 40px;
+      }
+    }
+  }
+}

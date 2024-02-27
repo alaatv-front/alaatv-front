@@ -90,19 +90,21 @@ export default {
     ProductItemComponent
   },
   mixins: [mixinTripleTitleSet],
-  data: () => ({
-    advisorLoading: false,
-    productLoading: false,
-    products: [],
-    advisor: new Set(),
-    productType: {
-      id: null,
-      name: null,
-      selected: false,
-      title: null
-    },
-    productTypeOptions: []
-  }),
+  data () {
+    return {
+      advisorLoading: false,
+      productLoading: false,
+      products: [],
+      advisor: new Set(),
+      productType: {
+        id: null,
+        name: null,
+        selected: false,
+        title: null
+      },
+      productTypeOptions: []
+    }
+  },
   computed: {
     canShowAdvisor () {
       return this.advisorLoading || (!this.advisorLoading && this.advisor.id)
@@ -117,7 +119,7 @@ export default {
     }
   },
   methods: {
-    afterAuthenticate () {
+    afterSetEvent () {
       this.loadData()
     },
     loadData () {

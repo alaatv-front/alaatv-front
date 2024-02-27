@@ -58,10 +58,10 @@ android {
   }
 
 
-  // Define an ext property
-  ext {
-    envVariablesSentryDsn = envVars['ANDROID_SENTRY_DSN']
-  }
+//   // Define an ext property
+//   ext {
+//     envVariablesSentryDsn = envVars['ANDROID_SENTRY_DSN']
+//   }
 }
 
 repositories {

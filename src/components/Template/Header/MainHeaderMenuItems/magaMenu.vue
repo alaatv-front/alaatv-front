@@ -2,6 +2,7 @@
   <q-btn-dropdown v-model="showMenu"
                   flat
                   content-class="megaMenu"
+                  :auto-close="false"
                   @mouseover="onMouseover"
                   @mouseleave="onMouseleave">
     <template #label>
@@ -48,7 +49,9 @@
                           clickable
                           @mouseover="showData(index)">
                     <q-item-section>
-                      {{item.title}}
+                      <q-icon name="ph:book-open"
+                              class="size-lg" />
+                      <div class="item-title ellipsis">{{ item.title }}</div>
                       <!--                        <q-btn v-if="editable"-->
                       <!--                               icon="edit"-->
                       <!--                               flat-->
@@ -215,8 +218,8 @@ export default {
   },
   data () {
     return {
-      optionDialog: false,
       showMenu: false,
+      optionDialog: false,
       onMouseleaveSetTimeout: null
     }
   },
@@ -265,7 +268,10 @@ export default {
         window.clearInterval(this.onMouseleaveSetTimeout)
       }
     },
-    onMouseleave () {
+    onMouseleave (event) {
+      if (event.relatedTarget?.nodeName === 'HTML' || event.relatedTarget?.nodeName === 'html') {
+        return
+      }
       this.onMouseleaveSetTimeout = setTimeout(() => {
         this.showMenu = false
       }, 50)
@@ -280,19 +286,22 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 .megaMenu{
   transform: translateY(16px);
   .category-container {
     background:$blue-grey-2;
-    .scroll {
+    :deep(.scroll) {
       height: 100%;
-      padding: $space-8 0 $space-8 $space-7;
-      :deep(.scroll){
-        .absolute{
-          position: relative;
-        }
+      padding: $spacing-none;
+      //padding: $space-8 0 $space-8 $space-7;
+      .q-list {
+        margin: $space-8 0 $space-8 $space-7;
       }
+      //:deep(.scroll){
+      //  .absolute{
+      //    position: relative;
+      //  }
+      //}
       .item {
         position: relative;
 
@@ -423,5 +432,4 @@ export default {
     }
   }
 }
-
 </style>

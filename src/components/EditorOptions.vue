@@ -14,8 +14,9 @@
     </div>
     <div class="col-md-3 offset-1 q-ma-sm">
       <div class="outsideLabel">font family</div>
-      <q-input v-model="localOptions.fontFamily"
-               label="font family" />
+      <q-select v-model="localOptions.fontFamily"
+                :options="fontFamilies"
+                label="font family" />
     </div>
     <div class="col-md-3 q-ma-sm">
       <div class="outsideLabel">font size</div>
@@ -48,6 +49,7 @@ export default {
   mixins: [PageBuilderOptionPanel],
   data () {
     return {
+      fontFamilies: ['Doran', 'IRANSans', 'IRANSansDN', 'IRANSansX', 'iranyekan', 'Plasma', 'Panchang', 'Modam'],
       fontStyle: ['inherit', 'normal', 'italic'],
       responsiveOpts: ['xs', 'sm', 'md', 'lg', 'xl'],
       responsive: 'xs'

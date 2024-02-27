@@ -99,8 +99,8 @@ export default defineComponent({
           src: ''
         }
       },
-      surpriseVideoSrc: 'https://nodes.alaatv.com/media/1042/240p/1042001ssss.mp4',
-      surpriseVideoPoster: 'https://nodes.alaatv.com/upload/alaaPages/2023-12/VideoPlayer1702464332.png',
+      surpriseVideoSrc: 'https://nodes.alaatv.com/upload/landing/motherday1402/mother_fay_rotbe.mp4',
+      surpriseVideoPoster: 'https://nodes.alaatv.com/upload/landing/motherday1402/thumbnail.png',
       audioSource: 'https://nodes.alaatv.com/upload/landing/motherday1402/mother-postalcard-music.mp3',
       postcardHasError: false
     }

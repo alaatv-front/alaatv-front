@@ -1,6 +1,34 @@
 <template>
   <option-panel-tabs v-model:options="localOptions">
     <template #main-tab>
+      <div class="row q-col-gutter-md q-my-md">
+        <div class="col-12">
+          <q-checkbox v-model="localOptions.transition.animated"
+                      label="animated" />
+          <q-checkbox v-model="localOptions.transition.infinite"
+                      label="infinite" />
+          <q-checkbox v-model="localOptions.transition.swipeable"
+                      label="swipeable" />
+        </div>
+        <div class="col-md-6 col-12">
+          <q-input v-model="localOptions.transition.autoplay"
+                   label="autoplay" />
+        </div>
+        <div class="col-md-6 col-12">
+          <q-input v-model="localOptions.transition.transitionDuration"
+                   label="transitionDuration" />
+        </div>
+        <div class="col-md-6 col-12">
+          <q-select v-model="localOptions.transition.transitionPrev"
+                    label="transitionPrev"
+                    :options="transitionOptions" />
+        </div>
+        <div class="col-md-6 col-12">
+          <q-select v-model="localOptions.transition.transitionNext"
+                    label="transitionNext"
+                    :options="transitionOptions" />
+        </div>
+      </div>
       <q-table dir="rtl"
                :rows="rows"
                :columns="columns"
@@ -319,7 +347,33 @@ export default defineComponent({
           video: ''
         }
       ],
+      transitionOptions: [
+        'slide-right',
+        'slide-left',
+        'slide-up',
+        'slide-down',
+        'fade',
+        'scale',
+        'rotate',
+        'flip-right',
+        'flip-left',
+        'flip-up',
+        'flip-down',
+        'jump-right',
+        'jump-left',
+        'jump-up',
+        'jump-down'
+      ],
       defaultOptions: {
+        transition: {
+          animated: true,
+          infinite: true,
+          swipeable: true,
+          autoplay: 5000, // true - false - time intervals (in milliseconds)
+          transitionPrev: 'fade',
+          transitionNext: 'fade',
+          transitionDuration: 300
+        },
         list: []
       }
     }
@@ -471,6 +525,9 @@ export default defineComponent({
       })
     },
     updateImage (data) {
+      if (!this.localOptions.list[this.selectedBannerIndex].features[data.size]) {
+        this.localOptions.list[this.selectedBannerIndex].features[data.size] = {}
+      }
       this.localOptions.list[this.selectedBannerIndex].features[data.size].width = data.width
       this.localOptions.list[this.selectedBannerIndex].features[data.size].height = data.height
       if (data.size) {
@@ -484,6 +541,9 @@ export default defineComponent({
       this.$emit('update:options', this.localOptions)
     },
     updateVideo (data) {
+      if (!this.localOptions.list[this.selectedBannerIndex].features[data.size]) {
+        this.localOptions.list[this.selectedBannerIndex].features[data.size] = {}
+      }
       this.localOptions.list[this.selectedBannerIndex].features[data.size].videoWidth = data.width
       this.localOptions.list[this.selectedBannerIndex].features[data.size].videoHeight = data.height
       if (data.size) {
@@ -491,6 +551,9 @@ export default defineComponent({
         const index = this.responsiveRows.findIndex(row => row.name === data.size)
         this.responsiveRows[index].videoSrc = data.src
       } else {
+        if (!this.localOptions.list[this.selectedBannerIndex].video) {
+          this.localOptions.list[this.selectedBannerIndex].video = {}
+        }
         this.localOptions.list[this.selectedBannerIndex].video.src = data.src
       }
 

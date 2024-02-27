@@ -17,6 +17,9 @@ const getters = {
   setLoading: (state) => {
     return state.setLoading
   },
+  productLoading: (state) => {
+    return state.productLoading
+  },
   selectedProduct: (state) => {
     return state.selectedProduct
   },

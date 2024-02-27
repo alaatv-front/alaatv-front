@@ -77,11 +77,12 @@ import fa from 'video.js/dist/lang/fa.json'
 // import * as QualitySelector from '@silvermine/videojs-quality-selector'
 // QualitySelector(videojs)
 // eslint-disable-next-line no-unused-vars
-import 'videojs-hls-quality-selector'
+// import 'videojs-hls-quality-selector'
 import 'videojs-contrib-quality-levels'
 // import hotkeys from 'videojs-hotkeys'
-import { Content } from 'src/models/Content'
+import { Content } from 'src/models/Content.js'
 import { mixinAbrisham } from 'src/mixin/Mixins'
+
 export default {
   name: 'VideoPlayer',
   mixins: [mixinAbrisham],

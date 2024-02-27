@@ -57,13 +57,16 @@
 
 <script>
 import { Content } from 'src/models/Content.js'
+import { mixinAuth } from 'src/mixin/Mixins.js'
 import Bookmark from 'src/components/Bookmark.vue'
 import VideoPlayer from 'src/components/VideoPlayer.vue'
+import ContentManager from 'src/assets/js/ContentManager.js'
 import TimeElapsedSinceLastEvent from 'src/assets/js/TimeElapsedSinceLastEvent.js'
 
 export default {
   name: 'ContentVideoPlayer',
   components: { VideoPlayer, Bookmark },
+  mixins: [mixinAuth],
   props: {
     content: {
       type: Content
@@ -128,6 +131,16 @@ export default {
   methods: {
     updateTime (data) {
       this.$emit('timeUpdated', data)
+      if (this.isUserLogin) {
+        ContentManager.checkAndStoreContent({
+          id: this.content.id,
+          sent: 0,
+          set_id: this.content?.set?.id,
+          duration: data.duration,
+          watched_seconds: data.currentTime,
+          lastWatchedDate: Date.now()
+        })
+      }
     },
     adStarted () {
       TimeElapsedSinceLastEvent.setEventOccurrenceTime()

@@ -1,12 +1,12 @@
+import models from './models/models.js'
+
 const AppIndexedDB = (function () {
   const DBName = 'AlaaTV_DB',
     debugMode = false
 
   function query (useDB) {
-    const openRequest = indexedDB.open(DBName, 1)
+    const openRequest = indexedDB.open(DBName, 3)
     openRequest.onupgradeneeded = function (event) {
-      const db = event.target.result
-
       /*
       // https://javascript.info/indexeddb
         IndexedDB has a built-in mechanism of “schema versioning”, absent in server-side databases.
@@ -26,15 +26,9 @@ const AppIndexedDB = (function () {
       //         // client had version 1
       //         // update
 
-      if (!db.objectStoreNames.contains('contents')) {
-        db.createObjectStore('contents', { keyPath: 'id' })// create unique index on keyPath === 'id'
-          .createIndex('id', 'id', { unique: true })
-          .createIndex('set_id', 'set_id', { unique: false })
-      }
-      if (!db.objectStoreNames.contains('sets')) {
-        db.createObjectStore('sets', { keyPath: 'id' })// create unique index on keyPath === 'id'
-          .createIndex('id', 'id', { unique: true })
-      }
+      Object.keys(models).forEach(modelKey => {
+        models[modelKey](event)
+      })
     }
     openRequest.onsuccess = function (event) {
       // get database from event
@@ -46,8 +40,8 @@ const AppIndexedDB = (function () {
     }
   }
 
-  function getTransaction (db, objectStoreName, readonly) {
-    const transaction = db.transaction(objectStoreName, (typeof readonly !== 'undefined' && readonly === true) ? 'readonly' : 'readwrite')// add success event handleer for transaction
+  function getTransaction (db, objectStoreName, readonly = false) {
+    const transaction = db.transaction(objectStoreName, readonly ? 'readonly' : 'readwrite')// add success event handleer for transaction
     // you should also add onerror, onabort event handlers
     transaction.onerror = function (event) {
       if (transaction.error === null) {
@@ -88,35 +82,73 @@ const AppIndexedDB = (function () {
 
   function putObjectStores (objectStoreList) {
     query(function (db) {
-      for (let i = 0; (typeof objectStoreList[i] !== 'undefined'); i++) {
-        const objectStoreItem = objectStoreList[i]
+      objectStoreList.forEach(objectStoreItem => {
         const objectStore = getObjectStore(db, objectStoreItem.objectStoreName)
-        objectStoreItem.objectStoreData.forEach(function (data) {
+        objectStoreItem.objectStoreData.forEach((data) => {
           // var db_op_req = contentsStore.add(content); // IDBRequest
           // const db_op_req = objectStore.put(data) // IDBRequest
           objectStore.put(data) // IDBRequest
         })
+      })
+    })
+  }
+
+  function searchInObjectStore (objectStoreName, index, indexValue, readonly, onsuccess) {
+    query(function (db) {
+      const objectStore = getObjectStore(db, objectStoreName, readonly)
+      const objectStoreIndex = objectStore.index(index)
+      const request = objectStoreIndex.getAll(indexValue)
+      request.onsuccess = function () {
+        const result = request.result
+        if (result) {
+          onsuccess(result, objectStore)
+        }
+      }
+
+      request.onerror = function (e) {
+        // Handle any errors here
+        console.error('Error accessing indexedDB', e.target.error)
       }
     })
   }
 
-  function searchInObjectStore (objectStoreName, index, indexValue, onsuccess) {
+  function getItemInObjectStore (objectStoreName, index, indexValue, readonly, onsuccess) {
     query(function (db) {
-      const objectStore = getObjectStore(db, objectStoreName, true)
+      const objectStore = getObjectStore(db, objectStoreName, readonly)
       const objectStoreIndex = objectStore.index(index)
-      const indexGet = objectStoreIndex.getAll(indexValue)
-      indexGet.onsuccess = function (e) {
-        const match = e.target.result
-        if (match) {
-          onsuccess(match)
+      const request = objectStoreIndex.get(indexValue)
+      request.onsuccess = function () {
+        const result = request.result
+        if (result) {
+          onsuccess(result, objectStore)
         }
+      }
+
+      request.onerror = function (e) {
+        // Handle any errors here
+        console.error('Error accessing indexedDB', e.target.error)
+      }
+    })
+  }
+
+  async function updateRecord (data, objectStore) {
+    return new Promise((resolve, reject) => {
+      const request = objectStore.put(data)
+      request.onerror = function (event) {
+        reject(event.target.error)
+      }
+
+      request.onsuccess = function () {
+        resolve()
       }
     })
   }
 
   return {
+    updateRecord,
     putObjectStores,
-    searchInObjectStore
+    searchInObjectStore,
+    getItemInObjectStore
   }
 }())
 

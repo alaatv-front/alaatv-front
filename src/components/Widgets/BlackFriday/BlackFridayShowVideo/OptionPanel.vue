@@ -12,6 +12,10 @@
         <q-input v-model="localOptions.scrollToParticipateSection"
                  label="scrollTo Participate Section" />
       </div>
+      <div>
+        <q-checkbox v-model="localOptions.popupForFirstVideo"
+                    label="popup for first video" />
+      </div>
     </template>
   </option-panel-tabs>
 </template>
@@ -37,7 +41,9 @@ export default defineComponent({
   data () {
     return {
       defaultOptions: {
-        scrollTo: null
+        scrollToProducts: null,
+        popupForFirstVideo: true,
+        scrollToParticipateSection: null
       }
     }
   }
