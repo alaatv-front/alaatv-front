@@ -361,7 +361,7 @@ export default {
       if (!vastElement) {
         return false
       }
-      vastElement.addEventListener('click', (event) => {
+      vastElement.addEventListener('click', () => {
         this.endVast()
       })
     },
@@ -514,7 +514,7 @@ export default {
         startX = touch.pageX
         startY = touch.pageY
       })
-      this.player.on('touchmove', function (e) {
+      this.player.on('touchmove', function () {
         touchMoved = true
       })
       this.player.on('touchend', function (e) {
