@@ -229,7 +229,8 @@ import Time from 'src/plugins/time.js'
 import { defineComponent, ref } from 'vue'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
 // import PlanItem from 'components/DashboardTripleTitleSet/Dashboard/PlanItem.vue'
-import planContents from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/PlanContents.vue'
+import planContents
+  from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/PlanContents.vue'
 
 export default defineComponent({
   name: 'FullCalendar',
