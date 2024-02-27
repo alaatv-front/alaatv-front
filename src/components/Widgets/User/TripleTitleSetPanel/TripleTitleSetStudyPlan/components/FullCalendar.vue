@@ -230,7 +230,8 @@ import Time from 'src/plugins/time.js'
 import { defineComponent, ref } from 'vue'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
 // import PlanItem from 'components/DashboardTripleTitleSet/Dashboard/PlanItem.vue'
-import planContents from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/PlanContents.vue'
+import planContents
+  from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/PlanContents.vue'
 
 export default defineComponent({
   name: 'FullCalendar',
@@ -604,14 +605,12 @@ export default defineComponent({
             month.value[w][col].date = today.format('YYYY/MM/DD')
             month.value[w][col].num = dayCounter - dayNum.value
             month.value[w][col].monthName = moment(today).locale('fa').format('jMMMM')
-            const persianDate = new Date(today).toLocaleDateString('fa-IR')
-            month.value[w][col].persianDate = persianDate
+            month.value[w][col].persianDate = new Date(today).toLocaleDateString('fa-IR')
             dayCounter++
           } else {
             month.value[w][col].num = dayCounter
             month.value[w][col].date = calendarDate.value.startOf('jMonth').add(dayCounter - 1, 'd').format('YYYY/MM/DD')
-            const persianDate = new Intl.DateTimeFormat('fa-IR').format(calendarDate.value.startOf('jMonth').add(dayCounter - 1, 'd'))
-            month.value[w][col].persianDate = persianDate
+            month.value[w][col].persianDate = new Intl.DateTimeFormat('fa-IR').format(calendarDate.value.startOf('jMonth').add(dayCounter - 1, 'd'))
             dayCounter++
           }
         }
@@ -627,7 +626,7 @@ export default defineComponent({
       }
     }
 
-    const setAttr = (event) => {
+    const setAttr = () => {
       // console.log(document.getSelection(), event)
     }
 

@@ -422,7 +422,7 @@ export default {
       this.$router.push({ name: 'Public.Content.Search', query: tags })
     },
 
-    updateNewUrl (fresh = false) {
+    updateNewUrl () {
       const tags = []
       this.selectedTags.forEach((tag) => {
         tags.push('tags[]=' + encodeURIComponent(tag.value))
