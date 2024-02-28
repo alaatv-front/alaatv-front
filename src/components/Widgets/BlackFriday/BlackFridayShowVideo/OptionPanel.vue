@@ -13,6 +13,11 @@
                  label="scrollTo Participate Section" />
       </div>
       <div>
+        <q-input v-model="localOptions.startIndex"
+                 type="number"
+                 label="step startIndex" />
+      </div>
+      <div>
         <q-checkbox v-model="localOptions.popupForFirstVideo"
                     label="popup for first video" />
       </div>
@@ -58,6 +63,7 @@ export default defineComponent({
     return {
       defaultOptions: {
         showBtn: false,
+        startIndex: 0,
         fromFirstIndex: false,
         scrollToProducts: null,
         popupForFirstVideo: true,
