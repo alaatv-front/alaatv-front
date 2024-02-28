@@ -63,11 +63,14 @@ export default defineComponent({
     selectedStepIndex: {
       type: Number,
       default: 0
+    },
+    fromFirstIndex: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
-
     }
   },
   computed: {
@@ -110,7 +113,7 @@ export default defineComponent({
         }
       })
 
-      return activeIndex
+      return this.fromFirstIndex ? this.selectedStepIndex : activeIndex
     }
   }
 })
