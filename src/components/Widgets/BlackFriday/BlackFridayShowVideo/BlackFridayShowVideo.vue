@@ -18,6 +18,7 @@
                      @next="onNext" />
       <step-section :black-friday-campaign-data="blackFridayCampaignData"
                     :selected-step-index="selectedVideoIndex"
+                    :from-first-index="localOptions.fromFirstIndex"
                     class="step-section"
                     @onSelectStep="onSelectStep" />
       <q-dialog v-model="dialog">
@@ -76,10 +77,6 @@ export default defineComponent({
     selectedVideoIndex () {
       if (this.blackFridayCampaignData.videos.list.length === 0) {
         return null
-      }
-
-      if (this.localOptions.fromFirstIndex) {
-        return 0
       }
 
       const selectedVideoIndex = this.blackFridayCampaignData.videos.list.findIndex(video => video.selected)
@@ -279,7 +276,7 @@ export default defineComponent({
         }
       })
 
-      return activeIndex
+      return this.localOptions.fromFirstIndex ? 0 : activeIndex
     }
   }
 })
