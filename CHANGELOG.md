@@ -1,3 +1,10 @@
+# [1.7.0](https://git.alaatv.com/web/alaatv_front/compare/v1.6.0...v1.7.0) (2024-02-28)
+
+
+### Features
+
+* black Friday video step start index added to option panel ([#988](https://git.alaatv.com/web/alaatv_front/issues/988)) ([aa49988](https://git.alaatv.com/web/alaatv_front/commit/aa49988e0308f58279a091e75a7d4d71a0a0b1e2))
+
 # [1.6.0](https://git.alaatv.com/web/alaatv_front/compare/v1.5.0...v1.6.0) (2024-02-28)
 
 
