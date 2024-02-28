@@ -19,6 +19,7 @@
       <step-section :black-friday-campaign-data="blackFridayCampaignData"
                     :selected-step-index="selectedVideoIndex"
                     :from-first-index="localOptions.fromFirstIndex"
+                    :start-index="localOptions.startIndex"
                     class="step-section"
                     @onSelectStep="onSelectStep" />
       <q-dialog v-model="dialog">
@@ -57,6 +58,7 @@ export default defineComponent({
       blackFridayCampaignData: new BlackFridayCampaignData(),
       defaultOptions: {
         showBtn: false,
+        startIndex: 0,
         fromFirstIndex: false,
         scrollToProducts: null,
         popupForFirstVideo: true,
