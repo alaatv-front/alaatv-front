@@ -8,7 +8,9 @@
           <div class="col-md-12">
             <editor v-model:value="localOptions.text" />
           </div>
-          <editor-options v-model:options="localOptions" />
+          <div class="col-12 q-mt-md">
+            <editor-options v-model:options="localOptions" />
+          </div>
         </div>
         <div class="row q-col-gutter-sm q-mt-sm">
           <div class="col-12 col-md-3">
