@@ -67,7 +67,6 @@
         <q-scroll-area ref="secondRef"
                        visible
                        class="second-scroll"
-                       style="height:500px"
                        @scroll="onScrollSecond">
           <div class="calendar-wrapper">
             <div class="calendar-body">
@@ -237,6 +236,14 @@ export default defineComponent({
   name: 'FullCalendar',
   components: { planContents },
   props: {
+    hourStart: {
+      type: Number,
+      default: 0
+    },
+    hourEnd: {
+      type: Number,
+      default: 17
+    },
     studyEvent: {
       type: Number,
       default: null
@@ -527,6 +534,7 @@ export default defineComponent({
         }
       ]
     ])
+    const calendarHeight = ref(0)
     const baseHight = ref(80) // must be 40
     const chartWeek = ref([])
     const dayList = ref(['شنبه', 'یک‌شنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه'])
@@ -668,6 +676,7 @@ export default defineComponent({
       copyPlan,
       removePlan,
       calendarMonth,
+      calendarHeight,
       startOfMonth,
       baseHight,
       startTill,
@@ -713,8 +722,8 @@ export default defineComponent({
   },
   data () {
     return {
-      hourStart: 0,
-      hourEnd: 23
+      // hourStart: 2,
+      // hourEnd: 20
     }
   },
   computed: {
@@ -730,6 +739,7 @@ export default defineComponent({
     }
   },
   mounted () {
+    this.calendarHeight = (this.hourEnd - this.hourStart + 1) * 80 + 20 + 'px'
     this.loadCalendar(Time.now(), true)
     this.loadStudyPlanData()
   },
@@ -786,7 +796,11 @@ export default defineComponent({
     calculateTimeHeight () {
       const hour = new Date().getHours()
       const minute = new Date().getMinutes()
-      return this.getTopWithHourAndMinute(hour, minute)
+      if (this.hourStart <= hour && hour <= this.hourEnd) {
+        return this.getTopWithHourAndMinute(hour, minute)
+      } else {
+        return '-10px'
+      }
     },
     getTopWithHourAndMinute (hour, minute) {
       const heightUnit = 'px'
@@ -985,6 +999,11 @@ export default defineComponent({
       &:deep(.q-scrollarea__thumb--h) {
         opacity: 0 !important;
       }
+    }
+
+    .second-scroll {
+      height: v-bind('calendarHeight');
+      max-height: 500px;
     }
 
     .calendar-first-row {
