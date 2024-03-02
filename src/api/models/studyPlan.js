@@ -111,7 +111,7 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getStudyPlanData (data = {}, cache = { TTL: 1000 }) {
+  getStudyPlanData (data = {}, cache = { TTL: 0 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

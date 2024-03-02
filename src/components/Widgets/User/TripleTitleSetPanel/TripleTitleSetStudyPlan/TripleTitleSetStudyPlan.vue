@@ -40,25 +40,21 @@
                        class="q-mt-md"
                        indeterminate />
     <div class="col-12 calendar">
-      <full-calendar v-if="studyPlanListLoaded"
-                     ref="fullCalendar"
+      <full-calendar ref="fullCalendar"
                      :hour-start="firstStartTime"
                      :hour-end="lastEndTime"
                      :study-event="studyEvent"
                      :events="studyPlanList"
+                     :current-day="currentDay"
                      :filtered-lesson="filteredLesson"
                      @edit-plan="editPlan"
                      @copy-plan="copyPlan"
                      @change-date="onChangeDateOfFullcalendar"
                      @remove-plan="openRemovePlanWarning" />
-      <div v-else
-           class="text-center q-mt-xl">
-        <q-circular-progress size="100px"
-                             color="primary"
-                             :thickness="0.08"
-                             track-color="grey-3"
-                             indeterminate />
-      </div>
+      <q-inner-loading :showing="!studyPlanListLoaded">
+        <q-spinner-grid size="50px"
+                        color="primary" />
+      </q-inner-loading>
     </div>
     <q-dialog v-model="newPlanDialog">
       <q-card class="new-theme">
@@ -154,7 +150,7 @@
                    @click="changeStudyPlan" />
           </div>
         </q-card-section>
-        <q-separator />
+        <q-separator class="q-mb-md" />
         <q-card-section>
           برای شروع دوره باید برنامه مطالعاتی خودتو انتخاب کنی
         </q-card-section>
@@ -325,6 +321,7 @@
 <script>
 import { shallowRef } from 'vue'
 import moment from 'moment-jalaali'
+import Time from 'src/plugins/time.js'
 import { Set } from 'src/models/Set.js'
 import { EntityEdit } from 'quasar-crud'
 import { Major } from 'src/models/Major.js'
@@ -340,7 +337,6 @@ import SessionInfoComponent
   from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/SessionInfo.vue'
 import FormBuilderInputStudyPlanContentsSelector
   from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/FormBuilderInputStudyPlanContentsSelector.vue'
-import Time from 'src/plugins/time.js'
 
 const SessionInfoComponentComp = shallowRef(SessionInfoComponent)
 const ContentsComponentComp = shallowRef(FormBuilderInputStudyPlanContentsSelector)
@@ -359,6 +355,7 @@ export default {
   data () {
     return {
       loading: false,
+      currentDay: null,
       api: APIGateway.studyPlan.APIAdresses.plan,
       firstStartTime: 23,
       lastEndTime: 0,
@@ -611,6 +608,7 @@ export default {
     }
   },
   mounted () {
+    this.currentDay = Time.now()
     this.$bus.on('FormBuilderInputStudyPlanContentsSelector-update:major', (newValue) => {
       FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'major', newValue)
       FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'major', newValue)
@@ -830,7 +828,7 @@ export default {
     },
     filterByLesson () {
       this.loading = true
-      this.$apiGateway.studyPlan.storeSetting({ setting: { abrisham2_calender_default_lesson: this.lesson.id } })
+      APIGateway.studyPlan.storeSetting({ setting: { abrisham2_calender_default_lesson: this.lesson.id } })
         .then(() => {
           this.loading = false
           this.filteredLesson = this.lesson.id
@@ -866,7 +864,6 @@ export default {
       APIGateway.studyPlan.getMyStudyPlan({ category_id: this.event.study_plan.category_id })
         .then(studyPlan => {
           this.currentStudyPlan = studyPlan
-          this.planType.display_name = studyPlan.title
           this.studyEvent = studyPlan.id
           this.getStudyPlanData()
           this.loading = false
@@ -889,7 +886,7 @@ export default {
             lesson_name: 'همه',
             id: null
           })
-          this.planType = options.studyPlans.find(studyPlan => studyPlan.display_name === this.planType.display_name) || {
+          this.planType = options.studyPlans.find(studyPlan => studyPlan.display_name === this.currentStudyPlan.display_name) || {
             id: null,
             title: null,
             display_name: null
@@ -963,9 +960,10 @@ export default {
     getStudyPlanData (date) {
       this.studyPlanListLoaded = false
       this.studyPlanList.loading = true
-      const now = date || moment(Time.now())
+      const now = moment(date) || moment(Time.now())
       const day0 = now.clone().weekday(0).format('YYYY/MM/DD')
       const day6 = now.clone().weekday(6).format('YYYY/MM/DD')
+      this.currentDay = now.clone().weekday(0).format('YYYY-MM-DD HH:mm:ss')
       APIGateway.studyPlan.getStudyPlanData({
         study_event: this.studyEvent,
         product_id: this.filteredLesson,

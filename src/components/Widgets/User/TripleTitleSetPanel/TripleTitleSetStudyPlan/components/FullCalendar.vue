@@ -194,7 +194,10 @@
       <q-card class="calendar-dialog">
         <q-card-section class="row items-center content-section">
           <div class="calendar-dialog-header">
-            {{ calendarMonth + ' ' + calendarYear }}
+            {{ calendarMonth }}
+            <q-select v-model="calendarYear"
+                      class="no-title q-ml-md"
+                      :options="[1402, 1403, 1404]" />
           </div>
           <div class="row month-row">
             <div v-for="item in monthList"
@@ -232,6 +235,8 @@ import { StudyPlanList } from 'src/models/StudyPlan.js'
 import planContents
   from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/PlanContents.vue'
 
+moment.loadPersian()
+
 export default defineComponent({
   name: 'FullCalendar',
   components: { planContents },
@@ -263,6 +268,10 @@ export default defineComponent({
     calendarIcon: {
       type: String,
       default: 'calendar_month'
+    },
+    currentDay: {
+      type: String,
+      default: null
     }
   },
   emits: ['changeDate', 'copyPlan', 'editPlan', 'removePlan'],
@@ -538,7 +547,6 @@ export default defineComponent({
     const baseHight = ref(80) // must be 40
     const chartWeek = ref([])
     const dayList = ref(['شنبه', 'یک‌شنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه'])
-    const monthList = ref(['فرودین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'])
     const tab = ref('week')
     const calendarYear = ref(null)
     const calendarDate = ref(null)
@@ -571,12 +579,11 @@ export default defineComponent({
     const loadCalendar = (date, first) => {
       // assign variables data
       let dayCounter = 1
-      moment.loadPersian()
       calendarDate.value = moment(date)
       persianDate.value = new Intl.DateTimeFormat('fa-IR').format(calendarDate.value)
       startOfMonth.value = calendarDate.value.startOf('jMonth').format('dddd')
       startIndex.value = dayList.value.indexOf(startOfMonth.value)
-      calendarMonth.value = monthList.value[moment(calendarDate.value.jMonth(), 'jM').format('jM')]
+      calendarMonth.value = moment(date).format('jMMMM')
       calendarYear.value = calendarDate.value.jWeekYear()
       dayNum.value = moment.jDaysInMonth(calendarYear.value, calendarDate.value.jMonth())
       isLeapYear.value = moment.jIsLeapYear(calendarDate.value.jWeekYear())
@@ -681,7 +688,6 @@ export default defineComponent({
       baseHight,
       startTill,
       chartWeek,
-      monthList,
       month,
       tab,
       dayNum,
@@ -724,6 +730,7 @@ export default defineComponent({
     return {
       // hourStart: 2,
       // hourEnd: 20
+      monthList: moment()._locale._jMonths
     }
   },
   computed: {
@@ -736,11 +743,18 @@ export default defineComponent({
         result.push(i.toString().padStart(2, '0') + ':00')
       }
       return result
+    },
+    localCurrentDay () {
+      if (!this.currentDay && typeof window !== 'undefined') {
+        return Time.now()
+      }
+
+      return this.currentDay
     }
   },
   mounted () {
     this.calendarHeight = (this.hourEnd - this.hourStart + 1) * 80 + 20 + 'px'
-    this.loadCalendar(Time.now(), true)
+    this.loadCalendar(this.localCurrentDay, true)
     this.loadStudyPlanData()
   },
   methods: {
@@ -839,10 +853,10 @@ export default defineComponent({
       this.$emit('changeDate', moment(date).format('YYYY-MM-DD HH:mm:ss'))
     },
     goToNextWeek () {
-      // const today = new Date(this.chartWeek[0].date)
-      const nextWeek = new Date(new Date(this.chartWeek[0].date).getTime() + 7 * 24 * 60 * 60 * 1000)
-      this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
-      this.$emit('changeDate', moment(nextWeek).format('YYYY-MM-DD HH:mm:ss'))
+      const today = moment(this.localCurrentDay).add(1, 'weeks')
+      const day0 = today.clone().weekday(0).format('YYYY-MM-DD HH:mm:ss')
+      this.loadCalendar(day0, true)
+      this.$emit('changeDate', day0)
     },
     goToPrevWeek () {
       // const today = new Date(this.calendarDate._i)
@@ -853,7 +867,6 @@ export default defineComponent({
     setCalendarMonth (selectedMonth) {
       const month = this.monthList.indexOf(selectedMonth)
       const shamsi = `${this.calendarYear}-${month + 1}-01`
-      moment.loadPersian()
       if (selectedMonth === this.thisMonth) {
         this.loadCalendar(Time.now(), false)
         this.$emit('changeDate', moment(Time.now()).format('YYYY-MM-DD HH:mm:ss'))
