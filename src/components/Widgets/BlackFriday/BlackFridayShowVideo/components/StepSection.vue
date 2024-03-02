@@ -38,8 +38,8 @@
              class="curren-info">
           <div class="curren-info-title">
             نکته
-            {{ videoIndex }}
-            از ۷
+            {{ +videoIndex + +startIndex }}
+            از {{ 7 + +startIndex }}
           </div>
           <div class="curren-info-caption"
                v-html="video.coupon_display_title" />
@@ -61,6 +61,10 @@ export default defineComponent({
       default: new BlackFridayCampaignData()
     },
     selectedStepIndex: {
+      type: Number,
+      default: 0
+    },
+    startIndex: {
       type: Number,
       default: 0
     },
