@@ -32,7 +32,7 @@
               <div class="col-12 ">
                 <q-select v-model="formData.study_method_id"
                           :options="inputsOptions.studyPlans"
-                          :option-label="opt => opt.title"
+                          :option-label="opt => opt.display_name"
                           :option-value="opt => opt.id"
                           placeholder="انتخاب کنید"
                           emit-value
@@ -100,9 +100,11 @@
 <script>
 import { defineComponent } from 'vue'
 import { APIGateway } from 'src/api/APIGateway.js'
+import { mixinTripleTitleSet, mixinAuth } from 'src/mixin/Mixins.js'
 
 export default defineComponent({
   name: 'StudyPlanSelectionDialog',
+  mixins: [mixinTripleTitleSet, mixinAuth],
   props: {
     dialog: {
       type: Boolean,
@@ -118,26 +120,28 @@ export default defineComponent({
         studyPlans: []
       },
       formData: {
-        study_method_id: null,
         major_id: null,
-        grade_id: null
+        grade_id: null,
+        category_id: null,
+        study_method_id: null
       },
       studyPlanSelected: false
     }
   },
-  created () {
-    this.getOptions()
-  },
   methods: {
+    afterSetEvent () {
+      this.getOptions()
+      this.formData.category_id = this.event.study_plan.category_id
+    },
     getOptions () {
-      this.$apiGateway.abrisham.getOptions()
+      APIGateway.studyPlan.getSelectPlanOptions({ category_id: this.event.study_plan.category_id })
         .then(options => {
           this.inputsOptions = options
         })
         .catch(() => {})
     },
     submitStudyPlan () {
-      APIGateway.abrisham.submitStudyPlan(this.formData)
+      APIGateway.studyPlan.updateMyStudyPlan(this.formData)
         .then(() => {
           this.studyPlanSelected = true
         })

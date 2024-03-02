@@ -337,7 +337,7 @@ export default {
           this.userData = this.user
           this.loadUserCity()
         })
-        .catch((e) => {
+        .catch(() => {
           this.$q.notify({
             type: 'negative',
             message: 'مشکلی در گرفتن اطلاعات رخ داده است. لطفا دوباره امتحان کنید ',

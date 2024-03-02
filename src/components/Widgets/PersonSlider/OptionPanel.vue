@@ -6,39 +6,43 @@
                           icon="tune"
                           label="Slider Settings">
           <div class="row q-mb-sm q-col-gutter-md">
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-4">
               <q-radio v-model="localOptions.personType"
                        val="student"
                        label="دانش آموز" />
             </div>
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-4">
               <q-radio v-model="localOptions.personType"
                        val="teacher"
                        label="استاد" />
             </div>
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-4">
               <q-checkbox v-model="localOptions.settings.pauseAutoplayOnHover"
                           label="pauseAutoplayOnHover" />
             </div>
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-4">
               <q-checkbox v-model="localOptions.settings.wrapAround"
                           label="دور بینهایت" />
             </div>
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-4">
               <q-checkbox v-model="localOptions.pagination"
                           label="صفحه بندی" />
             </div>
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-4">
               <q-checkbox v-model="localOptions.carouselPadding"
                           label="فاصله داخلی اسلایدر" />
             </div>
+            <div class="col-12">
+              <q-separator class="option-separator"
+                           spaced />
+              <image-upload-input v-model:value ="localOptions.slidItemBackgroundImage"
+                                  :with-url="true"
+                                  @update:value="updateSlidItemBackground($event)" />
+            </div>
             <div class="col-12 col-md-3">
-              <div class="text-title">
-                رنگ پس زمینه آیتم اسلایدر
-              </div>
               <q-input v-model="localOptions.slidItemBackgroundColor"
                        filled
-                       class="رنگ پس زمینه آیتم اسلایدر">
+                       label="رنگ پس زمینه آیتم اسلایدر">
                 <template v-slot:append>
                   <q-icon name="colorize"
                           class="cursor-pointer">
@@ -52,114 +56,90 @@
               </q-input>
             </div>
             <div class="col-12 col-md-3">
-              <div class="text-title">
-                Image Link
-              </div>
-              <image-upload-input v-model:value ="localOptions.slidItemBackgroundImage"
-                                  :with-url="true"
-                                  @update:value="updateSlidItemBackground($event)" />
+              <q-select v-model="localOptions.slidItemBackgroundPosition"
+                        :options="backgroundPositionOptions"
+                        label="Background Position" />
             </div>
             <div class="col-12 col-md-3">
-              <div class="text-title">
-                Background Position
-              </div>
-              <q-input v-model="localOptions.slidItemBackgroundPosition"
-                       type="text"
-                       label="Background Position" />
+              <q-select v-model="localOptions.slidItemBackgroundRepeat"
+                        :options="backgroundRepeatOptions"
+                        label="Background Repeat" />
             </div>
             <div class="col-12 col-md-3">
-              <div class="text-title">
-                Background Repeat
-              </div>
-              <q-input v-model="localOptions.slidItemBackgroundRepeat"
-                       type="text"
-                       label="Background Repeat" />
-            </div>
-            <div class="col-12 col-md-3">
-              <div class="text-title">
-                Background Size
-              </div>
               <q-input v-model="localOptions.slidItemBackgroundSize"
                        type="text"
                        label="Background Size" />
             </div>
             <div class="col-12 col-md-3">
-              <div class="text-title">
-                ImageWidth
-              </div>
               <q-input v-model="localOptions.slideItemImageWidth"
                        type="text"
                        label="ImageWidth" />
             </div>
             <div class="col-12 col-md-3">
-              <div class="text-title">
-                ImageHeight
-              </div>
               <q-input v-model="localOptions.slideItemImageHeight"
                        type="text"
                        label="ImageHeight" />
             </div>
             <div class="col-12 col-md-3">
-              <div class="text-title">
-                direction
-              </div>
-              <q-input v-model="localOptions.settings.dir"
-                       type="text"
-                       label="direction" />
+              <q-select v-model="localOptions.settings.dir"
+                        :options="directionOptions"
+                        label="direction" />
             </div>
             <div class="col-12 col-md-3">
-              <div class="text-title">autoplay</div>
               <q-input v-model="localOptions.settings.autoplay"
                        type="number"
                        label="autoplay" />
             </div>
             <div class="col-12 col-md-3">
-              <div class="text-title">items To Scroll</div>
               <q-input v-model="localOptions.settings.itemsToScroll"
                        type="number"
                        label="itemsToScroll" />
             </div>
             <div class="col-12 col-md-3">
-              <div class="text-title">transition</div>
               <q-input v-model="localOptions.settings.transition"
                        type="number"
                        label="transition" />
             </div>
             <div class="col-12 col-md-3">
-              <div class="text-title">Item To Show</div>
               <q-input v-model="localOptions.settings.itemsToShow"
                        type="number"
                        label="itemsToShow" />
             </div>
             <div class="col-12 col-md-3">
-              <div class="text-title">snapAlign</div>
-              <q-input v-model="localOptions.settings.snapAlign"
-                       type="text"
-                       label="snapAlign" />
+              <q-select v-model="localOptions.settings.snapAlign"
+                        :options="snapAlignOptions"
+                        label="snapAlign" />
             </div>
           </div>
           <div class="row q-mb-sm q-col-gutter-md">
-            <div class="col-12 col-md-3">
-              <div class="text-title">size</div>
-              <q-select v-model="size"
-                        :options="sizeOptions"
-                        option-label="label"
-                        option-value="value"
-                        emit-value
-                        map-options
-                        label="page size" />
+            <div class="col-12">
+              <q-tabs v-model="size">
+                <q-tab v-for="(sizeItem, index) in sizeOptions"
+                       :key="index"
+                       :name="sizeItem.value"
+                       :label="sizeItem.label" />
+              </q-tabs>
             </div>
-            <div class="col-12 col-md-3">
-              <div class="text-title">itemsToShow-{{ size }}</div>
-              <q-input v-model="localOptions.breakpoints[size].itemsToShow"
-                       type="number"
-                       :label="`itemsToShow-${size}`" />
-            </div>
-            <div class="col-12 col-md-3">
-              <div class="text-title">snapAlign-{{ size }}</div>
-              <q-input v-model="localOptions.breakpoints[size].snapAlign"
-                       type="text"
-                       :label="`snapAlign-${size}`" />
+            <div class="col-12">
+              <q-tab-panels v-model="size"
+                            animated>
+                <q-tab-panel v-for="(sizeItem, index) in sizeOptions"
+                             :key="index"
+                             :name="sizeItem.value">
+                  <div class="row q-col-gutter-md">
+                    <div class="col-12 col-md-6">
+                      <q-input v-model="localOptions.breakpoints[size].itemsToShow"
+                               type="number"
+                               :label="`itemsToShow-${sizeItem.label}`" />
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <q-select v-model="localOptions.breakpoints[size].snapAlign"
+                                :options="snapAlignOptions"
+                                :label="`snapAlign-${sizeItem.label}`" />
+                    </div>
+                  </div>
+                </q-tab-panel>
+              </q-tab-panels>
             </div>
           </div>
         </q-expansion-item>
@@ -353,7 +333,7 @@ export default defineComponent({
       sizeOptions: [
         {
           label: 'xs',
-          value: 250
+          value: 200
         },
         {
           label: 'sm',
@@ -361,18 +341,22 @@ export default defineComponent({
         },
         {
           label: 'md',
-          value: 600
+          value: this.$q.screen.sizes.sm
         },
         {
           label: 'lg',
-          value: 1024
+          value: this.$q.screen.sizes.md
         },
         {
           label: 'xl',
-          value: 1440
+          value: this.$q.screen.sizes.lg
         }
       ],
       uploadType: '',
+      snapAlignOptions: ['start', 'end', 'center', 'center-even', 'center-odd'],
+      directionOptions: ['rtl', 'ltr'],
+      backgroundPositionOptions: ['top', 'bottom', 'left', 'right', 'center'],
+      backgroundRepeatOptions: ['no-repeat', 'repeat', 'space', 'round', 'repeat-x', 'repeat-y'],
       navigationSize: 'xs',
       navigationSizeOptions: ['xs', 'sm', 'md', 'lg', 'xl'],
       rowId: null,
@@ -489,6 +473,10 @@ export default defineComponent({
 .option-panel-container{
   .table-rows{
     place-content: center;
+  }
+
+  .option-separator {
+    width: 100%;
   }
 }
 </style>

@@ -7,10 +7,13 @@
             @paste.prevent="onPaste">
     <template v-slot:token>
       <q-btn-dropdown ref="colorPicker"
+                      color="parimary"
                       dense
-                      unelevated
+                      square
+                      dark
+                      flat
                       icon="colorize"
-                      size="sm">
+                      unelevated>
         <q-list dense>
           <q-item tag="label"
                   clickable>

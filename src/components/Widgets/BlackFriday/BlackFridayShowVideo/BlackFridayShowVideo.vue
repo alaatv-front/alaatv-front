@@ -7,6 +7,9 @@
     <template v-else>
       <video-section class="show-video-section"
                      :video="selectedVideo"
+                     :show-btn="localOptions.showBtn"
+                     :disable-playback-rate-menu-button="localOptions.disablePlaybackRateMenuButton"
+                     :disable-progress-control="localOptions.disableProgressControl"
                      @clickOnLockedState="clickOnLockedState"
                      @watched="onWatched"
                      @play="onPlay"
@@ -15,6 +18,8 @@
                      @next="onNext" />
       <step-section :black-friday-campaign-data="blackFridayCampaignData"
                     :selected-step-index="selectedVideoIndex"
+                    :from-first-index="localOptions.fromFirstIndex"
+                    :start-index="localOptions.startIndex"
                     class="step-section"
                     @onSelectStep="onSelectStep" />
       <q-dialog v-model="dialog">
@@ -52,8 +57,14 @@ export default defineComponent({
       videoDialogState: null,
       blackFridayCampaignData: new BlackFridayCampaignData(),
       defaultOptions: {
+        showBtn: false,
+        startIndex: 0,
+        fromFirstIndex: false,
         scrollToProducts: null,
-        scrollToParticipateSection: null
+        popupForFirstVideo: true,
+        disableProgressControl: true,
+        scrollToParticipateSection: null,
+        disablePlaybackRateMenuButton: true
       }
     }
   },
@@ -203,7 +214,7 @@ export default defineComponent({
       // const hasPlayedFirstVideo = this.blackFridayCampaignData.videos.list.length > 0 ? this.blackFridayCampaignData.videos.list[0].has_played : false
       //
       // if (this.currentVideoWatched || (this.selectedVideoIndex === 0 && !hasPlayedFirstVideo)) {
-      if (this.currentVideoWatched || this.selectedVideoIndex === 0) {
+      if (this.localOptions.popupForFirstVideo && (this.currentVideoWatched || this.selectedVideoIndex === 0)) {
         const videoDialogState = this.getVideoDialogState()
         this.showVideoDialog(videoDialogState)
       }
@@ -267,7 +278,7 @@ export default defineComponent({
         }
       })
 
-      return activeIndex
+      return this.localOptions.fromFirstIndex ? 0 : activeIndex
     }
   }
 })

@@ -38,8 +38,8 @@
              class="curren-info">
           <div class="curren-info-title">
             نکته
-            {{ videoIndex }}
-            از ۷
+            {{ +videoIndex + +startIndex }}
+            از {{ 7 + +startIndex }}
           </div>
           <div class="curren-info-caption"
                v-html="video.coupon_display_title" />
@@ -63,11 +63,18 @@ export default defineComponent({
     selectedStepIndex: {
       type: Number,
       default: 0
+    },
+    startIndex: {
+      type: Number,
+      default: 0
+    },
+    fromFirstIndex: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
-
     }
   },
   computed: {
@@ -110,7 +117,7 @@ export default defineComponent({
         }
       })
 
-      return activeIndex
+      return this.fromFirstIndex ? this.selectedStepIndex : activeIndex
     }
   }
 })
@@ -203,13 +210,17 @@ export default defineComponent({
       }
 
       .q-btn {
-        width: 56px;
-        height: 56px;
+        width: 56px !important;
+        min-width: 56px !important;
+        height: 56px !important;
+        min-height: 56px !important;
         padding: 18px;
 
         @media screen and (width <= 1023px) {
-          width: 48px;
-          height: 48px;
+          width: 48px !important;
+          min-width: 48px !important;
+          height: 48px !important;
+          min-height: 48px !important;
           padding: 15px;
         }
 

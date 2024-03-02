@@ -22,30 +22,48 @@ export default class EventsAPI extends APIRepository {
       getInfoByEvent: (eventId) => this.name + this.APIAdresses.getInfoByEvent(eventId),
       eventAdvisor: (eventId) => this.name + this.APIAdresses.eventAdvisor(eventId)
     }
-  }
-
-  getEventInfoByName (eventName) {
-    const events = [
+    this.eventList = [
       {
         id: 10,
         name: 'chatre-nejat',
+        title: 'چتر نجات',
         logo: 'https://nodes.alaatv.com/upload/landing/chatr/chatr%20logo.png',
+        study_plan: {
+          category_id: null
+        },
         showDashboard: false,
-        showStudyPlan: false
+        showStudyPlan: false,
+        groups: [
+          'alaa'
+        ]
       },
       {
         id: 11,
         name: 'emtahan-nahaee',
+        title: 'امتحانات نهایی آلاء',
         logo: 'https://nodes.alaatv.com/upload/landing/chatr/emtahan-nahaee-logo.png',
+        study_plan: {
+          category_id: null
+        },
         showDashboard: false,
-        showStudyPlan: false
+        showStudyPlan: false,
+        groups: [
+          'alaa'
+        ]
       },
       {
         id: 12,
         name: 'emtahan-nahaee-9',
+        title: 'امتحانات نهایی نهم',
         logo: 'https://nodes.alaatv.com/upload/landing/41/emtehan-nahayi-nohom-logo.png',
+        study_plan: {
+          category_id: null
+        },
         showDashboard: false,
-        showStudyPlan: false
+        showStudyPlan: false,
+        groups: [
+          'alaa'
+        ]
       },
       {
         id: 13,
@@ -53,27 +71,85 @@ export default class EventsAPI extends APIRepository {
         name: 'abrisham2',
         title: 'راه ابریشم ۲',
         logo: 'https://nodes.alaatv.com/upload/landing/RAHABRISHAM/logo-abrisham2.png',
+        study_plan: {
+          category_id: 1
+        },
         showDashboard: false,
-        showStudyPlan: false
+        showStudyPlan: false,
+        groups: [
+          'alaa'
+        ]
       },
       {
         id: 25,
         name: '110',
+        title: '110',
         logo: 'https://nodes.alaatv.com/upload/landing/panel/110-logo.png',
+        study_plan: {
+          category_id: null
+        },
         showDashboard: false,
-        showStudyPlan: false
+        showStudyPlan: false,
+        groups: [
+          'alaa'
+        ]
       },
       {
         id: 27,
         studyEventId: 6,
         name: 'ehsan-abrisham2',
+        title: 'راه ابریشم ۲ بنیاد احسان',
         logo: 'https://nodes.alaatv.com/upload/landing/RAHABRISHAM/logo-abrisham2.png',
+        study_plan: {
+          category_id: null
+        },
         showDashboard: false,
-        showStudyPlan: false
+        showStudyPlan: false,
+        groups: [
+          'emtahan'
+        ]
+      },
+      {
+        id: 35,
+        studyEventId: 35,
+        name: 'sin8',
+        title: 'سین 8',
+        logo: 'https://nodes.alaatv.com/upload/landing/SIN8/logo_sin8_2.png',
+        study_plan: {
+          category_id: 2
+        },
+        showDashboard: true,
+        showStudyPlan: true,
+        groups: [
+          // 'alaa'
+        ]
       }
     ]
+  }
+
+  index () {
     return new Promise((resolve, reject) => {
-      const event = events.find(eventItem => eventItem.name === eventName)
+      if (!this.eventList) {
+        reject()
+      }
+
+      resolve(this.eventList)
+    })
+  }
+
+  getAlaaPanels () {
+    return new Promise((resolve, reject) => {
+      if (!this.eventList) {
+        reject()
+      }
+
+      resolve(this.eventList.filter(item => item.groups.includes('alaa')))
+    })
+  }
+
+  getEventInfoByName (eventName) {
+    return new Promise((resolve, reject) => {
+      const event = this.eventList.find(eventItem => eventItem.name === eventName)
       if (!event) {
         reject()
       }

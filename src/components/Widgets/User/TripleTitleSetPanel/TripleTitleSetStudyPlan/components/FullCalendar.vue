@@ -10,7 +10,7 @@
                  class="q-mx-sm q-btn-sm keep-min-width"
                  color="primary"
                  text-color="grey-9"
-                 @click="goToLastWeek" />
+                 @click="goToPrevWeek" />
           <q-btn label="هفته بعد"
                  class="q-mx-sm q-btn-sm keep-min-width"
                  color="primary"
@@ -41,13 +41,18 @@
       <div class="box">
         <q-scroll-area ref="firstRef"
                        class="first-scroll"
-                       style="height: 90px"
+                       style="height: 60px"
+                       :visible="false"
+                       :delay="0"
                        @scroll="onScrollFirst">
           <div class="calendar-first-row"
                :class="{'weekly': tab === 'week'}">
+            <div class="calendar-col calendar-col--hour">
+              ساعت
+            </div>
             <div v-for="dayOfWeekIndex in [0, 1, 2, 3, 4, 5, 6]"
                  :key="dayOfWeekIndex"
-                 class="col calendar-col"
+                 class="calendar-col"
                  :class="{'weekly': tab === 'week'}">
               <span class="day-name body1">
                 {{ getDayOfWeekTitle(dayOfWeekIndex) }}
@@ -62,7 +67,6 @@
         <q-scroll-area ref="secondRef"
                        visible
                        class="second-scroll"
-                       style="height:500px"
                        @scroll="onScrollSecond">
           <div class="calendar-wrapper">
             <div class="calendar-body">
@@ -73,23 +77,17 @@
                   <div v-for="day in 7"
                        :key="day"
                        class="day-col">
-                    <div class="hour-line first-row">
-                      <q-separator />
-                      <div class="hour">
-                        <div v-if="day === 1">
-                          ساعت
-                        </div>
-                      </div>
-                      <q-separator />
-                      <q-separator class="separator"
-                                   vertical />
-                    </div>
-                    <div v-for="hour in 17"
+                    <div v-for="(hour, hourIndex) in hourList"
                          :key="hour"
                          class="hour-line">
-                      <div v-if="day === 1 && hour > 1"
+                      <div v-if="day === 1"
                            class="hour">
-                        {{ `${(hour + baseHour - 2) }:00` }}
+                        <span v-if="hourIndex === 0">
+                          ساعت
+                        </span>
+                        <span>
+                          {{ hour }}
+                        </span>
                       </div>
                       <q-separator class="separator"
                                    vertical />
@@ -98,7 +96,6 @@
                       <div v-for="event in chartWeek[day - 1].events"
                            :key="event.id"
                            class="weekly-event cursor-pointer"
-                           :class="{'start-is-before-08': parseInt(event.start.split(':')[0]) < 8}"
                            :style="{ top: calculateTop(event), height: calculateHeight(event), background: getBackgroundColor(event.backgroundColor)}">
                         <div class="row q-px-md event-info"
                              @click="openEvent(event)">
@@ -230,15 +227,23 @@ import { colors } from 'quasar'
 import moment from 'moment-jalaali'
 import Time from 'src/plugins/time.js'
 import { defineComponent, ref } from 'vue'
-import { APIGateway } from 'src/api/APIGateway.js'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
 // import PlanItem from 'components/DashboardTripleTitleSet/Dashboard/PlanItem.vue'
-import planContents from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/PlanContents.vue'
+import planContents
+  from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/PlanContents.vue'
 
 export default defineComponent({
   name: 'FullCalendar',
   components: { planContents },
   props: {
+    hourStart: {
+      type: Number,
+      default: 0
+    },
+    hourEnd: {
+      type: Number,
+      default: 17
+    },
     studyEvent: {
       type: Number,
       default: null
@@ -260,6 +265,7 @@ export default defineComponent({
       default: 'calendar_month'
     }
   },
+  emits: ['changeDate', 'copyPlan', 'editPlan', 'removePlan'],
   setup (props, { emit }) {
     // const emit = defineEmits(['editPlan', 'removePlan'])
     const month = ref([
@@ -528,10 +534,10 @@ export default defineComponent({
         }
       ]
     ])
+    const calendarHeight = ref(0)
     const baseHight = ref(80) // must be 40
-    const baseHour = ref(8)
     const chartWeek = ref([])
-    const dayList = ref(['شنبه', 'یک‌شنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'آدینه'])
+    const dayList = ref(['شنبه', 'یک‌شنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه'])
     const monthList = ref(['فرودین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'])
     const tab = ref('week')
     const calendarYear = ref(null)
@@ -670,12 +676,12 @@ export default defineComponent({
       copyPlan,
       removePlan,
       calendarMonth,
+      calendarHeight,
       startOfMonth,
       baseHight,
       startTill,
       chartWeek,
       monthList,
-      baseHour,
       month,
       tab,
       dayNum,
@@ -714,13 +720,28 @@ export default defineComponent({
       }
     }
   },
+  data () {
+    return {
+      // hourStart: 2,
+      // hourEnd: 20
+    }
+  },
   computed: {
     filteredLessonId () {
       return this.filteredLesson
+    },
+    hourList () {
+      const result = []
+      for (let i = this.hourStart; i <= this.hourEnd; i++) {
+        result.push(i.toString().padStart(2, '0') + ':00')
+      }
+      return result
     }
   },
   mounted () {
+    this.calendarHeight = (this.hourEnd - this.hourStart + 1) * 80 + 20 + 'px'
     this.loadCalendar(Time.now(), true)
+    this.loadStudyPlanData()
   },
   methods: {
     getDayOfWeekTitle (dayOfWeekIndex) {
@@ -752,15 +773,45 @@ export default defineComponent({
       return colors.lighten(color, 60)
     },
     calculateTop (event) {
-      return ((parseInt(event.start.substring(0, 2)) + (parseInt(event.start.substring(3, 5)) / 60)) - this.baseHour) * this.baseHight + this.baseHight + 48 + 'px'
+      const eventStartArray = event.start.split(':')
+      const hourInt = parseInt(eventStartArray[0])
+      const minuteInt = parseInt(eventStartArray[1])
+      return this.getTopWithHourAndMinute(hourInt, minuteInt)
     },
     calculateHeight (event) {
-      return (parseInt(event.end.substring(0, 2)) + parseInt(event.end.substring(3, 5)) / 60 - parseInt(event.start.substring(0, 2)) - parseInt(event.start.substring(3, 5)) / 60) * this.baseHight - 8 + 'px'
+      const heightUnit = 'px'
+      const eventEndArray = event.end.split(':')
+      const eventStartArray = event.start.split(':')
+      const endHour = parseInt(eventEndArray[0])
+      const endMinute = parseInt(eventEndArray[1])
+      const startHour = parseInt(eventStartArray[0])
+      const startMinute = parseInt(eventStartArray[1])
+      const startInt = startHour - (startMinute / 60)
+      const endInt = endHour + (endMinute / 60)
+      const finalStart = startInt > this.hourStart ? startInt : this.hourStart
+      const finalEnd = endInt < this.hourEnd ? endInt : (this.hourEnd + 1)
+
+      return ((finalEnd - finalStart) * this.baseHight) + heightUnit
     },
     calculateTimeHeight () {
       const hour = new Date().getHours()
-      const minutes = new Date().getMinutes()
-      return (hour + minutes / 60 - this.baseHour) * this.baseHight + this.baseHight + 48 + 'px'
+      const minute = new Date().getMinutes()
+      if (this.hourStart <= hour && hour <= this.hourEnd) {
+        return this.getTopWithHourAndMinute(hour, minute)
+      } else {
+        return '-10px'
+      }
+    },
+    getTopWithHourAndMinute (hour, minute) {
+      const heightUnit = 'px'
+      if (hour < this.hourStart) {
+        return '-10' + heightUnit
+      }
+
+      const topAfterZero = (hour + (minute / 60)) * this.baseHight
+      const topHourStart = topAfterZero - (this.hourStart * this.baseHight)
+
+      return topHourStart + heightUnit
     },
     calculateEventDate () {
       // const date = new Date(this.selectedEvent.date)
@@ -769,54 +820,35 @@ export default defineComponent({
       this.eventDialog = true
       this.selectedEvent = event
     },
-    getStudyPlanData (eventId, date) {
-      if (date) {
-        this.loadCalendar(moment(date).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
-      }
-      this.loading = true
-      const data = {
-        study_event: eventId || this.studyEvent,
-        since_date: this.chartWeek[0].date,
-        till_date: this.chartWeek[6].date,
-        product_id: this.filteredLessonId ? this.filteredLessonId : null
-      }
-      APIGateway.studyPlan.getStudyPlanData(data)
-        .then(studyPlanList => {
-          this.loading = false
-          this.studyPlanList = studyPlanList
-          for (let w = 0; w < 6; w++) {
-            for (let col = 0; col < 7; col++) {
-              this.month[w][col].events = []
-              for (let e = 0; e < studyPlanList.list.length; e++) {
-                // console.log(res.data.data[e].start_at.substring(0, 10))
-                if (studyPlanList.list[e].plan_date === this.month[w][col].date.toString().split('/').join('-')) {
-                  studyPlanList.list[e].plans.list.forEach(plan => {
-                    this.month[w][col].events.push(plan)
-                  })
-                }
-              }
+    loadStudyPlanData () {
+      for (let w = 0; w < 6; w++) {
+        for (let col = 0; col < 7; col++) {
+          this.month[w][col].events = []
+          for (let e = 0; e < this.events.list.length; e++) {
+            if (this.events.list[e].plan_date === this.month[w][col].date.toString().split('/').join('-')) {
+              this.events.list[e].plans.list.forEach(plan => {
+                this.month[w][col].events.push(plan)
+              })
             }
           }
-        })
-        .catch(() => {
-          this.loading = false
-        })
+        }
+      }
     },
     goToSelectedDate (date) {
       this.loadCalendar(moment(date).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
-      this.getStudyPlanData()
+      this.$emit('changeDate', moment(date).format('YYYY-MM-DD HH:mm:ss'))
     },
     goToNextWeek () {
       // const today = new Date(this.chartWeek[0].date)
       const nextWeek = new Date(new Date(this.chartWeek[0].date).getTime() + 7 * 24 * 60 * 60 * 1000)
       this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
-      this.getStudyPlanData()
+      this.$emit('changeDate', moment(nextWeek).format('YYYY-MM-DD HH:mm:ss'))
     },
-    goToLastWeek () {
+    goToPrevWeek () {
       // const today = new Date(this.calendarDate._i)
-      const nextWeek = new Date(new Date(this.chartWeek[0].date).getTime() - 7 * 24 * 60 * 60 * 1000)
-      this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
-      this.getStudyPlanData()
+      const prevWeek = new Date(new Date(this.chartWeek[0].date).getTime() - 7 * 24 * 60 * 60 * 1000)
+      this.loadCalendar(moment(prevWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
+      this.$emit('changeDate', moment(prevWeek).format('YYYY-MM-DD HH:mm:ss'))
     },
     setCalendarMonth (selectedMonth) {
       const month = this.monthList.indexOf(selectedMonth)
@@ -824,11 +856,11 @@ export default defineComponent({
       moment.loadPersian()
       if (selectedMonth === this.thisMonth) {
         this.loadCalendar(Time.now(), false)
-        this.getStudyPlanData()
+        this.$emit('changeDate', moment(Time.now()).format('YYYY-MM-DD HH:mm:ss'))
       } else {
         const newDate = moment(shamsi, 'jYYYY/jM/jD').format('YYYY-M-D HH:MM:SS')
         this.loadCalendar(newDate, false)
-        this.getStudyPlanData()
+        this.$emit('changeDate', newDate)
       }
     }
   }
@@ -969,6 +1001,11 @@ export default defineComponent({
       }
     }
 
+    .second-scroll {
+      height: v-bind('calendarHeight');
+      max-height: 500px;
+    }
+
     .calendar-first-row {
       width: fit-content;
       display: flex;
@@ -978,7 +1015,7 @@ export default defineComponent({
       .calendar-col {
         width: 280px;
         min-width: 90px;
-        height: 59px;
+        //height: 59px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -1005,10 +1042,14 @@ export default defineComponent({
           min-width: 80px;
           justify-content: flex-start;
         }
+
+        &.calendar-col--hour {
+          width: 125px;
+        }
       }
 
       &.weekly {
-        margin-left: 125px;
+        //margin-left: 125px;
       }
     }
 
@@ -1114,14 +1155,6 @@ export default defineComponent({
               position: relative;
 
               .hour-line {
-                &.first-row {
-                  height: 48px;
-
-                  .hour {
-                    top: 10px;
-                  }
-                }
-
                 width: 280px;
                 height: 80px;
                 border-top: 1px solid #E4E8EF;
@@ -1131,13 +1164,15 @@ export default defineComponent({
 
                 .hour {
                   position: absolute;
-                  top: -13px;
+                  top: 0;
                   left: -80px;
+                  transform: translateY(-50%);
                   font-style: normal;
                   font-weight: 400;
                   font-size: 12px;
                   line-height: 24px;
                   display: flex;
+                  flex-flow: column;
                   align-items: center;
                   text-align: center;
                   color: #6D708B;
@@ -1153,8 +1188,8 @@ export default defineComponent({
                 width: 268px;
                 background: #9690E4;
                 border-radius: 8px;
-                margin-left: 6px;
-                margin-top: 4px;
+                margin-left: 0;
+                margin-top: 0;
 
                 .event-info {
                   overflow: auto;
@@ -1179,16 +1214,6 @@ export default defineComponent({
                     position: absolute;
                     right: 0;
                     top: 0;
-                  }
-                }
-
-                &.start-is-before-08 {
-                  .event-info {
-                    align-content: flex-end;
-                  }
-                  .more {
-                    top: auto;
-                    bottom: 0;
                   }
                 }
               }

@@ -8,12 +8,13 @@
           <div class="col-md-12">
             <editor v-model:value="localOptions.text" />
           </div>
-          <editor-options v-model:options="localOptions" />
+          <div class="col-12 q-mt-md">
+            <editor-options v-model:options="localOptions" />
+          </div>
         </div>
         <div class="row q-col-gutter-sm q-mt-sm">
           <div class="col-12 col-md-3">
             <q-checkbox v-model="localOptions.hasTheme"
-                        left-label
                         label="hasTheme" />
           </div>
           <div class="col-12 col-md-3">
@@ -40,10 +41,10 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
-import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 import Editor from 'components/Utils/Editor.vue'
 import EditorOptions from 'components/EditorOptions.vue'
+import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
+import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
@@ -202,3 +203,10 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+.theme-pic {
+  width: 100px;
+  height: 50px;
+}
+</style>

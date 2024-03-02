@@ -271,7 +271,7 @@ export default defineComponent({
           this.bookmarkLoading = false
         })
     },
-    shareGiftCard ({ name, url }) {
+    shareGiftCard ({ url }) {
       window.open(url, '_blank')
     },
     toggleExpanded () {

@@ -125,7 +125,7 @@ export default {
     }
   },
   methods: {
-    afterAuthenticate () {
+    afterSetEvent () {
       const productId = this.$route.params.productId
       if (productId) {
         this.getProductSets(productId)
@@ -210,7 +210,7 @@ export default {
   }
 
   &:deep(.quasar-crud-index-table) {
-    padding: 20px 10 !important;
+    padding: 20px 10px !important;
   }
 
   &:deep(.formBuilder-actionBtn-ActionBtn) {
