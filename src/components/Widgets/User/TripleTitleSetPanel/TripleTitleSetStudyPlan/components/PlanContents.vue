@@ -1,44 +1,48 @@
 <template>
-  <div v-for="content in plan.contents.list"
-       :key="content.id"
-       class="col plan-item-box q-mx-sm">
-    <div class="plan-item-header" />
-    <div class="plan-item-info">
-      <div class="item-title ellipsis">{{ content.title }}</div>
-      <div class="item-plan ellipsis">
-        <q-icon name="import_contacts"
-                size="18px"
-                class="q-mr-sm" />
-        {{ content?.title || 'ویدیو ندارد' }}
-      </div>
-    </div>
-    <q-separator />
-    <div class="plan-item-footer">
-      <div v-if="content.file.pamphlet"
-           class="footer-text">
-        دانلود
-      </div>
-      <div v-else
-           class="footer-text">
-        مشاهده
-      </div>
-      <div class="footer-action">
-        <q-btn v-if="content.file.pamphlet"
-               color="primary"
-               round
-               unelevated
-               :disable="!content.id"
-               size="11px"
-               icon="download"
-               @click="downloadPdf(content)" />
-        <q-btn v-else
-               color="primary"
-               round
-               unelevated
-               :disable="!content.id"
-               size="11px"
-               icon="play_arrow"
-               :to="{name:'UserPanel.Asset.TripleTitleSet.Content', params:{ productId: plan.product?.id, setId: content.set?.id, contentId: content?.id}}" />
+  <div class="row q-col-gutter-md">
+    <div v-for="content in plan.contents.list"
+         :key="content.id"
+         class="col-md-4 col-sm-12">
+      <div class="plan-item-box">
+        <div class="plan-item-header" />
+        <div class="plan-item-info">
+          <div class="item-title ellipsis">{{ content.title }}</div>
+          <div class="item-plan ellipsis">
+            <q-icon name="import_contacts"
+                    size="18px"
+                    class="q-mr-sm" />
+            {{ content?.title || 'ویدیو ندارد' }}
+          </div>
+        </div>
+        <q-separator />
+        <div class="plan-item-footer">
+          <div v-if="content.file.pamphlet"
+               class="footer-text">
+            دانلود
+          </div>
+          <div v-else
+               class="footer-text">
+            مشاهده
+          </div>
+          <div class="footer-action">
+            <q-btn v-if="content.file.pamphlet"
+                   color="primary"
+                   round
+                   unelevated
+                   :disable="!content.id"
+                   size="11px"
+                   icon="download"
+                   @click="downloadPdf(content)" />
+            <q-btn v-else
+                   color="primary"
+                   round
+                   unelevated
+                   :disable="!content.id"
+                   size="11px"
+                   icon="play_arrow"
+                   :to="{name:'UserPanel.Asset.TripleTitleSet.Content', params:{ productId: plan.product?.id, setId: content.set?.id, contentId: content?.id}}" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -72,7 +76,6 @@ export default {
 
 <style lang="scss" scoped>
 .plan-item-box{
-  width: 390px;
   height: 158px;
   border-radius: 12px;
   background: #F5F7FA;

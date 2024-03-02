@@ -1,3 +1,44 @@
+## [1.7.3](https://git.alaatv.com/web/alaatv_front/compare/v1.7.2...v1.7.3) (2024-03-02)
+
+
+### Bug Fixes
+
+* ttsp study plan show plans ([34bb09b](https://git.alaatv.com/web/alaatv_front/commit/34bb09b5671b20df177caca6cce68dd9fa538db9))
+
+## [1.7.2](https://git.alaatv.com/web/alaatv_front/compare/v1.7.1...v1.7.2) (2024-03-02)
+
+
+### Bug Fixes
+
+* ttsp study plan get settings by event_category_id ([efaa111](https://git.alaatv.com/web/alaatv_front/commit/efaa111caa5a3eacc01fad9f30fa571e5e4c1453))
+
+## [1.7.1](https://git.alaatv.com/web/alaatv_front/compare/v1.7.0...v1.7.1) (2024-03-02)
+
+
+### Bug Fixes
+
+* ttsp study plan change year and week ([52b9f00](https://git.alaatv.com/web/alaatv_front/commit/52b9f00a2298660fa96457d88f91247aa15ec07e))
+
+# [1.7.0](https://git.alaatv.com/web/alaatv_front/compare/v1.6.0...v1.7.0) (2024-02-28)
+
+
+### Features
+
+* black Friday video step start index added to option panel ([#988](https://git.alaatv.com/web/alaatv_front/issues/988)) ([aa49988](https://git.alaatv.com/web/alaatv_front/commit/aa49988e0308f58279a091e75a7d4d71a0a0b1e2))
+
+# [1.6.0](https://git.alaatv.com/web/alaatv_front/compare/v1.5.0...v1.6.0) (2024-02-28)
+
+
+### Bug Fixes
+
+* black Friday current video ([#984](https://git.alaatv.com/web/alaatv_front/issues/984)) ([912378a](https://git.alaatv.com/web/alaatv_front/commit/912378a2a44fa52c6a9012bc4a552a47828dd97c))
+* sin8 event id changed to 35 ([#987](https://git.alaatv.com/web/alaatv_front/issues/987)) ([c6f8dd5](https://git.alaatv.com/web/alaatv_front/commit/c6f8dd5fa50e8a3b55967a7ae5c3d9bd1a9df4e2))
+
+
+### Features
+
+* full calendar hour start & hour end ([#985](https://git.alaatv.com/web/alaatv_front/issues/985)) ([2a9977f](https://git.alaatv.com/web/alaatv_front/commit/2a9977f3b1487f78dc1dd966ac75b7b6bad0a5b5))
+
 # [1.5.0](https://git.alaatv.com/web/alaatv_front/compare/v1.4.5...v1.5.0) (2024-02-27)
 
 
