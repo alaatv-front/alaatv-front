@@ -6,7 +6,7 @@
         <q-btn color="primary"
                flat
                icon="close"
-               @click="toggleDialog" />
+               @click="toggleDialog(false, true)" />
       </q-card-section>
       <q-card-section>
         <q-stepper ref="stepper"
@@ -35,7 +35,7 @@
                              :redirectUrl="localOptions.redirectUrl"
                              :userInfo="userForm"
                              :eventId="localOptions.eventId"
-                             @toggle-dialog="toggleDialog" />
+                             @toggle-dialog="toggleDialog(true, true)" />
           </q-step>
         </q-stepper>
       </q-card-section>
@@ -84,7 +84,22 @@ export default {
     this.$bus.on(this.localOptions.eventName, this.toggleDialog)
   },
   methods: {
-    toggleDialog () {
+    toggleDialog (completion = false, close = false) {
+      if (close) {
+        if (completion) {
+          localStorage.setItem(`newsletter#${this.localOptions.eventName + this.localOptions.eventId}`, 'completed')
+          this.dialog = !this.dialog
+          this.$bus.emit('newsletterCompleted', this.localOptions.eventName)
+          return
+        }
+        this.dialog = !this.dialog
+        return
+      }
+      const newsletterCompleted = localStorage.getItem(`newsletter#${this.localOptions.eventName + this.localOptions.eventId}`)
+      if (newsletterCompleted) {
+        this.$bus.emit('newsletter', this.localOptions.eventName)
+        return
+      }
       this.dialog = !this.dialog
     },
     gotoNextStep (currentStep) {
@@ -107,7 +122,7 @@ export default {
 <style lang="scss" scoped>
 .signup-dialog-card{
   width: 432px;
-  height: 487px;
+  height: 516px;
 
   @media screen and (width <= 600px) {
     width: 100%;
