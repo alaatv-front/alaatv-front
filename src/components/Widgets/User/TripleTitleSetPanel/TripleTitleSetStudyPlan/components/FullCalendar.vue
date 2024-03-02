@@ -165,17 +165,18 @@
               {{calculateEventDate()}} - {{selectedEvent.start.substring(0, 5)}} الی {{selectedEvent.end.substring(0, 5)}}
             </div>
             <q-btn flat
+                   square
                    icon="close"
                    @click="eventDialog = false" />
           </div>
         </q-card-section>
         <q-separator />
         <q-card-section>
-          <div class="row">
+          <div class="q-mt-md">
             <plan-contents :plan="selectedEvent" />
-            <div class="event-description col-12 q-mt-md">
-              {{selectedEvent.description}}
-            </div>
+          </div>
+          <div class="event-description q-mt-md">
+            {{selectedEvent.description}}
           </div>
         </q-card-section>
         <q-card-section>
