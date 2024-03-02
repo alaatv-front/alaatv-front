@@ -1,3 +1,11 @@
+## [1.7.4](https://git.alaatv.com/web/alaatv_front/compare/v1.7.3...v1.7.4) (2024-03-02)
+
+
+### Bug Fixes
+
+* ttsp study plan lastEndTime and firstStartTime ([9a90f44](https://git.alaatv.com/web/alaatv_front/commit/9a90f44fc3b21e4d1154eb374581adbbafab2926))
+* ttsp study plan show plan dialog style ([23b3aa4](https://git.alaatv.com/web/alaatv_front/commit/23b3aa42c32a93ef6c085fecb2aa22f05e3156fa))
+
 ## [1.7.3](https://git.alaatv.com/web/alaatv_front/compare/v1.7.2...v1.7.3) (2024-03-02)
 
 
