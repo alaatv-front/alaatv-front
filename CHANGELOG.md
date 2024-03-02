@@ -1,3 +1,10 @@
+## [1.7.3](https://git.alaatv.com/web/alaatv_front/compare/v1.7.2...v1.7.3) (2024-03-02)
+
+
+### Bug Fixes
+
+* ttsp study plan show plans ([34bb09b](https://git.alaatv.com/web/alaatv_front/commit/34bb09b5671b20df177caca6cce68dd9fa538db9))
+
 ## [1.7.2](https://git.alaatv.com/web/alaatv_front/compare/v1.7.1...v1.7.2) (2024-03-02)
 
 
