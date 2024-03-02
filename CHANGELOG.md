@@ -1,3 +1,10 @@
+## [1.7.1](https://git.alaatv.com/web/alaatv_front/compare/v1.7.0...v1.7.1) (2024-03-02)
+
+
+### Bug Fixes
+
+* ttsp study plan change year and week ([52b9f00](https://git.alaatv.com/web/alaatv_front/commit/52b9f00a2298660fa96457d88f91247aa15ec07e))
+
 # [1.7.0](https://git.alaatv.com/web/alaatv_front/compare/v1.6.0...v1.7.0) (2024-02-28)
 
 
