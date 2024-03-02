@@ -40,7 +40,8 @@
                        class="q-mt-md"
                        indeterminate />
     <div class="col-12 calendar">
-      <full-calendar ref="fullCalendar"
+      <full-calendar v-if="studyPlanListLoaded"
+                     ref="fullCalendar"
                      :hour-start="firstStartTime"
                      :hour-end="lastEndTime"
                      :study-event="studyEvent"

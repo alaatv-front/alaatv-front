@@ -247,7 +247,7 @@ export default defineComponent({
     },
     hourEnd: {
       type: Number,
-      default: 17
+      default: 23
     },
     studyEvent: {
       type: Number,
@@ -756,6 +756,7 @@ export default defineComponent({
     this.calendarHeight = (this.hourEnd - this.hourStart + 1) * 80 + 20 + 'px'
     this.loadCalendar(this.localCurrentDay, true)
     this.loadStudyPlanData()
+    console.log('events', this.events.list)
   },
   methods: {
     getDayOfWeekTitle (dayOfWeekIndex) {
