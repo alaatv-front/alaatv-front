@@ -753,12 +753,15 @@ export default defineComponent({
     }
   },
   mounted () {
-    this.calendarHeight = (this.hourEnd - this.hourStart + 1) * 80 + 20 + 'px'
+    this.calcCalendarHeight()
     this.loadCalendar(this.localCurrentDay, true)
     this.loadStudyPlanData()
-    console.log('events', this.events.list)
   },
   methods: {
+    calcCalendarHeight () {
+      const heightUnit = 'px'
+      this.calendarHeight = ((this.hourEnd - this.hourStart + 1) * this.baseHight) + 20 + heightUnit
+    },
     getDayOfWeekTitle (dayOfWeekIndex) {
       switch (dayOfWeekIndex) {
         case 0:
@@ -801,10 +804,10 @@ export default defineComponent({
       const endMinute = parseInt(eventEndArray[1])
       const startHour = parseInt(eventStartArray[0])
       const startMinute = parseInt(eventStartArray[1])
-      const startInt = startHour - (startMinute / 60)
-      const endInt = endHour + (endMinute / 60)
-      const finalStart = startInt > this.hourStart ? startInt : this.hourStart
-      const finalEnd = endInt < this.hourEnd ? endInt : (this.hourEnd + 1)
+      const startInt = (startHour * 60) + startMinute
+      const endInt = (endHour * 60) + endMinute
+      const finalStart = Math.floor(startInt / 60) >= this.hourStart ? Math.floor(startInt / 60) : Math.floor(this.hourStart / 60)
+      const finalEnd = Math.floor(endInt / 60) <= this.hourEnd ? Math.floor(endInt / 60) : Math.floor((this.hourEnd + 1) / 60)
 
       return ((finalEnd - finalStart) * this.baseHight) + heightUnit
     },

@@ -977,16 +977,11 @@ export default {
         since_date: day0
       })
         .then(studyPlanList => {
-          studyPlanList.list.forEach(studyPlan => {
-            studyPlan.plans.list.forEach(plan => {
-              if (this.firstStartTime > moment(plan.start, 'HH:mm:ss').hours()) {
-                this.firstStartTime = moment(plan.start, 'HH:mm:ss').hours() - 1
-              }
-              if (this.lastEndTime < moment(plan.end, 'HH:mm:ss').hours()) {
-                this.lastEndTime = moment(plan.end, 'HH:mm:ss').hours() + 1
-              }
-            })
-          })
+          const minAndMaxStartHour = this.getMinAndMaxStartHour(studyPlanList)
+
+          this.lastEndTime = minAndMaxStartHour.lastEndTime < 23 ? minAndMaxStartHour.lastEndTime + 1 : minAndMaxStartHour.lastEndTime
+          this.firstStartTime = minAndMaxStartHour.firstStartTime > 0 ? minAndMaxStartHour.firstStartTime - 1 : minAndMaxStartHour.firstStartTime
+
           this.studyPlanList.loading = false
           this.studyPlanList = studyPlanList
           this.studyPlanListLoaded = true
@@ -995,6 +990,25 @@ export default {
           this.studyPlanList.loading = false
           this.studyPlanListLoaded = false
         })
+    },
+    getMinAndMaxStartHour (studyPlanList) {
+      let firstStartTime = 23
+      let lastEndTime = 0
+      studyPlanList.list.forEach(studyPlan => {
+        studyPlan.plans.list.forEach(plan => {
+          if (firstStartTime > moment(plan.start, 'HH:mm:ss').hours()) {
+            firstStartTime = moment(plan.start, 'HH:mm:ss').hours()
+          }
+          if (lastEndTime < moment(plan.end, 'HH:mm:ss').hours()) {
+            lastEndTime = moment(plan.end, 'HH:mm:ss').hours()
+          }
+        })
+      })
+
+      return {
+        lastEndTime,
+        firstStartTime
+      }
     }
   }
 }
