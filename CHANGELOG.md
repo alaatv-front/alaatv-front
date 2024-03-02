@@ -1,3 +1,10 @@
+## [1.8.1](https://git.alaatv.com/web/alaatv_front/compare/v1.8.0...v1.8.1) (2024-03-02)
+
+
+### Bug Fixes
+
+* ttsp dashboard plans ([7ff6e52](https://git.alaatv.com/web/alaatv_front/commit/7ff6e52b0a117dc666bb5a816a2d0ea722a5501d))
+
 # [1.8.0](https://git.alaatv.com/web/alaatv_front/compare/v1.7.4...v1.8.0) (2024-03-02)
 
 
