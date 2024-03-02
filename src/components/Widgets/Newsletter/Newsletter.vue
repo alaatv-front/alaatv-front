@@ -97,7 +97,7 @@ export default {
       }
       const newsletterCompleted = localStorage.getItem(`newsletter#${this.localOptions.eventName + this.localOptions.eventId}`)
       if (newsletterCompleted) {
-        this.$bus.emit('newsletter', this.localOptions.eventName)
+        this.$bus.emit('newsletterCompleted', this.localOptions.eventName)
         return
       }
       this.dialog = !this.dialog
