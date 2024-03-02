@@ -66,7 +66,7 @@ export default {
       },
       step: 'signup',
       defaultOptions: {
-        eventName: 'newsletter',
+        eventName: 'showNewsletter',
         verification: true,
         hasRedirect: false,
         redirectUrl: '',
