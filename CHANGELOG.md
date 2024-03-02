@@ -1,3 +1,10 @@
+## [1.7.2](https://git.alaatv.com/web/alaatv_front/compare/v1.7.1...v1.7.2) (2024-03-02)
+
+
+### Bug Fixes
+
+* ttsp study plan get settings by event_category_id ([efaa111](https://git.alaatv.com/web/alaatv_front/commit/efaa111caa5a3eacc01fad9f30fa571e5e4c1453))
+
 ## [1.7.1](https://git.alaatv.com/web/alaatv_front/compare/v1.7.0...v1.7.1) (2024-03-02)
 
 
