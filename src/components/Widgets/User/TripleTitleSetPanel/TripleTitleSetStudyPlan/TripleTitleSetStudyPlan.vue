@@ -811,9 +811,9 @@ export default {
           this.findStudyPlan(data)
             .then(studtPlan => {
               if (studtPlan.id !== this.studyEvent) {
-                this.updateMyStudyPlan(data)
+                this.updateMyStudyPlan(FormBuilderAssist.getInputsByName(this.inputs, 'date').value)
               } else {
-                this.getStudyPlanData()
+                this.getStudyPlanData(FormBuilderAssist.getInputsByName(this.inputs, 'date').value)
               }
               this.loading = false
             })
@@ -942,7 +942,7 @@ export default {
         this.filterByLesson()
       }
     },
-    updateMyStudyPlan (data) {
+    updateMyStudyPlan (data, date) {
       this.loading = true
       this.warning = false
       const studyPlanData = {
@@ -955,7 +955,7 @@ export default {
         .then(studyPlan => {
           this.getMyStudyPlan()
           this.studyEvent = studyPlan.id
-          this.getStudyPlanData()
+          this.getStudyPlanData(date)
           this.loading = false
           this.successChangePlan = true
         })
