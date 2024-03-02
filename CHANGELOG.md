@@ -1,3 +1,23 @@
+# [1.7.0](https://git.alaatv.com/web/alaatv_front/compare/v1.6.0...v1.7.0) (2024-02-28)
+
+
+### Features
+
+* black Friday video step start index added to option panel ([#988](https://git.alaatv.com/web/alaatv_front/issues/988)) ([aa49988](https://git.alaatv.com/web/alaatv_front/commit/aa49988e0308f58279a091e75a7d4d71a0a0b1e2))
+
+# [1.6.0](https://git.alaatv.com/web/alaatv_front/compare/v1.5.0...v1.6.0) (2024-02-28)
+
+
+### Bug Fixes
+
+* black Friday current video ([#984](https://git.alaatv.com/web/alaatv_front/issues/984)) ([912378a](https://git.alaatv.com/web/alaatv_front/commit/912378a2a44fa52c6a9012bc4a552a47828dd97c))
+* sin8 event id changed to 35 ([#987](https://git.alaatv.com/web/alaatv_front/issues/987)) ([c6f8dd5](https://git.alaatv.com/web/alaatv_front/commit/c6f8dd5fa50e8a3b55967a7ae5c3d9bd1a9df4e2))
+
+
+### Features
+
+* full calendar hour start & hour end ([#985](https://git.alaatv.com/web/alaatv_front/issues/985)) ([2a9977f](https://git.alaatv.com/web/alaatv_front/commit/2a9977f3b1487f78dc1dd966ac75b7b6bad0a5b5))
+
 # [1.5.0](https://git.alaatv.com/web/alaatv_front/compare/v1.4.5...v1.5.0) (2024-02-27)
 
 
