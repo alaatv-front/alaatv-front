@@ -828,7 +828,12 @@ export default {
     },
     filterByLesson () {
       this.loading = true
-      APIGateway.studyPlan.storeSetting({ setting: { abrisham2_calender_default_lesson: this.lesson.id } })
+      APIGateway.studyPlan.storeSetting({
+        setting: {
+          abrisham2_calender_default_lesson: this.lesson.id,
+          event_category_id: this.event.study_plan.category_id
+        }
+      })
         .then(() => {
           this.loading = false
           this.filteredLesson = this.lesson.id
@@ -844,7 +849,7 @@ export default {
     },
     getFilterLesson () {
       return new Promise((resolve, reject) => {
-        APIGateway.studyPlan.getSetting()
+        APIGateway.studyPlan.getSetting(this.event.study_plan.category_id)
           .then(setting => {
             this.filteredLesson = setting?.setting?.abrisham2_calender_default_lesson // lessonId
             this.lesson = this.lessonOptions.find(lesson => lesson.id === this.filteredLesson)

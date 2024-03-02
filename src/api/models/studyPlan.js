@@ -149,12 +149,15 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getSetting (cache = { TTL: 1000 }) {
+  getSetting (eventCategoryId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.setting,
       cacheKey: this.CacheList.setting,
+      data: {
+        event_category_id: eventCategoryId
+      },
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return new WebsiteSetting(response.data.data)
