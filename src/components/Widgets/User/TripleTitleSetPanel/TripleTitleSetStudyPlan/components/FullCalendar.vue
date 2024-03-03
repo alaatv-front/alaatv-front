@@ -1050,7 +1050,7 @@ export default defineComponent({
 
     .second-scroll {
       height: v-bind('calendarHeight');
-      max-height: calc( 100vh - 600px );
+      max-height: calc( 100vh - 450px );
     }
 
     .calendar-first-row {
