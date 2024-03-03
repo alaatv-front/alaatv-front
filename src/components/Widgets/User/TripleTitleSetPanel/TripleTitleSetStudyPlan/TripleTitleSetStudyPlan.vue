@@ -1038,6 +1038,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.triple-title-set-study-plan {
+  padding: $space-8;
+  @include media-max-width('md') {
+    padding: $space-4;
+  }
+  @include media-max-width('sm') {
+    padding: $space-1;
+  }
+}
 .content-selection {
   padding-left: 5px;
   margin-top: 95px;
