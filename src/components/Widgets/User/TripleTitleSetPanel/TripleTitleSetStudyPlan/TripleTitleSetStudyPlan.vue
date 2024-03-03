@@ -775,7 +775,7 @@ export default {
           })
       })
     },
-    createPlan (title, studtPlan, majorId, gradeId) {
+    createPlan (studtPlan, majorId, gradeId) {
       return new Promise((resolve, reject) => {
         const formData = this.$refs.formBuilder.getFormData()
         formData.major_id = majorId
