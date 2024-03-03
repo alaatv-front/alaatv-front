@@ -408,6 +408,14 @@ export default {
           value: []
         },
         {
+          type: 'input',
+          name: 'title',
+          label: 'عنوان',
+          value: '',
+          placeholder: 'وارد کنید',
+          col: 'col-12'
+        },
+        {
           type: 'select',
           name: 'study_method_id',
           label: 'برنامه',
@@ -502,6 +510,14 @@ export default {
           type: 'hidden',
           name: 'event_id',
           value: null
+        },
+        {
+          type: 'input',
+          name: 'title',
+          label: 'عنوان',
+          value: '',
+          placeholder: 'وارد کنید',
+          col: 'col-12'
         },
         {
           type: 'select',
