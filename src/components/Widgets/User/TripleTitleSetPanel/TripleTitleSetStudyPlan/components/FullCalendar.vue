@@ -807,8 +807,8 @@ export default defineComponent({
       const startMinute = parseInt(eventStartArray[1])
       const startInt = (startHour * 60) + startMinute
       const endInt = (endHour * 60) + endMinute
-      const finalStart = Math.floor(startInt / 60) >= this.hourStart ? Math.floor(startInt / 60) : Math.floor(this.hourStart / 60)
-      const finalEnd = Math.floor(endInt / 60) <= this.hourEnd ? Math.floor(endInt / 60) : Math.floor((this.hourEnd + 1) / 60)
+      const finalStart = Math.floor(startInt / 60) >= this.hourStart ? (startInt / 60) : (this.hourStart / 60)
+      const finalEnd = Math.floor(endInt / 60) <= this.hourEnd ? (endInt / 60) : ((this.hourEnd + 1) / 60)
 
       return ((finalEnd - finalStart) * this.baseHight) + heightUnit
     },

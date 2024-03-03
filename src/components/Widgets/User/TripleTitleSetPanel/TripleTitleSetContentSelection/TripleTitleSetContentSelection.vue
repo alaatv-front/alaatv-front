@@ -250,7 +250,9 @@ export default defineComponent({
     this.setEvent()
     this.$nextTick(() => {
       if (!this.localMajor?.id) {
-        this.getProductType()
+        this.getProductType(true)
+      } else {
+        this.getProductType(false)
       }
       if (this.localMajor?.id && !this.localProduct?.id) {
         this.getProducts(this.localMajor.id)
@@ -283,13 +285,15 @@ export default defineComponent({
     deleteContent (index) {
       this.computedSelectedContentList.splice(index, 1)
     },
-    getProductType () {
+    getProductType (selectFirst = true) {
       this.productTypeLoading = true
       APIGateway.events.formBuilder({
         params: ['majors']
       }).then(res => {
         this.productTypeOptions = res.majors
-        this.localMajor = res.majors[0]
+        if (selectFirst) {
+          this.localMajor = res.majors[0]
+        }
         this.productTypeLoading = false
       }).catch(() => {
         this.productTypeLoading = false
