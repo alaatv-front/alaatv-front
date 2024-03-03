@@ -1015,9 +1015,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.calendar {
-  margin-top: 25px;
-}
 .content-selection {
   padding-left: 5px;
   margin-top: 95px;
