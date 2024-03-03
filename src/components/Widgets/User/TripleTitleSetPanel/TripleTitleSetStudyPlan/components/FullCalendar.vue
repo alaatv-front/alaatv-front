@@ -99,13 +99,13 @@
                            :style="{ top: calculateTop(event), height: calculateHeight(event), background: getBackgroundColor(event.backgroundColor)}">
                         <div class="row q-px-md event-info"
                              @click="openEvent(event)">
-                          <div v-if="event.title"
-                               class="product_lesson_name col-12">
-                            {{ event.title }}
-                          </div>
-                          <div v-else
-                               class="product_lesson_name col-12">
-                            {{ event.product.lesson_name }}
+                          <div class="product_lesson_name col-12">
+                            <template v-if="event.title">
+                              {{ event.title }}
+                            </template>
+                            <template v-else>
+                              {{ event.product.lesson_name }}
+                            </template>
                           </div>
                           <div v-for="event in event.contents.list"
                                :key="event.id"
