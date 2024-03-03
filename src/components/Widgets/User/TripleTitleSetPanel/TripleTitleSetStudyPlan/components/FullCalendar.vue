@@ -101,15 +101,11 @@
                              @click="openEvent(event)">
                           <div v-if="event.title"
                                class="product_lesson_name col-12">
-                            <template>
-                              {{ event.title }}
-                            </template>
+                            {{ event.title }}
                           </div>
                           <div v-else
                                class="product_lesson_name col-12">
-                            <template>
-                              {{ event.product.lesson_name }}
-                            </template>
+                            {{ event.product.lesson_name }}
                           </div>
                           <div v-for="event in event.contents.list"
                                :key="event.id"
