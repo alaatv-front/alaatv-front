@@ -710,7 +710,10 @@ export default {
     copyPlan (event) {
       this.selectedPlanId = event.id
       this.editApi = APIGateway.studyPlan.APIAdresses.editPlan(this.selectedPlanId)
+      FormBuilderAssist.setAttributeByName(this.inputs, 'title', 'value', event.title)
+      FormBuilderAssist.setAttributeByName(this.inputs, 'study_method_id', 'value', [event.study_method_id])
       FormBuilderAssist.setAttributeByName(this.inputs, 'major_id', 'value', [event.major_id])
+      FormBuilderAssist.setAttributeByName(this.inputs, 'grade_id', 'value', [event.grade_id])
       FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'value', event.contents.list.map(item => {
         return {
           content_id: item.id,
