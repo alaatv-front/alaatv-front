@@ -34,9 +34,6 @@ export default {
     lessonVideoContents () {
       return this.plan.contents.list.filter(content => content.isLessonVideo())
     }
-  },
-  mounted () {
-    console.log('plan', this.plan)
   }
 }
 </script>

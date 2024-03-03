@@ -3,7 +3,7 @@
        class="status-wrapper">
     <div class="status-title">وضعیت</div>
     <div class="status-message">
-      {{ passedDays ? `توی روز ${passedDays} م برنامه مطالعاتی هستی` : 'برنامه مطالعاتی نداری' }}
+      {{ passedDays > 0 ? `توی روز ${passedDays} م برنامه مطالعاتی هستی` : 'برنامه مطالعاتی نداری' }}
     </div>
   </div>
   <div v-else
