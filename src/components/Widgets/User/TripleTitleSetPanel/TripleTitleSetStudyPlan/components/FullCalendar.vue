@@ -5,7 +5,7 @@
     <div v-else>
       <div class="calendar-header">
         <div class="calendar-title" />
-        <div>
+        <div class="calendar-header--btn-next-prev">
           <q-btn label="هفته قبل"
                  class="q-mx-sm q-btn-sm keep-min-width"
                  color="primary"
@@ -887,14 +887,25 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .calender {
-  height: 613px;
+  //min-height: v-bind('calendarHeight');
+  height: calc( 100vh - 200px );
+  max-height: calc( 100vh - 250px );
   position: relative;
+
   @media screen and (width <= 1023px) {
     margin-bottom: 20px;
   }
 
   @media screen and (width <= 1023px) {
     margin-bottom: 16px;
+  }
+
+  @include media-max-width('md') {
+    max-height: calc( 100vh - 360px );
+  }
+
+  @include media-max-width('sm') {
+    max-height: calc( 100vh - 390px );
   }
 
   .calendar-header {
@@ -921,6 +932,10 @@ export default defineComponent({
         top: 10px;
         left: 10px;
       }
+    }
+
+    .calendar-header--btn-next-prev {
+
     }
 
     .calendar-panel {
@@ -1003,9 +1018,23 @@ export default defineComponent({
         }
       }
     }
+
+    @include media-max-width('sm') {
+      $sm-btn-next-prev-width: 95px;
+      .calendar-header--btn-next-prev {
+        width: $sm-btn-next-prev-width;
+        .q-btn {
+          margin: $spacing-none;
+        }
+      }
+      .calendar-panel {
+        width: calc( 100% - #{$sm-btn-next-prev-width} );
+      }
+    }
   }
 
   .box {
+    height: auto;
     background: #FFF;
     box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%) #{"/* rtl:ignore */"};
     border-radius: 16px;
@@ -1021,7 +1050,7 @@ export default defineComponent({
 
     .second-scroll {
       height: v-bind('calendarHeight');
-      max-height: 500px;
+      max-height: calc( 100vh - 600px );
     }
 
     .calendar-first-row {
@@ -1251,12 +1280,10 @@ export default defineComponent({
 
     @media screen and (width <= 1439px) {
       margin-right: 0;
-      height: 394px;
     }
 
     @media screen and (width <= 1200px) {
       margin-right: 0;
-      height: auto;
     }
 
   }
