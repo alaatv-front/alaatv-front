@@ -172,7 +172,7 @@
         </q-card-section>
         <q-separator />
         <q-card-section>
-          <div class="q-mt-md">
+          <div class="q-pt-md">
             <plan-contents :plan="selectedEvent" />
           </div>
           <div class="event-description q-mt-md">
@@ -833,7 +833,7 @@ export default defineComponent({
       return topHourStart + heightUnit
     },
     calculateEventDate () {
-      // const date = new Date(this.selectedEvent.date)
+      return moment(this.selectedEvent.date).format('jYYYY/jM/jD')
     },
     openEvent (event) {
       this.eventDialog = true
