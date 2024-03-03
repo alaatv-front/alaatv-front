@@ -645,10 +645,6 @@ export default {
       FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'set', newValue)
       FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'set', newValue)
     })
-    this.$bus.on('FormBuilderInputStudyPlanContentsSelector-update:title', (newValue) => {
-      FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'value', newValue)
-      FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'value', newValue)
-    })
   },
   methods: {
     afterSetEvent () {
@@ -703,7 +699,6 @@ export default {
     editPlan (event) {
       this.selectedPlanId = event.id
       this.editApi = APIGateway.studyPlan.APIAdresses.editPlan(this.selectedPlanId)
-      FormBuilderAssist.setAttributeByName(this.editInputs, 'title', 'value', event.title)
       // FormBuilderAssist.setAttributeByName(this.editInputs, 'major_id', 'value', event.major_id)
       // FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'value', event.contents.list.map(item => item.id))
       // FormBuilderAssist.setAttributeByName(this.editInputs, 'date', 'value', event.date)
@@ -747,7 +742,7 @@ export default {
           this.loading = false
         })
     },
-    getPlanPromise (title, majorId, gradeId, methodId) {
+    getPlanPromise (majorId, gradeId, methodId) {
       return new Promise((resolve, reject) => {
         const data = {
           major_id: majorId,
@@ -756,7 +751,7 @@ export default {
         }
         this.findStudyPlan(data)
           .then(studtPlan => {
-            this.createPlan(title, studtPlan, majorId, gradeId)
+            this.createPlan(studtPlan, majorId, gradeId)
               .then((plan) => {
                 resolve(plan)
               })
@@ -783,7 +778,6 @@ export default {
     createPlan (title, studtPlan, majorId, gradeId) {
       return new Promise((resolve, reject) => {
         const formData = this.$refs.formBuilder.getFormData()
-        formData.title = title
         formData.major_id = majorId
         formData.grade_id = gradeId
         formData.event_id = studtPlan.id
@@ -815,14 +809,13 @@ export default {
     acceptNewPlan () {
       this.loading = true
       const eventPromises = []
-      const title = FormBuilderAssist.getInputsByName(this.inputs, 'title').value
       const majorIds = FormBuilderAssist.getInputsByName(this.inputs, 'major_id')?.value || []
       const gradeIds = FormBuilderAssist.getInputsByName(this.inputs, 'grade_id')?.value || []
       const methodIds = FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value || []
       methodIds.forEach(methodId => {
         majorIds.forEach(majorId => {
           gradeIds.forEach(gradeId => {
-            eventPromises.push(this.getPlanPromise(title, majorId, gradeId, methodId))
+            eventPromises.push(this.getPlanPromise(majorId, gradeId, methodId))
           })
         })
       })

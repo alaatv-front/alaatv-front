@@ -100,9 +100,17 @@
                         <div class="row q-px-md event-info"
                              @click="openEvent(event)">
                           <div v-if="event.title"
-                               class="product_lesson_name col-12">{{ event.title }}</div>
+                               class="product_lesson_name col-12">
+                            <template>
+                              {{ event.title }}
+                            </template>
+                          </div>
                           <div v-else
-                               class="product_lesson_name col-12">{{ event.product.lesson_name }}</div>
+                               class="product_lesson_name col-12">
+                            <template>
+                              {{ event.product.lesson_name }}
+                            </template>
+                          </div>
                           <div v-for="event in event.contents.list"
                                :key="event.id"
                                class="event_title col-12 q-mt-xs">
