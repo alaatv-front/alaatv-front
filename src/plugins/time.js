@@ -56,7 +56,7 @@ const Time = (function () {
   }
 
   function now (justDate) {
-    if (!window.serverDate?.offset) {
+    if (typeof window !== 'undefined' && !window.serverDate?.offset) {
       if (!window.serverDate) {
         window.serverDate = {}
       }

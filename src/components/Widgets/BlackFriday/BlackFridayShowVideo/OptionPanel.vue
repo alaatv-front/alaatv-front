@@ -13,6 +13,11 @@
                  label="scrollTo Participate Section" />
       </div>
       <div>
+        <q-input v-model="localOptions.startIndex"
+                 type="number"
+                 label="step startIndex" />
+      </div>
+      <div>
         <q-checkbox v-model="localOptions.popupForFirstVideo"
                     label="popup for first video" />
       </div>
@@ -31,6 +36,14 @@
       <div>
         <q-checkbox v-model="localOptions.fromFirstIndex"
                     label="from First Index" />
+      </div>
+      <div>
+        <q-checkbox v-model="localOptions.hasNewsletter"
+                    label="has Newsletter" />
+        <q-input v-if="localOptions.hasNewsletter"
+                 v-model="localOptions.newsletterEventName"
+                 type="text"
+                 label="Newsletter Event Name" />
       </div>
     </template>
   </option-panel-tabs>
@@ -58,8 +71,11 @@ export default defineComponent({
     return {
       defaultOptions: {
         showBtn: false,
+        startIndex: 0,
+        hasNewsletter: false,
         fromFirstIndex: false,
         scrollToProducts: null,
+        newsletterEventName: '',
         popupForFirstVideo: true,
         disableProgressControl: true,
         scrollToParticipateSection: null,

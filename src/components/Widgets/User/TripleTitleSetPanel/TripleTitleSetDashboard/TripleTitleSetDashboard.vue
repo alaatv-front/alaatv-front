@@ -44,7 +44,8 @@ export default defineComponent({
   },
   computed: {
     studyPlanId () {
-      return this.studyPlanInfo.id
+      return this.event.id
+      // return this.studyPlanInfo.id
     }
   },
   methods: {

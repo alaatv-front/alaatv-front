@@ -184,17 +184,5 @@ export default {
             margin-top: 49px;
         }
     }
-
- .landing-text-input {
-    height: 40px;
-    background: #F7E5C6;
-    border-radius: 8px;
-
-    &.desabled {
-      background: #F7E5C6;
-      mix-blend-mode: normal;
-      opacity: .4;
-    }
-  }
 }
 </style>

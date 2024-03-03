@@ -5,7 +5,8 @@
                size="3em"
                :thickness="10" />
     <template v-else>
-      <video-section class="show-video-section"
+      <video-section ref="videoSection"
+                     class="show-video-section"
                      :video="selectedVideo"
                      :show-btn="localOptions.showBtn"
                      :disable-playback-rate-menu-button="localOptions.disablePlaybackRateMenuButton"
@@ -18,6 +19,8 @@
                      @next="onNext" />
       <step-section :black-friday-campaign-data="blackFridayCampaignData"
                     :selected-step-index="selectedVideoIndex"
+                    :from-first-index="localOptions.fromFirstIndex"
+                    :start-index="localOptions.startIndex"
                     class="step-section"
                     @onSelectStep="onSelectStep" />
       <q-dialog v-model="dialog">
@@ -54,10 +57,14 @@ export default defineComponent({
       watchedVideoCoupon: new Coupon(),
       videoDialogState: null,
       blackFridayCampaignData: new BlackFridayCampaignData(),
+      newsletterCompleted: false,
       defaultOptions: {
         showBtn: false,
+        startIndex: 0,
+        hasNewsletter: false,
         fromFirstIndex: false,
         scrollToProducts: null,
+        newsletterEventName: 'newsletter',
         popupForFirstVideo: true,
         disableProgressControl: true,
         scrollToParticipateSection: null,
@@ -76,10 +83,6 @@ export default defineComponent({
     selectedVideoIndex () {
       if (this.blackFridayCampaignData.videos.list.length === 0) {
         return null
-      }
-
-      if (this.localOptions.fromFirstIndex) {
-        return 0
       }
 
       const selectedVideoIndex = this.blackFridayCampaignData.videos.list.findIndex(video => video.selected)
@@ -104,11 +107,22 @@ export default defineComponent({
       this.loadAuthData()
       this.getBlackFridayCampaignData()
     })
+    this.$bus.on('newsletterCompleted', (eventName) => {
+      this.onNewsletterCompleted(eventName)
+    })
   },
   methods: {
     showLoginDialog () {
       this.$store.commit('Auth/updateRedirectTo', { name: this.$route.name, params: this.$route.params, query: this.$route.query })
       this.$store.commit('AppLayout/updateLoginDialog', true)
+    },
+    onNewsletterCompleted (eventName) {
+      if (eventName === this.localOptions.newsletterEventName) {
+        this.newsletterCompleted = true
+        if (this.$refs.videoSection) {
+          this.$refs.videoSection.playVideo()
+        }
+      }
     },
     onSelectStep (videoIndex) {
       if (!this.isUserLogin) {
@@ -155,6 +169,13 @@ export default defineComponent({
     onPlay () {
       if (!this.isUserLogin) {
         this.showLoginDialog()
+        return
+      }
+      if (this.localOptions.hasNewsletter && this.newsletterCompleted !== undefined && !this.newsletterCompleted) {
+        if (this.$refs.videoSection) {
+          this.$refs.videoSection.pauseVideo()
+        }
+        this.$bus.emit(this.localOptions.newsletterEventName)
         return
       }
       // const contentId = this.selectedVideo.id
@@ -279,7 +300,7 @@ export default defineComponent({
         }
       })
 
-      return activeIndex
+      return this.localOptions.fromFirstIndex ? 0 : activeIndex
     }
   }
 })
