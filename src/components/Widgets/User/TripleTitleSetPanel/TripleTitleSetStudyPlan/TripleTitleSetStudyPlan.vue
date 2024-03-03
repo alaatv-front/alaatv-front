@@ -182,6 +182,7 @@
               <q-select v-model="lesson"
                         label="درس مورد نمایش"
                         option-label="lesson_name"
+                        option-value="id"
                         :options="lessonOptions" />
             </div>
             <div class="col-12 caption1 text-grey-6">
@@ -854,6 +855,9 @@ export default {
           .then(setting => {
             this.filteredLesson = setting?.setting?.abrisham2_calender_default_lesson // lessonId
             this.lesson = this.lessonOptions.find(lesson => lesson.id === this.filteredLesson)
+            if (!this.lesson) {
+              this.lesson = { lesson_name: 'همه', id: null }
+            }
             this.getMyStudyPlan()
             resolve()
           })
@@ -960,6 +964,7 @@ export default {
           this.successChangePlan = true
         })
         .catch(() => {
+          this.changeStudyPlan()
           this.loading = false
         })
     },
