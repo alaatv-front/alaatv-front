@@ -120,7 +120,8 @@
         </template>
         <template #prepend>
           <template v-if="hasStatus(['blur', 'text-input-focus', 'typing'])">
-            <q-btn ref="btnToggleCustomMessages"
+            <q-btn v-if="showReservedMessageList"
+                   ref="btnToggleCustomMessages"
                    flat
                    square
                    icon="ph:chat-dots"
@@ -134,7 +135,8 @@
                    @click="showSelectFilesDialog" />
           </template>
         </template>
-        <q-menu ref="preparedTextsMenu"
+        <q-menu v-if="showReservedMessageList"
+                ref="preparedTextsMenu"
                 fit
                 no-parent-event
                 anchor="top start"
@@ -180,6 +182,10 @@ export default defineComponent({
     asAdmin: {
       type: Boolean,
       default: false
+    },
+    showReservedMessageList: {
+      type: Boolean,
+      default: true
     },
     reservedMessageList: {
       type: Array,
@@ -240,7 +246,7 @@ export default defineComponent({
         this.status === 'voice-recorded' ||
         this.$refs.btnStartRecording?.$el === event.srcElement ||
         this.$refs.btnSelectFile?.$el === event.srcElement ||
-        this.$refs.btnToggleCustomMessages?.$el === event.srcElement
+        (this.showReservedMessageList && this.$refs.btnToggleCustomMessages?.$el === event.srcElement)
       ) {
         return
       }
@@ -255,7 +261,7 @@ export default defineComponent({
         this.status === 'voice-recorded' ||
         this.$refs.btnStartRecording?.$el === event.srcElement ||
         this.$refs.btnSelectFile?.$el === event.srcElement ||
-        this.$refs.btnToggleCustomMessages?.$el === event.srcElement
+        (this.showReservedMessageList && this.$refs.btnToggleCustomMessages?.$el === event.srcElement)
       ) {
         return
       }
@@ -353,11 +359,15 @@ export default defineComponent({
       }
     },
     togglePreparedTextsMenu () {
-      this.$refs.preparedTextsMenu.toggle()
+      if (this.showReservedMessageList) {
+        this.$refs.preparedTextsMenu.toggle()
+      }
     },
     onSelectPreparedText (item) {
       this.textInput = item
-      this.$refs.preparedTextsMenu.hide()
+      if (this.showReservedMessageList) {
+        this.$refs.preparedTextsMenu.hide()
+      }
     },
     showSelectFilesDialog () {
       this.selectFilesDialog = true
