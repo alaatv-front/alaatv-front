@@ -76,11 +76,10 @@
                 </div>
                 <div class="ticket-list-item-header__action-side--action">
                   <q-btn icon="ph:info"
-                         color="grey"
-                         square
+                         color="primary"
+                         label="مشاهده"
                          class="size-md"
-                         :to="{name:options.showRouteName, params: {id: inputData.props.row.id}}"
-                         flat>
+                         :to="{ name: ticketShowRouteName, params: { id: inputData.props.row.id } }">
                     <q-tooltip>
                       مشاهده
                     </q-tooltip>
@@ -648,6 +647,13 @@ export default {
     }
   },
   computed: {
+    ticketShowRouteName () {
+      if (this.localOptions.asAdmin) {
+        return 'Admin.Ticket.Show'
+      }
+
+      return 'UserPanel.Ticket.Show'
+    },
     isInAdminPage () {
       return !!this.$route.name.includes('Admin')
     },
