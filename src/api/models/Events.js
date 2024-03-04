@@ -121,7 +121,7 @@ export default class EventsAPI extends APIRepository {
         showDashboard: true,
         showStudyPlan: true,
         groups: [
-          // 'alaa'
+          'alaa'
         ]
       }
     ]

@@ -41,13 +41,24 @@ class User extends Model {
       { key: 'has_educational_permission' },
 
       { key: 'mobile_verified_at' },
+      { key: 'is_mobile_verified' },
       { key: 'wallet_balance' },
       { key: 'profile_completion' },
       {
         key: 'permissions',
         default: []
       },
+      { key: 'updated_at' },
+      { key: 'created_at' },
 
+      {
+        key: 'status',
+        default: {
+          id: null,
+          displayName: null,
+          name: null
+        }
+      },
       {
         key: 'gender',
         default: { id: null }
