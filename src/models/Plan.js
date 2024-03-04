@@ -24,6 +24,12 @@ class Plan extends Model {
       { key: 'url' },
       { key: 'voice' },
       { key: 'video' },
+      { key: 'study_method' },
+      { key: 'study_method_id' },
+      { key: 'major' },
+      { key: 'major_id' },
+      { key: 'grade' },
+      { key: 'grade_id' },
       {
         key: 'contents',
         relatedModel: ContentList
@@ -34,13 +40,25 @@ class Plan extends Model {
       },
       {
         key: 'backgroundColor',
-        default: '#ffe79e'
+        default: '#C0C6D3'
       },
       {
         key: 'borderColor',
         default: '#707070'
       }
     ])
+
+    if (!this.major_id && this.major?.id) {
+      this.major_id = this.major.id
+    }
+
+    if (!this.grade_id && this.grade?.id) {
+      this.grade_id = this.grade.id
+    }
+
+    if (!this.study_method_id && this.study_method?.id) {
+      this.study_method_id = this.study_method.id
+    }
   }
 
   convertDate () {

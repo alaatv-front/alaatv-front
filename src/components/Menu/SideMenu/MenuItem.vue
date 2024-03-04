@@ -57,17 +57,14 @@
             :class="{ 'alone-item': !item.children }"
             exact-active-class="active-route"
             @click="itemSelected(item)">
-      <div class="section-title">
-        <q-item-section class="list-section title-icon"
-                        avatar>
-          <q-avatar :icon="item.icon"
-                    size="30" />
-        </q-item-section>
-        <q-item-section class="list-section">
-          {{ item.title }}
-        </q-item-section>
-        <!--        <span class="indicator" />-->
-      </div>
+      <q-item-section class="list-section title-icon"
+                      avatar>
+        <q-icon :name="item.icon"
+                size="30" />
+      </q-item-section>
+      <q-item-section class="list-section">
+        {{ item.title }}
+      </q-item-section>
     </q-item>
     <q-badge v-if="item.badge"
              align="middle">
@@ -291,21 +288,6 @@ export default {
                 border-radius: 50%;
                 margin: auto;
               }
-            }
-          }
-
-          .section-title {
-            height: 30px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-
-            .title-icon {
-              margin-right: 12px;
-            }
-
-            .q-item__section--side {
-              padding: 0;
             }
           }
 

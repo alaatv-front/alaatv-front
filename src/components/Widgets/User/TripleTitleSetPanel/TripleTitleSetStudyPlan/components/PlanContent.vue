@@ -12,7 +12,7 @@
                icon="download"
                class="size-xs"
                @click="downloadPdf(content)" />
-        <q-btn v-if="content.isLessonVideo()"
+        <q-btn v-if="content.isVideo()"
                color="primary"
                round
                unelevated

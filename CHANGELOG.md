@@ -1,3 +1,42 @@
+# [1.9.0](https://git.alaatv.com/web/alaatv_front/compare/v1.8.1...v1.9.0) (2024-03-03)
+
+
+### Bug Fixes
+
+* ttsp study plan - plan model and edit plan ([720114c](https://git.alaatv.com/web/alaatv_front/commit/720114c897a4b37dbc0dab6c7f9d4b6b04aeb9c4))
+* ttsp study plan dashboard show data ([e9f869e](https://git.alaatv.com/web/alaatv_front/commit/e9f869e4d0e4cd835b2e19d2ce9ca0fa911993e8))
+* ttsp study plan default filterd lesson ([#990](https://git.alaatv.com/web/alaatv_front/issues/990)) ([5a12507](https://git.alaatv.com/web/alaatv_front/commit/5a12507f2be3816ddd4bd2fdf91c1d921ada83e4))
+* ttsp study plan FullCalendar.vue responsive style ([67886b0](https://git.alaatv.com/web/alaatv_front/commit/67886b0553a3268103b6b152b86ea0bef66248ed))
+* ttsp study plan PlanContents.vue remove console.log ([153b8ee](https://git.alaatv.com/web/alaatv_front/commit/153b8eec6e102ecb00eeac8e04e3abbfce8401cf))
+* ttsp study plan responsive ([e122ea4](https://git.alaatv.com/web/alaatv_front/commit/e122ea45902b2a057eb37f535dbc367b477dbccb))
+* ttsp study plan responsive style ([c0d29d3](https://git.alaatv.com/web/alaatv_front/commit/c0d29d33d3ee3f3fe5b789747eed9fd70fb9b5a0))
+* ttsp study plan show dialog style ([522d256](https://git.alaatv.com/web/alaatv_front/commit/522d256920029470e0d128ae576b470fdf394d71))
+
+
+### Features
+
+* ttsp study plan add title to create new plan ([#991](https://git.alaatv.com/web/alaatv_front/issues/991)) ([7107898](https://git.alaatv.com/web/alaatv_front/commit/7107898a9d66164aad3c216beb5699c7893acf83))
+
+## [1.8.1](https://git.alaatv.com/web/alaatv_front/compare/v1.8.0...v1.8.1) (2024-03-02)
+
+
+### Bug Fixes
+
+* ttsp dashboard plans ([7ff6e52](https://git.alaatv.com/web/alaatv_front/commit/7ff6e52b0a117dc666bb5a816a2d0ea722a5501d))
+
+# [1.8.0](https://git.alaatv.com/web/alaatv_front/compare/v1.7.4...v1.8.0) (2024-03-02)
+
+
+### Bug Fixes
+
+* ttsp study plan change date after create plan ([ab751a1](https://git.alaatv.com/web/alaatv_front/commit/ab751a132a3e1c53c59c270e79fc41cdc1798d6f))
+* ttsp study plan show plan time ([2988b6c](https://git.alaatv.com/web/alaatv_front/commit/2988b6c6949b227002f98b8a4be77495fdb5d0d5))
+
+
+### Features
+
+* black Friday video widget newsletter option added ([#989](https://git.alaatv.com/web/alaatv_front/issues/989)) ([9c6ce7f](https://git.alaatv.com/web/alaatv_front/commit/9c6ce7f7a97d5600f4665369b2f2428ef7ef2d26))
+
 ## [1.7.4](https://git.alaatv.com/web/alaatv_front/compare/v1.7.3...v1.7.4) (2024-03-02)
 
 
