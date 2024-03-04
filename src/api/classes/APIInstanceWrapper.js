@@ -14,7 +14,7 @@ export default class APIInstanceWrapper {
     const finalBaseURL = isNative ? nativeApiV2Server : baseURL
     if (!serverSide) {
       const axiosInstance = axios.create({ baseURL: finalBaseURL })
-      axiosInstance.defaults.serverURL = serverURL
+      axiosInstance.defaults.serverURL = isNative ? finalBaseURL : serverURL
 
       return axiosInstance
     }
@@ -27,7 +27,10 @@ export default class APIInstanceWrapper {
       const defaults = {
         baseURL,
         serverURL,
-        headers: { 'Content-Type': 'application/json', common: { Authorization: null } }
+        headers: {
+          'Content-Type': 'application/json',
+          common: { Authorization: null }
+        }
       }
       const get = (url, data) => new Promise((resolve, reject) => {
         const requestAddress = defaults.serverURL + url

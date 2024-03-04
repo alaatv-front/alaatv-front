@@ -567,8 +567,4 @@ export default defineComponent({
 .thumbnail {
   padding: 0;
 }
-
-.card {
-  width: 50%;
-}
 </style>

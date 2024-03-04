@@ -77,7 +77,9 @@ export default class StudyPlanAPI extends APIRepository {
       resolveCallback: (response) => {
         return {
           id: response.data.data?.id,
-          title: response.data.data?.title,
+          major: response.data.data?.major, // String
+          grade: response.data.data?.grade, // String
+          title: response.data.data?.title, // String
           passed_days: response.data.data?.passed_days,
           count_of_watched_sessions: response.data.data?.count_of_watched_sessions,
           count_of_remained_sessions: response.data.data?.count_of_remained_sessions
@@ -109,7 +111,7 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getStudyPlanData (data = {}, cache = { TTL: 1000 }) {
+  getStudyPlanData (data = {}, cache = { TTL: 0 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -147,12 +149,15 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getSetting (cache = { TTL: 1000 }) {
+  getSetting (eventCategoryId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.setting,
       cacheKey: this.CacheList.setting,
+      data: {
+        event_category_id: eventCategoryId
+      },
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return new WebsiteSetting(response.data.data)

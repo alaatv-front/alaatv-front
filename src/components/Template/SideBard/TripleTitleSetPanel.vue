@@ -72,7 +72,7 @@
                  class="action-btn"
                  @click="toggleLogoutDialog" />
           <q-btn v-close-popup
-                 unelevated=""
+                 unelevated
                  label="خروج"
                  color="negative"
                  class="action-btn"

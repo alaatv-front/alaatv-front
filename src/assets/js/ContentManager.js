@@ -21,7 +21,7 @@ class ContentManager {
 
   static checkContentSavedBefore (content) {
     return new Promise((resolve, reject) => {
-      AppIndexedDB.searchInObjectStore('contents', 'id_index', content.id, true, (savedContent, objectStore) => {
+      AppIndexedDB.searchInObjectStore('contents', 'id_index', content.id, true, (savedContent) => {
         const isSavedBefore = savedContent.length > 0 && savedContent[0].watched_seconds >= content.watched_seconds
         if (isSavedBefore) {
           reject(savedContent)
@@ -77,7 +77,7 @@ class ContentManager {
     })
   }
 
-  static async handleSendSuccess (response, unsentContents, objectStore) {
+  static async handleSendSuccess (response, unsentContents) {
     for (const content of unsentContents) {
       AppIndexedDB.getItemInObjectStore('contents', 'id_index', content.id, false, (result, objectStore) => {
         const finedContent = result

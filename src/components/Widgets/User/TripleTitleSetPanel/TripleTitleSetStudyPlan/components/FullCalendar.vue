@@ -5,12 +5,12 @@
     <div v-else>
       <div class="calendar-header">
         <div class="calendar-title" />
-        <div>
+        <div class="calendar-header--btn-next-prev">
           <q-btn label="هفته قبل"
                  class="q-mx-sm q-btn-sm keep-min-width"
                  color="primary"
                  text-color="grey-9"
-                 @click="goToLastWeek" />
+                 @click="goToPrevWeek" />
           <q-btn label="هفته بعد"
                  class="q-mx-sm q-btn-sm keep-min-width"
                  color="primary"
@@ -41,13 +41,18 @@
       <div class="box">
         <q-scroll-area ref="firstRef"
                        class="first-scroll"
-                       style="height: 90px"
+                       style="height: 60px"
+                       :visible="false"
+                       :delay="0"
                        @scroll="onScrollFirst">
           <div class="calendar-first-row"
                :class="{'weekly': tab === 'week'}">
+            <div class="calendar-col calendar-col--hour">
+              ساعت
+            </div>
             <div v-for="dayOfWeekIndex in [0, 1, 2, 3, 4, 5, 6]"
                  :key="dayOfWeekIndex"
-                 class="col calendar-col"
+                 class="calendar-col"
                  :class="{'weekly': tab === 'week'}">
               <span class="day-name body1">
                 {{ getDayOfWeekTitle(dayOfWeekIndex) }}
@@ -62,7 +67,6 @@
         <q-scroll-area ref="secondRef"
                        visible
                        class="second-scroll"
-                       style="height:500px"
                        @scroll="onScrollSecond">
           <div class="calendar-wrapper">
             <div class="calendar-body">
@@ -73,82 +77,32 @@
                   <div v-for="day in 7"
                        :key="day"
                        class="day-col">
-                    <div class="hour-line first-row">
-                      <q-separator />
-                      <div class="hour">
-                        <div v-if="day === 1">
-                          ساعت
-                        </div>
-                      </div>
-                      <q-separator />
-                      <q-separator class="separator"
-                                   vertical />
-                    </div>
-                    <div v-for="hour in 17"
+                    <div v-for="(hour, hourIndex) in hourList"
                          :key="hour"
                          class="hour-line">
-                      <div v-if="day === 1 && hour > 1"
+                      <div v-if="day === 1"
                            class="hour">
-                        {{ `${(hour + baseHour - 2) }:00` }}
+                        <span v-if="hourIndex === 0">
+                          ساعت
+                        </span>
+                        <span>
+                          {{ hour }}
+                        </span>
                       </div>
                       <q-separator class="separator"
                                    vertical />
                     </div>
                     <div v-if="chartWeek[day - 1]">
-                      <div v-for="event in chartWeek[day - 1].events"
-                           :key="event.id"
-                           class="weekly-event cursor-pointer"
-                           :class="{'start-is-before-08': parseInt(event.start.split(':')[0]) < 8}"
-                           :style="{ top: calculateTop(event), height: calculateHeight(event), background: getBackgroundColor(event.backgroundColor)}">
-                        <div class="row q-px-md event-info"
-                             @click="openEvent(event)">
-                          <div class="product_lesson_name col-12 q-mt-sm">{{ event.product.lesson_name }}</div>
-                          <div v-for="event in event.contents.list"
-                               :key="event.id"
-                               class="event_title col-12 q-mt-xs">
-                            {{event.title}}
-                          </div>
-                          <div class="event_start col-12 q-mt-xs">{{event.start.substring(0, 5)}} الی {{event.end.substring(0, 5)}}</div>
-                        </div>
-                        <div class="more-btn">
-                          <q-btn icon="ph:dots-three-outline-vertical"
-                                 square
-                                 class="more size-ms">
-                            <q-menu anchor="bottom right"
-                                    self="bottom left">
-                              <q-list>
-                                <q-item v-ripple
-                                        clickable
-                                        dense
-                                        @click="editPlan(event)">
-                                  <q-item-section>ویرایش</q-item-section>
-                                  <q-item-section avatar>
-                                    <q-icon name="ph:pencil" />
-                                  </q-item-section>
-                                </q-item>
-                                <q-item v-ripple
-                                        clickable
-                                        dense
-                                        @click="copyPlan(event)">
-                                  <q-item-section>کپی</q-item-section>
-                                  <q-item-section avatar>
-                                    <q-icon name="ph:copy" />
-                                  </q-item-section>
-                                </q-item>
-                                <q-item v-ripple
-                                        clickable
-                                        dense
-                                        @click="removePlan(event)">
-                                  <q-item-section>حذف</q-item-section>
-                                  <q-item-section avatar>
-                                    <q-icon name="ph:trash-simple" />
-                                  </q-item-section>
-                                </q-item>
-                              </q-list>
-                            </q-menu>
-                          </q-btn>
-                        </div>
-                      </div>
+                      <full-calendar-plan-item v-for="(plan, planIndex) in chartWeek[day - 1].events"
+                                               :key="planIndex"
+                                               :plan="plan"
+                                               :base-hight="baseHight"
+                                               :hour-end="hourEnd"
+                                               :hour-start="hourStart"
+                                               @openPlan="onShowPlan"
+                                               @copyPlan="onCopyPlan"
+                                               @editPlan="onEditPlan"
+                                               @removePlan="onRemovePlan" />
                     </div>
                   </div>
                 </div>
@@ -159,47 +113,42 @@
       </div>
     </div>
     <q-dialog v-model="eventDialog">
-      <q-card class="new-theme event-dialog">
-        <q-card-section>
-          <div class="row items-center justify-between">
-            <div>
-              <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-Clock.png"
-                     width="24px" />
-              {{calculateEventDate()}} - {{selectedEvent.start.substring(0, 5)}} الی {{selectedEvent.end.substring(0, 5)}}
-            </div>
-            <q-btn flat
-                   icon="close"
-                   @click="eventDialog = false" />
-          </div>
-        </q-card-section>
-        <q-separator />
-        <q-card-section>
-          <div class="row">
+      <inside-dialog>
+        <template #header>
+          <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-Clock.png"
+                 width="24px" />
+          {{calculateEventDate()}} - {{selectedEvent.start.substring(0, 5)}} الی {{selectedEvent.end.substring(0, 5)}}
+        </template>
+        <template #body>
+          <div class="q-pt-md">
             <plan-contents :plan="selectedEvent" />
-            <div class="event-description col-12 q-mt-md">
-              {{selectedEvent.description}}
-            </div>
           </div>
-        </q-card-section>
-        <q-card-section>
-          <div class="text-right">
-            <q-btn class="btn q-mx-sm"
-                   label="بازگشت"
-                   size="md"
-                   color="positive"
-                   @click="eventDialog = false" />
+          <div class="event-description q-mt-md">
+            {{selectedEvent.description}}
           </div>
-        </q-card-section>
-      </q-card>
+        </template>
+        <template #action>
+          <q-btn class="btn q-mx-sm"
+                 label="بازگشت"
+                 size="md"
+                 color="positive"
+                 @click="eventDialog = false" />
+        </template>
+      </inside-dialog>
     </q-dialog>
     <q-dialog v-model="calendarDialog"
               persistent>
-      <q-card class="calendar-dialog">
-        <q-card-section class="row items-center content-section">
+      <inside-dialog>
+        <template #header>
           <div class="calendar-dialog-header">
-            {{ calendarMonth + ' ' + calendarYear }}
+            {{ calendarMonth }}
+            <q-select v-model="calendarYear"
+                      class="no-title q-ml-md"
+                      :options="[1402, 1403, 1404]" />
           </div>
-          <div class="row month-row">
+        </template>
+        <template #body>
+          <div class="row month-row q-col-gutter-md">
             <div v-for="item in monthList"
                  :key="item"
                  class="col-4">
@@ -210,17 +159,19 @@
               </div>
             </div>
           </div>
-        </q-card-section>
-        <q-card-actions class="action-section">
+        </template>
+        <template #action>
           <q-btn v-close-popup
+                 color="grey"
                  label="انصراف"
                  class="cancel-btn" />
           <q-btn v-close-popup
+                 color="primary"
                  label="تایید"
                  class="submit-btn"
                  @click="setCalendarMonth(selectedMonth)" />
-        </q-card-actions>
-      </q-card>
+        </template>
+      </inside-dialog>
     </q-dialog>
   </div>
 </template>
@@ -230,15 +181,27 @@ import { colors } from 'quasar'
 import moment from 'moment-jalaali'
 import Time from 'src/plugins/time.js'
 import { defineComponent, ref } from 'vue'
-import { APIGateway } from 'src/api/APIGateway.js'
+import { Plan } from 'src/models/Plan.js'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
-// import PlanItem from 'components/DashboardTripleTitleSet/Dashboard/PlanItem.vue'
-import planContents from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/PlanContents.vue'
+import FullCalendarPlanItem from './FullCalendarPlanItem.vue'
+import InsideDialog from 'src/components/Utils/InsideDialog.vue'
+import planContents
+  from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/PlanContents.vue'
+
+moment.loadPersian()
 
 export default defineComponent({
   name: 'FullCalendar',
-  components: { planContents },
+  components: { InsideDialog, planContents, FullCalendarPlanItem },
   props: {
+    hourStart: {
+      type: Number,
+      default: 0
+    },
+    hourEnd: {
+      type: Number,
+      default: 23
+    },
     studyEvent: {
       type: Number,
       default: null
@@ -258,8 +221,13 @@ export default defineComponent({
     calendarIcon: {
       type: String,
       default: 'calendar_month'
+    },
+    currentDay: {
+      type: String,
+      default: null
     }
   },
+  emits: ['changeDate', 'copyPlan', 'editPlan', 'removePlan'],
   setup (props, { emit }) {
     // const emit = defineEmits(['editPlan', 'removePlan'])
     const month = ref([
@@ -528,11 +496,10 @@ export default defineComponent({
         }
       ]
     ])
+    const calendarHeight = ref(0)
     const baseHight = ref(80) // must be 40
-    const baseHour = ref(8)
     const chartWeek = ref([])
-    const dayList = ref(['شنبه', 'یک‌شنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'آدینه'])
-    const monthList = ref(['فرودین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'])
+    const dayList = ref(['شنبه', 'یک‌شنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه'])
     const tab = ref('week')
     const calendarYear = ref(null)
     const calendarDate = ref(null)
@@ -565,12 +532,11 @@ export default defineComponent({
     const loadCalendar = (date, first) => {
       // assign variables data
       let dayCounter = 1
-      moment.loadPersian()
       calendarDate.value = moment(date)
       persianDate.value = new Intl.DateTimeFormat('fa-IR').format(calendarDate.value)
       startOfMonth.value = calendarDate.value.startOf('jMonth').format('dddd')
       startIndex.value = dayList.value.indexOf(startOfMonth.value)
-      calendarMonth.value = monthList.value[moment(calendarDate.value.jMonth(), 'jM').format('jM')]
+      calendarMonth.value = moment(date).format('jMMMM')
       calendarYear.value = calendarDate.value.jWeekYear()
       dayNum.value = moment.jDaysInMonth(calendarYear.value, calendarDate.value.jMonth())
       isLeapYear.value = moment.jIsLeapYear(calendarDate.value.jWeekYear())
@@ -670,12 +636,11 @@ export default defineComponent({
       copyPlan,
       removePlan,
       calendarMonth,
+      calendarHeight,
       startOfMonth,
       baseHight,
       startTill,
       chartWeek,
-      monthList,
-      baseHour,
       month,
       tab,
       dayNum,
@@ -714,15 +679,56 @@ export default defineComponent({
       }
     }
   },
+  data () {
+    return {
+      // hourStart: 2,
+      // hourEnd: 20
+      monthList: moment()._locale._jMonths
+    }
+  },
   computed: {
     filteredLessonId () {
       return this.filteredLesson
+    },
+    hourList () {
+      const result = []
+      for (let i = this.hourStart; i <= this.hourEnd; i++) {
+        result.push(i.toString().padStart(2, '0') + ':00')
+      }
+      return result
+    },
+    localCurrentDay () {
+      if (!this.currentDay && typeof window !== 'undefined') {
+        return Time.now()
+      }
+
+      return this.currentDay
     }
   },
   mounted () {
-    this.loadCalendar(Time.now(), true)
+    this.calcCalendarHeight()
+    this.loadCalendar(this.localCurrentDay, true)
+    this.loadStudyPlanData()
   },
   methods: {
+    onShowPlan (plan) {
+      console.log('onShowPlan', plan)
+      this.openEvent(plan)
+    },
+    onCopyPlan (plan) {
+      this.copyPlan(plan)
+    },
+    onEditPlan (plan) {
+      console.log('onEditPlan: ', plan)
+      this.editPlan(plan)
+    },
+    onRemovePlan (plan) {
+      this.removePlan(plan)
+    },
+    calcCalendarHeight () {
+      const heightUnit = 'px'
+      this.calendarHeight = ((this.hourEnd - this.hourStart + 1) * this.baseHight) + 20 + heightUnit
+    },
     getDayOfWeekTitle (dayOfWeekIndex) {
       switch (dayOfWeekIndex) {
         case 0:
@@ -752,83 +758,93 @@ export default defineComponent({
       return colors.lighten(color, 60)
     },
     calculateTop (event) {
-      return ((parseInt(event.start.substring(0, 2)) + (parseInt(event.start.substring(3, 5)) / 60)) - this.baseHour) * this.baseHight + this.baseHight + 48 + 'px'
+      const eventStartArray = event.start.split(':')
+      const hourInt = parseInt(eventStartArray[0])
+      const minuteInt = parseInt(eventStartArray[1])
+      return this.getTopWithHourAndMinute(hourInt, minuteInt)
     },
     calculateHeight (event) {
-      return (parseInt(event.end.substring(0, 2)) + parseInt(event.end.substring(3, 5)) / 60 - parseInt(event.start.substring(0, 2)) - parseInt(event.start.substring(3, 5)) / 60) * this.baseHight - 8 + 'px'
+      const heightUnit = 'px'
+      const eventEndArray = event.end.split(':')
+      const eventStartArray = event.start.split(':')
+      const endHour = parseInt(eventEndArray[0])
+      const endMinute = parseInt(eventEndArray[1])
+      const startHour = parseInt(eventStartArray[0])
+      const startMinute = parseInt(eventStartArray[1])
+      const startInt = (startHour * 60) + startMinute
+      const endInt = (endHour * 60) + endMinute
+      const finalStart = Math.floor(startInt / 60) >= this.hourStart ? (startInt / 60) : (this.hourStart / 60)
+      const finalEnd = Math.floor(endInt / 60) <= this.hourEnd ? (endInt / 60) : ((this.hourEnd + 1) / 60)
+
+      return ((finalEnd - finalStart) * this.baseHight) + heightUnit
     },
     calculateTimeHeight () {
       const hour = new Date().getHours()
-      const minutes = new Date().getMinutes()
-      return (hour + minutes / 60 - this.baseHour) * this.baseHight + this.baseHight + 48 + 'px'
+      const minute = new Date().getMinutes()
+      if (this.hourStart <= hour && hour <= this.hourEnd) {
+        return this.getTopWithHourAndMinute(hour, minute)
+      } else {
+        return '-10px'
+      }
+    },
+    getTopWithHourAndMinute (hour, minute) {
+      const heightUnit = 'px'
+      if (hour < this.hourStart) {
+        return '-10' + heightUnit
+      }
+
+      const topAfterZero = (hour + (minute / 60)) * this.baseHight
+      const topHourStart = topAfterZero - (this.hourStart * this.baseHight)
+
+      return topHourStart + heightUnit
     },
     calculateEventDate () {
-      // const date = new Date(this.selectedEvent.date)
+      return moment(this.selectedEvent.date).format('jYYYY/jM/jD')
     },
     openEvent (event) {
       this.eventDialog = true
       this.selectedEvent = event
     },
-    getStudyPlanData (eventId, date) {
-      if (date) {
-        this.loadCalendar(moment(date).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
-      }
-      this.loading = true
-      const data = {
-        study_event: eventId || this.studyEvent,
-        since_date: this.chartWeek[0].date,
-        till_date: this.chartWeek[6].date,
-        product_id: this.filteredLessonId ? this.filteredLessonId : null
-      }
-      APIGateway.studyPlan.getStudyPlanData(data)
-        .then(studyPlanList => {
-          this.loading = false
-          this.studyPlanList = studyPlanList
-          for (let w = 0; w < 6; w++) {
-            for (let col = 0; col < 7; col++) {
-              this.month[w][col].events = []
-              for (let e = 0; e < studyPlanList.list.length; e++) {
-                // console.log(res.data.data[e].start_at.substring(0, 10))
-                if (studyPlanList.list[e].plan_date === this.month[w][col].date.toString().split('/').join('-')) {
-                  studyPlanList.list[e].plans.list.forEach(plan => {
-                    this.month[w][col].events.push(plan)
-                  })
-                }
-              }
+    loadStudyPlanData () {
+      for (let w = 0; w < 6; w++) {
+        for (let col = 0; col < 7; col++) {
+          this.month[w][col].events = []
+          for (let e = 0; e < this.events.list.length; e++) {
+            if (this.events.list[e].plan_date === this.month[w][col].date.toString().split('/').join('-')) {
+              this.events.list[e].plans.list.forEach(plan => {
+                this.month[w][col].events.push(new Plan(plan))
+              })
             }
           }
-        })
-        .catch(() => {
-          this.loading = false
-        })
+        }
+      }
     },
     goToSelectedDate (date) {
       this.loadCalendar(moment(date).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
-      this.getStudyPlanData()
+      this.$emit('changeDate', moment(date).format('YYYY-MM-DD HH:mm:ss'))
     },
     goToNextWeek () {
-      // const today = new Date(this.chartWeek[0].date)
-      const nextWeek = new Date(new Date(this.chartWeek[0].date).getTime() + 7 * 24 * 60 * 60 * 1000)
-      this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
-      this.getStudyPlanData()
+      const today = moment(this.localCurrentDay).add(1, 'weeks')
+      const day0 = today.clone().weekday(0).format('YYYY-MM-DD HH:mm:ss')
+      this.loadCalendar(day0, true)
+      this.$emit('changeDate', day0)
     },
-    goToLastWeek () {
+    goToPrevWeek () {
       // const today = new Date(this.calendarDate._i)
-      const nextWeek = new Date(new Date(this.chartWeek[0].date).getTime() - 7 * 24 * 60 * 60 * 1000)
-      this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
-      this.getStudyPlanData()
+      const prevWeek = new Date(new Date(this.chartWeek[0].date).getTime() - 7 * 24 * 60 * 60 * 1000)
+      this.loadCalendar(moment(prevWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
+      this.$emit('changeDate', moment(prevWeek).format('YYYY-MM-DD HH:mm:ss'))
     },
     setCalendarMonth (selectedMonth) {
       const month = this.monthList.indexOf(selectedMonth)
       const shamsi = `${this.calendarYear}-${month + 1}-01`
-      moment.loadPersian()
       if (selectedMonth === this.thisMonth) {
         this.loadCalendar(Time.now(), false)
-        this.getStudyPlanData()
+        this.$emit('changeDate', moment(Time.now()).format('YYYY-MM-DD HH:mm:ss'))
       } else {
         const newDate = moment(shamsi, 'jYYYY/jM/jD').format('YYYY-M-D HH:MM:SS')
         this.loadCalendar(newDate, false)
-        this.getStudyPlanData()
+        this.$emit('changeDate', newDate)
       }
     }
   }
@@ -837,14 +853,25 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .calender {
-  height: 613px;
+  //min-height: v-bind('calendarHeight');
+  height: calc( 100vh - 200px );
+  max-height: calc( 100vh - 250px );
   position: relative;
+
   @media screen and (width <= 1023px) {
     margin-bottom: 20px;
   }
 
   @media screen and (width <= 1023px) {
     margin-bottom: 16px;
+  }
+
+  @include media-max-width('md') {
+    max-height: calc( 100vh - 360px );
+  }
+
+  @include media-max-width('sm') {
+    max-height: calc( 100vh - 390px );
   }
 
   .calendar-header {
@@ -871,6 +898,10 @@ export default defineComponent({
         top: 10px;
         left: 10px;
       }
+    }
+
+    .calendar-header--btn-next-prev {
+
     }
 
     .calendar-panel {
@@ -953,9 +984,23 @@ export default defineComponent({
         }
       }
     }
+
+    @include media-max-width('sm') {
+      $sm-btn-next-prev-width: 95px;
+      .calendar-header--btn-next-prev {
+        width: $sm-btn-next-prev-width;
+        .q-btn {
+          margin: $spacing-none;
+        }
+      }
+      .calendar-panel {
+        width: calc( 100% - #{$sm-btn-next-prev-width} );
+      }
+    }
   }
 
   .box {
+    height: auto;
     background: #FFF;
     box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%) #{"/* rtl:ignore */"};
     border-radius: 16px;
@@ -969,6 +1014,11 @@ export default defineComponent({
       }
     }
 
+    .second-scroll {
+      height: v-bind('calendarHeight');
+      max-height: calc( 100vh - 450px );
+    }
+
     .calendar-first-row {
       width: fit-content;
       display: flex;
@@ -978,7 +1028,7 @@ export default defineComponent({
       .calendar-col {
         width: 280px;
         min-width: 90px;
-        height: 59px;
+        //height: 59px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -1005,10 +1055,14 @@ export default defineComponent({
           min-width: 80px;
           justify-content: flex-start;
         }
+
+        &.calendar-col--hour {
+          width: 125px;
+        }
       }
 
       &.weekly {
-        margin-left: 125px;
+        //margin-left: 125px;
       }
     }
 
@@ -1114,14 +1168,6 @@ export default defineComponent({
               position: relative;
 
               .hour-line {
-                &.first-row {
-                  height: 48px;
-
-                  .hour {
-                    top: 10px;
-                  }
-                }
-
                 width: 280px;
                 height: 80px;
                 border-top: 1px solid #E4E8EF;
@@ -1131,13 +1177,15 @@ export default defineComponent({
 
                 .hour {
                   position: absolute;
-                  top: -13px;
+                  top: 0;
                   left: -80px;
+                  transform: translateY(-50%);
                   font-style: normal;
                   font-weight: 400;
                   font-size: 12px;
                   line-height: 24px;
                   display: flex;
+                  flex-flow: column;
                   align-items: center;
                   text-align: center;
                   color: #6D708B;
@@ -1153,8 +1201,8 @@ export default defineComponent({
                 width: 268px;
                 background: #9690E4;
                 border-radius: 8px;
-                margin-left: 6px;
-                margin-top: 4px;
+                margin-left: 0;
+                margin-top: 0;
 
                 .event-info {
                   overflow: auto;
@@ -1164,6 +1212,7 @@ export default defineComponent({
                   align-items: flex-start;
                   justify-content: flex-start;
                   .product_lesson_name {
+                    margin-top: $space-2;
                     @include body1;
                   }
                   .event_title {
@@ -1179,16 +1228,6 @@ export default defineComponent({
                     position: absolute;
                     right: 0;
                     top: 0;
-                  }
-                }
-
-                &.start-is-before-08 {
-                  .event-info {
-                    align-content: flex-end;
-                  }
-                  .more {
-                    top: auto;
-                    bottom: 0;
                   }
                 }
               }
@@ -1208,102 +1247,42 @@ export default defineComponent({
 
     @media screen and (width <= 1439px) {
       margin-right: 0;
-      height: 394px;
     }
 
     @media screen and (width <= 1200px) {
       margin-right: 0;
-      height: auto;
     }
 
   }
 }
 
-.calendar-dialog {
-  position: relative;
-  width: 335px;
-  height: 392px;
-  background: #FFF;
-  border-radius: 16px;
+.calendar-dialog-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 
-  .content-section {
-    padding-bottom: 0;
-
-    .calendar-dialog-header {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 64px;
-      background: $primary;
-      border-radius: 16px 16px 0 0;
-      font-style: normal;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #FFF;
-    }
-
-    .month-row {
-      margin: 64px 0 0;
-
-      .month-item {
-        width: 89px;
-        height: 48px;
-        background: #F6F9FF;
-        border-radius: 10px;
-        margin: 6px 5px;
-        font-style: normal;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 22px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        color: #434765;
-        cursor: pointer;
-
-        &.selected {
-          background: #FFB74D;
-          color: #FFF;
-        }
-      }
-    }
-  }
-
-  .action-section {
-    padding: 12px 24px 2px;
+.month-row {
+  .month-item {
+    width: 100%;
+    height: 48px;
+    background: #F6F9FF;
+    border-radius: 10px;
+    margin: 6px 5px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #434765;
+    cursor: pointer;
 
-    .submit-btn {
-      width: 96px;
-      height: 40px;
-      background: $primary;
-      border-radius: 8px;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 22px;
-      letter-spacing: -0.03em;
+    &.selected {
+      background: #FFB74D;
       color: #FFF;
-    }
-
-    .cancel-btn {
-      width: 96px;
-      height: 40px;
-      background: #F6F9FF;
-      border-radius: 10px;
-      font-style: normal;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 24px;
-      color: #6D708B;
     }
   }
 }

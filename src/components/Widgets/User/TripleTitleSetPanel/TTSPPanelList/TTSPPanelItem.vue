@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import LazyImg from 'components/lazyImg.vue'
+import LazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'TTSPPanel',
@@ -45,7 +45,7 @@ export default {
   methods: {
     getRouteObject (item) {
       if (item.name) {
-        return { name: 'UserPanel.Asset.TripleTitleSet', params: { eventName: item.name } }
+        return { name: 'UserPanel.Asset.TripleTitleSet.Products', params: { eventName: item.name } }
       }
 
       return item.route
