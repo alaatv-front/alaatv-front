@@ -240,10 +240,6 @@ class Content extends Model {
   isVideo () {
     return this.type === 8 || this.type.id === 8
   }
-
-  isLessonVideo () {
-    return this.type === 4 || this.type.id === 4
-  }
 }
 
 class ContentList extends Collection {

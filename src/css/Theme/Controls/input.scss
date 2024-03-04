@@ -26,6 +26,14 @@ $q-field__label_margin_bottom: $space-2;
   }
 }
 
+@mixin q-field__prepend_and_append_btn_style {
+  .q-btn {
+    $btn-height: $input-height;
+    max-height: $btn-height !important;
+    min-height: $btn-height !important;
+  }
+}
+
 @mixin q-field-mixin {
   align-items: flex-end;
 
@@ -33,10 +41,11 @@ $q-field__label_margin_bottom: $space-2;
 
   .q-field__inner {
     .q-field__control {
-      height: $input-height;
+      //height: $input-height;
+      height: max-content;
       min-height: $input-height;
       position: relative;
-      align-items: flex-end;
+      align-items: center;
       padding: 0 $space-4 0 $space-4;
       margin-top: calc(
         #{$q-field__label_height} + #{$q-field__label_margin_bottom}
@@ -49,7 +58,7 @@ $q-field__label_margin_bottom: $space-2;
         z-index: 1;
         position: absolute;
         background: $field-background;
-        height: $input-height;
+        height: 100%;
         border-radius: $space-2;
         border: $borderStyle;
       }
@@ -62,6 +71,7 @@ $q-field__label_margin_bottom: $space-2;
         height: $input-height;
         padding-right: $space-1;
         z-index: 2;
+        @include q-field__prepend_and_append_btn_style();
       }
 
       .q-field__control-container {
@@ -109,6 +119,7 @@ $q-field__label_margin_bottom: $space-2;
         height: $input-height;
         padding-left: $space-1;
         z-index: 2;
+        @include q-field__prepend_and_append_btn_style();
       }
     }
 
@@ -249,7 +260,7 @@ $q-field__label_margin_bottom: $space-2;
   }
 }
 
-.q-input {
+.q-field {
   @include q-field-mixin;
 }
 

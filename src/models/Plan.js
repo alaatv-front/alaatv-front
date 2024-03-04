@@ -40,7 +40,7 @@ class Plan extends Model {
       },
       {
         key: 'backgroundColor',
-        default: '#ffe79e'
+        default: '#C0C6D3'
       },
       {
         key: 'borderColor',
