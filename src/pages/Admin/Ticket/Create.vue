@@ -18,7 +18,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'Create',
+                        name: 'TicketCreate',
                         options: {
                           showRouteName: 'Admin.Ticket.Show',
                           indexRouteName: 'Admin.Ticket.Index'
