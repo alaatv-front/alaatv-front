@@ -1,3 +1,10 @@
+# [1.11.0](https://git.alaatv.com/web/alaatv_front/compare/v1.10.1...v1.11.0) (2024-03-04)
+
+
+### Features
+
+* ticket create add show-reserved-message-list ([2a5575d](https://git.alaatv.com/web/alaatv_front/commit/2a5575de616566f516d0f0d5fd09a7ee8588e82a))
+
 ## [1.10.1](https://git.alaatv.com/web/alaatv_front/compare/v1.10.0...v1.10.1) (2024-03-04)
 
 
