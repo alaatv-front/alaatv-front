@@ -1,3 +1,12 @@
+## [1.10.1](https://git.alaatv.com/web/alaatv_front/compare/v1.10.0...v1.10.1) (2024-03-04)
+
+
+### Bug Fixes
+
+* success dialog image position ([#992](https://git.alaatv.com/web/alaatv_front/issues/992)) ([f0b51ed](https://git.alaatv.com/web/alaatv_front/commit/f0b51edf18cc3805cf2d2e8f60d589d689a1ee29))
+* ticket list link to ticket show ([6192425](https://git.alaatv.com/web/alaatv_front/commit/6192425b9faad8299069bcc01bcd156b1bb72eeb))
+* ticket show showReservedMessageList ([d9656b7](https://git.alaatv.com/web/alaatv_front/commit/d9656b77721475738f021d61e3228b8ede470ce6))
+
 # [1.10.0](https://git.alaatv.com/web/alaatv_front/compare/v1.9.0...v1.10.0) (2024-03-04)
 
 
