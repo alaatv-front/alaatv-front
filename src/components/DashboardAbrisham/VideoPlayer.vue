@@ -280,11 +280,11 @@ export default {
       this.player.src(this.source)
       this.player.poster(this.poster)
     },
-    toggleFavorite (id, event) {
+    toggleFavorite (id) {
       const that = this
       let count = -1
       // let currentTimepointIndex = null
-      this.timePoints.forEach(function (item, index) {
+      this.timePoints.forEach(function (item) {
         count++
         if (parseInt(item.id) === parseInt(id)) {
           // currentTimepointIndex = index

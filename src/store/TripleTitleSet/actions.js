@@ -25,8 +25,7 @@ const actions = {
         })
         const topicList = normalizedSets.map(set => {
           const splitted = set.short_title.split('-')
-          const topicName = splitted[1] ? splitted[1] : 'متفرقه'
-          return topicName
+          return splitted[1] ? splitted[1] : 'متفرقه' // topicName
         })
           .filter((topic, topicIndex, topics) => topics.findIndex(topicItem => topicItem === topic) === topicIndex)
 

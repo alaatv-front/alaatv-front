@@ -1,15 +1,26 @@
 import groovy.json.JsonSlurper
 
-plugins {
-  id "com.android.application"
-  id "io.sentry.android.gradle" version "4.2.0"
-}
+// plugins {
+//   id "com.android.application"
+//   id "io.sentry.android.gradle" version "4.2.0"
+// }
 
 apply plugin: 'com.android.application'
 
 def configFile = file('../versionConfig.json')
 def config = new JsonSlurper().parseText(configFile.text)
 
+// def getEnvProperties() {
+//     def envProperties = new Properties()
+//
+//     file("../../../.env").withInputStream {
+//         stream -> envProperties.load(stream)
+//     }
+//
+//     return envProperties
+// }
+//
+// def envVars = getEnvProperties()
 
 android {
   namespace "ir.sanatisharif.android.konkur96"
@@ -30,12 +41,13 @@ android {
     }
 
 //     // Access the SENTRY_DSN environment variable you've defined in the .env file
-//     buildConfigField "String", "SENTRY_DSN", "\"${envVars['SENTRY_DSN'].toString()}\""
+//     buildConfigField "String", "ANDROID_SENTRY_DSN", "\"${envVars['ANDROID_SENTRY_DSN'].toString()}\""
   }
 
   buildFeatures
     {
       dataBinding = true
+      buildConfig = true
     }
 
   buildTypes {
@@ -44,6 +56,12 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+
+
+//   // Define an ext property
+//   ext {
+//     envVariablesSentryDsn = envVars['ANDROID_SENTRY_DSN']
+//   }
 }
 
 repositories {

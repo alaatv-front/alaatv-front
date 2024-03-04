@@ -1,316 +1,331 @@
 <template>
-  <div class="row q-pa-xl">
-    <div class="col-12 q-mb-md">
-      <h5>
-        برنامه مطالعاتی
-      </h5>
-    </div>
-    <div class="col-md-6 col-12 body1">
-      <q-breadcrumbs class="text-grey-9"
-                     active-color="grey-6">
-        <q-breadcrumbs-el label="برنامه مطالعاتی" />
-        <template v-slot:separator>
-          <q-icon size="xs"
-                  name="isax:arrow-right-3"
-                  color="grey-6" />
-        </template>
-        <q-breadcrumbs-el v-if="selectedMajorInCreatePlanForm"
-                          :label="selectedMajorInCreatePlanForm.title" />
-        <q-breadcrumbs-el v-if="selectedGradeInCreatePlanForm"
-                          :label="selectedGradeInCreatePlanForm.title" />
-        <q-breadcrumbs-el v-if="planType?.display_name"
-                          :label="planType.display_name" />
-      </q-breadcrumbs>
-    </div>
-    <div class="col-md-6 col-12 text-right action-btns">
-      <q-btn flat
-             label="تغییر برنامه مطالعاتی"
-             icon="ph:nut"
-             class="q-btn-md"
-             @click="changeStudyPlan" />
-      <q-btn v-if="isAdmin"
-             icon="add"
-             class="newPlan-btn q-btn-md"
-             text-color="grey-9"
-             color="primary"
-             label="زنگ جدید"
-             @click="newPlanDialog = true" />
-    </div>
-    <q-linear-progress v-if="loading"
-                       indeterminate />
-    <div class="col-12 calendar">
-      <full-calendar ref="fullCalendar"
-                     :study-event="studyEvent"
-                     :events="studyPlanList"
-                     :filtered-lesson="filteredLesson"
-                     @edit-plan="editPlan"
-                     @copy-plan="copyPlan"
-                     @remove-plan="openRemovePlanWarning" />
-    </div>
-    <q-dialog v-model="newPlanDialog">
-      <q-card class="new-theme">
-        <q-card-section>
-          <div class="row items-center justify-between">
-            <div>
-              <q-icon name="ph:calendar-check"
-                      color="secondary"
-                      size="24px" />
-              زنگ جدید
-            </div>
-            <q-btn v-close-popup
-                   flat
-                   square
-                   icon="close"
-                   color="grey-6" />
-          </div>
-        </q-card-section>
-        <q-separator />
-        <q-card-section>
-          <form-builder ref="formBuilder"
-                        v-model:value="inputs" />
-        </q-card-section>
-        <q-card-section>
-          <div class="text-right q-mt-md new-theme-btn">
-            <q-btn class="btn cancel q-mx-sm text-grey-9"
-                   size="md"
-                   outline
-                   label="لغو"
-                   @click="newPlanDialog = false" />
-            <q-btn class="btn q-mx-sm"
-                   label="تایید"
-                   size="md"
-                   color="positive"
-                   @click="acceptNewPlan" />
-          </div>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
-    <q-dialog v-model="editPlanDialog">
-      <q-card class="new-theme">
-        <q-card-section>
-          <div class="row items-center justify-between">
-            <div>
-              <q-icon name="ph:calendar-check"
-                      color="secondary"
-                      size="24px" />
-              ویرایش زنگ
-            </div>
-            <q-btn v-close-popup
-                   flat
-                   square
-                   icon="close"
-                   color="grey-6" />
-          </div>
-        </q-card-section>
-        <q-separator />
-        <q-card-section>
-          <entity-edit ref="entityEdit"
-                       v-model:value="editInputs"
-                       :defaultLayout="false"
-                       :api="editApi">
-            <template #after-form-builder>
-              <div class="text-right q-mt-md new-theme-btn">
-                <q-btn v-close-popup
-                       class="btn cancel q-mx-sm text-grey-9"
-                       size="md"
-                       outline
-                       label="لغو" />
-                <q-btn class="btn q-mx-sm"
-                       label="تایید"
-                       size="md"
-                       color="positive"
-                       @click="updatePlan" />
+  <div class="triple-title-set-study-plan">
+    <div class="row">
+      <div class="col-12 q-mb-md">
+        <h5>
+          برنامه مطالعاتی
+        </h5>
+      </div>
+      <div class="col-md-6 col-12 body1">
+        <q-breadcrumbs class="text-grey-9"
+                       active-color="grey-6">
+          <q-breadcrumbs-el label="برنامه مطالعاتی" />
+          <template v-slot:separator>
+            <q-icon size="xs"
+                    name="ph:caret-right"
+                    color="grey-6" />
+          </template>
+          <q-breadcrumbs-el v-if="currentStudyPlan.major"
+                            :label="currentStudyPlan.major" />
+          <q-breadcrumbs-el v-if="currentStudyPlan.grade"
+                            :label="currentStudyPlan.grade" />
+          <q-breadcrumbs-el v-if="currentStudyPlan.title"
+                            :label="currentStudyPlan.title" />
+        </q-breadcrumbs>
+      </div>
+      <div class="col-md-6 col-12 text-right action-btns">
+        <q-btn flat
+               label="تغییر برنامه مطالعاتی"
+               icon="ph:nut"
+               class="q-btn-md"
+               @click="changeStudyPlan" />
+        <q-btn v-if="isAdmin"
+               icon="add"
+               class="newPlan-btn q-btn-md"
+               text-color="grey-9"
+               color="primary"
+               label="زنگ جدید"
+               @click="newPlanDialog = true" />
+      </div>
+      <q-linear-progress v-if="loading"
+                         class="q-mt-md"
+                         indeterminate />
+      <div class="col-12 calendar">
+        <full-calendar v-if="studyPlanListLoaded"
+                       ref="fullCalendar"
+                       :hour-start="firstStartTime"
+                       :hour-end="lastEndTime"
+                       :study-event="studyEvent"
+                       :events="studyPlanList"
+                       :current-day="currentDay"
+                       :filtered-lesson="filteredLesson"
+                       @edit-plan="editPlan"
+                       @copy-plan="copyPlan"
+                       @change-date="onChangeDateOfFullcalendar"
+                       @remove-plan="openRemovePlanWarning" />
+        <q-inner-loading :showing="!studyPlanListLoaded">
+          <q-spinner-grid size="50px"
+                          color="primary" />
+        </q-inner-loading>
+      </div>
+      <q-dialog v-model="newPlanDialog">
+        <q-card class="new-theme">
+          <q-card-section>
+            <div class="row items-center justify-between">
+              <div>
+                <q-icon name="ph:calendar-check"
+                        color="secondary"
+                        size="24px" />
+                زنگ جدید
               </div>
-            </template>
-          </entity-edit>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
-    <q-dialog v-model="planSettings">
-      <q-card class="plan-setting new-theme">
-        <q-card-section>
-          <div class="row items-center justify-between">
-            <div>
-              <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-CalendarCheck.png"
-                     width="24px" />
-              تنظیمات برنامه مطالعاتی
+              <q-btn v-close-popup
+                     flat
+                     square
+                     icon="close"
+                     color="grey-6" />
             </div>
-            <q-btn flat
-                   icon="close"
-                   color="grey-6"
-                   @click="changeStudyPlan" />
-          </div>
-        </q-card-section>
-        <q-separator />
-        <q-card-section>
-          برای شروع دوره باید برنامه مطالعاتی خودتو انتخاب کنی
-        </q-card-section>
-        <q-card-section>
-          <div class="row q-col-gutter-md">
-            <div class="col-12">
-              <q-select v-model="planType"
-                        label="برنامه"
-                        option-label="display_name"
-                        :options="planOptions"
-                        @update:model-value="setFlagTrue" />
+          </q-card-section>
+          <q-separator />
+          <q-card-section>
+            <form-builder ref="formBuilder"
+                          v-model:value="inputs" />
+          </q-card-section>
+          <q-card-section>
+            <div class="text-right q-mt-md new-theme-btn">
+              <q-btn class="btn cancel q-mx-sm text-grey-9"
+                     size="md"
+                     outline
+                     label="لغو"
+                     @click="newPlanDialog = false" />
+              <q-btn class="btn q-mx-sm"
+                     label="تایید"
+                     size="md"
+                     color="positive"
+                     @click="acceptNewPlan" />
             </div>
-            <div class="col-6">
-              <q-select v-model="grade"
-                        label="مقطع"
-                        option-label="title"
-                        :options="gradeOptions"
-                        @update:model-value="setFlagTrue" />
+          </q-card-section>
+        </q-card>
+      </q-dialog>
+      <q-dialog v-model="editPlanDialog">
+        <q-card class="new-theme">
+          <q-card-section>
+            <div class="row items-center justify-between">
+              <div>
+                <q-icon name="ph:calendar-check"
+                        color="secondary"
+                        size="24px" />
+                ویرایش زنگ
+              </div>
+              <q-btn v-close-popup
+                     flat
+                     square
+                     icon="close"
+                     color="grey-6" />
             </div>
-            <div class="col-6">
-              <q-select v-model="major"
-                        label="رشته"
-                        option-label="title"
-                        :options="majorOptions"
-                        @update:model-value="setFlagTrue" />
+          </q-card-section>
+          <q-separator />
+          <q-card-section>
+            <entity-edit ref="entityEdit"
+                         v-model:value="editInputs"
+                         :defaultLayout="false"
+                         :api="editApi">
+              <template #after-form-builder>
+                <div class="text-right q-mt-md new-theme-btn">
+                  <q-btn v-close-popup
+                         class="btn cancel q-mx-sm text-grey-9"
+                         size="md"
+                         outline
+                         label="لغو" />
+                  <q-btn class="btn q-mx-sm"
+                         label="تایید"
+                         size="md"
+                         color="positive"
+                         @click="updatePlan" />
+                </div>
+              </template>
+            </entity-edit>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
+      <q-dialog v-model="planSettings">
+        <q-card class="plan-setting new-theme">
+          <q-card-section>
+            <div class="row items-center justify-between">
+              <div>
+                <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-CalendarCheck.png"
+                       width="24px" />
+                تنظیمات برنامه مطالعاتی
+              </div>
+              <q-btn flat
+                     icon="close"
+                     color="grey-6"
+                     @click="changeStudyPlan" />
             </div>
-            <div class="col-12">
-              <q-select v-model="lesson"
-                        label="درس مورد نمایش"
-                        option-label="lesson_name"
-                        :options="lessonOptions" />
+          </q-card-section>
+          <q-separator class="q-mb-md" />
+          <q-card-section>
+            برای شروع دوره باید برنامه مطالعاتی خودتو انتخاب کنی
+          </q-card-section>
+          <q-card-section>
+            <div class="row q-col-gutter-md">
+              <div class="col-12">
+                <q-select v-model="planType"
+                          label="برنامه"
+                          option-label="display_name"
+                          :options="planOptions"
+                          @update:model-value="setFlagTrue" />
+              </div>
+              <div class="col-6">
+                <q-select v-model="grade"
+                          label="مقطع"
+                          option-label="title"
+                          :options="gradeOptions"
+                          @update:model-value="setFlagTrue" />
+              </div>
+              <div class="col-6">
+                <q-select v-model="major"
+                          label="رشته"
+                          option-label="title"
+                          :options="majorOptions"
+                          @update:model-value="setFlagTrue" />
+              </div>
+              <div class="col-12">
+                <q-select v-model="lesson"
+                          label="درس مورد نمایش"
+                          option-value="id"
+                          option-label="lesson_name"
+                          :options="lessonOptions" />
+              </div>
+              <div class="col-12 caption1 text-grey-6">
+                میتونید انتخاب کنید توی برنامه مطالعاتی شما یک یا چند درس خاص و یا همه دروس راه ابریشم نمایش داده بشن
+              </div>
             </div>
-            <div class="col-12 caption1 text-grey-6">
-              میتونید انتخاب کنید توی برنامه مطالعاتی شما یک یا چند درس خاص و یا همه دروس راه ابریشم نمایش داده بشن
+          </q-card-section>
+          <q-card-section>
+            <div class="text-right new-theme-btn">
+              <q-btn class="btn cancel q-mx-sm text-grey-9"
+                     size="md"
+                     outline
+                     label="لغو"
+                     @click="planSettings = false" />
+              <q-btn class="btn q-mx-sm"
+                     label="تایید"
+                     size="md"
+                     color="positive"
+                     @click="acceptSettings" />
             </div>
-          </div>
-        </q-card-section>
-        <q-card-section>
-          <div class="text-right new-theme-btn">
-            <q-btn class="btn cancel q-mx-sm text-grey-9"
-                   size="md"
-                   outline
-                   label="لغو"
-                   @click="planSettings = false" />
-            <q-btn class="btn q-mx-sm"
-                   label="تایید"
-                   size="md"
-                   color="positive"
-                   @click="acceptSettings" />
-          </div>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
-    <q-dialog v-model="warning">
-      <q-card class="accept-plan-card new-theme">
-        <q-card-section>
-          <div class="row items-center justify-between">
-            <div>
-              <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-CalendarCheck.png"
-                     width="24px" />
-              تغییر برنامه مطالعاتی
+          </q-card-section>
+        </q-card>
+      </q-dialog>
+      <q-dialog v-model="warning">
+        <q-card class="accept-plan-card new-theme">
+          <q-card-section>
+            <div class="row items-center justify-between">
+              <div>
+                <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-CalendarCheck.png"
+                       width="24px" />
+                تغییر برنامه مطالعاتی
+              </div>
+              <q-btn flat
+                     icon="close"
+                     color="grey-6"
+                     @click="changeStudyPlan" />
             </div>
-            <q-btn flat
-                   icon="close"
-                   color="grey-6"
-                   @click="changeStudyPlan" />
-          </div>
-        </q-card-section>
-        <q-separator />
-        <q-card-section>
-          <div class="row lazy-image-wrapper">
-            <lazy-img src="https://nodes.alaatv.com/upload/TripleTitleSet-warning.png" />
-          </div>
-        </q-card-section>
-        <q-card-section>
-          آیا از تغییر برنامه مطالعاتی مطمئنی؟
-          تمام پیشروی‌های صورت گرفته تا به الان به حالت اول برمیگرده و برنامه مطالعاتی از اول شروع میشه.
-        </q-card-section>
-        <q-card-section>
-          <div class="text-right new-theme-btn">
-            <q-btn class="btn cancel q-mx-sm text-grey-9"
-                   size="md"
-                   outline
-                   label="انصراف"
-                   @click="warning = false" />
-            <q-btn class="btn q-mx-sm"
-                   label="تایید"
-                   size="md"
-                   color="warning"
-                   @click="filterByLesson" />
-          </div>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
-    <q-dialog v-model="removePlanWarning">
-      <q-card class="accept-plan-card new-theme">
-        <q-card-section>
-          <div class="row items-center justify-between">
-            <div>
-              <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-Warning.png"
-                     width="24px" />
-              هشدار
+          </q-card-section>
+          <q-separator />
+          <q-card-section>
+            <div class="row lazy-image-wrapper">
+              <lazy-img src="https://nodes.alaatv.com/upload/TripleTitleSet-warning.png" />
             </div>
-            <q-btn v-close-popup
-                   flat
-                   color="grey-6"
-                   icon="close" />
-          </div>
-        </q-card-section>
-        <q-separator />
-        <q-card-section>
-          آیا از حذف این زنگ مطمئن هستید؟
-        </q-card-section>
-        <q-card-section>
-          <div class="text-right new-theme-btn">
-            <q-btn v-close-popup
-                   class="btn cancel q-mx-sm text-grey-9"
-                   size="md"
-                   outline
-                   label="انصراف" />
-            <q-btn class="btn q-mx-sm"
-                   label="بله، مطمئنم"
-                   size="md"
-                   color="red"
-                   @click="removePlan" />
-          </div>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
-    <q-dialog v-model="successChangePlan">
-      <q-card class="accept-plan-card new-theme">
-        <q-card-section>
-          <div class="row items-center justify-between">
-            <div>
-              <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-CalendarCheck.png"
-                     width="24px" />
-              تغییر برنامه مطالعاتی
+          </q-card-section>
+          <q-card-section>
+            آیا از تغییر برنامه مطالعاتی مطمئنی؟
+            تمام پیشروی‌های صورت گرفته تا به الان به حالت اول برمیگرده و برنامه مطالعاتی از اول شروع میشه.
+          </q-card-section>
+          <q-card-section>
+            <div class="text-right new-theme-btn">
+              <q-btn class="btn cancel q-mx-sm text-grey-9"
+                     size="md"
+                     outline
+                     label="انصراف"
+                     @click="warning = false" />
+              <q-btn class="btn q-mx-sm"
+                     label="تایید"
+                     size="md"
+                     color="warning"
+                     @click="filterByLesson" />
             </div>
-            <q-btn flat
-                   color="grey-6"
-                   icon="close"
-                   @click="changeStudyPlan" />
-          </div>
-        </q-card-section>
-        <q-separator />
-        <q-card-section>
-          <div class="row lazy-image-wrapper">
-            <lazy-img src="https://nodes.alaatv.com/upload/TripleTitleSet-check.png" />
-          </div>
-        </q-card-section>
-        <q-card-section>
-          برنامه شما با موفقیت تنظیم شد؛ همچنین بعدا میتونید از قسمت برنامه مطالعاتی، اونو تنظیم کنید و یا تغییر بدین.
-        </q-card-section>
-        <q-card-section>
-          <div class="text-right new-theme-btn">
-            <q-btn class="btn q-mx-sm"
-                   label="متوجه شدم"
-                   size="md"
-                   color="positive"
-                   @click="successChangePlan = false" />
-          </div>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
+      <q-dialog v-model="removePlanWarning">
+        <q-card class="accept-plan-card new-theme">
+          <q-card-section>
+            <div class="row items-center justify-between">
+              <div>
+                <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-Warning.png"
+                       width="24px" />
+                هشدار
+              </div>
+              <q-btn v-close-popup
+                     flat
+                     color="grey-6"
+                     icon="close" />
+            </div>
+          </q-card-section>
+          <q-separator />
+          <q-card-section>
+            آیا از حذف این زنگ مطمئن هستید؟
+          </q-card-section>
+          <q-card-section>
+            <div class="text-right new-theme-btn">
+              <q-btn v-close-popup
+                     class="btn cancel q-mx-sm text-grey-9"
+                     size="md"
+                     outline
+                     label="انصراف" />
+              <q-btn class="btn q-mx-sm"
+                     label="بله، مطمئنم"
+                     size="md"
+                     color="red"
+                     @click="removePlan" />
+            </div>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
+      <q-dialog v-model="successChangePlan">
+        <q-card class="accept-plan-card new-theme">
+          <q-card-section>
+            <div class="row items-center justify-between">
+              <div>
+                <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-CalendarCheck.png"
+                       width="24px" />
+                تغییر برنامه مطالعاتی
+              </div>
+              <q-btn flat
+                     color="grey-6"
+                     icon="close"
+                     @click="changeStudyPlan" />
+            </div>
+          </q-card-section>
+          <q-separator />
+          <q-card-section>
+            <div class="row lazy-image-wrapper">
+              <lazy-img src="https://nodes.alaatv.com/upload/TripleTitleSet-check.png" />
+            </div>
+          </q-card-section>
+          <q-card-section>
+            برنامه شما با موفقیت تنظیم شد؛ همچنین بعدا میتونید از قسمت برنامه مطالعاتی، اونو تنظیم کنید و یا تغییر بدین.
+          </q-card-section>
+          <q-card-section>
+            <div class="text-right new-theme-btn">
+              <q-btn class="btn q-mx-sm"
+                     label="متوجه شدم"
+                     size="md"
+                     color="positive"
+                     @click="successChangePlan = false" />
+            </div>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
+    </div>
   </div>
 </template>
 
 <script>
 import { shallowRef } from 'vue'
+import moment from 'moment-jalaali'
+import Time from 'src/plugins/time.js'
 import { Set } from 'src/models/Set.js'
 import { EntityEdit } from 'quasar-crud'
 import { Major } from 'src/models/Major.js'
@@ -330,6 +345,8 @@ import FormBuilderInputStudyPlanContentsSelector
 const SessionInfoComponentComp = shallowRef(SessionInfoComponent)
 const ContentsComponentComp = shallowRef(FormBuilderInputStudyPlanContentsSelector)
 
+moment.loadPersian()
+
 export default {
   name: 'TripleTitleSetStudyPlan',
   components: {
@@ -342,7 +359,10 @@ export default {
   data () {
     return {
       loading: false,
+      currentDay: null,
       api: APIGateway.studyPlan.APIAdresses.plan,
+      firstStartTime: 23,
+      lastEndTime: 0,
       selectedPlanId: null,
       newPlanDialog: false,
       editPlanDialog: false,
@@ -351,13 +371,18 @@ export default {
       isAdmin: false,
       needToUpdatePlan: false,
       studyPlanList: new StudyPlanList(),
+      studyPlanListLoaded: false,
       selectedContentList: [],
       planSettings: false,
       acceptPlan: false,
       warning: false,
       successChangePlan: false,
       selectedDate: null,
-      planType: {},
+      planType: {
+        id: null,
+        title: null,
+        display_name: null
+      },
       studyEvent: null,
       planOptions: [],
       major: {},
@@ -381,6 +406,14 @@ export default {
           type: 'hidden',
           name: 'event_id',
           value: []
+        },
+        {
+          type: 'input',
+          name: 'title',
+          label: 'عنوان',
+          value: '',
+          placeholder: 'وارد کنید',
+          col: 'col-12'
         },
         {
           type: 'select',
@@ -479,6 +512,14 @@ export default {
           value: null
         },
         {
+          type: 'input',
+          name: 'title',
+          label: 'عنوان',
+          value: '',
+          placeholder: 'وارد کنید',
+          col: 'col-12'
+        },
+        {
           type: 'select',
           name: 'study_method_id',
           label: 'برنامه',
@@ -567,23 +608,8 @@ export default {
           responseKey: 'data.description',
           col: 'col-12'
         }
-      ]
-    }
-  },
-  computed: {
-    selectedMajorInCreatePlanForm () {
-      const majors = FormBuilderAssist.getInputsByName(this.inputs, 'major_id').options
-      const selectedMajorIds = FormBuilderAssist.getInputsByName(this.inputs, 'major_id').value
-      const selectedMajorId = Array.isArray(selectedMajorIds) ? selectedMajorIds[0] : null
-
-      return majors.find(major => major.id === selectedMajorId)
-    },
-    selectedGradeInCreatePlanForm () {
-      const grades = FormBuilderAssist.getInputsByName(this.inputs, 'grade_id').options
-      const selectedGradeIds = FormBuilderAssist.getInputsByName(this.inputs, 'grade_id').value
-      const selectedGradeId = Array.isArray(selectedGradeIds) ? selectedGradeIds[0] : null
-
-      return grades.find(grade => grade.id === selectedGradeId)
+      ],
+      currentStudyPlan: {}
     }
   },
   watch: {
@@ -602,6 +628,7 @@ export default {
     }
   },
   mounted () {
+    this.currentDay = Time.now()
     this.$bus.on('FormBuilderInputStudyPlanContentsSelector-update:major', (newValue) => {
       FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'major', newValue)
       FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'major', newValue)
@@ -683,7 +710,10 @@ export default {
     copyPlan (event) {
       this.selectedPlanId = event.id
       this.editApi = APIGateway.studyPlan.APIAdresses.editPlan(this.selectedPlanId)
+      FormBuilderAssist.setAttributeByName(this.inputs, 'title', 'value', event.title)
+      FormBuilderAssist.setAttributeByName(this.inputs, 'study_method_id', 'value', [event.study_method_id])
       FormBuilderAssist.setAttributeByName(this.inputs, 'major_id', 'value', [event.major_id])
+      FormBuilderAssist.setAttributeByName(this.inputs, 'grade_id', 'value', [event.grade_id])
       FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'value', event.contents.list.map(item => {
         return {
           content_id: item.id,
@@ -696,6 +726,9 @@ export default {
       FormBuilderAssist.setAttributeByName(this.inputs, 'description', 'value', event.description)
       this.newPlanDialog = true
     },
+    onChangeDateOfFullcalendar (newDate) {
+      this.getStudyPlanData(newDate)
+    },
     openRemovePlanWarning (event) {
       this.removePlanWarning = true
       this.selectedPlanId = event.id
@@ -704,7 +737,7 @@ export default {
       this.loading = true
       APIGateway.studyPlan.removePlan(this.selectedPlanId)
         .then(() => {
-          this.$refs.fullCalendar.getStudyPlanData()
+          this.getStudyPlanData()
           this.removePlanWarning = false
           this.loading = false
         })
@@ -790,7 +823,7 @@ export default {
         })
       })
       Promise.all(eventPromises)
-        .then((plans) => {
+        .then(() => {
           FormBuilderAssist.setAttributeByName(this.inputs, 'contents', 'value', [])
           const data = {
             major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id').value[0],
@@ -800,9 +833,9 @@ export default {
           this.findStudyPlan(data)
             .then(studtPlan => {
               if (studtPlan.id !== this.studyEvent) {
-                this.updateMyStudyPlan(data)
+                this.updateMyStudyPlan(FormBuilderAssist.getInputsByName(this.inputs, 'date').value)
               } else {
-                this.$refs.fullCalendar.getStudyPlanData(studtPlan.id)
+                this.getStudyPlanData(FormBuilderAssist.getInputsByName(this.inputs, 'date').value)
               }
               this.loading = false
             })
@@ -818,14 +851,19 @@ export default {
     },
     filterByLesson () {
       this.loading = true
-      this.$apiGateway.studyPlan.storeSetting({ setting: { abrisham2_calender_default_lesson: this.lesson.id } })
+      APIGateway.studyPlan.storeSetting({
+        setting: {
+          abrisham2_calender_default_lesson: this.lesson.id,
+          event_category_id: this.event.study_plan.category_id
+        }
+      })
         .then(() => {
           this.loading = false
           this.filteredLesson = this.lesson.id
           if (this.isPlanChanged) {
             this.updateMyStudyPlan()
           } else {
-            this.$refs.fullCalendar.getStudyPlanData(this.studyEvent)
+            this.getStudyPlanData()
           }
         })
         .catch(() => {
@@ -834,10 +872,13 @@ export default {
     },
     getFilterLesson () {
       return new Promise((resolve, reject) => {
-        APIGateway.studyPlan.getSetting()
+        APIGateway.studyPlan.getSetting(this.event.study_plan.category_id)
           .then(setting => {
             this.filteredLesson = setting?.setting?.abrisham2_calender_default_lesson // lessonId
             this.lesson = this.lessonOptions.find(lesson => lesson.id === this.filteredLesson)
+            if (!this.lesson) {
+              this.lesson = { lesson_name: 'همه', id: null }
+            }
             this.getMyStudyPlan()
             resolve()
           })
@@ -853,12 +894,13 @@ export default {
       this.loading = true
       APIGateway.studyPlan.getMyStudyPlan({ category_id: this.event.study_plan.category_id })
         .then(studyPlan => {
-          this.planType.display_name = studyPlan.title
+          this.currentStudyPlan = studyPlan
           this.studyEvent = studyPlan.id
-          this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
+          this.getStudyPlanData()
           this.loading = false
         })
         .catch(() => {
+          this.changeStudyPlan()
           this.loading = false
         })
     },
@@ -875,7 +917,11 @@ export default {
             lesson_name: 'همه',
             id: null
           })
-          this.planType = options.studyPlans.find(studyPlan => studyPlan.display_name === this.planType.display_name) || {}
+          this.planType = options.studyPlans.find(studyPlan => studyPlan.display_name === this.currentStudyPlan.display_name) || {
+            id: null,
+            title: null,
+            display_name: null
+          }
           this.setInputAttrByName(this.inputs, 'major_id', 'options', options.majors)
           this.setInputAttrByName(this.inputs, 'grade_id', 'options', options.grades)
           this.setInputAttrByName(this.inputs, 'study_method_id', 'options', options.studyPlans)
@@ -921,32 +967,88 @@ export default {
         this.filterByLesson()
       }
     },
-    updateMyStudyPlan (data) {
+    updateMyStudyPlan (data, date) {
       this.loading = true
       this.warning = false
       const studyPlanData = {
-        study_method_id: data && data.study_method_id ? data.study_method_id : this.planType.id,
+        category_id: this.event.study_plan.category_id,
         major_id: data && data.major_id ? data.major_id : this.major.id,
-        grade_id: data && data.grade_id ? data.grade_id : this.grade.id
+        grade_id: data && data.grade_id ? data.grade_id : this.grade.id,
+        study_method_id: data && data.study_method_id ? data.study_method_id : this.planType.id
       }
       APIGateway.studyPlan.updateMyStudyPlan(studyPlanData)
         .then(studyPlan => {
+          this.getMyStudyPlan()
           this.studyEvent = studyPlan.id
-          this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
+          this.getStudyPlanData(date)
           this.loading = false
           this.successChangePlan = true
         })
         .catch(() => {
+          this.changeStudyPlan()
           this.loading = false
         })
+    },
+    getStudyPlanData (date) {
+      this.studyPlanListLoaded = false
+      this.studyPlanList.loading = true
+      const now = moment(date) || moment(Time.now())
+      const day0 = now.clone().weekday(0).format('YYYY/MM/DD')
+      const day6 = now.clone().weekday(6).format('YYYY/MM/DD')
+      this.currentDay = now.clone().weekday(0).format('YYYY-MM-DD HH:mm:ss')
+      APIGateway.studyPlan.getStudyPlanData({
+        study_event: this.studyEvent,
+        product_id: this.filteredLesson,
+        till_date: day6,
+        since_date: day0
+      })
+        .then(studyPlanList => {
+          const minAndMaxStartHour = this.getMinAndMaxStartHour(studyPlanList)
+
+          this.lastEndTime = minAndMaxStartHour.lastEndTime < 23 ? minAndMaxStartHour.lastEndTime + 1 : minAndMaxStartHour.lastEndTime
+          this.firstStartTime = minAndMaxStartHour.firstStartTime > 0 ? minAndMaxStartHour.firstStartTime - 1 : minAndMaxStartHour.firstStartTime
+
+          this.studyPlanList.loading = false
+          this.studyPlanList = studyPlanList
+          this.studyPlanListLoaded = true
+        })
+        .catch(() => {
+          this.studyPlanList.loading = false
+          this.studyPlanListLoaded = false
+        })
+    },
+    getMinAndMaxStartHour (studyPlanList) {
+      let firstStartTime = 23
+      let lastEndTime = 0
+      studyPlanList.list.forEach(studyPlan => {
+        studyPlan.plans.list.forEach(plan => {
+          if (firstStartTime > moment(plan.start, 'HH:mm:ss').hours()) {
+            firstStartTime = moment(plan.start, 'HH:mm:ss').hours()
+          }
+          if (lastEndTime < moment(plan.end, 'HH:mm:ss').hours()) {
+            lastEndTime = moment(plan.end, 'HH:mm:ss').hours()
+          }
+        })
+      })
+
+      return {
+        lastEndTime,
+        firstStartTime
+      }
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.calendar {
-  margin-top: 25px;
+.triple-title-set-study-plan {
+  padding: $space-8;
+  @include media-max-width('md') {
+    padding: $space-4;
+  }
+  @include media-max-width('sm') {
+    padding: $space-1;
+  }
 }
 .content-selection {
   padding-left: 5px;
