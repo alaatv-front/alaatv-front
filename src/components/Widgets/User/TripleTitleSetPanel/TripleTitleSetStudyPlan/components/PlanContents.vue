@@ -6,7 +6,7 @@
       <plan-content :plan="plan"
                     :content="content" />
     </div>
-    <div v-for="content in lessonVideoContents"
+    <div v-for="content in videoContents"
          :key="content.id"
          class="col-md-6 col-xs-12">
       <plan-content :plan="plan"
@@ -31,8 +31,8 @@ export default {
     pamphletContents () {
       return this.plan.contents.list.filter(content => content.isPamphlet())
     },
-    lessonVideoContents () {
-      return this.plan.contents.list.filter(content => content.isLessonVideo())
+    videoContents () {
+      return this.plan.contents.list.filter(content => content.isVideo())
     }
   }
 }

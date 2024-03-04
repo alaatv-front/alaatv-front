@@ -93,66 +93,16 @@
                                    vertical />
                     </div>
                     <div v-if="chartWeek[day - 1]">
-                      <div v-for="event in chartWeek[day - 1].events"
-                           :key="event.id"
-                           class="weekly-event cursor-pointer"
-                           :style="{ top: calculateTop(event), height: calculateHeight(event), background: getBackgroundColor(event.backgroundColor)}">
-                        <div class="row q-px-md event-info"
-                             @click="openEvent(event)">
-                          <div class="product_lesson_name col-12">
-                            <template v-if="event.title">
-                              {{ event.title }}
-                            </template>
-                            <template v-else>
-                              {{ event.product.lesson_name }}
-                            </template>
-                          </div>
-                          <div v-for="event in event.contents.list"
-                               :key="event.id"
-                               class="event_title col-12 q-mt-xs">
-                            {{event.title}}
-                          </div>
-                          <div class="event_start col-12 q-mt-xs">{{event.start.substring(0, 5)}} الی {{event.end.substring(0, 5)}}</div>
-                        </div>
-                        <div class="more-btn">
-                          <q-btn icon="ph:dots-three-outline-vertical"
-                                 square
-                                 class="more size-ms">
-                            <q-menu anchor="bottom right"
-                                    self="bottom left">
-                              <q-list>
-                                <q-item v-ripple
-                                        clickable
-                                        dense
-                                        @click="editPlan(event)">
-                                  <q-item-section>ویرایش</q-item-section>
-                                  <q-item-section avatar>
-                                    <q-icon name="ph:pencil" />
-                                  </q-item-section>
-                                </q-item>
-                                <q-item v-ripple
-                                        clickable
-                                        dense
-                                        @click="copyPlan(event)">
-                                  <q-item-section>کپی</q-item-section>
-                                  <q-item-section avatar>
-                                    <q-icon name="ph:copy" />
-                                  </q-item-section>
-                                </q-item>
-                                <q-item v-ripple
-                                        clickable
-                                        dense
-                                        @click="removePlan(event)">
-                                  <q-item-section>حذف</q-item-section>
-                                  <q-item-section avatar>
-                                    <q-icon name="ph:trash-simple" />
-                                  </q-item-section>
-                                </q-item>
-                              </q-list>
-                            </q-menu>
-                          </q-btn>
-                        </div>
-                      </div>
+                      <full-calendar-plan-item v-for="(plan, planIndex) in chartWeek[day - 1].events"
+                                               :key="planIndex"
+                                               :plan="plan"
+                                               :base-hight="baseHight"
+                                               :hour-end="hourEnd"
+                                               :hour-start="hourStart"
+                                               @openPlan="onShowPlan"
+                                               @copyPlan="onCopyPlan"
+                                               @editPlan="onEditPlan"
+                                               @removePlan="onRemovePlan" />
                     </div>
                   </div>
                 </div>
@@ -238,7 +188,9 @@ import { colors } from 'quasar'
 import moment from 'moment-jalaali'
 import Time from 'src/plugins/time.js'
 import { defineComponent, ref } from 'vue'
+import { Plan } from 'src/models/Plan.js'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
+import FullCalendarPlanItem from './FullCalendarPlanItem.vue'
 // import PlanItem from 'components/DashboardTripleTitleSet/Dashboard/PlanItem.vue'
 import planContents
   from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/PlanContents.vue'
@@ -247,7 +199,7 @@ moment.loadPersian()
 
 export default defineComponent({
   name: 'FullCalendar',
-  components: { planContents },
+  components: { planContents, FullCalendarPlanItem },
   props: {
     hourStart: {
       type: Number,
@@ -766,6 +718,19 @@ export default defineComponent({
     this.loadStudyPlanData()
   },
   methods: {
+    onShowPlan (plan) {
+      console.log('onShowPlan', plan)
+      this.openEvent(plan)
+    },
+    onCopyPlan (plan) {
+      this.copyPlan(plan)
+    },
+    onEditPlan (plan) {
+      this.editPlan(plan)
+    },
+    onRemovePlan (plan) {
+      this.removePlan(plan)
+    },
     calcCalendarHeight () {
       const heightUnit = 'px'
       this.calendarHeight = ((this.hourEnd - this.hourStart + 1) * this.baseHight) + 20 + heightUnit
@@ -853,7 +818,7 @@ export default defineComponent({
           for (let e = 0; e < this.events.list.length; e++) {
             if (this.events.list[e].plan_date === this.month[w][col].date.toString().split('/').join('-')) {
               this.events.list[e].plans.list.forEach(plan => {
-                this.month[w][col].events.push(plan)
+                this.month[w][col].events.push(new Plan(plan))
               })
             }
           }
