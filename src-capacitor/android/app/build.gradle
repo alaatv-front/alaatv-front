@@ -7,9 +7,6 @@ import groovy.json.JsonSlurper
 
 apply plugin: 'com.android.application'
 
-def configFile = file('../versionConfig.json')
-def config = new JsonSlurper().parseText(configFile.text)
-
 // def getEnvProperties() {
 //     def envProperties = new Properties()
 //
@@ -30,8 +27,8 @@ android {
     minSdkVersion rootProject.ext.minSdkVersion
     targetSdkVersion rootProject.ext.targetSdkVersion
 
-    versionCode config.androidVersionCode
-    versionName config.androidVersion
+    versionCode System.getenv("ANDROID_VERSION_CODE")
+    versionName System.getenv("ANDROID_VERSION_NAME")
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     aaptOptions {
@@ -39,6 +36,15 @@ android {
       // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
       ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
     }
+  
+  signingConfigs {
+    release {
+            storeFile file(System.getenv("ANDROID_KEYSTORE"))
+            storePassword System.getenv("ANDROID_KEYSTORE_PASS")
+            keyAlias System.getenv("ANDROID_KEY_ALIAS")
+            keyPassword System.getenv("ANDROID_KEY_PASS")
+    }
+  }
 
 //     // Access the SENTRY_DSN environment variable you've defined in the .env file
 //     buildConfigField "String", "ANDROID_SENTRY_DSN", "\"${envVars['ANDROID_SENTRY_DSN'].toString()}\""
@@ -54,6 +60,7 @@ android {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      signingConfig signingConfigs.release
     }
   }
 

@@ -36,3 +36,7 @@ yarn-error.log*
 
 
 *.code-workspace
+
+# android files
+*.jks
+service_account_key_file.json
