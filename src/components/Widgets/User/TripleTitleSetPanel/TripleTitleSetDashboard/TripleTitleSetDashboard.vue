@@ -4,7 +4,7 @@
                       :studyPlanId="studyPlanId" />
     <daily-plan :studyPlanId="studyPlanId" />
     <status-and-review :loading="loading"
-                       :studyPlanInfo="studyPlanInfo" />
+                       :study-plan-info="studyPlanInfo" />
     <study-plan-selection-dialog :dialog="dialog"
                                  @confirm="onConfirmChangeStudyPlan"
                                  @toggle-dialog="onToggleDialog" />
@@ -58,6 +58,8 @@ export default defineComponent({
         .then(studyPlanInfo => {
           if (!studyPlanInfo || !studyPlanInfo.id) {
             this.dialog = true
+          } else {
+            this.studyPlanInfo = studyPlanInfo
           }
           this.loading = false
         })

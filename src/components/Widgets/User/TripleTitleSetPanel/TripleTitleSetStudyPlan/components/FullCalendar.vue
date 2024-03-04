@@ -5,7 +5,7 @@
     <div v-else>
       <div class="calendar-header">
         <div class="calendar-title" />
-        <div>
+        <div class="calendar-header--btn-next-prev">
           <q-btn label="هفته قبل"
                  class="q-mx-sm q-btn-sm keep-min-width"
                  color="primary"
@@ -99,7 +99,14 @@
                            :style="{ top: calculateTop(event), height: calculateHeight(event), background: getBackgroundColor(event.backgroundColor)}">
                         <div class="row q-px-md event-info"
                              @click="openEvent(event)">
-                          <div class="product_lesson_name col-12 q-mt-sm">{{ event.product.lesson_name }}</div>
+                          <div class="product_lesson_name col-12">
+                            <template v-if="event.title">
+                              {{ event.title }}
+                            </template>
+                            <template v-else>
+                              {{ event.product.lesson_name }}
+                            </template>
+                          </div>
                           <div v-for="event in event.contents.list"
                                :key="event.id"
                                class="event_title col-12 q-mt-xs">
@@ -172,7 +179,7 @@
         </q-card-section>
         <q-separator />
         <q-card-section>
-          <div class="q-mt-md">
+          <div class="q-pt-md">
             <plan-contents :plan="selectedEvent" />
           </div>
           <div class="event-description q-mt-md">
@@ -833,7 +840,7 @@ export default defineComponent({
       return topHourStart + heightUnit
     },
     calculateEventDate () {
-      // const date = new Date(this.selectedEvent.date)
+      return moment(this.selectedEvent.date).format('jYYYY/jM/jD')
     },
     openEvent (event) {
       this.eventDialog = true
@@ -887,14 +894,25 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .calender {
-  height: 613px;
+  //min-height: v-bind('calendarHeight');
+  height: calc( 100vh - 200px );
+  max-height: calc( 100vh - 250px );
   position: relative;
+
   @media screen and (width <= 1023px) {
     margin-bottom: 20px;
   }
 
   @media screen and (width <= 1023px) {
     margin-bottom: 16px;
+  }
+
+  @include media-max-width('md') {
+    max-height: calc( 100vh - 360px );
+  }
+
+  @include media-max-width('sm') {
+    max-height: calc( 100vh - 390px );
   }
 
   .calendar-header {
@@ -921,6 +939,10 @@ export default defineComponent({
         top: 10px;
         left: 10px;
       }
+    }
+
+    .calendar-header--btn-next-prev {
+
     }
 
     .calendar-panel {
@@ -1003,9 +1025,23 @@ export default defineComponent({
         }
       }
     }
+
+    @include media-max-width('sm') {
+      $sm-btn-next-prev-width: 95px;
+      .calendar-header--btn-next-prev {
+        width: $sm-btn-next-prev-width;
+        .q-btn {
+          margin: $spacing-none;
+        }
+      }
+      .calendar-panel {
+        width: calc( 100% - #{$sm-btn-next-prev-width} );
+      }
+    }
   }
 
   .box {
+    height: auto;
     background: #FFF;
     box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%) #{"/* rtl:ignore */"};
     border-radius: 16px;
@@ -1021,7 +1057,7 @@ export default defineComponent({
 
     .second-scroll {
       height: v-bind('calendarHeight');
-      max-height: 500px;
+      max-height: calc( 100vh - 450px );
     }
 
     .calendar-first-row {
@@ -1217,6 +1253,7 @@ export default defineComponent({
                   align-items: flex-start;
                   justify-content: flex-start;
                   .product_lesson_name {
+                    margin-top: $space-2;
                     @include body1;
                   }
                   .event_title {
@@ -1251,12 +1288,10 @@ export default defineComponent({
 
     @media screen and (width <= 1439px) {
       margin-right: 0;
-      height: 394px;
     }
 
     @media screen and (width <= 1200px) {
       margin-right: 0;
-      height: auto;
     }
 
   }

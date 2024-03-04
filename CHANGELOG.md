@@ -1,3 +1,23 @@
+## [1.8.1](https://git.alaatv.com/web/alaatv_front/compare/v1.8.0...v1.8.1) (2024-03-02)
+
+
+### Bug Fixes
+
+* ttsp dashboard plans ([7ff6e52](https://git.alaatv.com/web/alaatv_front/commit/7ff6e52b0a117dc666bb5a816a2d0ea722a5501d))
+
+# [1.8.0](https://git.alaatv.com/web/alaatv_front/compare/v1.7.4...v1.8.0) (2024-03-02)
+
+
+### Bug Fixes
+
+* ttsp study plan change date after create plan ([ab751a1](https://git.alaatv.com/web/alaatv_front/commit/ab751a132a3e1c53c59c270e79fc41cdc1798d6f))
+* ttsp study plan show plan time ([2988b6c](https://git.alaatv.com/web/alaatv_front/commit/2988b6c6949b227002f98b8a4be77495fdb5d0d5))
+
+
+### Features
+
+* black Friday video widget newsletter option added ([#989](https://git.alaatv.com/web/alaatv_front/issues/989)) ([9c6ce7f](https://git.alaatv.com/web/alaatv_front/commit/9c6ce7f7a97d5600f4665369b2f2428ef7ef2d26))
+
 ## [1.7.4](https://git.alaatv.com/web/alaatv_front/compare/v1.7.3...v1.7.4) (2024-03-02)
 
 
