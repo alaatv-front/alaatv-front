@@ -18,16 +18,16 @@
                        :name=tab>
             <div class="row q-col-gutter-md">
               <div class="col-3">
-                <div class="outsidelabel">width</div>
-                <q-input v-model="localOptions[tab].style.width" />
+                <q-input v-model="localOptions[tab].style.width"
+                         label="width" />
               </div>
               <div class="col-3">
-                <div class="outsidelabel">height</div>
-                <q-input v-model="localOptions[tab].style.height" />
+                <q-input v-model="localOptions[tab].style.height"
+                         label="height" />
               </div>
               <div class="col-3">
-                <div class="outsidelabel">animation</div>
                 <q-select v-model="localOptions.animate"
+                          label="animation"
                           :options="animateOptions" />
               </div>
               <div class="col-3">
@@ -35,8 +35,8 @@
                 <q-checkbox v-model="localOptions.loop" />
               </div>
               <div class="col-12">
-                <div class="outsidelabel">animation directory 1</div>
-                <q-input v-model="localOptions[tab].directory" />
+                <q-input v-model="localOptions[tab].directory"
+                         label="animation directory 1" />
               </div>
               <div v-if="localOptions.animate === 'in & out'"
                    class="col-12">

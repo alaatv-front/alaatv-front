@@ -3,7 +3,7 @@
     <div class="col-12 col-lg-9  info-col">
       <div class="row">
         <div class="col-12 col-md-4">
-          <plan-status :passedDays="studyPlanInfo?.passed_days"
+          <plan-status :passed-days="studyPlanInfo?.passed_days"
                        :loading="loading" />
         </div>
         <div class="col-12 col-md-3">

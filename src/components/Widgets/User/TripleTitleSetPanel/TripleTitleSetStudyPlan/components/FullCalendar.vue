@@ -5,7 +5,7 @@
     <div v-else>
       <div class="calendar-header">
         <div class="calendar-title" />
-        <div>
+        <div class="calendar-header--btn-next-prev">
           <q-btn label="هفته قبل"
                  class="q-mx-sm q-btn-sm keep-min-width"
                  color="primary"
@@ -67,7 +67,6 @@
         <q-scroll-area ref="secondRef"
                        visible
                        class="second-scroll"
-                       style="height:500px"
                        @scroll="onScrollSecond">
           <div class="calendar-wrapper">
             <div class="calendar-body">
@@ -100,7 +99,14 @@
                            :style="{ top: calculateTop(event), height: calculateHeight(event), background: getBackgroundColor(event.backgroundColor)}">
                         <div class="row q-px-md event-info"
                              @click="openEvent(event)">
-                          <div class="product_lesson_name col-12 q-mt-sm">{{ event.product.lesson_name }}</div>
+                          <div class="product_lesson_name col-12">
+                            <template v-if="event.title">
+                              {{ event.title }}
+                            </template>
+                            <template v-else>
+                              {{ event.product.lesson_name }}
+                            </template>
+                          </div>
                           <div v-for="event in event.contents.list"
                                :key="event.id"
                                class="event_title col-12 q-mt-xs">
@@ -166,17 +172,18 @@
               {{calculateEventDate()}} - {{selectedEvent.start.substring(0, 5)}} الی {{selectedEvent.end.substring(0, 5)}}
             </div>
             <q-btn flat
+                   square
                    icon="close"
                    @click="eventDialog = false" />
           </div>
         </q-card-section>
         <q-separator />
         <q-card-section>
-          <div class="row">
+          <div class="q-pt-md">
             <plan-contents :plan="selectedEvent" />
-            <div class="event-description col-12 q-mt-md">
-              {{selectedEvent.description}}
-            </div>
+          </div>
+          <div class="event-description q-mt-md">
+            {{selectedEvent.description}}
           </div>
         </q-card-section>
         <q-card-section>
@@ -195,7 +202,10 @@
       <q-card class="calendar-dialog">
         <q-card-section class="row items-center content-section">
           <div class="calendar-dialog-header">
-            {{ calendarMonth + ' ' + calendarYear }}
+            {{ calendarMonth }}
+            <q-select v-model="calendarYear"
+                      class="no-title q-ml-md"
+                      :options="[1402, 1403, 1404]" />
           </div>
           <div class="row month-row">
             <div v-for="item in monthList"
@@ -233,10 +243,20 @@ import { StudyPlanList } from 'src/models/StudyPlan.js'
 import planContents
   from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/PlanContents.vue'
 
+moment.loadPersian()
+
 export default defineComponent({
   name: 'FullCalendar',
   components: { planContents },
   props: {
+    hourStart: {
+      type: Number,
+      default: 0
+    },
+    hourEnd: {
+      type: Number,
+      default: 23
+    },
     studyEvent: {
       type: Number,
       default: null
@@ -256,6 +276,10 @@ export default defineComponent({
     calendarIcon: {
       type: String,
       default: 'calendar_month'
+    },
+    currentDay: {
+      type: String,
+      default: null
     }
   },
   emits: ['changeDate', 'copyPlan', 'editPlan', 'removePlan'],
@@ -527,10 +551,10 @@ export default defineComponent({
         }
       ]
     ])
+    const calendarHeight = ref(0)
     const baseHight = ref(80) // must be 40
     const chartWeek = ref([])
     const dayList = ref(['شنبه', 'یک‌شنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه'])
-    const monthList = ref(['فرودین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'])
     const tab = ref('week')
     const calendarYear = ref(null)
     const calendarDate = ref(null)
@@ -563,12 +587,11 @@ export default defineComponent({
     const loadCalendar = (date, first) => {
       // assign variables data
       let dayCounter = 1
-      moment.loadPersian()
       calendarDate.value = moment(date)
       persianDate.value = new Intl.DateTimeFormat('fa-IR').format(calendarDate.value)
       startOfMonth.value = calendarDate.value.startOf('jMonth').format('dddd')
       startIndex.value = dayList.value.indexOf(startOfMonth.value)
-      calendarMonth.value = monthList.value[moment(calendarDate.value.jMonth(), 'jM').format('jM')]
+      calendarMonth.value = moment(date).format('jMMMM')
       calendarYear.value = calendarDate.value.jWeekYear()
       dayNum.value = moment.jDaysInMonth(calendarYear.value, calendarDate.value.jMonth())
       isLeapYear.value = moment.jIsLeapYear(calendarDate.value.jWeekYear())
@@ -605,12 +628,14 @@ export default defineComponent({
             month.value[w][col].date = today.format('YYYY/MM/DD')
             month.value[w][col].num = dayCounter - dayNum.value
             month.value[w][col].monthName = moment(today).locale('fa').format('jMMMM')
-            month.value[w][col].persianDate = new Date(today).toLocaleDateString('fa-IR')
+            const persianDate = new Date(today).toLocaleDateString('fa-IR')
+            month.value[w][col].persianDate = persianDate
             dayCounter++
           } else {
             month.value[w][col].num = dayCounter
             month.value[w][col].date = calendarDate.value.startOf('jMonth').add(dayCounter - 1, 'd').format('YYYY/MM/DD')
-            month.value[w][col].persianDate = new Intl.DateTimeFormat('fa-IR').format(calendarDate.value.startOf('jMonth').add(dayCounter - 1, 'd'))
+            const persianDate = new Intl.DateTimeFormat('fa-IR').format(calendarDate.value.startOf('jMonth').add(dayCounter - 1, 'd'))
+            month.value[w][col].persianDate = persianDate
             dayCounter++
           }
         }
@@ -626,7 +651,7 @@ export default defineComponent({
       }
     }
 
-    const setAttr = () => {
+    const setAttr = (event) => {
       // console.log(document.getSelection(), event)
     }
 
@@ -666,11 +691,11 @@ export default defineComponent({
       copyPlan,
       removePlan,
       calendarMonth,
+      calendarHeight,
       startOfMonth,
       baseHight,
       startTill,
       chartWeek,
-      monthList,
       month,
       tab,
       dayNum,
@@ -711,8 +736,9 @@ export default defineComponent({
   },
   data () {
     return {
-      hourStart: 2,
-      hourEnd: 20
+      // hourStart: 2,
+      // hourEnd: 20
+      monthList: moment()._locale._jMonths
     }
   },
   computed: {
@@ -725,13 +751,25 @@ export default defineComponent({
         result.push(i.toString().padStart(2, '0') + ':00')
       }
       return result
+    },
+    localCurrentDay () {
+      if (!this.currentDay && typeof window !== 'undefined') {
+        return Time.now()
+      }
+
+      return this.currentDay
     }
   },
   mounted () {
-    this.loadCalendar(Time.now(), true)
+    this.calcCalendarHeight()
+    this.loadCalendar(this.localCurrentDay, true)
     this.loadStudyPlanData()
   },
   methods: {
+    calcCalendarHeight () {
+      const heightUnit = 'px'
+      this.calendarHeight = ((this.hourEnd - this.hourStart + 1) * this.baseHight) + 20 + heightUnit
+    },
     getDayOfWeekTitle (dayOfWeekIndex) {
       switch (dayOfWeekIndex) {
         case 0:
@@ -774,17 +812,21 @@ export default defineComponent({
       const endMinute = parseInt(eventEndArray[1])
       const startHour = parseInt(eventStartArray[0])
       const startMinute = parseInt(eventStartArray[1])
-      const startInt = startHour - (startMinute / 60)
-      const endInt = endHour + (endMinute / 60)
-      const finalStart = startInt > this.hourStart ? startInt : this.hourStart
-      const finalEnd = endInt < this.hourEnd ? endInt : (this.hourEnd + 1)
+      const startInt = (startHour * 60) + startMinute
+      const endInt = (endHour * 60) + endMinute
+      const finalStart = Math.floor(startInt / 60) >= this.hourStart ? (startInt / 60) : (this.hourStart / 60)
+      const finalEnd = Math.floor(endInt / 60) <= this.hourEnd ? (endInt / 60) : ((this.hourEnd + 1) / 60)
 
       return ((finalEnd - finalStart) * this.baseHight) + heightUnit
     },
     calculateTimeHeight () {
       const hour = new Date().getHours()
       const minute = new Date().getMinutes()
-      return this.getTopWithHourAndMinute(hour, minute)
+      if (this.hourStart <= hour && hour <= this.hourEnd) {
+        return this.getTopWithHourAndMinute(hour, minute)
+      } else {
+        return '-10px'
+      }
     },
     getTopWithHourAndMinute (hour, minute) {
       const heightUnit = 'px'
@@ -798,7 +840,7 @@ export default defineComponent({
       return topHourStart + heightUnit
     },
     calculateEventDate () {
-      // const date = new Date(this.selectedEvent.date)
+      return moment(this.selectedEvent.date).format('jYYYY/jM/jD')
     },
     openEvent (event) {
       this.eventDialog = true
@@ -823,10 +865,10 @@ export default defineComponent({
       this.$emit('changeDate', moment(date).format('YYYY-MM-DD HH:mm:ss'))
     },
     goToNextWeek () {
-      // const today = new Date(this.chartWeek[0].date)
-      const nextWeek = new Date(new Date(this.chartWeek[0].date).getTime() + 7 * 24 * 60 * 60 * 1000)
-      this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
-      this.$emit('changeDate', moment(nextWeek).format('YYYY-MM-DD HH:mm:ss'))
+      const today = moment(this.localCurrentDay).add(1, 'weeks')
+      const day0 = today.clone().weekday(0).format('YYYY-MM-DD HH:mm:ss')
+      this.loadCalendar(day0, true)
+      this.$emit('changeDate', day0)
     },
     goToPrevWeek () {
       // const today = new Date(this.calendarDate._i)
@@ -837,7 +879,6 @@ export default defineComponent({
     setCalendarMonth (selectedMonth) {
       const month = this.monthList.indexOf(selectedMonth)
       const shamsi = `${this.calendarYear}-${month + 1}-01`
-      moment.loadPersian()
       if (selectedMonth === this.thisMonth) {
         this.loadCalendar(Time.now(), false)
         this.$emit('changeDate', moment(Time.now()).format('YYYY-MM-DD HH:mm:ss'))
@@ -853,14 +894,25 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .calender {
-  height: 613px;
+  //min-height: v-bind('calendarHeight');
+  height: calc( 100vh - 200px );
+  max-height: calc( 100vh - 250px );
   position: relative;
+
   @media screen and (width <= 1023px) {
     margin-bottom: 20px;
   }
 
   @media screen and (width <= 1023px) {
     margin-bottom: 16px;
+  }
+
+  @include media-max-width('md') {
+    max-height: calc( 100vh - 360px );
+  }
+
+  @include media-max-width('sm') {
+    max-height: calc( 100vh - 390px );
   }
 
   .calendar-header {
@@ -887,6 +939,10 @@ export default defineComponent({
         top: 10px;
         left: 10px;
       }
+    }
+
+    .calendar-header--btn-next-prev {
+
     }
 
     .calendar-panel {
@@ -969,9 +1025,23 @@ export default defineComponent({
         }
       }
     }
+
+    @include media-max-width('sm') {
+      $sm-btn-next-prev-width: 95px;
+      .calendar-header--btn-next-prev {
+        width: $sm-btn-next-prev-width;
+        .q-btn {
+          margin: $spacing-none;
+        }
+      }
+      .calendar-panel {
+        width: calc( 100% - #{$sm-btn-next-prev-width} );
+      }
+    }
   }
 
   .box {
+    height: auto;
     background: #FFF;
     box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%) #{"/* rtl:ignore */"};
     border-radius: 16px;
@@ -983,6 +1053,11 @@ export default defineComponent({
       &:deep(.q-scrollarea__thumb--h) {
         opacity: 0 !important;
       }
+    }
+
+    .second-scroll {
+      height: v-bind('calendarHeight');
+      max-height: calc( 100vh - 450px );
     }
 
     .calendar-first-row {
@@ -1178,6 +1253,7 @@ export default defineComponent({
                   align-items: flex-start;
                   justify-content: flex-start;
                   .product_lesson_name {
+                    margin-top: $space-2;
                     @include body1;
                   }
                   .event_title {
@@ -1212,12 +1288,10 @@ export default defineComponent({
 
     @media screen and (width <= 1439px) {
       margin-right: 0;
-      height: 394px;
     }
 
     @media screen and (width <= 1200px) {
       margin-right: 0;
-      height: auto;
     }
 
   }

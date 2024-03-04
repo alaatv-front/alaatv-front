@@ -53,11 +53,11 @@
                       ref="videoPlayer"
                       :key="videoKey"
                       :has-vast="false"
-                      :show-btn="false"
+                      :show-btn="showBtn"
                       :source="localVideoSource"
                       :poster="localVideo.thumbnail"
-                      :disable-progress-control="true"
-                      :disable-playback-rate-menu-button="true"
+                      :disable-progress-control="disableProgressControl"
+                      :disable-playback-rate-menu-button="disablePlaybackRateMenuButton"
                       @timeUpdated="onTimeUpdated"
                       @pause="onPause"
                       @ended="onEnded"
@@ -90,6 +90,18 @@ export default defineComponent({
     video: {
       type: BlackFridayVideo,
       default: new BlackFridayVideo()
+    },
+    showBtn: {
+      type: Boolean,
+      default: false
+    },
+    disableProgressControl: {
+      type: Boolean,
+      default: false
+    },
+    disablePlaybackRateMenuButton: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ['update:video', 'next', 'prev', 'play', 'watched', 'ended', 'clickOnLockedState'],
@@ -177,6 +189,9 @@ export default defineComponent({
     },
     playVideo () {
       this.$refs.videoPlayer.player.play()
+    },
+    pauseVideo () {
+      this.$refs.videoPlayer.player.pause()
     }
   }
 })

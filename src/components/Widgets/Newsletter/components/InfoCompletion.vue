@@ -7,21 +7,20 @@
     <q-card-section class="login-input-wrapper">
       <q-input v-if="userInputs.first_name"
                v-model="form.first_name"
-               class="landing-text-input"
+               class="no-title"
                placeholder="نام"
                :rules="rules"
                outlined
                color="primary" />
       <q-input v-if="userInputs.last_name"
                v-model="form.last_name"
-               class="landing-text-input"
+               class="no-title"
                placeholder="نام خانوادگی"
                :rules="rules"
                outlined
                color="primary" />
       <q-select v-if="userInputs.major"
                 v-model="form.major_id"
-                class="landing-text-input"
                 hide-dropdown-icon
                 :options="stringOptions.major"
                 option-label="title"
@@ -31,7 +30,6 @@
       <q-select v-if="userInputs.grade"
                 v-model="form.grade_id"
                 hide-dropdown-icon
-                class="landing-text-input"
                 :options="stringOptions.grade"
                 option-label="title"
                 option-value="id"
@@ -235,7 +233,7 @@ export default {
 
 <style lang="scss" scoped>
 .login-input-wrapper{
-  direction: rtl;
+  margin: $space-2 $spacing-none;
 }
 
 .dialog-card {
@@ -316,23 +314,6 @@ export default {
             margin-top: 49px;
         }
     }
-
- .landing-text-input {
-    height: 40px;
-    background: #F7E5C6;
-    border-radius: 8px;
-    margin: 3px 0;
-
-    &:deep(.q-field__native) {
-      text-align: left;
-    }
-
-    &.desabled {
-      background: #F7E5C6;
-      mix-blend-mode: normal;
-      opacity: .4;
-    }
-  }
 }
 
 </style>

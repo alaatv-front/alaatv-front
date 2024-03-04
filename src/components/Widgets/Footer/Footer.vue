@@ -1183,8 +1183,9 @@ export default {
     height: $mobileFooterHeight;
     display: none;
     background: #26A69A;
-    border-radius: 16px 16px 0;
+    border-radius: 16px 16px 0 0;
     box-shadow: 0 -6px 10px rgb(112 108 161 / 7%);
+    overflow: hidden;
 
     @media screen and (width <=1024px){
       display: block;

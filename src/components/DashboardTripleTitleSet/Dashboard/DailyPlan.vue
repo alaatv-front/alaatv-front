@@ -60,8 +60,10 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import PlanItem from 'src/components/DashboardTripleTitleSet/Dashboard/PlanItem.vue'
+
 export default defineComponent({
   name: 'DailyPlan',
   components: {
@@ -97,14 +99,14 @@ export default defineComponent({
     getPlans () {
       const today = this.getToday()
       this.loading = true
-      this.$apiGateway.studyPlan.getStudyPlanData({
+      APIGateway.studyPlan.getStudyPlanData({
         study_event: this.studyPlanId,
         since_date: today,
         till_date: today
       })
         .then(studyPlanList => {
           this.studyPlanList = studyPlanList
-          this.planList = this.studyPlanList.list?.find(x => x.id === this.studyPlanId).plans.list
+          this.planList = this.studyPlanList.list?.find(item => item.event.id === this.studyPlanId).plans.list
           this.loading = false
         })
         .catch(() => {
