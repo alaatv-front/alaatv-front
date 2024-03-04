@@ -53,6 +53,7 @@
                                :loading="ticket.loading"
                                :reserved-message-list="reservedMessageList"
                                :reserved-message-loading="reservedMessageLoading"
+                               :show-reserved-message-list="localOptions.asAdmin"
                                @sendMessage="onSendMessage" />
   </div>
 </template>
