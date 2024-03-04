@@ -244,8 +244,10 @@
             تغییر برنامه مطالعاتی
           </template>
           <template #body>
-            <div class="lazy-image-wrapper">
-              <lazy-img src="https://nodes.alaatv.com/upload/TripleTitleSet-check.png" />
+            <div class="flex justify-center items-center">
+              <div class="lazy-image-wrapper q-mb-md">
+                <lazy-img src="https://nodes.alaatv.com/upload/TripleTitleSet-check.png" />
+              </div>
             </div>
             <div>
               برنامه شما با موفقیت تنظیم شد؛ همچنین بعدا میتونید از قسمت برنامه مطالعاتی، اونو تنظیم کنید و یا تغییر بدین.

@@ -212,9 +212,11 @@ export default {
     loadData () {
       this.getTicket()
       this.getNeededDataForTicket()
-      this.getPendingTickets()
       this.getSupporterList()
-      this.getReservedMessage()
+      if (this.localOptions.asAdmin) {
+        this.getPendingTickets()
+        this.getReservedMessage()
+      }
     },
     openMyOpenTicketDrawer () {
       this.myOpenTicketDrawer = true
