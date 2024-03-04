@@ -113,51 +113,42 @@
       </div>
     </div>
     <q-dialog v-model="eventDialog">
-      <q-card class="new-theme event-dialog">
-        <q-card-section>
-          <div class="row items-center justify-between">
-            <div>
-              <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-Clock.png"
-                     width="24px" />
-              {{calculateEventDate()}} - {{selectedEvent.start.substring(0, 5)}} الی {{selectedEvent.end.substring(0, 5)}}
-            </div>
-            <q-btn flat
-                   square
-                   icon="close"
-                   @click="eventDialog = false" />
-          </div>
-        </q-card-section>
-        <q-separator />
-        <q-card-section>
+      <inside-dialog>
+        <template #header>
+          <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-Clock.png"
+                 width="24px" />
+          {{calculateEventDate()}} - {{selectedEvent.start.substring(0, 5)}} الی {{selectedEvent.end.substring(0, 5)}}
+        </template>
+        <template #body>
           <div class="q-pt-md">
             <plan-contents :plan="selectedEvent" />
           </div>
           <div class="event-description q-mt-md">
             {{selectedEvent.description}}
           </div>
-        </q-card-section>
-        <q-card-section>
-          <div class="text-right">
-            <q-btn class="btn q-mx-sm"
-                   label="بازگشت"
-                   size="md"
-                   color="positive"
-                   @click="eventDialog = false" />
-          </div>
-        </q-card-section>
-      </q-card>
+        </template>
+        <template #action>
+          <q-btn class="btn q-mx-sm"
+                 label="بازگشت"
+                 size="md"
+                 color="positive"
+                 @click="eventDialog = false" />
+        </template>
+      </inside-dialog>
     </q-dialog>
     <q-dialog v-model="calendarDialog"
               persistent>
-      <q-card class="calendar-dialog">
-        <q-card-section class="row items-center content-section">
+      <inside-dialog>
+        <template #header>
           <div class="calendar-dialog-header">
             {{ calendarMonth }}
             <q-select v-model="calendarYear"
                       class="no-title q-ml-md"
                       :options="[1402, 1403, 1404]" />
           </div>
-          <div class="row month-row">
+        </template>
+        <template #body>
+          <div class="row month-row q-col-gutter-md">
             <div v-for="item in monthList"
                  :key="item"
                  class="col-4">
@@ -168,17 +159,19 @@
               </div>
             </div>
           </div>
-        </q-card-section>
-        <q-card-actions class="action-section">
+        </template>
+        <template #action>
           <q-btn v-close-popup
+                 color="grey"
                  label="انصراف"
                  class="cancel-btn" />
           <q-btn v-close-popup
+                 color="primary"
                  label="تایید"
                  class="submit-btn"
                  @click="setCalendarMonth(selectedMonth)" />
-        </q-card-actions>
-      </q-card>
+        </template>
+      </inside-dialog>
     </q-dialog>
   </div>
 </template>
@@ -191,7 +184,7 @@ import { defineComponent, ref } from 'vue'
 import { Plan } from 'src/models/Plan.js'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
 import FullCalendarPlanItem from './FullCalendarPlanItem.vue'
-// import PlanItem from 'components/DashboardTripleTitleSet/Dashboard/PlanItem.vue'
+import InsideDialog from 'src/components/Utils/InsideDialog.vue'
 import planContents
   from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/PlanContents.vue'
 
@@ -199,7 +192,7 @@ moment.loadPersian()
 
 export default defineComponent({
   name: 'FullCalendar',
-  components: { planContents, FullCalendarPlanItem },
+  components: { InsideDialog, planContents, FullCalendarPlanItem },
   props: {
     hourStart: {
       type: Number,
@@ -726,6 +719,7 @@ export default defineComponent({
       this.copyPlan(plan)
     },
     onEditPlan (plan) {
+      console.log('onEditPlan: ', plan)
       this.editPlan(plan)
     },
     onRemovePlan (plan) {
@@ -1262,91 +1256,33 @@ export default defineComponent({
   }
 }
 
-.calendar-dialog {
-  position: relative;
-  width: 335px;
-  height: 392px;
-  background: #FFF;
-  border-radius: 16px;
+.calendar-dialog-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 
-  .content-section {
-    padding-bottom: 0;
-
-    .calendar-dialog-header {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 64px;
-      background: $primary;
-      border-radius: 16px 16px 0 0;
-      font-style: normal;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #FFF;
-    }
-
-    .month-row {
-      margin: 64px 0 0;
-
-      .month-item {
-        width: 89px;
-        height: 48px;
-        background: #F6F9FF;
-        border-radius: 10px;
-        margin: 6px 5px;
-        font-style: normal;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 22px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        color: #434765;
-        cursor: pointer;
-
-        &.selected {
-          background: #FFB74D;
-          color: #FFF;
-        }
-      }
-    }
-  }
-
-  .action-section {
-    padding: 12px 24px 2px;
+.month-row {
+  .month-item {
+    width: 100%;
+    height: 48px;
+    background: #F6F9FF;
+    border-radius: 10px;
+    margin: 6px 5px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #434765;
+    cursor: pointer;
 
-    .submit-btn {
-      width: 96px;
-      height: 40px;
-      background: $primary;
-      border-radius: 8px;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 22px;
-      letter-spacing: -0.03em;
+    &.selected {
+      background: #FFB74D;
       color: #FFF;
-    }
-
-    .cancel-btn {
-      width: 96px;
-      height: 40px;
-      background: #F6F9FF;
-      border-radius: 10px;
-      font-style: normal;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 24px;
-      color: #6D708B;
     }
   }
 }
