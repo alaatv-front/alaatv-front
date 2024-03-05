@@ -121,7 +121,8 @@
         </template>
         <template #body>
           <div class="q-pt-md">
-            <plan-contents :plan="selectedEvent" />
+            <plan-contents :steps="steps"
+                           :plan="selectedEvent" />
           </div>
           <div class="event-description q-mt-md">
             {{selectedEvent.description}}
@@ -194,6 +195,12 @@ export default defineComponent({
   name: 'FullCalendar',
   components: { InsideDialog, planContents, FullCalendarPlanItem },
   props: {
+    steps: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
     hourStart: {
       type: Number,
       default: 0
