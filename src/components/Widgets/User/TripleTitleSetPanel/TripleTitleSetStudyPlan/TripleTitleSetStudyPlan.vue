@@ -365,7 +365,7 @@ export default {
         },
         {
           type: 'color',
-          name: 'backgroundColor',
+          name: 'background_color',
           label: 'رنگ پس زمینه',
           value: null,
           col: 'col-12'
@@ -476,7 +476,8 @@ export default {
         },
         {
           type: 'color',
-          name: 'backgroundColor',
+          name: 'background_color',
+          responseKey: 'data.backgroundColor',
           label: 'رنگ پس زمینه',
           value: null,
           col: 'col-12'
@@ -673,7 +674,7 @@ export default {
       this.selectedPlanId = event.id
       this.editApi = APIGateway.studyPlan.APIAdresses.editPlan(this.selectedPlanId)
       FormBuilderAssist.setAttributeByName(this.inputs, 'title', 'value', event.title)
-      FormBuilderAssist.setAttributeByName(this.inputs, 'backgroundColor', 'value', event.backgroundColor)
+      FormBuilderAssist.setAttributeByName(this.inputs, 'background_color', 'value', event.backgroundColor)
       FormBuilderAssist.setAttributeByName(this.inputs, 'study_method_id', 'value', [event.study_method_id])
       FormBuilderAssist.setAttributeByName(this.inputs, 'major_id', 'value', [event.major_id])
       FormBuilderAssist.setAttributeByName(this.inputs, 'grade_id', 'value', [event.grade_id])
