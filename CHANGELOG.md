@@ -1,3 +1,11 @@
+## [1.12.2](https://git.alaatv.com/web/alaatv_front/compare/v1.12.1...v1.12.2) (2024-03-05)
+
+
+### Bug Fixes
+
+* enable ticket WaveSurfer normalize ([a3a53d8](https://git.alaatv.com/web/alaatv_front/commit/a3a53d82ec09f2fa256afeb990c79cf0c6be1e9f))
+* ttsp study plan background_color ([fb60893](https://git.alaatv.com/web/alaatv_front/commit/fb6089357b4078045a0bc455894d37bbbd315f04))
+
 ## [1.12.1](https://git.alaatv.com/web/alaatv_front/compare/v1.12.0...v1.12.1) (2024-03-05)
 
 
