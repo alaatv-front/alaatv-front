@@ -36,3 +36,6 @@ yarn-error.log*
 
 
 *.code-workspace
+
+alaa.jks
+service_account_key_file.json

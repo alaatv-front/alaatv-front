@@ -9,7 +9,8 @@ apply plugin: 'com.android.application'
 
 def configFile = file('../versionConfig.json')
 def config = new JsonSlurper().parseText(configFile.text)
-
+def versionCode = System.getenv("ANDROID_VERSION_CODE") as Integer
+def versionName = System.getenv("ANDROID_VERSION_NAME")
 // def getEnvProperties() {
 //     def envProperties = new Properties()
 //
@@ -30,8 +31,8 @@ android {
     minSdkVersion rootProject.ext.minSdkVersion
     targetSdkVersion rootProject.ext.targetSdkVersion
 
-    versionCode config.androidVersionCode
-    versionName config.androidVersion
+    versionCode versionCode
+    versionName versionName
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     aaptOptions {
@@ -44,6 +45,15 @@ android {
 //     buildConfigField "String", "ANDROID_SENTRY_DSN", "\"${envVars['ANDROID_SENTRY_DSN'].toString()}\""
   }
 
+  signingConfigs {
+        release {
+            storeFile file(System.getenv("ANDROID_KEYSTORE_PATH"))
+            storePassword System.getenv("ANDROID_STORE_PASS")
+            keyAlias System.getenv("ANDROID_ALIAS")
+            keyPassword System.getenv("ANDROID_KEY_PASS")
+        }
+    }
+
   buildFeatures
     {
       dataBinding = true
@@ -54,6 +64,7 @@ android {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      signingConfig signingConfigs.release
     }
   }
 
