@@ -58,7 +58,7 @@
                 indicator-color="primary"
                 align="justify"
                 narrow-indicator>
-          <div v-for="step in getExistSteps()"
+          <div v-for="step in existSteps"
                :key="step"
                class="col-grow">
             <q-tab :name="step"
@@ -69,7 +69,7 @@
         <q-separator />
 
         <div v-if="steps.length > 0">
-          <q-tab-panels v-for="step in getExistSteps()"
+          <q-tab-panels v-for="step in existSteps"
                         :key="step"
                         v-model="tab"
                         animated>
@@ -127,7 +127,8 @@ export default {
   },
   data () {
     return {
-      tab: ''
+      tab: '',
+      existSteps: []
     }
   },
   computed: {
@@ -139,25 +140,24 @@ export default {
     }
   },
   mounted () {
-    this.tab = this.steps[0]
+    this.getExistSteps()
   },
   methods: {
     getExistSteps () {
-      const existSteps = []
       this.videoContents.forEach(content => {
         const step = this.steps.find(step => content.title.includes(step))
-        if (step && !existSteps.includes(step)) {
-          existSteps.push(step)
+        if (step && !this.existSteps.includes(step)) {
+          this.existSteps.push(step)
         }
       })
-      return existSteps
+      this.tab = this.existSteps.length > 0 ? this.existSteps[0] : ''
     },
     stepVideoContents (step) {
       return this.videoContents.filter(content => content.title.includes(step))
     },
     otherVideoContentsَ () {
-      const contents = []
-      const existSteps = this.getExistSteps()
+      const contents = this.videoContents
+      const existSteps = this.existSteps
       this.videoContents.forEach(content => {
         if (existSteps.some(step => !content.title.includes(step))) {
           contents.push(content)
