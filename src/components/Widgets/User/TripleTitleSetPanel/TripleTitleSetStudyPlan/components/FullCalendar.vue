@@ -1144,7 +1144,7 @@ export default defineComponent({
             position: relative;
             height: 2px;
             left: 95px;
-            background-color: lighten(#EF5350, 30%);
+            background-color: #E25D5F;
             border-radius: 6px;
 
             &::before {

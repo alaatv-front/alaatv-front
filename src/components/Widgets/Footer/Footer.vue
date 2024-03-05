@@ -1,7 +1,7 @@
 <template>
   <div v-if="type === 'main'"
        class="main-footer">
-    <div class="homePage-footer-container">
+    <div class="homePage-footer-container gt-sm">
       <div class="footer-box-1">
         <div class="content-layout box-1-details ">
           <div class="icons self-center">

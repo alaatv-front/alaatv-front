@@ -44,7 +44,7 @@ export default defineComponent({
         height: 22,
         // width: 1000,
         splitChannels: false,
-        normalize: false,
+        normalize: true,
         waveColor: '#ffffff',
         progressColor: '#26a69a',
         cursorColor: '#ddd5e9',

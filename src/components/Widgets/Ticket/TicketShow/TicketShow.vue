@@ -212,9 +212,11 @@ export default {
     loadData () {
       this.getTicket()
       this.getNeededDataForTicket()
-      this.getPendingTickets()
       this.getSupporterList()
-      this.getReservedMessage()
+      if (this.localOptions.asAdmin) {
+        this.getPendingTickets()
+        this.getReservedMessage()
+      }
     },
     openMyOpenTicketDrawer () {
       this.myOpenTicketDrawer = true
@@ -553,6 +555,7 @@ export default {
       max-height: calc( 100vh - 300px);
       /* 600 < page < 1024 */
       @include media-max-width('md') {
+        min-height: calc( 100vh - 360px);
         max-height: calc( 100vh - 194px);
       }
     }
