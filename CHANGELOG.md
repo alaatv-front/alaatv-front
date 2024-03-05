@@ -1,3 +1,11 @@
+## [1.12.1](https://git.alaatv.com/web/alaatv_front/compare/v1.12.0...v1.12.1) (2024-03-05)
+
+
+### Bug Fixes
+
+* set widget -> content item error 500 ssr ([df4b536](https://git.alaatv.com/web/alaatv_front/commit/df4b5360c89c2c6e73f23aa83c481ef1971ec658))
+* ticket show mobile responsive ([c27e063](https://git.alaatv.com/web/alaatv_front/commit/c27e0637faf5a1d43c9c6acafa67863c671adea9))
+
 # [1.12.0](https://git.alaatv.com/web/alaatv_front/compare/v1.11.0...v1.12.0) (2024-03-05)
 
 
