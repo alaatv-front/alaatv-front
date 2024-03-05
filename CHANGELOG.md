@@ -1,3 +1,20 @@
+# [1.12.0](https://git.alaatv.com/web/alaatv_front/compare/v1.11.0...v1.12.0) (2024-03-05)
+
+
+### Bug Fixes
+
+* footer responsive style ([ec97f39](https://git.alaatv.com/web/alaatv_front/commit/ec97f3919247357c8281e374cd0c93a5a36dfcf5))
+* ticket create department list ([5aa7992](https://git.alaatv.com/web/alaatv_front/commit/5aa79920ac27c178f731f31eb446606d701945d7))
+* ticketCreate close button and admin create fixed ([#993](https://git.alaatv.com/web/alaatv_front/issues/993)) ([9e01e3c](https://git.alaatv.com/web/alaatv_front/commit/9e01e3cf486de5496dbf429113a6286b53155499))
+* TicketSendMessageInput.vue touch hold to voice record ([e62d600](https://git.alaatv.com/web/alaatv_front/commit/e62d6000683c29756be618dba4e91c1329315c6a))
+* TicketShow.vue responsive height ([b6211aa](https://git.alaatv.com/web/alaatv_front/commit/b6211aaf1a8682b5a181c0d2c66336e660b4b71a))
+* ttsp study plan fullCalendar change time-line color ([5e24b96](https://git.alaatv.com/web/alaatv_front/commit/5e24b96316b44196466c0bf7331ffb6817a07e10))
+
+
+### Features
+
+* ttsp study plan add backgroundColor ([60c3afd](https://git.alaatv.com/web/alaatv_front/commit/60c3afd16cf98e6b752695dd5c7a232309cefea7))
+
 # [1.11.0](https://git.alaatv.com/web/alaatv_front/compare/v1.10.1...v1.11.0) (2024-03-04)
 
 
