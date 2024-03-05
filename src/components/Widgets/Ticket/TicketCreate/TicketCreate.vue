@@ -104,11 +104,11 @@ export default {
           col: 'col-sm-6 col-xs-12'
         },
         {
-          type: 'toggleButton',
+          type: 'select',
           name: 'priority_id',
           responseKey: 'data.priority',
           label: 'اولویت',
-          value: '',
+          value: null,
           options: this.getPriorityOption(),
           toggleColor: 'blue',
           textColor: 'black',
