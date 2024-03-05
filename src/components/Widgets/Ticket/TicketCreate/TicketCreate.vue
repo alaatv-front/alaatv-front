@@ -7,7 +7,7 @@
                    :api="api"
                    entity-id-key-in-response="id"
                    show-route-param-key="id"
-                   :index-route-name="options.indexRouteName"
+                   :index-route-name="indexRouteName"
                    :show-route-name="options.showRouteName"
                    :show-expand-button="false"
                    :show-save-button="false">
@@ -20,13 +20,12 @@
                 <div>
                   لیست بخش ها
                 </div>
-                <q-btn v-close-popup
-                       color="grey"
+                <q-btn color="grey"
                        flat
                        round
                        icon="close"
                        text
-                       @click="goBackToList" />
+                       @click="goBackToList()" />
               </q-card-section>
               <q-card-section>
                 <div class="row q-col-gutter-md">
@@ -125,6 +124,12 @@ export default {
     }
   },
   computed: {
+    indexRouteName () {
+      if (this.$route.name.includes('Admin')) {
+        return 'Admin.Ticket.Index'
+      }
+      return 'UserPanel.Ticket.Index'
+    },
     canChoseOrder () {
       return [2].includes(this.selectedDepartment.id)
     },
@@ -285,7 +290,6 @@ export default {
     goToShowTicket (ticketId) {
       this.$router.push({ name: this.localOptions.asAdmin ? 'Admin.Ticket.Show' : 'UserPanel.Ticket.Show', params: { id: ticketId } })
     },
-
     getReservedMessage () {
       this.reservedMessageLoading = true
       APIGateway.ticket.getReservedMessage()
