@@ -7,7 +7,7 @@
                    :api="api"
                    entity-id-key-in-response="id"
                    show-route-param-key="id"
-                   :index-route-name="options.indexRouteName"
+                   :index-route-name="indexRouteName"
                    :show-route-name="options.showRouteName"
                    :show-expand-button="false"
                    :show-save-button="false">
@@ -20,19 +20,18 @@
                 <div>
                   لیست بخش ها
                 </div>
-                <q-btn v-close-popup
-                       color="grey"
+                <q-btn color="grey"
                        flat
                        round
                        icon="close"
                        text
-                       @click="goBackToList" />
+                       @click="goBackToList()" />
               </q-card-section>
               <q-card-section>
                 <div class="row q-col-gutter-md">
                   <div v-for="department in departmentList.list"
                        :key="department.id"
-                       class="col-6">
+                       class="col-md-6 col-sm-6 col-xs-12">
                     <q-btn v-close-popup
                            color="grey"
                            outline
@@ -53,6 +52,7 @@
                                :loading="ticket.loading"
                                :reserved-message-list="reservedMessageList"
                                :reserved-message-loading="reservedMessageLoading"
+                               :show-reserved-message-list="localOptions.asAdmin"
                                @sendMessage="onSendMessage" />
   </div>
 </template>
@@ -103,11 +103,11 @@ export default {
           col: 'col-sm-6 col-xs-12'
         },
         {
-          type: 'toggleButton',
+          type: 'select',
           name: 'priority_id',
           responseKey: 'data.priority',
           label: 'اولویت',
-          value: '',
+          value: null,
           options: this.getPriorityOption(),
           toggleColor: 'blue',
           textColor: 'black',
@@ -124,6 +124,12 @@ export default {
     }
   },
   computed: {
+    indexRouteName () {
+      if (this.$route.name.includes('Admin')) {
+        return 'Admin.Ticket.Index'
+      }
+      return 'UserPanel.Ticket.Index'
+    },
     canChoseOrder () {
       return [2].includes(this.selectedDepartment.id)
     },
@@ -284,7 +290,6 @@ export default {
     goToShowTicket (ticketId) {
       this.$router.push({ name: this.localOptions.asAdmin ? 'Admin.Ticket.Show' : 'UserPanel.Ticket.Show', params: { id: ticketId } })
     },
-
     getReservedMessage () {
       this.reservedMessageLoading = true
       APIGateway.ticket.getReservedMessage()

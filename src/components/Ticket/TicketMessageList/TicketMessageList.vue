@@ -22,6 +22,7 @@
          class="TicketMessageList__send-input-area">
       <ticket-send-message-input :ticket="ticket"
                                  :as-admin="asAdmin"
+                                 :show-reserved-message-list="asAdmin"
                                  :reserved-message-list="reservedMessageList"
                                  :reserved-message-loading="reservedMessageLoading"
                                  @sendMessage="onSendMessage"
