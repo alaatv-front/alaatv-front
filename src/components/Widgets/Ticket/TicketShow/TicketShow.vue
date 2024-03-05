@@ -555,6 +555,7 @@ export default {
       max-height: calc( 100vh - 300px);
       /* 600 < page < 1024 */
       @include media-max-width('md') {
+        min-height: calc( 100vh - 300px);
         max-height: calc( 100vh - 194px);
       }
     }
