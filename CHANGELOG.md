@@ -1,3 +1,10 @@
+## [1.13.3](https://git.alaatv.com/web/alaatv_front/compare/v1.13.2...v1.13.3) (2024-03-06)
+
+
+### Bug Fixes
+
+* TicketShow.vue message list height in mobile ([e2256d4](https://git.alaatv.com/web/alaatv_front/commit/e2256d4a2cefd6c2d8510ad24ea2ff482091e2ba))
+
 ## [1.13.2](https://git.alaatv.com/web/alaatv_front/compare/v1.13.1...v1.13.2) (2024-03-06)
 
 
