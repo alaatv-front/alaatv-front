@@ -471,6 +471,7 @@ export default {
         {
           type: 'input',
           name: 'title',
+          responseKey: 'data.title',
           label: 'عنوان',
           value: '',
           placeholder: 'وارد کنید',
