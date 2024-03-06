@@ -1,3 +1,10 @@
+## [1.13.2](https://git.alaatv.com/web/alaatv_front/compare/v1.13.1...v1.13.2) (2024-03-06)
+
+
+### Bug Fixes
+
+* ttsp study plan loading for create and edit plan ([59beada](https://git.alaatv.com/web/alaatv_front/commit/59beada196ad2b70b2a43b751873c11a2a8f3068))
+
 ## [1.13.1](https://git.alaatv.com/web/alaatv_front/compare/v1.13.0...v1.13.1) (2024-03-06)
 
 
