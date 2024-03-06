@@ -16,7 +16,7 @@
     "ci": "rm -rf node_modules && yarn install --production --frozen-lockfile",
     "dev:ssr": "quasar dev -m ssr",
     "dev:android": "quasar dev -m capacitor -T android",
-    "build:android": "quasar build -m capacitor -T android",
+    "build:android": "quasar build -m capacitor -T android -- bundleRelease",
     "build:pwa": "quasar build -m pwa",
     "build:ssr": "quasar build --mode ssr",
     "pm2start": "pm2 start dist/ssr/index.js",
