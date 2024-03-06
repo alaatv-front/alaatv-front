@@ -6,6 +6,7 @@ export default class OrderAPI extends APIRepository {
     super('order', apiV2)
     this.APIAdresses = {
       orderCoupon: '/orderCoupon',
+      getProductsShouldSelect: '/orderproduct/get-products-should-select',
       create: '/reqres/api/users',
       edit: '/admin/order',
       index: '/admin/order',
@@ -100,6 +101,47 @@ export default class OrderAPI extends APIRepository {
       request: this.APIAdresses.orderProduct(orderProductId),
       resolveCallback: (response) => {
         return response.data.message // String
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getProductsShouldSelect () {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getProductsShouldSelect,
+      resolveCallback: (response) => {
+        return response.data // Array of Object
+        /*
+        [
+          ...
+          {
+            orderId: 1
+            packages: [
+              ...
+              {
+                packageProductId: 243,
+                products: [
+                  ...
+                  {
+                      "productId": 10,
+                      "name": "فیزیک ۱",
+                      "shortDescription": "توضیح خلاضه فیزیک ۱",
+                      "longDescription": "توضیح طولانی فیزیک ۱",
+                      "image": "..."
+                  },
+                  ...
+                ]
+              }
+              ...
+            ]
+          }
+          ...
+        ]
+        */
       },
       rejectCallback: (error) => {
         return error
