@@ -46,6 +46,7 @@
                        :hour-start="firstStartTime"
                        :hour-end="lastEndTime"
                        :study-event="studyEvent"
+                       :steps="event.steps"
                        :events="studyPlanList"
                        :current-day="currentDay"
                        :filtered-lesson="filteredLesson"
