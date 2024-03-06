@@ -7,10 +7,9 @@ import groovy.json.JsonSlurper
 
 apply plugin: 'com.android.application'
 
-def configFile = file('../versionConfig.json')
-def config = new JsonSlurper().parseText(configFile.text)
-def versionCode = System.getenv("ANDROID_VERSION_CODE") as Integer
-def versionName = System.getenv("ANDROID_VERSION_NAME")
+def versionCodeEnv = Integer.valueOf(System.getenv("ANDROID_VERSION_CODE"))
+def versionNameEnv = System.getenv("ANDROID_VERSION_NAME")
+
 // def getEnvProperties() {
 //     def envProperties = new Properties()
 //
@@ -31,8 +30,8 @@ android {
     minSdkVersion rootProject.ext.minSdkVersion
     targetSdkVersion rootProject.ext.targetSdkVersion
 
-    versionCode versionCode
-    versionName versionName
+    versionCode versionCodeEnv
+    versionName versionNameEnv
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     aaptOptions {
