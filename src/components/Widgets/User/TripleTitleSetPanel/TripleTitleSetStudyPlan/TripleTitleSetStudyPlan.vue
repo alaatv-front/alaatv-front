@@ -73,15 +73,16 @@
                           v-model:value="inputs" />
           </template>
           <template #action>
-            <q-btn class="btn cancel q-mx-sm text-grey-9"
-                   size="md"
+            <q-btn class="btn cancel q-mx-sm"
+                   color="grey"
+                   :loading="createPlanLoading"
                    outline
                    label="لغو"
                    @click="newPlanDialog = false" />
             <q-btn class="btn q-mx-sm"
                    label="تایید"
-                   size="md"
                    color="positive"
+                   :loading="createPlanLoading"
                    @click="acceptNewPlan" />
           </template>
         </inside-dialog>
@@ -98,22 +99,19 @@
             <entity-edit ref="entityEdit"
                          v-model:value="editInputs"
                          :defaultLayout="false"
-                         :api="editApi">
-              <template #after-form-builder>
-                <div class="text-right q-mt-md new-theme-btn">
-                  <q-btn v-close-popup
-                         class="btn cancel q-mx-sm text-grey-9"
-                         size="md"
-                         outline
-                         label="لغو" />
-                  <q-btn class="btn q-mx-sm"
-                         label="تایید"
-                         size="md"
-                         color="positive"
-                         @click="updatePlan" />
-                </div>
-              </template>
-            </entity-edit>
+                         :api="editApi" />
+          </template>
+          <template #action>
+            <q-btn v-close-popup
+                   class="btn cancel q-mx-sm"
+                   outline
+                   :loading="editPlanLoading"
+                   label="لغو" />
+            <q-btn class="btn q-mx-sm"
+                   label="تایید"
+                   :loading="editPlanLoading"
+                   color="positive"
+                   @click="updatePlan" />
           </template>
         </inside-dialog>
       </q-dialog>
@@ -309,6 +307,8 @@ export default {
   data () {
     return {
       loading: false,
+      createPlanLoading: false,
+      editPlanLoading: false,
       currentDay: null,
       api: APIGateway.studyPlan.APIAdresses.plan,
       firstStartTime: 23,
@@ -623,6 +623,7 @@ export default {
     },
     updatePlan () {
       this.loading = true
+      this.editPlanLoading = true
       const data = {
         major_id: this.$refs.entityEdit.getInputsByName('major_id').value,
         grade_id: this.$refs.entityEdit.getInputsByName('grade_id').value,
@@ -656,11 +657,13 @@ export default {
             .finally(() => {
               this.getStudyPlanData(FormBuilderAssist.getInputsByName(this.editInputs, 'date').value)
               this.loading = false
+              this.editPlanLoading = false
               this.editPlanDialog = false
             })
         })
         .catch(() => {
           this.loading = false
+          this.editPlanLoading = false
         })
     },
     editPlan (event) {
@@ -780,6 +783,7 @@ export default {
     },
     acceptNewPlan () {
       this.loading = true
+      this.createPlanLoading = true
       const eventPromises = []
       const majorIds = FormBuilderAssist.getInputsByName(this.inputs, 'major_id')?.value || []
       const gradeIds = FormBuilderAssist.getInputsByName(this.inputs, 'grade_id')?.value || []
@@ -810,16 +814,21 @@ export default {
               } else {
                 this.getStudyPlanData(FormBuilderAssist.getInputsByName(this.inputs, 'date').value)
               }
-              this.loading = false
             })
             .catch(() => {
+            })
+            .finally(() => {
               this.loading = false
+              this.createPlanLoading = false
             })
           this.newPlanDialog = false
         })
         .catch(() => {
-          this.newPlanDialog = false
+        })
+        .finally(() => {
           this.loading = false
+          this.newPlanDialog = false
+          this.createPlanLoading = false
         })
     },
     filterByLesson () {
