@@ -1,3 +1,11 @@
+# [1.13.0](https://git.alaatv.com/web/alaatv_front/compare/v1.12.2...v1.13.0) (2024-03-06)
+
+
+### Features
+
+* event dialog show list of videos & pamphlets ([#994](https://git.alaatv.com/web/alaatv_front/issues/994)) ([f528098](https://git.alaatv.com/web/alaatv_front/commit/f528098bea55644a17b2e6892a48b09633f92a6b))
+* ttsp study plan educational_layers ([593d941](https://git.alaatv.com/web/alaatv_front/commit/593d94196323c92b28010361d306eab8aa2d984e))
+
 ## [1.12.2](https://git.alaatv.com/web/alaatv_front/compare/v1.12.1...v1.12.2) (2024-03-05)
 
 
