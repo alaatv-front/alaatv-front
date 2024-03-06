@@ -1,108 +1,59 @@
 <template>
   <div class="plan-contents row q-col-gutter-md">
-    <div v-if="pamphletContents.length > 0"
+    <div class="col-12"
+         :class="{'order-last': !firstPamphlet}">
+      <q-list v-if="pamphletContents.length > 0"
+              separator
+              dense>
+        <q-item>
+          <q-item-label class="text-center"
+                        header>لیست جزوات</q-item-label>
+        </q-item>
+        <plan-content v-for="content in pamphletContents"
+                      :key="content.id"
+                      :plan="plan"
+                      :content="content" />
+      </q-list>
+    </div>
+    <div v-if="nonEducationalLayerVideos.length > 0"
          class="col-12">
       <q-list dense
-              bordered>
-        <q-item-label class="text-center"
-                      header>لیست جزوات</q-item-label>
-        <div v-for="content in pamphletContents"
-             :key="content.id">
-          <q-item>
-            <q-item-section avatar>
-              <q-icon name="ph:book-open-text"
-                      color="grey-7"
-                      class="size-md" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>{{content.title}}</q-item-label>
-            </q-item-section>
-            <q-item-section side>
-              <div>
-                <q-btn color="primary"
-                       round
-                       unelevated
-                       :disable="!content.id"
-                       icon="download"
-                       class="size-xs"
-                       @click="downloadPdf(content)" />
-              </div>
-            </q-item-section>
-          </q-item>
-          <q-separator spaced />
-        </div>
+              separator>
+        <plan-content v-for="content in nonEducationalLayerVideos"
+                      :key="content.id"
+                      :plan="plan"
+                      :content="content" />
       </q-list>
     </div>
-    <!--    <div v-for="content in pamphletContents"-->
-    <!--         :key="content.id"-->
-    <!--         class="col-md-6 col-xs-12">-->
-    <!--      <plan-content :plan="plan"-->
-    <!--                    :content="content" />-->
-    <!--    </div>-->
-    <div v-for="content in otherVideoContentsَ"
-         :key="content.id"
-         class="col-md-6 col-xs-12">
-      <plan-content :plan="plan"
-                    :content="content" />
-    </div>
-    <div v-if="videoContents.length > 0"
+    <div v-if="educationalLayerVideos.length > 0"
          class="col-12">
-      <q-list bordered>
-        <q-item-label header
-                      class="text-center">لیست فیلم ها</q-item-label>
-        <q-tabs v-if="steps.length > 0"
-                v-model="tab"
-                dense
-                class="text-grey"
-                active-color="primary"
-                indicator-color="primary"
-                align="justify"
-                narrow-indicator>
-          <div v-for="step in existSteps"
-               :key="step"
-               class="col-grow">
-            <q-tab :name="step"
-                   :label="step" />
-          </div>
-        </q-tabs>
+      <q-tabs v-model="tab"
+              dense
+              class="text-grey"
+              active-color="primary"
+              indicator-color="primary"
+              align="justify"
+              narrow-indicator>
+        <q-tab v-for="(educationalLayer, educationalLayerIndex) in educationalLayerVideos"
+               :key="educationalLayerIndex"
+               :name="educationalLayer.title"
+               :label="educationalLayer.title" />
+      </q-tabs>
+      <q-separator />
+      <q-tab-panels v-for="(educationalLayer, educationalLayerIndex) in educationalLayerVideos"
+                    :key="educationalLayerIndex"
+                    v-model="tab">
+        <q-tab-panel :name="educationalLayer.title">
 
-        <q-separator />
-
-        <div v-if="steps.length > 0">
-          <q-tab-panels v-for="step in existSteps"
-                        :key="step"
-                        v-model="tab"
-                        animated>
-            <q-tab-panel :name="step">
-              <div v-for="content in stepVideoContents(step)"
-                   :key="content.id">
-                <q-item>
-                  <q-item-section>
-                    <q-item-label>{{content.title}}</q-item-label>
-                  </q-item-section>
-                  <q-item-section side>
-                    <div>
-                      <q-btn v-if="content.isVideo()"
-                             color="primary"
-                             round
-                             unelevated
-                             :disable="!content.id"
-                             class="size-xs"
-                             icon="play_arrow"
-                             :to="{name:'UserPanel.Asset.TripleTitleSet.Content', params:{ productId: plan.product?.id, setId: content.set?.id, contentId: content?.id}}" />
-                      <span v-if="!content.title"
-                            class="item-plan--title">
-                        {{ 'ویدیو ندارد' }}
-                      </span>
-                    </div>
-                  </q-item-section>
-                </q-item>
-                <q-separator spaced />
-              </div>
-            </q-tab-panel>
-          </q-tab-panels>
-        </div>
-      </q-list>
+          <q-list dense
+                  separator>
+            <plan-content v-for="content in educationalLayer.contents"
+                          :key="content.id"
+                          :plan="plan"
+                          :content="content" />
+          </q-list>
+        </q-tab-panel>
+      </q-tab-panels>
     </div>
   </div>
 </template>
@@ -115,11 +66,15 @@ export default {
   name: 'PlanContents',
   components: { PlanContent },
   props: {
-    steps: {
+    educationalLayers: {
       type: Array,
       default () {
         return []
       }
+    },
+    firstPamphlet: {
+      type: Boolean,
+      default: true
     },
     plan: {
       type: Plan
@@ -132,6 +87,32 @@ export default {
     }
   },
   computed: {
+    nonEducationalLayerVideos () {
+      return this.videoContents.filter(content => {
+        let hasEducationalLayer = false
+        this.educationalLayers.forEach(educationalLayer => {
+          if (content.title.includes(educationalLayer)) {
+            hasEducationalLayer = true
+          }
+        })
+
+        return !hasEducationalLayer
+      })
+    },
+    educationalLayerVideos () {
+      const tebs = []
+      this.educationalLayers.forEach(educationalLayer => {
+        const contents = this.videoContents.filter(content => content.title.includes(educationalLayer))
+        if (contents.length > 0) {
+          tebs.push({
+            title: educationalLayer,
+            contents
+          })
+        }
+      })
+
+      return tebs
+    },
     pamphletContents () {
       return this.plan.contents.list.filter(content => content.isPamphlet())
     },
@@ -140,12 +121,12 @@ export default {
     }
   },
   mounted () {
-    this.getExistSteps()
+    this.getExistEducationalLayers()
   },
   methods: {
-    getExistSteps () {
+    getExistEducationalLayers () {
       this.videoContents.forEach(content => {
-        const step = this.steps.find(step => content.title.includes(step))
+        const step = this.educationalLayers.find(step => content.title.includes(step))
         if (step && !this.existSteps.includes(step)) {
           this.existSteps.push(step)
         }
@@ -155,7 +136,7 @@ export default {
     stepVideoContents (step) {
       return this.videoContents.filter(content => content.title.includes(step))
     },
-    otherVideoContentsَ () {
+    otherVideoContents () {
       const contents = this.videoContents
       const existSteps = this.existSteps
       this.videoContents.forEach(content => {
