@@ -6,8 +6,9 @@
                         class="card-section">
           <div v-if="orderedItem.grand.photo"
                class="order-image-section">
-            <q-img :src="orderedItem.grand.photo"
-                   class="order-image " />
+            <lazy-img height="96px"
+                      width="96px"
+                      :src="orderedItem.grand.photo" />
           </div>
 
           <div class="product-text-info">
@@ -42,8 +43,9 @@
                         class="card-section">
           <div v-if="orderedItem.order_product.list[0].photo"
                class="order-image-section">
-            <q-img :src="orderedItem.order_product.list[0].photo"
-                   class="order-image" />
+            <lazy-img height="96px"
+                      width="96px"
+                      :src="orderedItem.order_product.list[0].photo" />
           </div>
 
           <div class="product-text-info">
@@ -55,6 +57,16 @@
                   منقضی شده در:
                   {{ orderedItem.order_product.list[0].shamsiDate('expire_at').dateTime }}
                 </q-badge>
+              </div>
+              <div v-if="isAdmin"
+                   class="action">
+                <q-btn icon="ph:trash"
+                       color="grey"
+                       square
+                       class="size-xs"
+                       :loading="deleteLoading"
+                       flat
+                       @click="orderProductId(orderedItem.order_product.list[0].id)" />
               </div>
             </div>
             <div class="price-container">
@@ -110,6 +122,16 @@
                           <span class="price">
                             {{ item.price.toman('final', null) }} تومان
                           </span>
+                          <span v-if="isAdmin"
+                                class="action">
+                            <q-btn icon="ph:trash"
+                                   color="grey"
+                                   square
+                                   class="size-xs"
+                                   flat
+                                   :loading="deleteLoading"
+                                   @click="orderProductId(item.id)" />
+                          </span>
                         </div>
                       </template>
                     </div>
@@ -136,9 +158,13 @@
 <script>
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { OrderItem } from 'src/models/OrderItem.js'
-
+import LazyImg from 'src/components/lazyImg.vue'
+import { APIGateway } from 'src/api/APIGateway'
 export default {
   name: 'OrderedProducts',
+  components: {
+    LazyImg
+  },
   mixins: [mixinWidget],
   props: {
     // order: {
@@ -152,12 +178,18 @@ export default {
       default () {
         return new OrderItem()
       }
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false
     }
   },
+  emits: ['updateOrder'],
   data () {
     return {
-      dialogState: false,
       expanded: true,
+      dialogState: false,
+      deleteLoading: false,
       clickedItemToRemove: null
     }
   },
@@ -192,6 +224,22 @@ export default {
   },
 
   methods: {
+    orderProductId (id) {
+      this.deleteLoading = true
+      APIGateway.order.AdminDeleteOrderProduct(id)
+        .then((message) => {
+          this.$emit('updateOrder')
+          this.$q.notify({
+            type: 'positive',
+            message,
+            position: 'top'
+          })
+          this.deleteLoading = false
+        })
+        .catch(() => {
+          this.deleteLoading = false
+        })
+    }
   }
 }
 </script>
@@ -254,7 +302,7 @@ export default {
             margin-right: 8px;
           }
 
-          .order-image {
+          :deep(.lazy-img) {
             height: 96px;
             width: 96px;
             border-radius: 10px;
@@ -470,7 +518,7 @@ export default {
           justify-content: space-between;
           width: 100%;
 
-          //margin-top: -32px;
+          margin-top: $space-1;
           //margin-left: 164px;
 
           @media screen and (width <= 1439px) {
@@ -592,6 +640,7 @@ export default {
                       align-items: center;
                       width: 100%;
                       justify-content: flex-end;
+                      gap: $space-2;
 
                       .price {
                         font-style: normal;
@@ -603,6 +652,9 @@ export default {
                         //@media screen and (max-width: 599px) {
                           //margin-right: 10px;
                         //}
+                      }
+
+                      .action {
                       }
 
                       .hidden-trash-button {

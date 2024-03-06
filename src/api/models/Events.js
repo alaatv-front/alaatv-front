@@ -35,7 +35,8 @@ export default class EventsAPI extends APIRepository {
         showStudyPlan: false,
         groups: [
           'alaa'
-        ]
+        ],
+        steps: []
       },
       {
         id: 11,
@@ -49,7 +50,8 @@ export default class EventsAPI extends APIRepository {
         showStudyPlan: false,
         groups: [
           'alaa'
-        ]
+        ],
+        steps: []
       },
       {
         id: 12,
@@ -63,7 +65,8 @@ export default class EventsAPI extends APIRepository {
         showStudyPlan: false,
         groups: [
           'alaa'
-        ]
+        ],
+        steps: []
       },
       {
         id: 13,
@@ -78,7 +81,8 @@ export default class EventsAPI extends APIRepository {
         showStudyPlan: false,
         groups: [
           'alaa'
-        ]
+        ],
+        steps: []
       },
       {
         id: 25,
@@ -92,7 +96,8 @@ export default class EventsAPI extends APIRepository {
         showStudyPlan: false,
         groups: [
           'alaa'
-        ]
+        ],
+        steps: []
       },
       {
         id: 27,
@@ -107,7 +112,8 @@ export default class EventsAPI extends APIRepository {
         showStudyPlan: false,
         groups: [
           'emtahan'
-        ]
+        ],
+        steps: []
       },
       {
         id: 35,
@@ -121,8 +127,9 @@ export default class EventsAPI extends APIRepository {
         showDashboard: true,
         showStudyPlan: true,
         groups: [
-          // 'alaa'
-        ]
+          'alaa'
+        ],
+        steps: ['گام اول', 'گام دوم', 'گام سوم']
       }
     ]
   }

@@ -234,11 +234,11 @@ class Content extends Model {
   }
 
   isPamphlet () {
-    return this.type === 1
+    return this.type === 1 || this.type.id === 1
   }
 
   isVideo () {
-    return this.type === 8
+    return this.type === 8 || this.type.id === 8
   }
 }
 
