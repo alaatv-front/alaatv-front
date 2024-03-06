@@ -313,6 +313,7 @@ export default {
       api: APIGateway.studyPlan.APIAdresses.plan,
       firstStartTime: 23,
       lastEndTime: 0,
+      selectedPlan: null,
       selectedPlanId: null,
       newPlanDialog: false,
       editPlanDialog: false,
@@ -653,7 +654,7 @@ export default {
           FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'value', newContents)
           this.$refs.entityEdit.editEntity(false)
             .finally(() => {
-              this.getMyStudyPlan()
+              this.getStudyPlanData(FormBuilderAssist.getInputsByName(this.editInputs, 'date').value)
               this.loading = false
               this.editPlanDialog = false
             })
@@ -698,13 +699,14 @@ export default {
     },
     openRemovePlanWarning (event) {
       this.removePlanWarning = true
+      this.selectedPlan = event
       this.selectedPlanId = event.id
     },
     removePlan () {
       this.loading = true
       APIGateway.studyPlan.removePlan(this.selectedPlanId)
         .then(() => {
-          this.getStudyPlanData()
+          this.getStudyPlanData(this.selectedPlan.date)
           this.removePlanWarning = false
           this.loading = false
         })
@@ -800,7 +802,11 @@ export default {
           this.findStudyPlan(data)
             .then(studtPlan => {
               if (studtPlan.id !== this.studyEvent) {
-                this.updateMyStudyPlan(FormBuilderAssist.getInputsByName(this.inputs, 'date').value)
+                this.updateMyStudyPlan({
+                  major_id: majorIds[0],
+                  grade_id: gradeIds[0],
+                  study_method_id: methodIds[0]
+                }, FormBuilderAssist.getInputsByName(this.inputs, 'date').value)
               } else {
                 this.getStudyPlanData(FormBuilderAssist.getInputsByName(this.inputs, 'date').value)
               }
