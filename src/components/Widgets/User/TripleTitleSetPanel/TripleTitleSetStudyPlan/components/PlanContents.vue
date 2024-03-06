@@ -1,16 +1,59 @@
 <template>
   <div class="plan-contents row q-col-gutter-md">
-    <div v-for="content in pamphletContents"
-         :key="content.id"
-         class="col-md-6 col-xs-12">
-      <plan-content :plan="plan"
-                    :content="content" />
+    <div class="col-12"
+         :class="{'order-last': !firstPamphlet}">
+      <q-list v-if="pamphletContents.length > 0"
+              separator
+              dense>
+        <q-item>
+          <q-item-label class="text-center"
+                        header>لیست جزوات</q-item-label>
+        </q-item>
+        <plan-content v-for="content in pamphletContents"
+                      :key="content.id"
+                      :plan="plan"
+                      :content="content" />
+      </q-list>
     </div>
-    <div v-for="content in videoContents"
-         :key="content.id"
-         class="col-md-6 col-xs-12">
-      <plan-content :plan="plan"
-                    :content="content" />
+    <div v-if="nonEducationalLayerVideos.length > 0"
+         class="col-12">
+      <q-list dense
+              separator>
+        <plan-content v-for="content in nonEducationalLayerVideos"
+                      :key="content.id"
+                      :plan="plan"
+                      :content="content" />
+      </q-list>
+    </div>
+    <div v-if="educationalLayerVideos.length > 0"
+         class="col-12">
+      <q-tabs v-model="tab"
+              dense
+              class="text-grey"
+              active-color="primary"
+              indicator-color="primary"
+              align="justify"
+              narrow-indicator>
+        <q-tab v-for="(educationalLayer, educationalLayerIndex) in educationalLayerVideos"
+               :key="educationalLayerIndex"
+               :name="educationalLayer.title"
+               :label="educationalLayer.title" />
+      </q-tabs>
+      <q-separator />
+      <q-tab-panels v-for="(educationalLayer, educationalLayerIndex) in educationalLayerVideos"
+                    :key="educationalLayerIndex"
+                    v-model="tab">
+        <q-tab-panel :name="educationalLayer.title">
+
+          <q-list dense
+                  separator>
+            <plan-content v-for="content in educationalLayer.contents"
+                          :key="content.id"
+                          :plan="plan"
+                          :content="content" />
+          </q-list>
+        </q-tab-panel>
+      </q-tab-panels>
     </div>
   </div>
 </template>
@@ -23,16 +66,96 @@ export default {
   name: 'PlanContents',
   components: { PlanContent },
   props: {
+    educationalLayers: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    firstPamphlet: {
+      type: Boolean,
+      default: true
+    },
     plan: {
       type: Plan
     }
   },
+  data () {
+    return {
+      tab: '',
+      existSteps: []
+    }
+  },
   computed: {
+    nonEducationalLayerVideos () {
+      return this.videoContents.filter(content => {
+        let hasEducationalLayer = false
+        this.educationalLayers.forEach(educationalLayer => {
+          if (content.title.includes(educationalLayer)) {
+            hasEducationalLayer = true
+          }
+        })
+
+        return !hasEducationalLayer
+      })
+    },
+    educationalLayerVideos () {
+      const tebs = []
+      this.educationalLayers.forEach(educationalLayer => {
+        const contents = this.videoContents.filter(content => content.title.includes(educationalLayer))
+        if (contents.length > 0) {
+          tebs.push({
+            title: educationalLayer,
+            contents
+          })
+        }
+      })
+
+      return tebs
+    },
     pamphletContents () {
       return this.plan.contents.list.filter(content => content.isPamphlet())
     },
     videoContents () {
       return this.plan.contents.list.filter(content => content.isVideo())
+    }
+  },
+  mounted () {
+    this.getExistEducationalLayers()
+  },
+  methods: {
+    getExistEducationalLayers () {
+      this.videoContents.forEach(content => {
+        const step = this.educationalLayers.find(step => content.title.includes(step))
+        if (step && !this.existSteps.includes(step)) {
+          this.existSteps.push(step)
+        }
+      })
+      this.tab = this.existSteps.length > 0 ? this.existSteps[0] : ''
+    },
+    stepVideoContents (step) {
+      return this.videoContents.filter(content => content.title.includes(step))
+    },
+    otherVideoContents () {
+      const contents = this.videoContents
+      const existSteps = this.existSteps
+      this.videoContents.forEach(content => {
+        if (existSteps.some(step => !content.title.includes(step))) {
+          contents.push(content)
+        }
+      })
+      return contents
+    },
+    downloadPdf (content) {
+      if (!content?.file?.pamphlet || !content?.file?.pamphlet[0] || !content?.file?.pamphlet[0].link) {
+        this.$q.notify({
+          type: 'negative',
+          message: 'مشکلی در دانلود فایل pdf این محتوا رخ داده است.'
+        })
+        return
+      }
+
+      window.open(content.file.pamphlet[0].link, '_blank')
     }
   }
 }

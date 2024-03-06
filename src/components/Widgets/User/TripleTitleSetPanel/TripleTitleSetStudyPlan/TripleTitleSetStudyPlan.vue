@@ -46,6 +46,8 @@
                        :hour-start="firstStartTime"
                        :hour-end="lastEndTime"
                        :study-event="studyEvent"
+                       :educational-layers="event.study_plan.educational_layers"
+                       :first-pamphlet="event.study_plan.first_pamphlet"
                        :events="studyPlanList"
                        :current-day="currentDay"
                        :filtered-lesson="filteredLesson"
@@ -1005,6 +1007,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+:global(.main-layout) {
+  .hasFooter {
+    .q-page-container {
+      @include media-max-width('md') {
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+}
+
 .triple-title-set-study-plan {
   padding: $space-8;
   @include media-max-width('md') {

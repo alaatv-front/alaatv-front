@@ -74,21 +74,23 @@
                 <q-separator class="time-line"
                              :style="{top: calculateTimeHeight()}" />
                 <div class="calendar-weekly-background">
+                  <div class="day-col calendar-col--hour">
+                    <div v-for="hour in hourList"
+                         :key="hour"
+                         class="hour-line">
+                      <div class="hour">
+                        {{ hour }}
+                      </div>
+                      <q-separator class="separator"
+                                   vertical />
+                    </div>
+                  </div>
                   <div v-for="day in 7"
                        :key="day"
                        class="day-col">
-                    <div v-for="(hour, hourIndex) in hourList"
+                    <div v-for="(hour) in hourList"
                          :key="hour"
                          class="hour-line">
-                      <div v-if="day === 1"
-                           class="hour">
-                        <span v-if="hourIndex === 0">
-                          ساعت
-                        </span>
-                        <span>
-                          {{ hour }}
-                        </span>
-                      </div>
                       <q-separator class="separator"
                                    vertical />
                     </div>
@@ -121,7 +123,9 @@
         </template>
         <template #body>
           <div class="q-pt-md">
-            <plan-contents :plan="selectedEvent" />
+            <plan-contents :educational-layers="educationalLayers"
+                           :first-pamphlet="firstPamphlet"
+                           :plan="selectedEvent" />
           </div>
           <div class="event-description q-mt-md">
             {{selectedEvent.description}}
@@ -194,6 +198,16 @@ export default defineComponent({
   name: 'FullCalendar',
   components: { InsideDialog, planContents, FullCalendarPlanItem },
   props: {
+    educationalLayers: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    firstPamphlet: {
+      type: Boolean,
+      default: true
+    },
     hourStart: {
       type: Number,
       default: 0
@@ -712,14 +726,12 @@ export default defineComponent({
   },
   methods: {
     onShowPlan (plan) {
-      console.log('onShowPlan', plan)
       this.openEvent(plan)
     },
     onCopyPlan (plan) {
       this.copyPlan(plan)
     },
     onEditPlan (plan) {
-      console.log('onEditPlan: ', plan)
       this.editPlan(plan)
     },
     onRemovePlan (plan) {
@@ -855,23 +867,12 @@ export default defineComponent({
 .calender {
   //min-height: v-bind('calendarHeight');
   height: calc( 100vh - 200px );
-  max-height: calc( 100vh - 250px );
+  max-height: calc( 100vh - 215px );
   position: relative;
 
-  @media screen and (width <= 1023px) {
-    margin-bottom: 20px;
-  }
-
-  @media screen and (width <= 1023px) {
-    margin-bottom: 16px;
-  }
-
   @include media-max-width('md') {
-    max-height: calc( 100vh - 360px );
-  }
-
-  @include media-max-width('sm') {
-    max-height: calc( 100vh - 390px );
+    height: max-content;
+    max-height: max-content;
   }
 
   .calendar-header {
@@ -1016,7 +1017,10 @@ export default defineComponent({
 
     .second-scroll {
       height: v-bind('calendarHeight');
-      max-height: calc( 100vh - 450px );
+      max-height: calc( 100vh - 380px );
+      @include media-max-width('md') {
+        max-height: max-content;
+      }
     }
 
     .calendar-first-row {
@@ -1058,6 +1062,14 @@ export default defineComponent({
 
         &.calendar-col--hour {
           width: 125px;
+          position: sticky;
+          left: 0;
+          background: white;
+          z-index: 99;
+          height: 40px;
+          @include media-max-width('md') {
+            width: 80px;
+          }
         }
       }
 
@@ -1162,7 +1174,6 @@ export default defineComponent({
 
           .calendar-weekly-background {
             display: flex;
-            padding-left: 126px;
 
             .day-col {
               position: relative;
@@ -1174,22 +1185,6 @@ export default defineComponent({
                 position: relative;
                 display: flex;
                 justify-content: center;
-
-                .hour {
-                  position: absolute;
-                  top: 0;
-                  left: -80px;
-                  transform: translateY(-50%);
-                  font-style: normal;
-                  font-weight: 400;
-                  font-size: 12px;
-                  line-height: 24px;
-                  display: flex;
-                  flex-flow: column;
-                  align-items: center;
-                  text-align: center;
-                  color: #6D708B;
-                }
 
                 .separator {
                   margin-right: 280px;
@@ -1231,6 +1226,36 @@ export default defineComponent({
                   }
                 }
               }
+
+              &.calendar-col--hour {
+                width: 125px;
+                position: sticky;
+                left: 0;
+                background: white;
+                z-index: 9;
+                @include media-max-width('md') {
+                  width: calc( 90px - 16px );
+                }
+                .hour-line {
+                  width: 100%;
+                  max-width: 100%;
+                  display: block;
+                  .hour {
+                    text-align: center;
+                    @include caption1;
+                    color: $blue-grey-7;
+                    transform: translateY(-50%);
+                  }
+                  &:not(:first-child) {
+                    border: none;
+                  }
+                  &:first-child {
+                    .hour {
+                      transform: translateY(0);
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -1251,6 +1276,14 @@ export default defineComponent({
 
     @media screen and (width <= 1200px) {
       margin-right: 0;
+    }
+
+    @include media-max-width('md') {
+      padding-top: $spacing-none;
+      .q-scrollarea.first-scroll {
+        height: 40px !important;
+        padding: $spacing-none;
+      }
     }
 
   }
