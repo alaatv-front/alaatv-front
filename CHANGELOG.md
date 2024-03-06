@@ -1,3 +1,12 @@
+## [1.13.1](https://git.alaatv.com/web/alaatv_front/compare/v1.13.0...v1.13.1) (2024-03-06)
+
+
+### Bug Fixes
+
+* ttsp study plan frozen timeline ([9d61c59](https://git.alaatv.com/web/alaatv_front/commit/9d61c59b58ae96085a32a925284e3c95e40e18b9))
+* ttsp study plan keep plan date after edit and remove plan ([a68a1c8](https://git.alaatv.com/web/alaatv_front/commit/a68a1c85917621fc5f41332b66913efcadcca769))
+* ttsp study plan load plan title on edit panel ([6b42edf](https://git.alaatv.com/web/alaatv_front/commit/6b42edfe6c186de8a410366ace351f3d957ac846))
+
 # [1.13.0](https://git.alaatv.com/web/alaatv_front/compare/v1.12.2...v1.13.0) (2024-03-06)
 
 
