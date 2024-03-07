@@ -29,14 +29,15 @@ export default class EventsAPI extends APIRepository {
         title: 'چتر نجات',
         logo: 'https://nodes.alaatv.com/upload/landing/chatr/chatr%20logo.png',
         study_plan: {
-          category_id: null
+          category_id: null,
+          first_pamphlet: true,
+          educational_layers: []
         },
         showDashboard: false,
         showStudyPlan: false,
         groups: [
           'alaa'
-        ],
-        steps: []
+        ]
       },
       {
         id: 11,
@@ -44,14 +45,15 @@ export default class EventsAPI extends APIRepository {
         title: 'امتحانات نهایی آلاء',
         logo: 'https://nodes.alaatv.com/upload/landing/chatr/emtahan-nahaee-logo.png',
         study_plan: {
-          category_id: null
+          category_id: null,
+          first_pamphlet: true,
+          educational_layers: []
         },
         showDashboard: false,
         showStudyPlan: false,
         groups: [
           'alaa'
-        ],
-        steps: []
+        ]
       },
       {
         id: 12,
@@ -59,14 +61,15 @@ export default class EventsAPI extends APIRepository {
         title: 'امتحانات نهایی نهم',
         logo: 'https://nodes.alaatv.com/upload/landing/41/emtehan-nahayi-nohom-logo.png',
         study_plan: {
-          category_id: null
+          category_id: null,
+          first_pamphlet: true,
+          educational_layers: []
         },
         showDashboard: false,
         showStudyPlan: false,
         groups: [
           'alaa'
-        ],
-        steps: []
+        ]
       },
       {
         id: 13,
@@ -75,14 +78,15 @@ export default class EventsAPI extends APIRepository {
         title: 'راه ابریشم ۲',
         logo: 'https://nodes.alaatv.com/upload/landing/RAHABRISHAM/logo-abrisham2.png',
         study_plan: {
-          category_id: 1
+          category_id: 1,
+          first_pamphlet: true,
+          educational_layers: []
         },
         showDashboard: false,
         showStudyPlan: false,
         groups: [
           'alaa'
-        ],
-        steps: []
+        ]
       },
       {
         id: 25,
@@ -90,14 +94,15 @@ export default class EventsAPI extends APIRepository {
         title: '110',
         logo: 'https://nodes.alaatv.com/upload/landing/panel/110-logo.png',
         study_plan: {
-          category_id: null
+          category_id: null,
+          first_pamphlet: true,
+          educational_layers: []
         },
         showDashboard: false,
         showStudyPlan: false,
         groups: [
           'alaa'
-        ],
-        steps: []
+        ]
       },
       {
         id: 27,
@@ -106,14 +111,15 @@ export default class EventsAPI extends APIRepository {
         title: 'راه ابریشم ۲ بنیاد احسان',
         logo: 'https://nodes.alaatv.com/upload/landing/RAHABRISHAM/logo-abrisham2.png',
         study_plan: {
-          category_id: null
+          category_id: null,
+          first_pamphlet: true,
+          educational_layers: []
         },
         showDashboard: false,
         showStudyPlan: false,
         groups: [
           'emtahan'
-        ],
-        steps: []
+        ]
       },
       {
         id: 35,
@@ -122,14 +128,15 @@ export default class EventsAPI extends APIRepository {
         title: 'سین 8',
         logo: 'https://nodes.alaatv.com/upload/landing/SIN8/logo_sin8_2.png',
         study_plan: {
-          category_id: 2
+          category_id: 2,
+          first_pamphlet: true,
+          educational_layers: ['گام اول', 'گام دوم', 'گام سوم']
         },
         showDashboard: true,
         showStudyPlan: true,
         groups: [
           'alaa'
-        ],
-        steps: ['گام اول', 'گام دوم', 'گام سوم']
+        ]
       }
     ]
   }

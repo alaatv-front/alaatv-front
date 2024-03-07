@@ -68,43 +68,42 @@
                        visible
                        class="second-scroll"
                        @scroll="onScrollSecond">
-          <div class="calendar-wrapper">
-            <div class="calendar-body">
-              <div class="calendar-weekly-view">
-                <q-separator class="time-line"
-                             :style="{top: calculateTimeHeight()}" />
-                <div class="calendar-weekly-background">
-                  <div v-for="day in 7"
-                       :key="day"
-                       class="day-col">
-                    <div v-for="(hour, hourIndex) in hourList"
-                         :key="hour"
-                         class="hour-line">
-                      <div v-if="day === 1"
-                           class="hour">
-                        <span v-if="hourIndex === 0">
-                          ساعت
-                        </span>
-                        <span>
-                          {{ hour }}
-                        </span>
-                      </div>
-                      <q-separator class="separator"
-                                   vertical />
-                    </div>
-                    <div v-if="chartWeek[day - 1]">
-                      <full-calendar-plan-item v-for="(plan, planIndex) in chartWeek[day - 1].events"
-                                               :key="planIndex"
-                                               :plan="plan"
-                                               :base-hight="baseHight"
-                                               :hour-end="hourEnd"
-                                               :hour-start="hourStart"
-                                               @openPlan="onShowPlan"
-                                               @copyPlan="onCopyPlan"
-                                               @editPlan="onEditPlan"
-                                               @removePlan="onRemovePlan" />
-                    </div>
+
+          <div class="calendar-weekly-view">
+            <q-separator class="time-line"
+                         :style="{top: calculateTimeHeight()}" />
+            <div class="calendar-weekly-background">
+              <div class="day-col calendar-col--hour">
+                <div v-for="hour in hourList"
+                     :key="hour"
+                     class="hour-line">
+                  <div class="hour">
+                    {{ hour }}
                   </div>
+                  <q-separator class="separator"
+                               vertical />
+                </div>
+              </div>
+              <div v-for="day in 7"
+                   :key="day"
+                   class="day-col">
+                <div v-for="(hour) in hourList"
+                     :key="hour"
+                     class="hour-line">
+                  <q-separator class="separator"
+                               vertical />
+                </div>
+                <div v-if="chartWeek[day - 1]">
+                  <full-calendar-plan-item v-for="(plan, planIndex) in chartWeek[day - 1].events"
+                                           :key="planIndex"
+                                           :plan="plan"
+                                           :base-hight="baseHight"
+                                           :hour-end="hourEnd"
+                                           :hour-start="hourStart"
+                                           @openPlan="onShowPlan"
+                                           @copyPlan="onCopyPlan"
+                                           @editPlan="onEditPlan"
+                                           @removePlan="onRemovePlan" />
                 </div>
               </div>
             </div>
@@ -121,7 +120,8 @@
         </template>
         <template #body>
           <div class="q-pt-md">
-            <plan-contents :steps="steps"
+            <plan-contents :educational-layers="educationalLayers"
+                           :first-pamphlet="firstPamphlet"
                            :plan="selectedEvent" />
           </div>
           <div class="event-description q-mt-md">
@@ -195,11 +195,15 @@ export default defineComponent({
   name: 'FullCalendar',
   components: { InsideDialog, planContents, FullCalendarPlanItem },
   props: {
-    steps: {
+    educationalLayers: {
       type: Array,
       default () {
         return []
       }
+    },
+    firstPamphlet: {
+      type: Boolean,
+      default: true
     },
     hourStart: {
       type: Number,
@@ -719,14 +723,12 @@ export default defineComponent({
   },
   methods: {
     onShowPlan (plan) {
-      console.log('onShowPlan', plan)
       this.openEvent(plan)
     },
     onCopyPlan (plan) {
       this.copyPlan(plan)
     },
     onEditPlan (plan) {
-      console.log('onEditPlan: ', plan)
       this.editPlan(plan)
     },
     onRemovePlan (plan) {
@@ -862,23 +864,12 @@ export default defineComponent({
 .calender {
   //min-height: v-bind('calendarHeight');
   height: calc( 100vh - 200px );
-  max-height: calc( 100vh - 250px );
+  max-height: calc( 100vh - 215px );
   position: relative;
 
-  @media screen and (width <= 1023px) {
-    margin-bottom: 20px;
-  }
-
-  @media screen and (width <= 1023px) {
-    margin-bottom: 16px;
-  }
-
   @include media-max-width('md') {
-    max-height: calc( 100vh - 360px );
-  }
-
-  @include media-max-width('sm') {
-    max-height: calc( 100vh - 390px );
+    height: max-content;
+    max-height: max-content;
   }
 
   .calendar-header {
@@ -1023,7 +1014,10 @@ export default defineComponent({
 
     .second-scroll {
       height: v-bind('calendarHeight');
-      max-height: calc( 100vh - 450px );
+      max-height: calc( 100vh - 380px );
+      @include media-max-width('md') {
+        max-height: max-content;
+      }
     }
 
     .calendar-first-row {
@@ -1065,6 +1059,14 @@ export default defineComponent({
 
         &.calendar-col--hour {
           width: 125px;
+          position: sticky;
+          left: 0;
+          background: white;
+          z-index: 99;
+          height: 40px;
+          @include media-max-width('md') {
+            width: 80px;
+          }
         }
       }
 
@@ -1073,191 +1075,181 @@ export default defineComponent({
       }
     }
 
-    .calendar-wrapper {
+    .q-tab-panels {
+      height: inherit;
+    }
+
+    .q-tab-panel {
+      padding: 0;
+    }
+
+    .calendar-table {
       width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
 
-      .calendar-body {
+      .calendar-table-row {
         width: 100%;
-        height: inherit;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .calendar-table-col {
+          width: 92px;
+          height: 59px;
+          border: 1px solid #F2F5F9;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 24px;
+          text-align: center;
+          color: #6D708B;
+
+          &.holiday {
+            color: #E86562;
+          }
+
+          &.top-left {
+            border-radius: 0 15px 0 0;
+          }
+
+          &.top-right {
+            border-radius: 15px 0 0;
+          }
+
+          &.bottom-left {
+            border-radius: 0 0 15px;
+          }
+
+          &.bottom-right {
+            border-radius: 0 0 0 15px;
+          }
+        }
+      }
+    }
+
+    .calendar-weekly-view {
+      width: 100%;
+      height: max-content;
+
+      .time-line {
+        width: 1980px;
+        z-index: 10;
         position: relative;
+        height: 2px;
+        left: 95px;
+        background-color: #E25D5F;
+        border-radius: 6px;
 
-        .q-tab-panels {
-          height: inherit;
+        &::before {
+          position: absolute;
+          bottom: -4px;
+          content: "";
+          display: block;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background-color: #E25D5F;
+          margin-right: 10px;
         }
+      }
 
-        .q-tab-panel {
-          padding: 0;
-        }
+      .calendar-weekly-background {
+        display: flex;
 
-        .calendar-table {
-          width: 100%;
+        .day-col {
+          position: relative;
 
-          .calendar-table-row {
-            width: 100%;
+          .hour-line {
+            width: 280px;
+            height: 80px;
+            border-top: 1px solid #E4E8EF;
+            position: relative;
             display: flex;
             justify-content: center;
-            align-items: center;
 
-            .calendar-table-col {
-              width: 92px;
-              height: 59px;
-              border: 1px solid #F2F5F9;
+            .separator {
+              margin-right: 280px;
+            }
+          }
+
+          .weekly-event {
+            position: absolute;
+            width: 268px;
+            background: #9690E4;
+            border-radius: 8px;
+            margin-left: 0;
+            margin-top: 0;
+
+            .event-info {
+              overflow: auto;
+              height: inherit;
               display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              font-style: normal;
-              font-weight: 600;
-              font-size: 14px;
-              line-height: 24px;
-              text-align: center;
-              color: #6D708B;
-
-              &.holiday {
-                color: #E86562;
+              align-content: flex-start;
+              align-items: flex-start;
+              justify-content: flex-start;
+              .product_lesson_name {
+                margin-top: $space-2;
+                @include body1;
               }
-
-              &.top-left {
-                border-radius: 0 15px 0 0;
+              .event_title {
+                @include caption2;
               }
-
-              &.top-right {
-                border-radius: 15px 0 0;
-              }
-
-              &.bottom-left {
-                border-radius: 0 0 15px;
-              }
-
-              &.bottom-right {
-                border-radius: 0 0 0 15px;
+              .event_start {
+                @include caption2;
               }
             }
-          }
-        }
 
-        .calendar-weekly-view {
-          width: 100%;
-          height: max-content;
-
-          .time-line {
-            width: 1980px;
-            z-index: 10;
-            position: relative;
-            height: 2px;
-            left: 95px;
-            background-color: #E25D5F;
-            border-radius: 6px;
-
-            &::before {
-              position: absolute;
-              bottom: -4px;
-              content: "";
-              display: block;
-              width: 10px;
-              height: 10px;
-              border-radius: 50%;
-              background-color: #E25D5F;
-              margin-right: 10px;
-            }
-          }
-
-          .calendar-weekly-background {
-            display: flex;
-            padding-left: 126px;
-
-            .day-col {
-              position: relative;
-
-              .hour-line {
-                width: 280px;
-                height: 80px;
-                border-top: 1px solid #E4E8EF;
-                position: relative;
-                display: flex;
-                justify-content: center;
-
-                .hour {
-                  position: absolute;
-                  top: 0;
-                  left: -80px;
-                  transform: translateY(-50%);
-                  font-style: normal;
-                  font-weight: 400;
-                  font-size: 12px;
-                  line-height: 24px;
-                  display: flex;
-                  flex-flow: column;
-                  align-items: center;
-                  text-align: center;
-                  color: #6D708B;
-                }
-
-                .separator {
-                  margin-right: 280px;
-                }
-              }
-
-              .weekly-event {
+            .more-btn {
+              .more {
                 position: absolute;
-                width: 268px;
-                background: #9690E4;
-                border-radius: 8px;
-                margin-left: 0;
-                margin-top: 0;
+                right: 0;
+                top: 0;
+              }
+            }
+          }
 
-                .event-info {
-                  overflow: auto;
-                  height: inherit;
-                  display: flex;
-                  align-content: flex-start;
-                  align-items: flex-start;
-                  justify-content: flex-start;
-                  .product_lesson_name {
-                    margin-top: $space-2;
-                    @include body1;
-                  }
-                  .event_title {
-                    @include caption2;
-                  }
-                  .event_start {
-                    @include caption2;
-                  }
-                }
-
-                .more-btn {
-                  .more {
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                  }
+          &.calendar-col--hour {
+            width: 125px;
+            position: sticky;
+            left: 0;
+            background: white;
+            z-index: 9;
+            @include media-max-width('md') {
+              width: calc( 90px - 16px );
+            }
+            .hour-line {
+              width: 100%;
+              max-width: 100%;
+              display: block;
+              .hour {
+                text-align: center;
+                @include caption1;
+                color: $blue-grey-7;
+                transform: translateY(-50%);
+              }
+              &:not(:first-child) {
+                border: none;
+              }
+              &:first-child {
+                .hour {
+                  transform: translateY(0);
                 }
               }
             }
           }
         }
-
-        @media screen and (width <= 720px) {
-          min-width: 660px;
-        }
-      }
-
-      @media screen and (width <= 720px) {
-        overflow-x: auto;
       }
     }
 
-    @media screen and (width <= 1439px) {
-      margin-right: 0;
-    }
-
-    @media screen and (width <= 1200px) {
-      margin-right: 0;
+    @include media-max-width('md') {
+      padding-top: $spacing-none;
+      .q-scrollarea.first-scroll {
+        height: 40px !important;
+        padding: $spacing-none;
+      }
     }
 
   }
