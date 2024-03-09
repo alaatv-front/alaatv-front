@@ -1,5 +1,7 @@
 <template>
-  <q-item class="plan-item-box">
+  <q-item v-ripple
+          clickable
+          class="plan-item-box">
     <q-item-section>
       <q-item-label>{{content.title}}</q-item-label>
       <q-item-label v-if="content.set.title"
