@@ -89,7 +89,9 @@
                        class="TicketSendMessageInput__btn-recording size-md"
                        @blur="onBlurBtnRecordingVoice"
                        @mouseup="onMouseupBtnRecordingVoice"
-                       @mousedown="onMousedownBtnRecordingVoice" />
+                       @mousedown="onMousedownBtnRecordingVoice"
+                       @touchend.stop="onMouseupBtnRecordingVoice"
+                       @touchstart.stop="onMousedownBtnRecordingVoice" />
                 <div v-if="hasStatus(['voice-recorded'])"
                      class="TicketSendMessageInput__voice-recorded-area">
                   <q-btn flat

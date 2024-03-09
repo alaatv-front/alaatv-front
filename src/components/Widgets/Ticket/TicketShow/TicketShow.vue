@@ -555,7 +555,8 @@ export default {
       max-height: calc( 100vh - 300px);
       /* 600 < page < 1024 */
       @include media-max-width('md') {
-        max-height: calc( 100vh - 194px);
+        min-height: calc( 100vh - 500px);
+        max-height: calc( 100vh - 350px);
       }
     }
   }
@@ -618,10 +619,6 @@ export default {
         //padding-left: $space-6;
         border-left: 1px solid $grey-4;
         border-bottom-left-radius: $radius-4;
-        /* 600 < page < 1024 */
-        @include media-max-width('md') {
-          max-height: calc( 100vh - 194px);
-        }
       }
     }
   }

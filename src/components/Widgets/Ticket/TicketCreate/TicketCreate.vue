@@ -31,7 +31,7 @@
                 <div class="row q-col-gutter-md">
                   <div v-for="department in departmentList.list"
                        :key="department.id"
-                       class="col-6">
+                       class="col-md-6 col-sm-6 col-xs-12">
                     <q-btn v-close-popup
                            color="grey"
                            outline
@@ -103,11 +103,11 @@ export default {
           col: 'col-sm-6 col-xs-12'
         },
         {
-          type: 'toggleButton',
+          type: 'select',
           name: 'priority_id',
           responseKey: 'data.priority',
           label: 'اولویت',
-          value: '',
+          value: null,
           options: this.getPriorityOption(),
           toggleColor: 'blue',
           textColor: 'black',
