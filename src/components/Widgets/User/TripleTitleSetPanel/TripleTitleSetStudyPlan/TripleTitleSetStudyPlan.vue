@@ -228,12 +228,12 @@
           <template #action>
             <q-btn v-close-popup
                    class="btn cancel q-mx-sm text-grey-9"
-                   size="md"
                    outline
+                   :loading="deletePlanLoading"
                    label="انصراف" />
             <q-btn class="btn q-mx-sm"
                    label="بله، مطمئنم"
-                   size="md"
+                   :loading="deletePlanLoading"
                    color="red"
                    @click="removePlan" />
           </template>
@@ -310,6 +310,7 @@ export default {
   data () {
     return {
       loading: false,
+      deletePlanLoading: false,
       createPlanLoading: false,
       editPlanLoading: false,
       currentDay: null,
@@ -743,15 +744,18 @@ export default {
     },
     removePlan () {
       this.loading = true
+      this.deletePlanLoading = true
       APIGateway.studyPlan.removePlan(this.selectedPlanId)
         .then(() => {
           const targetDay = this.changeCurrentDateAfterRemovePlan ? this.currentDay : this.selectedPlan.date
           this.getStudyPlanData(targetDay)
           this.removePlanWarning = false
-          this.loading = false
         })
         .catch(() => {
+        })
+        .finally(() => {
           this.loading = false
+          this.deletePlanLoading = false
         })
     },
     getPlanPromise (majorId, gradeId, methodId) {
