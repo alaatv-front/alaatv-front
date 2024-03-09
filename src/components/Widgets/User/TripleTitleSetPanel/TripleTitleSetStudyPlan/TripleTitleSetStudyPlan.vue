@@ -469,8 +469,8 @@ export default {
         {
           type: 'checkbox',
           name: 'refresh_plans',
-          label: 'عدم بروزرسانی برنامه',
-          value: false,
+          label: 'بروزرسانی برنامه بعد از انجام عملیات',
+          value: true,
           col: 'col-12'
         }
       ],
@@ -604,8 +604,8 @@ export default {
         {
           type: 'checkbox',
           name: 'refresh_plans',
-          label: 'عدم بروزرسانی برنامه',
-          value: false,
+          label: 'بروزرسانی برنامه بعد از انجام عملیات',
+          value: true,
           col: 'col-12'
         }
       ],
