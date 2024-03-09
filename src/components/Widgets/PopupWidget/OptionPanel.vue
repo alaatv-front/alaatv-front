@@ -21,6 +21,8 @@
                           label="has body" />
               <q-checkbox v-model="localOptions.persistent"
                           label="persistent" />
+              <q-checkbox v-model="localOptions.once"
+                          label="Once" />
             </div>
             <div class="col-12 col-md-2">
               <q-checkbox v-model="localOptions.hasHeader"
@@ -29,7 +31,20 @@
                           label="immediate" />
               <q-checkbox v-model="localOptions.closeButton"
                           label="closeButton" />
+
             </div>
+            <q-input v-model="localOptions.refresh"
+                     readonly
+                     type="text"
+                     class="full-width q-my-md"
+                     label="refresh time">
+              <template #after>
+                <q-btn color="primary"
+                       icon="ph:arrow-clockwise"
+                       label="refresh"
+                       @click="refresh" />
+              </template>
+            </q-input>
           </div>
           <q-expansion-item v-if="localOptions.hasHeader"
                             :label="'headerWidgets' ">
@@ -462,6 +477,8 @@ export default defineComponent({
       actionObjectTypeOptions: ['link', 'event', 'scroll'],
       defaultOptions: {
         eventName: 'openPopup',
+        refresh: null,
+        once: false,
         persistent: false,
         closeButton: false,
         immediate: false,
@@ -496,6 +513,9 @@ export default defineComponent({
       this.selectedWidgetIndex = widgetIndex
       this.selectedSectionName = sectionName
       this.optionPanel = true
+    },
+    refresh () {
+      this.localOptions.refresh = new Date()
     }
   }
 })

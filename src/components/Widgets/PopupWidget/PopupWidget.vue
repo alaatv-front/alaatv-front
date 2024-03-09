@@ -81,6 +81,8 @@ export default defineComponent({
       dialog: false,
       defaultOptions: {
         eventName: 'openPopup',
+        refresh: null,
+        once: false,
         persistent: false,
         closeButton: false,
         immediate: false,
@@ -129,6 +131,11 @@ export default defineComponent({
   },
   methods: {
     openDialog () {
+      const popupOpened = localStorage.getItem(`popUpWidgetDialog#${this.localOptions.eventName + this.localOptions.refresh}`)
+      if (popupOpened) {
+        return
+      }
+      localStorage.setItem(`popUpWidgetDialog#${this.localOptions.eventName + this.localOptions.refresh}`, 'opened')
       this.dialog = true
     }
   }
