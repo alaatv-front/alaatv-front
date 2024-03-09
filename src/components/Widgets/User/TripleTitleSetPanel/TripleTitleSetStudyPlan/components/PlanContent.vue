@@ -45,9 +45,6 @@ export default {
       type: Content
     }
   },
-  mounted () {
-    console.log('content', this.content)
-  },
   methods: {
     downloadPdf (content) {
       if (!content?.file?.pamphlet || !content?.file?.pamphlet[0] || !content?.file?.pamphlet[0].link) {
