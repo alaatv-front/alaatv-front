@@ -2,6 +2,11 @@
 
 $mobileFooterHeight: 72px;
 
+/* xl => 1440 < page < 1920 */
+/* lg => 1024 < page < 1440 */
+/* md => 600 < page < 1024 */
+/* sm => 360 < page < 600 */
+
 @mixin media-max-width($size) {
   @if map-has-key($sizes, $size) {
     $width: map-get($sizes, $size);
@@ -12,13 +17,32 @@ $mobileFooterHeight: 72px;
     @warn "The key `#{$size}` is not in the \$sizes map.";
   }
 }
-
-
-// Custom media query mixin using the above map
 @mixin media-min-width($size) {
   @if map-has-key($sizes, $size) {
     $min-width: map-get($sizes, $size);
     @media (min-width: $min-width) {
+      @content;
+    }
+  }
+  @else {
+    @warn "No value found in \$breakpoints for '#{$size}'.";
+  }
+}
+
+@mixin container-max-width($size) {
+  @if map-has-key($sizes, $size) {
+    $width: map-get($sizes, $size);
+    @container (width < #{$width}) {
+      @content;
+    }
+  } @else {
+    @warn "The key `#{$size}` is not in the \$sizes map.";
+  }
+}
+@mixin container-min-width($size) {
+  @if map-has-key($sizes, $size) {
+    $min-width: map-get($sizes, $size);
+    @container (min-width: $min-width) {
       @content;
     }
   }

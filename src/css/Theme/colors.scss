@@ -231,6 +231,19 @@ $darken-7: rgba($grey-10, 0.8);
 
 
 
+/* background colors */
+@mixin generate-background-color-for-main-colors-classes() {
+  //$primary$secondary$-map-get($colors, "primary-1");
+  @each $key, $value in $colors {
+    @if str-index($key, "primary") or str-index($key, "secondary") or str-index($key, "accent") {
+      .bg-#{$key} {
+        background-color: $value;
+      }
+      //$filteredColors: map-merge($filteredColors, ( $key: map-get($colors, $key) ) );
+    }
+  }
+}
+
 /* border colors */
 @mixin generate-border-color-classes() {
   @each $key, $value in $colors {
@@ -241,3 +254,4 @@ $darken-7: rgba($grey-10, 0.8);
 }
 
 @include generate-border-color-classes();
+@include generate-background-color-for-main-colors-classes();

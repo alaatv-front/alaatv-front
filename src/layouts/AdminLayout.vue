@@ -19,6 +19,6 @@ export default {
 
 <style scoped lang="scss">
 .admin-layout {
-  padding: 30px 40px;
+  padding: 0;
 }
 </style>

@@ -1,64 +1,151 @@
 <template>
-  <div class="row q-col-gutter-md">
-    <div v-for="content in plan.contents.list"
-         :key="content.id"
-         class="col-md-4 col-sm-12">
-      <div class="plan-item-box">
-        <div class="plan-item-header" />
-        <div class="plan-item-info">
-          <div class="item-title ellipsis">{{ content.title }}</div>
-          <div class="item-plan ellipsis">
-            <q-icon name="import_contacts"
-                    size="18px"
-                    class="q-mr-sm" />
-            {{ content?.title || 'ویدیو ندارد' }}
-          </div>
-        </div>
-        <q-separator />
-        <div class="plan-item-footer">
-          <div v-if="content.file.pamphlet"
-               class="footer-text">
-            دانلود
-          </div>
-          <div v-else
-               class="footer-text">
-            مشاهده
-          </div>
-          <div class="footer-action">
-            <q-btn v-if="content.file.pamphlet"
-                   color="primary"
-                   round
-                   unelevated
-                   :disable="!content.id"
-                   size="11px"
-                   icon="download"
-                   @click="downloadPdf(content)" />
-            <q-btn v-else
-                   color="primary"
-                   round
-                   unelevated
-                   :disable="!content.id"
-                   size="11px"
-                   icon="play_arrow"
-                   :to="{name:'UserPanel.Asset.TripleTitleSet.Content', params:{ productId: plan.product?.id, setId: content.set?.id, contentId: content?.id}}" />
-          </div>
-        </div>
-      </div>
+  <div class="plan-contents row q-col-gutter-md">
+    <div class="col-12"
+         :class="{'order-last': !firstPamphlet}">
+      <q-list v-if="pamphletContents.length > 0"
+              separator
+              dense>
+        <q-item>
+          <q-item-label class="text-center"
+                        header>لیست جزوات</q-item-label>
+        </q-item>
+        <plan-content v-for="content in pamphletContents"
+                      :key="content.id"
+                      :plan="plan"
+                      :content="content" />
+      </q-list>
+    </div>
+    <div v-if="nonEducationalLayerVideos.length > 0"
+         class="col-12">
+      <q-list dense
+              separator>
+        <plan-content v-for="content in nonEducationalLayerVideos"
+                      :key="content.id"
+                      :plan="plan"
+                      :content="content" />
+      </q-list>
+    </div>
+    <div v-if="educationalLayerVideos.length > 0"
+         class="col-12">
+      <q-tabs v-model="tab"
+              dense
+              class="text-grey"
+              active-color="primary"
+              indicator-color="primary"
+              align="justify"
+              narrow-indicator>
+        <q-tab v-for="(educationalLayer, educationalLayerIndex) in educationalLayerVideos"
+               :key="educationalLayerIndex"
+               :name="educationalLayer.title"
+               :label="educationalLayer.title" />
+      </q-tabs>
+      <q-separator />
+      <q-tab-panels v-for="(educationalLayer, educationalLayerIndex) in educationalLayerVideos"
+                    :key="educationalLayerIndex"
+                    v-model="tab">
+        <q-tab-panel :name="educationalLayer.title">
+
+          <q-list dense
+                  separator>
+            <plan-content v-for="content in educationalLayer.contents"
+                          :key="content.id"
+                          :plan="plan"
+                          :content="content" />
+          </q-list>
+        </q-tab-panel>
+      </q-tab-panels>
     </div>
   </div>
 </template>
 
 <script>
-import { Plan } from 'src/models/Plan'
+import { Plan } from 'src/models/Plan.js'
+import PlanContent from './PlanContent.vue'
 
 export default {
   name: 'PlanContents',
+  components: { PlanContent },
   props: {
+    educationalLayers: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    firstPamphlet: {
+      type: Boolean,
+      default: true
+    },
     plan: {
       type: Plan
     }
   },
+  data () {
+    return {
+      tab: '',
+      existSteps: []
+    }
+  },
+  computed: {
+    nonEducationalLayerVideos () {
+      return this.videoContents.filter(content => {
+        let hasEducationalLayer = false
+        this.educationalLayers.forEach(educationalLayer => {
+          if (content.title.includes(educationalLayer)) {
+            hasEducationalLayer = true
+          }
+        })
+
+        return !hasEducationalLayer
+      })
+    },
+    educationalLayerVideos () {
+      const tebs = []
+      this.educationalLayers.forEach(educationalLayer => {
+        const contents = this.videoContents.filter(content => content.title.includes(educationalLayer))
+        if (contents.length > 0) {
+          tebs.push({
+            title: educationalLayer,
+            contents
+          })
+        }
+      })
+
+      return tebs
+    },
+    pamphletContents () {
+      return this.plan.contents.list.filter(content => content.isPamphlet())
+    },
+    videoContents () {
+      return this.plan.contents.list.filter(content => content.isVideo())
+    }
+  },
+  mounted () {
+    this.getExistEducationalLayers()
+  },
   methods: {
+    getExistEducationalLayers () {
+      this.videoContents.forEach(content => {
+        const step = this.educationalLayers.find(step => content.title.includes(step))
+        if (step && !this.existSteps.includes(step)) {
+          this.existSteps.push(step)
+        }
+      })
+      this.tab = this.existSteps.length > 0 ? this.existSteps[0] : ''
+    },
+    stepVideoContents (step) {
+      return this.videoContents.filter(content => content.title.includes(step))
+    },
+    otherVideoContents () {
+      const contents = this.videoContents
+      const existSteps = this.existSteps
+      this.videoContents.forEach(content => {
+        if (existSteps.some(step => !content.title.includes(step))) {
+          contents.push(content)
+        }
+      })
+      return contents
+    },
     downloadPdf (content) {
       if (!content?.file?.pamphlet || !content?.file?.pamphlet[0] || !content?.file?.pamphlet[0].link) {
         this.$q.notify({
@@ -75,113 +162,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.plan-item-box{
-  height: 158px;
-  border-radius: 12px;
-  background: #F5F7FA;
-  padding: 16px 20px 20px;
+.plan-contents {
 
-  @media only screen and (width <= 600px) {
-    width: 230px;
-    height: 196px;
-  }
-
-  .plan-item-header {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-
-    .plan-time {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 3px 6px 4px;
-      border-radius: 8px;
-      background: #ECEFF1;
-
-      &.now {
-        background: #FFD54F;
-      }
-    }
-  }
-
-  .plan-item-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    margin-bottom: 20px;
-
-    @media only screen and (width <= 600px) {
-      margin-bottom: 20px;
-    }
-
-    .item-title {
-      max-width: 100%;
-      color:#424242;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: normal;
-      letter-spacing: -0.32px;
-      margin-bottom: 10px;
-
-      @media only screen and (width <= 600px) {
-        margin: 16px 0 8px;
-      }
-    }
-
-    .item-plan {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      max-width: 100%;
-      color: #757575;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      letter-spacing: -0.24px;
-    }
-  }
-
-  .plan-item-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 16px;
-
-    @media only screen and (width <= 600px) {
-      margin-top: 16px;
-    }
-
-    .footer-text {
-      color: #424242;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: normal;
-      letter-spacing: -0.32px;
-
-      &.watched-text {
-        color: #26A69A;
-      }
-    }
-
-    .footer-action {
-      &:deep(.q-btn) {
-        border-radius: 50%;
-      }
-
-      .future{
-        color: #616161;
-        background: #ECEFF1;
-      }
-
-      .watched {
-        color: #26A69A;
-      }
-    }
-  }
 }
 </style>
