@@ -160,6 +160,10 @@ export default defineComponent({
   methods: {
     addIcon () {
       this.localOptions.stepsIconList.push(JSON.parse(JSON.stringify(this.icon)))
+      this.icon = {
+        index: null,
+        src: null
+      }
     },
     deleteIcon (index) {
       this.localOptions.stepsIconList.splice(index, 1)
