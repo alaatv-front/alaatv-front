@@ -1,3 +1,23 @@
+# [1.14.0](https://git.alaatv.com/web/alaatv_front/compare/v1.13.3...v1.14.0) (2024-03-09)
+
+
+### Bug Fixes
+
+* remove console.log ([dc1709e](https://git.alaatv.com/web/alaatv_front/commit/dc1709ea3bb264b8bf27c2fe0722d4497a995f40))
+* scrollbar for firefox ([6a555be](https://git.alaatv.com/web/alaatv_front/commit/6a555be9e5b4fe89945383f9975458ddcf575910))
+* TicketList.vue show ticket in new tab ([f7fd05f](https://git.alaatv.com/web/alaatv_front/commit/f7fd05f2d3d65a40c4c57ad25ce8da6ab69a858e))
+* ttsp dashboard fix get today plans ([37a0e45](https://git.alaatv.com/web/alaatv_front/commit/37a0e459a110e640bfe1cabfa03e1ad2dad5d8fa))
+* ttsp study plan deletePlanLoading ([50ed6df](https://git.alaatv.com/web/alaatv_front/commit/50ed6dfcd92e01ae0b16580bea85bc45ada26a0d))
+* ttsp study plan open plan content in new tab ([54ac473](https://git.alaatv.com/web/alaatv_front/commit/54ac473b57bb3b54431fbcd0a146554d7c322d5f))
+* ttsp study plan redesign contents in dialog ([760a16d](https://git.alaatv.com/web/alaatv_front/commit/760a16dfecffe445462da529249a18259f6f8256))
+* ttsp study plan refresh_plans bug fux ([c1cb2c4](https://git.alaatv.com/web/alaatv_front/commit/c1cb2c4024d8548476c1e060ad065da58c2ac292))
+
+
+### Features
+
+* black Friday video steps icons and newsletter ([#995](https://git.alaatv.com/web/alaatv_front/issues/995)) ([e3a42e9](https://git.alaatv.com/web/alaatv_front/commit/e3a42e9e48b99eaffcd49dfe16a53b893428c754))
+* ttsp study plan prevent change date after copy, create, delete and edit ([d857f48](https://git.alaatv.com/web/alaatv_front/commit/d857f4877faf071b5bff5e499dbf381e2507c318))
+
 ## [1.13.3](https://git.alaatv.com/web/alaatv_front/compare/v1.13.2...v1.13.3) (2024-03-06)
 
 
