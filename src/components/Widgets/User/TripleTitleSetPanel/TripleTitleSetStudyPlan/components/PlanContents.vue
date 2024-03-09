@@ -1,13 +1,18 @@
 <template>
-  <div class="plan-contents row q-col-gutter-md">
-    <div class="col-12"
-         :class="{'order-last': !firstPamphlet}">
+  <div class="plan-contents">
+    <div :class="{'order-last': !firstPamphlet}">
       <q-list v-if="pamphletContents.length > 0"
               separator
               dense>
         <q-item>
-          <q-item-label class="text-center"
-                        header>لیست جزوات</q-item-label>
+          <q-item-section>
+            <q-item-label>
+              <q-icon name="ph:book-open-text"
+                      size="20px"
+                      color="blue-grey-7" />
+              لیست جزوات
+            </q-item-label>
+          </q-item-section>
         </q-item>
         <plan-content v-for="content in pamphletContents"
                       :key="content.id"
@@ -15,8 +20,21 @@
                       :content="content" />
       </q-list>
     </div>
-    <div v-if="nonEducationalLayerVideos.length > 0"
-         class="col-12">
+    <div v-if="nonEducationalLayerVideos.length > 0">
+      <q-list dense
+              class="q-mt-lg">
+        <q-item>
+          <q-item-section>
+            <q-item-label>
+              <q-icon name="ph:video-camera"
+                      size="20px"
+                      color="blue-grey-7" />
+              لیست فیلم ها
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-separator />
+      </q-list>
       <q-list dense
               separator>
         <plan-content v-for="content in nonEducationalLayerVideos"
@@ -25,11 +43,24 @@
                       :content="content" />
       </q-list>
     </div>
-    <div v-if="educationalLayerVideos.length > 0"
-         class="col-12">
+    <div v-if="educationalLayerVideos.length > 0">
+      <q-list dense
+              class="q-mt-lg">
+        <q-item>
+          <q-item-section>
+            <q-item-label>
+              <q-icon name="ph:video"
+                      size="20px"
+                      color="blue-grey-7" />
+              لیست دسته فیلم ها
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-separator />
+      </q-list>
       <q-tabs v-model="tab"
               dense
-              class="text-grey"
+              class="text-grey bg-blue-grey-1"
               active-color="primary"
               indicator-color="primary"
               align="justify"

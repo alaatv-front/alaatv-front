@@ -119,11 +119,9 @@
           {{calculateEventDate()}} - {{selectedEvent.start.substring(0, 5)}} الی {{selectedEvent.end.substring(0, 5)}}
         </template>
         <template #body>
-          <div class="q-pt-md">
-            <plan-contents :educational-layers="educationalLayers"
-                           :first-pamphlet="firstPamphlet"
-                           :plan="selectedEvent" />
-          </div>
+          <plan-contents :educational-layers="educationalLayers"
+                         :first-pamphlet="firstPamphlet"
+                         :plan="selectedEvent" />
           <div class="event-description q-mt-md">
             {{selectedEvent.description}}
           </div>

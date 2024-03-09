@@ -221,6 +221,9 @@
           </template>
           <template #body>
             آیا از حذف این زنگ مطمئن هستید؟
+            <br>
+            <q-checkbox v-model="changeCurrentDateAfterRemovePlan"
+                        label="تغییر برنامه و تاریخ فعلی بعد از انجام عملیات" />
           </template>
           <template #action>
             <q-btn v-close-popup
@@ -344,6 +347,7 @@ export default {
       lessonOptions: [],
       filteredLesson: null,
       editApi: null,
+      changeCurrentDateAfterRemovePlan: true,
       inputs: [
         {
           type: 'separator',
@@ -452,6 +456,20 @@ export default {
           label: 'توضیحات',
           value: '',
           placeholder: 'وارد کنید',
+          col: 'col-12'
+        },
+        {
+          type: 'checkbox',
+          name: 'change_current_date',
+          label: 'تغییر برنامه و تاریخ فعلی بعد از انجام عملیات',
+          value: true,
+          col: 'col-12'
+        },
+        {
+          type: 'checkbox',
+          name: 'refresh_plans',
+          label: 'عدم بروزرسانی برنامه',
+          value: false,
           col: 'col-12'
         }
       ],
@@ -574,6 +592,20 @@ export default {
           placeholder: 'وارد کنید',
           responseKey: 'data.description',
           col: 'col-12'
+        },
+        {
+          type: 'checkbox',
+          name: 'change_current_date',
+          label: 'تغییر برنامه و تاریخ فعلی بعد از انجام عملیات',
+          value: true,
+          col: 'col-12'
+        },
+        {
+          type: 'checkbox',
+          name: 'refresh_plans',
+          label: 'عدم بروزرسانی برنامه',
+          value: false,
+          col: 'col-12'
         }
       ],
       currentStudyPlan: {}
@@ -655,7 +687,11 @@ export default {
           FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'value', newContents)
           this.$refs.entityEdit.editEntity(false)
             .finally(() => {
-              this.getStudyPlanData(FormBuilderAssist.getInputsByName(this.editInputs, 'date').value)
+              const canRefreshPlans = FormBuilderAssist.getInputsByName(this.editInputs, 'refresh_plans').value
+              if (canRefreshPlans) {
+                const targetDay = FormBuilderAssist.getInputsByName(this.editInputs, 'change_current_date').value ? FormBuilderAssist.getInputsByName(this.editInputs, 'date').value : this.currentDay
+                this.getStudyPlanData(targetDay)
+              }
               this.loading = false
               this.editPlanLoading = false
               this.editPlanDialog = false
@@ -709,7 +745,8 @@ export default {
       this.loading = true
       APIGateway.studyPlan.removePlan(this.selectedPlanId)
         .then(() => {
-          this.getStudyPlanData(this.selectedPlan.date)
+          const targetDay = this.changeCurrentDateAfterRemovePlan ? this.currentDay : this.selectedPlan.date
+          this.getStudyPlanData(targetDay)
           this.removePlanWarning = false
           this.loading = false
         })
@@ -812,7 +849,11 @@ export default {
                   study_method_id: methodIds[0]
                 }, FormBuilderAssist.getInputsByName(this.inputs, 'date').value)
               } else {
-                this.getStudyPlanData(FormBuilderAssist.getInputsByName(this.inputs, 'date').value)
+                const canRefreshPlans = FormBuilderAssist.getInputsByName(this.inputs, 'refresh_plans').value
+                if (canRefreshPlans) {
+                  const targetDay = FormBuilderAssist.getInputsByName(this.inputs, 'change_current_date').value ? FormBuilderAssist.getInputsByName(this.inputs, 'date').value : this.currentDay
+                  this.getStudyPlanData(targetDay)
+                }
               }
             })
             .catch(() => {

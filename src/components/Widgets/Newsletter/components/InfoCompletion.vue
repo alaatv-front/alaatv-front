@@ -208,6 +208,7 @@ export default {
         })
         .catch(() => {
           this.setLoading(false)
+          this.$emit('toggleDialog')
         })
     },
     setLoading (loading) {
