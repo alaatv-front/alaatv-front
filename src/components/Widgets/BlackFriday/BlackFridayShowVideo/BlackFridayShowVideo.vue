@@ -18,6 +18,7 @@
                      @prev="onPrev"
                      @next="onNext" />
       <step-section :black-friday-campaign-data="blackFridayCampaignData"
+                    :stepsIconList="localOptions.stepsIconList"
                     :selected-step-index="selectedVideoIndex"
                     :from-first-index="localOptions.fromFirstIndex"
                     :start-index="localOptions.startIndex"
@@ -61,6 +62,7 @@ export default defineComponent({
       defaultOptions: {
         showBtn: false,
         startIndex: 0,
+        stepsIconList: [],
         hasNewsletter: false,
         fromFirstIndex: false,
         scrollToProducts: null,
