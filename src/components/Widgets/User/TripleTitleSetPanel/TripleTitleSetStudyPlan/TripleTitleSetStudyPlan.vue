@@ -46,6 +46,8 @@
                        :hour-start="firstStartTime"
                        :hour-end="lastEndTime"
                        :study-event="studyEvent"
+                       :educational-layers="event.study_plan.educational_layers"
+                       :first-pamphlet="event.study_plan.first_pamphlet"
                        :events="studyPlanList"
                        :current-day="currentDay"
                        :filtered-lesson="filteredLesson"
@@ -71,15 +73,16 @@
                           v-model:value="inputs" />
           </template>
           <template #action>
-            <q-btn class="btn cancel q-mx-sm text-grey-9"
-                   size="md"
+            <q-btn class="btn cancel q-mx-sm"
+                   color="grey"
+                   :loading="createPlanLoading"
                    outline
                    label="لغو"
                    @click="newPlanDialog = false" />
             <q-btn class="btn q-mx-sm"
                    label="تایید"
-                   size="md"
                    color="positive"
+                   :loading="createPlanLoading"
                    @click="acceptNewPlan" />
           </template>
         </inside-dialog>
@@ -96,22 +99,19 @@
             <entity-edit ref="entityEdit"
                          v-model:value="editInputs"
                          :defaultLayout="false"
-                         :api="editApi">
-              <template #after-form-builder>
-                <div class="text-right q-mt-md new-theme-btn">
-                  <q-btn v-close-popup
-                         class="btn cancel q-mx-sm text-grey-9"
-                         size="md"
-                         outline
-                         label="لغو" />
-                  <q-btn class="btn q-mx-sm"
-                         label="تایید"
-                         size="md"
-                         color="positive"
-                         @click="updatePlan" />
-                </div>
-              </template>
-            </entity-edit>
+                         :api="editApi" />
+          </template>
+          <template #action>
+            <q-btn v-close-popup
+                   class="btn cancel q-mx-sm"
+                   outline
+                   :loading="editPlanLoading"
+                   label="لغو" />
+            <q-btn class="btn q-mx-sm"
+                   label="تایید"
+                   :loading="editPlanLoading"
+                   color="positive"
+                   @click="updatePlan" />
           </template>
         </inside-dialog>
       </q-dialog>
@@ -307,10 +307,13 @@ export default {
   data () {
     return {
       loading: false,
+      createPlanLoading: false,
+      editPlanLoading: false,
       currentDay: null,
       api: APIGateway.studyPlan.APIAdresses.plan,
       firstStartTime: 23,
       lastEndTime: 0,
+      selectedPlan: null,
       selectedPlanId: null,
       newPlanDialog: false,
       editPlanDialog: false,
@@ -469,6 +472,7 @@ export default {
         {
           type: 'input',
           name: 'title',
+          responseKey: 'data.title',
           label: 'عنوان',
           value: '',
           placeholder: 'وارد کنید',
@@ -619,6 +623,7 @@ export default {
     },
     updatePlan () {
       this.loading = true
+      this.editPlanLoading = true
       const data = {
         major_id: this.$refs.entityEdit.getInputsByName('major_id').value,
         grade_id: this.$refs.entityEdit.getInputsByName('grade_id').value,
@@ -650,13 +655,15 @@ export default {
           FormBuilderAssist.setAttributeByName(this.editInputs, 'contents', 'value', newContents)
           this.$refs.entityEdit.editEntity(false)
             .finally(() => {
-              this.getMyStudyPlan()
+              this.getStudyPlanData(FormBuilderAssist.getInputsByName(this.editInputs, 'date').value)
               this.loading = false
+              this.editPlanLoading = false
               this.editPlanDialog = false
             })
         })
         .catch(() => {
           this.loading = false
+          this.editPlanLoading = false
         })
     },
     editPlan (event) {
@@ -695,13 +702,14 @@ export default {
     },
     openRemovePlanWarning (event) {
       this.removePlanWarning = true
+      this.selectedPlan = event
       this.selectedPlanId = event.id
     },
     removePlan () {
       this.loading = true
       APIGateway.studyPlan.removePlan(this.selectedPlanId)
         .then(() => {
-          this.getStudyPlanData()
+          this.getStudyPlanData(this.selectedPlan.date)
           this.removePlanWarning = false
           this.loading = false
         })
@@ -775,6 +783,7 @@ export default {
     },
     acceptNewPlan () {
       this.loading = true
+      this.createPlanLoading = true
       const eventPromises = []
       const majorIds = FormBuilderAssist.getInputsByName(this.inputs, 'major_id')?.value || []
       const gradeIds = FormBuilderAssist.getInputsByName(this.inputs, 'grade_id')?.value || []
@@ -797,20 +806,29 @@ export default {
           this.findStudyPlan(data)
             .then(studtPlan => {
               if (studtPlan.id !== this.studyEvent) {
-                this.updateMyStudyPlan(FormBuilderAssist.getInputsByName(this.inputs, 'date').value)
+                this.updateMyStudyPlan({
+                  major_id: majorIds[0],
+                  grade_id: gradeIds[0],
+                  study_method_id: methodIds[0]
+                }, FormBuilderAssist.getInputsByName(this.inputs, 'date').value)
               } else {
                 this.getStudyPlanData(FormBuilderAssist.getInputsByName(this.inputs, 'date').value)
               }
-              this.loading = false
             })
             .catch(() => {
+            })
+            .finally(() => {
               this.loading = false
+              this.createPlanLoading = false
             })
           this.newPlanDialog = false
         })
         .catch(() => {
-          this.newPlanDialog = false
+        })
+        .finally(() => {
           this.loading = false
+          this.newPlanDialog = false
+          this.createPlanLoading = false
         })
     },
     filterByLesson () {
@@ -1005,6 +1023,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+:global(.main-layout) {
+  .hasFooter {
+    .q-page-container {
+      @include media-max-width('md') {
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+}
+
 .triple-title-set-study-plan {
   padding: $space-8;
   @include media-max-width('md') {

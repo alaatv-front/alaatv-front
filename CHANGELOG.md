@@ -1,3 +1,28 @@
+## [1.13.1](https://git.alaatv.com/web/alaatv_front/compare/v1.13.0...v1.13.1) (2024-03-06)
+
+
+### Bug Fixes
+
+* ttsp study plan frozen timeline ([9d61c59](https://git.alaatv.com/web/alaatv_front/commit/9d61c59b58ae96085a32a925284e3c95e40e18b9))
+* ttsp study plan keep plan date after edit and remove plan ([a68a1c8](https://git.alaatv.com/web/alaatv_front/commit/a68a1c85917621fc5f41332b66913efcadcca769))
+* ttsp study plan load plan title on edit panel ([6b42edf](https://git.alaatv.com/web/alaatv_front/commit/6b42edfe6c186de8a410366ace351f3d957ac846))
+
+# [1.13.0](https://git.alaatv.com/web/alaatv_front/compare/v1.12.2...v1.13.0) (2024-03-06)
+
+
+### Features
+
+* event dialog show list of videos & pamphlets ([#994](https://git.alaatv.com/web/alaatv_front/issues/994)) ([f528098](https://git.alaatv.com/web/alaatv_front/commit/f528098bea55644a17b2e6892a48b09633f92a6b))
+* ttsp study plan educational_layers ([593d941](https://git.alaatv.com/web/alaatv_front/commit/593d94196323c92b28010361d306eab8aa2d984e))
+
+## [1.12.2](https://git.alaatv.com/web/alaatv_front/compare/v1.12.1...v1.12.2) (2024-03-05)
+
+
+### Bug Fixes
+
+* enable ticket WaveSurfer normalize ([a3a53d8](https://git.alaatv.com/web/alaatv_front/commit/a3a53d82ec09f2fa256afeb990c79cf0c6be1e9f))
+* ttsp study plan background_color ([fb60893](https://git.alaatv.com/web/alaatv_front/commit/fb6089357b4078045a0bc455894d37bbbd315f04))
+
 ## [1.12.1](https://git.alaatv.com/web/alaatv_front/compare/v1.12.0...v1.12.1) (2024-03-05)
 
 
