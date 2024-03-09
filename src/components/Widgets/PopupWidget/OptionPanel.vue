@@ -37,7 +37,7 @@
                      readonly
                      type="text"
                      class="full-width q-my-md"
-                     label="refresh time">
+                     label="refresh localStorage token for popup widget's once option">
               <template #after>
                 <q-btn color="primary"
                        icon="ph:arrow-clockwise"
@@ -478,7 +478,7 @@ export default defineComponent({
       defaultOptions: {
         eventName: 'openPopup',
         refresh: null,
-        once: false,
+        once: true,
         persistent: false,
         closeButton: false,
         immediate: false,
@@ -515,7 +515,7 @@ export default defineComponent({
       this.optionPanel = true
     },
     refresh () {
-      this.localOptions.refresh = new Date()
+      this.localOptions.refresh = Date.now()
     }
   }
 })

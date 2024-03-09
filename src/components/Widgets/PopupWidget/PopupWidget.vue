@@ -1,6 +1,6 @@
 <template>
   <q-dialog v-model="dialog"
-            :persistent="persistent">
+            :persistent="localOptions.persistent">
     <q-card class="InsideDialog">
       <q-card-section v-if="localOptions.hasHeader"
                       class="InsideDialog__header">
@@ -82,7 +82,7 @@ export default defineComponent({
       defaultOptions: {
         eventName: 'openPopup',
         refresh: null,
-        once: false,
+        once: true,
         persistent: false,
         closeButton: false,
         immediate: false,
@@ -132,7 +132,7 @@ export default defineComponent({
   methods: {
     openDialog () {
       const popupOpened = localStorage.getItem(`popUpWidgetDialog#${this.localOptions.eventName + this.localOptions.refresh}`)
-      if (popupOpened) {
+      if (popupOpened && this.localOptions.once) {
         return
       }
       localStorage.setItem(`popUpWidgetDialog#${this.localOptions.eventName + this.localOptions.refresh}`, 'opened')
