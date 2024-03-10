@@ -1,28 +1,31 @@
 <template>
   <div class="FullCalendarPlanItem cursor-pointer"
        :style="{ top: calculateTop(plan), height: calculateHeight(plan), background: getBackgroundColor(plan.backgroundColor)}">
-    <div class="row q-px-md plan-info"
+    <div class="plan-info"
          @click="openPlan(plan)">
-      <div class="product_lesson_name col-12">
-        <template v-if="plan.title">
-          {{ plan.title }}
-        </template>
-        <template v-else>
-          {{ plan.product.lesson_name }}
-        </template>
-      </div>
-      <template v-if="plan.contents.list.length > 0">
-        <div v-for="content in plan.contents.list"
-             :key="content.id"
-             class="FullCalendarPlanItem--plan-content-title col-12 q-mt-xs">
-          {{content.title}}
+      <q-scroll-area visible
+                     class="full-width full-height q-pr-sm">
+        <div class="product_lesson_name">
+          <template v-if="plan.title">
+            {{ plan.title }}
+          </template>
+          <template v-else>
+            {{ plan.product.lesson_name }}
+          </template>
         </div>
-      </template>
-      <template v-else-if="plan.description">
-        <div class="FullCalendarPlanItem--plan-description"
-             v-html="plan.description" />
-      </template>
-      <div class="plan_start col-12 q-mt-xs">{{plan.start.substring(0, 5)}} الی {{plan.end.substring(0, 5)}}</div>
+        <template v-if="plan.contents.list.length > 0">
+          <div v-for="content in plan.contents.list"
+               :key="content.id"
+               class="FullCalendarPlanItem--plan-content-title q-mt-xs">
+            {{content.title}}
+          </div>
+        </template>
+        <template v-else-if="plan.description">
+          <div class="FullCalendarPlanItem--plan-description"
+               v-html="plan.description" />
+        </template>
+        <div class="plan_start q-mt-xs">{{plan.start.substring(0, 5)}} الی {{plan.end.substring(0, 5)}}</div>
+      </q-scroll-area>
     </div>
     <div class="more-btn">
       <q-btn icon="ph:dots-three-outline-vertical"
@@ -162,6 +165,7 @@ export default defineComponent({
     align-content: flex-start;
     align-items: flex-start;
     justify-content: flex-start;
+    padding-left: $space-3;
     .product_lesson_name {
       margin-top: $space-2;
       @include body1;

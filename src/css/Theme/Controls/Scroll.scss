@@ -1,33 +1,51 @@
-  .q-scrollarea {
-    padding: 0 0 $space-4 $space-4;
-    .q-scrollarea__bar {
-      opacity: 1;
-      background: $grey-2;
-    }
-    .q-scrollarea__bar--v {
-      width: 10px;
-      &.absolute-right {
-        left: $space-2;
-      }
-    }
-    .q-scrollarea__bar--h {
-      height: 10px;
-      &.absolute-bottom {
-        bottom: $space-2;
-      }
-    }
+$scroll-width: 10px;
+$thumb-opacity: 0.6;
+$thumb-color: $primary;
 
-    .q-scrollarea__thumb {
-      border-radius: $space-3;
-      background: $primary;
-      width: 8px;
-      height: 8px;
-      opacity: 1;
-      &.q-scrollarea__thumb--h {
-        bottom: $space-2;
-      }
-      &.q-scrollarea__thumb--v {
-        left: $space-2;
-      }
+
+/* For Firefox */
+:root{
+  scrollbar-color: $thumb-color $grey-1 !important;
+  scrollbar-width: $scroll-width !important;
+}
+
+
+/* For Chrome */
+::-webkit-scrollbar {
+  width: $scroll-width;
+  height: $scroll-width;
+  border-radius: $radius-2;
+  background-color: $thumb-color;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: $radius-2;
+  background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: $radius-2;
+  background-color: $thumb-color;
+}
+
+
+/* For Quasar scrollarea */
+.q-scrollarea {
+  .q-scrollarea__bar {
+    width: $scroll-width;
+    background: $grey-1;
+    //opacity: 1;
+  }
+  .q-scrollarea__thumb {
+    &.q-scrollarea__thumb--v {
+      width: $scroll-width;
+      background: $thumb-color;
+      opacity: $thumb-opacity;
+    }
+    &.q-scrollarea__thumb--h {
+      height: $scroll-width;
+      background: $thumb-color;
+      opacity: $thumb-opacity;
     }
   }
+}

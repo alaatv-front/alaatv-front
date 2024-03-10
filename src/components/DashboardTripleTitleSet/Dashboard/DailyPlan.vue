@@ -92,9 +92,6 @@ export default defineComponent({
       this.getPlans()
     }
   },
-  mounted () {
-    this.getPlans()
-  },
   methods: {
     getPlans () {
       const today = this.getToday()

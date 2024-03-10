@@ -1,5 +1,7 @@
 <template>
-  <q-item class="plan-item-box">
+  <q-item v-ripple
+          clickable
+          class="plan-item-box">
     <q-item-section>
       <q-item-label>{{content.title}}</q-item-label>
       <q-item-label v-if="content.set.title"
@@ -26,6 +28,7 @@
              :disable="!content.id"
              class="size-xs"
              icon="play_arrow"
+             target="_blank"
              :to="{name:'UserPanel.Asset.TripleTitleSet.Content', params:{ productId: plan.product?.id, setId: content.set?.id, contentId: content?.id}}" />
     </q-item-section>
   </q-item>
@@ -44,9 +47,6 @@ export default {
     content: {
       type: Content
     }
-  },
-  mounted () {
-    console.log('content', this.content)
   },
   methods: {
     downloadPdf (content) {
