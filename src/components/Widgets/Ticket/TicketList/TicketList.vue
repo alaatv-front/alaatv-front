@@ -79,6 +79,7 @@
                          color="primary"
                          label="مشاهده"
                          class="size-md"
+                         target="_blank"
                          :to="{ name: ticketShowRouteName, params: { id: inputData.props.row.id } }">
                     <q-tooltip>
                       مشاهده
