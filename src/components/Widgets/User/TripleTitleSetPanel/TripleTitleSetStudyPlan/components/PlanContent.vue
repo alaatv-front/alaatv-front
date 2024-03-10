@@ -28,6 +28,7 @@
              :disable="!content.id"
              class="size-xs"
              icon="play_arrow"
+             target="_blank"
              :to="{name:'UserPanel.Asset.TripleTitleSet.Content', params:{ productId: plan.product?.id, setId: content.set?.id, contentId: content?.id}}" />
     </q-item-section>
   </q-item>
