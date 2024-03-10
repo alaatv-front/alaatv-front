@@ -21,7 +21,8 @@ class Event extends Model {
         default: {
           category_id: null
         }
-      }
+      },
+      { key: 'steps' }
     ])
   }
 }

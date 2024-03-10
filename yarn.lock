@@ -2469,10 +2469,10 @@ axios@^1.4.0:
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
-axios@^1.6.5:
-  version "1.6.5"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.5.tgz#2c090da14aeeab3770ad30c3a1461bc970fb0cd8"
-  integrity sha512-Ii012v05KEVuUoFWmMW/UQv9aRIc3ZwkWDcM+h5Il8izZCtRVpDUfwpoFf7eOtajT3QiGR4yDUx7lPqHJULgbg==
+axios@^1.6.7:
+  version "1.6.7"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.7.tgz#7b48c2e27c96f9c68a2f8f31e2ab19f59b06b0a7"
+  integrity sha512-/hDJGff6/c7u0hDkvkGxR/oy6CbCs8ziCsC7SqmhjfozqiJGc8Z11wrv9z9lYfY4K8l+H9TpjcMDX0xOZmx+RA==
   dependencies:
     follow-redirects "^1.15.4"
     form-data "^4.0.0"
@@ -6439,22 +6439,22 @@ quasar-app-extension-q-page-builder@^1.0.1:
   dependencies:
     quasar-ui-q-page-builder "^1.0.1"
 
-quasar-crud@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/quasar-crud/-/quasar-crud-1.0.7.tgz#33ddaab6d21fda2f7d141fb2f28d4d720c2dd9e3"
-  integrity sha512-8cwY7YwLJyHF2/RmsTC0+t+J5/Dg3e9i464BCTw2HpIoLBTN/0S+IF1DixWA3yFc4jiMjb1ZSctVgNJgm7LPoQ==
+quasar-crud@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/quasar-crud/-/quasar-crud-1.4.0.tgz#23e8f840e1f74819c0aa0f7e2deed75d4c42288a"
+  integrity sha512-xTEpviuDf/m0z7Od60Pl+enOEpD2UkkCCVukao+ZZ7jYuECoAb8t0UxZpx1w46CQGvkpBXLwOalDqgfSHmSG+Q==
   dependencies:
     "@quasar/extras" "^1.16.9"
-    axios "^1.6.5"
+    axios "^1.6.7"
     moment-jalaali "^0.10.0"
-    quasar "^2.14.2"
-    quasar-form-builder "^1.0.4"
+    quasar "^2.14.3"
+    quasar-form-builder "^1.0.6"
     shvl "^3.0.0"
 
-quasar-form-builder@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/quasar-form-builder/-/quasar-form-builder-1.0.4.tgz#18f199f59298facc0808eeeda1780b49a4f8b83a"
-  integrity sha512-t1Es7Ol1j1xzhNXlaKkf0xjmkUJ3D/RtP9FQGeRZMfamtfnb6KMJqh2OmPAVP0xyDBCzRTZlVyy05yFZPFy7Pg==
+quasar-form-builder@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/quasar-form-builder/-/quasar-form-builder-1.0.6.tgz#3f8caab7c1544d9c74f10a0bf34684703a39e7a6"
+  integrity sha512-Q7DHlVUsDmk3EMpBfE1K9Ih1VHeMYcGkTjvkqDa4MS2yBUa23glMZhjlLrF0h+SM+agcyad9WsAd1CQSjbE5Hw==
   dependencies:
     "@quasar/extras" "^1.16.9"
     core-js "^3.34.0"
@@ -6462,10 +6462,10 @@ quasar-form-builder@^1.0.4:
     quasar "^2.14.2"
     shvl "^3.0.0"
 
-quasar-template-builder@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/quasar-template-builder/-/quasar-template-builder-1.1.1.tgz#14ff5632b2b827dba707052cd22a8c9d705f2e09"
-  integrity sha512-4pT/oKIHEQlq5EkFACg7Z4GOeyhJ+HHyMuPIzvIa8S1PyW5PX+NOWU/3YnRdWcpb3DuSahx7NumXHJtRmM50ZQ==
+quasar-template-builder@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/quasar-template-builder/-/quasar-template-builder-1.2.0.tgz#a14260e306b518c54aaef0521cf0d1cc8c671265"
+  integrity sha512-+TUvBvFIPtz1sVU8tBzlyvPIzCLRZgxoACc08cszyB2LhT0Ym2I74GKzRdSDIk4JMNVIAA9w2L6CdWLPckYrmQ==
   dependencies:
     "@quasar/extras" "^1.16.9"
     quasar "^2.14.2"
@@ -6491,6 +6491,11 @@ quasar@^2.14.2:
   version "2.14.2"
   resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.14.2.tgz#794d8434eb449549fc8455aaec9bc14b71a57c98"
   integrity sha512-f5KliWtM5BEuFsDU4yvuP+dlVIWZNrGu5VpWFsxzjpoykcP4B2HIOUiCl3mx2NCqERHd4Ts0aeioRkt9TTeExA==
+
+quasar@^2.14.3:
+  version "2.14.3"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.14.3.tgz#0956f6bcdc9ce5a76728e1d7b235e9ce963f1d89"
+  integrity sha512-7WzbtZxykLn2ic5oNpepZ2ZjDVpmxyVD4KC9rWe+Ia+4Er61svGr4jOuttN+Ok7IerLSCmKIRyjQMgasF60rFA==
 
 queue-microtask@^1.2.2:
   version "1.2.3"
@@ -8191,6 +8196,11 @@ vuex@^4.1.0:
   integrity sha512-hmV6UerDrPcgbSy9ORAtNXDr9M4wlNP4pEFKye4ujJF8oqgFFuxDCdOLS3eNoRTtq5O3hoBDh9Doj1bQMYHRbQ==
   dependencies:
     "@vue/devtools-api" "^6.0.0-beta.11"
+
+wavesurfer.js@^7.7.1:
+  version "7.7.1"
+  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-7.7.1.tgz#4ec024cc5a69885a3ee2369f28b294704a531593"
+  integrity sha512-2HFBnTgxtz2e2XMpoPVDxDjxJH6CQLj+Q1TO6U3K2ngtQ4svgymDb4fhK++qTZlL4GTMmUuqxDHEi6wK/8gGtg==
 
 wcwidth@^1.0.1:
   version "1.0.1"

@@ -189,6 +189,9 @@ export default defineComponent({
     },
     playVideo () {
       this.$refs.videoPlayer.player.play()
+    },
+    pauseVideo () {
+      this.$refs.videoPlayer.player.pause()
     }
   }
 })

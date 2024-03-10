@@ -81,14 +81,14 @@ export default {
       localContent: new Content()
     }
   },
-  mounted () {
+  created () {
     this.localContent = new Content(this.content)
   },
   methods: {
     handleContentBookmark () {
       this.bookmarkLoading = true
       if (this.localContent.is_favored) {
-        this.$apiGateway.content.unfavored(this.content.id)
+        APIGateway.content.unfavored(this.content.id)
           .then(() => {
             this.localContent.is_favored = !this.localContent.is_favored
             this.bookmarkLoading = false
@@ -98,7 +98,7 @@ export default {
           })
         return
       }
-      this.$apiGateway.content.favored(this.content.id)
+      APIGateway.content.favored(this.content.id)
         .then(() => {
           this.localContent.is_favored = !this.localContent.is_favored
           this.bookmarkLoading = false
