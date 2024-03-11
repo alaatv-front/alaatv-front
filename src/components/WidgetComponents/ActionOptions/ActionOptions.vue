@@ -74,7 +74,7 @@ export default {
         this.$emit('update:scrollTo', newValue)
       },
       get () {
-        return this.action
+        return this.scrollTo
       }
     },
     localLink: {
@@ -82,7 +82,7 @@ export default {
         this.$emit('update:link', newValue)
       },
       get () {
-        return this.action
+        return this.link
       }
     },
     localEventName: {
@@ -90,7 +90,7 @@ export default {
         this.$emit('update:eventName', newValue)
       },
       get () {
-        return this.action
+        return this.eventName
       }
     },
     localEventArgs: {
@@ -98,7 +98,7 @@ export default {
         this.$emit('update:eventArgs', newValue)
       },
       get () {
-        return this.action
+        return this.eventArgs
       }
     }
   },
