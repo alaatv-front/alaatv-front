@@ -1,3 +1,15 @@
+## [1.14.1](https://git.alaatv.com/web/alaatv_front/compare/v1.14.0...v1.14.1) (2024-03-11)
+
+
+### Bug Fixes
+
+* RaychatWidget set for custom pages ([1a2619b](https://git.alaatv.com/web/alaatv_front/commit/1a2619b31764d7129d51f67738d950868f497e80))
+* ttsp content show page has_watched ([cd6aeca](https://git.alaatv.com/web/alaatv_front/commit/cd6aecadfbaa645761eaab077962c0e0a96d2efb))
+* ttsp product page ExpansionItem.vue emit warning ([27da97f](https://git.alaatv.com/web/alaatv_front/commit/27da97fedfa49a4c543b9ef3c4a88def670a3e03))
+* ttsp remove console.log ([83451f2](https://git.alaatv.com/web/alaatv_front/commit/83451f2a706fc0d78755dabf8c190c99818b7217))
+* update dependencies ([55644f2](https://git.alaatv.com/web/alaatv_front/commit/55644f2f60d43e524f0579a2c2eabf1e2e210ac8))
+* update dependencies for hydration miss match ([8aaa977](https://git.alaatv.com/web/alaatv_front/commit/8aaa9778c124171e4d28094c5e37f406f178e8b7))
+
 # [1.14.0](https://git.alaatv.com/web/alaatv_front/compare/v1.13.3...v1.14.0) (2024-03-09)
 
 
