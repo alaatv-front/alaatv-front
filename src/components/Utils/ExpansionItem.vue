@@ -93,7 +93,7 @@ export default defineComponent({
     }
 
   },
-  emits: ['Show', 'beforeShow', 'afterShow', 'hide', 'beforeHide', 'afterHide', 'update:modelValue'],
+  emits: ['show', 'beforeShow', 'afterShow', 'hide', 'beforeHide', 'afterHide', 'update:modelValue'],
   data () {
     return {
       localModel: false
