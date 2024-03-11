@@ -1,5 +1,11 @@
 <template>
-  <div />
+  <component :is="'style'"
+             type="text/css">
+    iframe.raychat_frame {
+    bottom: {{ localOptions.bottom }}px;
+    left: {{ localOptions.left }}px;
+    }
+  </component>
 </template>
 
 <script>
@@ -10,7 +16,10 @@ export default {
   mixins: [mixinWidget],
   data () {
     return {
+      wcriptId: 'RaychatWidgetScript',
       defaultOptions: {
+        bottom: null,
+        left: null,
         RAYCHAT_TOKEN: null
       }
     }
@@ -22,25 +31,50 @@ export default {
   },
   watch: {
     raychatToket () {
-      this.loadScript()
+      this.addScript()
     }
   },
   mounted () {
-    this.loadScript()
+    this.addScript()
+  },
+  beforeUnmount () {
+    this.removeRaychat()
   },
   methods: {
-    loadScript () {
+    removeRaychat () {
+      this.removeScript()
+      this.removeIframe()
+    },
+    removeIframe () {
+      const raychatElement = document.getElementById('raychat_widget')
+      if (!raychatElement) {
+        return
+      }
+
+      raychatElement.remove()
+    },
+    removeScript () {
+      const scriptTag = document.getElementsByTagName('script').namedItem(this.wcriptId)
+      if (!scriptTag) {
+        return
+      }
+
+      scriptTag.remove()
+    },
+    addScript () {
       if (!this.raychatToket) {
         return
       }
-      window.RAYCHAT_TOKEN = this.raychatToket;
-      (function () {
-        const d = document
-        const s = d.createElement('script')
-        s.src = 'https://widget-react.raychat.io/install/widget.js'
-        s.async = 1
-        d.getElementsByTagName('head')[0].appendChild(s)
-      })()
+      if (document.getElementsByTagName('script').namedItem(this.wcriptId)) {
+        return
+      }
+      window.RAYCHAT_TOKEN = this.raychatToket
+
+      const script = document.createElement('script')
+      script.id = this.wcriptId
+      script.src = 'https://widget-react.raychat.io/install/widget.js'
+      script.async = 1
+      document.getElementsByTagName('head')[0].appendChild(script)
     }
   }
 }

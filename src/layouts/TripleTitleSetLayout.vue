@@ -49,17 +49,17 @@
                         type="QBadge" />
           </div>
           <q-icon v-if="!!selectedTopic"
-                  name="chevron_left" />
+                  name="ph:caret-left" />
           <div v-if="!!selectedTopic"
                class="set-title">{{ selectedTopic }}</div>
           <q-icon v-if="!!selectedContentTitle"
-                  name="chevron_left" />
+                  name="ph:caret-left" />
           <div v-if="!!selectedContentTitle"
                class="content-title">{{ selectedContentTitle }}</div>
         </div>
         <div class="back-btn">
           <q-btn flat
-                 icon-right="chevron_left"
+                 icon-right="ph:caret-left"
                  @click="goBack">بازگشت</q-btn>
         </div>
       </div>
