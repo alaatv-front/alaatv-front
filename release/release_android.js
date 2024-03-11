@@ -3,7 +3,7 @@ const fs = require('fs').promises;
 
 if (!process.env["SERVICE_ACCOUNT_FILE_PATH"]){
     console.error("please define SERVICE_ACCOUNT_FILE_PATH env")
-    exit(1)
+    process.exit(1)
 }
 
 // Load the service account credentials from the JSON key file
@@ -50,6 +50,7 @@ async function uploadAab(androidPublisher, packageName, aabFilePath) {
       },
     });
 
+    // eslint-disable-next-line no-console
     console.log('AAB file uploaded successfully.');
 
     return { editId, versionCode: bundle.data.versionCode };
@@ -65,7 +66,7 @@ async function createRelease(androidPublisher, packageName, editId, versionCode)
     const track = 'production';
 
     // Create a release
-    const release = await androidPublisher.edits.tracks.update({
+    await androidPublisher.edits.tracks.update({
       packageName,
       editId,
       track,
@@ -75,6 +76,7 @@ async function createRelease(androidPublisher, packageName, editId, versionCode)
       },
     });
 
+    // eslint-disable-next-line no-console
     console.log('Release created successfully.');
 
     // Commit the changes
@@ -83,7 +85,7 @@ async function createRelease(androidPublisher, packageName, editId, versionCode)
       editId,
     });
 
-
+    // eslint-disable-next-line no-console
     console.log('Changes committed.');
   } catch (error) {
     console.error('Error creating release:', error);
