@@ -171,9 +171,6 @@ export default {
       this.scrollToElement()
     }
   },
-  mounted () {
-    console.log('ContentVideoList mounted: ', this.set.contents.list)
-  },
   methods: {
     itemSelected (item) {
       this.clickedItem = item
