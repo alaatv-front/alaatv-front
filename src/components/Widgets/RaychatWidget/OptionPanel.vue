@@ -4,10 +4,26 @@
                      :show-box-shadows-tab="true"
                      :show-border-style-tab="true">
     <template #main-tab>
-      <div>
-        RAYCHAT_TOKEN
+      <div class="q-mt-md">
+        <q-input v-model="localOptions.RAYCHAT_TOKEN"
+                 label="RAYCHAT_TOKEN" />
+        <div class="q-pt-md">
+          bottom:
+          <q-slider v-model="localOptions.bottom"
+                    label-always
+                    :min="0"
+                    :max="500"
+                    color="green" />
+        </div>
+        <div class="q-pt-md">
+          left:
+          <q-slider v-model="localOptions.left"
+                    label-always
+                    :min="0"
+                    :max="500"
+                    color="green" />
+        </div>
       </div>
-      <q-input v-model="localOptions.RAYCHAT_TOKEN" />
     </template>
   </option-panel-tabs>
 </template>
@@ -24,6 +40,8 @@ export default defineComponent({
   data () {
     return {
       defaultOptions: {
+        bottom: null,
+        left: null,
         RAYCHAT_TOKEN: null
       }
     }
