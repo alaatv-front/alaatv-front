@@ -8,14 +8,14 @@
                        :to="{ name: 'UserPanel.Asset.TripleTitleSet.Products', params: {eventName: $route.params.eventName} }">
             دوره ها
           </router-link>
-          <q-icon name="chevron_left" />
+          <q-icon name="ph:caret-left" />
           <div class="content-title">
             مشاوره
           </div>
         </div>
         <div class="back-btn">
           <q-btn flat
-                 icon-right="chevron_left"
+                 icon-right="ph:caret-left"
                  @click="goBack">بازگشت</q-btn>
         </div>
       </div>
@@ -131,8 +131,13 @@ export default {
     selectedContent () {
       return this.$store.getters['TripleTitleSet/selectedContent']
     },
-    selectedSet () {
-      return this.$store.getters['TripleTitleSet/selectedSet']
+    selectedSet: {
+      get () {
+        return this.$store.getters['TripleTitleSet/selectedSet']
+      },
+      set (newValue) {
+        this.$store.commit('TripleTitleSet/setSelectedSet', newValue)
+      }
     },
     selectedTopicList () {
       return this.$store.getters['TripleTitleSet/setTopicList']
@@ -179,7 +184,13 @@ export default {
         this.$store.commit('TripleTitleSet/updateSetList', [])
         this.$store.commit('TripleTitleSet/updateTopicList', [])
       }
-      this.storeSelectedSet(this.$route.params.setId)
+      this.storeSelectedContent(this.$route.params.contentId)
+        .then(() => {
+          this.storeSelectedSet(this.$route.params.setId)
+        })
+        .catch(() => {
+          this.goBack()
+        })
     },
     goBack () {
       this.$router.push(
@@ -201,23 +212,27 @@ export default {
           this.updateSelectedSet(set)
           this.contentLoading = false
           this.ContentVideoListKey++
-          this.storeSelectedContent(this.$route.params.contentId)
         }).catch(() => {
           this.contentLoading = false
           this.ContentVideoListKey++
         })
     },
     storeSelectedContent (contentId) {
-      this.contentLoading = true
-      this.getSelectedContent(contentId)
-        .then(content => {
-          this.setSelectedContent(content)
-          this.contentLoading = false
-          this.ContentVideoListKey++
-        }).catch(() => {
-          this.contentLoading = false
-          this.ContentVideoListKey++
-        })
+      return new Promise((resolve, reject) => {
+        this.contentLoading = true
+        this.getSelectedContent(contentId)
+          .then(content => {
+            this.setSelectedContent(content)
+            this.contentLoading = false
+            this.ContentVideoListKey++
+            resolve(content)
+          })
+          .catch(() => {
+            this.contentLoading = false
+            this.ContentVideoListKey++
+            reject()
+          })
+      })
     },
     getProductSets (productId) {
       this.$store.dispatch('TripleTitleSet/getSet', productId)

@@ -7,7 +7,7 @@
                flat
                square
                class="q-mt-md"
-               icon="chevron_right"
+               icon="ph:caret-right"
                @click="previousSetClicked" />
         <div class="set-title col q-ml-lg q-mt-lg">
           {{ set.title || set.short_title }}
@@ -15,7 +15,7 @@
         <q-btn v-if="!hideNextBtn"
                flat
                square
-               icon="chevron_left"
+               icon="ph:caret-left"
                class="q-mt-md"
                @click="nextSetClicked" />
       </div>
@@ -35,12 +35,12 @@
               <div class="content-show items-center">
                 <div class="">
                   <q-icon v-if="content.type === 8"
-                          :name="content.has_watched ? 'check_circle' : 'isax:play-circle'"
-                          :color="isCurrent(content.id) ? 'primary' : ''"
+                          :name="content.has_watched ? 'ph:check-fat' : 'ph:play'"
+                          :color="isCurrent(content.id) ? 'primary' : 'grey-8'"
                           size="sm" />
                   <q-icon v-else
-                          name="isax:book-1"
-                          :color="isCurrent(content.id) ? 'primary' : ''"
+                          name="ph:book-open-text"
+                          :color="isCurrent(content.id) ? 'primary' : 'grey-8'"
                           size="sm" />
                 </div>
                 <div class="video-title q-pl-sm">
@@ -96,9 +96,9 @@
 </template>
 
 <script>
-import { Content } from 'src/models/Content'
-import { Set } from 'src/models/Set'
 import { scroll } from 'quasar'
+import { Set } from 'src/models/Set.js'
+import { Content } from 'src/models/Content.js'
 
 const {
   getScrollTarget,
@@ -171,7 +171,9 @@ export default {
       this.scrollToElement()
     }
   },
-  created () {},
+  mounted () {
+    console.log('ContentVideoList mounted: ', this.set.contents.list)
+  },
   methods: {
     itemSelected (item) {
       this.clickedItem = item
