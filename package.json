@@ -91,7 +91,6 @@
     "vue3-carousel": "^0.3.1",
     "vue3-otp-input": "^0.4.1",
     "vuex": "^4.1.0",
-    "vue": "3.4.13",
     "vuex-persistedstate": "^4.1.0",
     "wavesurfer.js": "^7.7.1",
     "workbox-build": "^7.0.0",
