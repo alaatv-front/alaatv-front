@@ -1,15 +1,5 @@
 <template>
   <div>
-    <div class="lt-sm flex justify-end">
-      <q-btn flat
-             square
-             color="grey"
-             :to="{name: 'UserPanel.Dashboard'}">
-        <q-icon name="ph:stack"
-                class="q-mr-sm" />
-        >
-      </q-btn>
-    </div>
     <div v-if="loading"
          class="flex justify-center q-mt-xl">
       <q-spinner-ball color="primary"
@@ -40,8 +30,18 @@
       <div v-else
            class="my-orders-list">
         <div v-if="showTitle"
-             class="title">
-          سفارش های من
+             class="title flex justify-between items-center">
+          <div>
+            سفارش های من
+          </div>
+          <q-btn flat
+                 color="grey"
+                 square
+                 class="lt-lg"
+                 :to="{name: 'UserPanel.Dashboard'}">
+            بازگشت
+            <q-icon name="ph:caret-left" />
+          </q-btn>
         </div>
         <entity-index v-if="mounted"
                       ref="orderList"
