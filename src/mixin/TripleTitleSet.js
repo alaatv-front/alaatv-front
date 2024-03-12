@@ -4,8 +4,9 @@ import { Event } from 'src/models/Event.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 
 const mixinTripleTitleSet = {
-  data: () => {
+  data () {
     return {
+      mounted: false,
       isVideoWatched: false,
       user: new User(),
       isUserLogin: false,
@@ -14,6 +15,8 @@ const mixinTripleTitleSet = {
   },
   // mixins: [mixinAuth],
   mounted () {
+    this.mounted = true
+    this.updateLeftDrawer()
     this.$bus.on('onLoggedIn', () => {
       this.$store.commit('AppLayout/updateLoginDialog', false)
       this.setEvent()
@@ -204,6 +207,26 @@ const mixinTripleTitleSet = {
 
         this.syncwatchingContentWithContentInList()
       } catch {
+      }
+    },
+    updateLeftDrawer () {
+      if (!this.mounted) {
+        return
+      }
+      this.isDesktop = !this.$q.screen.lt.md
+      const isIframe = window.self !== window.top
+      if (this.$q.screen.gt.sm && !isIframe) {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
+      } else {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+        if (this.isEwanoUser) {
+          setTimeout(() => {
+            this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+            this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+          }, 10)
+        }
       }
     }
   }

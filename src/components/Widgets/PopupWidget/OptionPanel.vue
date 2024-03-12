@@ -22,7 +22,8 @@
               <q-checkbox v-model="localOptions.persistent"
                           label="persistent" />
               <q-checkbox v-model="localOptions.once"
-                          label="Once" />
+                          label="Once"
+                          @update:model-value="refresh($event)" />
             </div>
             <div class="col-12 col-md-2">
               <q-checkbox v-model="localOptions.hasHeader"
@@ -33,18 +34,23 @@
                           label="closeButton" />
 
             </div>
-            <q-input v-model="localOptions.refresh"
-                     readonly
-                     type="text"
-                     class="full-width q-my-md"
-                     label="refresh localStorage token for popup widget's once option">
-              <template #after>
-                <q-btn color="primary"
-                       icon="ph:arrow-clockwise"
-                       label="refresh"
-                       @click="refresh" />
-              </template>
-            </q-input>
+            <template v-if="localOptions.once">
+              <div class="flex flex-wrap q-mb-sm" />
+              <q-item>
+                <q-item-section>
+                  <q-item-label>
+                    در صورت اعمال تغییرات و فعال بودن گزینه once، تغییرات جدید به کسانی که قبلا این پاپ آپ را دیده باشند نشان داده نخواهد شد. برای نشان دادن این اتغییرات برای همه لطفا دکمه رفرش را بزنید
+                  </q-item-label>
+                </q-item-section>
+                <q-item-section side>
+                  <q-btn color="primary"
+                         icon="ph:arrow-clockwise"
+                         square
+                         @click="refresh(true)" />
+                </q-item-section>
+              </q-item>
+            </template>
+
           </div>
           <q-expansion-item v-if="localOptions.hasHeader"
                             :label="'headerWidgets' ">
@@ -514,8 +520,17 @@ export default defineComponent({
       this.selectedSectionName = sectionName
       this.optionPanel = true
     },
-    refresh () {
+    refresh (once) {
+      if (!once) {
+        this.localOptions.refresh = null
+        return
+      }
       this.localOptions.refresh = Date.now()
+      this.$q.notify({
+        message: 'با موفقیت ثبت شد',
+        color: 'secondary',
+        position: 'top'
+      })
     }
   }
 })

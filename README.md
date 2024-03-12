@@ -50,3 +50,36 @@ this error because of "sourcemap: true" in quasar.config.js.
 
 ### Customize the configuration
 See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+
+## Release Android App To Play Store
+
+### Enviroment variables needed for release
+
+first set environment variables needed for release:
+
+ENV | description
+---- | ----
+ANDROID_VERSION_CODE | An integer showing version code of new release
+ANDROID_VERSION_NAME | A string showing version name of new release
+ANDROID_KEYSTORE_PATH | Path to application keystore
+ANDROID_STORE_PASS | Store password
+ANDROID_ALIAS | Alias of application
+ANDROID_KEY_PASS | Key password
+SERVICE_ACCOUNT_FILE_PATH | Path to service account key file
+
+### Build Steps
+1. Install npm packages:
+    
+    ```
+    yarn install --frozen-lock
+    ```
+1. Generate bundle and apk of application release:
+
+    ```
+    npm run build:android
+    ```
+1. Run script for releaseing application:
+
+    ```
+    ./release/release_android.js
+    ```

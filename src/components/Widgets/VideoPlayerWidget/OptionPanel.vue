@@ -3,13 +3,12 @@
     <template #main-tab>
       <div class="option-panel-container">
         <div class="input-container q-pt-md">
-          <div class="outsideLabel">poster</div>
           <image-upload-input v-model:value ="localOptions.poster"
                               @update:value="updatePoster($event)" />
         </div>
         <div class="input-container q-py-md">
-          <div class="outsideLabel">over-player</div>
-          <q-checkbox v-model ="localOptions.showBtn" />
+          <q-checkbox v-model ="localOptions.showBtn"
+                      label="over-player" />
         </div>
         <div class="input-container q-py-md">
           <div>نوع سورس ویدیو را انتخاب کنید:</div>
@@ -28,27 +27,25 @@
         </div>
         <div class="input-container">
           <div v-if="localOptions.srcType && localOptions.srcType === 'hls'">
-            <div class="outsideLabel">hls</div>
             <q-input v-model="localOptions.url"
-                     label="poster" />
+                     label="hls" />
           </div>
           <div v-if="localOptions.srcType && localOptions.srcType === 'singleQuality'">
-            <div class="outsideLabel">تک کیفیت</div>
             <q-input v-model="localOptions.url"
                      label="تک کیفیت" />
           </div>
           <div v-if="localOptions.srcType && localOptions.srcType === 'multipleQuality'">
             <div class="input-container q-pt-md">
-              <div class="outsideLabel">سورس کیفیت عالی</div>
-              <q-input v-model="localOptions.src[0]" />
+              <q-input v-model="localOptions.src[0]"
+                       label="سورس کیفیت عالی" />
             </div>
             <div class="input-container q-pt-md">
-              <div class="outsideLabel">سورس کیفیت خوب</div>
-              <q-input v-model="localOptions.src[1]" />
+              <q-input v-model="localOptions.src[1]"
+                       label="سورس کیفیت خوب" />
             </div>
             <div class="input-container q-pt-md">
-              <div class="outsideLabel">سورس کیفیت متوسط</div>
-              <q-input v-model="localOptions.src[2]" />
+              <q-input v-model="localOptions.src[2]"
+                       label="سورس کیفیت متوسط" />
             </div>
           </div>
         </div>
