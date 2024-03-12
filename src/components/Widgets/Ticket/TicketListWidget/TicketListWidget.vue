@@ -169,11 +169,6 @@
         </template>
       </entity-index>
     </div>
-    {{ count }}
-    <q-btn color="primary"
-           icon="check"
-           label="OK"
-           @click="add" />
   </div>
 </template>
 
@@ -210,7 +205,6 @@ export default {
   },
   data () {
     return {
-      count: 0,
       defaultOptions: {
         asAdmin: false
       },
@@ -683,9 +677,6 @@ export default {
     this.checkQueryParams()
   },
   methods: {
-    add () {
-      this.count++
-    },
     filterTickets () {
       this.$refs.ticketEntityIndex.search()
     },
