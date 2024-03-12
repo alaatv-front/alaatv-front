@@ -85,16 +85,16 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import { mixinAuth } from 'src/mixin/Mixins.js'
 import LazyImg from 'src/components/lazyImg.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
+import { mixinAuth, mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
 
 export default {
   name: 'TripleTitleSetPanel',
   components: { LazyImg, LayoutMenu },
-  mixins: [mixinAuth, mixinEwano],
+  mixins: [mixinAuth, mixinEwano, mixinTripleTitleSet],
   data () {
     return {
       mounted: false,
@@ -197,8 +197,11 @@ export default {
     }
   },
   watch: {
-    topicList () {
-      this.fillTopicsRouteArray(this.$store.getters['TripleTitleSet/setTopicList'])
+    topicList: {
+      immediate: true,
+      handler () {
+        this.fillTopicsRouteArray(this.$store.getters['TripleTitleSet/setTopicList'])
+      }
     },
     screenName () {
       this.updateLeftDrawer()
@@ -215,27 +218,6 @@ export default {
       })
   },
   methods: {
-    updateLeftDrawer () {
-      if (!this.mounted) {
-        return
-      }
-
-      this.isDesktop = !this.$q.screen.lt.md
-      const isIframe = window.self !== window.top
-      if (this.$q.screen.gt.sm && !isIframe) {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
-      } else {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
-        if (this.isEwanoUser) {
-          setTimeout(() => {
-            this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
-            this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
-          }, 10)
-        }
-      }
-    },
     getEventInfoByName () {
       return new Promise((resolve, reject) => {
         APIGateway.events.getEventInfoByName(this.$route.params.eventName)
