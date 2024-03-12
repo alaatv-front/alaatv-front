@@ -124,6 +124,7 @@ export default class OrderAPI extends APIRepository {
               ...
               {
                 packageProductId: 243,
+                packageTitle: 'ابریشم ۲',
                 products: [
                   ...
                   {

@@ -1,27 +1,56 @@
 <template>
-  <div :style="defaultOptions.style"
-       class="select-teacher">
-    <q-card class="select-teacher__order-items q-pa-md">
-      <order-item v-for="orderItem in productsShouldSelect"
-                  :key="orderItem.orderId"
-                  :order="orderItem" />
-    </q-card>
-  </div>
+  <q-card :style="defaultOptions.style"
+          class="select-teacher outline-card">
+    <q-banner class="message-banner">
+      <div class="flex justify-start items-center">
+        <badge-icon icon="ph:warning"
+                    color="warning"
+                    class="q-mr-md" />
+        <div>
+          <template v-if="productsShouldSelect.length > 0">
+            دوره های زیر
+          </template>
+          <template>
+            این دوره
+          </template>
+          دارای چند استاد است. لطفا استاد مورد نظر خود را انتخاب نمایید:
+          <br>
+          (توجه: بعد از انتخاب، امکان تغییر از طریق سایت وجود ندارد)
+        </div>
+      </div>
+    </q-banner>
+    <q-card-section>
+      <div class="select-teacher__order-items">
+        <order-item v-for="orderItem in productsShouldSelect"
+                    :key="orderItem.orderId"
+                    :order="orderItem"
+                    class="order-item" />
+      </div>
+    </q-card-section>
+    <q-separator class="q-my-md" />
+    <q-card-section class="flex justify-end">
+      <q-btn color="primary"
+             label="ثبت دبیران انتخاب شده"
+             :loading="sendSelectedTeacherLoading"
+             @click="sendSelectedTeacher" />
+    </q-card-section>
+  </q-card>
 </template>
 
 <script>
-import { Set } from 'src/models/Set.js'
 import OrderItem from './components/Order.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
+import BadgeIcon from 'src/components/Utils/BadgeIcon.vue'
 
 export default {
   name: 'SelectTeacher',
-  components: { OrderItem },
+  components: { BadgeIcon, OrderItem },
   mixins: [mixinWidget],
   data () {
     return {
       loading: false,
+      sendSelectedTeacherLoading: false,
       productsShouldSelect: [],
       defaultOptions: {
         className: '',
@@ -34,12 +63,7 @@ export default {
         showCountOfPamphlet: true,
         showBtnFavorSet: true,
         showBtnFavorContent: true
-      },
-      tab: '',
-      set: new Set(),
-      contentVideos: [],
-      allGroupsOfContents: [],
-      ordered: true
+      }
     }
   },
   mounted () {
@@ -51,11 +75,20 @@ export default {
       APIGateway.order.getProductsShouldSelect()
         .then((productsShouldSelect) => {
           this.productsShouldSelect = productsShouldSelect
-          console.log('this.productsShouldSelect', this.productsShouldSelect)
           this.loading = false
         })
         .catch(() => {
           this.loading = false
+        })
+    },
+    sendSelectedTeacher () {
+      this.sendSelectedTeacherLoading = true
+      APIGateway.order.getProductsShouldSelect()
+        .then(() => {
+          this.sendSelectedTeacherLoading = false
+        })
+        .catch(() => {
+          this.sendSelectedTeacherLoading = false
         })
     }
   }
@@ -64,10 +97,13 @@ export default {
 
 <style scoped lang="scss">
 .select-teacher {
-  .select-teacher__orders {
-    margin-bottom: $space-1;
-    .select-teacher__order-items {
-    }
+  .message-banner {
+    @include body1;
+    color: $grey-9;
+    margin-bottom: $space-4;
+    border: solid 2px $warning-3;
+  }
+  .select-teacher__order-items {
   }
 }
 </style>
