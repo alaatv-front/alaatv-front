@@ -54,7 +54,7 @@
             </template>
 
             <template v-slot:after>
-              <q-btn flat
+              <q-btn outline
                      square
                      color="primary"
                      icon="ph:magnifying-glass"
