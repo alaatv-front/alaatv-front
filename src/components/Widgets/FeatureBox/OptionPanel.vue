@@ -10,7 +10,7 @@
         <div class="col-12">
           <q-expansion-item expand-separator
                             icon="ph:align-center-horizontal"
-                            label="horizontal">
+                            label="responsive horizontal alignment">
             <responsive-size-tab-panel v-model:size="size">
               <template v-for="sizeItem in sizeOptions"
                         :key="sizeItem"
@@ -24,7 +24,7 @@
           </q-expansion-item>
           <q-expansion-item expand-separator
                             icon="ph:images"
-                            label="backgrounds">
+                            label="responsive backgrounds">
             <responsive-back-ground v-model:options="localOptions.backgrounds" />
           </q-expansion-item>
           <q-expansion-item expand-separator
