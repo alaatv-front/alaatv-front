@@ -1,3 +1,10 @@
+## [1.15.1](https://git.alaatv.com/web/alaatv_front/compare/v1.15.0...v1.15.1) (2024-03-12)
+
+
+### Bug Fixes
+
+* ttsp show drawer items ([1456681](https://git.alaatv.com/web/alaatv_front/commit/1456681e53496f0602d266dc3e4f49ad80c9dceb))
+
 # [1.15.0](https://git.alaatv.com/web/alaatv_front/compare/v1.14.1...v1.15.0) (2024-03-12)
 
 
