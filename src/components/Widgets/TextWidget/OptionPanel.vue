@@ -27,15 +27,16 @@
                       label="themes"
                       filled />
           </div>
+          <template v-if="themeThumbnails[localOptions.activeTheme]">
+            <div class="col-12 col-md-3">
+              نمونه تم
+              <lazy-img :src="themeThumbnails[localOptions.activeTheme]" />
+            </div>
+          </template>
           <div v-for="(value, key, index) in localOptions.themes[localOptions.activeTheme]"
                :key="index"
                class="col-12 col-md-3">
-            <template v-if="key === 'image'">
-              نمونه تم
-              <lazy-img :src="localOptions.themes[localOptions.activeTheme].image" />
-            </template>
-            <q-input v-else
-                     v-model="localOptions.themes[localOptions.activeTheme][key]"
+            <q-input v-model="localOptions.themes[localOptions.activeTheme][key]"
                      type="text"
                      :label="key" />
           </div>
@@ -171,7 +172,6 @@ export default defineComponent({
         activeTheme: 'default',
         themes: {
           theme1: {
-            image: 'https://nodes.alaatv.com/upload/alaaPages/2024-02/Screenshotfrom2024-02-2614-30-001708946382.png',
             borderColor: null,
             borderSize: null,
             borderWidth: null,
@@ -183,7 +183,10 @@ export default defineComponent({
           }
         }
       },
-      themes: ['default', 'theme1']
+      themes: ['default', 'theme1'],
+      themeThumbnails: {
+        theme1: 'https://nodes.alaatv.com/upload/alaaPages/2024-02/Screenshotfrom2024-02-2614-30-001708946382.png'
+      }
     }
   },
   mounted () {
