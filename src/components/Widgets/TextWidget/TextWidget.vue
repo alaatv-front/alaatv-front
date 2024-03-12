@@ -120,6 +120,7 @@ export default {
         activeTheme: 'default',
         themes: {
           theme1: {
+            image: 'https://nodes.alaatv.com/upload/alaaPages/2024-02/Screenshotfrom2024-02-2614-30-001708946382.png',
             borderColor: null,
             borderSize: null,
             borderWidth: null,

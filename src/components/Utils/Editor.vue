@@ -47,6 +47,8 @@ export default {
     const $q = this.$q
     return {
       foreColor: '#000000',
+      fontFamily: '',
+      fontOptions: ['Doran', 'IRANSans', 'IRANSansDN', 'IRANSansX', 'iranyekan', 'Plasma', 'Panchang', 'Modam'],
       editorToolbar: [
         [
           {
@@ -76,7 +78,7 @@ export default {
           {
             icon: $q.iconSet.editor.font,
             list: 'no-icons',
-            // options: ['p', 'h3', 'h4', 'h5', 'h6', 'code']
+            class: 'font',
             options: ['Doran', 'IRANSans', 'IRANSansDN', 'IRANSansX', 'iranyekan', 'Plasma', 'Panchang', 'Modam']
           },
           {
@@ -134,6 +136,14 @@ export default {
       const edit = this.$refs.editor
       this.$refs.colorPicker.hide()
       edit.caret.restore()
+      edit.runCmd(cmd, name)
+      edit.focus()
+    },
+    font (cmd, name) {
+      const edit = this.$refs.editor
+      this.fontFamily = name
+      edit.caret.restore()
+      this.$refs.fontFamily.hide()
       edit.runCmd(cmd, name)
       edit.focus()
     }
