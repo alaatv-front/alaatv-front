@@ -22,7 +22,8 @@
               <q-checkbox v-model="localOptions.persistent"
                           label="persistent" />
               <q-checkbox v-model="localOptions.once"
-                          label="Once" />
+                          label="Once"
+                          @update:model-value="refresh($event)" />
             </div>
             <div class="col-12 col-md-2">
               <q-checkbox v-model="localOptions.hasHeader"
@@ -33,7 +34,8 @@
                           label="closeButton" />
 
             </div>
-            <q-input v-model="localOptions.refresh"
+            <q-input v-if="localOptions.once"
+                     v-model="localOptions.refresh"
                      readonly
                      type="text"
                      class="full-width q-my-md"
@@ -42,7 +44,7 @@
                 <q-btn color="primary"
                        icon="ph:arrow-clockwise"
                        label="refresh"
-                       @click="refresh" />
+                       @click="refresh(true)" />
               </template>
             </q-input>
           </div>
@@ -514,7 +516,11 @@ export default defineComponent({
       this.selectedSectionName = sectionName
       this.optionPanel = true
     },
-    refresh () {
+    refresh (once) {
+      if (!once) {
+        this.localOptions.refresh = null
+        return
+      }
       this.localOptions.refresh = Date.now()
     }
   }

@@ -44,50 +44,60 @@
                 </template>
               </responsive-size-tab-panel>
             </q-expansion-item>
-          </div>
-          <div class="action col-md-12">
-            <div class="cehckBox">
-              <q-checkbox v-model="localOptions.useAEEEvent"
-                          label="استفاده از ایونت GTM"
-                          right-label />
-            </div>
-            <div v-if="localOptions.useAEEEvent"
-                 class="action-container q-gutter-lg-md">
-              <div>فیلد های مورد نظر ایونت GTM :</div>
-              <div class="col-9">
-                <div class="outsideLabel">id</div>
-                <q-input v-model="localOptions.AEEEventBody.id"
-                         label="id" />
+            <q-expansion-item expand-separator
+                              icon="ph:stack"
+                              label="GTM settings">
+              <div class="cehckBox">
+                <q-checkbox v-model="localOptions.useAEEEvent"
+                            label="استفاده از ایونت GTM"
+                            right-label />
               </div>
-              <div class="col-6">
-                <div class="outsideLabel">name</div>
-                <q-input v-model="localOptions.AEEEventBody.name"
-                         label="name" />
+              <div v-if="localOptions.useAEEEvent"
+                   class="action-container q-gutter-lg-md">
+                <div>فیلد های مورد نظر ایونت GTM :</div>
+                <div class="col-9">
+                  <div class="outsideLabel">id</div>
+                  <q-input v-model="localOptions.AEEEventBody.id"
+                           label="id" />
+                </div>
+                <div class="col-6">
+                  <div class="outsideLabel">name</div>
+                  <q-input v-model="localOptions.AEEEventBody.name"
+                           label="name" />
+                </div>
+                <div class="col-6">
+                  <div class="outsideLabel">creative</div>
+                  <q-input v-model="localOptions.AEEEventBody.creative"
+                           label="creative" />
+                </div>
+                <div class="col-6">
+                  <div class="outsideLabel">position</div>
+                  <q-input v-model="localOptions.AEEEventBody.position"
+                           label="position" />
+                </div>
               </div>
-              <div class="col-6">
-                <div class="outsideLabel">creative</div>
-                <q-input v-model="localOptions.AEEEventBody.creative"
-                         label="creative" />
+            </q-expansion-item>
+            <q-expansion-item expand-separator
+                              icon="ph:mouse"
+                              label="Action settings">
+              <div class="row">
+                <div class="action col-md-12">
+                  <div class="cehckBox">
+                    <q-checkbox v-model="localOptions.hasAction"
+                                label="hasAction"
+                                right-label />
+                  </div>
+                  <div v-if="localOptions.hasAction"
+                       class="action-container">
+                    <action-options v-model:action="localOptions.action.name"
+                                    v-model:scroll-to="localOptions.action.scrollTo"
+                                    v-model:link="localOptions.action.route"
+                                    v-model:event-name="localOptions.action.eventName"
+                                    v-model:event-args="localOptions.action.eventArgs" />
+                  </div>
+                </div>
               </div>
-              <div class="col-6">
-                <div class="outsideLabel">position</div>
-                <q-input v-model="localOptions.AEEEventBody.position"
-                         label="position" />
-              </div>
-            </div>
-            <div class="cehckBox">
-              <q-checkbox v-model="localOptions.hasAction"
-                          label="hasAction"
-                          right-label />
-            </div>
-            <div v-if="localOptions.hasAction"
-                 class="action-container">
-              <action-options v-model:action="localOptions.action.name"
-                              v-model:scroll-to="localOptions.action.scrollTo"
-                              v-model:link="localOptions.action.route"
-                              v-model:event-name="localOptions.action.eventName"
-                              v-model:event-args="localOptions.action.eventArgs" />
-            </div>
+            </q-expansion-item>
           </div>
         </div>
       </div>
