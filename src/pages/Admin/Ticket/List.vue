@@ -18,7 +18,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'TicketList',
+                        name: 'TicketListWidget',
                         options: {
                           showRouteName: 'Admin.Ticket.Show',
                           createRouteName: 'Admin.Ticket.Create',

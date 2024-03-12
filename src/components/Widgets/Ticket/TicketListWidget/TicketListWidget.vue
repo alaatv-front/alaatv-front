@@ -79,7 +79,6 @@
                          color="primary"
                          label="مشاهده"
                          class="size-md"
-                         target="_blank"
                          :to="{ name: ticketShowRouteName, params: { id: inputData.props.row.id } }">
                     <q-tooltip>
                       مشاهده
@@ -170,6 +169,11 @@
         </template>
       </entity-index>
     </div>
+    {{ count }}
+    <q-btn color="primary"
+           icon="check"
+           label="OK"
+           @click="add" />
   </div>
 </template>
 
@@ -182,13 +186,14 @@ import LazyImg from 'src/components/lazyImg.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
 import SubmitButton from 'src/components/FormBuilderCustumComponents/SubmitButton.vue'
+import KeepAliveComponents from 'src/assets/js/KeepAliveComponents.js'
 
 const SubmitButtonComp = shallowRef(SubmitButton)
 export default {
-  name: 'TicketList',
+  name: 'TicketListWidget',
   components: {
-    EntityIndex,
-    LazyImg
+    LazyImg,
+    EntityIndex
   },
   mixins: [mixinTicket, mixinWidget],
   props: {
@@ -197,13 +202,15 @@ export default {
       default () {
         return {
           showRouteName: '',
-          createRouteName: ''
+          createRouteName: '',
+          keepAliveComponents: KeepAliveComponents
         }
       }
     }
   },
   data () {
     return {
+      count: 0,
       defaultOptions: {
         asAdmin: false
       },
@@ -676,6 +683,9 @@ export default {
     this.checkQueryParams()
   },
   methods: {
+    add () {
+      this.count++
+    },
     filterTickets () {
       this.$refs.ticketEntityIndex.search()
     },
