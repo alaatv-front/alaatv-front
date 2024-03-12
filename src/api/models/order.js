@@ -7,6 +7,7 @@ export default class OrderAPI extends APIRepository {
     this.APIAdresses = {
       orderCoupon: '/orderCoupon',
       getProductsShouldSelect: '/orderproduct/get-products-should-select',
+      selectProductBetweenMulti: '/orderproduct/select-product-between-multi',
       create: '/reqres/api/users',
       edit: '/admin/order',
       index: '/admin/order',
@@ -143,6 +144,39 @@ export default class OrderAPI extends APIRepository {
           ...
         ]
         */
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  selectProductBetweenMulti (data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.selectProductBetweenMulti,
+      data: {
+        data // Array of Object
+        /*
+        [
+          ...
+          {
+            orderId: 1,
+            packageProductId: 1,
+            productId: 1
+          },
+          {
+            orderId: 1,
+            packageProductId: 1,
+            productId: 1
+          },
+          ...
+        ]
+        */
+      },
+      resolveCallback: (response) => {
+        return response.data
       },
       rejectCallback: (error) => {
         return error

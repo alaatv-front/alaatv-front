@@ -9,11 +9,13 @@
       <div class="row q-col-gutter-md">
         <div v-for="(productGroup, productGroupIndex) in packageItem.products"
              :key="productGroupIndex"
-             class="package-product-group col-md-4 col-sm-6 col-xs-12">
+             class="package-product-group col-md-6 col-xs-12">
           <div class="package-product-item">
             <q-select v-model="productGroups[productGroupIndex].selectedProduct"
                       :label="productGroup[0].title"
                       :options="getTeacherOptions(productGroup)"
+                      map-options
+                      emit-value
                       @update:model-value="onChangeSelectedTeacher" />
           </div>
         </div>
@@ -24,25 +26,25 @@
 
 <script>
 export default {
-  name: 'SelectTeacher',
+  name: 'Package',
   props: {
     packageItem: {
       type: Object,
       default: null
     },
-    selectedTeachers: {
+    selectedProducts: {
       type: Array,
       default: () => []
     }
   },
-  emits: ['update:selectedTeachers'],
+  emits: ['update:selectedProducts'],
   data () {
     return {
       productGroups: []
     }
   },
   created () {
-    this.productGroups = this.packageItem.products.map(product => {
+    this.productGroups = this.packageItem.products.map(() => {
       return {
         selectedProduct: null
       }
@@ -53,19 +55,23 @@ export default {
       return products.map(product => {
         return {
           label: product.title,
-          value: product.id
+          value: product
         }
       })
+    },
+    allProductSelected () {
+      return !this.productGroups.find(item => !item.selectedProduct)
     },
     onChangeSelectedTeacher () {
       const selectedProducts = this.productGroups
         .filter(item => item.selectedProduct)
         .map(item => {
           return {
-            productId: item.selectedProduct.id
+            packageProductId: this.packageItem.packageProductId,
+            productId: item.selectedProduct.productId
           }
         })
-      this.$emit('update:selectedTeachers', selectedProducts)
+      this.$emit('update:selectedProducts', selectedProducts)
     }
   }
 }
