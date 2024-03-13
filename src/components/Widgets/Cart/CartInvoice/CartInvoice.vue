@@ -583,7 +583,7 @@ export default {
 
             const aTag = document.createElement('a')
             aTag.href = encryptedPaymentRedirectLink
-            aTag.target = '_blank'
+            aTag.target = '_self'
             aTag.click()
           } else {
             // window.open(encryptedPaymentRedirectLink, '_self')
