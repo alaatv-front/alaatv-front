@@ -231,9 +231,12 @@ import LazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { GatewayList } from 'src/models/Gateway.js'
+import { Capacitor, Plugins } from '@capacitor/core'
 import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
 import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+
+const { Browser } = Plugins
 
 let StickySidebar
 if (typeof window !== 'undefined') {
@@ -567,7 +570,13 @@ export default {
       this.$store.commit('loading/loading', true)
       this.$store.dispatch('Cart/paymentCheckout', this.selectedBank)
         .then((encryptedPaymentRedirectLink) => {
-          window.open(encryptedPaymentRedirectLink, '_self')
+          if (Capacitor.isNativePlatform()) {
+            // window.open = async url => Browser.open({ url: encryptedPaymentRedirectLink })
+            Browser.open({ url: encryptedPaymentRedirectLink })
+          } else {
+            window.open(encryptedPaymentRedirectLink, '_self')
+          }
+
           this.$store.commit('loading/loading', false)
         })
         .catch(() => {
