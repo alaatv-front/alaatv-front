@@ -17,6 +17,9 @@ export default {
                 {
                   widgets: [
                     {
+                      name: 'select-teacher-for-products-should-select-teacher'
+                    },
+                    {
                       name: 'triple-title-set-content'
                     }
                   ]
