@@ -579,9 +579,14 @@ export default {
 
             // Browser.open({ url: encryptedPaymentRedirectLink })
 
-            document.location = encryptedPaymentRedirectLink
+            // document.location = encryptedPaymentRedirectLink
+
+            const aTag = document.createElement('a')
+            aTag.href = encryptedPaymentRedirectLink
+            aTag.target = '_blank'
+            aTag.click()
           } else {
-            window.open(encryptedPaymentRedirectLink, '_self')
+            // window.open(encryptedPaymentRedirectLink, '_self')
           }
 
           this.$store.commit('loading/loading', false)
