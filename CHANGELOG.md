@@ -1,3 +1,38 @@
+## [1.17.1](https://git.alaatv.com/web/alaatv_front/compare/v1.17.0...v1.17.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* ttsp event_id ([42258cf](https://git.alaatv.com/web/alaatv_front/commit/42258cf337b9f54594f50088f49780ac04349a44))
+
+# [1.17.0](https://git.alaatv.com/web/alaatv_front/compare/v1.16.0...v1.17.0) (2024-03-13)
+
+
+### Bug Fixes
+
+* change TTSP events category_id to event_id ([#1007](https://git.alaatv.com/web/alaatv_front/issues/1007)) ([b201d9b](https://git.alaatv.com/web/alaatv_front/commit/b201d9b35947a53dd4e5d33865642c6025ec100d))
+
+
+### Features
+
+* update .env.example ([40bf181](https://git.alaatv.com/web/alaatv_front/commit/40bf18173986f60f94c20cfe57220ee3d9f9db35))
+
+# [1.16.0](https://git.alaatv.com/web/alaatv_front/compare/v1.15.1...v1.16.0) (2024-03-13)
+
+
+### Bug Fixes
+
+* ttsp content body ([402b61e](https://git.alaatv.com/web/alaatv_front/commit/402b61ed38414b9d99f9f3196a432647ffe78d39))
+* ttsp content comment save ([f7f1423](https://git.alaatv.com/web/alaatv_front/commit/f7f1423daec201bed3324c310010869d93bc2d39))
+* ttsp content comment style ([5d7ec19](https://git.alaatv.com/web/alaatv_front/commit/5d7ec19238ac3552a175c341eec4842586ff9c2d))
+* ttsp drawer update items ([eea4b48](https://git.alaatv.com/web/alaatv_front/commit/eea4b48f713a6d117c1d3149e54085df2430b6c8))
+* ttsp product page for disable products ([f033f8b](https://git.alaatv.com/web/alaatv_front/commit/f033f8b6c5b352b6f2a7f3d9408b99dc5dfdb32e))
+
+
+### Features
+
+* Select teacher of package products ([#1006](https://git.alaatv.com/web/alaatv_front/issues/1006)) ([f11f64a](https://git.alaatv.com/web/alaatv_front/commit/f11f64a21a88d84175ef0f8b8e49e1407bb030a2))
+
 ## [1.15.1](https://git.alaatv.com/web/alaatv_front/compare/v1.15.0...v1.15.1) (2024-03-12)
 
 

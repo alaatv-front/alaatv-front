@@ -54,7 +54,7 @@ export default defineComponent({
     },
     getMyStudyPlan () {
       this.loading = true
-      APIGateway.studyPlan.getMyStudyPlan({ event_id: this.event.studyEventId })
+      APIGateway.studyPlan.getMyStudyPlan({ event_id: this.event.id })
         .then(studyPlanInfo => {
           if (!studyPlanInfo || !studyPlanInfo.id) {
             this.dialog = true
