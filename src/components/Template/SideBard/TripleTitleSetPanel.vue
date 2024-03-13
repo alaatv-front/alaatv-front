@@ -86,14 +86,13 @@
 <script>
 import { mapMutations } from 'vuex'
 import LazyImg from 'src/components/lazyImg.vue'
-import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 import { mixinAuth, mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
 
 export default {
   name: 'TripleTitleSetPanel',
   components: { LazyImg, LayoutMenu },
-  mixins: [mixinAuth, mixinEwano, mixinTripleTitleSet],
+  mixins: [mixinAuth, mixinTripleTitleSet],
   data () {
     return {
       mounted: false,
@@ -204,10 +203,6 @@ export default {
     screenName () {
       this.updateLeftDrawer()
     }
-  },
-  mounted () {
-    this.mounted = true
-    this.updateLeftDrawer()
   },
   methods: {
     afterSetEvent () {
