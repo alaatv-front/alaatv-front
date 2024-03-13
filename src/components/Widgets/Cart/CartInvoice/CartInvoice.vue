@@ -235,6 +235,7 @@ import {
   Capacitor
   /*, Plugins */
 } from '@capacitor/core'
+import { Browser } from '@capacitor/browser'
 import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
 import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
@@ -577,16 +578,17 @@ export default {
             // window.open = async (url) => Browser.open({ url })
             // window.open(encryptedPaymentRedirectLink)
 
-            // Browser.open({ url: encryptedPaymentRedirectLink })
+            alert(encryptedPaymentRedirectLink)
+            Browser.open({ url: encryptedPaymentRedirectLink })
 
             // document.location = encryptedPaymentRedirectLink
 
-            const aTag = document.createElement('a')
-            aTag.href = encryptedPaymentRedirectLink
-            aTag.target = '_self'
-            aTag.click()
+            // const aTag = document.createElement('a')
+            // aTag.href = encryptedPaymentRedirectLink
+            // aTag.target = '_self'
+            // aTag.click()
           } else {
-            // window.open(encryptedPaymentRedirectLink, '_self')
+            window.open(encryptedPaymentRedirectLink, '_self')
           }
 
           this.$store.commit('loading/loading', false)
@@ -595,7 +597,6 @@ export default {
           this.$store.commit('loading/loading', false)
         })
     },
-
     login () {
       this.$store.dispatch('Auth/login', this.userEnteredLoginInfo)
         .then(() => {
@@ -604,11 +605,9 @@ export default {
           }
         })
     },
-
     getPriceFormat (priceKey) {
       return this.cart.price.toman(priceKey, null)
     },
-
     clickOnGateway () {
       // this.selectedBank = !this.selectedBank
     }
