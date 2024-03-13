@@ -122,7 +122,7 @@ export default class EventsAPI extends APIRepository {
         ]
       },
       {
-        id: 24,
+        id: 35,
         studyEventId: 24,
         name: 'sin8',
         title: 'سین 8',
