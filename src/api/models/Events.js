@@ -122,8 +122,8 @@ export default class EventsAPI extends APIRepository {
         ]
       },
       {
-        id: 35,
-        studyEventId: 35,
+        id: 24,
+        studyEventId: 24,
         name: 'sin8',
         title: 'سین 8',
         logo: 'https://nodes.alaatv.com/upload/landing/SIN8/logo_sin8_2.png',

@@ -919,7 +919,7 @@ export default {
     },
     getMyStudyPlan () {
       this.loading = true
-      APIGateway.studyPlan.getMyStudyPlan({ category_id: this.event.study_plan.category_id })
+      APIGateway.studyPlan.getMyStudyPlan({ event_id: this.event.studyEventId })
         .then(studyPlan => {
           this.currentStudyPlan = studyPlan
           this.studyEvent = studyPlan.id
@@ -933,7 +933,7 @@ export default {
     },
     getChangePlanOptions () {
       this.loading = true
-      APIGateway.studyPlan.getSelectPlanOptions({ category_id: this.event.study_plan.category_id })
+      APIGateway.studyPlan.getSelectPlanOptions({ event_id: this.event.studyEventId })
         .then(options => {
           this.loading = false
           this.majorOptions = options.majors
@@ -998,7 +998,7 @@ export default {
       this.loading = true
       this.warning = false
       const studyPlanData = {
-        category_id: this.event.study_plan.category_id,
+        event_id: this.event.studyEventId,
         major_id: data && data.major_id ? data.major_id : this.major.id,
         grade_id: data && data.grade_id ? data.grade_id : this.grade.id,
         study_method_id: data && data.study_method_id ? data.study_method_id : this.planType.id
