@@ -62,14 +62,13 @@
 import { User } from 'src/models/User.js'
 import Router from 'src/router/Router.vue'
 import AuthLogin from 'src/components/Auth.vue'
+import { mixinAuth } from 'src/mixin/Mixins.js'
 import AlaaFooter from 'src/components/Widgets/Footer/Footer.vue'
 import KeepAliveComponents from 'src/assets/js/KeepAliveComponents.js'
 import templateHeader from 'src/components/Template/Header/TemplateHeader.vue'
 import TemplateSideBar from 'src/components/Template/SideBard/TemplateSideBar.vue'
 import QuasarTemplateBuilder from 'quasar-template-builder/src/quasar-template-builder.vue'
 import FloatingActionButton from 'components/Template/FloatingActionButton/FloatingActionButton.vue'
-import { mixinAuth } from 'src/mixin/Mixins'
-// import VersionCheck from 'components/VersionCheck/VersionCheck.vue'
 
 export default {
   components: {

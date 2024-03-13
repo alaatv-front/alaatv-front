@@ -4,7 +4,7 @@
     <div class="product-background">
       <div v-if="product.photo"
            class="background-image"
-           :style="{backgroundImage: `url(${product.photo})`}" />
+           :style="{backgroundImage: `url('${product.photo}')`}" />
       <div class="product-info-row">
         <div class="row q-col-gutter-xl-lg q-col-gutter-md-lg">
           <div class="col-12 video-col">

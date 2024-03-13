@@ -1,19 +1,18 @@
 import { User } from 'src/models/User.js'
-import { Content } from 'src/models/Content.js'
 import { Event } from 'src/models/Event.js'
+import { Content } from 'src/models/Content.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 
 const mixinTripleTitleSet = {
   data () {
     return {
       mounted: false,
-      isVideoWatched: false,
       user: new User(),
+      event: new Event(),
       isUserLogin: false,
-      event: new Event()
+      isVideoWatched: false
     }
   },
-  // mixins: [mixinAuth],
   mounted () {
     this.mounted = true
     this.updateLeftDrawer()
@@ -23,11 +22,10 @@ const mixinTripleTitleSet = {
     })
     this.loadAuthData()
     if (this.isUserLogin) {
-      // this.$nextTick(() => {
-      this.setEvent()
-      // })
+      setTimeout(() => {
+        this.setEvent()
+      }, 500)
     }
-    // this.setEvent()
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch

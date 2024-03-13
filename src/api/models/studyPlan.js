@@ -99,7 +99,7 @@ export default class StudyPlanAPI extends APIRepository {
       data: this.getNormalizedSendData({
         major_id: null, // Number
         grade_id: null, // Number
-        category_id: null, // Number
+        event_id: null, // Number
         study_method_id: null // Number
       }, data),
       resolveCallback: (response) => {
@@ -242,7 +242,7 @@ export default class StudyPlanAPI extends APIRepository {
       cacheKey: this.CacheList.selectPlanOptions,
       ...(cache && { cache }),
       data: this.getNormalizedSendData({
-        category_id: null // Number
+        event_id: null // Number
       }, data),
       resolveCallback: (response) => {
         return {

@@ -50,7 +50,7 @@
       </div>
     </div>
     <!--   --------------------------------- comment box &&  content list item------------------------- -->
-    <div class="row  q-col-gutter-x-md q-mt-lg">
+    <div class="row  q-col-gutter-x-md">
       <div class="col-12 col-lg-8">
         <div class="desktop-view">
           <comment-box :value="watchingContentComment"
@@ -337,6 +337,7 @@ export default {
                     selectedContentIndex = 0
                   }
 
+                  this.selectedContent.comments = contentList.list[selectedContentIndex].comments
                   this.selectedContent.has_watched = contentList.list[selectedContentIndex].has_watched
 
                   // this.setSelectedContent(contentList.list[selectedContentIndex])
