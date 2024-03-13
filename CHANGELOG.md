@@ -1,3 +1,10 @@
+## [1.17.1](https://git.alaatv.com/web/alaatv_front/compare/v1.17.0...v1.17.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* ttsp event_id ([42258cf](https://git.alaatv.com/web/alaatv_front/commit/42258cf337b9f54594f50088f49780ac04349a44))
+
 # [1.17.0](https://git.alaatv.com/web/alaatv_front/compare/v1.16.0...v1.17.0) (2024-03-13)
 
 
