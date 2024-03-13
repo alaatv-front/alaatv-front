@@ -24,7 +24,6 @@
           </div>
         </div>
       </div>
-
     </div>
     <div class="video-description">
       <div class="description row justify-between items-center">
@@ -100,6 +99,9 @@
                       @clicked="handleContentBookmark" />
           </div>
         </div>
+        <div v-if="content.title !== content.body"
+             class="flex flex-wrap content-body ellipsis-2-lines"
+             v-html="content.body" />
       </div>
     </div>
   </div>
@@ -481,6 +483,12 @@ export default {
             font-size: 16px;
           }
         }
+      }
+
+      .content-body {
+        @include body2;
+        color: $grey-8;
+        margin-top: $space-2;
       }
 
       .subtitle {

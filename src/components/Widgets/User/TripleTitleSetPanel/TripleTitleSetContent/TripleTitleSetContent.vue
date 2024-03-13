@@ -50,7 +50,7 @@
       </div>
     </div>
     <!--   --------------------------------- comment box &&  content list item------------------------- -->
-    <div class="row  q-col-gutter-x-md q-mt-lg">
+    <div class="row  q-col-gutter-x-md">
       <div class="col-12 col-lg-8">
         <div class="desktop-view">
           <comment-box :value="watchingContentComment"
