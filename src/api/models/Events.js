@@ -72,8 +72,7 @@ export default class EventsAPI extends APIRepository {
         ]
       },
       {
-        id: 13,
-        studyEventId: 6,
+        id: 22,
         name: 'abrisham2',
         title: 'راه ابریشم ۲',
         logo: 'https://nodes.alaatv.com/upload/landing/RAHABRISHAM/logo-abrisham2.png',
@@ -106,7 +105,6 @@ export default class EventsAPI extends APIRepository {
       },
       {
         id: 27,
-        studyEventId: 6,
         name: 'ehsan-abrisham2',
         title: 'راه ابریشم ۲ بنیاد احسان',
         logo: 'https://nodes.alaatv.com/upload/landing/RAHABRISHAM/logo-abrisham2.png',
@@ -122,8 +120,7 @@ export default class EventsAPI extends APIRepository {
         ]
       },
       {
-        id: 35,
-        studyEventId: 24,
+        id: 24,
         name: 'sin8',
         title: 'سین 8',
         logo: 'https://nodes.alaatv.com/upload/landing/SIN8/logo_sin8_2.png',
