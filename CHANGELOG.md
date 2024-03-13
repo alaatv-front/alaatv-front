@@ -1,3 +1,10 @@
+## [1.17.2](https://git.alaatv.com/web/alaatv_front/compare/v1.17.1...v1.17.2) (2024-03-13)
+
+
+### Bug Fixes
+
+* product background image ([0aae537](https://git.alaatv.com/web/alaatv_front/commit/0aae53784b940f85f0325366f7222a1965fb0776))
+
 ## [1.17.1](https://git.alaatv.com/web/alaatv_front/compare/v1.17.0...v1.17.1) (2024-03-13)
 
 
