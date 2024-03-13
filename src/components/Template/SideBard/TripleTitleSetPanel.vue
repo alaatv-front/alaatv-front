@@ -86,7 +86,6 @@
 <script>
 import { mapMutations } from 'vuex'
 import LazyImg from 'src/components/lazyImg.vue'
-import { APIGateway } from 'src/api/APIGateway.js'
 import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 import { mixinAuth, mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
@@ -100,7 +99,6 @@ export default {
       mounted: false,
       isDesktop: false,
       logoutDialog: false,
-      eventInfo: null,
       menuItems: [
         {
           visible: false,
@@ -210,32 +208,17 @@ export default {
   mounted () {
     this.mounted = true
     this.updateLeftDrawer()
-    this.getEventInfoByName()
-      .then(() => {
-        this.updateMenuItemsFromEventInfo()
-      })
-      .catch(() => {
-      })
   },
   methods: {
-    getEventInfoByName () {
-      return new Promise((resolve, reject) => {
-        APIGateway.events.getEventInfoByName(this.$route.params.eventName)
-          .then((eventInfo) => {
-            this.eventInfo = eventInfo
-            resolve(eventInfo)
-          })
-          .catch(() => {
-            reject()
-          })
-      })
+    afterSetEvent () {
+      this.updateMenuItemsFromEventInfo()
     },
     updateMenuItemsFromEventInfo () {
       const user = this.$store.getters['Auth/user']
       this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
 
-      this.updateMenuItemVisibility('UserPanel.Asset.TripleTitleSet.Dashboard', this.eventInfo.showDashboard || this.isAdmin)
-      this.updateMenuItemVisibility('UserPanel.Asset.TripleTitleSet.StudyPlan', (this.eventInfo.showStudyPlan || this.isAdmin))
+      this.updateMenuItemVisibility('UserPanel.Asset.TripleTitleSet.Dashboard', this.event.showDashboard || this.isAdmin)
+      this.updateMenuItemVisibility('UserPanel.Asset.TripleTitleSet.StudyPlan', (this.event.showStudyPlan || this.isAdmin))
     },
     updateMenuItemVisibility (routeName, state) {
       this.menuItems.forEach((item, itemIndex) => {

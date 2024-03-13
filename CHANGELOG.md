@@ -1,3 +1,25 @@
+# [1.15.0](https://git.alaatv.com/web/alaatv_front/compare/v1.14.1...v1.15.0) (2024-03-12)
+
+
+### Bug Fixes
+
+* Abrisham & Abrisham pro links in panel list fixed ([#1001](https://git.alaatv.com/web/alaatv_front/issues/1001)) ([7fa8b82](https://git.alaatv.com/web/alaatv_front/commit/7fa8b829d10169871da20b8d9689383ac6f709ce))
+* Action Option computed's getter fixed ([#1002](https://git.alaatv.com/web/alaatv_front/issues/1002)) ([5b0c29b](https://git.alaatv.com/web/alaatv_front/commit/5b0c29bb42adc5e44a5b06607d9d63ea13179d9d))
+* my orders responsive ([6427797](https://git.alaatv.com/web/alaatv_front/commit/6427797dea1f7c918fbd03aaa046b510cf74c3f6))
+* my purchase responsive ([c89dc1e](https://git.alaatv.com/web/alaatv_front/commit/c89dc1efade0f47539a9de1571adc1b35256fdd9))
+* my purchase responsive ([487e571](https://git.alaatv.com/web/alaatv_front/commit/487e571479f5bc0013444bd593292995275e7337))
+* newsletter close on 400 error ([#1000](https://git.alaatv.com/web/alaatv_front/issues/1000)) ([d54bcaa](https://git.alaatv.com/web/alaatv_front/commit/d54bcaa96c8cfabcaff6aa7694cf9643e0c87dda))
+* option panels redesign ([#1003](https://git.alaatv.com/web/alaatv_front/issues/1003)) ([f322df2](https://git.alaatv.com/web/alaatv_front/commit/f322df2b1c2bb417a542bc87970a8b26a7670a2b))
+* rename ticket list widget ([#1005](https://git.alaatv.com/web/alaatv_front/issues/1005)) ([9e10432](https://git.alaatv.com/web/alaatv_front/commit/9e10432ca50de057b566c6c9b4d652cb309038f6))
+* text-widget option panel redesign ([#1004](https://git.alaatv.com/web/alaatv_front/issues/1004)) ([a0cf137](https://git.alaatv.com/web/alaatv_front/commit/a0cf1375df215106c5750dbe51f5ad2161a83e44))
+* ttsp side menu style ([5662bf4](https://git.alaatv.com/web/alaatv_front/commit/5662bf48f794f17791c9d63787f600183c734f78))
+
+
+### Features
+
+* Automatic release of application with ci/cd ([#999](https://git.alaatv.com/web/alaatv_front/issues/999)) ([021e191](https://git.alaatv.com/web/alaatv_front/commit/021e1918f86a783dfa56933240e1d291273740d0))
+* popup once and timeStamp ([#997](https://git.alaatv.com/web/alaatv_front/issues/997)) ([9f8a547](https://git.alaatv.com/web/alaatv_front/commit/9f8a54793e308f9ade10f0a74a6b47501d3eceb3))
+
 ## [1.14.1](https://git.alaatv.com/web/alaatv_front/compare/v1.14.0...v1.14.1) (2024-03-11)
 
 
