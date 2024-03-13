@@ -1,3 +1,10 @@
+# [1.18.0](https://git.alaatv.com/web/alaatv_front/compare/v1.17.3...v1.18.0) (2024-03-13)
+
+
+### Features
+
+* copy message body ([4cbc068](https://git.alaatv.com/web/alaatv_front/commit/4cbc068cf9d407e3ec4658d00f0a39de50a96e4d))
+
 ## [1.17.3](https://git.alaatv.com/web/alaatv_front/compare/v1.17.2...v1.17.3) (2024-03-13)
 
 
