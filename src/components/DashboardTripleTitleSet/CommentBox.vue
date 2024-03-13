@@ -1,12 +1,15 @@
 <template>
   <div class="comment-box">
-    <q-input v-model="note"
+    <q-input v-if="doesntHaveContent || canEdit"
+             v-model="note"
              class="comment-main no-title"
              auto-grow
              outlined
              type="textarea"
-             placeholder="یادداشت این جلسه"
-             :disable="doesntHaveContent || !canEdit" />
+             placeholder="یادداشت این جلسه" />
+    <div v-else
+         class="preview-comment"
+         v-html="note.replace(/\r?\n/g, '<br/>')" />
     <div class="flex justify-end q-pt-md">
       <q-btn v-if="saveMode"
              :disabled="doesntHaveContent"
@@ -109,15 +112,23 @@ export default {
 }
 
 .comment-box {
+  $textarea-height: 140px;
+  $textarea-background: #eff3ff;
   :deep(.q-textarea) {
-    $textarea-height: 140px;
-    $textarea-background: #eff3ff;
     background: $textarea-background;
     min-height: $textarea-height;
+    border-radius: $radius-6;
     .q-field__inner {
+      border-radius: $radius-6;
       .q-field__control {
         min-height: $textarea-height;
         padding: $spacing-none;
+        border-radius: $radius-6;
+        &:before {
+          border: none;
+          background: $textarea-background;
+          border-radius: $radius-6;
+        }
         .q-field__control-container {
           textarea {
             height: max-content;
@@ -127,6 +138,13 @@ export default {
         }
       }
     }
+  }
+  .preview-comment {
+    padding: $space-4;
+    background: $textarea-background;
+    min-height: $textarea-height;
+    border-radius: $radius-6;
+    color: $blue-grey-7;
   }
 }
 </style>

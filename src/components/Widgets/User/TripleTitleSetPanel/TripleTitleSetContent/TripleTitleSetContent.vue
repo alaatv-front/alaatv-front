@@ -337,6 +337,7 @@ export default {
                     selectedContentIndex = 0
                   }
 
+                  this.selectedContent.comments = contentList.list[selectedContentIndex].comments
                   this.selectedContent.has_watched = contentList.list[selectedContentIndex].has_watched
 
                   // this.setSelectedContent(contentList.list[selectedContentIndex])
