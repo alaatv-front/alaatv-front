@@ -1,3 +1,15 @@
+# [1.17.0](https://git.alaatv.com/web/alaatv_front/compare/v1.16.0...v1.17.0) (2024-03-13)
+
+
+### Bug Fixes
+
+* change TTSP events category_id to event_id ([#1007](https://git.alaatv.com/web/alaatv_front/issues/1007)) ([b201d9b](https://git.alaatv.com/web/alaatv_front/commit/b201d9b35947a53dd4e5d33865642c6025ec100d))
+
+
+### Features
+
+* update .env.example ([40bf181](https://git.alaatv.com/web/alaatv_front/commit/40bf18173986f60f94c20cfe57220ee3d9f9db35))
+
 # [1.16.0](https://git.alaatv.com/web/alaatv_front/compare/v1.15.1...v1.16.0) (2024-03-13)
 
 
