@@ -558,14 +558,15 @@ export default {
         })
     },
     async openCapacitorSite (url) {
-      window.open(url)
-
-      document.location = url
+      // window.open(url)
+      window.open(url, '_blank')
 
       const aTag = document.createElement('a')
       aTag.href = url
-      aTag.target = '_self'
+      aTag.target = '_blank'
       aTag.click()
+
+      document.location = url
     },
     payment () {
       if (this.isEwanoUser) {
