@@ -587,7 +587,8 @@ export default {
             // window.open = async (url) => Browser.open({ url })
             // window.open(encryptedPaymentRedirectLink)
 
-            alert('encryptedPaymentRedirectLink' + encryptedPaymentRedirectLink)
+            alert('encryptedPaymentRedirectLink')
+            alert(encryptedPaymentRedirectLink)
             this.openCapacitorSite(encryptedPaymentRedirectLink)
 
             // document.location = encryptedPaymentRedirectLink
