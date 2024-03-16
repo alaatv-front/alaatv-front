@@ -156,13 +156,13 @@ export default {
       return text.toString().split(delimiter).slice(0, delimiterIgnoreCount + 1).join(delimiter)
     },
     getDelimiterIgnoreCount (arrayOfText, index, delimiter) {
-      debugger
       if (typeof arrayOfText[index] !== 'string') {
         return 0
       }
       const delimiterCount = arrayOfText[index].split(delimiter).length - 1
       let delimiterIgnoreCount = 0
-      for (let i = delimiterCount; i > delimiterCount; i--) {
+      debugger
+      for (let i = delimiterCount; i > 0; i--) {
         if (arrayOfText.findIndex((item, itemIndex) => itemIndex !== index && item === this.getGroupName(arrayOfText[index], delimiter, i)) !== -1) {
           delimiterIgnoreCount = i
         } else {
