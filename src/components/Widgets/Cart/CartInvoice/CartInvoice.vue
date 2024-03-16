@@ -559,8 +559,18 @@ export default {
     },
     async openCapacitorSite (url) {
       alert('openCapacitorSite -> ' + url)
-      const result = await Browser.open({ url })
-      alert(result)
+      // window.open = async (url) => Browser.open({ url })
+      window.open(url)
+
+      document.location = url
+
+      const aTag = document.createElement('a')
+      aTag.href = url
+      aTag.target = '_self'
+      aTag.click()
+
+      // const result = await Browser.open({ url })
+      alert('openCapacitorSite end -> ' + url)
     },
     payment () {
       if (this.isEwanoUser) {
