@@ -18,6 +18,10 @@
   },
   "server": {
     "androidScheme": "https",
-    "url": "http://192.168.3.102:8083"
+    "url": "http://192.168.3.102:8083",
+    "allowNavigation": [
+      "alaatv.com",
+      "*.alaatv.com"
+    ]
   }
 }

@@ -557,6 +557,10 @@ export default {
           this.$store.commit('loading/loading', false)
         })
     },
+    async openCapacitorSite (url) {
+      const result = await Browser.open({ url })
+      alert(result)
+    },
     payment () {
       if (this.isEwanoUser) {
         this.ewanoPayment()
@@ -571,6 +575,11 @@ export default {
         return
       }
 
+      if (Capacitor.isNativePlatform()) {
+        alert('Capacitor.isNativePlatform()')
+        this.openCapacitorSite('https://soalaa.com/')
+      }
+
       this.$store.commit('loading/loading', true)
       this.$store.dispatch('Cart/paymentCheckout', this.selectedBank)
         .then((encryptedPaymentRedirectLink) => {
@@ -578,8 +587,8 @@ export default {
             // window.open = async (url) => Browser.open({ url })
             // window.open(encryptedPaymentRedirectLink)
 
-            alert(encryptedPaymentRedirectLink)
-            Browser.open({ url: encryptedPaymentRedirectLink })
+            alert('encryptedPaymentRedirectLink', encryptedPaymentRedirectLink)
+            this.openCapacitorSite(encryptedPaymentRedirectLink)
 
             // document.location = encryptedPaymentRedirectLink
 
