@@ -558,8 +558,6 @@ export default {
         })
     },
     async openCapacitorSite (url) {
-      alert('openCapacitorSite -> ' + url)
-      // window.open = async (url) => Browser.open({ url })
       window.open(url)
 
       document.location = url
@@ -568,9 +566,6 @@ export default {
       aTag.href = url
       aTag.target = '_self'
       aTag.click()
-
-      // const result = await Browser.open({ url })
-      alert('openCapacitorSite end -> ' + url)
     },
     payment () {
       if (this.isEwanoUser) {
@@ -586,28 +581,11 @@ export default {
         return
       }
 
-      // if (Capacitor.isNativePlatform()) {
-      //   alert('Capacitor.isNativePlatform() test soalaa.com')
-      //   this.openCapacitorSite('https://soalaa.com/')
-      // }
-
       this.$store.commit('loading/loading', true)
       this.$store.dispatch('Cart/paymentCheckout', this.selectedBank)
         .then((encryptedPaymentRedirectLink) => {
           if (Capacitor.isNativePlatform()) {
-            // window.open = async (url) => Browser.open({ url })
-            // window.open(encryptedPaymentRedirectLink)
-
-            // alert('encryptedPaymentRedirectLink')
-            // alert(encryptedPaymentRedirectLink)
             this.openCapacitorSite(encryptedPaymentRedirectLink)
-
-            // document.location = encryptedPaymentRedirectLink
-
-            // const aTag = document.createElement('a')
-            // aTag.href = encryptedPaymentRedirectLink
-            // aTag.target = '_self'
-            // aTag.click()
           } else {
             window.open(encryptedPaymentRedirectLink, '_self')
           }
