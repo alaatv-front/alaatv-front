@@ -182,13 +182,14 @@ import LazyImg from 'src/components/lazyImg.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
 import SubmitButton from 'src/components/FormBuilderCustumComponents/SubmitButton.vue'
+import KeepAliveComponents from 'src/assets/js/KeepAliveComponents.js'
 
 const SubmitButtonComp = shallowRef(SubmitButton)
 export default {
-  name: 'TicketList',
+  name: 'TicketListWidget',
   components: {
-    EntityIndex,
-    LazyImg
+    LazyImg,
+    EntityIndex
   },
   mixins: [mixinTicket, mixinWidget],
   props: {
@@ -197,7 +198,8 @@ export default {
       default () {
         return {
           showRouteName: '',
-          createRouteName: ''
+          createRouteName: '',
+          keepAliveComponents: KeepAliveComponents
         }
       }
     }

@@ -24,7 +24,7 @@ export default class EventsAPI extends APIRepository {
     }
     this.eventList = [
       {
-        id: 10,
+        id: 26,
         name: 'chatre-nejat',
         title: 'چتر نجات',
         logo: 'https://nodes.alaatv.com/upload/landing/chatr/chatr%20logo.png',
@@ -40,7 +40,7 @@ export default class EventsAPI extends APIRepository {
         ]
       },
       {
-        id: 11,
+        id: 15,
         name: 'emtahan-nahaee',
         title: 'امتحانات نهایی آلاء',
         logo: 'https://nodes.alaatv.com/upload/landing/chatr/emtahan-nahaee-logo.png',
@@ -56,7 +56,7 @@ export default class EventsAPI extends APIRepository {
         ]
       },
       {
-        id: 12,
+        id: 18,
         name: 'emtahan-nahaee-9',
         title: 'امتحانات نهایی نهم',
         logo: 'https://nodes.alaatv.com/upload/landing/41/emtehan-nahayi-nohom-logo.png',
@@ -72,8 +72,7 @@ export default class EventsAPI extends APIRepository {
         ]
       },
       {
-        id: 13,
-        studyEventId: 6,
+        id: 22,
         name: 'abrisham2',
         title: 'راه ابریشم ۲',
         logo: 'https://nodes.alaatv.com/upload/landing/RAHABRISHAM/logo-abrisham2.png',
@@ -89,7 +88,7 @@ export default class EventsAPI extends APIRepository {
         ]
       },
       {
-        id: 25,
+        id: 28,
         name: '110',
         title: '110',
         logo: 'https://nodes.alaatv.com/upload/landing/panel/110-logo.png',
@@ -106,7 +105,6 @@ export default class EventsAPI extends APIRepository {
       },
       {
         id: 27,
-        studyEventId: 6,
         name: 'ehsan-abrisham2',
         title: 'راه ابریشم ۲ بنیاد احسان',
         logo: 'https://nodes.alaatv.com/upload/landing/RAHABRISHAM/logo-abrisham2.png',
@@ -122,8 +120,7 @@ export default class EventsAPI extends APIRepository {
         ]
       },
       {
-        id: 35,
-        studyEventId: 35,
+        id: 24,
         name: 'sin8',
         title: 'سین 8',
         logo: 'https://nodes.alaatv.com/upload/landing/SIN8/logo_sin8_2.png',

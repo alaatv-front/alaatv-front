@@ -122,7 +122,7 @@ export default defineComponent({
       formData: {
         major_id: null,
         grade_id: null,
-        category_id: null,
+        event_id: null,
         study_method_id: null
       },
       studyPlanSelected: false
@@ -131,10 +131,10 @@ export default defineComponent({
   methods: {
     afterSetEvent () {
       this.getOptions()
-      this.formData.category_id = this.event.study_plan.category_id
+      this.formData.event_id = this.event.studyEventId
     },
     getOptions () {
-      APIGateway.studyPlan.getSelectPlanOptions({ category_id: this.event.study_plan.category_id })
+      APIGateway.studyPlan.getSelectPlanOptions({ event_id: this.event.studyEventId })
         .then(options => {
           this.inputsOptions = options
         })

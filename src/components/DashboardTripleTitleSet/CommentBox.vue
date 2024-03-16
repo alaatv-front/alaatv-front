@@ -1,14 +1,16 @@
 <template>
   <div class="comment-box">
-    <q-input v-model="note"
-             class="comment-main"
+    <q-input v-if="doesntHaveContent || canEdit"
+             v-model="note"
+             class="comment-main no-title"
              auto-grow
              outlined
              type="textarea"
-             placeholder="یادداشت این جلسه"
-             filled
-             :disable="doesntHaveContent || !canEdit" />
-    <div class="flex btn-style">
+             placeholder="یادداشت این جلسه" />
+    <div v-else
+         class="preview-comment"
+         v-html="note.replace(/\r?\n/g, '<br/>')" />
+    <div class="flex justify-end q-pt-md">
       <q-btn v-if="saveMode"
              :disabled="doesntHaveContent"
              :loading="loading"
@@ -33,7 +35,6 @@
              class="edit btn-size"
              @click="edit" />
     </div>
-
   </div>
 </template>
 
@@ -111,75 +112,39 @@ export default {
 }
 
 .comment-box {
-  &:deep(.q-field__control) {
-    background: #eff3ff;
-    height: 140px !important;
-    overflow: auto;
-    border-right: 24px !important;
-
-    @media only screen and (width <= 1904px) {
-      height: 120px !important;
-    }
-
-    @media only screen and (width <= 990px) {
-      height: 100px !important;
-    }
-
-    @media only screen and (width <= 768px) {
-      height: 120px !important;
-    }
-
-    @media only screen and (width <= 576px) {
-      height: 80px !important;
-    }
-  }
-
-  &:deep(.q-field__control::after) {
-    height: 0;
-  }
-
-  &:deep(.q-field__control::before) {
-    background: #eff3ff;
-    border-bottom: none;
-  }
-
-  &:deep(.q-field__native) {
-    font-size: 16px;
-    font-weight: 500;
-  }
-
-  &:deep(.q-placeholder) {
-    color: #3e5480;
-    font-size: 16px;
-    font-weight: 500;
-  }
-
-  .btn-style {
-    width: 100%;
-    justify-content: flex-end;
-    font-size: 16px;
-    margin: 20px 0;
-
-    @media only screen and (width <= 1023px) {
-      height: 40px !important;
-      margin: 15px 0 20px;
-    }
-
-    .btn-size {
-      border-radius: 10px !important;
-      width: 120px;
-      height: 48px !important;
-
-      @media only screen and (width <= 1200px) {
-        height: 40px !important;
-      }
-
-      @media only screen and (width <= 576px) {
-        height: 36px !important;
-        width: 100px;
+  $textarea-height: 140px;
+  $textarea-background: #eff3ff;
+  :deep(.q-textarea) {
+    background: $textarea-background;
+    min-height: $textarea-height;
+    border-radius: $radius-6;
+    .q-field__inner {
+      border-radius: $radius-6;
+      .q-field__control {
+        min-height: $textarea-height;
+        padding: $spacing-none;
+        border-radius: $radius-6;
+        &:before {
+          border: none;
+          background: $textarea-background;
+          border-radius: $radius-6;
+        }
+        .q-field__control-container {
+          textarea {
+            height: max-content;
+            overflow: auto;
+            min-height: $textarea-height;
+          }
+        }
       }
     }
   }
-
+  .preview-comment {
+    padding: $space-4;
+    background: $textarea-background;
+    min-height: $textarea-height;
+    border-radius: $radius-6;
+    color: $blue-grey-7;
+  }
 }
 </style>

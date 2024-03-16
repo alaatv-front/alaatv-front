@@ -32,12 +32,12 @@ export default {
   created () {
     this.panels = APIGateway.events.eventList.filter(item => item.groups.includes('alaa'))
     this.panels.push({
-      route: { name: 'UserPanel.Asset.Abrisham' },
+      route: { name: 'UserPanel.Asset.Abrisham.Progress' },
       title: 'راه ابریشم',
       logo: 'https://nodes.alaatv.com/upload/abrisham-panel-logotype.png'
     })
     this.panels.push({
-      route: { name: 'UserPanel.Asset.AbrishamPro' },
+      route: { name: 'UserPanel.Asset.AbrishamPro.Progress' },
       title: 'راه ابریشم پرو',
       logo: 'https://nodes.alaatv.com/upload/abrisham-panel-logotype.png'
     })

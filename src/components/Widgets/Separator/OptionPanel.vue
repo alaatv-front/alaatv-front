@@ -2,33 +2,10 @@
   <option-panel-tabs v-model:options="localOptions">
     <template #main-tab>
       <div class="option-panel-container">
-        <div class="row q-col-gutter-md">
-          <div class="col-3">
-            <q-checkbox v-model="localOptions.spaced"
-                        label="spaced"
-                        left-label />
-          </div>
-          <div class="col-3">
-            <q-checkbox v-model="localOptions.dark"
-                        label="dark"
-                        left-label />
-          </div>
-          <div class="col-3">
-            <q-checkbox v-model="localOptions.inset"
-                        label="inset"
-                        left-label />
-          </div>
-          <div class="col-3">
-            <q-checkbox v-model="localOptions.vertical"
-                        label="vertical"
-                        left-label />
-          </div>
+        <div class="row q-my-lg">
           <div class="col-md-12">
-            <div class="outSideLabel">
-              image
-            </div>
             <q-input v-model="localOptions.image"
-                     label="Image Link">
+                     label="لینک عکس">
               <template v-slot:after>
                 <q-btn round
                        dense
@@ -39,28 +16,50 @@
               </template>
             </q-input>
           </div>
-          <div class="col-md-4">
-            <div class="outSideLabel">
-              responsive size
-            </div>
-            <q-select v-model="size"
-                      :options="responsiveOptions" />
-          </div>
-          <div class="col-md-4">
-            <div class="outSideLabel">
-              height ({{size}})
-            </div>
-            <q-input v-model="localOptions.height[size]"
-                     label="height" />
-          </div>
-          <div class="col-md-4">
-            <div class="outSideLabel">
-              width ({{size}})
-            </div>
-            <q-input v-model="localOptions.width[size]"
-                     label="width" />
-          </div>
         </div>
+        <q-expansion-item expand-separator
+                          icon="ph:gear"
+                          label="Default settings">
+          <div class="row q-my-md q-col-gutter-md">
+            <div class="col-3">
+              <q-checkbox v-model="localOptions.spaced"
+                          label="spaced" />
+            </div>
+            <div class="col-3">
+              <q-checkbox v-model="localOptions.dark"
+                          label="dark" />
+            </div>
+            <div class="col-3">
+              <q-checkbox v-model="localOptions.inset"
+                          label="inset" />
+            </div>
+            <div class="col-3">
+              <q-checkbox v-model="localOptions.vertical"
+                          label="vertical" />
+            </div>
+
+          </div>
+        </q-expansion-item>
+        <q-expansion-item expand-separator
+                          icon="ph:align-center-horizontal"
+                          label="Responsive Image Size">
+          <responsive-size-tab-panel v-model:size="size">
+            <template v-for="sizeItem in responsiveOptions"
+                      :key="sizeItem"
+                      v-slot:[sizeItem]>
+              <div class="row q-col-gutter-md">
+                <div class="col-6">
+                  <q-input v-model="localOptions.height[sizeItem]"
+                           label="ارتفاع" />
+                </div>
+                <div class="col-6">
+                  <q-input v-model="localOptions.width[sizeItem]"
+                           label="عرض" />
+                </div>
+              </div>
+            </template>
+          </responsive-size-tab-panel>
+        </q-expansion-item>
         <image-upload-dialog :dialog="dialog"
                              :multiple="false"
                              @toggle-dialog="toggleUploadDialog"
@@ -75,10 +74,15 @@ import { defineComponent } from 'vue'
 import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 import ImageUploadDialog from 'src/components/Utils/ImageUploadDialog.vue'
+import ResponsiveSizeTabPanel from 'src/components/WidgetComponents/ResponsiveSizeTabPanel/ResponsiveSizeTabPanel.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
-  components: { OptionPanelTabs, ImageUploadDialog },
+  components: {
+    OptionPanelTabs,
+    ImageUploadDialog,
+    ResponsiveSizeTabPanel
+  },
   mixins: [mixinOptionPanel],
   data () {
     return {

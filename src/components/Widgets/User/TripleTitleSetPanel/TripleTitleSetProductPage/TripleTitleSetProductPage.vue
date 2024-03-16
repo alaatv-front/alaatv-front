@@ -108,38 +108,27 @@ export default {
   computed: {
     selectedTopic () {
       return this.$store.getters['TripleTitleSet/selectedTopic']
-      // return ''
     },
     setList () {
       return this.$store.getters['TripleTitleSet/setList']
         .filter(set => (new RegExp('\\-\\s*' + this.selectedTopic + '\\s*\\-')).test(set.short_title))
-        // .map(set => {
-        //   set.expand = false
-        //   return set
-        // })
-      // return []
     },
     setTopicList () {
       return this.$store.getters['TripleTitleSet/setTopicList']
-      // return []
     },
     setLoading () {
       return this.$store.getters['TripleTitleSet/setLoading']
-      // return false
     },
     setListLoading () {
       return this.$store.getters['TripleTitleSet/setListLoading']
-      // return false
     },
     selectedProduct () {
       return this.$store.getters['TripleTitleSet/selectedProduct']
-      // return {}
     }
   },
   watch: {
     setTopicList () {
       if (!this.selectedTopic) {
-        // this.$store.dispatch('TripleTitleSet/setSelectedTopic', this.setTopicList[0])
         this.$store.commit('TripleTitleSet/updateSelectedTopic', this.setTopicList[0])
       }
     }
@@ -150,7 +139,9 @@ export default {
         .then(() => {
           this.getProductSets(this.$route.params.productId)
         })
-        .catch(() => {})
+        .catch(() => {
+          this.getProductSets(this.$route.params.productId)
+        })
     },
     humanizeDuration (durationInSeconds) {
       const durationInMinutes = Math.floor(durationInSeconds / 60)

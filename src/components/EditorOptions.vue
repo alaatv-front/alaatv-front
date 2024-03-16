@@ -17,7 +17,17 @@
               <div class="col-md-3 q-ma-sm">
                 <q-select v-model="localOptions.fontFamily"
                           :options="fontFamilies"
-                          label="font family" />
+                          label="font family">
+                  <template v-slot:option="scope">
+                    <q-item v-bind="scope.itemProps"
+                            :style="{'fontFamily': scope.opt}">
+                      <q-item-section>
+                        <q-item-label>{{ scope.opt }}</q-item-label>
+                        <q-item-label caption>ابجد هوز</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
               </div>
               <div class="col-md-3 q-ma-sm">
                 <q-input v-model="localOptions[responsive].fontSize"

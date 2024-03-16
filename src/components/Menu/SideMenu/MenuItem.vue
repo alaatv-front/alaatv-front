@@ -1,9 +1,9 @@
 <template>
-  <div v-for="(item , index) in computedMenu"
-       :key="index"
-       class="menu-item">
+  <q-item v-for="(item , index) in computedMenu"
+          :key="index"
+          class="menu-item"
+          :class="{'q-pa-none menu-item--has-children': item.children && item.children.length > 0}">
     <q-expansion-item v-if="!loading && item.children && item.children.length > 0"
-                      :header-style="{height:'40px', borderRadius: '14px'}"
                       :label="item.title"
                       :icon="item.icon"
                       :default-opened="item.open"
@@ -71,7 +71,7 @@
       {{item.badge}}
     </q-badge>
     <q-skeleton v-if="loading" />
-  </div>
+  </q-item>
 </template>
 
 <script>
@@ -262,9 +262,6 @@ export default {
       }
 
       .q-item {
-        padding: 0;
-        min-height: 0;
-
         &.item-list {
           display: flex;
           flex-direction: column;
@@ -306,10 +303,6 @@ export default {
 
       .side-expansion-list {
         margin-left: 12px;
-
-        :deep(.q-item) {
-          padding-left: 40px;
-        }
 
         &.top-expansion {
           margin-bottom: 10px;

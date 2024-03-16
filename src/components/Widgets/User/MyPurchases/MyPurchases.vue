@@ -1,14 +1,5 @@
 <template>
   <div class="MyPurchases">
-    <div class="lt-sm flex justify-end">
-      <q-btn flat
-             color="grey"
-             :to="{name: 'UserPanel.Dashboard'}">
-        <q-icon name="isax:layer"
-                class="q-mr-sm" />
-        >
-      </q-btn>
-    </div>
     <q-linear-progress v-if="loading"
                        class="q-mb-md"
                        indeterminate />
@@ -16,13 +7,26 @@
       <!--    ----------------------------------------------------------------------- filter boxes ------------------------------------------------------------------------------- -->
       <div class="col-12 q-pa-md bg-white header">
         <div class="filter-box-container">
-          <div class="outsideLabel">مرتب سازی بر اساس: </div>
+          <div class="outsideLabel q-mb-sm flex justify-between items-center">
+            <div>
+              مرتب سازی بر اساس:
+            </div>
+            <q-btn flat
+                   color="grey"
+                   square
+                   class="lt-lg"
+                   :to="{name: 'UserPanel.Dashboard'}">
+              بازگشت
+              <q-icon name="ph:caret-left" />
+            </q-btn>
+          </div>
           <div class="q-mb-sm filter-box row q-col-gutter-md">
             <div class="sortingFilter-item col-12 col-sm-6 date">
               <q-select v-model="selectedFilterBoxValue"
                         :options="filterBoxSort"
                         option-value="value"
                         map-options
+                        class="no-title"
                         @update:model-value="onChangeFilterSortBox" />
             </div>
             <div class="sortingFilter-item col-12 col-sm-6 subject">
@@ -31,11 +35,12 @@
                         option-value="value"
                         option-label="name"
                         map-options
+                        class="no-title"
                         @update:model-value="onChangeFilterBoxCategory" />
             </div>
           </div>
         </div>
-        <div class="q-my-md productsSearch ">
+        <div class="productsSearch ">
           <q-input v-model="searchTarget"
                    type="text"
                    class="form-control m-input m-input--air no-title"
@@ -49,7 +54,7 @@
             </template>
 
             <template v-slot:after>
-              <q-btn flat
+              <q-btn outline
                      square
                      color="primary"
                      icon="ph:magnifying-glass"

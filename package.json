@@ -1,6 +1,6 @@
 {
   "name": "alaatv",
-  "version": "1.13.3",
+  "version": "1.18.15",
   "description": "alaatv with vite",
   "productName": "alaatv",
   "author": "Ali <aliesmaeeli20@gmail.com>",
@@ -16,7 +16,7 @@
     "ci": "rm -rf node_modules && yarn install --production --frozen-lockfile",
     "dev:ssr": "quasar dev -m ssr",
     "dev:android": "quasar dev -m capacitor -T android",
-    "build:android": "quasar build -m capacitor -T android",
+    "build:android": "quasar build -m capacitor -T android -- bundleRelease",
     "build:pwa": "quasar build -m pwa",
     "build:ssr": "quasar build --mode ssr",
     "pm2start": "pm2 start dist/ssr/index.js",
@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@capacitor-community/sqlite": "^5.4.2-2",
+    "@capacitor/browser": "^5.2.0",
     "@capacitor/cli": "^5.5.1",
     "@capacitor/core": "^5.5.1",
     "@capacitor/preferences": "^5.0.6",
@@ -53,6 +54,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.9.0",
     "fs": "^0.0.1-security",
+    "googleapis": "^133.0.0",
     "html2canvas": "^1.4.1",
     "js-abstract-model": "^0.1.36",
     "leaflet": "^1.9.3",

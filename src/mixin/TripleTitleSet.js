@@ -1,30 +1,31 @@
 import { User } from 'src/models/User.js'
-import { Content } from 'src/models/Content.js'
 import { Event } from 'src/models/Event.js'
+import { Content } from 'src/models/Content.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 
 const mixinTripleTitleSet = {
-  data: () => {
+  data () {
     return {
-      isVideoWatched: false,
+      mounted: false,
       user: new User(),
+      event: new Event(),
       isUserLogin: false,
-      event: new Event()
+      isVideoWatched: false
     }
   },
-  // mixins: [mixinAuth],
   mounted () {
+    this.mounted = true
+    this.updateLeftDrawer()
     this.$bus.on('onLoggedIn', () => {
       this.$store.commit('AppLayout/updateLoginDialog', false)
       this.setEvent()
     })
     this.loadAuthData()
     if (this.isUserLogin) {
-      // this.$nextTick(() => {
-      this.setEvent()
-      // })
+      setTimeout(() => {
+        this.setEvent()
+      }, 500)
     }
-    // this.setEvent()
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
@@ -63,56 +64,63 @@ const mixinTripleTitleSet = {
     },
     videoIsWatched (secondsWatched) {
       return new Promise((resolve, reject) => {
-        if (!this.isVideoWatched) {
-          this.isVideoWatched = true
-          this.contentLoading = true
-          const sendData = {
-            completely_watched: 1,
-            studyevent_id: this.event.id,
-            watchable_id: this.watchingContent.id
-          }
-
-          if (secondsWatched) {
-            sendData.seconds_watched = Math.floor(secondsWatched)
-            sendData.completely_watched = 0
-          }
-          APIGateway.content.setVideoWatched(sendData)
-            .then(() => {
-              if (secondsWatched) {
-                // this.watchingContent.has_watched = true
-                this.isVideoWatched = true
-                this.syncwatchingContentWithContentInList()
-              }
-              this.contentLoading = false
-              resolve()
-            })
-            .catch(() => {
-              this.contentLoading = false
-              this.isVideoWatched = false
-              reject()
-            })
-        } else {
+        if (this.isVideoWatched) {
           resolve()
+          return
         }
+
+        this.isVideoWatched = true
+        this.contentLoading = true
+        this.watchingContent.loading = true
+        const sendData = {
+          completely_watched: 1,
+          studyevent_id: this.event.id,
+          watchable_id: this.watchingContent.id
+        }
+
+        if (secondsWatched) {
+          sendData.seconds_watched = Math.floor(secondsWatched)
+          sendData.completely_watched = 0
+        }
+        APIGateway.content.setVideoWatched(sendData)
+          .then(() => {
+            if (sendData.completely_watched) {
+              this.isVideoWatched = true
+              this.watchingContent.has_watched = true
+              this.storeSelectedSet(this.$route.params.setId)
+            }
+            resolve()
+          })
+          .catch(() => {
+            this.isVideoWatched = false
+            reject()
+          })
+          .finally(() => {
+            this.contentLoading = false
+            this.watchingContent.loading = false
+          })
       })
     },
     updateVideoStatus (data) {
       const hasWatch = data || this.watchingContent.has_watched
-      this.watchingContent.loading = true
       hasWatch ? this.setVideoStatusToUnwatched() : this.videoIsWatched()
     },
-    async setVideoStatusToUnwatched () {
-      try {
-        await this.$apiGateway.content.setVideoUnWatched({
-          watchable_id: this.watchingContent.id,
-          watchable_type: 'content'
+    setVideoStatusToUnwatched () {
+      this.watchingContent.loading = true
+      APIGateway.content.setVideoUnWatched({
+        watchable_id: this.watchingContent.id,
+        watchable_type: 'content'
+      })
+        .then(() => {
+          this.isVideoWatched = false
+          this.watchingContent.has_watched = false
+          this.storeSelectedSet(this.$route.params.setId)
         })
-        this.watchingContent.has_watched = false
-        this.watchingContent.loading = false
-        this.syncwatchingContentWithContentInList()
-      } catch {
-        this.watchingContent.loading = false
-      }
+        .catch(() => {
+        })
+        .finally(() => {
+          this.watchingContent.loading = false
+        })
     },
     async setFavored () {
       try {
@@ -197,6 +205,26 @@ const mixinTripleTitleSet = {
 
         this.syncwatchingContentWithContentInList()
       } catch {
+      }
+    },
+    updateLeftDrawer () {
+      if (!this.mounted) {
+        return
+      }
+      this.isDesktop = !this.$q.screen.lt.md
+      const isIframe = window.self !== window.top
+      if (this.$q.screen.gt.sm && !isIframe) {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
+      } else {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+        if (this.isEwanoUser) {
+          setTimeout(() => {
+            this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+            this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+          }, 10)
+        }
       }
     }
   }

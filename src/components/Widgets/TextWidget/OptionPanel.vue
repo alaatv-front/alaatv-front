@@ -17,15 +17,22 @@
             <q-checkbox v-model="localOptions.hasTheme"
                         label="hasTheme" />
           </div>
+
+        </div>
+        <div v-if="localOptions.hasTheme && localOptions.activeTheme"
+             class="row q-col-gutter-sm q-mt-sm">
           <div class="col-12 col-md-3">
             <q-select v-model="localOptions.activeTheme"
                       :options="themes"
                       label="themes"
                       filled />
           </div>
-        </div>
-        <div v-if="localOptions.hasTheme && localOptions.activeTheme"
-             class="row q-col-gutter-sm q-mt-sm">
+          <template v-if="themeThumbnails[localOptions.activeTheme]">
+            <div class="col-12 col-md-3">
+              نمونه تم
+              <lazy-img :src="themeThumbnails[localOptions.activeTheme]" />
+            </div>
+          </template>
           <div v-for="(value, key, index) in localOptions.themes[localOptions.activeTheme]"
                :key="index"
                class="col-12 col-md-3">
@@ -45,10 +52,11 @@ import Editor from 'components/Utils/Editor.vue'
 import EditorOptions from 'components/EditorOptions.vue'
 import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
+import LazyImg from 'src/components/lazyImg.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
-  components: { Editor, OptionPanelTabs, EditorOptions },
+  components: { Editor, OptionPanelTabs, EditorOptions, LazyImg },
   mixins: [mixinOptionPanel],
   props: {
     options: {
@@ -175,7 +183,10 @@ export default defineComponent({
           }
         }
       },
-      themes: ['default', 'theme1']
+      themes: ['default', 'theme1'],
+      themeThumbnails: {
+        theme1: 'https://nodes.alaatv.com/upload/alaaPages/2024-02/Screenshotfrom2024-02-2614-30-001708946382.png'
+      }
     }
   },
   mounted () {
