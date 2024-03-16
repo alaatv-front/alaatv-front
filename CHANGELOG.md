@@ -1,3 +1,10 @@
+## [1.18.22](https://git.alaatv.com/web/alaatv_front/compare/v1.18.21...v1.18.22) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug android logout after payment ([108138d](https://git.alaatv.com/web/alaatv_front/commit/108138de2a86b25c26b939b73f6ea9e06a241cbb))
+
 ## [1.18.21](https://git.alaatv.com/web/alaatv_front/compare/v1.18.20...v1.18.21) (2024-03-16)
 
 
