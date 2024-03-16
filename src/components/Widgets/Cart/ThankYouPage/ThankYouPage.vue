@@ -1,8 +1,8 @@
 <template>
   <div class="cart-container">
-    <!--    <div v-if="host">-->
-    <!--      ({{ host }})-->
-    <!--    </div>-->
+    <div v-if="host">
+      ({{ host }})
+    </div>
     <template v-if="loading && !isEwanoUser">
       <q-skeleton type="circle" />
     </template>
@@ -81,11 +81,16 @@ export default {
     this.$bus.on('ThankYouPageInvoiceLoading', (status) => {
       this.loading = status
     })
-    this.host = window.location.href
     // alaa-app://alaatv.com/payment
+    if (Capacitor.isNativePlatform()) {
+      this.host = window.location.href
+    }
     if (Capacitor.isNativePlatform() && window.location.href.indexOf('https://localhost') !== 0) {
-      document.location = window.location.href.replace('https://alaatv.com', 'alaa-app://alaatv.com')
-        .replace('http://alaatv.com', 'alaa-app://alaatv.com')
+      const pathArray = window.location.href.split('/')
+      const orderId = pathArray[pathArray.length - 2]
+      this.$router.push({ name: 'UserPanel.ThankYouPage', params: { orderId } })
+      // document.location = window.location.href.replace('https://alaatv.com', 'alaa-app://alaatv.com')
+      //   .replace('http://alaatv.com', 'alaa-app://alaatv.com')
     }
   },
   methods: {
