@@ -576,6 +576,7 @@ export default {
       }
 
       if (Capacitor.isNativePlatform()) {
+        alert('Capacitor.isNativePlatform()')
         this.openCapacitorSite('https://soalaa.com/')
       }
 
@@ -586,6 +587,7 @@ export default {
             // window.open = async (url) => Browser.open({ url })
             // window.open(encryptedPaymentRedirectLink)
 
+            alert('encryptedPaymentRedirectLink')
             this.openCapacitorSite(encryptedPaymentRedirectLink)
 
             // document.location = encryptedPaymentRedirectLink
