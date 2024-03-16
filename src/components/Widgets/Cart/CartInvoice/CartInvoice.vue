@@ -558,6 +558,7 @@ export default {
         })
     },
     async openCapacitorSite (url) {
+      alert('openCapacitorSite -> ' + url)
       const result = await Browser.open({ url })
       alert(result)
     },
