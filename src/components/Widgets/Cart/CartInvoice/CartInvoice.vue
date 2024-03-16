@@ -3,9 +3,9 @@
        class="cart-invoice main-content"
        :class="options.className"
        :style="options.style">
-    <div v-if="host">
-      ({{ host }})
-    </div>
+    <!--    <div v-if="host">-->
+    <!--      ({{ host }})-->
+    <!--    </div>-->
     <div ref="CartInvoiceContainer"
          :key="CartInvoiceContainerKey"
          class="cart-invoice-container sidebar">
