@@ -1,3 +1,11 @@
+## [1.18.17](https://git.alaatv.com/web/alaatv_front/compare/v1.18.16...v1.18.17) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug logout after payment for native(android) app ([8bc5158](https://git.alaatv.com/web/alaatv_front/commit/8bc51581c31990dc05898b242f4d46e9e52e8c96))
+* payment for native(android) app ([cd5c7ec](https://git.alaatv.com/web/alaatv_front/commit/cd5c7ecb99196b025fb241025684379e1b88c39f))
+
 ## [1.18.16](https://git.alaatv.com/web/alaatv_front/compare/v1.18.15...v1.18.16) (2024-03-16)
 
 
