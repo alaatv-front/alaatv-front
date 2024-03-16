@@ -1,8 +1,5 @@
 <template>
   <div class="cart-container">
-    <div v-if="host">
-      ({{ host }})
-    </div>
     <template v-if="loading && !isEwanoUser">
       <q-skeleton type="circle" />
     </template>
@@ -82,7 +79,6 @@ export default {
       this.loading = status
     })
     if (Capacitor.isNativePlatform()) {
-      this.host = window.location.href
       document.location = window.location.href.replace('http://alaatv.com', 'http://localhost/#')
     }
   },
