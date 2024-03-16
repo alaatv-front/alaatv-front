@@ -1,8 +1,8 @@
 <template>
-  <div class="triple-title-set-dashboard-container new-theme">
-    <dashboard-header :event="event"
-                      :studyPlanId="studyPlanId" />
-    <daily-plan :studyPlanId="studyPlanId" />
+  <div className="triple-title-set-dashboard-container new-theme">
+    <dashboard-header ref="dashboardHeader"
+                      :event="event" />
+    <daily-plan ref="dailyPlan" />
     <status-and-review :loading="loading"
                        :study-plan-info="studyPlanInfo" />
     <study-plan-selection-dialog :dialog="dialog"
@@ -42,12 +42,6 @@ export default defineComponent({
       dialog: false
     }
   },
-  computed: {
-    studyPlanId () {
-      return this.event.id
-      // return this.studyPlanInfo.id
-    }
-  },
   methods: {
     afterSetEvent () {
       this.getMyStudyPlan()
@@ -60,6 +54,8 @@ export default defineComponent({
             this.dialog = true
           } else {
             this.studyPlanInfo = studyPlanInfo
+            this.$refs.dashboardHeader.getCounterData()
+            this.$refs.dailyPlan.getPlans(studyPlanInfo.id)
           }
           this.loading = false
         })

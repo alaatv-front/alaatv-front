@@ -70,12 +70,6 @@ export default defineComponent({
     PlanItem
   },
   mixins: [mixinTripleTitleSet],
-  props: {
-    studyPlanId: {
-      type: Number,
-      default: null
-    }
-  },
   data () {
     return {
       studyPlanList: [],
@@ -87,23 +81,18 @@ export default defineComponent({
       loading: false
     }
   },
-  watch: {
-    studyPlanId () {
-      this.getPlans()
-    }
-  },
   methods: {
-    getPlans () {
+    getPlans (studyPlanId) {
       const today = this.getToday()
       this.loading = true
       APIGateway.studyPlan.getStudyPlanData({
-        study_event: this.studyPlanId,
+        study_event: studyPlanId,
         since_date: today,
         till_date: today
       })
         .then(studyPlanList => {
           this.studyPlanList = studyPlanList
-          this.planList = this.studyPlanList.list?.find(item => item.event.id === this.studyPlanId).plans.list
+          this.planList = this.studyPlanList.list?.find(item => item.event.id === studyPlanId).plans.list
           this.loading = false
         })
         .catch(() => {
