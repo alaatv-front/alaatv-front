@@ -112,6 +112,11 @@ export default defineComponent({
       }
     }
   },
+  watch: {
+    studyPlanId () {
+      this.getCounterData()
+    }
+  },
   mounted () {
     this.loadData()
   },
