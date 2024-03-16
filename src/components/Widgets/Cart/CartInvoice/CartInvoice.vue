@@ -226,21 +226,15 @@
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart.js'
 import Ewano from 'src/assets/js/Ewano.js'
+import { Capacitor } from '@capacitor/core'
 import AuthLogin from 'src/components/Auth.vue'
 import LazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { GatewayList } from 'src/models/Gateway.js'
-import {
-  Capacitor
-  /*, Plugins */
-} from '@capacitor/core'
-// import { Browser } from '@capacitor/browser'
 import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
 import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
-
-// const { Browser } = Plugins
 
 let StickySidebar
 if (typeof window !== 'undefined') {
@@ -557,14 +551,13 @@ export default {
           this.$store.commit('loading/loading', false)
         })
     },
-    async openCapacitorSite (url) {
-      // window.open(url)
-      window.open(url, '_blank')
-
-      const aTag = document.createElement('a')
-      aTag.href = url
-      aTag.target = '_blank'
-      aTag.click()
+    openCapacitorSite (url) {
+      // window.open(url, '_blank')
+      //
+      // const aTag = document.createElement('a')
+      // aTag.href = url
+      // aTag.target = '_blank'
+      // aTag.click()
 
       document.location = url
     },
