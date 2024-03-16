@@ -155,11 +155,14 @@ export default {
       return text.toString().split(delimiter).slice(0, delimiterIgnoreCount + 1).join(delimiter)
     },
     getDelimiterIgnoreCount (arrayOfText, delimiter) {
-      return arrayOfText.reduce((accumulator, currentValue, currentIndex) => {
+      return arrayOfText.reduce((accumulator, currentValue, currentIndex, array) => {
         if (typeof currentValue !== 'string') {
           return false
         }
         const delimiterCount = currentValue.split(delimiter).length - 1
+        for (let i = 0; i < delimiterCount; i++) {
+          array.findIndex(item => item === this.getGroupName(currentValue, delimiter, i))
+        }
         return accumulator
       }, 0)
     },
