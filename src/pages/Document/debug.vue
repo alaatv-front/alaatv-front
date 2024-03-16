@@ -148,13 +148,15 @@ export default {
     }
   },
   mounted () {
-    this.gg = this.getGroupName(this.sampleArrayOfText3[0], '/', 2)
+    // this.gg = this.getGroupName(this.sampleArrayOfText3[0], '/', 2)
+    this.gg = this.getDelimiterIgnoreCount(this.sampleArrayOfText3, 1, '/')
   },
   methods: {
     getGroupName (text, delimiter, delimiterIgnoreCount) {
       return text.toString().split(delimiter).slice(0, delimiterIgnoreCount + 1).join(delimiter)
     },
     getDelimiterIgnoreCount (arrayOfText, index, delimiter) {
+      debugger
       if (typeof arrayOfText[index] !== 'string') {
         return 0
       }
@@ -163,6 +165,8 @@ export default {
       for (let i = delimiterCount; i > delimiterCount; i--) {
         if (arrayOfText.findIndex((item, itemIndex) => itemIndex !== index && item === this.getGroupName(arrayOfText[index], delimiter, i)) !== -1) {
           delimiterIgnoreCount = i
+        } else {
+          delimiterIgnoreCount = i++
         }
       }
 
