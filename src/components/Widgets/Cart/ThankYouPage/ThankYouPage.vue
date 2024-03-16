@@ -1,5 +1,8 @@
 <template>
   <div class="cart-container">
+    <div v-if="host">
+      ({{ host }})
+    </div>
     <template v-if="loading && !isEwanoUser">
       <q-skeleton type="circle" />
     </template>
@@ -48,6 +51,7 @@
 </template>
 
 <script>
+import { Capacitor } from '@capacitor/core'
 import { mixinAuth } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
@@ -58,6 +62,7 @@ export default {
   mixins: [mixinAuth, mixinEwano],
   data () {
     return {
+      host: null,
       loading: false,
       hasPaid: false
     }
@@ -76,6 +81,11 @@ export default {
     this.$bus.on('ThankYouPageInvoiceLoading', (status) => {
       this.loading = status
     })
+    this.host = window.location.href
+    if (Capacitor.isNativePlatform() && window.location.href.indexOf('http://localhost') !== 0) {
+      document.location = window.location.href.replace('https://alaatv.com', 'http://localhost/#')
+        .replace('http://alaatv.com', 'http://localhost/#')
+    }
   },
   methods: {
     pushPurchaseEvent (order) {
