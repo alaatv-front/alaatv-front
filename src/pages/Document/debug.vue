@@ -148,20 +148,35 @@ export default {
     }
   },
   mounted () {
-    this.gg = this.getGroupName(this.sampleArrayOfText[0], '/', 1)
+    this.gg = this.getGroupName(this.sampleArrayOfText[0], '/', 0)
   },
   methods: {
     getGroupName (text, delimiter, delimiterIgnoreCount) {
       return text.toString().split(delimiter).slice(0, delimiterIgnoreCount + 1).join(delimiter)
     },
-    getDelimiterIgnoreCount (arrayOfText, delimiter) {
+    getDelimiterIgnoreCount (arrayOfText, index, delimiter) {
+      if (typeof arrayOfText[index] !== 'string') {
+        return 0
+      }
+      const delimiterCount = arrayOfText[index].split(delimiter).length - 1
+      for (let i = 0; i < delimiterCount; i++) {
+        if (arrayOfText.findIndex((item, itemIndex) => itemIndex !== index && item === this.getGroupName(arrayOfText[index], delimiter, i)) !== -1) {
+
+        }
+      }
+      return accumulator
+    },
+    getDelimiterIgnoreCount1 (arrayOfText, delimiter) {
       return arrayOfText.reduce((accumulator, currentValue, currentIndex, array) => {
         if (typeof currentValue !== 'string') {
-          return false
+          return 0
         }
         const delimiterCount = currentValue.split(delimiter).length - 1
         for (let i = 0; i < delimiterCount; i++) {
-          array.findIndex(item => item === this.getGroupName(currentValue, delimiter, i))
+          const target = array.findIndex(item => item === this.getGroupName(currentValue, delimiter, i))
+          if (target !== -1 && target !== currentIndex) {
+
+          }
         }
         return accumulator
       }, 0)
