@@ -131,7 +131,7 @@ export default {
   methods: {
     updateTime (data) {
       this.$emit('timeUpdated', data)
-      if (this.isUserLogin && data.duration >= 1) {
+      if (this.isUserLogin && data.currentTime >= 1) {
         ContentManager.checkAndStoreContent({
           id: this.content.id,
           sent: 0,
