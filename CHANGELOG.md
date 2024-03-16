@@ -1,3 +1,11 @@
+## [1.18.21](https://git.alaatv.com/web/alaatv_front/compare/v1.18.20...v1.18.21) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug android logout after payment ([c0d6b8c](https://git.alaatv.com/web/alaatv_front/commit/c0d6b8c51550e5c885d4d38a82f1a5ea5c5c14a4))
+* show playback rate button in mobile size ([#1011](https://git.alaatv.com/web/alaatv_front/issues/1011)) ([8ec7869](https://git.alaatv.com/web/alaatv_front/commit/8ec78695dc45c10939a1dc79a12644cfab20d0dd))
+
 ## [1.18.20](https://git.alaatv.com/web/alaatv_front/compare/v1.18.19...v1.18.20) (2024-03-16)
 
 
