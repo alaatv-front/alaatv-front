@@ -1,3 +1,11 @@
+## [1.18.26](https://git.alaatv.com/web/alaatv_front/compare/v1.18.25...v1.18.26) (2024-03-16)
+
+
+### Bug Fixes
+
+* change study_event param in dashboard ([#1012](https://git.alaatv.com/web/alaatv_front/issues/1012)) ([9beb437](https://git.alaatv.com/web/alaatv_front/commit/9beb4376ac4f9017b7e6839c966d0c41268780f5))
+* debug android logout after payment ([603bd18](https://git.alaatv.com/web/alaatv_front/commit/603bd182e04c79f790378a86a2e09a9677c9b6d1))
+
 ## [1.18.25](https://git.alaatv.com/web/alaatv_front/compare/v1.18.24...v1.18.25) (2024-03-16)
 
 
