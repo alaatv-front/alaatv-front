@@ -235,7 +235,7 @@ import {
   Capacitor
   /*, Plugins */
 } from '@capacitor/core'
-import { Browser } from '@capacitor/browser'
+// import { Browser } from '@capacitor/browser'
 import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
 import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
