@@ -1,8 +1,8 @@
 <template>
   <div class="cart-container">
-    <div v-if="host">
-      ({{ host }})
-    </div>
+    <!--    <div v-if="host">-->
+    <!--      ({{ host }})-->
+    <!--    </div>-->
     <template v-if="loading && !isEwanoUser">
       <q-skeleton type="circle" />
     </template>
@@ -82,9 +82,10 @@ export default {
       this.loading = status
     })
     this.host = window.location.href
+    // alaa-app://alaatv.com/payment
     if (Capacitor.isNativePlatform() && window.location.href.indexOf('https://localhost') !== 0) {
-      document.location = window.location.href.replace('https://alaatv.com', 'https://localhost/#')
-        .replace('http://alaatv.com', 'https://localhost/#')
+      document.location = window.location.href.replace('https://alaatv.com', 'alaa-app://alaatv.com')
+        .replace('http://alaatv.com', 'alaa-app://alaatv.com')
     }
   },
   methods: {
