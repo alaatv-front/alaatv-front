@@ -1,5 +1,8 @@
 <template>
   <div class="cart-container">
+    <div v-if="host">
+      ({{ host }})
+    </div>
     <template v-if="loading && !isEwanoUser">
       <q-skeleton type="circle" />
     </template>
@@ -59,6 +62,7 @@ export default {
   mixins: [mixinAuth, mixinEwano],
   data () {
     return {
+      host: null,
       loading: false,
       hasPaid: false
     }
@@ -77,7 +81,8 @@ export default {
     this.$bus.on('ThankYouPageInvoiceLoading', (status) => {
       this.loading = status
     })
-    if (Capacitor.isNativePlatform()) {
+    this.host = window.location.href
+    if (Capacitor.isNativePlatform() && window.location.href.indexOf('http://localhost') !== 0) {
       document.location = window.location.href.replace('https://alaatv.com', 'http://localhost/#')
         .replace('http://alaatv.com', 'http://localhost/#')
     }
