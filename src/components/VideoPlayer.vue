@@ -961,6 +961,12 @@ export default {
       }
     }
 
+    &.vjs-layout-small {
+      .vjs-playback-rate {
+        display: block;
+      }
+    }
+
     .vjs-loading-spinner {
       right: 50%;
       margin-right: -50px;
