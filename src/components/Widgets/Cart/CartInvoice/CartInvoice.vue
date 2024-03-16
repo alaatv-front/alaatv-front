@@ -586,10 +586,10 @@ export default {
         return
       }
 
-      if (Capacitor.isNativePlatform()) {
-        alert('Capacitor.isNativePlatform() test soalaa.com')
-        this.openCapacitorSite('https://soalaa.com/')
-      }
+      // if (Capacitor.isNativePlatform()) {
+      //   alert('Capacitor.isNativePlatform() test soalaa.com')
+      //   this.openCapacitorSite('https://soalaa.com/')
+      // }
 
       this.$store.commit('loading/loading', true)
       this.$store.dispatch('Cart/paymentCheckout', this.selectedBank)
