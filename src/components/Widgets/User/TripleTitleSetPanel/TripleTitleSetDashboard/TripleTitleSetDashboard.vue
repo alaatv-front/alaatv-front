@@ -1,5 +1,5 @@
 <template>
-  <div className="triple-title-set-dashboard-container new-theme">
+  <div class="triple-title-set-dashboard-container new-theme">
     <dashboard-header :study-plan-id="studyPlanId"
                       :event="event" />
     <daily-plan :study-plan-id="studyPlanId" />
