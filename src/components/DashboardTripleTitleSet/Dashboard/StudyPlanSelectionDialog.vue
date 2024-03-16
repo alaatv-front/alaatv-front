@@ -131,10 +131,10 @@ export default defineComponent({
   methods: {
     afterSetEvent () {
       this.getOptions()
-      this.formData.event_id = this.event.studyEventId
+      this.formData.event_id = this.event.id
     },
     getOptions () {
-      APIGateway.studyPlan.getSelectPlanOptions({ event_id: this.event.studyEventId })
+      APIGateway.studyPlan.getSelectPlanOptions({ event_id: this.event.id })
         .then(options => {
           this.inputsOptions = options
         })
