@@ -83,6 +83,7 @@ export default {
     })
     if (Capacitor.isNativePlatform()) {
       this.host = window.location.href
+      document.location = window.location.href.replace('http://alaatv.com', 'http://localhost/#')
     }
   },
   methods: {
