@@ -82,9 +82,9 @@ export default {
       this.loading = status
     })
     this.host = window.location.href
-    if (Capacitor.isNativePlatform() && window.location.href.indexOf('http://localhost') !== 0) {
-      document.location = window.location.href.replace('https://alaatv.com', 'http://localhost/#')
-        .replace('http://alaatv.com', 'http://localhost/#')
+    if (Capacitor.isNativePlatform() && window.location.href.indexOf('https://localhost') !== 0) {
+      document.location = window.location.href.replace('https://alaatv.com', 'https://localhost/#')
+        .replace('http://alaatv.com', 'https://localhost/#')
     }
   },
   methods: {
