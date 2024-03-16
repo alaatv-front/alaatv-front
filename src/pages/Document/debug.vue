@@ -148,7 +148,7 @@ export default {
     }
   },
   mounted () {
-    this.gg = this.getGroupName(this.sampleArrayOfText[0], '/', 0)
+    this.gg = this.getGroupName(this.sampleArrayOfText3[0], '/', 2)
   },
   methods: {
     getGroupName (text, delimiter, delimiterIgnoreCount) {
@@ -159,28 +159,30 @@ export default {
         return 0
       }
       const delimiterCount = arrayOfText[index].split(delimiter).length - 1
-      for (let i = 0; i < delimiterCount; i++) {
+      let delimiterIgnoreCount = 0
+      for (let i = delimiterCount; i > delimiterCount; i--) {
         if (arrayOfText.findIndex((item, itemIndex) => itemIndex !== index && item === this.getGroupName(arrayOfText[index], delimiter, i)) !== -1) {
-
+          delimiterIgnoreCount = i
         }
       }
-      return accumulator
-    },
-    getDelimiterIgnoreCount1 (arrayOfText, delimiter) {
-      return arrayOfText.reduce((accumulator, currentValue, currentIndex, array) => {
-        if (typeof currentValue !== 'string') {
-          return 0
-        }
-        const delimiterCount = currentValue.split(delimiter).length - 1
-        for (let i = 0; i < delimiterCount; i++) {
-          const target = array.findIndex(item => item === this.getGroupName(currentValue, delimiter, i))
-          if (target !== -1 && target !== currentIndex) {
 
-          }
-        }
-        return accumulator
-      }, 0)
+      return delimiterIgnoreCount
     },
+    // getDelimiterIgnoreCount1 (arrayOfText, delimiter) {
+    //   return arrayOfText.reduce((accumulator, currentValue, currentIndex, array) => {
+    //     if (typeof currentValue !== 'string') {
+    //       return 0
+    //     }
+    //     const delimiterCount = currentValue.split(delimiter).length - 1
+    //     for (let i = 0; i < delimiterCount; i++) {
+    //       const target = array.findIndex(item => item === this.getGroupName(currentValue, delimiter, i))
+    //       if (target !== -1 && target !== currentIndex) {
+    //
+    //       }
+    //     }
+    //     return accumulator
+    //   }, 0)
+    // },
     parseArrayOfText (arrayOfText) {
       const result = []
 
