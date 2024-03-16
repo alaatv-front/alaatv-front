@@ -83,8 +83,8 @@
 import { openURL } from 'quasar'
 import { EntityIndex } from 'quasar-crud'
 import { APIGateway } from 'src/api/APIGateway.js'
-import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
+import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 
 export default {
   name: 'TripleTitleSetProductDocuments',
@@ -95,7 +95,7 @@ export default {
   mixins: [mixinTripleTitleSet],
   data () {
     return {
-      api: '',
+      api: APIGateway.product.APIAdresses.getContents(this.$route.params.productId),
       grid: true,
       selected: [],
       productItemDialog: false,
@@ -171,9 +171,6 @@ export default {
     setTopicList (value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     }
-  },
-  created () {
-    this.api = APIGateway.product.APIAdresses.getContents(this.$route.params.productId)
   },
   methods: {
     afterSetEvent () {

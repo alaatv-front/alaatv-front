@@ -24,7 +24,6 @@
           </div>
         </div>
       </div>
-
     </div>
     <div class="video-description">
       <div class="description row justify-between items-center">
@@ -46,7 +45,7 @@
         <div v-if="content.id"
              class="icon-btn-box">
           <q-btn class="seen-btn"
-                 color="accent"
+                 :color="content.has_watched ? 'accent' : 'primary'"
                  :class="{ 'seen-video-btn': content.has_watched, 'video-btn': !content.has_watched }"
                  :loading="content.loading"
                  @click="clickSeenButton">
@@ -100,6 +99,9 @@
                       @clicked="handleContentBookmark" />
           </div>
         </div>
+        <div v-if="content.title !== content.body"
+             class="flex flex-wrap content-body ellipsis-2-lines"
+             v-html="content.body" />
       </div>
     </div>
   </div>
@@ -141,7 +143,6 @@ export default {
   name: 'VideoBox',
   components: { ProductItem, Bookmark, ContentVideoPlayer, ShareNetwork },
   mixins: [mixinAuth],
-
   props: {
     content: {
       type: [Content, Object],
@@ -158,9 +159,7 @@ export default {
       default: () => {}
     }
   },
-
   emits: ['favorite', 'toggle-video-status', 'bookmarkTimestamp', 'toggleFavorite', 'videoIsWatched'],
-
   data () {
     return {
       bookmarkLoading: false,
@@ -189,7 +188,6 @@ export default {
       }
     }
   },
-
   watch: {
     'content.id': function () {}
   },
@@ -487,6 +485,12 @@ export default {
         }
       }
 
+      .content-body {
+        @include body2;
+        color: $grey-8;
+        margin-top: $space-2;
+      }
+
       .subtitle {
         font-size: 16px;
         font-weight: 500;
@@ -570,18 +574,11 @@ export default {
         }
 
         .seen-video-btn {
-          background-color: #fff;
-          color: #ff8f00;
           width: 120px;
-          height: 48px;
-          border-radius: 10px;
-          border: solid 2px #ff8f00;
-          box-shadow: none;
 
           @media screen and (width <= 768px) {
             width: 110px !important;
             height: 36px !important;
-            border: solid 1px #ff8f00 !important;
           }
 
           .video-btn-text {
@@ -601,20 +598,10 @@ export default {
         }
 
         .video-btn {
-          background-color: #ff8f00;
-          color: #fff;
           width: 120px;
-          height: 48px;
-          border-radius: 10px;
-          box-shadow: 0 5px 10px 0 rgb(62 84 128 / 20%);
-
-          @media screen and (width <= 576px) {
-            height: 40px;
-          }
 
           @media screen and (width <= 768px) {
             width: 110px !important;
-            height: 36px !important;
           }
         }
 

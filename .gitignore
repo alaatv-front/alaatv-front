@@ -16,6 +16,8 @@ node_modules
 # Capacitor related directories and files
 /src-capacitor/www
 /src-capacitor/node_modules
+capacitor.config.json
+src-capacitor/package.json
 
 # Log files
 npm-debug.log*
@@ -36,3 +38,7 @@ yarn-error.log*
 
 
 *.code-workspace
+
+# android files
+*.jks
+service_account_key_file.json

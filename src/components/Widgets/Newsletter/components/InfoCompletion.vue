@@ -206,8 +206,11 @@ export default {
           this.$emit('toggleDialog')
           this.setLoading(false)
         })
-        .catch(() => {
+        .catch((error) => {
           this.setLoading(false)
+          if (error.response.status === 400) {
+            this.$emit('toggleDialog')
+          }
         })
     },
     setLoading (loading) {

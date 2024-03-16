@@ -87,6 +87,12 @@
              v-html="getMessageBody(message.body)" />
         <div class="TicketMessage__time">
           {{ message.shamsiDate('created_at').dateTime }}
+          <q-btn flat
+                 icon="ph:copy"
+                 color="grey-5"
+                 class="size-xs"
+                 square
+                 @click="copyMessageBody" />
         </div>
       </div>
     </div>
@@ -95,6 +101,7 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { copyToClipboard } from 'quasar'
 import LazyImg from 'src/components/lazyImg.vue'
 import VoiceWaveSurfer from './VoiceWaveSurfer.vue'
 import { TicketMessage } from 'src/models/TicketMessage.js'
@@ -181,6 +188,21 @@ export default defineComponent({
       }
 
       window.open(file, '_blank')
+    },
+    copyMessageBody () {
+      copyToClipboard(this.message.body.replace(/<br\/>/g, '\n'))
+        .then(() => {
+          this.$q.notify({
+            message: 'متن پیام کپی شد',
+            type: 'positive'
+          })
+        })
+        .catch(() => {
+          this.$q.notify({
+            type: 'negative',
+            message: 'مشکلی در کپی کردن متن پیام رخ داده اس.'
+          })
+        })
     }
   }
 })

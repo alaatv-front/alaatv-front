@@ -21,6 +21,9 @@
                           label="has body" />
               <q-checkbox v-model="localOptions.persistent"
                           label="persistent" />
+              <q-checkbox v-model="localOptions.once"
+                          label="Once"
+                          @update:model-value="refresh($event)" />
             </div>
             <div class="col-12 col-md-2">
               <q-checkbox v-model="localOptions.hasHeader"
@@ -29,7 +32,25 @@
                           label="immediate" />
               <q-checkbox v-model="localOptions.closeButton"
                           label="closeButton" />
+
             </div>
+            <template v-if="localOptions.once">
+              <div class="flex flex-wrap q-mb-sm" />
+              <q-item>
+                <q-item-section>
+                  <q-item-label>
+                    در صورت اعمال تغییرات و فعال بودن گزینه once، تغییرات جدید به کسانی که قبلا این پاپ آپ را دیده باشند نشان داده نخواهد شد. برای نشان دادن این اتغییرات برای همه لطفا دکمه رفرش را بزنید
+                  </q-item-label>
+                </q-item-section>
+                <q-item-section side>
+                  <q-btn color="primary"
+                         icon="ph:arrow-clockwise"
+                         square
+                         @click="refresh(true)" />
+                </q-item-section>
+              </q-item>
+            </template>
+
           </div>
           <q-expansion-item v-if="localOptions.hasHeader"
                             :label="'headerWidgets' ">
@@ -462,6 +483,8 @@ export default defineComponent({
       actionObjectTypeOptions: ['link', 'event', 'scroll'],
       defaultOptions: {
         eventName: 'openPopup',
+        refresh: null,
+        once: true,
         persistent: false,
         closeButton: false,
         immediate: false,
@@ -496,6 +519,18 @@ export default defineComponent({
       this.selectedWidgetIndex = widgetIndex
       this.selectedSectionName = sectionName
       this.optionPanel = true
+    },
+    refresh (once) {
+      if (!once) {
+        this.localOptions.refresh = null
+        return
+      }
+      this.localOptions.refresh = Date.now()
+      this.$q.notify({
+        message: 'با موفقیت ثبت شد',
+        color: 'secondary',
+        position: 'top'
+      })
     }
   }
 })

@@ -49,17 +49,17 @@
                         type="QBadge" />
           </div>
           <q-icon v-if="!!selectedTopic"
-                  name="chevron_left" />
+                  name="ph:caret-left" />
           <div v-if="!!selectedTopic"
                class="set-title">{{ selectedTopic }}</div>
           <q-icon v-if="!!selectedContentTitle"
-                  name="chevron_left" />
+                  name="ph:caret-left" />
           <div v-if="!!selectedContentTitle"
                class="content-title">{{ selectedContentTitle }}</div>
         </div>
         <div class="back-btn">
           <q-btn flat
-                 icon-right="chevron_left"
+                 icon-right="ph:caret-left"
                  @click="goBack">بازگشت</q-btn>
         </div>
       </div>
@@ -131,9 +131,7 @@ export default {
       return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.md
     },
     topicList () {
-      const topicList = this.$store.getters['TripleTitleSet/setTopicList']
-      this.fillTopicsRouteArray(topicList)
-      return topicList
+      return this.$store.getters['TripleTitleSet/setTopicList']
     },
     setList () {
       return this.$store.getters['TripleTitleSet/setList']
@@ -164,6 +162,11 @@ export default {
     },
     productId () {
       return this.selectedProduct?.id
+    }
+  },
+  watch: {
+    topicList (newValue) {
+      this.fillTopicsRouteArray(newValue)
     }
   },
   methods: {
@@ -400,11 +403,6 @@ export default {
 
     &:deep(.side-menu-main-layout) {
       .q-expansion-item__container {
-        .q-item {
-          display: flex;
-          padding: 0 10px !important;
-        }
-
         .q-icon {
           font-size: 21px;
         }

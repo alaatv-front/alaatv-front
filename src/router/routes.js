@@ -546,7 +546,6 @@ const routes = [
                   layoutLeftDrawerBehavior: 'default',
                   layoutFooter: true,
                   layoutFooterType: 'triple-title-set'
-
                 },
                 component: () => import('src/layouts/bareLayout.vue'),
                 children: [

@@ -1,3 +1,244 @@
+## [1.18.15](https://git.alaatv.com/web/alaatv_front/compare/v1.18.14...v1.18.15) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([64b268f](https://git.alaatv.com/web/alaatv_front/commit/64b268febdff9d410de5fb896c24d62fca023ae3))
+
+## [1.18.14](https://git.alaatv.com/web/alaatv_front/compare/v1.18.13...v1.18.14) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([4a09a36](https://git.alaatv.com/web/alaatv_front/commit/4a09a3606ebdd389a725d629fbb51c08474bfda6))
+* debug payment for native(android) app ([a8a435f](https://git.alaatv.com/web/alaatv_front/commit/a8a435febcf1babb6031e784fc13ddf8f4eef19f))
+
+## [1.18.13](https://git.alaatv.com/web/alaatv_front/compare/v1.18.12...v1.18.13) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([7c77ac9](https://git.alaatv.com/web/alaatv_front/commit/7c77ac9a65663455d135b659137e1295c8e8e069))
+
+## [1.18.12](https://git.alaatv.com/web/alaatv_front/compare/v1.18.11...v1.18.12) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([baca8fa](https://git.alaatv.com/web/alaatv_front/commit/baca8fac8e621dad835faf68078d8643d9e7d42d))
+
+## [1.18.11](https://git.alaatv.com/web/alaatv_front/compare/v1.18.10...v1.18.11) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([b02b265](https://git.alaatv.com/web/alaatv_front/commit/b02b265c0883e3889fe4f65819d9792c295850c7))
+
+## [1.18.10](https://git.alaatv.com/web/alaatv_front/compare/v1.18.9...v1.18.10) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([54bdfed](https://git.alaatv.com/web/alaatv_front/commit/54bdfedca71e76d461018b94582372edcf9e7088))
+
+## [1.18.9](https://git.alaatv.com/web/alaatv_front/compare/v1.18.8...v1.18.9) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([43a0d3a](https://git.alaatv.com/web/alaatv_front/commit/43a0d3a0972d980eaa819489879d6df6a4de510c))
+* debug payment for native(android) app ([6d667fa](https://git.alaatv.com/web/alaatv_front/commit/6d667fa2d9ee613819cc177d13f06730309d3e3c))
+
+## [1.18.8](https://git.alaatv.com/web/alaatv_front/compare/v1.18.7...v1.18.8) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([ce6ca28](https://git.alaatv.com/web/alaatv_front/commit/ce6ca28054a2bc811484a6acf8bed01dd834b856))
+
+## [1.18.7](https://git.alaatv.com/web/alaatv_front/compare/v1.18.6...v1.18.7) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([c2d9afc](https://git.alaatv.com/web/alaatv_front/commit/c2d9afc7cfdba937190d60031574380548d53594))
+
+## [1.18.6](https://git.alaatv.com/web/alaatv_front/compare/v1.18.5...v1.18.6) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([8cb009c](https://git.alaatv.com/web/alaatv_front/commit/8cb009ca472078404d44b4dd1fb74a12cda663ea))
+
+## [1.18.5](https://git.alaatv.com/web/alaatv_front/compare/v1.18.4...v1.18.5) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([392e362](https://git.alaatv.com/web/alaatv_front/commit/392e36253491219d0c0ce04f9ba201df4acc52a3))
+* payment for native(android) app ([3633e88](https://git.alaatv.com/web/alaatv_front/commit/3633e88d418d20e72916c0adbc3916dc3965f070))
+
+## [1.18.4](https://git.alaatv.com/web/alaatv_front/compare/v1.18.3...v1.18.4) (2024-03-16)
+
+
+### Bug Fixes
+
+* payment for native(android) app ([48323e3](https://git.alaatv.com/web/alaatv_front/commit/48323e30c2b6df16ef966924741b3d00adcdc841))
+
+## [1.18.3](https://git.alaatv.com/web/alaatv_front/compare/v1.18.2...v1.18.3) (2024-03-13)
+
+
+### Bug Fixes
+
+* payment for native(android) app ([3cad2e9](https://git.alaatv.com/web/alaatv_front/commit/3cad2e906be54449cc17c3e90f4c7f590c3ab348))
+
+## [1.18.2](https://git.alaatv.com/web/alaatv_front/compare/v1.18.1...v1.18.2) (2024-03-13)
+
+
+### Bug Fixes
+
+* payment for native(android) app ([80dafb9](https://git.alaatv.com/web/alaatv_front/commit/80dafb93d91b117320aae2725aaaed3d0f2bbf5f))
+
+## [1.18.1](https://git.alaatv.com/web/alaatv_front/compare/v1.18.0...v1.18.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* payment for native(android) app ([15b89f5](https://git.alaatv.com/web/alaatv_front/commit/15b89f59b49a87ccbdb7ee2d6e044cf1a2af7bd6))
+
+# [1.18.0](https://git.alaatv.com/web/alaatv_front/compare/v1.17.3...v1.18.0) (2024-03-13)
+
+
+### Features
+
+* copy message body ([4cbc068](https://git.alaatv.com/web/alaatv_front/commit/4cbc068cf9d407e3ec4658d00f0a39de50a96e4d))
+
+## [1.17.3](https://git.alaatv.com/web/alaatv_front/compare/v1.17.2...v1.17.3) (2024-03-13)
+
+
+### Bug Fixes
+
+* change ttsp events id config ([6113418](https://git.alaatv.com/web/alaatv_front/commit/6113418c26b33e6cb8499d86438b8659f6c062b1))
+* payment in native (android) app ([9b870a7](https://git.alaatv.com/web/alaatv_front/commit/9b870a749b53efe2e5621e74f557d20a6c6fb65c))
+* payment in native (android) app ([4ba6463](https://git.alaatv.com/web/alaatv_front/commit/4ba64637a965db58152c9ae2d002b7774c48469d))
+
+## [1.17.2](https://git.alaatv.com/web/alaatv_front/compare/v1.17.1...v1.17.2) (2024-03-13)
+
+
+### Bug Fixes
+
+* product background image ([0aae537](https://git.alaatv.com/web/alaatv_front/commit/0aae53784b940f85f0325366f7222a1965fb0776))
+
+## [1.17.1](https://git.alaatv.com/web/alaatv_front/compare/v1.17.0...v1.17.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* ttsp event_id ([42258cf](https://git.alaatv.com/web/alaatv_front/commit/42258cf337b9f54594f50088f49780ac04349a44))
+
+# [1.17.0](https://git.alaatv.com/web/alaatv_front/compare/v1.16.0...v1.17.0) (2024-03-13)
+
+
+### Bug Fixes
+
+* change TTSP events category_id to event_id ([#1007](https://git.alaatv.com/web/alaatv_front/issues/1007)) ([b201d9b](https://git.alaatv.com/web/alaatv_front/commit/b201d9b35947a53dd4e5d33865642c6025ec100d))
+
+
+### Features
+
+* update .env.example ([40bf181](https://git.alaatv.com/web/alaatv_front/commit/40bf18173986f60f94c20cfe57220ee3d9f9db35))
+
+# [1.16.0](https://git.alaatv.com/web/alaatv_front/compare/v1.15.1...v1.16.0) (2024-03-13)
+
+
+### Bug Fixes
+
+* ttsp content body ([402b61e](https://git.alaatv.com/web/alaatv_front/commit/402b61ed38414b9d99f9f3196a432647ffe78d39))
+* ttsp content comment save ([f7f1423](https://git.alaatv.com/web/alaatv_front/commit/f7f1423daec201bed3324c310010869d93bc2d39))
+* ttsp content comment style ([5d7ec19](https://git.alaatv.com/web/alaatv_front/commit/5d7ec19238ac3552a175c341eec4842586ff9c2d))
+* ttsp drawer update items ([eea4b48](https://git.alaatv.com/web/alaatv_front/commit/eea4b48f713a6d117c1d3149e54085df2430b6c8))
+* ttsp product page for disable products ([f033f8b](https://git.alaatv.com/web/alaatv_front/commit/f033f8b6c5b352b6f2a7f3d9408b99dc5dfdb32e))
+
+
+### Features
+
+* Select teacher of package products ([#1006](https://git.alaatv.com/web/alaatv_front/issues/1006)) ([f11f64a](https://git.alaatv.com/web/alaatv_front/commit/f11f64a21a88d84175ef0f8b8e49e1407bb030a2))
+
+## [1.15.1](https://git.alaatv.com/web/alaatv_front/compare/v1.15.0...v1.15.1) (2024-03-12)
+
+
+### Bug Fixes
+
+* ttsp show drawer items ([1456681](https://git.alaatv.com/web/alaatv_front/commit/1456681e53496f0602d266dc3e4f49ad80c9dceb))
+
+# [1.15.0](https://git.alaatv.com/web/alaatv_front/compare/v1.14.1...v1.15.0) (2024-03-12)
+
+
+### Bug Fixes
+
+* Abrisham & Abrisham pro links in panel list fixed ([#1001](https://git.alaatv.com/web/alaatv_front/issues/1001)) ([7fa8b82](https://git.alaatv.com/web/alaatv_front/commit/7fa8b829d10169871da20b8d9689383ac6f709ce))
+* Action Option computed's getter fixed ([#1002](https://git.alaatv.com/web/alaatv_front/issues/1002)) ([5b0c29b](https://git.alaatv.com/web/alaatv_front/commit/5b0c29bb42adc5e44a5b06607d9d63ea13179d9d))
+* my orders responsive ([6427797](https://git.alaatv.com/web/alaatv_front/commit/6427797dea1f7c918fbd03aaa046b510cf74c3f6))
+* my purchase responsive ([c89dc1e](https://git.alaatv.com/web/alaatv_front/commit/c89dc1efade0f47539a9de1571adc1b35256fdd9))
+* my purchase responsive ([487e571](https://git.alaatv.com/web/alaatv_front/commit/487e571479f5bc0013444bd593292995275e7337))
+* newsletter close on 400 error ([#1000](https://git.alaatv.com/web/alaatv_front/issues/1000)) ([d54bcaa](https://git.alaatv.com/web/alaatv_front/commit/d54bcaa96c8cfabcaff6aa7694cf9643e0c87dda))
+* option panels redesign ([#1003](https://git.alaatv.com/web/alaatv_front/issues/1003)) ([f322df2](https://git.alaatv.com/web/alaatv_front/commit/f322df2b1c2bb417a542bc87970a8b26a7670a2b))
+* rename ticket list widget ([#1005](https://git.alaatv.com/web/alaatv_front/issues/1005)) ([9e10432](https://git.alaatv.com/web/alaatv_front/commit/9e10432ca50de057b566c6c9b4d652cb309038f6))
+* text-widget option panel redesign ([#1004](https://git.alaatv.com/web/alaatv_front/issues/1004)) ([a0cf137](https://git.alaatv.com/web/alaatv_front/commit/a0cf1375df215106c5750dbe51f5ad2161a83e44))
+* ttsp side menu style ([5662bf4](https://git.alaatv.com/web/alaatv_front/commit/5662bf48f794f17791c9d63787f600183c734f78))
+
+
+### Features
+
+* Automatic release of application with ci/cd ([#999](https://git.alaatv.com/web/alaatv_front/issues/999)) ([021e191](https://git.alaatv.com/web/alaatv_front/commit/021e1918f86a783dfa56933240e1d291273740d0))
+* popup once and timeStamp ([#997](https://git.alaatv.com/web/alaatv_front/issues/997)) ([9f8a547](https://git.alaatv.com/web/alaatv_front/commit/9f8a54793e308f9ade10f0a74a6b47501d3eceb3))
+
+## [1.14.1](https://git.alaatv.com/web/alaatv_front/compare/v1.14.0...v1.14.1) (2024-03-11)
+
+
+### Bug Fixes
+
+* RaychatWidget set for custom pages ([1a2619b](https://git.alaatv.com/web/alaatv_front/commit/1a2619b31764d7129d51f67738d950868f497e80))
+* ttsp content show page has_watched ([cd6aeca](https://git.alaatv.com/web/alaatv_front/commit/cd6aecadfbaa645761eaab077962c0e0a96d2efb))
+* ttsp product page ExpansionItem.vue emit warning ([27da97f](https://git.alaatv.com/web/alaatv_front/commit/27da97fedfa49a4c543b9ef3c4a88def670a3e03))
+* ttsp remove console.log ([83451f2](https://git.alaatv.com/web/alaatv_front/commit/83451f2a706fc0d78755dabf8c190c99818b7217))
+* update dependencies ([55644f2](https://git.alaatv.com/web/alaatv_front/commit/55644f2f60d43e524f0579a2c2eabf1e2e210ac8))
+* update dependencies for hydration miss match ([8aaa977](https://git.alaatv.com/web/alaatv_front/commit/8aaa9778c124171e4d28094c5e37f406f178e8b7))
+
+# [1.14.0](https://git.alaatv.com/web/alaatv_front/compare/v1.13.3...v1.14.0) (2024-03-09)
+
+
+### Bug Fixes
+
+* remove console.log ([dc1709e](https://git.alaatv.com/web/alaatv_front/commit/dc1709ea3bb264b8bf27c2fe0722d4497a995f40))
+* scrollbar for firefox ([6a555be](https://git.alaatv.com/web/alaatv_front/commit/6a555be9e5b4fe89945383f9975458ddcf575910))
+* TicketList.vue show ticket in new tab ([f7fd05f](https://git.alaatv.com/web/alaatv_front/commit/f7fd05f2d3d65a40c4c57ad25ce8da6ab69a858e))
+* ttsp dashboard fix get today plans ([37a0e45](https://git.alaatv.com/web/alaatv_front/commit/37a0e459a110e640bfe1cabfa03e1ad2dad5d8fa))
+* ttsp study plan deletePlanLoading ([50ed6df](https://git.alaatv.com/web/alaatv_front/commit/50ed6dfcd92e01ae0b16580bea85bc45ada26a0d))
+* ttsp study plan open plan content in new tab ([54ac473](https://git.alaatv.com/web/alaatv_front/commit/54ac473b57bb3b54431fbcd0a146554d7c322d5f))
+* ttsp study plan redesign contents in dialog ([760a16d](https://git.alaatv.com/web/alaatv_front/commit/760a16dfecffe445462da529249a18259f6f8256))
+* ttsp study plan refresh_plans bug fux ([c1cb2c4](https://git.alaatv.com/web/alaatv_front/commit/c1cb2c4024d8548476c1e060ad065da58c2ac292))
+
+
+### Features
+
+* black Friday video steps icons and newsletter ([#995](https://git.alaatv.com/web/alaatv_front/issues/995)) ([e3a42e9](https://git.alaatv.com/web/alaatv_front/commit/e3a42e9e48b99eaffcd49dfe16a53b893428c754))
+* ttsp study plan prevent change date after copy, create, delete and edit ([d857f48](https://git.alaatv.com/web/alaatv_front/commit/d857f4877faf071b5bff5e499dbf381e2507c318))
+
+## [1.13.3](https://git.alaatv.com/web/alaatv_front/compare/v1.13.2...v1.13.3) (2024-03-06)
+
+
+### Bug Fixes
+
+* TicketShow.vue message list height in mobile ([e2256d4](https://git.alaatv.com/web/alaatv_front/commit/e2256d4a2cefd6c2d8510ad24ea2ff482091e2ba))
+
+## [1.13.2](https://git.alaatv.com/web/alaatv_front/compare/v1.13.1...v1.13.2) (2024-03-06)
+
+
+### Bug Fixes
+
+* ttsp study plan loading for create and edit plan ([59beada](https://git.alaatv.com/web/alaatv_front/commit/59beada196ad2b70b2a43b751873c11a2a8f3068))
+
 ## [1.13.1](https://git.alaatv.com/web/alaatv_front/compare/v1.13.0...v1.13.1) (2024-03-06)
 
 
