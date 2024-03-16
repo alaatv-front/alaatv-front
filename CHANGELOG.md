@@ -1,3 +1,46 @@
+## [1.18.8](https://git.alaatv.com/web/alaatv_front/compare/v1.18.7...v1.18.8) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([ce6ca28](https://git.alaatv.com/web/alaatv_front/commit/ce6ca28054a2bc811484a6acf8bed01dd834b856))
+
+## [1.18.7](https://git.alaatv.com/web/alaatv_front/compare/v1.18.6...v1.18.7) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([c2d9afc](https://git.alaatv.com/web/alaatv_front/commit/c2d9afc7cfdba937190d60031574380548d53594))
+
+## [1.18.6](https://git.alaatv.com/web/alaatv_front/compare/v1.18.5...v1.18.6) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([8cb009c](https://git.alaatv.com/web/alaatv_front/commit/8cb009ca472078404d44b4dd1fb74a12cda663ea))
+
+## [1.18.5](https://git.alaatv.com/web/alaatv_front/compare/v1.18.4...v1.18.5) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([392e362](https://git.alaatv.com/web/alaatv_front/commit/392e36253491219d0c0ce04f9ba201df4acc52a3))
+* payment for native(android) app ([3633e88](https://git.alaatv.com/web/alaatv_front/commit/3633e88d418d20e72916c0adbc3916dc3965f070))
+
+## [1.18.4](https://git.alaatv.com/web/alaatv_front/compare/v1.18.3...v1.18.4) (2024-03-16)
+
+
+### Bug Fixes
+
+* payment for native(android) app ([48323e3](https://git.alaatv.com/web/alaatv_front/commit/48323e30c2b6df16ef966924741b3d00adcdc841))
+
+## [1.18.3](https://git.alaatv.com/web/alaatv_front/compare/v1.18.2...v1.18.3) (2024-03-13)
+
+
+### Bug Fixes
+
+* payment for native(android) app ([3cad2e9](https://git.alaatv.com/web/alaatv_front/commit/3cad2e906be54449cc17c3e90f4c7f590c3ab348))
+
 ## [1.18.2](https://git.alaatv.com/web/alaatv_front/compare/v1.18.1...v1.18.2) (2024-03-13)
 
 
