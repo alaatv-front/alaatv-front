@@ -1,8 +1,8 @@
 <template>
   <div class="triple-title-set-dashboard-container new-theme">
-    <dashboard-header :event="event"
-                      :studyPlanId="studyPlanId" />
-    <daily-plan :studyPlanId="studyPlanId" />
+    <dashboard-header :study-plan-id="studyPlanId"
+                      :event="event" />
+    <daily-plan :study-plan-id="studyPlanId" />
     <status-and-review :loading="loading"
                        :study-plan-info="studyPlanInfo" />
     <study-plan-selection-dialog :dialog="dialog"
@@ -32,6 +32,7 @@ export default defineComponent({
   data () {
     return {
       loading: false,
+      studyPlanId: null,
       studyPlanInfo: {
         id: null,
         title: '',
@@ -40,12 +41,6 @@ export default defineComponent({
         count_of_remained_sessions: null
       },
       dialog: false
-    }
-  },
-  computed: {
-    studyPlanId () {
-      return this.event.id
-      // return this.studyPlanInfo.id
     }
   },
   methods: {
@@ -60,6 +55,7 @@ export default defineComponent({
             this.dialog = true
           } else {
             this.studyPlanInfo = studyPlanInfo
+            this.studyPlanId = studyPlanInfo.id
           }
           this.loading = false
         })
