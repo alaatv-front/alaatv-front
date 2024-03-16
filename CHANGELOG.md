@@ -1,3 +1,19 @@
+## [1.17.3](https://git.alaatv.com/web/alaatv_front/compare/v1.17.2...v1.17.3) (2024-03-13)
+
+
+### Bug Fixes
+
+* change ttsp events id config ([6113418](https://git.alaatv.com/web/alaatv_front/commit/6113418c26b33e6cb8499d86438b8659f6c062b1))
+* payment in native (android) app ([9b870a7](https://git.alaatv.com/web/alaatv_front/commit/9b870a749b53efe2e5621e74f557d20a6c6fb65c))
+* payment in native (android) app ([4ba6463](https://git.alaatv.com/web/alaatv_front/commit/4ba64637a965db58152c9ae2d002b7774c48469d))
+
+## [1.17.2](https://git.alaatv.com/web/alaatv_front/compare/v1.17.1...v1.17.2) (2024-03-13)
+
+
+### Bug Fixes
+
+* product background image ([0aae537](https://git.alaatv.com/web/alaatv_front/commit/0aae53784b940f85f0325366f7222a1965fb0776))
+
 ## [1.17.1](https://git.alaatv.com/web/alaatv_front/compare/v1.17.0...v1.17.1) (2024-03-13)
 
 

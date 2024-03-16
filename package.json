@@ -1,6 +1,6 @@
 {
   "name": "alaatv",
-  "version": "1.17.1",
+  "version": "1.17.3",
   "description": "alaatv with vite",
   "productName": "alaatv",
   "author": "Ali <aliesmaeeli20@gmail.com>",
@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@capacitor-community/sqlite": "^5.4.2-2",
+    "@capacitor/browser": "^5.2.0",
     "@capacitor/cli": "^5.5.1",
     "@capacitor/core": "^5.5.1",
     "@capacitor/preferences": "^5.0.6",

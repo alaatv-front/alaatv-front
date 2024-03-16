@@ -231,9 +231,16 @@ import LazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { GatewayList } from 'src/models/Gateway.js'
+import {
+  Capacitor
+  /*, Plugins */
+} from '@capacitor/core'
+import { Browser } from '@capacitor/browser'
 import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
 import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+
+// const { Browser } = Plugins
 
 let StickySidebar
 if (typeof window !== 'undefined') {
@@ -567,14 +574,29 @@ export default {
       this.$store.commit('loading/loading', true)
       this.$store.dispatch('Cart/paymentCheckout', this.selectedBank)
         .then((encryptedPaymentRedirectLink) => {
-          window.open(encryptedPaymentRedirectLink, '_self')
+          if (Capacitor.isNativePlatform()) {
+            // window.open = async (url) => Browser.open({ url })
+            // window.open(encryptedPaymentRedirectLink)
+
+            alert(encryptedPaymentRedirectLink)
+            Browser.open({ url: encryptedPaymentRedirectLink })
+
+            // document.location = encryptedPaymentRedirectLink
+
+            // const aTag = document.createElement('a')
+            // aTag.href = encryptedPaymentRedirectLink
+            // aTag.target = '_self'
+            // aTag.click()
+          } else {
+            window.open(encryptedPaymentRedirectLink, '_self')
+          }
+
           this.$store.commit('loading/loading', false)
         })
         .catch(() => {
           this.$store.commit('loading/loading', false)
         })
     },
-
     login () {
       this.$store.dispatch('Auth/login', this.userEnteredLoginInfo)
         .then(() => {
@@ -583,11 +605,9 @@ export default {
           }
         })
     },
-
     getPriceFormat (priceKey) {
       return this.cart.price.toman(priceKey, null)
     },
-
     clickOnGateway () {
       // this.selectedBank = !this.selectedBank
     }
