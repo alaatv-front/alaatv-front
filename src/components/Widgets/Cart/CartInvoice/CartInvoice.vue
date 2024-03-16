@@ -575,10 +575,10 @@ export default {
         return
       }
 
-      if (Capacitor.isNativePlatform()) {
-        alert('Capacitor.isNativePlatform()')
-        this.openCapacitorSite('https://soalaa.com/')
-      }
+      // if (Capacitor.isNativePlatform()) {
+      //   alert('Capacitor.isNativePlatform()')
+      //   this.openCapacitorSite('https://soalaa.com/')
+      // }
 
       this.$store.commit('loading/loading', true)
       this.$store.dispatch('Cart/paymentCheckout', this.selectedBank)
@@ -587,7 +587,8 @@ export default {
             // window.open = async (url) => Browser.open({ url })
             // window.open(encryptedPaymentRedirectLink)
 
-            alert('encryptedPaymentRedirectLink', encryptedPaymentRedirectLink)
+            // alert('encryptedPaymentRedirectLink')
+            // alert(encryptedPaymentRedirectLink)
             this.openCapacitorSite(encryptedPaymentRedirectLink)
 
             // document.location = encryptedPaymentRedirectLink
