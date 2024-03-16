@@ -1,3 +1,13 @@
+## [1.18.20](https://git.alaatv.com/web/alaatv_front/compare/v1.18.19...v1.18.20) (2024-03-16)
+
+
+### Bug Fixes
+
+* chore(deps): bump follow-redirects from 1.15.3 to 1.15.6 ([#1008](https://git.alaatv.com/web/alaatv_front/issues/1008)) ([5c3e599](https://git.alaatv.com/web/alaatv_front/commit/5c3e5993ecb234d297119e00229d3adae33d12f8))
+* content manager prevent store 0 value ([#1009](https://git.alaatv.com/web/alaatv_front/issues/1009)) ([f5e37a8](https://git.alaatv.com/web/alaatv_front/commit/f5e37a814b2cd95ecc090caae4dad17ff59277b9))
+* debug android logout after payment ([505c57c](https://git.alaatv.com/web/alaatv_front/commit/505c57c3f1fb184684f940c4ef0c8541675eb657))
+* ttp dashboard use id instead of studyEventId ([#1010](https://git.alaatv.com/web/alaatv_front/issues/1010)) ([0b7edb8](https://git.alaatv.com/web/alaatv_front/commit/0b7edb81f7c9d4a5ab7a6fc436ed89b610a98445))
+
 ## [1.18.19](https://git.alaatv.com/web/alaatv_front/compare/v1.18.18...v1.18.19) (2024-03-16)
 
 
