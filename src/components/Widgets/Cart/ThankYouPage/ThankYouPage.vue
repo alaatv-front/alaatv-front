@@ -1,10 +1,5 @@
 <template>
   <div class="cart-container">
-    <div v-if="host">
-      host: ({{ host }})
-      <br>
-      host2: ({{ host2 }})
-    </div>
     <template v-if="loading && !isEwanoUser">
       <q-skeleton type="circle" />
     </template>
@@ -65,9 +60,7 @@ export default {
   data () {
     return {
       loading: false,
-      hasPaid: false,
-      host: null,
-      host2: null
+      hasPaid: false
     }
   },
   computed: {
@@ -85,11 +78,8 @@ export default {
       this.loading = status
     })
     if (Capacitor.isNativePlatform()) {
-      this.host = window.location.href
-      this.host2 = window.location.href.replace('http://alaatv.com', 'http://localhost/#')
-      setTimeout(() => {
-        document.location = window.location.href.replace('http://alaatv.com', 'http://localhost/#')
-      }, 5000)
+      document.location = window.location.href.replace('https://alaatv.com', 'http://localhost/#')
+        .replace('http://alaatv.com', 'http://localhost/#')
     }
   },
   methods: {
