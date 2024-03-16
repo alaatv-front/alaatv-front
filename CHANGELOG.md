@@ -1,3 +1,10 @@
+## [1.18.6](https://git.alaatv.com/web/alaatv_front/compare/v1.18.5...v1.18.6) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([8cb009c](https://git.alaatv.com/web/alaatv_front/commit/8cb009ca472078404d44b4dd1fb74a12cda663ea))
+
 ## [1.18.5](https://git.alaatv.com/web/alaatv_front/compare/v1.18.4...v1.18.5) (2024-03-16)
 
 
