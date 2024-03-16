@@ -3,6 +3,9 @@
        class="cart-invoice main-content"
        :class="options.className"
        :style="options.style">
+    <div v-if="host">
+      ({{ host }})
+    </div>
     <div ref="CartInvoiceContainer"
          :key="CartInvoiceContainerKey"
          class="cart-invoice-container sidebar">
@@ -259,6 +262,7 @@ export default {
   emits: ['update:options'],
   data () {
     return {
+      host: null,
       gateways: new GatewayList(),
       couponLoading: false,
       referralCodeLoading: false,
@@ -373,6 +377,9 @@ export default {
 
       this.$router.push(this.ewanoCallbackUrlRouteObject)
     })
+    if (Capacitor.isNativePlatform()) {
+      this.host = window.location.href
+    }
   },
   methods: {
     updateEECEvent (value) {
