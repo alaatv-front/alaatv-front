@@ -1,3 +1,10 @@
+## [1.20.4](https://git.alaatv.com/web/alaatv_front/compare/v1.20.3...v1.20.4) (2024-03-17)
+
+
+### Bug Fixes
+
+* debug ThankYouPage.vue for android app ([d49d05c](https://git.alaatv.com/web/alaatv_front/commit/d49d05c8043ca6cb85f97617112dce60eddc4d51))
+
 ## [1.20.3](https://git.alaatv.com/web/alaatv_front/compare/v1.20.2...v1.20.3) (2024-03-17)
 
 
