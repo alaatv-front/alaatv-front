@@ -9,6 +9,8 @@ const APIAdresses = {
   formBuilder: '/admin/form-builder',
   entekhabReshte: '/entekhab-reshte',
   getInfoByEvent: (eventId) => '/event-result/event/' + eventId,
+  sinaPishraftOrder: '/sinaPishraft/order',
+  sinaPishraftProducts: '/sinaPishraft/products',
   eventsProducts: (eventId) => `/events/${eventId}/products`,
   eventAdvisor: (eventId) => `/events/${eventId}/advisor`
 }
@@ -191,6 +193,42 @@ export default class EventsAPI extends APIRepository {
     // return products
   }
 
+  getSinaProducts (data) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.sinaPishraftProducts,
+      resolveCallback: (response) => {
+        return new ProductList(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data: data.data
+    })
+  }
+
+  setSinaProduct (data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.sinaPishraftOrder,
+      data: this.getNormalizedSendData({
+        product_id: null, // Number
+        sina_code: null // String
+      }, data),
+      resolveCallback: (response) => {
+        return {
+          product: response.data.product,
+          panel_name: response.data.panel_name
+        }
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
   formBuilder (data = {}, cache = { TTL: 1000 }) {
     const routeWithParams = function (defaultRoute, payload) {
       if (!Array.isArray(payload.types)) {
@@ -260,17 +298,3 @@ export default class EventsAPI extends APIRepository {
     })
   }
 }
-
-// const product = {
-//   title: null,
-//   description: null,
-//   teacher: null,
-//   photo: null,
-//   url: null,
-//   lastSeen: {
-//     title: null,
-//     section: null,
-//     url: null
-//   }
-// }
-// const fake = new Fake()

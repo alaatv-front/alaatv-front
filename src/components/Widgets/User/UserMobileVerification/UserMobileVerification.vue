@@ -82,6 +82,7 @@ export default {
   name: 'UserMobileVerification',
   components: { LazyImg, Timer },
   mixins: [mixinWidget],
+  emits: ['verified'],
   data () {
     return {
       user: new User(),
@@ -89,7 +90,11 @@ export default {
       verifyCode: null,
       timerEnded: false,
       sendOtpLoading: false,
-      mobile: null
+      mobile: null,
+      defaultOptions: {
+        redirectTo: true,
+        needToCompleteInfo: true
+      }
     }
   },
   mounted () {
@@ -157,9 +162,12 @@ export default {
             .then(() => {
               this.user.loading = false
               this.loadAuthData()
-              if (!this.user.needToCompleteInfo()) {
-                this.redirectTo()
-              } else {
+              this.$emit('verified')
+              if (this.localOptions.needToCompleteInfo && !this.user.needToCompleteInfo()) {
+                if (this.localOptions.redirectTo) {
+                  this.redirectTo()
+                }
+              } else if (this.localOptions.needToCompleteInfo) {
                 this.$q.notify({
                   message: 'لطفا اطلاعات خود را کامل کنید.',
                   type: 'warning'
