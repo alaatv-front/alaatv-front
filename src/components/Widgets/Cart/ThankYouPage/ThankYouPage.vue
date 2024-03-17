@@ -94,6 +94,7 @@ export default {
         orderId
       }, '*')
       alert('after postMessage')
+      alert(window.location.href.replace('https://alaatv.com', 'https://localhost'))
 
       // this.$router.push({ name: 'UserPanel.ThankYouPage', params: { orderId } })
       this.$router.push(window.location.href.replace('https://alaatv.com', 'https://localhost'))
