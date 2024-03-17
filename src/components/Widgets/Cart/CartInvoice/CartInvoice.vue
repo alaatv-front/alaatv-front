@@ -381,6 +381,9 @@ export default {
       this.host = window.location.href
     }
   },
+  beforeUnmount () {
+    window.removeEventListener('message', this.handleExternalNavigation)
+  },
   methods: {
     updateEECEvent (value) {
       AEE.checkout(2, value)
@@ -568,6 +571,14 @@ export default {
 
       document.location = url
     },
+    handleExternalNavigation (event) {
+      alert('handleExternalNavigation -> ' + event.data?.message)
+      if (event.data?.message === 'backToCartPage') {
+        // Navigate back to your cartPage
+        alert('orderId -> ' + event.data?.orderId)
+        this.$router.push({ name: 'UserPanel.ThankYouPage', params: { orderId: event.data?.orderId } })
+      }
+    },
     payment () {
       if (this.isEwanoUser) {
         this.ewanoPayment()
@@ -586,6 +597,7 @@ export default {
       this.$store.dispatch('Cart/paymentCheckout', this.selectedBank)
         .then((encryptedPaymentRedirectLink) => {
           if (Capacitor.isNativePlatform()) {
+            window.addEventListener('message', this.handleExternalNavigation)
             this.openCapacitorSite(encryptedPaymentRedirectLink)
           } else {
             window.open(encryptedPaymentRedirectLink, '_self')
