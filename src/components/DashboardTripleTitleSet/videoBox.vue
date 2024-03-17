@@ -99,10 +99,10 @@
                       @clicked="handleContentBookmark" />
           </div>
         </div>
-        <div v-if="content.title !== content.body"
-             class="flex flex-wrap content-body ellipsis-2-lines"
-             v-html="content.body" />
       </div>
+      <div v-if="content.title !== content.body"
+           class="flex flex-wrap content-body"
+           v-html="content.body" />
     </div>
   </div>
   <q-dialog v-model="downloadVideo"
@@ -485,12 +485,6 @@ export default {
         }
       }
 
-      .content-body {
-        @include body2;
-        color: $grey-8;
-        margin-top: $space-2;
-      }
-
       .subtitle {
         font-size: 16px;
         font-weight: 500;
@@ -680,6 +674,12 @@ export default {
           }
         }
       }
+    }
+
+    .content-body {
+      @include body2;
+      color: $grey-8;
+      margin-top: $space-2;
     }
   }
 
