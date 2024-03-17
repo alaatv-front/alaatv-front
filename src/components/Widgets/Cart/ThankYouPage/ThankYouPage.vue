@@ -93,7 +93,7 @@ export default {
         message: 'backToCartPage',
         orderId
       }, '*')
-      alert('after postMessage')
+      alert('after postMessage' + window.location.href)
       alert(window.location.href.replace('https://alaatv.com', 'https://localhost'))
 
       // this.$router.push({ name: 'UserPanel.ThankYouPage', params: { orderId } })
