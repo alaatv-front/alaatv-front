@@ -88,6 +88,7 @@ export default {
     if (Capacitor.isNativePlatform() && window.location.href.indexOf('https://localhost') !== 0) {
       const pathArray = window.location.href.split('/')
       const orderId = pathArray[pathArray.length - 2]
+      alert('UserPanel.ThankYouPage with orderId: ' + orderId)
       this.$router.push({ name: 'UserPanel.ThankYouPage', params: { orderId } })
       // document.location = window.location.href.replace('https://alaatv.com', 'alaa-app://alaatv.com')
       //   .replace('http://alaatv.com', 'alaa-app://alaatv.com')
