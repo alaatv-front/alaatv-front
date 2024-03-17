@@ -1,3 +1,15 @@
+# [1.19.0](https://git.alaatv.com/web/alaatv_front/compare/v1.18.27...v1.19.0) (2024-03-17)
+
+
+### Bug Fixes
+
+* debug android logout after payment ([f46cbd9](https://git.alaatv.com/web/alaatv_front/commit/f46cbd9275d9695c8c0050668d271640ab71dd73))
+
+
+### Features
+
+* ttsp content page -> prevent to show content body when is same with content title ([584208a](https://git.alaatv.com/web/alaatv_front/commit/584208a7b4ee91d8590135463dedf3f7744d0d06))
+
 ## [1.18.27](https://git.alaatv.com/web/alaatv_front/compare/v1.18.26...v1.18.27) (2024-03-17)
 
 
