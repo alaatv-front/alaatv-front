@@ -62,7 +62,7 @@ class ContentManager {
         data: unsentContents.map(item => {
           return {
             watchable_id: item.id,
-            seconds_watched: item.watched_seconds
+            seconds_watched: Math.trunc(item.watched_seconds)
           }
         })
       })

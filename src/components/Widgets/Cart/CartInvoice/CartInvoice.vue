@@ -3,6 +3,9 @@
        class="cart-invoice main-content"
        :class="options.className"
        :style="options.style">
+    <!--    <div v-if="host">-->
+    <!--      ({{ host }})-->
+    <!--    </div>-->
     <div ref="CartInvoiceContainer"
          :key="CartInvoiceContainerKey"
          class="cart-invoice-container sidebar">
@@ -226,6 +229,7 @@
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart.js'
 import Ewano from 'src/assets/js/Ewano.js'
+import { Capacitor } from '@capacitor/core'
 import AuthLogin from 'src/components/Auth.vue'
 import LazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
@@ -258,6 +262,7 @@ export default {
   emits: ['update:options'],
   data () {
     return {
+      host: null,
       gateways: new GatewayList(),
       couponLoading: false,
       referralCodeLoading: false,
@@ -372,6 +377,9 @@ export default {
 
       this.$router.push(this.ewanoCallbackUrlRouteObject)
     })
+    if (Capacitor.isNativePlatform()) {
+      this.host = window.location.href
+    }
   },
   methods: {
     updateEECEvent (value) {
@@ -550,6 +558,16 @@ export default {
           this.$store.commit('loading/loading', false)
         })
     },
+    openCapacitorSite (url) {
+      // window.open(url, '_blank')
+      //
+      // const aTag = document.createElement('a')
+      // aTag.href = url
+      // aTag.target = '_blank'
+      // aTag.click()
+
+      document.location = url
+    },
     payment () {
       if (this.isEwanoUser) {
         this.ewanoPayment()
@@ -567,14 +585,18 @@ export default {
       this.$store.commit('loading/loading', true)
       this.$store.dispatch('Cart/paymentCheckout', this.selectedBank)
         .then((encryptedPaymentRedirectLink) => {
-          window.open(encryptedPaymentRedirectLink, '_self')
+          if (Capacitor.isNativePlatform()) {
+            this.openCapacitorSite(encryptedPaymentRedirectLink)
+          } else {
+            window.open(encryptedPaymentRedirectLink, '_self')
+          }
+
           this.$store.commit('loading/loading', false)
         })
         .catch(() => {
           this.$store.commit('loading/loading', false)
         })
     },
-
     login () {
       this.$store.dispatch('Auth/login', this.userEnteredLoginInfo)
         .then(() => {
@@ -583,11 +605,9 @@ export default {
           }
         })
     },
-
     getPriceFormat (priceKey) {
       return this.cart.price.toman(priceKey, null)
     },
-
     clickOnGateway () {
       // this.selectedBank = !this.selectedBank
     }
