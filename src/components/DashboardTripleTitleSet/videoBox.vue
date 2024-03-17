@@ -100,7 +100,7 @@
           </div>
         </div>
       </div>
-      <div v-if="content.title !== content.body"
+      <div v-if="content.body && content.body.indexOf(content.title) === -1"
            class="flex flex-wrap content-body"
            v-html="content.body" />
     </div>

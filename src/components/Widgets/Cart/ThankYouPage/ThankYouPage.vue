@@ -85,7 +85,7 @@ export default {
     if (Capacitor.isNativePlatform()) {
       this.host = window.location.href
     }
-    if (Capacitor.isNativePlatform() && window.location.href.indexOf('https://localhost') !== 0) {
+    if (Capacitor.isNativePlatform() && window.location.href.indexOf('localhost') === -1) {
       const pathArray = window.location.href.split('/')
       const orderId = pathArray[pathArray.length - 2]
       alert('UserPanel.ThankYouPage with orderId: ' + orderId)
