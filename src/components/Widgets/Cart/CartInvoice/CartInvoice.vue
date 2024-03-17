@@ -563,13 +563,14 @@ export default {
     },
     openCapacitorSite (url) {
       // window.open(url, '_blank')
+      document.open(url, '_blank')
       //
       // const aTag = document.createElement('a')
       // aTag.href = url
       // aTag.target = '_blank'
       // aTag.click()
 
-      document.location = url
+      // document.location = url
     },
     handleExternalNavigation (event) {
       alert('handleExternalNavigation -> ' + event.data?.message)
