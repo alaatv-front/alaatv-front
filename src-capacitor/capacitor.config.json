@@ -7,6 +7,7 @@
   "plugins": {
     "DeepLinks": {
       "schemes": [
+        "alaa-app",
         "https"
       ],
       "hosts": [
