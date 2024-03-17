@@ -1,3 +1,10 @@
+# [1.20.0](https://git.alaatv.com/web/alaatv_front/compare/v1.19.1...v1.20.0) (2024-03-17)
+
+
+### Features
+
+* add SinaPishraftRegisterForm ([522dc36](https://git.alaatv.com/web/alaatv_front/commit/522dc36136166e9fef156a608256415b19584fcb))
+
 ## [1.19.1](https://git.alaatv.com/web/alaatv_front/compare/v1.19.0...v1.19.1) (2024-03-17)
 
 
