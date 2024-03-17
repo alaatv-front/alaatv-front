@@ -89,10 +89,6 @@ export default {
       const pathArray = window.location.href.split('/')
       const orderId = pathArray[pathArray.length - 2]
       alert('UserPanel.ThankYouPage with orderId: ' + orderId)
-      window.parent.postMessage({
-        message: 'backToCartPage',
-        orderId
-      }, '*')
       alert('after postMessage' + document.location.href)
       alert(document.location.href.replace('https://alaatv.com', 'https://localhost'))
 
