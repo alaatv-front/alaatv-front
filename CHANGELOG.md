@@ -1,3 +1,54 @@
+## [1.18.15](https://git.alaatv.com/web/alaatv_front/compare/v1.18.14...v1.18.15) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([64b268f](https://git.alaatv.com/web/alaatv_front/commit/64b268febdff9d410de5fb896c24d62fca023ae3))
+
+## [1.18.14](https://git.alaatv.com/web/alaatv_front/compare/v1.18.13...v1.18.14) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([4a09a36](https://git.alaatv.com/web/alaatv_front/commit/4a09a3606ebdd389a725d629fbb51c08474bfda6))
+* debug payment for native(android) app ([a8a435f](https://git.alaatv.com/web/alaatv_front/commit/a8a435febcf1babb6031e784fc13ddf8f4eef19f))
+
+## [1.18.13](https://git.alaatv.com/web/alaatv_front/compare/v1.18.12...v1.18.13) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([7c77ac9](https://git.alaatv.com/web/alaatv_front/commit/7c77ac9a65663455d135b659137e1295c8e8e069))
+
+## [1.18.12](https://git.alaatv.com/web/alaatv_front/compare/v1.18.11...v1.18.12) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([baca8fa](https://git.alaatv.com/web/alaatv_front/commit/baca8fac8e621dad835faf68078d8643d9e7d42d))
+
+## [1.18.11](https://git.alaatv.com/web/alaatv_front/compare/v1.18.10...v1.18.11) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([b02b265](https://git.alaatv.com/web/alaatv_front/commit/b02b265c0883e3889fe4f65819d9792c295850c7))
+
+## [1.18.10](https://git.alaatv.com/web/alaatv_front/compare/v1.18.9...v1.18.10) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([54bdfed](https://git.alaatv.com/web/alaatv_front/commit/54bdfedca71e76d461018b94582372edcf9e7088))
+
+## [1.18.9](https://git.alaatv.com/web/alaatv_front/compare/v1.18.8...v1.18.9) (2024-03-16)
+
+
+### Bug Fixes
+
+* debug payment for native(android) app ([43a0d3a](https://git.alaatv.com/web/alaatv_front/commit/43a0d3a0972d980eaa819489879d6df6a4de510c))
+* debug payment for native(android) app ([6d667fa](https://git.alaatv.com/web/alaatv_front/commit/6d667fa2d9ee613819cc177d13f06730309d3e3c))
+
 ## [1.18.8](https://git.alaatv.com/web/alaatv_front/compare/v1.18.7...v1.18.8) (2024-03-16)
 
 

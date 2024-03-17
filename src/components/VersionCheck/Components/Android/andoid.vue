@@ -9,7 +9,7 @@
 
 <script>
 import CardComponent from './components/card.vue'
-import VersionConfig from 'app/src-capacitor/android/versionConfig.json'
+import PackageJson from 'package.json'
 export default {
   name: 'androidVersionCheck',
   components: { CardComponent },
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     checkAndroidVersion (apiAndroidVersion) {
-      const installedVersion = VersionConfig.androidVersion
+      const installedVersion = PackageJson.version
       const isLastVersion = apiAndroidVersion.last_version === installedVersion
       if (!isLastVersion) {
         this.showDialog()

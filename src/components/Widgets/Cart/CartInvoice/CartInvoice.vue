@@ -3,6 +3,9 @@
        class="cart-invoice main-content"
        :class="options.className"
        :style="options.style">
+    <!--    <div v-if="host">-->
+    <!--      ({{ host }})-->
+    <!--    </div>-->
     <div ref="CartInvoiceContainer"
          :key="CartInvoiceContainerKey"
          class="cart-invoice-container sidebar">
@@ -226,21 +229,15 @@
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart.js'
 import Ewano from 'src/assets/js/Ewano.js'
+import { Capacitor } from '@capacitor/core'
 import AuthLogin from 'src/components/Auth.vue'
 import LazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { GatewayList } from 'src/models/Gateway.js'
-import {
-  Capacitor
-  /*, Plugins */
-} from '@capacitor/core'
-import { Browser } from '@capacitor/browser'
 import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
 import mixinEwano from 'src/components/Widgets/Ewano/mixinEwano.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
-
-// const { Browser } = Plugins
 
 let StickySidebar
 if (typeof window !== 'undefined') {
@@ -265,6 +262,7 @@ export default {
   emits: ['update:options'],
   data () {
     return {
+      host: null,
       gateways: new GatewayList(),
       couponLoading: false,
       referralCodeLoading: false,
@@ -379,6 +377,9 @@ export default {
 
       this.$router.push(this.ewanoCallbackUrlRouteObject)
     })
+    if (Capacitor.isNativePlatform()) {
+      this.host = window.location.href
+    }
   },
   methods: {
     updateEECEvent (value) {
@@ -557,9 +558,15 @@ export default {
           this.$store.commit('loading/loading', false)
         })
     },
-    async openCapacitorSite (url) {
-      const result = await Browser.open({ url })
-      alert(result)
+    openCapacitorSite (url) {
+      // window.open(url, '_blank')
+      //
+      // const aTag = document.createElement('a')
+      // aTag.href = url
+      // aTag.target = '_blank'
+      // aTag.click()
+
+      document.location = url
     },
     payment () {
       if (this.isEwanoUser) {
@@ -575,28 +582,11 @@ export default {
         return
       }
 
-      // if (Capacitor.isNativePlatform()) {
-      //   alert('Capacitor.isNativePlatform()')
-      //   this.openCapacitorSite('https://soalaa.com/')
-      // }
-
       this.$store.commit('loading/loading', true)
       this.$store.dispatch('Cart/paymentCheckout', this.selectedBank)
         .then((encryptedPaymentRedirectLink) => {
           if (Capacitor.isNativePlatform()) {
-            // window.open = async (url) => Browser.open({ url })
-            // window.open(encryptedPaymentRedirectLink)
-
-            // alert('encryptedPaymentRedirectLink')
-            // alert(encryptedPaymentRedirectLink)
             this.openCapacitorSite(encryptedPaymentRedirectLink)
-
-            // document.location = encryptedPaymentRedirectLink
-
-            // const aTag = document.createElement('a')
-            // aTag.href = encryptedPaymentRedirectLink
-            // aTag.target = '_self'
-            // aTag.click()
           } else {
             window.open(encryptedPaymentRedirectLink, '_self')
           }

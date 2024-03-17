@@ -21,6 +21,15 @@ export default class CartAPI extends APIRepository {
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return response.data
+        // {
+        //   android: {
+        //     type: {
+        //       code: 1,
+        //       last_version: '...',
+        //       url: '...'
+        //     }
+        //   }
+        // }
       },
       rejectCallback: (error) => {
         return error

@@ -17,10 +17,6 @@
     }
   },
   "server": {
-    "iosScheme": "https",
-    "hostname": [
-      "alaatv.com"
-    ],
     "androidScheme": "https",
     "url": "http://192.168.3.102:8083",
     "allowNavigation": [
