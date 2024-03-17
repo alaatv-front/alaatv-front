@@ -89,7 +89,14 @@ export default {
       const pathArray = window.location.href.split('/')
       const orderId = pathArray[pathArray.length - 2]
       alert('UserPanel.ThankYouPage with orderId: ' + orderId)
-      this.$router.push({ name: 'UserPanel.ThankYouPage', params: { orderId } })
+      window.parent.postMessage({
+        message: 'backToCartPage',
+        orderId
+      }, '*')
+      alert('after postMessage')
+
+      // this.$router.push({ name: 'UserPanel.ThankYouPage', params: { orderId } })
+      this.$router.push(window.location.href.replace('https://alaatv.com', 'https://localhost'))
       // document.location = window.location.href.replace('https://alaatv.com', 'alaa-app://alaatv.com')
       //   .replace('http://alaatv.com', 'alaa-app://alaatv.com')
     }
