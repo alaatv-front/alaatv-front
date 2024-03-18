@@ -6,6 +6,87 @@ import { APIGateway } from 'src/api/APIGateway.js'
 const mixinTripleTitleSet = {
   data () {
     return {
+      sample: ['z', 'a / b / c', 'a / b / d / g', 'a / c / f', 'b / c / d', 'b / f / g', 'b / n / g', 'c / d / f', 'q / e / w', 'q / e / s', 'q / a / v', 'q / a / s', 'q / e / r', 'c / g'],
+      result: [],
+      result2: [
+        {
+          title: 'z',
+          children: []
+        },
+        {
+          title: 'a',
+          children: [
+            {
+              title: 'b',
+              children: [
+                {
+                  title: 'c',
+                  children: []
+                },
+                {
+                  title: 'd',
+                  children: []
+                }
+              ]
+            },
+            {
+              title: 'c',
+              children: [
+                {
+                  title: 'f',
+                  children: []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          title: 'b',
+          children: [
+            {
+              title: 'c',
+              children: [
+                {
+                  title: 'd',
+                  children: []
+                }
+              ]
+            },
+            {
+              title: 'f',
+              children: [
+                {
+                  title: 'g',
+                  children: []
+                }
+              ]
+            },
+            {
+              title: 'n',
+              children: [
+                {
+                  title: 'g',
+                  children: []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          title: 'c',
+          children: [
+            {
+              title: 'd',
+              children: [
+                {
+                  title: 'f',
+                  children: []
+                }
+              ]
+            }
+          ]
+        }
+      ],
       mounted: false,
       user: new User(),
       event: new Event(),
@@ -28,6 +109,49 @@ const mixinTripleTitleSet = {
     }
   },
   methods: {
+    buildTree (arr) {
+      const root = { title: '', children: [] }
+
+      arr.forEach(item => {
+        const parts = item.split(' / ')
+        let currentNode = root
+
+        for (let i = 0; i < parts.length; i++) {
+          const existingNode = currentNode.children.find(node => node.title === parts[i])
+
+          if (existingNode) {
+            currentNode = existingNode
+          } else {
+            const newNode = { title: parts[i], children: [] }
+            currentNode.children.push(newNode)
+            currentNode = newNode
+          }
+        }
+      })
+
+      return root.children
+    },
+    method () {
+      this.sample.forEach(string => {
+        if (string.includes(' / ')) {
+          const splitted = string.split(' / ')
+          const index = this.result.findIndex(obj => obj.title === splitted[0])
+          if (index !== -1) {
+            this.addToArray(this.result[index].children, 'title', splitted[1])
+          } else {
+            this.addToArray(this.result, 'title', splitted[0])
+          }
+        } else {
+          this.addToArray(this.result, 'title', string)
+        }
+      })
+    },
+    addToArray (array, key, value) {
+      array.push({
+        [key]: value,
+        children: []
+      })
+    },
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
