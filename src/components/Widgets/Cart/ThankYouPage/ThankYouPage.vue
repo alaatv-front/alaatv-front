@@ -1,8 +1,5 @@
 <template>
   <div class="cart-container">
-    <div v-if="host">
-      ({{ host }})
-    </div>
     <template v-if="loading && !isEwanoUser">
       <q-skeleton type="circle" />
     </template>
@@ -62,7 +59,6 @@ export default {
   mixins: [mixinAuth, mixinEwano],
   data () {
     return {
-      host: null,
       loading: false,
       hasPaid: false
     }
@@ -81,26 +77,8 @@ export default {
     this.$bus.on('ThankYouPageInvoiceLoading', (status) => {
       this.loading = status
     })
-    // alaa-app://alaatv.com/payment
-    if (Capacitor.isNativePlatform()) {
-      this.host = window.location.href
-    }
     if (Capacitor.isNativePlatform() && window.location.href.indexOf('localhost') === -1) {
-      alert('window.location.href -> (' + window.location.href + ')')
-      const replaced = window.location.href.replace('https://alaatv.com', 'https://localhost/#')
-      alert('replaced 1 -> (' + replaced + ')')
-      document.location = replaced
-
-      // const pathArray = window.location.href.split('/')
-      // const orderId = pathArray[pathArray.length - 2]
-      // alert('UserPanel.ThankYouPage with orderId: ' + orderId)
-      // alert('after postMessage' + document.location.href)
-      // alert(document.location.href.replace('https://alaatv.com', 'https://localhost'))
-
-      // this.$router.push({ name: 'UserPanel.ThankYouPage', params: { orderId } })
-      // this.$router.push(window.location.href.replace('https://alaatv.com', 'https://localhost'))
-      // document.location = window.location.href.replace('https://alaatv.com', 'alaa-app://alaatv.com')
-      //   .replace('http://alaatv.com', 'alaa-app://alaatv.com')
+      document.location = window.location.href.replace('https://alaatv.com', 'https://localhost/#')
     }
   },
   methods: {
