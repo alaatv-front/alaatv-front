@@ -414,6 +414,18 @@ export default {
       isAdmin: false
     }
   },
+  computed: {
+    routeName () {
+      return this.$route.name
+    }
+  },
+  watch: {
+    routeName () {
+      this.$nextTick(() => {
+        this.updateMobileFooterItemsActiveItem()
+      })
+    }
+  },
   mounted () {
     this.loadAuthData()
     this.$nextTick(() => {
@@ -820,7 +832,7 @@ export default {
 
             @media screen and (width <=1023px) {
               margin-right: 0;
-              margin-left: 00;
+              margin-left: 0;
             }
           }
 
