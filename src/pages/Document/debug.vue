@@ -104,6 +104,8 @@ export default {
         'aaaa1/bbbb2/hhh3/kkk1',
         'aaaa1/bbbb2/hhh3/kkk2',
         'aaaa1/bbbb2/hhh3/kkk3',
+        'aaaa1/bbbb2/lll/mmmm/gggg1',
+        'aaaa1/bbbb2/lll/mmmm/gggg2',
         'aaaa2/bbbb1',
         'aaaa2/bbbb2'
       ],
@@ -148,8 +150,11 @@ export default {
     }
   },
   mounted () {
-    // this.gg = this.getGroupName(this.sampleArrayOfText3[0], '/', 2)
-    this.gg = this.getDelimiterIgnoreCount(this.sampleArrayOfText3, 1, '/')
+    const delimeter = '/'
+    const targetIndex = 9
+    const targetArray = this.sampleArrayOfText3
+    const delimiterIgnoreCount = this.getDelimiterIgnoreCount(targetArray, targetIndex, delimeter)
+    this.gg = this.getGroupName(targetArray[targetIndex], delimeter, delimiterIgnoreCount)
   },
   methods: {
     getGroupName (text, delimiter, delimiterIgnoreCount) {
@@ -161,12 +166,17 @@ export default {
       }
       const delimiterCount = arrayOfText[index].split(delimiter).length - 1
       let delimiterIgnoreCount = 0
-      debugger
       for (let i = delimiterCount; i > 0; i--) {
-        if (arrayOfText.findIndex((item, itemIndex) => itemIndex !== index && item === this.getGroupName(arrayOfText[index], delimiter, i)) !== -1) {
-          delimiterIgnoreCount = i
+        if (arrayOfText.findIndex((item, itemIndex) => {
+          const indexCondition = itemIndex !== index
+          const groupName = this.getGroupName(arrayOfText[index], delimiter, i)
+          const groupNameCondition = item.indexOf(groupName) === 0
+
+          return indexCondition && groupNameCondition
+        }) !== -1) {
+          return i
         } else {
-          delimiterIgnoreCount = i++
+          delimiterIgnoreCount = i + 1
         }
       }
 
@@ -187,6 +197,33 @@ export default {
     //     return accumulator
     //   }, 0)
     // },
+    parseArrayOfText1 (arrayOfText) {
+      const result = []
+
+      // Helper function to recursively build the nested structure
+      function buildTree (node, path) {
+        const [current, ...rest] = path
+
+        // Find existing node with the same title or create a new one
+        let childNode = node.children.find(child => child.title === current)
+        if (!childNode) {
+          childNode = { title: current, children: [] }
+          node.children.push(childNode)
+        }
+
+        // If there are more levels in the path, continue building the tree
+        if (rest.length > 0) {
+          buildTree(childNode, rest)
+        }
+      }
+
+      arrayOfText.forEach(text => {
+        const parts = text.split('/')
+        buildTree({ children: result }, parts)
+      })
+
+      return result
+    }
     parseArrayOfText (arrayOfText) {
       const result = []
 
