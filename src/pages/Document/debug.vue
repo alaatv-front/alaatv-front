@@ -95,7 +95,7 @@ export default {
         }
       ],
       sampleArrayOfText3: [
-        'aaaa/bbbb/ccc',
+        // 'aaaa/bbbb/ccc',
         'aaaa1/bbbb1/ccc1',
         'aaaa1/bbbb1/ccc2',
         'aaaa1/bbbb1/ccc3',
@@ -105,9 +105,7 @@ export default {
         'aaaa1/bbbb2/hhh3/kkk2',
         'aaaa1/bbbb2/hhh3/kkk3',
         'aaaa1/bbbb2/lll/mmmm/gggg1',
-        'aaaa1/bbbb2/lll/mmmm/gggg2',
-        'aaaa2/bbbb1',
-        'aaaa2/bbbb2'
+        'aaaa1/bbbb2/lll/mmmm/gggg2'
       ],
       sampleArrayOfText3e: [
         'aaaa/bbbb/ccc',
@@ -150,11 +148,12 @@ export default {
     }
   },
   mounted () {
-    const delimeter = '/'
-    const targetIndex = 9
-    const targetArray = this.sampleArrayOfText3
-    const delimiterIgnoreCount = this.getDelimiterIgnoreCount(targetArray, targetIndex, delimeter)
-    this.gg = this.getGroupName(targetArray[targetIndex], delimeter, delimiterIgnoreCount)
+    const delimiter = '/'
+    // const targetIndex = 9
+    // const targetArray = this.sampleArrayOfText3
+    // const delimiterIgnoreCount = this.getDelimiterIgnoreCount(targetArray, targetIndex, delimiter)
+    // this.gg = this.getGroupName(targetArray[targetIndex], delimiter, delimiterIgnoreCount)
+    console.log(this.parseArrayOfText(this.sampleArrayOfText3, delimiter))
   },
   methods: {
     getGroupName (text, delimiter, delimiterIgnoreCount) {
@@ -182,75 +181,55 @@ export default {
 
       return delimiterIgnoreCount
     },
-    // getDelimiterIgnoreCount1 (arrayOfText, delimiter) {
-    //   return arrayOfText.reduce((accumulator, currentValue, currentIndex, array) => {
-    //     if (typeof currentValue !== 'string') {
-    //       return 0
-    //     }
-    //     const delimiterCount = currentValue.split(delimiter).length - 1
-    //     for (let i = 0; i < delimiterCount; i++) {
-    //       const target = array.findIndex(item => item === this.getGroupName(currentValue, delimiter, i))
-    //       if (target !== -1 && target !== currentIndex) {
-    //
-    //       }
-    //     }
-    //     return accumulator
-    //   }, 0)
-    // },
-    parseArrayOfText1 (arrayOfText) {
+    parseArrayOfText (arrayOfText, delimiter) {
+      const clonedArrayOfText = [...arrayOfText]
       const result = []
 
-      // 09107870972
-      // Helper function to recursively build the nested structure
-      function buildTree (node, path) {
-        const [current, ...rest] = path
-
-        // Find existing node with the same title or create a new one
-        let childNode = node.children.find(child => child.title === current)
-        if (!childNode) {
-          childNode = { title: current, children: [] }
-          node.children.push(childNode)
+      const getNodeWithChildren = (arrayOfText, index) => {
+        const nodeResult = []
+        const delimiterIgnoreCount = this.getDelimiterIgnoreCount(arrayOfText, index, delimiter)
+        const groupName = this.getGroupName(arrayOfText[index], delimiter, delimiterIgnoreCount)
+        const childCount = arrayOfText.filter(text => text.indexOf(groupName) === 0).length
+        if (childCount === 1) {
+          arrayOfText.splice(index, 1)
+          return {
+            title: groupName,
+            children: []
+          }
         }
 
-        // If there are more levels in the path, continue building the tree
-        if (rest.length > 0) {
-          buildTree(childNode, rest)
+        const children = []
+        arrayOfText.forEach((text, textIndex) => {
+          if (text.indexOf(groupName) === 0) {
+            children.push(text.replace(groupName + '/', ''))
+            arrayOfText.splice(textIndex, 1)
+          }
+        })
+
+        const node = {
+          title: groupName,
+          children
         }
+
+        node.children.forEach((text, textIndex) => {
+          const localNodeResult = getNodeWithChildren(node.children, textIndex)
+          if (localNodeResult) {
+            nodeResult.push(localNodeResult)
+          }
+        })
+
+        arrayOfText.splice(index, 1)
+        node.children = nodeResult
+
+        return node
       }
 
-      arrayOfText.forEach((text, textIndex) => {
+      clonedArrayOfText.forEach((text, textIndex) => {
         // const parts = text.split('/')
-        const nodeResult = buildTree(arrayOfText, textIndex)
+        const nodeResult = getNodeWithChildren(clonedArrayOfText, textIndex)
         if (nodeResult) {
           result.push(nodeResult)
         }
-      })
-
-      return result
-    },
-    parseArrayOfText (arrayOfText) {
-      const result = []
-
-      // Helper function to recursively build the nested structure
-      function buildTree (node, path) {
-        const [current, ...rest] = path
-
-        // Find existing node with the same title or create a new one
-        let childNode = node.children.find(child => child.title === current)
-        if (!childNode) {
-          childNode = { title: current, children: [] }
-          node.children.push(childNode)
-        }
-
-        // If there are more levels in the path, continue building the tree
-        if (rest.length > 0) {
-          buildTree(childNode, rest)
-        }
-      }
-
-      arrayOfText.forEach(text => {
-        const parts = text.split('/')
-        buildTree({ children: result }, parts)
       })
 
       return result
