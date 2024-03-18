@@ -1,0 +1,11 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "AlaaTV Documentation",
+  "main": "server.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.3",
+    "path": "^0.12.7"
+  }
+}
