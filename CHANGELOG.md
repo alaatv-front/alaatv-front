@@ -1,3 +1,15 @@
+# [1.21.0](https://git.alaatv.com/web/alaatv_front/compare/v1.20.9...v1.21.0) (2024-03-18)
+
+
+### Bug Fixes
+
+* android app deep link ([6144604](https://git.alaatv.com/web/alaatv_front/commit/6144604e52e45649e782f752f3643ff6bfccbcc1))
+
+
+### Features
+
+* documentation automation added ([#1013](https://git.alaatv.com/web/alaatv_front/issues/1013)) ([ea069fc](https://git.alaatv.com/web/alaatv_front/commit/ea069fc06ef75021b421df9b73c6a49fded08a82))
+
 ## [1.20.9](https://git.alaatv.com/web/alaatv_front/compare/v1.20.8...v1.20.9) (2024-03-18)
 
 
