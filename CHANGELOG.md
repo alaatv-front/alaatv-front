@@ -1,3 +1,10 @@
+## [1.21.1](https://git.alaatv.com/web/alaatv_front/compare/v1.21.0...v1.21.1) (2024-03-18)
+
+
+### Bug Fixes
+
+* android app deep link ([76418cc](https://git.alaatv.com/web/alaatv_front/commit/76418cc75c2962bb7c966e0a6e780387eb1f75da))
+
 # [1.21.0](https://git.alaatv.com/web/alaatv_front/compare/v1.20.9...v1.21.0) (2024-03-18)
 
 
