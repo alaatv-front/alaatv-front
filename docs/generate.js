@@ -111,6 +111,13 @@ function getLink (link) {
   return `{"title":"${link.name}","link":"/${link.path}"}`
 }
 
+/**
+ * The function `getWidgetList` recursively extracts the names of widgets from an array of objects
+ * containing nested children.
+ * @param objArray - The `objArray` parameter in the `getWidgetList` function is an array of objects.
+ * Each object may have a `name` property and a `children` property. If an object has a `children`
+ * property, it means that it has child objects that also need to be processed.
+ */
 function getWidgetList (objArray) {
   for (let index = 0; index < objArray.length; index++) {
     const element = objArray[index]
