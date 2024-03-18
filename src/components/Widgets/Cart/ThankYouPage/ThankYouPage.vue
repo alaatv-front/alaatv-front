@@ -88,7 +88,7 @@ export default {
     if (Capacitor.isNativePlatform() && window.location.href.indexOf('localhost') === -1) {
       alert('window.location.href -> (' + window.location.href + ')')
       const replaced = window.location.href.replace('https://alaatv.com', 'https://localhost/#')
-      alert('replaced -> (' + replaced + ')')
+      alert('replaced 1 -> (' + replaced + ')')
       document.location = replaced
 
       // const pathArray = window.location.href.split('/')
