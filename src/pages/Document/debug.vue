@@ -200,6 +200,7 @@ export default {
     parseArrayOfText1 (arrayOfText) {
       const result = []
 
+      // 09107870972
       // Helper function to recursively build the nested structure
       function buildTree (node, path) {
         const [current, ...rest] = path
