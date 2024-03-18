@@ -23,7 +23,9 @@
     "start:ssr": "yarn ci && yarn build:ssr && cd dist/ssr && yarn install && yarn start",
     "test:unit:ui": "vitest --ui",
     "test:unit": "vitest",
-    "test:unit:ci": "vitest run"
+    "test:unit:ci": "vitest run",
+    "docs:init": "vuese gen && node docs/generate.js",
+    "docs:serve": "node docs/server.js"
   },
   "dependencies": {
     "@capacitor-community/sqlite": "^5.4.2-2",
@@ -107,5 +109,8 @@
     "node": "^20 || ^18",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
+  },
+  "devDependencies": {
+    "@vuese/cli": "^2.14.3"
   }
 }
