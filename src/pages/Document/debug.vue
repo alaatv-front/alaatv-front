@@ -191,20 +191,20 @@ export default {
         const groupName = this.getGroupName(arrayOfText[index], delimiter, delimiterIgnoreCount)
         const childCount = arrayOfText.filter(text => text.indexOf(groupName) === 0).length
         if (childCount === 1) {
-          arrayOfText.splice(index, 1)
+          // arrayOfText.splice(index, 1)
           return {
             title: groupName,
             children: []
           }
         }
 
-        const children = []
-        arrayOfText.forEach((text, textIndex) => {
-          if (text.indexOf(groupName) === 0) {
-            children.push(text.replace(groupName + '/', ''))
-            arrayOfText.splice(textIndex, 1)
+        const children = arrayOfText.reduce((accumulator, currentValue, currentIndex, array) => {
+          if (currentValue.indexOf(groupName) === 0) {
+            accumulator.push(currentValue.replace(groupName + delimiter, ''))
           }
-        })
+
+          return accumulator
+        }, [])
 
         const node = {
           title: groupName,
@@ -218,7 +218,7 @@ export default {
           }
         })
 
-        arrayOfText.splice(index, 1)
+        // arrayOfText.splice(index, 1)
         node.children = nodeResult
 
         return node
