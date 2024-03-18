@@ -217,13 +217,16 @@ export default {
         }
       }
 
-      arrayOfText.forEach(text => {
-        const parts = text.split('/')
-        buildTree({ children: result }, parts)
+      arrayOfText.forEach((text, textIndex) => {
+        // const parts = text.split('/')
+        const nodeResult = buildTree(arrayOfText, textIndex)
+        if (nodeResult) {
+          result.push(nodeResult)
+        }
       })
 
       return result
-    }
+    },
     parseArrayOfText (arrayOfText) {
       const result = []
 
