@@ -38,12 +38,12 @@ fs.readdir(sourceDir, (err, files) => {
         if (err) {
           console.error(`Error copying ${sourceFile}:`, err)
         } else {
-          console.log(`Copied ${sourceFile} to ${destFile}`)
+          console.info(`Copied ${sourceFile} to ${destFile}`)
         }
       })
     })
   } else {
-    console.log('there is no Local docs')
+    console.info('there is no Local docs')
   }
 
   generateWidgetList('./docs/components')
