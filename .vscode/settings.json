@@ -15,5 +15,6 @@
   },
   "[vue]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  } // optional but recommended
+  },
+  "docwriter.style": "Auto-detect" // optional but recommended
 }

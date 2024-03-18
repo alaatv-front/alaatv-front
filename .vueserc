@@ -1,0 +1,11 @@
+{
+  "genType": "markdown",
+  "include": [
+    "**/*.vue"
+  ],
+  "exclude": [
+    "node_modules/**/*.vue"
+  ],
+  "outDir": "docs",
+  "markdownDir": "components"
+}
