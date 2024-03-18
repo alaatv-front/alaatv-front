@@ -23,7 +23,8 @@ export default defineComponent({
         const path = urlObject.href.replace(urlObject.origin, '')
         // We only push to the route if there is a slug present
         if (path) {
-          this.$router.push({ path })
+          // this.$router.push({ path })
+          document.location = 'https://localhost/#' + path
         }
       })
     }
