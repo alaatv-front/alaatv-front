@@ -86,14 +86,19 @@ export default {
       this.host = window.location.href
     }
     if (Capacitor.isNativePlatform() && window.location.href.indexOf('localhost') === -1) {
-      const pathArray = window.location.href.split('/')
-      const orderId = pathArray[pathArray.length - 2]
-      alert('UserPanel.ThankYouPage with orderId: ' + orderId)
-      alert('after postMessage' + document.location.href)
-      alert(document.location.href.replace('https://alaatv.com', 'https://localhost'))
+      alert('window.location.href -> (' + window.location.href + ')')
+      const replaced = window.location.href.replace('https://alaatv.com', 'https://localhost/#/')
+      alert('replaced -> (' + replaced + ')')
+      document.location = replaced
+
+      // const pathArray = window.location.href.split('/')
+      // const orderId = pathArray[pathArray.length - 2]
+      // alert('UserPanel.ThankYouPage with orderId: ' + orderId)
+      // alert('after postMessage' + document.location.href)
+      // alert(document.location.href.replace('https://alaatv.com', 'https://localhost'))
 
       // this.$router.push({ name: 'UserPanel.ThankYouPage', params: { orderId } })
-      this.$router.push(window.location.href.replace('https://alaatv.com', 'https://localhost'))
+      // this.$router.push(window.location.href.replace('https://alaatv.com', 'https://localhost'))
       // document.location = window.location.href.replace('https://alaatv.com', 'alaa-app://alaatv.com')
       //   .replace('http://alaatv.com', 'alaa-app://alaatv.com')
     }

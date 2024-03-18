@@ -3,9 +3,9 @@
        class="cart-invoice main-content"
        :class="options.className"
        :style="options.style">
-    <!--    <div v-if="host">-->
-    <!--      ({{ host }})-->
-    <!--    </div>-->
+    <div v-if="host">
+      ({{ host }})
+    </div>
     <div ref="CartInvoiceContainer"
          :key="CartInvoiceContainerKey"
          class="cart-invoice-container sidebar">
@@ -563,14 +563,14 @@ export default {
     },
     openCapacitorSite (url) {
       // window.open(url, '_blank')
-      document.open(url, '_blank')
+      // document.open(url, '_blank')
       //
       // const aTag = document.createElement('a')
       // aTag.href = url
       // aTag.target = '_blank'
       // aTag.click()
 
-      // document.location = url
+      document.location = url
     },
     payment () {
       if (this.isEwanoUser) {
