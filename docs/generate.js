@@ -84,6 +84,10 @@ fs.readdir(sourceDir, (err, files) => {
  * with the title and link properties based on the input link object.
  */
 function getLink (link) {
+  if (link.name.includes('LocalDocument')) {
+    localDocumentWidgets.push(`{"title":"${link.name.replace('LocalDocument', '')}","link":"/${link.path}"}`)
+    return
+  }
   if (widgetList.includes(link.name)) {
     widgetDocs.push(`{"title":"${link.name}","link":"/${link.path}"}`)
     return
@@ -102,10 +106,6 @@ function getLink (link) {
   }
   if (link.name.includes('Ticket')) {
     ticketWidgets.push(`{"title":"${link.name}","link":"/${link.path}"}`)
-    return
-  }
-  if (link.name.includes('LocalDocument')) {
-    localDocumentWidgets.push(`{"title":"${link.name.replace('LocalDocument', '')}","link":"/${link.path}"}`)
     return
   }
   return `{"title":"${link.name}","link":"/${link.path}"}`
