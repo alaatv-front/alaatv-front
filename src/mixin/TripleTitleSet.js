@@ -51,27 +51,6 @@ const mixinTripleTitleSet = {
 
       return root.children
     },
-    method () {
-      this.sample.forEach(string => {
-        if (string.includes(' / ')) {
-          const splitted = string.split(' / ')
-          const index = this.result.findIndex(obj => obj.title === splitted[0])
-          if (index !== -1) {
-            this.addToArray(this.result[index].children, 'title', splitted[1])
-          } else {
-            this.addToArray(this.result, 'title', splitted[0])
-          }
-        } else {
-          this.addToArray(this.result, 'title', string)
-        }
-      })
-    },
-    addToArray (array, key, value) {
-      array.push({
-        [key]: value,
-        children: []
-      })
-    },
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
