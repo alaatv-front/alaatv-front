@@ -6,6 +6,7 @@ import { APIGateway } from 'src/api/APIGateway.js'
 const mixinTripleTitleSet = {
   data () {
     return {
+      sample: ['z', 'a / b / c', 'a / b / d / g', 'a / c / f', 'b / c / d', 'b / f / g', 'b / n / g', 'c / d / f', 'q / e / w', 'q / e / s', 'q / a / v', 'q / a / s', 'q / e / r', 'c / g'],
       mounted: false,
       user: new User(),
       event: new Event(),
@@ -28,6 +29,28 @@ const mixinTripleTitleSet = {
     }
   },
   methods: {
+    buildTree (arr) {
+      const root = { title: '', children: [] }
+
+      arr.forEach(item => {
+        const parts = item.split(' / ')
+        let currentNode = root
+
+        for (let i = 0; i < parts.length; i++) {
+          const existingNode = currentNode.children.find(node => node.title === parts[i])
+
+          if (existingNode) {
+            currentNode = existingNode
+          } else {
+            const newNode = { title: parts[i], children: [] }
+            currentNode.children.push(newNode)
+            currentNode = newNode
+          }
+        }
+      })
+
+      return root.children
+    },
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
